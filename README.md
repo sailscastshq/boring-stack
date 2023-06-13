@@ -17,7 +17,7 @@ npx create-sails <project-name>
 
 <hr />
 
-## Watch Kelvin's Introduction to The Epic Stack
+## Watch Kelvin's Introduction to The Boring JavaScript Stack
 
 
 ## Docs
