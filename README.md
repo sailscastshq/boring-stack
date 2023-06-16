@@ -24,7 +24,7 @@ npx create-sails <project-name>
 
 ## Watch Kelvin's Introduction to The Boring JavaScript Stack
 
-<a href="youtu.be/qX69jEyAIc0"><img src="https://github.com/sailscastshq/boring-stack/blob/main/thumbnail.png" alt="The Boring JavaScript Stack" width="100%"></a>
+<a href="https://youtu.be/qX69jEyAIc0"><img src="https://github.com/sailscastshq/boring-stack/blob/main/thumbnail.png" alt="The Boring JavaScript Stack" width="100%"></a>
 
 
 [The Boring JavaScript - Kelvin Omereshone at #Sailsconf 2023](https://youtu.be/qX69jEyAIc0)
