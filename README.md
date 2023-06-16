@@ -1,5 +1,5 @@
 <div align="center">
-  <h1 align="center"><a href="https://www.epicweb.dev/epic-stack">The Boring JavaScript Stack 🥱</a></h1>
+  <h1 align="center"><a href="https://sailscasts.com/boring">The Boring JavaScript Stack 🥱</a></h1>
   <strong align="center">
     Ship reliably with battle-tested tech. No more chasing shiny trends in the JavaScript land.
   </strong>
