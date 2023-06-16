@@ -13,7 +13,10 @@
 ```sh
 npx create-sails <project-name>
 ```
+
+<div align="center">
 <a href="https://sailscasts.com/boring"><img src="https://github.com/sailscastshq/boring-stack/blob/main/logo.png" alt="The Boring JavaScript Stack" width="50%" height="50%"></a>
+</div>
 
 [The Boring JavaScript Stack](https://sailscasts.com/boring)
 
