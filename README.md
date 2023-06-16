@@ -5,7 +5,7 @@
   </strong>
   <p>
    Use The Boring JavaScript Stack - an opinionated project starter - if you are tired of keeping up with the shiny things in JavaScript land and you just want to ship your products using JavaScript across the stack with tried and battle-tested technologies. This stack is based on the experience of
-    on the experience of <a href="https://dominuskelvin.dev">Kelvin Omereshone</a> and
+    <a href="https://dominuskelvin.dev">Kelvin Omereshone</a> and
     <a href="https://github.com/sailscastshq/boring-stack/graphs/contributors">contributors</a>.
   </p>
 </div>
