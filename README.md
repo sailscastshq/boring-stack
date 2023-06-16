@@ -13,16 +13,21 @@
 ```sh
 npx create-sails <project-name>
 ```
+[![The Boring JavaScript Stack](https://github.com/sailscastshq/boring-stack/blob/main/logo.png)](https://sailscasts.com/boring)
 
+[The Boring JavaScript Stack](https://sailscasts.com/boring)
 
 <hr />
 
 ## Watch Kelvin's Introduction to The Boring JavaScript Stack
 
+[![The Boring JavaScript - Kelvin Omereshone at #Sailsconf 2023](https://img.youtube.com/vi/qX69jEyAIc0/0.jpg)](https://youtu.be/qX69jEyAIc0)
+
+[The Boring JavaScript - Kelvin Omereshone at #Sailsconf 2023](https://youtu.be/qX69jEyAIc0)
 
 ## Docs
 
-[Read the docs](https://docs.sailscasts.com)(please 🙏).
+[Read the docs](https://docs.sailscasts.com).
 
 ## Support
 
