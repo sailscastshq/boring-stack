@@ -21,7 +21,8 @@ npx create-sails <project-name>
 
 ## Watch Kelvin's Introduction to The Boring JavaScript Stack
 
-[![The Boring JavaScript - Kelvin Omereshone at #Sailsconf 2023](https://img.youtube.com/vi/qX69jEyAIc0/0.jpg)](https://youtu.be/qX69jEyAIc0)
+<a href="youtu.be/qX69jEyAIc0"><img src="https://img.youtube.com/vi/qX69jEyAIc0/0.jpg" alt="Introduction to Markdown" width="100%"></a>
+
 
 [The Boring JavaScript - Kelvin Omereshone at #Sailsconf 2023](https://youtu.be/qX69jEyAIc0)
 
