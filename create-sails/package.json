@@ -25,9 +25,9 @@
   "author": "Kelvin Omereshone Oghenerhoro <kelvin@sailscasts.com>",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/sailscastshq/create-sails/issues"
+    "url": "https://github.com/sailscastshq/boring-stack/issues"
   },
-  "homepage": "https://github.com/sailscastshq/create-sails#readme",
+  "homepage": "https://github.com/sailscastshq/boring-stack/tree/main/create-sails#readme",
   "engines": {
     "node": "^14.13.1 || >=16.0.0"
   },
