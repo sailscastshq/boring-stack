@@ -1,0 +1,8 @@
+{
+  "dependencies": {
+    "@inertiajs/vue3": "^1.0.2"
+  },
+  "devDependencies": {
+    "vue-loader": "^17.0.0"
+  }
+}

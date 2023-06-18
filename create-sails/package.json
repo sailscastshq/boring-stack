@@ -1,0 +1,48 @@
+{
+  "name": "create-sails",
+  "version": "0.2.2",
+  "description": "Quickly scaffold a fullstack Sails project with `npm init sails`",
+  "bin": {
+    "create-sails": "./index.js"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "prepare": "husky install"
+  },
+  "keywords": [
+    "sails",
+    "sailsjs",
+    "build-tools",
+    "webpack",
+    "node",
+    "express",
+    "starter",
+    "vue",
+    "inertia",
+    "react",
+    "svelte"
+  ],
+  "author": "Kelvin Omereshone Oghenerhoro <kelvin@sailscasts.com>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/sailscastshq/create-sails/issues"
+  },
+  "homepage": "https://github.com/sailscastshq/create-sails#readme",
+  "engines": {
+    "node": "^14.13.1 || >=16.0.0"
+  },
+  "dependencies": {
+    "kolorist": "^1.5.1",
+    "minimist": "^1.2.6",
+    "prompts": "^2.4.2"
+  },
+  "devDependencies": {
+    "@types/prompts": "^2.0.14",
+    "husky": "^8.0.2",
+    "lint-staged": "^13.1.0",
+    "prettier": "^2.6.2"
+  },
+  "lint-staged": {
+    "**/*": "prettier --write --ignore-unknown"
+  }
+}

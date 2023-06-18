@@ -1,0 +1,52 @@
+{
+    "name": "@types/prompts",
+    "version": "2.0.14",
+    "description": "TypeScript definitions for prompts",
+    "homepage": "https://github.com/DefinitelyTyped/DefinitelyTyped/tree/master/types/prompts",
+    "license": "MIT",
+    "contributors": [
+        {
+            "name": "Berkay GURSOY",
+            "url": "https://github.com/Berkays",
+            "githubUsername": "Berkays"
+        },
+        {
+            "name": "Daniel Perez Alvarez",
+            "url": "https://github.com/unindented",
+            "githubUsername": "unindented"
+        },
+        {
+            "name": "Kamontat Chantrachirathumrong",
+            "url": "https://github.com/kamontat",
+            "githubUsername": "kamontat"
+        },
+        {
+            "name": "theweirdone",
+            "url": "https://github.com/theweirdone",
+            "githubUsername": "theweirdone"
+        },
+        {
+            "name": "whoaa512",
+            "url": "https://github.com/whoaa512",
+            "githubUsername": "whoaa512"
+        },
+        {
+            "name": "John Reilly",
+            "url": "https://github.com/johnnyreilly",
+            "githubUsername": "johnnyreilly"
+        }
+    ],
+    "main": "",
+    "types": "index.d.ts",
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/DefinitelyTyped/DefinitelyTyped.git",
+        "directory": "types/prompts"
+    },
+    "scripts": {},
+    "dependencies": {
+        "@types/node": "*"
+    },
+    "typesPublisherContentHash": "43752b16170ded01c814466d6cabef320d5570afbf7ba5d6878314b3d9281601",
+    "typeScriptVersion": "3.6"
+}
