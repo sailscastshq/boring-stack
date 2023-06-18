@@ -1,12 +1,11 @@
-const getCommand = require('./get-command')
+const getCommand = require("./get-command");
 
-
-module.exports = function generateReadme ({
+module.exports = function generateReadme({
   projectName,
   packageManager,
   buildTool,
   css,
-  frontend
+  frontend,
 }) {
   let readme = `# ${projectName}
 
@@ -16,6 +15,6 @@ This scaffold contains:
 * ${buildTool}
 * ${css}
 * ${frontend}
-`
-  return readme
-}
+`;
+  return readme;
+};

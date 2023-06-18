@@ -8,7 +8,7 @@
  * https://inertia-sails.sailscasts.com
  */
 
- module.exports.inertia = {
+module.exports.inertia = {
   /**
    * https://inertiajs.com/asset-versioning
    * You can pass a string, number that changes when your assets change
@@ -16,4 +16,4 @@
    * e.g 4 or () => 4
    */
   // version: 1,
-}
+};

@@ -1,15 +1,15 @@
 module.exports = {
-  friendlyName: 'Home',
+  friendlyName: "Home",
 
-  description: 'Home index.',
+  description: "Home index.",
 
   inputs: {},
 
   exits: {},
 
   fn: async function () {
-    return sails.hooks.inertia.render('index', {
-      name: 'Inertia',
-    })
+    return sails.hooks.inertia.render("index", {
+      name: "Inertia",
+    });
   },
-}
+};
