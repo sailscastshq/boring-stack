@@ -1,9 +1,10 @@
 {
   "name": "create-sails",
   "version": "0.2.2",
+  "type": "module",
   "description": "Quickly scaffold a fullstack Sails project with `npm init sails`",
   "bin": {
-    "create-sails": "./index.mjs"
+    "create-sails": "./index.js"
   },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
