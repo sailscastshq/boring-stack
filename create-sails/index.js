@@ -1,3 +1,5 @@
 #!/usr/bin/env node
-const { intro } = require("@clack/prompts");
-intro("create-sails");
+const { intro, outro } = require('@clack/prompts')
+intro('create-sails')
+
+outro(`You're all set!`)

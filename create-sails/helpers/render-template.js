@@ -1,8 +1,8 @@
-const fs = require("fs");
-const path = require("path");
+const fs = require('fs')
+const path = require('path')
 
-const deepMerge = require("./deep-merge");
-const sortDependencies = require("./sort-dependencies");
+const deepMerge = require('./deep-merge')
+const sortDependencies = require('./sort-dependencies')
 
 /**
  * Renders a template folder/file to the file system,
@@ -14,39 +14,39 @@ const sortDependencies = require("./sort-dependencies");
  * @param {string} dest destination filename of the copy operation
  */
 function renderTemplate(src, dest) {
-  const stats = fs.statSync(src);
+  const stats = fs.statSync(src)
 
   if (stats.isDirectory()) {
     // skip node_module
-    if (path.basename(src) === "node_modules") {
-      return;
+    if (path.basename(src) === 'node_modules') {
+      return
     }
 
     // if it's a directory, render its subdirectories and files recursively
-    fs.mkdirSync(dest, { recursive: true });
+    fs.mkdirSync(dest, { recursive: true })
     for (const file of fs.readdirSync(src)) {
-      renderTemplate(path.resolve(src, file), path.resolve(dest, file));
+      renderTemplate(path.resolve(src, file), path.resolve(dest, file))
     }
-    return;
+    return
   }
 
-  const filename = path.basename(src);
+  const filename = path.basename(src)
 
-  if (filename === "package.json" && fs.existsSync(dest)) {
+  if (filename === 'package.json' && fs.existsSync(dest)) {
     // merge instead of overwriting
-    const existing = JSON.parse(fs.readFileSync(dest, "utf8"));
-    const newPackage = JSON.parse(fs.readFileSync(src, "utf8"));
-    const pkg = sortDependencies(deepMerge(existing, newPackage));
-    fs.writeFileSync(dest, JSON.stringify(pkg, null, 2) + "\n");
-    return;
+    const existing = JSON.parse(fs.readFileSync(dest, 'utf8'))
+    const newPackage = JSON.parse(fs.readFileSync(src, 'utf8'))
+    const pkg = sortDependencies(deepMerge(existing, newPackage))
+    fs.writeFileSync(dest, JSON.stringify(pkg, null, 2) + '\n')
+    return
   }
 
-  if (filename.startsWith("_")) {
+  if (filename.startsWith('_')) {
     // rename `_file` to `.file`
-    dest = path.resolve(path.dirname(dest), filename.replace(/^_/, "."));
+    dest = path.resolve(path.dirname(dest), filename.replace(/^_/, '.'))
   }
 
-  fs.copyFileSync(src, dest);
+  fs.copyFileSync(src, dest)
 }
 
-module.exports = renderTemplate;
+module.exports = renderTemplate
