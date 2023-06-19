@@ -3,7 +3,7 @@
   "version": "0.2.2",
   "description": "Quickly scaffold a fullstack Sails project with `npm init sails`",
   "bin": {
-    "create-sails": "./index.js"
+    "create-sails": "./index.mjs"
   },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
