@@ -1,5 +1,9 @@
 import crypto from 'crypto'
 
+export function generateDefaultDEK() {
+  return crypto.randomBytes(32).toString('base64')
+}
+
 export function generateSessionSecret() {
   // Now bake up a session secret to inject into our `config/session.js` file.
 

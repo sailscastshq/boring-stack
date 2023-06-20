@@ -1,31 +1,21 @@
 #!/usr/bin/env node
-import { intro, outro, select, isCancel, cancel } from '@clack/prompts'
+import { intro, outro } from '@clack/prompts'
+import minimist from 'minimist'
+import color from 'picocolors'
+import { execSync } from 'child_process'
+import projectName from './actions/project-name.js'
+import frontend from './actions/frontend.js'
+async function main() {
+  const argv = minimist(process.argv.slice(2), {
+    boolean: true
+  })
+  let projectNameFromArgv = argv._[0]
+  intro(color.inverse('create-sails'))
 
-intro('create-sails')
+  const specifiedProjectName = await projectName(projectNameFromArgv)
+  const specifiedFrontend = await frontend(argv)
 
-const ui = await select({
-  message: 'Select your preferred UI framework.',
-  options: [
-    {
-      value: 'vue',
-      label: 'Vue',
-      hint: 'https://vuejs.org'
-    },
-    {
-      value: 'react',
-      label: 'React',
-      hint: 'https://react.dev'
-    },
-    {
-      value: 'svelte',
-      label: 'Svelte',
-      hint: 'https://svelte.dev'
-    }
-  ]
-})
-
-if (isCancel(ui)) {
-  cancel('Scaffolding cancelled.')
-  process.exit(0)
+  outro(`Scaffolded your boring JavaScript project 🥱`)
 }
-outro(`Scaffolded your boring JavaScript project 🥱`)
+
+main().catch(console.error)
