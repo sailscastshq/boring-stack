@@ -1,4 +1,4 @@
-module.exports = function toValidPackageName(projectName) {
+export function toValidPackageName(projectName) {
   return projectName
     .trim()
     .toLowerCase()

@@ -1,6 +1,6 @@
-const crypto = require('crypto')
+import crypto from 'crypto'
 
-module.exports = function generateSessionSecret() {
+export function generateSessionSecret() {
   // Now bake up a session secret to inject into our `config/session.js` file.
 
   // Combine random and case-specific factors into a base string

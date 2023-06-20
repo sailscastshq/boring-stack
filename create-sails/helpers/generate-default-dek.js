@@ -1,5 +1,5 @@
-const crypto = require('crypto')
+import crypto from 'crypto'
 
-module.exports = function generateDefaultDEK() {
+export function generateDefaultDEK() {
   return crypto.randomBytes(32).toString('base64')
 }

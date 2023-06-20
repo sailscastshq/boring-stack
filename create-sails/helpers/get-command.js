@@ -1,4 +1,4 @@
-module.exports = function getCommand(packageManager, scriptName) {
+export function getCommand(packageManager, scriptName) {
   if (scriptName === 'install') {
     return packageManager === 'yarn' ? 'yarn' : `${packageManager} install`
   }
