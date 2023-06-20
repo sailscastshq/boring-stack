@@ -1,19 +1,23 @@
 #!/usr/bin/env node
-import { intro, outro } from '@clack/prompts'
+import { intro, outro, spinner } from '@clack/prompts'
 import minimist from 'minimist'
 import color from 'picocolors'
-import { execSync } from 'child_process'
 import projectName from './actions/project-name.js'
 import frontend from './actions/frontend.js'
+import downloadProject from './actions/download-project.js'
+
 async function main() {
+  intro(color.inverse('create-sails'))
+
   const argv = minimist(process.argv.slice(2), {
     boolean: true
   })
   let projectNameFromArgv = argv._[0]
-  intro(color.inverse('create-sails'))
 
   const specifiedProjectName = await projectName(projectNameFromArgv)
   const specifiedFrontend = await frontend(argv)
+
+  downloadProject(specifiedProjectName, specifiedFrontend)
 
   outro(`Scaffolded your boring JavaScript project 🥱`)
 }

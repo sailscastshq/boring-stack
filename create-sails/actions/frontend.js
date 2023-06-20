@@ -6,7 +6,6 @@ export default async function frontend(argv) {
   const countOfFrontendFlagsPassed = supportedFrontends.filter(
     (frontend) => argv[frontend]
   ).length
-  text
   let frontend
 
   if (countOfFrontendFlagsPassed == 0) {
