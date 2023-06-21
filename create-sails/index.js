@@ -2,24 +2,46 @@
 import { intro, outro, spinner } from '@clack/prompts'
 import minimist from 'minimist'
 import color from 'picocolors'
+import path from 'path'
 import projectName from './actions/project-name.js'
 import frontend from './actions/frontend.js'
 import downloadProject from './actions/download-project.js'
+import getCommand from './helpers/get-command.js'
+import detectPackageManager from './helpers/detect-package-manager.js'
+import injectDefaultDek from './actions/inject-default-dek.js'
+import injectSessionSecret from './actions/inject-session-secret.js'
 
 async function main() {
+  const cwd = process.cwd()
   intro(color.inverse('create-sails'))
 
   const argv = minimist(process.argv.slice(2), {
     boolean: true
   })
   let projectNameFromArgv = argv._[0]
+  const s = spinner()
 
   const specifiedProjectName = await projectName(projectNameFromArgv)
   const specifiedFrontend = await frontend(argv)
 
-  downloadProject(specifiedProjectName, specifiedFrontend)
+  s.start('Downloading your project.')
+  await downloadProject(specifiedProjectName, specifiedFrontend)
+  s.stop(color.green('Project downloaded.'))
 
-  // outro(`Scaffolded your boring JavaScript project 🥱`)
+  const root = path.join(cwd, specifiedProjectName)
+  injectDefaultDek(root)
+  injectSessionSecret(root)
+
+  console.log('Now run:')
+
+  if (root !== cwd) {
+    console.log(`  ${color.green(`cd ${path.relative(cwd, root)}`)}`)
+  }
+  const packageManager = detectPackageManager()
+  console.log(`  ${color.green(getCommand(packageManager, 'install'))}`)
+  console.log(`  ${color.green('sails lift')}`)
+
+  outro(color.inverse('Enjoy your boring project.'))
 }
 
 main().catch(console.error)
