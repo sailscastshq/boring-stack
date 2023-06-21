@@ -1,4 +1,4 @@
-import { text } from '@clack/prompts'
+import { text, isCancel, cancel } from '@clack/prompts'
 
 import {
   toValidPackageName,
