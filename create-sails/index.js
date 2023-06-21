@@ -19,7 +19,7 @@ async function main() {
 
   downloadProject(specifiedProjectName, specifiedFrontend)
 
-  outro(`Scaffolded your boring JavaScript project 🥱`)
+  // outro(`Scaffolded your boring JavaScript project 🥱`)
 }
 
 main().catch(console.error)

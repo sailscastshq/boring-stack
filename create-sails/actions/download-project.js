@@ -5,13 +5,13 @@ const s = spinner()
 
 export default function downloadProject(projectName, frontend) {
   const emitter = degit(`sailscastshq/boring-stack/${frontend}`)
-  s.start('Downloading your boring project...')
+  s.start('Downloading your project.')
 
   emitter.on('info', (info) => {
     console.log(info.message)
   })
 
   emitter.clone(`${projectName}`).then(() => {
-    s.stop(color.green('Successfully downloaded your boring project!'))
+    s.stop(color.green('Project downloaded.'))
   })
 }
