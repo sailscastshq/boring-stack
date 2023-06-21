@@ -1,9 +1,9 @@
-module.exports = function getCommand(packageManager, scriptName) {
-  if (scriptName === "install") {
-    return packageManager === "yarn" ? "yarn" : `${packageManager} install`;
+export default function getCommand(packageManager, scriptName) {
+  if (scriptName === 'install') {
+    return packageManager === 'yarn' ? 'yarn' : `${packageManager} install`
   }
 
-  return packageManager === "npm"
+  return packageManager === 'npm'
     ? `npm run ${scriptName}`
-    : `${packageManager} ${scriptName}`;
-};
+    : `${packageManager} ${scriptName}`
+}

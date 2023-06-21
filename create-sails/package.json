@@ -1,13 +1,14 @@
 {
   "name": "create-sails",
   "version": "0.2.2",
+  "type": "module",
   "description": "Quickly scaffold a fullstack Sails project with `npm init sails`",
   "bin": {
     "create-sails": "./index.js"
   },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "prepare": "husky install"
+    "prepare": "cd .. && husky install"
   },
   "keywords": [
     "sails",
@@ -32,11 +33,9 @@
     "node": "^14.13.1 || >=16.0.0"
   },
   "dependencies": {
-    "kolorist": "^1.5.1",
-    "minimist": "^1.2.6",
-    "prompts": "^2.4.2"
-  },
-  "devDependencies": {
-    "@types/prompts": "^2.0.14"
+    "@clack/prompts": "^0.6.3",
+    "degit": "^2.8.4",
+    "minimist": "^1.2.8",
+    "picocolors": "^1.0.0"
   }
 }

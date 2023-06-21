@@ -44,36 +44,36 @@ module.exports = function defineCustomHook(sails) {
      * Runs when this Sails app loads/lifts.
      */
     initialize: async function () {
-      sails.log.info("Initializing custom hook (`custom`)");
+      sails.log.info('Initializing custom hook (`custom`)')
     },
     routes: {
       before: {
-        "GET /": {
+        'GET /': {
           skipAssets: true,
           fn: async function (req, res, next) {
             if (req.session.userId) {
               const loggedInUser = await User.findOne({
-                id: req.session.userId,
-              });
+                id: req.session.userId
+              })
               if (!loggedInUser) {
                 sails.log.warn(
-                  "Somehow, the user record for the logged-in user (`" +
+                  'Somehow, the user record for the logged-in user (`' +
                     req.session.userId +
-                    "`) has gone missing...."
-                );
-                delete req.session.userId;
-                return res.redirect("/signin");
+                    '`) has gone missing....'
+                )
+                delete req.session.userId
+                return res.redirect('/signin')
               }
-              sails.inertia.share("loggedInUser", loggedInUser);
-              return next();
+              sails.inertia.share('loggedInUser', loggedInUser)
+              return next()
             }
-            return next();
-          },
-        },
-      },
-    },
-  };
-};
+            return next()
+          }
+        }
+      }
+    }
+  }
+}
 ```
 
 ## Configuration
@@ -99,7 +99,7 @@ module.exports.inertia = {
    * e.g 4 or () => 4
    */
   // version: 1,
-};
+}
 ```
 
 Visit [inertiajs.com](https://inertiajs.com/) to learn more.
