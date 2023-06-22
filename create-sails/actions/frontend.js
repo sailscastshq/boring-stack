@@ -37,6 +37,7 @@ export default async function frontend(argv) {
   } else if (countOfFrontendFlagsPassed == 1) {
     frontend = supportedFrontends.find((key) => argv[key])
   } else {
+    console.log()
     cancel(
       color.red(
         'Please provide only one of the following flags: --vue, --react, --svelte'
