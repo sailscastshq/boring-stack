@@ -1,5 +1,3 @@
-import { spinner } from '@clack/prompts'
-import color from 'picocolors'
 import degit from 'degit'
 
 export default async function downloadProject(projectName, frontend) {
