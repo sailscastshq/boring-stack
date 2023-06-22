@@ -10,7 +10,7 @@ export default async function frontend(argv) {
 
   if (countOfFrontendFlagsPassed == 0) {
     frontend = await select({
-      message: 'Select your preferred frontend framework.',
+      message: 'Select a framework. › - Use arrow-keys. Return to submit',
       options: [
         {
           value: 'vue',

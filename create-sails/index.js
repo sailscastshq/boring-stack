@@ -33,9 +33,9 @@ async function main() {
 
   const specifiedFrontend = await frontend(argv)
 
-  s.start('Downloading your project.')
+  s.start('Copying project files.')
   await downloadProject(specifiedProjectName, specifiedFrontend)
-  s.stop(color.green('Project downloaded.'))
+  s.stop(color.green('Template copied!'))
 
   injectDefaultDek(root)
   injectSessionSecret(root)
@@ -52,6 +52,7 @@ async function main() {
   console.log(`  ${color.green('sails lift')}`)
 
   outro(color.inverse('Enjoy your boring project.'))
+  process.exit(0)
 }
 
 main().catch(console.error)
