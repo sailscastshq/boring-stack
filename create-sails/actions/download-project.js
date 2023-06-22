@@ -5,5 +5,5 @@ export default async function downloadProject(projectName, frontend) {
   emitter.on('info', (info) => {
     console.log(info.message)
   })
-  await emitter.clone(`${projectName}`).then(() => {})
+  await emitter.clone(`${projectName}`)
 }
