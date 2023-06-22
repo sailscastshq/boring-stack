@@ -48,15 +48,15 @@ To launch the respective templates on StackBlitz, click on the links below:
 
 ### Vue Starter Template
 
-[![Open in StackBlitz](https://developer.stackblitz.com/img/open_in_stackblitz.svg)](https://stackblitz.com/github/sailscastshq/boring-stack/tree/develop/vue?title='The Boring Stack Vue Starter')
+[![Open in StackBlitz](https://developer.stackblitz.com/img/open_in_stackblitz.svg)](https://stackblitz.com/github/sailscastshq/boring-stack/tree/develop/vue)
 
 ### React Starter Template
 
-[![Open in StackBlitz](https://developer.stackblitz.com/img/open_in_stackblitz.svg)](https://stackblitz.com/github/sailscastshq/boring-stack/tree/develop/react?title='The Boring Stack React Starter')
+[![Open in StackBlitz](https://developer.stackblitz.com/img/open_in_stackblitz.svg)](https://stackblitz.com/github/sailscastshq/boring-stack/tree/develop/react)
 
 ### Svelte Starter Template
 
-[![Open in StackBlitz](https://developer.stackblitz.com/img/open_in_stackblitz.svg)](https://stackblitz.com/github/sailscastshq/boring-stack/tree/develop/svelte?title='The Boring Stack Svelte Starter')
+[![Open in StackBlitz](https://developer.stackblitz.com/img/open_in_stackblitz.svg)](https://stackblitz.com/github/sailscastshq/boring-stack/tree/develop/svelte)
 
 <hr />
 
