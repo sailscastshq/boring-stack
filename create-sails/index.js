@@ -1,5 +1,5 @@
 #!/usr/bin/env node
-import { intro, outro, spinner } from '@clack/prompts'
+import { intro, outro, spinner, cancel } from '@clack/prompts'
 import minimist from 'minimist'
 import color from 'picocolors'
 import path from 'path'
@@ -10,6 +10,7 @@ import getCommand from './helpers/get-command.js'
 import detectPackageManager from './helpers/detect-package-manager.js'
 import injectDefaultDek from './actions/inject-default-dek.js'
 import injectSessionSecret from './actions/inject-session-secret.js'
+import directoryExists from './helpers/directory-exists.js'
 
 async function main() {
   const cwd = process.cwd()
@@ -22,17 +23,26 @@ async function main() {
   const s = spinner()
 
   const specifiedProjectName = await projectName(projectNameFromArgv)
+  const root = path.join(cwd, specifiedProjectName)
+
+  if (directoryExists(root)) {
+    console.log()
+    cancel(color.red(`${root} already exists.`))
+    process.exit(0)
+  }
+
   const specifiedFrontend = await frontend(argv)
 
   s.start('Downloading your project.')
   await downloadProject(specifiedProjectName, specifiedFrontend)
   s.stop(color.green('Project downloaded.'))
 
-  const root = path.join(cwd, specifiedProjectName)
   injectDefaultDek(root)
   injectSessionSecret(root)
 
+  console.log()
   console.log('Now run:')
+  console.log()
 
   if (root !== cwd) {
     console.log(`  ${color.green(`cd ${path.relative(cwd, root)}`)}`)
