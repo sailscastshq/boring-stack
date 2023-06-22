@@ -44,19 +44,13 @@ npx create-sails <project-name> --svelte
 
 Try out The Boring JavaScript Stack starter templates for Vue, React, and Svelte right in your browser using StackBlitz's online code editor and development environment.
 
-To launch the respective templates on StackBlitz, click on the links below:
+To launch the respective templates on StackBlitz, click on the 'Open in StackBlitz' button of the starter template you are interested in:
 
-### Vue Starter Template
+- Vue Starter Template - [![Open in StackBlitz](https://developer.stackblitz.com/img/open_in_stackblitz.svg)](https://stackblitz.com/github/sailscastshq/boring-stack/tree/develop/vue)
 
-[![Open in StackBlitz](https://developer.stackblitz.com/img/open_in_stackblitz.svg)](https://stackblitz.com/github/sailscastshq/boring-stack/tree/develop/vue)
+- React Starter Template - [![Open in StackBlitz](https://developer.stackblitz.com/img/open_in_stackblitz.svg)](https://stackblitz.com/github/sailscastshq/boring-stack/tree/develop/react)
 
-### React Starter Template
-
-[![Open in StackBlitz](https://developer.stackblitz.com/img/open_in_stackblitz.svg)](https://stackblitz.com/github/sailscastshq/boring-stack/tree/develop/react)
-
-### Svelte Starter Template
-
-[![Open in StackBlitz](https://developer.stackblitz.com/img/open_in_stackblitz.svg)](https://stackblitz.com/github/sailscastshq/boring-stack/tree/develop/svelte)
+- Svelte Starter Template - [![Open in StackBlitz](https://developer.stackblitz.com/img/open_in_stackblitz.svg)](https://stackblitz.com/github/sailscastshq/boring-stack/tree/develop/svelte)
 
 <hr />
 
