@@ -40,6 +40,7 @@
     "terser-webpack-plugin": "^5.3.1"
   },
   "scripts": {
+    "dev": "node app.js",
     "start": "NODE_ENV=production node app.js",
     "test": "npm run lint && npm run custom-tests && echo 'Done.'",
     "lint": "./node_modules/eslint/bin/eslint.js . --max-warnings=0 --report-unused-disable-directives && echo '✔  Your .js files look good.'",
