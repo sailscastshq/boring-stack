@@ -1,0 +1,31 @@
+{
+  "name": "inertia-sails",
+  "version": "0.1.4",
+  "description": "The Sails adapter for Inertia.",
+  "main": "index.js",
+  "sails": {
+    "isHook": true,
+    "hookName": "inertia"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "prepare": "cd .. && husky install"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/sailscastshq/inertia-sails.git"
+  },
+  "peerDependencies": {
+    "sails": ">=1"
+  },
+  "keywords": [
+    "Inertia",
+    "Sails"
+  ],
+  "author": "Kelvin Omereshone Oghenerhoro <kelvin@sailscasts.com>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/sailscastshq/boring-stack/issues"
+  },
+  "homepage": "https://github.com/sailscastshq/boring-stack/inertia-sails#readme"
+}

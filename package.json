@@ -1,0 +1,31 @@
+{
+  "name": "boring-stack",
+  "version": "0.0.1",
+  "private": "true",
+  "description": "The Boring JavaScript Stack 🥱 - an opinionated project starter for fullstack JavaScript",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "prepare": "husky install",
+    "lint": "npx prettier --check .",
+    "lint:fix": "npx prettier --write ."
+  },
+  "keywords": [
+    "boring-stack",
+    "fullstack-javascript",
+    "vue",
+    "svelte",
+    "sails",
+    "inertiajs",
+    "tailwindcss"
+  ],
+  "author": "Kelvin Omereshone",
+  "license": "MIT",
+  "devDependencies": {
+    "husky": "^8.0.3",
+    "lint-staged": "^13.2.2",
+    "prettier": "2.8.8"
+  },
+  "lint-staged": {
+    "**/*": "prettier --write --ignore-unknown"
+  }
+}

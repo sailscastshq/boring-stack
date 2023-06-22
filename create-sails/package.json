@@ -1,0 +1,41 @@
+{
+  "name": "create-sails",
+  "version": "1.0.0",
+  "type": "module",
+  "description": "Quickly scaffold a fullstack Sails project with `npm init sails`",
+  "bin": {
+    "create-sails": "./index.js"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "prepare": "cd .. && husky install"
+  },
+  "keywords": [
+    "sails",
+    "sailsjs",
+    "build-tools",
+    "webpack",
+    "node",
+    "express",
+    "starter",
+    "vue",
+    "inertia",
+    "react",
+    "svelte"
+  ],
+  "author": "Kelvin Omereshone Oghenerhoro <kelvin@sailscasts.com>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/sailscastshq/boring-stack/issues"
+  },
+  "homepage": "https://github.com/sailscastshq/boring-stack/tree/main/create-sails#readme",
+  "engines": {
+    "node": "^14.13.1 || >=16.0.0"
+  },
+  "dependencies": {
+    "@clack/prompts": "^0.6.3",
+    "degit": "^2.8.4",
+    "minimist": "^1.2.8",
+    "picocolors": "^1.0.0"
+  }
+}
