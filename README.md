@@ -14,6 +14,23 @@
 npx create-sails <project-name>
 ```
 
+## Setup Faster
+
+#### Vue:
+```sh
+npx create-sails <project-name> --vue
+```
+
+#### React:
+```sh
+npx create-sails <project-name> --react
+```
+
+#### Svelte:
+```sh
+npx create-sails <project-name> --svelte
+```
+
 <div align="center">
 <a href="https://sailscasts.com/boring"><img src="https://github.com/sailscastshq/boring-stack/blob/main/logo.png" alt="The Boring JavaScript Stack" width="50%" height="50%"></a>
 </div>
