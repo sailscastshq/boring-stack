@@ -78,6 +78,14 @@ To launch the respective templates on StackBlitz, click on the links below:
   for suggestions.
 - 🐛 Open a [GitHub issue](https://github.com/sailscastshq/boring-stack/issues) to report a bug.
 
+### Contributors
+
+<a href="https://github.com/sailscastshq/boring-stack/graphs/contributors">
+  <p align="center">
+    <img  src="https://contrib.rocks/image?repo=sailscastshq/boring-stack" alt="A table of avatars from the project's contributors" />
+  </p>
+</a>
+
 ## Thanks
 
 You rock 🤘🏾
