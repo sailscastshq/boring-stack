@@ -1,0 +1,3 @@
+{
+  "startCommand": "node app.js"
+}
