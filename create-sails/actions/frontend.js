@@ -31,7 +31,7 @@ export default async function frontend(argv) {
     })
 
     if (isCancel(frontend)) {
-      cancel('Scaffolding cancelled.')
+      cancel('Operation cancelled. See you later, sailor!')
       process.exit(0)
     }
   } else if (countOfFrontendFlagsPassed == 1) {

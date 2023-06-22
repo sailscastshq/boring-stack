@@ -15,7 +15,7 @@ export default async function projectName(projectNameFromArgv) {
     })
 
     if (isCancel(projectName)) {
-      cancel('Scaffoling canceled.')
+      cancel('Operation cancelled. See you later, sailor!')
       return process.exit(0)
     }
   }
