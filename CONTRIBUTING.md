@@ -1,4 +1,4 @@
-# Boring JavaScript Stack contributing guidelines
+# The Boring JavaScript Stack contributing guidelines
 
 Thank you for taking the time to contribute to our project. We appreciate you! 🫶🏽 Please take a moment to read the following guidelines before contributing:
 
