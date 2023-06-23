@@ -28,13 +28,13 @@ async function main() {
   if (directoryExists(root)) {
     console.log()
     cancel(color.red(`${root} already exists.`))
-    process.exit(0)
+    process.exit(1)
   }
 
   const specifiedFrontend = await frontend(argv)
 
   s.start('Copying project files.')
-  await downloadProject(specifiedProjectName, specifiedFrontend)
+  await downloadProject(specifiedProjectName, { frontend: specifiedFrontend })
   s.stop(color.green('Template copied!'))
 
   injectDefaultDek(root)

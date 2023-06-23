@@ -43,7 +43,7 @@ export default async function frontend(argv) {
         'Please provide only one of the following flags: --vue, --react, --svelte'
       )
     )
-    process.exit(0)
+    process.exit(1)
   }
 
   return frontend
