@@ -31,7 +31,7 @@ To contribute to The Boring JavScript Stack, follow these steps:
 
 ### Branch Organization
 
-At Boring JavaScript Stack, we use the [Gitflow branching model](https://www.atlassian.com/git/tutorials/comparing-workflows/gitflow-workflow) where we use a `develop` branch as the main branch for active development. Therefore, all Pull Requests should be directed towards the `develop` branch instead of the `main` branch. This helps us maintain a stable `main` branch while allowing continuous development on the `develop` branch.
+At The Boring JavaScript Stack, we use the [Gitflow branching model](https://www.atlassian.com/git/tutorials/comparing-workflows/gitflow-workflow) where we use a `develop` branch as the main branch for active development. Therefore, all Pull Requests should be directed towards the `develop` branch instead of the `main` branch. This helps us maintain a stable `main` branch while allowing continuous development on the `develop` branch.
 
 ### Good First Issue
 
