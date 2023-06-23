@@ -1,6 +1,6 @@
 {
   "name": "create-sails",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "type": "module",
   "description": "Quickly scaffold a fullstack Sails project with `npm init sails`",
   "bin": {
