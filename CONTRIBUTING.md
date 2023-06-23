@@ -1,4 +1,4 @@
-# Boring-Stack contributing guidelines
+# Boring JavaScript Stack contributing guidelines
 
 Thank you for taking the time to contribute to our project. We appreciate you! 🫶🏽 Please take a moment to read the following guidelines before contributing:
 
@@ -7,7 +7,7 @@ Thank you for taking the time to contribute to our project. We appreciate you! �
 > **Pull Requests having no issue associated with them will not be accepted. Firstly get an issue assigned, whether it's already opened or raised by you, and then create a Pull Request.**
 
 ## Prerequisites
-Before you contribute to Boring-Stack, make sure you have the following prerequisites:
+Before you contribute to  The Boring JavaScript Stack, make sure you have the following prerequisites:
 
 - Open Source Etiquette: If you've never contributed to an open source project before, have a read of [Basic etiquette](https://developer.mozilla.org/en-US/docs/MDN/Community/Open_source_etiquette) for open source projects.
 
@@ -18,7 +18,7 @@ Before you contribute to Boring-Stack, make sure you have the following prerequi
 ---
 
 ## How to Contribute 🤔
-To contribute to Boring-Stack, follow these steps:
+To contribute to The Boring JavScript Stack, follow these steps:
 
 - Look at the existing [**Issues**](https://github.com/sailscastshq/boring-stack/issues) or create a new issue if you haven't found a suitable one.
 - [**Fork the Repo**](https://github.com/sailscastshq/boring-stack/issues) and create a branch for the specific issue you are working on. Let's start making a difference together! 😊
@@ -31,7 +31,7 @@ To contribute to Boring-Stack, follow these steps:
 
 ### Branch Organization
 
-At Boring-Stack, we use the [Gitflow branching model](https://www.atlassian.com/git/tutorials/comparing-workflows/gitflow-workflow) where we use a `develop` branch as the main branch for active development. Therefore, all Pull Requests should be directed towards the `develop` branch instead of the `main` branch. This helps us maintain a stable `main` branch while allowing continuous development on the `develop` branch.
+At Boring JavaScript Stack, we use the [Gitflow branching model](https://www.atlassian.com/git/tutorials/comparing-workflows/gitflow-workflow) where we use a `develop` branch as the main branch for active development. Therefore, all Pull Requests should be directed towards the `develop` branch instead of the `main` branch. This helps us maintain a stable `main` branch while allowing continuous development on the `develop` branch.
 
 ### Good First Issue
 
@@ -41,7 +41,7 @@ If you're new to our project, we recommend starting with the [_Good first issue_
 
 To ensure a smooth review process, please follow these guidelines:
 - Fork (https://help.github.com/articles/fork-a-repo) the repository into your own account.
-- In your forked repository, create a new branch: `git checkout -b my-branch main`
+- In your forked repository, create a new branch: `git checkout -b my-branch develop`
 - Make your changes/fixes.
 - Commit your code with a good commit message [using "Conventionalcommits"](https://www.conventionalcommits.org/en/v1.0.0/).
 - Push your branch to GitHub: `git push origin my-branch`
