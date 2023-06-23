@@ -1,9 +1,5 @@
-import degit from 'degit'
+export default async function downloadProject(projectName, frontend) {}
 
-export default async function downloadProject(projectName, frontend) {
-  const emitter = degit(`sailscastshq/boring-stack/${frontend}`)
-  emitter.on('info', (info) => {
-    console.log(info.message)
-  })
-  await emitter.clone(`${projectName}`)
+function getTemplate(template = 'mellow', frontend) {
+  return `${template}-${frontend}`
 }
