@@ -7,7 +7,7 @@ export default async function downloadProject(
   const templateToCopy = getTemplate(frontend, template)
   try {
     const { source, dir } = await downloadTemplate(
-      `github:sailscastshq/boring-stack/templates/${templateToCopy}#develop`,
+      `github:sailscastshq/boring-stack/templates/${templateToCopy}#main`,
       {
         dir: projectName,
         repo: 'sailscastshq/boring-stack',
@@ -32,5 +32,3 @@ export default async function downloadProject(
 function getTemplate(frontend, template = 'mellow') {
   return `${template}-${frontend}`
 }
-
-console.log(getTemplate('react', undefined))
