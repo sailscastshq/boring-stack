@@ -7,7 +7,7 @@ Thank you for taking the time to contribute to our project. We appreciate you! �
 > **Pull Requests having no issue associated with them will not be accepted. Firstly get an issue assigned, whether it's already opened or raised by you, and then create a Pull Request.**
 
 ## Prerequisites
-Before you contribute to  The Boring JavaScript Stack, make sure you have the following prerequisites:
+Before you contribute to The Boring JavaScript Stack, make sure you have the following prerequisites:
 
 - Open Source Etiquette: If you've never contributed to an open source project before, have a read of [Basic etiquette](https://developer.mozilla.org/en-US/docs/MDN/Community/Open_source_etiquette) for open source projects.
 
@@ -35,7 +35,7 @@ At The Boring JavaScript Stack, we use the [Gitflow branching model](https://www
 
 ### Good First Issue
 
-If you're new to our project, we recommend starting with the [_Good first issue_](https://github.com/sailscastshq/boring-stack/issues) label. These issues are ideal for getting familiar with the project and making your first contribution. Before starting work, please confirm with the maintainers that the issue is still relevant. Feel free to comment on the issue to express your intention and avoid duplicate efforts.
+If you're new to our project, we recommend starting with the [_Good first issue_](https://github.com/sailscastshq/boring-stack/issues?q=is:open+is:issue+label:%22good+first+issue%22)label. These issues are ideal for getting familiar with the project and making your first contribution. Before starting work, please confirm with the maintainers that the issue is still relevant. Feel free to comment on the issue to express your intention and avoid duplicate efforts.
 
 ### Sending a Pull Request
 
@@ -49,7 +49,7 @@ To ensure a smooth review process, please follow these guidelines:
 
 > ⚠️IMPORTANT **Note**
 >
-> **To ensure a better review experience, we kindly request that you include only one logical change or a set of related changes in each pull request. If a pull request becomes too large or contains unrelated changes, it becomes challenging for our reviewers. In such cases, they have the right to close the pull request and request separate pull requests for each logical set of related changes.**
+> ** To ensure a better review experience, we kindly request that you use the following format for the PR title: `[chore]`, `[feat]`, or `[fix]`, followed by a descriptive title. For example, a chore-related change could have a title like `[chore] Update contributing guidelines`. This helps us categorize and understand the nature of the changes made in each PR..**
 
    - Link the issue you have resolved in the Pull Request Template using the following syntax:
    - If your Pull Request fixes issue #25, add `Fixes #25` or `Closes #25` to the description.
