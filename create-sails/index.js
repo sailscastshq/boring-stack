@@ -49,7 +49,7 @@ async function main() {
   }
   const packageManager = detectPackageManager()
   console.log(`  ${color.green(getCommand(packageManager, 'install'))}`)
-  console.log(`  ${color.green('sails lift')}`)
+  console.log(`  ${color.green('npx sails lift')}`)
 
   outro(color.inverse('Enjoy your boring project.'))
   process.exit(0)
