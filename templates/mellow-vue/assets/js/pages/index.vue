@@ -1,10 +1,10 @@
 <script setup>
 import { Link } from '@inertiajs/inertia-vue3'
-import Counter from "@/components/Counter.vue";
+import Counter from '@/components/Counter.vue'
 
 const { name } = defineProps({
-  name: String,
-});
+  name: String
+})
 </script>
 
 <template>
@@ -18,8 +18,8 @@ const { name } = defineProps({
     </h1>
     <counter />
 
-     <Link href="/example" class="text-purple-600 underline">
-        Go to example page
+    <Link href="/example" class="text-purple-600 underline">
+      Go to example page
     </Link>
 
     <ul class="flex space-x-4 text-gray-400">

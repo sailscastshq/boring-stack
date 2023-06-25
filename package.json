@@ -6,8 +6,8 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "prepare": "husky install",
-    "lint": "npx prettier --check .",
-    "lint:fix": "npx prettier --write ."
+    "lint": "npx prettier --config ./.prettierrc.js --check .",
+    "lint:fix": "npx prettier --config ./.prettierrc.js --write ."
   },
   "keywords": [
     "boring-stack",
@@ -26,6 +26,6 @@
     "prettier": "2.8.8"
   },
   "lint-staged": {
-    "**/*": "prettier --write --ignore-unknown"
+    "**/*": "prettier --config ./.prettierrc.js --write --ignore-unknown"
   }
 }

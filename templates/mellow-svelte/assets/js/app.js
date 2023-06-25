@@ -8,5 +8,5 @@ createInertiaApp({
   resolve: (name) => require(`./pages/${name}`),
   setup({ el, App, props }) {
     new App({ target: el, props })
-  },
+  }
 })
