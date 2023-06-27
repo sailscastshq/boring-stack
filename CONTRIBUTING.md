@@ -29,6 +29,17 @@ To contribute to The Boring JavScript Stack, follow these steps:
 
 ---
 
+## Creating an Issue
+Before **creating** an issue, please follow these steps:
+
+1. Search existing issues before creating a new issue (has someone created an issue already).
+2. If it doesn't exist, create an issue giving as much context and information as possible in the description. 
+> Images and videos can be added to the description to provide more information.
+3. Use an appropriate format for the title:  `[chore]`, `[feat]`, or `[fix]`, followed by a concise title description. For example, a chore-related change could have a title like `chore: Update contributing guidelines`
+4. If you wish to work on the issue, please include this in your issue description.
+
+---
+
 ## Submission Guidelines 📝
 
 ### Branch Organization
