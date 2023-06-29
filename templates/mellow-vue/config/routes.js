@@ -19,5 +19,6 @@ module.exports.routes = {
    *                                                                          *
    ***************************************************************************/
   'GET /': 'home/index',
-  'GET /example': 'example/index'
+  'GET /auth/redirect': 'auth/redirect',
+  'GET /auth/callback': 'auth/callback'
 }
