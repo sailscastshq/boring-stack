@@ -1,13 +1,13 @@
 {
   "name": "boring-stack",
-  "version": "0.0.3",
+  "version": "0.0.4",
   "private": "true",
   "description": "The Boring JavaScript Stack 🥱 - an opinionated project starter for fullstack JavaScript",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "prepare": "husky install",
-    "lint": "npx prettier --check .",
-    "lint:fix": "npx prettier --write ."
+    "lint": "npx prettier --config ./.prettierrc.js --check .",
+    "lint:fix": "npx prettier --config ./.prettierrc.js --write ."
   },
   "keywords": [
     "boring-stack",
@@ -21,11 +21,13 @@
   "author": "Kelvin Omereshone",
   "license": "MIT",
   "devDependencies": {
+    "@commitlint/cli": "^17.6.6",
+    "@commitlint/config-conventional": "^17.6.6",
     "husky": "^8.0.3",
     "lint-staged": "^13.2.2",
     "prettier": "2.8.8"
   },
   "lint-staged": {
-    "**/*": "prettier --write --ignore-unknown"
+    "**/*": "prettier --config ./.prettierrc.js --write --ignore-unknown"
   }
 }

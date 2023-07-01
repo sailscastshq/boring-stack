@@ -9,7 +9,7 @@ module.exports = {
 
   fn: async function () {
     return sails.inertia.render('index', {
-      name: 'Inertia',
+      name: 'Inertia'
     })
-  },
+  }
 }
