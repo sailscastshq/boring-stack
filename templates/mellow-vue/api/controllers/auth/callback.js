@@ -16,6 +16,8 @@ module.exports = {
     }
   },
   fn: async function ({ code }, exits) {
+    const googleUser = await sails.wish.provider('google').user(code)
+    sails.log(googleUser)
     return '/'
   }
 }
