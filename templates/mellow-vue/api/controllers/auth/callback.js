@@ -16,8 +16,6 @@ module.exports = {
     }
   },
   fn: async function ({ code }, exits) {
-    sails.log(code)
-    // All done.
-    return '/home'
+    return '/'
   }
 }
