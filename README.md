@@ -1,10 +1,10 @@
 <div align="center">
   <h1 align="center"><a href="https://sailscasts.com/boring">The Boring JavaScript Stack 🥱</a></h1>
   <strong align="center">
-    Ship reliably with battle-tested tech. No more chasing shiny trends in the JavaScript land.
+    Ship reliable JavaScript apps with battle-tested tech. No more chasing shiny trends in the JavaScript land.
   </strong>
   <p>
-   Use The Boring JavaScript Stack - an opinionated project starter - if you are tired of keeping up with the shiny things in JavaScript land and you just want to ship your products using JavaScript across the stack with tried and battle-tested technologies. This stack is based on the experience of <a href="https://dominuskelvin.dev">Kelvin Omereshone</a> and
+   Use The Boring JavaScript Stack - an opinionated full-stack JavaScript project starter - if you are tired of keeping up with the shiny things in JavaScript land and you just want to ship your products to real users with tried and battle-tested technologies. This stack is based on the experience of <a href="https://dominuskelvin.dev">Kelvin Omereshone</a> and
     <a href="https://github.com/sailscastshq/boring-stack/graphs/contributors">contributors</a>.
   </p>
 </div>
@@ -38,6 +38,23 @@ npx create-sails <project-name> --react
 ```sh
 npx create-sails <project-name> --svelte
 ```
+
+## What's in The Boring JavaScript Stack
+
+- [Sails](https://sailsjs.com)
+- [Inertia](https://inertiajs.com)
+- [Tailwind CSS](https://tailwindcss.com)
+- [Vue](https://vuejs.org), [React](https://reactjs.org), or [Svelte](https://svelte.dev)
+
+The ethos of The Boring JavaScript Stack is this: you can use your favorite frontend framework and build Modern Single Page Applications(SPA) without the hassle of the complexities that building SPA the traditional way bring to the table.
+
+With The Boring JavaScript Stack, you don't need 👇🏾
+
+- Client-side state management(I know, this is a pain)
+- You don't need an API for your SPA - the data each page needs gets sent to it as props
+- No double routing - The routing for your app is handled at the backend level with Sails
+
+With The Boring JavaScript Stack, we want you to focus on what really matters - shipping to actual real users. We emphasize this by creating full-stack functioning templates that takes care of some of the boring stuff for you.
 
 ## Try it Online 🚀
 
