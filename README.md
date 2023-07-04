@@ -4,7 +4,7 @@
     Ship reliable JavaScript apps with battle-tested tech. No more chasing shiny trends in the JavaScript land.
   </strong>
   <p>
-   Use The Boring JavaScript Stack - an opinionated full-stack JavaScript project starter - if you are tired of keeping up with the shiny things in JavaScript land and you just want to ship your products to real users with tried and battle-tested technologies. This stack is based on the experience of <a href="https://dominuskelvin.dev">Kelvin Omereshone</a> and
+   Use The Boring JavaScript Stack - an opinionated full-stack JavaScript project starter - if you are tired of always keeping up with all the new and shiny stuff in the JavaScript ecosystem and want to ship your products to real users with tried and battle-tested technologies. This stack is based on the experience of <a href="https://dominuskelvin.dev">Kelvin Omereshone</a> and
     <a href="https://github.com/sailscastshq/boring-stack/graphs/contributors">contributors</a>.
   </p>
 </div>
@@ -52,11 +52,11 @@ You can use your favorite frontend framework and build Modern Single Page Applic
 
 With The Boring JavaScript Stack, you don't need 👇🏾
 
-- Client-side state management - your application state lives in your database which is where it belongs.
-- You don't need an API for your SPA - the data each page needs gets sent to it as props thanks to [Inertia](https://inertiajs.com)
+- Client-side state management - your application state lives in your database, where it belongs.
+- You don't need an API for your SPA - the data each page needs gets sent to it as props, thanks to [Inertia](https://inertiajs.com)
 - No double routing - The routing for your app is handled at the backend level with [Sails](https://sailsjs.com)
 
-With The Boring JavaScript Stack, we want you to focus on what really matters - shipping to actual real users. We emphasize this by creating full-stack functioning templates that takes care of some of the boring stuff for you.
+With The Boring JavaScript Stack, we want you to focus on the only thing that matters - shipping products that work to real users. We emphasize this by creating full-stack functioning templates that take care of some of the boring stuff for you.
 
 ## Try it Online 🚀
 
