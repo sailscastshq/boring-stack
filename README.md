@@ -50,9 +50,9 @@ The ethos of The Boring JavaScript Stack is this: you can use your favorite fron
 
 With The Boring JavaScript Stack, you don't need 👇🏾
 
-- Client-side state management(I know, this is a pain)
-- You don't need an API for your SPA - the data each page needs gets sent to it as props
-- No double routing - The routing for your app is handled at the backend level with Sails
+- Client-side state management - your application state lives in your database which is where it belongs.
+- You don't need an API for your SPA - the data each page needs gets sent to it as props thanks to [Inertia](https://inertiajs.com)
+- No double routing - The routing for your app is handled at the backend level with [Sails](https://sailsjs.com)
 
 With The Boring JavaScript Stack, we want you to focus on what really matters - shipping to actual real users. We emphasize this by creating full-stack functioning templates that takes care of some of the boring stuff for you.
 
