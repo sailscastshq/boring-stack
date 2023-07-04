@@ -46,7 +46,9 @@ npx create-sails <project-name> --svelte
 - [Tailwind CSS](https://tailwindcss.com)
 - [Vue](https://vuejs.org), [React](https://reactjs.org), or [Svelte](https://svelte.dev)
 
-The ethos of The Boring JavaScript Stack is this: you can use your favorite frontend framework and build Modern Single Page Applications(SPA) without the hassle of the complexities that building SPA the traditional way bring to the table.
+The ethos of The Boring JavaScript Stack is this 👇🏾
+
+You can use your favorite frontend framework and build Modern Single Page Applications(SPA) without the hassle of the complexities that building SPA the traditional way bring to the table.
 
 With The Boring JavaScript Stack, you don't need 👇🏾
 
