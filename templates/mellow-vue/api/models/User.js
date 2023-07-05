@@ -86,25 +86,21 @@ module.exports = {
       type: 'string',
       description:
         'The unique ID of a user that signs in or register with their Google account.',
-      allowNull: true,
       columnName: 'google_user_id'
     },
     googleAccessToken: {
       type: 'string',
       description: 'Access token provided by Google for an OAuth user.',
-      allowNull: true,
       columnName: 'google_access_token'
     },
     googleIdToken: {
       type: 'string',
       description: 'The ID token provided by Google for an OAuth user.',
-      allowNull: true,
       columnName: 'google_id_token'
     },
     googleAvatarUrl: {
       type: 'string',
       description: 'The picture URL provided by Google for an OAuth user.',
-      allowNull: true,
       columnName: 'google_avatar_url'
     }
   }
