@@ -73,6 +73,10 @@ We highly encourage the use of conventional commits. Here are some examples:
 
 For additional reference, check out [Conventional Commits](https://www.conventionalcommits.org/en/v1.0.0/)
 
+## First-time Contributor's Guide 📹
+
+If you're a first-time contributor to open source projects, we recommend watching this [YouTube video](https://www.youtube.com/watch?v=Vqjzl9f3lGM). It provides valuable insights and guidance for getting started.
+
 ## Your Feedback Matters! 💬
 
 - If you notice any missing information or feel that something is not adequately described, please don't hesitate to create a pull request (PR) or [raise an issue](https://github.com/sailscastshq/boring-stack/issues). Your input helps us improve our guidelines and make the Boring-Stack project even more awesome!
