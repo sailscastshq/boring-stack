@@ -1,9 +1,6 @@
 import { createApp, h } from 'vue'
-import { createInertiaApp } from '@inertiajs/inertia-vue3'
-import { InertiaProgress } from '@inertiajs/progress'
+import { createInertiaApp } from '@inertiajs/vue3'
 import '~/css/main.css'
-
-InertiaProgress.init()
 
 createInertiaApp({
   resolve: (name) => require(`./pages/${name}`),
@@ -11,5 +8,8 @@ createInertiaApp({
     createApp({ render: () => h(App, props) })
       .use(plugin)
       .mount(el)
+  },
+  progress: {
+    color: '#29d'
   }
 })
