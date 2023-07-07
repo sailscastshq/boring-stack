@@ -35,7 +35,7 @@ async function main() {
 
   s.start('Copying project files.')
   await downloadProject(specifiedProjectName, { frontend: specifiedFrontend })
-  s.stop(color.green('Template copied!'))
+  s.stop(color.cyan('Template copied!'))
 
   injectDefaultDek(root)
   injectSessionSecret(root)
@@ -45,11 +45,11 @@ async function main() {
   console.log()
 
   if (root !== cwd) {
-    console.log(`  ${color.green(`cd ${path.relative(cwd, root)}`)}`)
+    console.log(`  ${color.cyan(`cd ${path.relative(cwd, root)}`)}`)
   }
   const packageManager = detectPackageManager()
-  console.log(`  ${color.green(getCommand(packageManager, 'install'))}`)
-  console.log(`  ${color.green('sails lift')}`)
+  console.log(`  ${color.cyan(getCommand(packageManager, 'install'))}`)
+  console.log(`  ${color.cyan('npx sails lift')}`)
 
   outro(color.inverse('Enjoy your boring project.'))
   process.exit(0)

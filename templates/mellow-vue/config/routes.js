@@ -8,7 +8,7 @@
  * http://sailsjs.com/anatomy/config/routes-js
  */
 
- module.exports.routes = {
+module.exports.routes = {
   /***************************************************************************
    *                                                                          *
    * Custom routes here...                                                    *
@@ -19,5 +19,5 @@
    *                                                                          *
    ***************************************************************************/
   'GET /': 'home/index',
-  'GET /example': 'example/index',
+  'GET /example': 'example/index'
 }

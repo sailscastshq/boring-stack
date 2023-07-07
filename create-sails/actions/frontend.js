@@ -2,7 +2,14 @@ import { select, isCancel, cancel } from '@clack/prompts'
 import color from 'picocolors'
 
 export default async function frontend(argv) {
+  /**
+   * @type {('vue' | 'react' | 'svelte')[]}
+   */
   const supportedFrontends = ['vue', 'react', 'svelte']
+
+  /**
+   * @type {number}
+   */
   const countOfFrontendFlagsPassed = supportedFrontends.filter(
     (frontend) => argv[frontend]
   ).length

@@ -7,6 +7,7 @@ Thank you for taking the time to contribute to our project. We appreciate you! ð
 > **Pull Requests having no issue associated with them will not be accepted. Firstly get an issue assigned, whether it's already opened or raised by you, and then create a Pull Request.**
 
 ## Prerequisites
+
 Before you contribute to The Boring JavaScript Stack, make sure you have the following prerequisites:
 
 - Open Source Etiquette: If you've never contributed to an open source project before, have a read of [Basic etiquette](https://developer.mozilla.org/en-US/docs/MDN/Community/Open_source_etiquette) for open source projects.
@@ -18,6 +19,7 @@ Before you contribute to The Boring JavaScript Stack, make sure you have the fol
 ---
 
 ## How to Contribute ðŸ¤”
+
 To contribute to The Boring JavScript Stack, follow these steps:
 
 - Look at the existing [**Issues**](https://github.com/sailscastshq/boring-stack/issues) or create a new issue if you haven't found a suitable one.
@@ -40,6 +42,7 @@ If you're new to our project, we recommend starting with the [_Good first issue_
 ### Sending a Pull Request
 
 To ensure a smooth review process, please follow these guidelines:
+
 - Fork (https://help.github.com/articles/fork-a-repo) the repository into your own account.
 - In your forked repository, create a new branch: `git checkout -b my-branch develop`
 - Make your changes/fixes.
@@ -51,22 +54,22 @@ To ensure a smooth review process, please follow these guidelines:
 >
 > ** To ensure a better review experience, we kindly request that you use the following format for the PR title: `[chore]`, `[feat]`, or `[fix]`, followed by a descriptive title. For example, a chore-related change could have a title like `[chore] Update contributing guidelines`. This helps us categorize and understand the nature of the changes made in each PR..**
 
-   - Link the issue you have resolved in the Pull Request Template using the following syntax:
-   - If your Pull Request fixes issue #25, add `Fixes #25` or `Closes #25` to the description.
-   - If your Pull Request addresses multiple issues, list them using the same syntax (`Fixes #23, Fixes #15`).
+- Link the issue you have resolved in the Pull Request Template using the following syntax:
+- If your Pull Request fixes issue #25, add `Fixes #25` or `Closes #25` to the description.
+- If your Pull Request addresses multiple issues, list them using the same syntax (`Fixes #23, Fixes #15`).
 
-   This helps us track and automatically close the relevant issue when your Pull Request is merged.
+This helps us track and automatically close the relevant issue when your Pull Request is merged.
 
 ### Commits
 
- We highly encourage the use of conventional commits. Here are some examples:
+We highly encourage the use of conventional commits. Here are some examples:
 
-  - feat: Use this when adding a new feature.
-  - fix: Use this when resolving any issues in the codebase.
-  - chore: Use this when adding new links/resources or making minor changes.
-    (ex. chore: Add 'Privacy Policy' link in footer)
-  - Please keep your commit messages concise and clear.
-  - Write commit messages in the present tense, as they represent the current state of the codebase after the changes have been applied.
+- feat: Use this when adding a new feature.
+- fix: Use this when resolving any issues in the codebase.
+- chore: Use this when adding new links/resources or making minor changes.
+  (ex. chore: Add 'Privacy Policy' link in footer)
+- Please keep your commit messages concise and clear.
+- Write commit messages in the present tense, as they represent the current state of the codebase after the changes have been applied.
 
 For additional reference, check out [Conventional Commits](https://www.conventionalcommits.org/en/v1.0.0/)
 
