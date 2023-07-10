@@ -19,6 +19,11 @@ module.exports.routes = {
    *                                                                          *
    ***************************************************************************/
   'GET /': 'home/index',
+
+  /**
+   * Email/Password login/registration routes
+   */
+  'GET /register': 'auth/view-register',
   'GET /auth/redirect': 'auth/redirect',
   'GET /auth/callback': 'auth/callback'
 }
