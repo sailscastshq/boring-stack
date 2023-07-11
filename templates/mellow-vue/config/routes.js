@@ -20,10 +20,10 @@ module.exports.routes = {
    ***************************************************************************/
   'GET /': 'home/index',
 
-  /**
-   * Email/Password login/registration routes
-   */
-  'GET /register': 'auth/view-register',
+  'GET /signup': 'auth/view-signup',
+  'POST /signup': 'auth/signup',
+  'GET /verify-email': 'auth/view-verify-email',
+
   'GET /auth/redirect': 'auth/redirect',
   'GET /auth/callback': 'auth/callback'
 }
