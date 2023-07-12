@@ -30,7 +30,8 @@ module.exports.webpack = {
   resolve: {
     alias: {
       '~': path.resolve(__dirname, '..', 'assets'),
-      '@': path.resolve(__dirname, '..', 'assets', 'js')
+      '@': path.resolve(__dirname, '..', 'assets', 'js'),
+      components: path.resolve(__dirname, '..', 'assets', 'js', 'components')
     }
   },
 

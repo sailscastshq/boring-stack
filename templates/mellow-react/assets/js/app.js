@@ -8,6 +8,7 @@ InertiaProgress.init()
 
 createInertiaApp({
   resolve: (name) => require(`./pages/${name}`),
+  
   setup({ el, App, props }) {
     render(<App {...props} />, el)
   }
