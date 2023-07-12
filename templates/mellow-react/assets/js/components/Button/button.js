@@ -1,8 +1,10 @@
-import React from "react";
+import React, { useRef } from "react";
 import PropTypes from "prop-types";
 import clsx from "clsx";
 
 const Button = ({ className, children, fullwidth, inactive, href, ...props }) => {
+  const ref = useRef(null);
+
   const styles = {
     primary: `bg-brand text-white ${
       inactive ? "bg-neutral-200 text-zinc-500 pointer-events-none" : ""
@@ -23,14 +25,14 @@ const Button = ({ className, children, fullwidth, inactive, href, ...props }) =>
 
   if (href) {
     return (
-      <a className={rootClass} href={href} {...props}>
+      <a className={rootClass} href={href} {...props} ref={ref}>
         { children }
       </a>
     )
   };
 
   return ( 
-    <button className={rootClass} {...props}>
+    <button className={rootClass} {...props} ref={ref}>
       { children }
     </button>
   );
