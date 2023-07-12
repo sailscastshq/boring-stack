@@ -17,7 +17,7 @@ const Button = ({ className, children, fullwidth, inactive, href, ...props }) =>
     props.variant === "primary" && styles.primary,
     props.variant === "outline" && styles.outline,
     fullwidth ? "w-full" : "min-w-[10rem]",
-    inactive && "bg-neutral-200 text-zinc-500 pointer-events-none",
+    inactive && "border-none bg-neutral-200 text-zinc-500 pointer-events-none",
     "text-sm leading-normal font-medium py-2.5 px-6 rounded-[7px] flex items-center justify-center focus:outline-none focus-visible:ring-brand"
   );
 
