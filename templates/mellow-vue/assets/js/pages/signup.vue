@@ -9,7 +9,7 @@ const form = useForm({
 </script>
 
 <template>
-  <Head title="Register"></Head>
+  <Head title="Sign up"></Head>
   <main>
     <h1>Create your account</h1>
     <p>Welcome! Please enter your details to sign up</p>
