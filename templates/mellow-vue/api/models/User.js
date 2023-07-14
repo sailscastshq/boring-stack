@@ -56,7 +56,6 @@ module.exports = {
         "A unique token used to verify the user's identity when recovering a password.  Expires after 1 use, or after a set amount of time has elapsed.",
       columnName: 'password_reset_token'
     },
-
     passwordResetTokenExpiresAt: {
       type: 'number',
       description:
@@ -64,14 +63,12 @@ module.exports = {
       example: 1502844074211,
       columnName: 'password_reset_token_expires_at'
     },
-
     emailProofToken: {
       type: 'string',
       description:
         'A pseudorandom, probabilistically-unique token for use in our account verification emails.',
       columnName: 'email_proof_token'
     },
-
     emailProofTokenExpiresAt: {
       type: 'number',
       description:
