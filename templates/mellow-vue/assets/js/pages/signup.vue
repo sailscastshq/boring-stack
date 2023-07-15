@@ -3,6 +3,10 @@ import { Link, Head, useForm } from '@inertiajs/vue3'
 import { ref } from 'vue'
 
 const canSubmit = ref(true)
+const showPassword = ref(false)
+function toggleShowPassword() {
+  showPassword.value = !showPassword.value
+}
 const form = useForm({
   fullName: null,
   emailAddress: null,
@@ -132,12 +136,38 @@ const form = useForm({
             </svg>
           </span>
           <input
-            type="password"
+            :type="showPassword ? 'text' : 'password'"
             id="password"
             placeholder="Your password"
-            class="block w-full rounded-lg border border-gray/50 bg-white py-3 pl-10 pr-3 shadow-sm placeholder:text-lg placeholder:text-gray focus:outline-none focus:ring-1 focus:ring-gray-100"
+            class="block w-full rounded-lg border border-gray/50 bg-white py-3 pl-10 pr-8 shadow-sm placeholder:text-lg placeholder:text-gray focus:outline-none focus:ring-1 focus:ring-gray-100"
             v-model="form.password"
           />
+          <span class="absolute right-2 top-[57%]">
+            <button type="button" @click="toggleShowPassword">
+              <svg
+                class="h-5 w-5 fill-gray"
+                viewBox="0 0 16 16"
+                fill="none"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <g clip-path="url(#clip0_198_553)">
+                  <path
+                    d="M15.514 6.27935C14.48 4.59535 12.128 1.77002 8.00003 1.77002C3.87203 1.77002 1.52003 4.59535 0.486034 6.27935C0.166386 6.79636 -0.00292969 7.39218 -0.00292969 8.00002C-0.00292969 8.60786 0.166386 9.20368 0.486034 9.72069C1.52003 11.4047 3.87203 14.23 8.00003 14.23C12.128 14.23 14.48 11.4047 15.514 9.72069C15.8337 9.20368 16.003 8.60786 16.003 8.00002C16.003 7.39218 15.8337 6.79636 15.514 6.27935ZM14.3774 9.02269C13.4894 10.4667 11.4794 12.8967 8.00003 12.8967C4.5207 12.8967 2.5107 10.4667 1.6227 9.02269C1.43279 8.71538 1.3322 8.36127 1.3322 8.00002C1.3322 7.63877 1.43279 7.28466 1.6227 6.97735C2.5107 5.53335 4.5207 3.10335 8.00003 3.10335C11.4794 3.10335 13.4894 5.53069 14.3774 6.97735C14.5673 7.28466 14.6679 7.63877 14.6679 8.00002C14.6679 8.36127 14.5673 8.71538 14.3774 9.02269Z"
+                    fill="#878787"
+                  />
+                  <path
+                    d="M8.00008 4.66675C7.34081 4.66675 6.69635 4.86224 6.14818 5.22852C5.60002 5.59479 5.17278 6.11538 4.92048 6.72447C4.66819 7.33356 4.60218 8.00378 4.7308 8.65038C4.85942 9.29699 5.17689 9.89093 5.64306 10.3571C6.10924 10.8233 6.70318 11.1407 7.34978 11.2694C7.99639 11.398 8.66661 11.332 9.27569 11.0797C9.88478 10.8274 10.4054 10.4001 10.7716 9.85198C11.1379 9.30382 11.3334 8.65935 11.3334 8.00008C11.3324 7.11635 10.9808 6.26912 10.3559 5.64423C9.73104 5.01934 8.88381 4.66781 8.00008 4.66675ZM8.00008 10.0001C7.60452 10.0001 7.21784 9.88278 6.88894 9.66302C6.56004 9.44326 6.3037 9.1309 6.15232 8.76545C6.00095 8.4 5.96134 7.99786 6.03851 7.6099C6.11568 7.22194 6.30616 6.86557 6.58587 6.58587C6.86557 6.30616 7.22194 6.11568 7.6099 6.03851C7.99786 5.96134 8.4 6.00095 8.76545 6.15232C9.1309 6.3037 9.44326 6.56004 9.66302 6.88894C9.88278 7.21784 10.0001 7.60452 10.0001 8.00008C10.0001 8.53051 9.78937 9.03922 9.4143 9.4143C9.03922 9.78937 8.53052 10.0001 8.00008 10.0001Z"
+                    fill="#878787"
+                  />
+                </g>
+                <defs>
+                  <clipPath id="clip0_198_553">
+                    <rect width="16" height="16" fill="white" />
+                  </clipPath>
+                </defs>
+              </svg>
+            </button>
+          </span>
         </label>
         <ul class="flex justify-between text-sm">
           <li class="flex items-center space-x-1 text-gray-500">
