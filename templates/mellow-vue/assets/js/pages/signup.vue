@@ -48,7 +48,7 @@ const form = useForm({
       >
         <label for="fullName" class="relative block"
           ><span class="block text-lg">Name</span>
-          <span class="absolute left-2 top-[53%]">
+          <span class="absolute left-2 top-[55%]">
             <svg
               class="h-5 w-5 fill-gray"
               viewBox="0 0 16 16"
@@ -82,7 +82,7 @@ const form = useForm({
         </label>
         <label for="email" class="relative block"
           ><span class="block text-lg">Email</span>
-          <span class="absolute left-2 top-[53%]">
+          <span class="absolute left-2 top-[55%]">
             <svg
               class="h-5 w-5 fill-gray"
               viewBox="0 0 16 16"
@@ -105,7 +105,7 @@ const form = useForm({
         </label>
         <label for="password" class="relative block"
           ><span class="block text-lg">Password</span>
-          <span class="absolute left-2 top-[53%]">
+          <span class="absolute left-2 top-[55%]">
             <svg
               class="h-5 w-5 fill-gray"
               viewBox="0 0 16 16"
@@ -201,7 +201,7 @@ const form = useForm({
           Sign up
         </button>
       </form>
-      <Link
+      <a
         href="/auth/redirect"
         class="flex w-full justify-center space-x-3 rounded-md border border-gray-200 px-4 py-3 text-center text-lg text-gray"
       >
@@ -235,7 +235,7 @@ const form = useForm({
             d="M48 48L17 24l-4-3 35-10z"
           /></svg
         ><span>Continue with Google</span>
-      </Link>
+      </a>
     </main>
     <footer class="">
       <p>
