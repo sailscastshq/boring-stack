@@ -13,9 +13,11 @@ const form = useForm({
 <template>
   <Head title="Sign up"></Head>
   <section
-    class="min-h-screen bg-gradient-to-b from-brand-50/20 pt-10 text-black"
+    class="flex min-h-screen flex-col justify-center bg-gradient-to-b from-brand-50/10 to-[#F9FAFB] text-black sm:items-center"
   >
-    <main class="my-10 bg-white px-4 py-8">
+    <main
+      class="mt-10 bg-white px-4 py-10 text-black sm:w-7/12 sm:rounded-lg sm:px-8 sm:shadow-lg md:w-6/12 lg:w-5/12 xl:w-4/12"
+    >
       <section
         class="mb-6 flex flex-col items-center justify-center space-y-2 text-center"
       >
@@ -76,7 +78,7 @@ const form = useForm({
             type="text"
             id="fullName"
             placeholder="Your name"
-            class="block w-full rounded-lg border border-gray/50 bg-white py-3 pl-10 pr-3 shadow-sm placeholder:text-lg placeholder:text-gray focus:border-gray focus:outline-none focus:ring-1 focus:ring-gray-500"
+            class="block w-full rounded-lg border border-gray/50 bg-white py-3 pl-10 pr-3 shadow-sm placeholder:text-lg placeholder:text-gray focus:outline-none focus:ring-1 focus:ring-gray-100"
             v-model="form.fullName"
           />
         </label>
@@ -99,7 +101,7 @@ const form = useForm({
             type="email"
             id="email"
             placeholder="Your email"
-            class="block w-full rounded-lg border border-gray/50 bg-white py-3 pl-10 pr-3 shadow-sm placeholder:text-lg placeholder:text-gray focus:border-gray focus:outline-none focus:ring-1 focus:ring-gray-500"
+            class="block w-full rounded-lg border border-gray/50 bg-white py-3 pl-10 pr-3 shadow-sm placeholder:text-lg placeholder:text-gray focus:outline-none focus:ring-1 focus:ring-gray-100"
             v-model="form.emailAddress"
           />
         </label>
@@ -133,7 +135,7 @@ const form = useForm({
             type="password"
             id="password"
             placeholder="Your password"
-            class="block w-full rounded-lg border border-gray/50 bg-white py-3 pl-10 pr-3 shadow-sm placeholder:text-lg placeholder:text-gray focus:border-gray focus:outline-none focus:ring-1 focus:ring-gray-500"
+            class="block w-full rounded-lg border border-gray/50 bg-white py-3 pl-10 pr-3 shadow-sm placeholder:text-lg placeholder:text-gray focus:outline-none focus:ring-1 focus:ring-gray-100"
             v-model="form.password"
           />
         </label>
@@ -183,19 +185,17 @@ const form = useForm({
             <span>At least 1 special characters</span>
           </li>
         </ul>
-        <p>
+        <p class="text-gray">
           You agree to our
-          <a href="/terms" class="font-bold text-brand hover:underline"
-            >Terms Of Use</a
-          >
+          <a href="/terms" class="text-brand hover:underline">Terms Of Use</a>
           and
-          <a href="/privacy-policy" class="font-bold text-brand hover:underline"
+          <a href="/privacy-policy" class="text-brand hover:underline"
             >Privacy Policy</a
           >
         </p>
         <button
           type="submit"
-          class="rounded-md bg-brand px-4 py-3 text-white disabled:bg-gray-200/40 disabled:text-gray"
+          class="rounded-md border border-brand bg-brand px-4 py-3 text-white disabled:bg-gray-200/40 disabled:text-gray"
           :disabled="!canSubmit"
         >
           Sign up
@@ -237,12 +237,10 @@ const form = useForm({
         ><span>Continue with Google</span>
       </a>
     </main>
-    <footer class="">
+    <footer class="my-12 text-center text-gray">
       <p>
         Already have an account?
-        <Link href="/login" class="font-bold text-brand hover:underline"
-          >Login</Link
-        >
+        <Link href="/login" class="text-brand hover:underline">Login</Link>
       </p>
     </footer>
   </section>
