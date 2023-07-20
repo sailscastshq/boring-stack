@@ -47,11 +47,11 @@ module.exports = function badRequest(optionalData) {
 
         if (matches && matches.length > 1) {
           const propertyName = matches[1]
-          const cleanedProblem = problem.replace(/"([^"]+)"/, '$1')
+          const sanitizedProblem = problem.replace(/"([^"]+)"/, '$1')
           if (!errors[propertyName]) {
-            errors[propertyName] = [cleanedProblem]
+            errors[propertyName] = [sanitizedProblem]
           } else {
-            errors[propertyName].push(cleanedProblem)
+            errors[propertyName].push(sanitizedProblem)
           }
         }
       })
@@ -60,7 +60,6 @@ module.exports = function badRequest(optionalData) {
         req.session.errors = errors
       }
 
-      sails.log(req.session.errors)
       return res.status(statusCodeToSet).redirect('back')
     }
   }
