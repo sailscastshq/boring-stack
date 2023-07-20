@@ -6,9 +6,10 @@ module.exports = {
   inputs: {
     fullName: {
       type: 'string',
+      maxLength: 120,
       required: true
     },
-    emailAddress: {
+    email: {
       type: 'string',
       isEmail: true,
       required: true
@@ -29,7 +30,7 @@ module.exports = {
   fn: async function (inputs) {
     const unverifiedUser = await User.create(inputs).fetch()
     // share the email
-    sails.inertia.share('unverifiedUserEmail', unverifiedUser.emailAddress)
+    sails.inertia.share('unverifiedUserEmail', unverifiedUser.email)
     return '/verify-email'
   }
 }

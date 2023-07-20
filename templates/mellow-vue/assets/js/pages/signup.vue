@@ -9,7 +9,7 @@ function toggleShowPassword() {
 }
 const form = useForm({
   fullName: null,
-  emailAddress: null,
+  email: null,
   password: null
 })
 
@@ -114,7 +114,7 @@ const passwordIsValid = computed(() => {
             id="email"
             placeholder="Your email"
             class="block w-full rounded-lg border border-gray/50 bg-white py-3 pl-10 pr-3 shadow-sm placeholder:text-lg placeholder:text-gray focus:outline-none focus:ring-1 focus:ring-gray-100"
-            v-model="form.emailAddress"
+            v-model="form.email"
           />
         </label>
         <label for="password" class="relative block"
