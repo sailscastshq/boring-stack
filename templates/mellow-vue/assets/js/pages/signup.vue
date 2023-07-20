@@ -1,6 +1,6 @@
 <script setup>
 import { Link, Head, useForm } from '@inertiajs/vue3'
-import { ref } from 'vue'
+import { ref, computed } from 'vue'
 
 const canSubmit = ref(true)
 const showPassword = ref(false)
@@ -11,6 +11,14 @@ const form = useForm({
   fullName: null,
   emailAddress: null,
   password: null
+})
+
+const containsSpecialChars = computed(() => {
+  const specialChars = /[`!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?~]/
+  return specialChars.test(form.password)
+})
+const passwordIsValid = computed(() => {
+  return form.password?.length >= 8
 })
 </script>
 
@@ -190,7 +198,10 @@ const form = useForm({
           </span>
         </label>
         <ul class="flex justify-between text-sm">
-          <li class="flex items-center space-x-1 text-gray-500">
+          <li
+            class="flex items-center space-x-1 text-gray-500"
+            :class="{ 'text-green': passwordIsValid }"
+          >
             <svg
               width="16"
               height="16"
@@ -212,7 +223,10 @@ const form = useForm({
             </svg>
             <span>At least 8 characters</span>
           </li>
-          <li class="flex items-center space-x-1 text-gray-500">
+          <li
+            class="flex items-center space-x-1 text-gray-500"
+            :class="{ 'text-green': containsSpecialChars }"
+          >
             <svg
               width="16"
               height="16"
