@@ -17,7 +17,8 @@ module.exports = function resolveValidationErrors(req) {
     const mappedErrors = errorsForBag.map((error) =>
       error.replace(/"([^"]+)"/, '$1')
     )
-    result[bag] = mappedErrors
+    // Ensure that single errors are wrapped in an array
+    result[bag] = mappedErrors.length > 1 ? mappedErrors : mappedErrors[0]
     return result
   }, {})
 
