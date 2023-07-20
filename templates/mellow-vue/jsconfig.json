@@ -1,8 +1,8 @@
 {
   "compilerOptions": {
     "types": ["node"],
-    "lib": ["es2016"],
-    "allowJs": true,
-    "checkJs": true
+    "lib": ["es2016"]
+    // "allowJs": true,
+    // "checkJs": true
   }
 }
