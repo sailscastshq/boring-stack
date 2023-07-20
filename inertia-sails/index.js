@@ -10,7 +10,7 @@ module.exports = function defineInertiaHook(sails) {
   let sharedProps = {}
   let sharedViewData = {}
   let rootView = 'app'
-  routesToBindInertiaTo = [
+  const routesToBindInertiaTo = [
     'GET r|^((?![^?]*\\/[^?\\/]+\\.[^?\\/]+(\\?.*)?).)*$|',
     // (^^Leave out assets)
     'POST /*',
