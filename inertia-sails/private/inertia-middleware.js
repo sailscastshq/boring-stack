@@ -8,9 +8,11 @@ const {
 } = require('./inertia-headers')
 
 const getPartialData = require('./get-partial-data')
-
+const resolveValidationErrors = require('./resolve-validation-errors')
 function inertia(sails, { hook, sharedProps, sharedViewData, rootView }) {
   return function inertiaMiddleware(req, res, next) {
+    hook.share('errors', resolveValidationErrors(req))
+
     hook.render = function (component, props = {}, viewData = {}) {
       const allProps = {
         ...sharedProps,

@@ -29,13 +29,6 @@ module.exports = function defineInertiaHook(sails) {
       hook = this
       sails.inertia = hook
 
-      hook.share('flash', {
-        success: null,
-        error: null
-      })
-
-      hook.share('errors', {})
-
       sails.on('router:before', function routerBefore() {
         routesToBindInertiaTo.forEach(function iterator(routeAddress) {
           sails.router.bind(
