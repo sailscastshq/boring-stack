@@ -41,6 +41,7 @@
     "lint": "prettier --check .",
     "lint:fix": "prettier --write ."
   },
+  "types": "index.d.ts",
   "main": "app.js",
   "engines": {
     "node": ">=18.0"
