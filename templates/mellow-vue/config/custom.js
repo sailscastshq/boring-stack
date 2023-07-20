@@ -39,10 +39,6 @@ module.exports.custom = {
    **************************************************************************/
   rememberMeCookieMaxAge: 30 * 24 * 60 * 60 * 1000, // 30 days
 
-  // The sender that all outgoing emails will appear to come from.
-  fromEmailAddress: 'noreply@example.com',
-  fromName: 'The Boring Stack Team',
-
   // Email address for receiving support messages & other correspondences.
   internalEmailAddress: 'support+development@example.com',
 
