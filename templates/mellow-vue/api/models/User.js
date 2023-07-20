@@ -25,11 +25,11 @@ module.exports = {
       isEmail: true,
       maxLength: 200,
       example: 'mike@sailsjs.com',
-      columnName: 'email_address'
+      columnName: 'email'
     },
     emailStatus: {
       type: 'string',
-      isIn: ['verified', 'change-requested', 'unverifed'],
+      isIn: ['unverified', 'verified', 'change-requested'],
       defaultsTo: 'unverified',
       description: "The verification status of the user's email address.",
       extendedDescription: `Users might be created as "unverified" (e.g. normal signup) or as "verified" (e.g. hard-coded admin users). If a user signs up via an OAuth provider, this should be set to "verified" if the email has been verified by the OAuth provider`,
