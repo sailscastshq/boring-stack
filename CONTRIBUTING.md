@@ -24,7 +24,7 @@ To contribute to The Boring JavScript Stack, follow these steps:
 
 - Look at the existing [**Issues**](https://github.com/sailscastshq/boring-stack/issues) or create a new issue if you haven't found a suitable one.
 - [**Fork the Repo**](https://github.com/sailscastshq/boring-stack/issues) and create a branch for the specific issue you are working on. Let's start making a difference together! 😊
-- Create a **[Pull Request](https://github.com/sailscastshq/boring-stack)** (_PR_), which will be reviewed and given suggestions for improvements by the maintatiner.
+- Create a **[Pull Request](https://github.com/sailscastshq/boring-stack)** (_PR_), which will be reviewed and given suggestions for improvements by the maintainer.
 - If applicable, include screenshots or screen captures in your Pull Request to help us better understand the impact of your proposed changes.
 
 ---
