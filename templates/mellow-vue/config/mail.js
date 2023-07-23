@@ -54,7 +54,7 @@ module.exports.mail = {
    *
    */
   from: {
-    address: 'boring@sailscasts.com',
-    name: 'The Boring JavaScript Stack'
+    address: process.env.MAIL_FROM_ADDRESS || 'boring@sailscasts.com',
+    name: process.env.MAIL_FROM_NAME || 'The Boring JavaScript Stack'
   }
 }
