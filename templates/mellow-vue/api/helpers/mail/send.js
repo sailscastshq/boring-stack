@@ -10,7 +10,7 @@ module.exports = {
       extendedDescription:
         'The mailer should be configured properly in config/mails.js. If not specified, the default mailer in sails.config.mail.default will be used',
       defaultsTo: sails.config.mail.default,
-      isIn: ['log']
+      isIn: ['log', 'smtp']
     },
     template: {
       description:
@@ -88,6 +88,10 @@ module.exports = {
         'Otherwise by default, this returns immediately and delivers the request to deliver this email in the background.',
       type: 'boolean',
       defaultsTo: false
+    },
+    text: {
+      type: 'string',
+      example: 'Hello world?'
     }
   },
 
@@ -97,7 +101,17 @@ module.exports = {
     }
   },
 
-  fn: async function ({ template, templateData, layout, to, subject, mailer }) {
+  fn: async function ({
+    template,
+    templateData,
+    layout,
+    to,
+    subject,
+    mailer,
+    from: fromEmail,
+    fromName,
+    text
+  }) {
     if (template && !template.startsWith('email-')) {
       sails.log.warn(
         'The "template" that was passed in to `send()` does not begin with ' +
@@ -138,7 +152,7 @@ module.exports = {
     // > Note that we set the layout, provide access to core `url` package (for
     // > building links and image srcs, etc.)
     const url = require('url')
-    const htmlEmailContents = await sails
+    const html = await sails
       .renderView(emailTemplatePath, {
         layout: emailTemplateLayout,
         url,
@@ -161,20 +175,78 @@ module.exports = {
     // > a special-cased version of "user@example.com" is used by Trend Micro Mars
     // > scanner to "check apks for malware".)
     const isToAddressConsideredFake = Boolean(to.match(/@example\.com$/i))
-    if (mailer == 'log' || isToAddressConsideredFake) {
-      const logMessage = `
-    Mailer is set to log so Sails is logging the email:
-    -=-=-=-=-=-=-=-=-=-=-=-=-= Email log -=-=-=-=-=-=-=-=-=-=-=-=-=
-    To: ${to}
-    Subject: ${subject}
+    switch (mailer) {
+      case 'log':
+        if (isToAddressConsideredFake) {
+          const logMessage = `
+            Mailer is set to log so Sails is logging the email:
+            -=-=-=-=-=-=-=-=-=-=-=-=-= Email log -=-=-=-=-=-=-=-=-=-=-=-=-=
+            To: ${to}
+            Subject: ${subject}
 
-    Body:
-    ${htmlEmailContents}
-    -=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
-  `
-      sails.log(logMessage)
+            Body:
+            ${html}
+            -=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
+          `
+          sails.log(logMessage)
+        }
+        break
+
+      case 'smtp':
+        const nodemailer = getModule('nodemailer')
+        var transporter = nodemailer.createTransport({
+          host: sails.config.smtp.host || sails.config.mail.mailers.smtp.host,
+          port: sails.config.smtp.port || sails.config.mail.mailers.smtp.port,
+          auth: {
+            user:
+              sails.config.smtp.username ||
+              sails.config.mail.mailers.smtp.username,
+            pass:
+              sails.config.smtp.password ||
+              sails.config.mail.mailers.smtp.password
+          }
+        })
+
+        const info = await transporter.sendMail({
+          from: {
+            name: fromName || sails.config.mail.from.name,
+            address: fromEmail || sails.config.mail.from.email
+          },
+          to,
+          subject,
+          text,
+          html
+        })
+        sails.log('Message sent: %s', info.messageId)
+        break
+
+      default:
+        sails.log.error(`Unknown mailer: ${mailer}`)
+        break
     }
 
     return {}
   }
+}
+
+/**
+ * @typedef {function(string): any} GetModuleFunction
+ */
+
+/**
+ * Get the required module by name.
+ * @param {string} moduleName - The name of the module to require.
+ * @returns {any} The required module.
+ * @throws {Error} When the module is not installed.
+ */
+function getModule(moduleName) {
+  let requiredModule
+  try {
+    requiredModule = require(moduleName)
+  } catch (error) {
+    throw new Error(
+      `"${moduleName}" is not installed. Please run "npm install ${moduleName}" to install it.`
+    )
+  }
+  return requiredModule
 }

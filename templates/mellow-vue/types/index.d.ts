@@ -60,6 +60,14 @@ interface LogObject {
 }
 
 interface Config {
+  smtp: {
+    transport?: 'smtp'
+    host?: string
+    port?: number
+    encryption?: 'tls' | 'ssl'
+    username: string
+    password: string
+  }
   google: {
     clientId: string
     clientSecret: string
@@ -69,6 +77,14 @@ interface Config {
     default: string
     mailers: {
       log: object
+      smtp: {
+        transport: 'smtp'
+        host: string
+        port: number
+        encryption: 'tls' | 'ssl'
+        username?: string
+        password?: string
+      }
     }
     from: {
       name: string

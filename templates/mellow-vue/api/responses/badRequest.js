@@ -40,7 +40,8 @@ module.exports = function badRequest(optionalData) {
     if (
       optionalData &&
       optionalData.code &&
-      optionalData.code === 'E_MISSING_OR_INVALID_PARAMS'
+      (optionalData.code === 'E_MISSING_OR_INVALID_PARAMS' ||
+        optionalData.name === 'UsageError')
     ) {
       const errors = {}
       optionalData.problems.forEach((problem) => {

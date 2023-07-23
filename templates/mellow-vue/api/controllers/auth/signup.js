@@ -54,18 +54,20 @@ module.exports = {
       .intercept('E_UNIQUE', 'emailAlreadyInUse')
       .intercept({ name: 'UsageError' }, () => {
         throw {
-          badSignupRequest: { problems: [`"signup" something went wrong.`] }
+          badSignupRequest: {
+            problems: [
+              `"signup" Apologies, but something went wrong with signing you up. Please try again.`
+            ]
+          }
         }
       })
       .fetch()
 
-    sails.inertia.share('unverifiedUserEmail', unverifiedUser.email)
-
     this.req.session.userId = unverifiedUser.id
 
     await sails.helpers.mail.send.with({
-      template: 'email-verify-account',
       subject: 'Verify your email',
+      template: 'email-verify-account',
       to: unverifiedUser.email,
       templateData: {
         token: unverifiedUser.emailProofToken,
