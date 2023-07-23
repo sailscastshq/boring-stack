@@ -2,10 +2,10 @@
  * Inertia configuration
  * (sails.config.inertia)
  *
- * Use the settings below to configure session integration in your app.
+ * Use the settings below to configure Inertia integration in your app.
  *
  * For more information on Inertia configuration, visit:
- * https://inertia-sails.sailscasts.com
+ * https://docs.sailscasts.com/inertia-sails/
  */
 
 module.exports.inertia = {

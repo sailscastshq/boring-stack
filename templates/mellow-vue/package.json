@@ -12,6 +12,7 @@
     "@sailshq/socket.io-redis": "^5.2.0",
     "inertia-sails": "^0.1.6",
     "sails": "^1.5.2",
+    "sails-hook-organics": "^2.2.2",
     "sails-hook-orm": "^4.0.0",
     "sails-hook-sockets": "^2.0.0",
     "sails-hook-wish": "^0.0.7",

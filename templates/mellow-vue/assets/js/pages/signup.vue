@@ -8,9 +8,9 @@ function toggleShowPassword() {
   showPassword.value = !showPassword.value
 }
 const form = useForm({
-  fullName: null,
-  email: null,
-  password: null
+  fullName: 'Kelvin Omereshone',
+  email: 'kelvin@sailscasts.com',
+  password: 'kelvin123&'
 })
 
 const containsSpecialChars = computed(() => {

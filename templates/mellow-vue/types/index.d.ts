@@ -1,7 +1,7 @@
 interface Sails {
-  log: Log
+  log: LogMethod & LogObject
   models: { [modelName: string]: Model }
-  helpers: { [helperName: string]: Helper }
+  helpers: Helper
   on(event: string, listener: (...args: any[]) => void): void
   off(event: string, listener: (...args: any[]) => void): void
   emit(event: string, ...args: any[]): void
@@ -12,19 +12,51 @@ interface Sails {
   inertia: Inertia
   hooks: Hook
   config: Config
-  custom: Custom
+  req: {
+    ip: string
+  }
+  renderView: (
+    relPathToView: string,
+    _options: Dictionary,
+    optionalCb?: (err: Error | null, compiledHtml: string) => void
+  ) => Sails & Promise<string>
+  intercept(callback: (err: Error) => Error): Sails & Promise<string>
+}
+
+interface Helper {
+  passwords: {
+    hashPassword: (password: string, strength?: number) => Promise<string>
+  }
+  strings: {
+    random: (style?: 'url-friendly' | 'alphanumeric') => string
+  }
+  mail: {
+    send: {
+      with: (params: EmailParams) => Promise<string>
+    }
+  }
+}
+interface EmailParams {
+  to: string
+  subject?: string
+  template?: string
+  templateData?: object
 }
 
 interface Hook {
   inertia: Inertia
 }
-interface Log {
-  info(...args: any[]): void
-  error(...args: any[]): void
-  warn(...args: any[]): void
-  debug(...args: any[]): void
-  silly(...args: any[]): void
-  verbose(...args: any[]): void
+interface LogMethod {
+  (...args: any[]): void
+}
+
+interface LogObject {
+  info: LogMethod
+  warn: LogMethod
+  error: LogMethod
+  debug: LogMethod
+  silly: LogMethod
+  verbose: LogMethod
 }
 
 interface Config {
@@ -33,6 +65,17 @@ interface Config {
     clientSecret: string
     redirect: string
   }
+  mail: {
+    default: string
+    mailers: {
+      log: object
+    }
+    from: {
+      name: string
+      email: string
+    }
+  }
+  custom: Custom
 }
 
 interface Custom {

@@ -36,7 +36,9 @@ module.exports = function badRequest(optionalData) {
 
   // Check if it's an Inertia request
   if (req.header('X-Inertia')) {
+    console.log(optionalData)
     if (
+      optionalData &&
       optionalData.code &&
       optionalData.code === 'E_MISSING_OR_INVALID_PARAMS'
     ) {
