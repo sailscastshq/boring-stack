@@ -30,11 +30,10 @@ module.exports.mail = {
    * Sails Mail supports various mail "transport" options for sending emails. You can specify which one
    * you are using for your mailers below. Feel free to add additional mailers as needed.
    *
-   * Supported: "log", "sendgrid",
+   * Supported: "log", "smtp", "sendgrid",
    *
    */
   mailers: {
-    log: {},
     smtp: {
       transport: 'smtp',
       host: process.env.MAIL_HOST || 'sandbox.smtp.mailtrap.io',
@@ -42,6 +41,9 @@ module.exports.mail = {
       encryption: process.env.MAIL_ENCRYPTION || 'tls',
       username: process.env.MAIL_USERNAME,
       password: process.env.MAIL_PASSWORD
+    },
+    log: {
+      transport: 'log'
     }
   },
   /**

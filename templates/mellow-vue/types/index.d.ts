@@ -88,7 +88,7 @@ interface Config {
     }
     from: {
       name: string
-      email: string
+      address: string
     }
   }
   custom: Custom
