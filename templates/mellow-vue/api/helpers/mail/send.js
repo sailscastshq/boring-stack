@@ -65,7 +65,7 @@ module.exports = {
         'An override for the default "from" email that\'s been configured.',
       example: 'anne.martin@example.com',
       isEmail: true,
-      defaultsTo: sails.config.mail.from.email
+      defaultsTo: sails.config.mail.from.address
     },
 
     fromName: {
@@ -108,7 +108,7 @@ module.exports = {
     to,
     subject,
     mailer,
-    from: fromEmail,
+    from: fromAddress,
     fromName,
     text
   }) {
@@ -167,18 +167,9 @@ module.exports = {
         return err
       })
 
-    // Log info to the console about the email that WOULD have been sent.
-    // Specifically, if the mailer is set to 'log' or email address is anything "@example.com".
-
-    // > This is used below when determining whether to actually send the email,
-    // > for convenience during development, but also for safety.  (For example,
-    // > a special-cased version of "user@example.com" is used by Trend Micro Mars
-    // > scanner to "check apks for malware".)
-    const isToAddressConsideredFake = Boolean(to.match(/@example\.com$/i))
     switch (mailer) {
       case 'log':
-        if (isToAddressConsideredFake) {
-          const logMessage = `
+        const logMessage = `
             Mailer is set to log so Sails is logging the email:
             -=-=-=-=-=-=-=-=-=-=-=-=-= Email log -=-=-=-=-=-=-=-=-=-=-=-=-=
             To: ${to}
@@ -188,10 +179,8 @@ module.exports = {
             ${html}
             -=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
           `
-          sails.log(logMessage)
-        }
+        sails.log(logMessage)
         break
-
       case 'smtp':
         const nodemailer = getModule('nodemailer')
         var transporter = nodemailer.createTransport({
@@ -209,17 +198,16 @@ module.exports = {
 
         const info = await transporter.sendMail({
           from: {
-            name: fromName || sails.config.mail.from.name,
-            address: fromEmail || sails.config.mail.from.email
+            name: fromName,
+            address: fromAddress
           },
           to,
           subject,
           text,
           html
         })
-        sails.log('Message sent: %s', info.messageId)
+        sails.log.debug('Message sent: %s', info.messageId)
         break
-
       default:
         sails.log.error(`Unknown mailer: ${mailer}`)
         break
