@@ -16,5 +16,6 @@ module.exports.policies = {
    *                                                                          *
    ***************************************************************************/
   // '*': true,
-  'auth/view-check-email': 'is-authenticated'
+  'auth/view-check-email': 'is-authenticated',
+  'auth/view-verified-email': 'is-authenticated'
 }

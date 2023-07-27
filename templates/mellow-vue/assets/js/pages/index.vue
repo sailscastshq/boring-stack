@@ -10,6 +10,6 @@ const { name } = defineProps({
   <div
     class="flex h-screen flex-col items-center justify-center space-y-8 text-center text-gray-700"
   >
-    <a href="/auth/redirect">Signup with Google</a>
+    <h1>Mellow homepage</h1>
   </div>
 </template>

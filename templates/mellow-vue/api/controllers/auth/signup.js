@@ -32,7 +32,10 @@ module.exports = {
     },
     emailAlreadyInUse: {
       statusCode: 409,
-      description: 'The provided email address is already in use.'
+      viewTemplatePath: '500',
+      description: 'The email address is no longer available.',
+      extendedDescription:
+        'This is an edge case that is not always anticipated by websites and APIs.  Since it is pretty rare, the 500 server error page is used as a simple catch-all.  If this becomes important in the future, this could easily be expanded into a custom error page or resolution flow.  But for context: this behavior of showing the 500 server error page mimics how popular apps like Slack behave under the same circumstances.'
     },
     success: {
       responseType: 'redirect'
