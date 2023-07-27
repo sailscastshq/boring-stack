@@ -18,7 +18,7 @@ module.exports.mail = {
    * the default choice.
    *
    */
-  default: process.env.MAIL_MAILER || 'smtp',
+  default: process.env.MAIL_MAILER || 'nodemailer',
   /**
    * Mailer Configurations
    * (config.mail.mailers)
@@ -44,6 +44,12 @@ module.exports.mail = {
     },
     log: {
       transport: 'log'
+    },
+    mailtrap: {
+      transport: 'smtp'
+    },
+    nodemailer: {
+      transport: 'smtp'
     }
   },
   /**

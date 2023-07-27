@@ -13,6 +13,7 @@
     "inertia-sails": "^0.1.6",
     "nodemailer": "^6.9.4",
     "sails": "^1.5.2",
+    "sails-hook-mail": "^0.0.3",
     "sails-hook-organics": "^2.2.2",
     "sails-hook-orm": "^4.0.0",
     "sails-hook-sockets": "^2.0.0",
