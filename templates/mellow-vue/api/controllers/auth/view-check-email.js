@@ -8,6 +8,6 @@ module.exports = {
   },
 
   fn: async function () {
-    return sails.inertia.render('verify-email')
+    return sails.inertia.render('check-email')
   }
 }

@@ -22,7 +22,9 @@ module.exports.routes = {
 
   'GET /signup': 'auth/view-signup',
   'POST /signup': 'auth/signup',
-  'GET /verify-email': 'auth/view-verify-email',
+  'GET /check-email': 'auth/view-check-email',
+  'GET /verify-email': 'auth/verify-email',
+  'GET /verifed-email': 'auth/view-verified-email',
 
   'GET /auth/redirect': 'auth/redirect',
   'GET /auth/callback': 'auth/callback'

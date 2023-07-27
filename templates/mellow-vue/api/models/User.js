@@ -97,5 +97,23 @@ module.exports = {
       description: 'The picture URL provided by Google for an OAuth user.',
       columnName: 'google_avatar_url'
     }
+  },
+  customToJSON: function () {
+    return Object.keys(this).reduce((result, key) => {
+      if (
+        ![
+          'googleIdToken',
+          'googleUserId',
+          'googleAccessToken',
+          'password',
+          'passwordResetTokenExpiresAt',
+          'emailProofToken',
+          'emailProofTokenExpiresAt'
+        ].includes(key)
+      ) {
+        result[key] = this[key]
+      }
+      return result
+    }, {})
   }
 }

@@ -1,5 +1,9 @@
 <script setup>
-import { Link, Head } from '@inertiajs/vue3'
+import { Link, Head, usePage } from '@inertiajs/vue3'
+import { computed } from 'vue'
+const page = usePage()
+
+const loggedInUser = computed(() => page.props.loggedInUser)
 </script>
 <template>
   <Head title="Check your email"></Head>
@@ -40,7 +44,7 @@ import { Link, Head } from '@inertiajs/vue3'
 
         <h1 class="text-2xl">Check your email</h1>
         <p class="text-lg text-gray">
-          We sent an email verification link to user@theboringstack.com
+          We sent an email verification link to {{ loggedInUser.email }}
         </p>
         <button
           type="button"

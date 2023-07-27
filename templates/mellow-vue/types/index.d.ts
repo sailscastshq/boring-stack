@@ -29,6 +29,7 @@ interface Helper {
   }
   strings: {
     random: (style?: 'url-friendly' | 'alphanumeric') => string
+    uuid: () => string
   }
   mail: {
     send: {

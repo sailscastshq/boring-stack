@@ -2,7 +2,6 @@
 import { Link, Head, useForm } from '@inertiajs/vue3'
 import { ref, computed } from 'vue'
 
-const canSubmit = ref(true)
 const showPassword = ref(false)
 function toggleShowPassword() {
   showPassword.value = !showPassword.value
@@ -19,6 +18,13 @@ const containsSpecialChars = computed(() => {
 })
 const passwordIsValid = computed(() => {
   return form.password?.length >= 8
+})
+
+const disableSignupButton = computed(() => {
+  if (!passwordIsValid.value) return true
+  if (!containsSpecialChars.value) return true
+  if (form.processing) return true
+  return false
 })
 </script>
 
@@ -259,10 +265,32 @@ const passwordIsValid = computed(() => {
         </p>
         <button
           type="submit"
-          class="rounded-md border border-brand bg-brand px-4 py-3 text-white disabled:bg-gray-200/40 disabled:text-gray"
-          :disabled="!canSubmit"
+          class="flex justify-center rounded-md border border-brand bg-brand px-4 py-3 text-white disabled:cursor-not-allowed disabled:border-gray-200/40 disabled:bg-gray-200/40 disabled:text-gray"
+          :disabled="disableSignupButton"
         >
-          Sign up
+          <svg
+            v-if="form.processing"
+            class="-ml-1 mr-3 h-5 w-5 animate-spin text-white"
+            xmlns="http://www.w3.org/2000/svg"
+            fill="none"
+            viewBox="0 0 24 24"
+          >
+            <circle
+              class="opacity-25"
+              cx="12"
+              cy="12"
+              r="10"
+              stroke="currentColor"
+              stroke-width="4"
+            ></circle>
+            <path
+              class="opacity-75"
+              fill="currentColor"
+              d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"
+            ></path>
+          </svg>
+          <span v-if="form.processing"> Processing... </span>
+          <span v-else> Sign up </span>
         </button>
       </form>
       <a
