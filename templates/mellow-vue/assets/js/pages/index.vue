@@ -1,6 +1,4 @@
 <script setup>
-import { Link } from '@inertiajs/vue3'
-
 const { name } = defineProps({
   name: String
 })
