@@ -35,12 +35,7 @@ module.exports.mail = {
    */
   mailers: {
     smtp: {
-      transport: 'smtp',
-      host: process.env.MAIL_HOST || 'sandbox.smtp.mailtrap.io',
-      port: process.env.MAIL_PORT || 2525,
-      encryption: process.env.MAIL_ENCRYPTION || 'tls',
-      username: process.env.MAIL_USERNAME,
-      password: process.env.MAIL_PASSWORD
+      transport: 'smtp'
     },
     log: {
       transport: 'log'
@@ -62,7 +57,7 @@ module.exports.mail = {
    *
    */
   from: {
-    address: process.env.MAIL_FROM_ADDRESS || 'boring@sailscasts.com',
-    name: process.env.MAIL_FROM_NAME || 'The Boring JavaScript Stack'
+    address: 'boring@sailscasts.com',
+    name: 'The Boring JavaScript Stack'
   }
 }
