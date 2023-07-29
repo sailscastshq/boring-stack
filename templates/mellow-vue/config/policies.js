@@ -18,5 +18,6 @@ module.exports.policies = {
   // '*': true,
   'auth/view-check-email': 'is-authenticated',
   'auth/view-verified-email': 'is-authenticated',
-  'auth/view-link-expired': 'is-authenticated'
+  'auth/view-link-expired': 'is-authenticated',
+  'auth/resend-link': 'is-authenticated'
 }

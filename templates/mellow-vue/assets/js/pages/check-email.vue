@@ -55,12 +55,7 @@ const loggedInUser = computed(() => page.props.loggedInUser)
 
         <p class="my-8 text-center text-gray">
           Didn't receive email?
-          <Link
-            href="/resend-email"
-            method="post"
-            class="text-brand hover:underline"
-            >Resend</Link
-          >
+          <a href="/resend-link" class="text-brand hover:underline">Resend</a>
         </p>
       </section>
     </main>

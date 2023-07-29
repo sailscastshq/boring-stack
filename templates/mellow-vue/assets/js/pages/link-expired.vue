@@ -47,13 +47,12 @@ const loggedInUser = computed(() => page.props.loggedInUser)
           The email verification link for {{ loggedInUser.email }} has expired
           or been used.
         </p>
-        <Link
+        <a
           href="/resend-link"
-          method="post"
           class="w-full rounded-md border border-brand bg-brand px-4 py-3 text-white disabled:bg-gray-200/40 disabled:text-gray"
         >
           Resend link
-        </Link>
+        </a>
       </section>
     </main>
     <footer class="my-8 text-center text-black">
