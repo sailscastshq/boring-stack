@@ -21,15 +21,18 @@
     "webpack": "^5.72.1"
   },
   "devDependencies": {
+    "@japa/runner": "^2.5.1",
     "@types/node": "^20.3.3",
     "autoprefixer": "^10.4.7",
     "clean-webpack-plugin": "^4.0.0",
     "copy-webpack-plugin": "^10.2.4",
     "css-loader": "^6.7.1",
     "mini-css-extract-plugin": "^2.6.0",
+    "playwright": "^1.36.2",
     "postcss": "^8.4.13",
     "postcss-loader": "^6.2.1",
-    "prettier": "^2.6.2",
+    "preset-sails": "^1.0.2",
+    "prettier": "2.8.8",
     "prettier-plugin-tailwindcss": "^0.1.11",
     "sails.io.js": "^1.2.1",
     "socket.io-client": "^2.2.0",
@@ -42,7 +45,8 @@
     "dev": "node --watch app.js",
     "start": "NODE_ENV=production node app.js",
     "lint": "prettier --check .",
-    "lint:fix": "prettier --write ."
+    "lint:fix": "prettier --write .",
+    "test:e2e": "node bin/test.js e2e"
   },
   "types": "index.d.ts",
   "main": "app.js",
