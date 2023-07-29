@@ -7,9 +7,9 @@ function toggleShowPassword() {
   showPassword.value = !showPassword.value
 }
 const form = useForm({
-  fullName: 'Kelvin Omereshone',
-  email: 'kelvin@sailscasts.com',
-  password: 'kelvin123&'
+  fullName: null,
+  email: null,
+  password: null
 })
 
 const containsSpecialChars = computed(() => {
@@ -157,12 +157,19 @@ const disableSignupButton = computed(() => {
             v-model="form.password"
           />
           <span class="absolute right-2 top-[57%]">
-            <button type="button" @click="toggleShowPassword">
+            <button
+              type="button"
+              @click="toggleShowPassword"
+              aria-label="Toggle Password Visibility"
+            >
               <svg
                 v-if="!showPassword"
                 class="h-5 w-5 fill-gray"
                 viewBox="0 0 16 16"
+                role="img"
+                aria-label="Password is not visible"
                 fill="none"
+                aria-hidden="true"
                 xmlns="http://www.w3.org/2000/svg"
               >
                 <g clip-path="url(#clip0_198_553)">
@@ -185,7 +192,10 @@ const disableSignupButton = computed(() => {
                 v-else
                 class="h-5 w-5 fill-gray"
                 viewBox="0 0 16 16"
+                role="img"
+                aria-label="Password is visible"
                 fill="none"
+                aria-hidden="true"
                 xmlns="http://www.w3.org/2000/svg"
               >
                 <g clip-path="url(#clip0_208_684)">
