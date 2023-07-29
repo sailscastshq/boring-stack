@@ -33,7 +33,7 @@ module.exports = {
 
   fn: async function ({ token }) {
     if (!token) {
-      throw 'invalidOrExpiration'
+      throw 'invalidOrExpiredToken'
     }
 
     const user = await User.findOne({ emailProofToken: token })

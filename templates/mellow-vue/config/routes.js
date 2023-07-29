@@ -25,7 +25,9 @@ module.exports.routes = {
   'GET /check-email': 'auth/view-check-email',
   'GET /verify-email': 'auth/verify-email',
   'GET /verified-email': 'auth/view-verified-email',
+  'GET /link-expired': 'auth/view-link-expired',
 
+  // Continue with Google flow
   'GET /auth/redirect': 'auth/redirect',
   'GET /auth/callback': 'auth/callback'
 }
