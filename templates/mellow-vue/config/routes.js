@@ -29,6 +29,9 @@ module.exports.routes = {
   'GET /resend-link': 'auth/resend-link',
 
   'GET /login': 'auth/view-login',
+  'POST /login': 'auth/login',
+
+  'POST /logout': 'user/logout',
 
   // Continue with Google flow
   'GET /auth/redirect': 'auth/redirect',
