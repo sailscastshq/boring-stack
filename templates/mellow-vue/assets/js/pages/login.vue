@@ -53,7 +53,7 @@ const disableSignupButton = computed(() => {
         <p class="text-lg text-gray">Welcome back, please enter your details</p>
       </section>
       <form
-        @submit.prevent="form.post('/signup')"
+        @submit.prevent="form.post('/login')"
         class="mb-4 flex flex-col space-y-6"
       >
         <label for="email" class="relative block"
@@ -171,7 +171,7 @@ const disableSignupButton = computed(() => {
         </label>
         <section class="flex justify-between text-sm accent-brand">
           <label for="rememberMe" class="flex items-center space-x-2 text-gray">
-            <input id="rememberMe" type="checkbox" :value="form.rememberMe" />
+            <input id="rememberMe" type="checkbox" v-model="form.rememberMe" />
             <span>Remember me</span>
           </label>
 
