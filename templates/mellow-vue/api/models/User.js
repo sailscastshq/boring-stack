@@ -115,5 +115,14 @@ module.exports = {
       }
       return result
     }, {})
+  },
+  beforeCreate: async function (valuesToSet, proceed) {
+    valuesToSet.id = sails.helpers.strings.uuid()
+    valuesToSet.initials = sails.helpers.getUserInitials(valuesToSet.fullName)
+    valuesToSet.password = await sails.helpers.passwords.hashPassword(
+      valuesToSet.password
+    )
+
+    return proceed()
   }
 }
