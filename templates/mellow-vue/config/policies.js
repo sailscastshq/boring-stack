@@ -16,9 +16,11 @@ module.exports.policies = {
    *                                                                          *
    ***************************************************************************/
   // '*': true,
+  'auth/*': 'is-guest',
   'auth/view-check-email': 'is-authenticated',
   'auth/view-verified-email': 'is-authenticated',
   'auth/view-link-expired': 'is-authenticated',
   'auth/resend-link': 'is-authenticated',
-  'auth/view-login': 'is-guest'
+  'auth/view-login': 'is-guest',
+  'user/*': 'is-authenticated'
 }
