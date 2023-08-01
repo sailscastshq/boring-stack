@@ -28,6 +28,8 @@ module.exports.routes = {
   'GET /link-expired': 'auth/view-link-expired',
   'GET /resend-link': 'auth/resend-link',
 
+  'GET /login': 'auth/view-login',
+
   // Continue with Google flow
   'GET /auth/redirect': 'auth/redirect',
   'GET /auth/callback': 'auth/callback'
