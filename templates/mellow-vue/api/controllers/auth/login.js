@@ -9,7 +9,7 @@ bcrypt to compare the hashed password from the database with the provided
 password attempt.`,
 
   inputs: {
-    emailAddress: {
+    email: {
       description: 'The email to try in this attempt, e.g. "irl@example.com".',
       type: 'string',
       required: true
@@ -37,7 +37,8 @@ it includes a cookie (like a web browser), Sails will automatically make this
 user id available as req.session.userId in the corresponding action.  (Also note
 that, thanks to the included "custom" hook, when a relevant request is received
 from a logged-in user, that user's entire record from the database will be fetched
-and exposed as a shared data via loggedInUser prop.)`
+and exposed as a shared data via loggedInUser prop.)`,
+      responseType: 'redirect'
     }
   },
 

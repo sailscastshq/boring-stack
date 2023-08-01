@@ -26,6 +26,10 @@ interface Sails {
 interface Helper {
   passwords: {
     hashPassword: (password: string, strength?: number) => Promise<string>
+    checkPassword: (
+      passwordAttempt: string,
+      hashedPassword: string
+    ) => Promise<Sails>
   }
   strings: {
     random: (style?: 'url-friendly' | 'alphanumeric') => string
@@ -36,6 +40,7 @@ interface Helper {
       with: (params: EmailParams) => Promise<string>
     }
   }
+  getUserInitials: (fullName: string) => string
 }
 interface EmailParams {
   to: string
