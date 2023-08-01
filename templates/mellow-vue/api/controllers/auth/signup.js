@@ -46,9 +46,8 @@ module.exports = {
     const email = userEmail.toLowerCase()
 
     const unverifiedUser = await User.create({
-      id: sails.helpers.strings.uuid(),
       email,
-      password: await sails.helpers.passwords.hashPassword(password),
+      password,
       fullName,
       tosAcceptedByIp: this.req.ip,
       emailProofToken: sails.helpers.strings.random('url-friendly'),
