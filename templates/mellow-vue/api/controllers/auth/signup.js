@@ -46,7 +46,6 @@ module.exports = {
     const email = userEmail.toLowerCase()
 
     const unverifiedUser = await User.create({
-      id: sails.helpers.strings.uuid(),
       email,
       password,
       fullName,
