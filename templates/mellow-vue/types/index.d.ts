@@ -43,6 +43,7 @@ interface Helper {
   getUserInitials: (fullName: string) => string
 }
 interface EmailParams {
+  mailer?: string
   to: string
   subject?: string
   template?: string
