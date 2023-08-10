@@ -51,4 +51,17 @@ test.group('/signup', (group) => {
     await page.assertExists('svg[aria-label="Password is not visible"]')
     await page.assertNotExists('svg[aria-label="Password is visible"]')
   })
+
+  test('user can signup with valid data', async ({ visit, route, assert }) => {
+    page = await visit(route('auth/view-signup'))
+    await page.getByLabel('Name').fill('Kelvin Omereshone')
+    await page.getByLabel('Email').fill('tests@example.com')
+    await page.getByPlaceholder('Your password').fill('Kelvin1234585&')
+    await page.getByPlaceholder('Your password').fill('Kelvin1234585&')
+    await page.getByRole('button', { name: 'Sign up' }).click()
+
+    await page.waitForURL(route('auth/view-check-email'))
+    await page.assertPath('/check-email')
+    await page.assertVisible(page.getByText('tests@example.com'))
+  }).pin()
 })
