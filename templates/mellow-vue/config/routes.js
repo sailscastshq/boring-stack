@@ -31,6 +31,8 @@ module.exports.routes = {
   'GET /login': 'auth/view-login',
   'POST /login': 'auth/login',
 
+  'GET /forgot-password': 'auth/view-forgot-password',
+
   'POST /logout': 'user/logout',
 
   // Continue with Google flow
