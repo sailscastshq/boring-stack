@@ -63,5 +63,5 @@ test.group('/signup', (group) => {
     await page.waitForURL(route('auth/view-check-email'))
     await page.assertPath('/check-email')
     await page.assertVisible(page.getByText('tests@example.com'))
-  }).pin()
+  })
 })
