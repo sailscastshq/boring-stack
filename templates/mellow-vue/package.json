@@ -14,7 +14,7 @@
     "nodemailer": "^6.9.4",
     "resend": "^0.17.2",
     "sails": "^1.5.2",
-    "sails-hook-mail": "^0.0.4",
+    "sails-hook-mail": "^0.0.5",
     "sails-hook-organics": "^2.2.2",
     "sails-hook-orm": "^4.0.0",
     "sails-hook-sockets": "^2.0.0",
