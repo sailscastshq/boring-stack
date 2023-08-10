@@ -21,6 +21,5 @@ module.exports.policies = {
   'auth/view-verified-email': 'is-authenticated',
   'auth/view-link-expired': 'is-authenticated',
   'auth/resend-link': 'is-authenticated',
-  'auth/view-login': 'is-guest',
   'user/*': 'is-authenticated'
 }
