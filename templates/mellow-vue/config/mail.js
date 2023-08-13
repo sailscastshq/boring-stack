@@ -18,7 +18,7 @@ module.exports.mail = {
    * the default choice.
    *
    */
-  default: process.env.MAIL_MAILER || 'log',
+  default: process.env.MAIL_MAILER || 'nodemailer',
   /**
    * Mailer Configurations
    * (config.mail.mailers)
