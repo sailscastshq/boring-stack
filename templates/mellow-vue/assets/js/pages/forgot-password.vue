@@ -1,6 +1,6 @@
 <script setup>
 import { Link, Head, useForm } from '@inertiajs/vue3'
-import { ref, computed } from 'vue'
+import { computed } from 'vue'
 
 const form = useForm({
   email: null,
