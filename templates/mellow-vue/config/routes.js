@@ -32,6 +32,7 @@ module.exports.routes = {
   'POST /login': 'auth/login',
 
   'GET /forgot-password': 'auth/view-forgot-password',
+  'POST /forgot-password': 'auth/forgot-password',
 
   'POST /logout': 'user/logout',
 
