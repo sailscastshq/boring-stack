@@ -12,7 +12,7 @@ const form = useForm({
   rememberMe: false
 })
 
-const disableSignupButton = computed(() => {
+const disableLoginButton = computed(() => {
   if (!form.email) return true
   if (!form.password) return true
   if (form.processing) return true
@@ -182,7 +182,7 @@ const disableSignupButton = computed(() => {
         <button
           type="submit"
           class="flex justify-center rounded-md border border-brand bg-brand px-4 py-3 text-white disabled:cursor-not-allowed disabled:border-gray-200/40 disabled:bg-gray-200/40 disabled:text-gray"
-          :disabled="disableSignupButton"
+          :disabled="disableLoginButton"
         >
           <svg
             v-if="form.processing"
