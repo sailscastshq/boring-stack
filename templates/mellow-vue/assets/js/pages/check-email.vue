@@ -1,9 +1,9 @@
 <script setup>
-import { Link, Head, usePage } from '@inertiajs/vue3'
-import { computed } from 'vue'
-const page = usePage()
+import { Link, Head } from '@inertiajs/vue3'
 
-const loggedInUser = computed(() => page.props.loggedInUser)
+const { message } = defineProps({
+  message: String
+})
 </script>
 <template>
   <Head title="Check your email"></Head>
@@ -43,8 +43,8 @@ const loggedInUser = computed(() => page.props.loggedInUser)
         </svg>
 
         <h1 class="text-2xl">Check your email</h1>
-        <p class="text-lg text-gray">
-          We sent an email verification link to {{ loggedInUser.email }}
+        <p class="text-lg text-gray" v-if="message">
+          {{ message }}
         </p>
         <button
           type="button"

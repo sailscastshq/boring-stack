@@ -15,11 +15,8 @@ module.exports.policies = {
    * (`true` allows public access)                                            *
    *                                                                          *
    ***************************************************************************/
-  // '*': true,
   'auth/*': 'is-guest',
-  'auth/view-check-email': 'is-authenticated',
-  'auth/view-verified-email': 'is-authenticated',
-  'auth/view-link-expired': 'is-authenticated',
-  'auth/resend-link': 'is-authenticated',
+  'auth/view-verified-email': true,
+  'auth/logout': 'is-authenticated',
   'user/*': 'is-authenticated'
 }

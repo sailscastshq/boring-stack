@@ -33,8 +33,10 @@ module.exports.routes = {
 
   'GET /forgot-password': 'auth/view-forgot-password',
   'POST /forgot-password': 'auth/forgot-password',
+  'GET /reset-password': 'auth/view-reset-password',
+  'POST /reset-password': 'auth/reset-password',
 
-  'POST /logout': 'user/logout',
+  'POST /logout': 'auth/logout',
 
   // Continue with Google flow
   'GET /auth/redirect': 'auth/redirect',

@@ -66,7 +66,7 @@ module.exports = {
       })
       .fetch()
 
-    this.req.session.userId = unverifiedUser.id
+    this.req.session.userEmail = unverifiedUser.email
 
     await sails.helpers.mail.send.with({
       subject: 'Verify your email',

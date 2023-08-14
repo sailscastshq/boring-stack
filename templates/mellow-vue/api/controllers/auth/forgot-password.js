@@ -18,7 +18,8 @@ module.exports = {
   exits: {
     success: {
       description:
-        'The email address might have matched a user in the database.  (If so, a recovery email was sent.)'
+        'The email address might have matched a user in the database.  (If so, a recovery email was sent.)',
+      responseType: 'redirect'
     }
   },
 
@@ -45,5 +46,6 @@ module.exports = {
         token
       }
     })
+    return '/check-email'
   }
 }
