@@ -46,6 +46,7 @@ module.exports = {
         token
       }
     })
+    this.req.session.userEmail = user.email
     return '/check-email'
   }
 }
