@@ -24,7 +24,7 @@ module.exports = {
   },
 
   fn: async function ({ email }) {
-    var user = await User.findOne({ email })
+    const user = await User.findOne({ email })
     if (!user) {
       return
     }
