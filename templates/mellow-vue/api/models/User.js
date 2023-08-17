@@ -124,5 +124,13 @@ module.exports = {
     )
 
     return proceed()
+  },
+  beforeUpdate: async function (valuesToSet, proceed) {
+    if (valuesToSet.password) {
+      valuesToSet.password = await sails.helpers.passwords.hashPassword(
+        valuesToSet.password
+      )
+    }
+    return proceed()
   }
 }
