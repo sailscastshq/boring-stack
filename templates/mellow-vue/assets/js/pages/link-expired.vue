@@ -1,9 +1,5 @@
 <script setup>
-import { Link, Head, usePage } from '@inertiajs/vue3'
-import { computed } from 'vue'
-const page = usePage()
-
-const loggedInUser = computed(() => page.props.loggedInUser)
+import { Link, Head } from '@inertiajs/vue3'
 </script>
 <template>
   <Head title="Verification expired"></Head>
@@ -42,10 +38,9 @@ const loggedInUser = computed(() => page.props.loggedInUser)
           </defs>
         </svg>
 
-        <h1 class="text-2xl">Verfication link expired</h1>
+        <h1 class="text-2xl">Token expired</h1>
         <p class="text-lg text-gray">
-          The email verification link for {{ loggedInUser.email }} has expired
-          or been used.
+          The token sent to your email has expired or been used.
         </p>
         <a
           href="/resend-link"
