@@ -52,7 +52,7 @@ module.exports = {
       this.req.session.userId = user.id
       delete this.req.session.userEmail
 
-      return '/verified-email'
+      return '/verify-email/success'
     } else if (user.emailStatus == 'change-requested') {
       if (!user.emailChangeCandidate) {
         throw new Error(

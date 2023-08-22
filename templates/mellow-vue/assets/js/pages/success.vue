@@ -1,8 +1,19 @@
 <script setup>
 import { Link, Head } from '@inertiajs/vue3'
+const { pageTitle, pageHeading, message } = defineProps({
+  pageTitle: {
+    type: String
+  },
+  pageHeading: {
+    type: String
+  },
+  message: {
+    type: String
+  }
+})
 </script>
 <template>
-  <Head title="Email verified"></Head>
+  <Head :title="pageTitle"></Head>
   <section
     class="flex min-h-screen flex-col justify-center bg-gradient-to-b from-brand-50/10 to-[#F9FAFB] text-black sm:items-center"
   >
@@ -38,10 +49,9 @@ import { Link, Head } from '@inertiajs/vue3'
           </defs>
         </svg>
 
-        <h1 class="text-2xl">Email verification successful</h1>
+        <h1 class="text-2xl">{{ pageHeading }}</h1>
         <p class="text-lg text-gray">
-          Email has been successfully verified. Click continue to go to the
-          homepage
+          {{ message }}. Click continue to go to the homepage
         </p>
         <Link
           href="/"

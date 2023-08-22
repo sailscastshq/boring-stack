@@ -24,9 +24,9 @@ module.exports.routes = {
   'POST /signup': 'auth/signup',
   'GET /check-email': 'auth/view-check-email',
   'GET /verify-email': 'auth/verify-email',
-  'GET /verified-email': 'auth/view-verified-email',
   'GET /link-expired': 'auth/view-link-expired',
   'GET /resend-link': 'auth/resend-link',
+  'GET /:operation/success': 'auth/view-success',
 
   'GET /login': 'auth/view-login',
   'POST /login': 'auth/login',

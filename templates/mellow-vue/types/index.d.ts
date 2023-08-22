@@ -41,6 +41,7 @@ interface Helper {
     }
   }
   getUserInitials: (fullName: string) => string
+  capitalize: (inputString: string) => string
 }
 interface EmailParams {
   mailer?: string

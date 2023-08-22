@@ -21,6 +21,11 @@ module.exports = {
     if (!token) {
       throw 'invalidOrExpiredToken'
     }
-    return sails.inertia.render('reset-password')
+    const user = await User.findOne({ passwordResetToken: token })
+
+    if (!user || user.passwordResetTokenExpiresAt <= Date.now()) {
+      throw 'invalidOrExpiredToken'
+    }
+    return sails.inertia.render('reset-password', { token })
   }
 }

@@ -1,12 +1,15 @@
 <script setup>
 import { Link, Head, useForm } from '@inertiajs/vue3'
 import { ref, computed } from 'vue'
-
+const { token } = defineProps({
+  token: String
+})
 const showPassword = ref(false)
 function toggleShowPassword() {
   showPassword.value = !showPassword.value
 }
 const form = useForm({
+  token,
   password: null,
   confirmPassword: null
 })
@@ -23,6 +26,7 @@ const disableResetPasswordButton = computed(() => {
   if (!passwordIsValid.value) return true
   if (!containsSpecialChars.value) return true
   if (form.processing) return true
+  if (form.password != form.confirmPassword) return true
   return false
 })
 </script>
