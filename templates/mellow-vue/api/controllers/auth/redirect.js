@@ -3,7 +3,12 @@ module.exports = {
 
   description: 'Redirect auth.',
 
-  inputs: {},
+  inputs: {
+    provider: {
+      isIn: ['google'],
+      required: true
+    }
+  },
 
   exits: {
     success: {
@@ -11,7 +16,7 @@ module.exports = {
     }
   },
 
-  fn: async function () {
-    return sails.wish.provider('google').redirect()
+  fn: async function ({ provider }) {
+    return sails.wish.provider(provider).redirect()
   }
 }

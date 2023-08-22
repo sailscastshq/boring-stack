@@ -38,7 +38,7 @@ module.exports.routes = {
 
   'POST /logout': 'auth/logout',
 
-  // Continue with Google flow
-  'GET /auth/redirect': 'auth/redirect',
-  'GET /auth/callback': 'auth/callback'
+  // Continue with OAuth flow
+  'GET /auth/:provider/redirect': 'auth/redirect',
+  'GET /auth/:provider/callback': 'auth/callback'
 }

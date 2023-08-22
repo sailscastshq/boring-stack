@@ -10,6 +10,7 @@ interface Sails {
   load(): Sails
   getVersion(): string
   inertia: Inertia
+  wish: Wish
   hooks: Hook
   config: Config
   req: {
@@ -110,7 +111,11 @@ interface Custom {
   internalEmail: string
   verifyEmail: boolean
 }
-
+interface Wish {
+  provider: (provider: string) => Wish
+  redirect: () => string
+  user: (code: string) => GoogleUser | GitHubUser
+}
 interface Inertia {
   share: (key: string, value?: any) => void
   render: (
@@ -125,6 +130,18 @@ interface Inertia {
   getRootView: () => string
 }
 
+interface GoogleUser {
+  id: string
+  email: string
+  verified_email: boolean
+  name: string
+  given_name: string
+  family_name: string
+  picture: string
+  locale: string
+  accessToken: string
+  idToken: string
+}
 declare const sails: Sails
 
 declare const User

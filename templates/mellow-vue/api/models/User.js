@@ -32,7 +32,7 @@ module.exports = {
       isIn: ['unverified', 'verified', 'change-requested'],
       defaultsTo: 'unverified',
       description: "The verification status of the user's email address.",
-      extendedDescription: `Users might be created as "unverified" (e.g. normal signup) or as "verified" (e.g. hard-coded admin users). If a user signs up via an OAuth provider, this should be set to "verified" if the email has been verified by the OAuth provider`,
+      extendedDescription: `Users might be created as "unverified" (e.g. normal signup) or as "verified" (e.g. hard-coded admin users or OAuth flow). If a user signs up via an OAuth provider, this should be set to "verified" if the email has been verified by the OAuth provider`,
       columnName: 'email_status'
     },
     emailChangeCandidate: {
@@ -76,11 +76,11 @@ module.exports = {
       example: 1502844074211,
       columnName: 'email_proof_token_expires_at'
     },
-    googleUserId: {
+    googleId: {
       type: 'string',
       description:
         'The unique ID of a user that signs in or register with their Google account.',
-      columnName: 'google_user_id'
+      columnName: 'google_id'
     },
     googleAccessToken: {
       type: 'string',
@@ -119,9 +119,11 @@ module.exports = {
   beforeCreate: async function (valuesToSet, proceed) {
     valuesToSet.id = sails.helpers.strings.uuid()
     valuesToSet.initials = sails.helpers.getUserInitials(valuesToSet.fullName)
-    valuesToSet.password = await sails.helpers.passwords.hashPassword(
-      valuesToSet.password
-    )
+    if (valuesToSet.password) {
+      valuesToSet.password = await sails.helpers.passwords.hashPassword(
+        valuesToSet.password
+      )
+    }
 
     return proceed()
   },

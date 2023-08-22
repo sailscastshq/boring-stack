@@ -209,7 +209,7 @@ const disableLoginButton = computed(() => {
         </button>
       </form>
       <a
-        href="/auth/redirect"
+        href="/auth/google/redirect"
         class="flex w-full justify-center space-x-3 rounded-md border border-gray-200 px-4 py-3 text-center text-lg text-gray"
       >
         <svg
