@@ -8,8 +8,6 @@ module.exports = {
   exits: {},
 
   fn: async function () {
-    return sails.inertia.render('index', {
-      name: 'Inertia'
-    })
+    return sails.inertia.render('index')
   }
 }
