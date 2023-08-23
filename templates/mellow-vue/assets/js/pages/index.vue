@@ -11,7 +11,7 @@ const loggedInUser = ref(usePage().props.loggedInUser)
   <Head title="Mellow Vue"></Head>
   <main>
     <header class="bg-gradient-to-b from-brand-50/10 to-[#F9FAFB]">
-      <nav class="flex items-center justify-between px-4 py-6">
+      <nav class="flex items-center justify-between px-4 py-6 sm:px-8">
         <Link href="/">
           <svg
             class="w-12"
@@ -33,11 +33,13 @@ const loggedInUser = ref(usePage().props.loggedInUser)
           class="flex items-center justify-items-end space-x-4 text-sm"
           v-if="!loggedInUser"
         >
-          <li><Link href="/login" class="text-brand">Login</Link></li>
+          <li>
+            <Link href="/login" class="text-brand sm:text-lg">Login</Link>
+          </li>
           <li>
             <Link
               href="/signup"
-              class="rounded-lg bg-brand px-8 py-4 text-white"
+              class="rounded-lg bg-brand px-8 py-4 text-white sm:py-3"
               >Sign up</Link
             >
           </li>
@@ -59,22 +61,23 @@ const loggedInUser = ref(usePage().props.loggedInUser)
           </Link>
         </section>
       </nav>
-      <section class="space-y-4 py-12 text-center text-black">
+      <section
+        class="space-y-4 py-12 text-center text-black sm:space-y-7 sm:py-16"
+      >
         <h2
-          class="mx-auto w-4/6 rounded-full border border-green bg-green-50/30 p-2 font-light text-green"
+          class="mx-auto w-4/6 rounded-full border border-green bg-green-50/30 p-2 font-light text-green sm:w-1/6"
         >
           Number #1 starter template
         </h2>
-        <h1 class="text-2xl">
+        <h1 class="text-2xl sm:mx-auto sm:w-1/2 sm:text-6xl">
           Simplifying user authentication and profile management
         </h1>
-        <p class="px-4 text-gray">
+        <p class="px-4 text-gray sm:mx-auto sm:w-1/2 sm:text-2xl">
           The default starter template of the Boring Stack. Save time and effort
           by leveraging Mellow's powerful features and intuitive design.
         </p>
         <svg
-          width="390"
-          height="196"
+          class="mx-auto h-48 sm:h-96"
           viewBox="0 0 390 196"
           fill="none"
           xmlns="http://www.w3.org/2000/svg"
@@ -743,7 +746,9 @@ const loggedInUser = ref(usePage().props.loggedInUser)
         </svg>
       </section>
     </header>
-    <section class="space-y-8 px-4 py-8">
+    <section
+      class="space-y-8 px-4 py-8 sm:grid sm:grid-cols-2 sm:gap-4 sm:space-y-0 sm:px-10"
+    >
       <article>
         <h3 class="text-xl text-brand">Productivity</h3>
         <p class="font-light text-gray">
