@@ -1,8 +1,10 @@
 <script setup>
 import { ref } from 'vue'
+
 import { Link, Head, usePage } from '@inertiajs/vue3'
+
 /** @type LoggedInUser */
-let loggedInUser = ref(usePage().props.loggedInUser)
+const loggedInUser = ref(usePage().props.loggedInUser)
 </script>
 
 <template>
