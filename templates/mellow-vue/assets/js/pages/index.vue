@@ -1,15 +1,18 @@
 <script setup>
-import { Link, Head } from '@inertiajs/vue3'
+import { ref } from 'vue'
+import { Link, Head, usePage } from '@inertiajs/vue3'
+/** @type LoggedInUser */
+let loggedInUser = ref(usePage().props.loggedInUser)
 </script>
 
 <template>
   <Head title="Mellow Vue"></Head>
   <main>
     <header class="bg-gradient-to-b from-brand-50/10 to-[#F9FAFB]">
-      <nav class="flex justify-between px-4 py-6">
+      <nav class="flex items-center justify-between px-4 py-6">
         <Link href="/">
           <svg
-            class="w-20"
+            class="w-12"
             viewBox="0 0 50 33"
             fill="none"
             xmlns="http://www.w3.org/2000/svg"
@@ -24,7 +27,10 @@ import { Link, Head } from '@inertiajs/vue3'
             />
           </svg>
         </Link>
-        <ul class="flex items-center justify-items-end space-x-4 text-sm">
+        <ul
+          class="flex items-center justify-items-end space-x-4 text-sm"
+          v-if="!loggedInUser"
+        >
           <li><Link href="/login" class="text-brand">Login</Link></li>
           <li>
             <Link
@@ -34,6 +40,22 @@ import { Link, Head } from '@inertiajs/vue3'
             >
           </li>
         </ul>
+        <section class="flex items-center" v-else>
+          <Link href="/profile">
+            <p
+              class="rounded-full bg-green p-2 text-white"
+              v-if="!loggedInUser.googleAvatarUrl"
+            >
+              {{ loggedInUser.initials }}
+            </p>
+            <img
+              v-else
+              class="h-12 w-12 rounded-full border-2 border-gray-100"
+              :src="loggedInUser.googleAvatarUrl"
+              :alt="loggedInUser.fullName"
+            />
+          </Link>
+        </section>
       </nav>
       <section class="space-y-4 py-12 text-center text-black">
         <h2
@@ -747,7 +769,7 @@ import { Link, Head } from '@inertiajs/vue3'
     </section>
     <section class="bg-[#F9FAFB] px-4 py-8">
       <h2 class="text-xl text-black">Frequently asked questions</h2>
-      <details class="border-b border-[#D7D7D7] py-4">
+      <details class="relative border-b border-[#D7D7D7] py-4">
         <summary class="text-gray">What is Mellow?</summary>
         <p class="text-sm text-black">
           Mellow is the default starter template for The Boring JavaScript
@@ -755,7 +777,7 @@ import { Link, Head } from '@inertiajs/vue3'
           box.
         </p>
       </details>
-      <details class="border-b border-[#D7D7D7] py-4">
+      <details class="relative border-b border-[#D7D7D7] py-4">
         <summary class="text-gray">How do I get started with Mellow?</summary>
         <p class="text-sm text-black">
           Chances are you already have scaffolded a new project using mellow if
@@ -763,7 +785,7 @@ import { Link, Head } from '@inertiajs/vue3'
           coding away.
         </p>
       </details>
-      <details class="border-b border-[#D7D7D7] py-4">
+      <details class="relative border-b border-[#D7D7D7] py-4">
         <summary class="text-gray">Can I customize Mellow?</summary>
         <p class="text-sm text-black">
           For sure! All the code in Mellow is open source so you can copy and
@@ -815,7 +837,7 @@ summary::-webkit-details-marker {
 
 summary::after {
   position: absolute;
-  right: 15px;
+  right: 0px;
   content: ' +';
 }
 details[open] summary:after {

@@ -21,7 +21,7 @@ module.exports = function defineCustomHook(sails) {
             if (req.session.userId) {
               const loggedInUser = await User.findOne({
                 id: req.session.userId
-              }).select(['email', 'fullName', 'googleAvatarUrl'])
+              }).select(['email', 'fullName', 'googleAvatarUrl', 'initials'])
               if (!loggedInUser) {
                 sails.log.warn(
                   'Somehow, the user record for the logged-in user (`' +

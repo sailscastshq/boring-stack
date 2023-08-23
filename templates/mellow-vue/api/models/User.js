@@ -18,6 +18,9 @@ module.exports = {
       example: 'Mike McNeil',
       columnName: 'full_name'
     },
+    initials: {
+      type: 'string'
+    },
     email: {
       type: 'string',
       required: true,

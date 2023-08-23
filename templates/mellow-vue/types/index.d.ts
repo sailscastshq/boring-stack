@@ -142,6 +142,14 @@ interface GoogleUser {
   accessToken: string
   idToken: string
 }
+
+interface LoggedInUser {
+  id: string
+  fullName: string
+  email: string
+  initials?: string
+  googleAvatarUrl?: string
+}
 declare const sails: Sails
 
 declare const User
