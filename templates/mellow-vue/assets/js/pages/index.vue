@@ -11,7 +11,7 @@ const loggedInUser = ref(usePage().props.loggedInUser)
   <Head title="Mellow Vue"></Head>
   <main>
     <header class="bg-gradient-to-b from-brand-50/10 to-[#F9FAFB]">
-      <nav class="flex items-center justify-between px-4 py-6 sm:px-8">
+      <nav class="flex items-center justify-between px-4 py-6 md:px-8">
         <Link href="/">
           <svg
             class="w-12"
@@ -34,12 +34,12 @@ const loggedInUser = ref(usePage().props.loggedInUser)
           v-if="!loggedInUser"
         >
           <li>
-            <Link href="/login" class="text-brand sm:text-lg">Login</Link>
+            <Link href="/login" class="text-brand md:text-lg">Login</Link>
           </li>
           <li>
             <Link
               href="/signup"
-              class="rounded-lg bg-brand px-8 py-4 text-white sm:py-3"
+              class="rounded-lg bg-brand px-8 py-4 text-white md:py-3"
               >Sign up</Link
             >
           </li>
@@ -62,22 +62,23 @@ const loggedInUser = ref(usePage().props.loggedInUser)
         </section>
       </nav>
       <section
-        class="space-y-4 py-12 text-center text-black sm:space-y-7 sm:py-16"
+        class="space-y-4 py-12 text-center text-black md:space-y-7 md:py-16"
       >
         <h2
-          class="mx-auto w-4/6 rounded-full border border-green bg-green-50/30 p-2 font-light text-green sm:w-1/6"
+          class="mx-auto w-4/6 rounded-full border border-green bg-green-50/30 p-2 font-light text-green md:w-1/6"
         >
           Number #1 starter template
         </h2>
-        <h1 class="text-2xl sm:mx-auto sm:w-1/2 sm:text-6xl">
+        <h1 class="text-2xl md:mx-auto md:w-1/2 md:text-6xl">
           Simplifying user authentication and profile management
         </h1>
-        <p class="px-4 text-gray sm:mx-auto sm:w-1/2 sm:text-2xl">
-          The default starter template of the Boring Stack. Save time and effort
-          by leveraging Mellow's powerful features and intuitive design.
+        <p class="px-4 text-gray md:mx-auto md:w-1/2 md:text-2xl">
+          The default starter template of The Boring JavaScript Stack. Save time
+          and effort by leveraging Mellow's powerful features and intuitive
+          design.
         </p>
         <svg
-          class="mx-auto h-48 sm:h-96"
+          class="mx-auto h-48 md:h-96"
           viewBox="0 0 390 196"
           fill="none"
           xmlns="http://www.w3.org/2000/svg"
@@ -747,58 +748,70 @@ const loggedInUser = ref(usePage().props.loggedInUser)
       </section>
     </header>
     <section
-      class="space-y-8 px-4 py-8 sm:grid sm:grid-cols-2 sm:gap-4 sm:space-y-0 sm:px-10"
+      class="space-y-8 px-4 py-8 md:grid md:grid-cols-2 md:gap-12 md:space-y-0 md:p-12"
     >
       <article>
-        <h3 class="text-xl text-brand">Productivity</h3>
-        <p class="font-light text-gray">
+        <h3 class="text-xl text-brand md:mb-2 md:text-2xl">Productivity</h3>
+        <p class="font-light text-gray md:text-lg">
           Let Mellow be the starting point of your next SPA. With authentication
           and profile management taken care of, you can focus on your core
           business logic
         </p>
       </article>
       <article>
-        <h3 class="text-xl text-brand">Seamless authentication</h3>
-        <p class="font-light text-gray">
+        <h3 class="text-xl text-brand md:mb-2 md:text-2xl">
+          Seamless authentication
+        </h3>
+        <p class="font-light text-gray md:text-lg">
           Experience effortless user authentication and simplified profile
           management with Mellow, creating a seamless user journey for
           developers and users.
         </p>
       </article>
       <article>
-        <h3 class="text-xl text-brand">Profile management</h3>
-        <p class="font-light text-gray">
+        <h3 class="text-xl text-brand md:mb-2 md:text-2xl">
+          Profile management
+        </h3>
+        <p class="font-light text-gray md:text-lg">
           Let users manage their profiles with ease using Mellow. It offers a
           simple and secure way to update their name, email address, and
           password.
         </p>
       </article>
     </section>
-    <section class="bg-[#F9FAFB] px-4 py-8">
-      <h2 class="text-xl text-black">Frequently asked questions</h2>
-      <details class="relative border-b border-[#D7D7D7] py-4">
-        <summary class="text-gray">What is Mellow?</summary>
-        <p class="text-sm text-black">
-          Mellow is the default starter template for The Boring JavaScript
-          Stack. It provides authentication and profile management out of the
-          box.
-        </p>
-      </details>
-      <details class="relative border-b border-[#D7D7D7] py-4">
-        <summary class="text-gray">How do I get started with Mellow?</summary>
-        <p class="text-sm text-black">
-          Chances are you already have scaffolded a new project using mellow if
-          you are seeing this. Just open up the project in your editor and start
-          coding away.
-        </p>
-      </details>
-      <details class="relative border-b border-[#D7D7D7] py-4">
-        <summary class="text-gray">Can I customize Mellow?</summary>
-        <p class="text-sm text-black">
-          For sure! All the code in Mellow is open source so you can copy and
-          paste and customize to your heart's content.
-        </p>
-      </details>
+    <section class="bg-[#F9FAFB] px-4 py-8 md:flex md:space-x-64 md:p-12">
+      <h2 class="flex-grow-0 text-xl text-black md:w-2/12 md:text-3xl">
+        Frequently asked questions
+      </h2>
+      <section class="flex-1">
+        <details class="relative border-b border-[#D7D7D7] py-4">
+          <summary class="text-gray md:text-lg">What is Mellow?</summary>
+          <p class="text-sm text-black md:text-lg">
+            Mellow is the default starter template for The Boring JavaScript
+            Stack. It provides authentication and profile management out of the
+            box.
+          </p>
+        </details>
+        <details class="relative border-b border-[#D7D7D7] py-4">
+          <summary class="text-gray md:text-lg">
+            How do I get started with Mellow?
+          </summary>
+          <p class="text-sm text-black md:text-lg">
+            Chances are you already have scaffolded a new project using mellow
+            if you are seeing this. Just open up the project in your editor and
+            start coding away.
+          </p>
+        </details>
+        <details class="relative border-b border-[#D7D7D7] py-4">
+          <summary class="text-gray md:text-lg">
+            Can I customize Mellow?
+          </summary>
+          <p class="text-sm text-black md:text-lg">
+            For sure! All the code in Mellow is open source so you can copy and
+            paste and customize to your heart's content.
+          </p>
+        </details>
+      </section>
     </section>
   </main>
   <footer
@@ -846,6 +859,16 @@ summary::after {
   position: absolute;
   right: 0px;
   content: ' +';
+}
+@keyframes details-show {
+  from {
+    opacity: 0;
+    transform: var(--details-translate, translateY(-0.5em));
+  }
+}
+
+details[open] > *:not(summary) {
+  animation: details-show 150ms ease-in-out;
 }
 details[open] summary:after {
   content: ' −';

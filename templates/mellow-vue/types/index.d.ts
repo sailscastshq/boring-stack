@@ -47,9 +47,25 @@ interface Helper {
 interface EmailParams {
   mailer?: string
   to: string
+  cc?: string | array<string>
+  bcc?: string | array<string>
   subject?: string
   template?: string
   templateData?: object
+  attachments?: EmailAttachment[]
+}
+interface EmailAttachment {
+  filename: string
+  content?: string | Buffer | NodeJS.ReadableStream
+  path?: string
+  href?: string
+  httpHeaders?: { [key: string]: string }
+  contentType?: string
+  contentDisposition?: string
+  cid?: string
+  encoding?: string
+  headers?: { [key: string]: string }
+  raw?: string
 }
 
 interface Hook {
