@@ -36,6 +36,7 @@ module.exports.routes = {
   'GET /reset-password': 'auth/view-reset-password',
   'POST /reset-password': 'auth/reset-password',
 
+  'GET /profile': 'user/view-profile',
   'POST /logout': 'auth/logout',
 
   // Continue with OAuth flow

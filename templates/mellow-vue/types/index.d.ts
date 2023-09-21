@@ -165,6 +165,7 @@ interface LoggedInUser {
   email: string
   initials?: string
   googleAvatarUrl?: string
+  value: LoggedInUser
 }
 declare const sails: Sails
 
