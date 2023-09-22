@@ -64,12 +64,14 @@ const form = useForm({
       </section>
     </nav>
   </header>
-  <main class="space-y-4 px-4">
-    <h1 class="text-2xl">Profile</h1>
-    <p class="text-gray">Update your name and email address</p>
-    <form @submit.prevent="form.post('/profile')" class="space-y-4">
+  <main class="mx-auto space-y-4 px-4 md:w-4/12 md:space-y-8">
+    <section class="md:flex md:items-center md:justify-between">
+      <section class="md:space-y-2">
+        <h1 class="text-2xl md:text-3xl">Profile</h1>
+        <p class="text-gray md:text-lg">Update your name and email address</p>
+      </section>
       <button
-        type="submit"
+        type="button"
         class="flex justify-center rounded-md border border-brand bg-brand px-4 py-3 text-white disabled:cursor-not-allowed disabled:border-gray-200/40 disabled:bg-gray-200/40 disabled:text-gray"
       >
         <svg
@@ -95,6 +97,8 @@ const form = useForm({
         </svg>
         <span v-else> Save changes </span>
       </button>
+    </section>
+    <form class="space-y-4">
       <label for="fullName" class="relative block"
         ><span class="block text-lg">Name</span>
         <span class="absolute left-2 top-[55%]">
@@ -155,7 +159,11 @@ const form = useForm({
     </form>
   </main>
   <aside class="mt-4 flex items-center justify-center">
-    <Link href="/logout" method="delete" as="button" class="text-red-500"
+    <Link
+      href="/logout"
+      method="delete"
+      as="button"
+      class="text-red-500 hover:underline md:text-lg"
       >Logout</Link
     >
   </aside>
