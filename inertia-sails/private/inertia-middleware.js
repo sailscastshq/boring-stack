@@ -48,9 +48,8 @@ function inertia(sails, { hook, sharedProps, sharedViewData, rootView }) {
         url += `?${encode(queryParams)}`
       }
 
-      // Implements inertia requests
       if (isInertiaRequest(req)) {
-        return res.status(200).json(page)
+        return res.json(page)
       }
 
       // Implements full page reload
@@ -59,19 +58,26 @@ function inertia(sails, { hook, sharedProps, sharedViewData, rootView }) {
         viewData: allViewData
       })
     }
-    hook.location = function (url = req.headers['referer']) {
-      const statusCode = ['PUT', 'PATCH', 'DELETE'].includes(req.method)
-        ? 303
-        : 409
-      res.set('X-Inertia-Location', url)
-      return res.redirect(statusCode, url)
+    /**
+     * Handle 303 and external redirects
+     * see https://inertiajs.com/redirects#303-response-code
+     * @param {string} url - The URL to redirect to.
+     */
+    hook.location = function (url) {
+      if (isInertiaRequest(req)) {
+        res.set('X-Inertia-Location', url)
+      }
+      return res.redirect(
+        ['PUT', 'PATCH', 'DELETE'].includes(req.method) ? 303 : 409,
+        url
+      )
     }
 
-    // Set Inertia headers
     if (isInertiaRequest(req)) {
       res.set(INERTIA, true)
       res.set('Vary', 'Accept')
     }
+
     return next()
   }
 }
