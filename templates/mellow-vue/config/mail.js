@@ -18,7 +18,7 @@ module.exports.mail = {
    * the default choice.
    *
    */
-  default: process.env.MAIL_MAILER || 'nodemailer',
+  default: process.env.MAIL_MAILER || 'log',
   /**
    * Mailer Configurations
    * (config.mail.mailers)
@@ -30,7 +30,7 @@ module.exports.mail = {
    * Sails Mail supports various mail "transport" options for sending emails. You can specify which one
    * you are using for your mailers below. Feel free to add additional mailers as needed.
    *
-   * Supported transports: "log", "smtp", "resend", "sendgrid",
+   * Supported transports: "log", "smtp", "resend",
    *
    */
   mailers: {
@@ -40,14 +40,8 @@ module.exports.mail = {
     log: {
       transport: 'log'
     },
-    mailtrap: {
-      transport: 'smtp'
-    },
     nodemailer: {
       transport: 'smtp'
-    },
-    resend: {
-      transport: 'resend'
     }
   },
   /**
