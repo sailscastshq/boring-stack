@@ -6,14 +6,12 @@ module.exports = {
   inputs: {},
 
   exits: {
-    success: {
-      responseType: 'redirect'
-    }
+    success: {}
   },
 
   fn: async function () {
     sails.inertia.flushShared('loggedInUser')
     delete this.req.session.userId
-    return '/'
+    return sails.inertia.location('/')
   }
 }
