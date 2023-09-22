@@ -15,5 +15,7 @@ module.exports.policies = {
    * (`true` allows public access)                                            *
    *                                                                          *
    ***************************************************************************/
-  // '*': true,
+  'auth/*': 'is-guest',
+  'auth/view-success': true,
+  'user/*': 'is-authenticated'
 }
