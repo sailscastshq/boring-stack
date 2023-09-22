@@ -37,7 +37,8 @@ module.exports.routes = {
   'POST /reset-password': 'auth/reset-password',
 
   'GET /profile': 'user/view-profile',
-  'POST /logout': 'auth/logout',
+  'POST /profile': 'user/update-profile',
+  'DELETE /logout': 'user/logout',
 
   // Continue with OAuth flow
   'GET /auth/:provider/redirect': 'auth/redirect',
