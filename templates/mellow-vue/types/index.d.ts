@@ -144,6 +144,7 @@ interface Inertia {
   getViewData: (key: string) => any
   setRootView: (newRootView: string) => void
   getRootView: () => string
+  location: (path: string) => void
 }
 
 interface GoogleUser {
