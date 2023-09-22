@@ -17,6 +17,5 @@ module.exports.policies = {
    ***************************************************************************/
   'auth/*': 'is-guest',
   'auth/view-success': true,
-  'auth/logout': 'is-authenticated',
   'user/*': 'is-authenticated'
 }
