@@ -153,8 +153,10 @@ const form = useForm({
         />
       </label>
     </form>
-    <form action="" class="text-center">
-      <button class="text-red-500">Logout</button>
-    </form>
   </main>
+  <aside class="mt-4 flex items-center justify-center">
+    <Link href="/logout" method="delete" as="button" class="text-red-500"
+      >Logout</Link
+    >
+  </aside>
 </template>
