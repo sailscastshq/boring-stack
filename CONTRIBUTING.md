@@ -62,12 +62,30 @@ This helps us track and automatically close the relevant issue when your Pull Re
 
 ### Commits
 
-We highly encourage the use of conventional commits. Here are some examples:
+We highly encourage the use of conventional commits.
 
-- feat: Use this when adding a new feature.
-- fix: Use this when resolving any issues in the codebase.
-- chore: Use this when adding new links/resources or making minor changes.
-  (ex. chore: Add 'Privacy Policy' link in footer)
+Your commit messages should contain one of these keywords based on the changes your make:
+
+| Commit Type | Title                    | Description                                                                                                 | Emoji(Optional)  |
+| ----------- | ------------------------ | ----------------------------------------------------------------------------------------------------------- |:------:|
+| `feat`      | Features                 | A new feature                                                                                               | ✨     |
+| `fix`       | Bug Fixes                | A bug Fix                                                                                                   | 🐛     |
+| `docs`      | Documentation            | Documentation only changes                                                                                  | 📚     |
+| `style`     | Styles                   | Changes that do not affect the meaning of the code (white-space, formatting, missing semi-colons, etc)      | 💎     |
+| `refactor`  | Code Refactoring         | A code change that neither fixes a bug nor adds a feature                                                   | 📦     |
+| `perf`      | Performance Improvements | A code change that improves performance                                                                     | 🚀     |
+| `test`      | Tests                    | Adding missing tests or correcting existing tests                                                           | 🚨     |
+| `build`     | Builds                   | Changes that affect the build system or external dependencies (example scopes: gulp, broccoli, npm)         | 🛠     |
+| `ci`        | Continuous Integrations  | Changes to our CI configuration files and scripts (example scopes: Travis, Circle, BrowserStack, SauceLabs) | ⚙️     |
+| `chore`     | Chores                   | Other changes that don't modify src or test files                                                           | ♻️     |
+| `revert`    | Reverts                  | Reverts a previous commit                                                                                   | 🗑     |
+[Source](https://github.com/pvdlg/conventional-commit-types)
+
+Here are some examples:
+
+- `feat: Implement user authentication feature`
+- `fix: Null pointer exception when accessing user profile`
+- `chore: Add 'Privacy Policy' link in footer`
 - Please keep your commit messages concise and clear.
 - Write commit messages in the present tense, as they represent the current state of the codebase after the changes have been applied.
 
