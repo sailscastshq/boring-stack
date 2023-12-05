@@ -57,7 +57,7 @@
     </li>
     <li>
       <a
-        href="https://webpack.org"
+        href="https://webpack.js.org/"
         target="_blank"
         class="hover:text-gray-600 hover:underline"
       >
