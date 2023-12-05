@@ -1,5 +1,5 @@
 import Counter from '@/components/Counter'
-import { Link } from '@inertiajs/inertia-react'
+import { Link } from '@inertiajs/react'
 
 export default function Index({ name }) {
   return (
