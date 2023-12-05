@@ -13,7 +13,7 @@
     "sails": "^1.5.2",
     "sails-hook-orm": "^4.0.0",
     "sails-hook-sockets": "^2.0.0",
-    "svelte": "^3.48.0",
+    "svelte": "^4.2.8",
     "webpack": "^5.72.1"
   },
   "devDependencies": {
