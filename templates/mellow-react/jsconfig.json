@@ -1,5 +1,23 @@
 {
+  "include": ["api/**/*", "assets/js/**/*", "types/index.d.ts"],
+
   "compilerOptions": {
-    "checkJs": true
+    "types": ["node"],
+    "typeRoots": ["./types", "./node_modules/@types"],
+    "lib": ["es2016"],
+    // silences wrong TS error, we don't compile, we only typecheck
+    "outDir": "./irrelevant/unused",
+    "allowJs": true,
+    "checkJs": true,
+    "jsx": "react-jsx",
+    "noImplicitThis": true,
+    "noUnusedLocals": true,
+    "noUnusedParameters": true,
+    "noEmitOnError": true,
+    "noErrorTruncation": true,
+    "baseUrl": ".",
+    "paths": {
+      "@/*": ["assets/js/*"]
+    }
   }
 }
