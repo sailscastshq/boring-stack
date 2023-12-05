@@ -24,7 +24,7 @@ To contribute to The Boring JavScript Stack, follow these steps:
 
 - Look at the existing [**Issues**](https://github.com/sailscastshq/boring-stack/issues) or create a new issue if you haven't found a suitable one.
 - [**Fork the Repo**](https://github.com/sailscastshq/boring-stack/issues) and create a branch for the specific issue you are working on. Let's start making a difference together! 😊
-- Create a **[Pull Request](https://github.com/sailscastshq/boring-stack)** (_PR_), which will be reviewed and given suggestions for improvements by the maintatiner.
+- Create a **[Pull Request](https://github.com/sailscastshq/boring-stack)** (_PR_), which will be reviewed and given suggestions for improvements by the maintainer.
 - If applicable, include screenshots or screen captures in your Pull Request to help us better understand the impact of your proposed changes.
 
 ---
@@ -62,16 +62,38 @@ This helps us track and automatically close the relevant issue when your Pull Re
 
 ### Commits
 
-We highly encourage the use of conventional commits. Here are some examples:
+We highly encourage the use of conventional commits.
 
-- feat: Use this when adding a new feature.
-- fix: Use this when resolving any issues in the codebase.
-- chore: Use this when adding new links/resources or making minor changes.
-  (ex. chore: Add 'Privacy Policy' link in footer)
+Your commit messages should contain one of these keywords based on the changes your make:
+
+| Commit Type | Title                    | Description                                                                                                 | Emoji(Optional)  |
+| ----------- | ------------------------ | ----------------------------------------------------------------------------------------------------------- |:------:|
+| `feat`      | Features                 | A new feature                                                                                               | ✨     |
+| `fix`       | Bug Fixes                | A bug Fix                                                                                                   | 🐛     |
+| `docs`      | Documentation            | Documentation only changes                                                                                  | 📚     |
+| `style`     | Styles                   | Changes that do not affect the meaning of the code (white-space, formatting, missing semi-colons, etc)      | 💎     |
+| `refactor`  | Code Refactoring         | A code change that neither fixes a bug nor adds a feature                                                   | 📦     |
+| `perf`      | Performance Improvements | A code change that improves performance                                                                     | 🚀     |
+| `test`      | Tests                    | Adding missing tests or correcting existing tests                                                           | 🚨     |
+| `build`     | Builds                   | Changes that affect the build system or external dependencies (example scopes: gulp, broccoli, npm)         | 🛠     |
+| `ci`        | Continuous Integrations  | Changes to our CI configuration files and scripts (example scopes: Travis, Circle, BrowserStack, SauceLabs) | ⚙️     |
+| `chore`     | Chores                   | Other changes that don't modify src or test files                                                           | ♻️     |
+| `revert`    | Reverts                  | Reverts a previous commit                                                                                   | 🗑     |
+[Source](https://github.com/pvdlg/conventional-commit-types)
+
+Here are some examples:
+
+- `feat: Implement user authentication feature`
+- `fix: Null pointer exception when accessing user profile`
+- `chore: Add 'Privacy Policy' link in footer`
 - Please keep your commit messages concise and clear.
 - Write commit messages in the present tense, as they represent the current state of the codebase after the changes have been applied.
 
 For additional reference, check out [Conventional Commits](https://www.conventionalcommits.org/en/v1.0.0/)
+
+## First-time Contributor's Guide 📹
+
+If you're a first-time contributor to open source projects, we recommend watching this [YouTube video](https://www.youtube.com/watch?v=Vqjzl9f3lGM). It provides valuable insights and guidance for getting started.
 
 ## Your Feedback Matters! 💬
 

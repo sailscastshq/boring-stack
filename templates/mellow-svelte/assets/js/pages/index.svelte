@@ -1,6 +1,6 @@
 <script>
-  import { Link } from '@inertiajs/inertia-svelte'
-  import Counter from '@/components/Counter.svelte'
+  import { Link } from '@inertiajs/svelte'
+  import Counter from '@/components/Counter'
 
   export let name
 </script>
@@ -57,7 +57,7 @@
     </li>
     <li>
       <a
-        href="https://webpack.org"
+        href="https://webpack.js.org/"
         target="_blank"
         class="hover:text-gray-600 hover:underline"
       >

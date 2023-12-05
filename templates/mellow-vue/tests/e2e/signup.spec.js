@@ -19,7 +19,7 @@ test.group('/signup', (group) => {
   }) => {
     const page = await visit(route('auth/view-signup'))
 
-    const passwordInput = await page.locator('input[id="password"]')
+    const passwordInput = await page.getByPlaceholder('Your password')
     const passwordVisibilityToggle =
       'button[aria-label="Toggle Password Visibility"]'
 

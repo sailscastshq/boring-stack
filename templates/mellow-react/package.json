@@ -5,15 +5,13 @@
   "description": "a Sails application",
   "keywords": [],
   "dependencies": {
-    "@inertiajs/inertia": "^0.11.0",
-    "@inertiajs/inertia-react": "^0.8.0",
-    "@inertiajs/progress": "^0.2.7",
+    "@inertiajs/react": "^1.0.14",
     "@sailshq/connect-redis": "^3.2.1",
     "@sailshq/lodash": "^3.10.3",
     "@sailshq/socket.io-redis": "^5.2.0",
-    "inertia-sails": "^0.1.0",
-    "react": "^17.0.2",
-    "react-dom": "^17.0.2",
+    "inertia-sails": "^0.1.7",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
     "sails": "^1.5.2",
     "sails-hook-orm": "^4.0.0",
     "sails-hook-sockets": "^2.0.0",
@@ -48,6 +46,6 @@
   },
   "main": "app.js",
   "engines": {
-    "node": "^18.0"
+    "node": ">=18.0"
   }
 }

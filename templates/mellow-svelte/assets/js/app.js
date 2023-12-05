@@ -1,9 +1,7 @@
-import { createInertiaApp } from '@inertiajs/inertia-svelte'
-import { InertiaProgress } from '@inertiajs/progress'
+import { createInertiaApp } from '@inertiajs/svelte'
 import '~/css/main.css'
 
-InertiaProgress.init()
-
+// @ts-ignore
 createInertiaApp({
   resolve: (name) => require(`./pages/${name}`),
   setup({ el, App, props }) {
