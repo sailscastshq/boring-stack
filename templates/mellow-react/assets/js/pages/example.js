@@ -1,4 +1,4 @@
-import { Link } from '@inertiajs/inertia-react'
+import { Link } from '@inertiajs/react'
 export default function Hello({ quote }) {
   return (
     <div className="flex h-screen flex-col items-center justify-center space-y-8 text-center text-gray-700">
