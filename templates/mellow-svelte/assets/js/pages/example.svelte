@@ -1,5 +1,5 @@
 <script>
-  import { Link } from '@inertiajs/inertia-svelte'
+  import { Link } from '@inertiajs/svelte'
   export let quote
 </script>
 
