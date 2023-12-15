@@ -14,6 +14,11 @@ export default function Index({ name }) {
       <Link href="/example" className="text-purple-600 underline">
         Go to example page
       </Link>
+      <input
+        type="text"
+        placeholder="I grow"
+        className="[field-sizing:content]"
+      />
 
       <ul className="flex space-x-4 text-gray-400">
         <li>
