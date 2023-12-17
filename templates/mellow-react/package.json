@@ -6,7 +6,6 @@
   "keywords": [],
   "dependencies": {
     "@inertiajs/react": "^1.0.14",
-    "@rsbuild/plugin-react": "^0.2.5",
     "@sailshq/connect-redis": "^3.2.1",
     "@sailshq/lodash": "^3.10.3",
     "@sailshq/socket.io-redis": "^5.2.0",
