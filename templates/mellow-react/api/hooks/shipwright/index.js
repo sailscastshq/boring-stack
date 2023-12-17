@@ -26,13 +26,14 @@ module.exports = function defineShipwrightHook(sails) {
           }
         },
         output: {
+          disableFilenameHash: true,
           distPath: {
             root: '.tmp/public',
             css: 'css',
             js: 'js',
             font: 'fonts',
             image: 'images',
-            html: ''
+            html: '/'
           },
           copy: [
             {
@@ -42,8 +43,22 @@ module.exports = function defineShipwrightHook(sails) {
             {
               from: path.resolve(appPath, 'assets', 'fonts'),
               to: path.resolve(appPath, '.tmp', 'public', 'fonts')
+            },
+            {
+              context: path.resolve(appPath, 'assets'),
+              from: '**/*.html',
+              to: path.resolve(appPath, '.tmp', 'public'),
+              noErrorOnMissing: true
             }
           ]
+        },
+        tools: {
+          htmlPlugin: false
+        },
+        performance: {
+          chunkSplit: {
+            strategy: 'single-vendor'
+          }
         }
       })
       const config = mergeRsbuildConfig(
@@ -53,7 +68,11 @@ module.exports = function defineShipwrightHook(sails) {
       const { createRsbuild } = require('@rsbuild/core')
       try {
         const rsbuild = await createRsbuild({ rsbuildConfig: config })
-        rsbuild.build({ mode: 'development', watch: true })
+        if (process.env.NODE_ENV == 'production') {
+          rsbuild.build()
+        } else {
+          rsbuild.build({ mode: 'development', watch: true })
+        }
       } catch (error) {
         sails.error(error)
       }
