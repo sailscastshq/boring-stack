@@ -316,20 +316,5 @@ module.exports = {
     // sails_custom__stripeSecret=sk_prod__fake_Nfgh82401348jaDa3lkZ0d9Hm
     // ```
     //--------------------------------------------------------------------------
-  },
-
-  /***************************************************************************
-   *                                                                          *
-   * Override the default webpack plugin list to add the UglifyJsPlugin,      *
-   * which minifies the outputted JavaScript.                                 *
-   *                                                                          *
-   ***************************************************************************/
-
-  webpack: {
-    mode: 'production',
-    optimization: {
-      minimize: true,
-      minimizer: [new TerserPlugin()]
-    }
   }
 }
