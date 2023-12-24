@@ -1,8 +1,4 @@
 {
-  "hooks": {
-    "webpack": false,
-    "shipwright": true
-  },
   "generators": {
     "modules": {}
   },
