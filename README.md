@@ -14,7 +14,7 @@ npx create-sails <project-name>
 ```
 
 <div align="center">
-<a href="https://sailscasts.com/boring"><img src="https://github.com/sailscastshq/boring-stack/blob/main/logo.png" alt="The Boring JavaScript Stack" width="25%" height="25%"></a>
+<a href="https://sailscasts.com/boring"><img src="https://github.com/sailscastshq/boring-stack/blob/develop/.github/banner.png" alt="The Boring JavaScript Stack"></a>
 </div>
 
 [The Boring JavaScript Stack](https://sailscasts.com/boring)
@@ -80,7 +80,7 @@ To launch the respective templates on StackBlitz, click on the 'Open in StackBli
 
 ## Watch Kelvin's Introduction to The Boring JavaScript Stack
 
-<a href="https://youtu.be/qX69jEyAIc0"><img src="https://github.com/sailscastshq/boring-stack/blob/main/thumbnail.png" alt="The Boring JavaScript Stack" width="100%"></a>
+<a href="https://youtu.be/qX69jEyAIc0"><img src="https://github.com/sailscastshq/boring-stack/blob/develop/.github/thumbnail.png" alt="The Boring JavaScript Stack" width="100%"></a>
 
 [The Boring JavaScript - Kelvin Omereshone at #Sailsconf 2023](https://youtu.be/qX69jEyAIc0)
 
@@ -103,6 +103,10 @@ To launch the respective templates on StackBlitz, click on the 'Open in StackBli
     <img  src="https://contrib.rocks/image?repo=sailscastshq/boring-stack" alt="A table of avatars from the project's contributors" />
   </p>
 </a>
+
+## Sponsors
+
+If you'd like to become a sponsor, check out [DominusKelvin](https://github.com/sponsors/DominusKelvin) sponsor page and tiers.
 
 ## Thanks
 

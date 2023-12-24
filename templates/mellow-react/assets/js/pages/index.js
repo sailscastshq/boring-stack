@@ -51,15 +51,6 @@ export default function Index({ name }) {
             Tailwind CSS
           </a>
         </li>
-        <li>
-          <a
-            href="https://webpack.org"
-            target="_blank"
-            className="hover:text-gray-600 hover:underline"
-          >
-            Webpack
-          </a>
-        </li>
       </ul>
     </div>
   )
