@@ -14,7 +14,6 @@ export default function Index({ name }) {
       <Link href="/example" className="text-purple-600 underline">
         Go to example page
       </Link>
-
       <ul className="flex space-x-4 text-gray-400">
         <li>
           <a
@@ -50,15 +49,6 @@ export default function Index({ name }) {
             className="hover:text-gray-600 hover:underline"
           >
             Tailwind CSS
-          </a>
-        </li>
-        <li>
-          <a
-            href="https://webpack.org"
-            target="_blank"
-            className="hover:text-gray-600 hover:underline"
-          >
-            Webpack
           </a>
         </li>
       </ul>
