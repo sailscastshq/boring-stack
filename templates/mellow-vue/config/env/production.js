@@ -19,8 +19,6 @@
  * http://sailsjs.com/docs/concepts/deployment
  */
 
-const TerserPlugin = require('terser-webpack-plugin')
-
 module.exports = {
   hookTimeout: 80000,
   /**************************************************************************
