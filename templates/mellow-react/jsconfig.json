@@ -1,6 +1,6 @@
 {
   "include": ["api/**/*", "assets/js/**/*", "types/index.d.ts"],
-
+  "exclude": [".tmp/**/*"],
   "compilerOptions": {
     "types": ["node"],
     "typeRoots": ["./types", "./node_modules/@types"],
@@ -17,7 +17,8 @@
     "noErrorTruncation": true,
     "baseUrl": ".",
     "paths": {
-      "@/*": ["assets/js/*"]
+      "@/*": ["assets/js/*"],
+      "~/*": ["assets/*"]
     }
   }
 }
