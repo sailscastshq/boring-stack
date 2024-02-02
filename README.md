@@ -86,7 +86,7 @@ To launch the respective templates on StackBlitz, click on the 'Open in StackBli
 
 ## Docs
 
-[Read the docs](https://docs.sailscasts.com).
+[Read the docs](https://docs.sailscasts.com/boring-stack/).
 
 ## Support
 
