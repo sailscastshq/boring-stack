@@ -64,6 +64,12 @@ const disableSignupButton = computed(() => {
           Welcome! Please enter your details to sign up
         </p>
       </section>
+      <p
+        class="b my-4 rounded-sm border-red-400 bg-red-100 p-4 text-red-500"
+        v-if="form.errors.signup"
+      >
+        {{ form.errors?.signup }}
+      </p>
       <form
         @submit.prevent="form.post('/signup')"
         class="mb-4 flex flex-col space-y-6"
@@ -101,6 +107,9 @@ const disableSignupButton = computed(() => {
             class="block w-full rounded-lg border border-gray/50 bg-white py-3 pl-10 pr-3 shadow-sm placeholder:text-lg placeholder:text-gray focus:outline-none focus:ring-1 focus:ring-gray-100"
             v-model="form.fullName"
           />
+          <p class="absolute text-red-500" v-if="form.errors.fullName">
+            {{ form.errors.fullName }}
+          </p>
         </label>
         <label for="email" class="relative block"
           ><span class="block text-lg">Email</span>
@@ -124,6 +133,9 @@ const disableSignupButton = computed(() => {
             class="block w-full rounded-lg border border-gray/50 bg-white py-3 pl-10 pr-3 shadow-sm placeholder:text-lg placeholder:text-gray focus:outline-none focus:ring-1 focus:ring-gray-100"
             v-model="form.email"
           />
+          <p class="absolute text-red-500" v-if="form.errors.email">
+            {{ form.errors.email }}
+          </p>
         </label>
         <label for="password" class="relative block"
           ><span class="block text-lg">Password</span>
@@ -214,6 +226,9 @@ const disableSignupButton = computed(() => {
               </svg>
             </button>
           </span>
+          <p class="absolute text-red-500" v-if="form.errors.password">
+            {{ form.errors.password }}
+          </p>
         </label>
         <ul class="flex justify-between text-sm">
           <li

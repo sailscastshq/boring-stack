@@ -54,6 +54,13 @@ const disableLoginButton = computed(() => {
         <h1 class="text-2xl">Log into your account</h1>
         <p class="text-lg text-gray">Welcome back, please enter your details</p>
       </section>
+      <p
+        class="b my-4 rounded-sm border-red-400 bg-red-100 p-4 text-red-500"
+        v-if="form.errors.email || form.errors.login"
+      >
+        {{ form.errors?.login || form.errors?.email }}
+      </p>
+
       <form
         @submit.prevent="form.post('/login')"
         class="mb-4 flex flex-col space-y-6"
@@ -74,7 +81,7 @@ const disableLoginButton = computed(() => {
             </svg>
           </span>
           <input
-            type="email"
+            type="text"
             id="email"
             placeholder="Your email"
             class="block w-full rounded-lg border border-gray/50 bg-white py-3 pl-10 pr-3 shadow-sm placeholder:text-lg placeholder:text-gray focus:outline-none focus:ring-1 focus:ring-gray-100"
