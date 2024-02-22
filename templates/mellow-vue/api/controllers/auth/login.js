@@ -12,6 +12,7 @@ password attempt.`,
     email: {
       description: 'The email to try in this attempt, e.g. "irl@example.com".',
       type: 'string',
+      isEmail: true,
       required: true
     },
 
@@ -39,6 +40,9 @@ that, thanks to the included "custom" hook, when a relevant request is received
 from a logged-in user, that user's entire record from the database will be fetched
 and exposed as a shared data via loggedInUser prop.)`,
       responseType: 'redirect'
+    },
+    badCombo: {
+      responseType: 'badRequest'
     }
   },
 
@@ -48,12 +52,23 @@ and exposed as a shared data via loggedInUser prop.)`,
     })
 
     if (!user) {
-      throw 'badCombo'
+      throw {
+        badCombo: {
+          problems: [{ login: 'Wrong email/password.' }]
+        }
+      }
     }
 
-    await sails.helpers.passwords
-      .checkPassword(password, user.password)
-      .intercept('incorrect', 'badCombo')
+    try {
+      await sails.helpers.passwords.checkPassword(password, user.password)
+    } catch (e) {
+      sails.log.error(e.message)
+      throw {
+        badCombo: {
+          problems: [{ login: 'Wrong email/password.' }]
+        }
+      }
+    }
 
     if (rememberMe) {
       this.req.session.cookie.maxAge =
