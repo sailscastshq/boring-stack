@@ -36,34 +36,39 @@ module.exports = function badRequest(optionalData) {
 
   // Check if it's an Inertia request
   if (req.header('X-Inertia')) {
-    console.log(optionalData)
-    if (
-      optionalData &&
-      optionalData.code &&
-      (optionalData.code === 'E_MISSING_OR_INVALID_PARAMS' ||
-        optionalData.name === 'UsageError')
-    ) {
+    if (optionalData && optionalData.problems) {
       const errors = {}
       optionalData.problems.forEach((problem) => {
-        const regex = /"(.*?)"/
-        const matches = problem.match(regex)
+        if (typeof problem === 'object') {
+          Object.keys(problem).forEach((propertyName) => {
+            const sanitizedProblem = problem[propertyName].replace(/\.$/, '') // Trim trailing dot
+            if (!errors[propertyName]) {
+              errors[propertyName] = [sanitizedProblem]
+            } else {
+              errors[propertyName].push(sanitizedProblem)
+            }
+          })
+        } else {
+          const regex = /"(.*?)"/
+          const matches = problem.match(regex)
 
-        if (matches && matches.length > 1) {
-          const propertyName = matches[1]
-          const sanitizedProblem = problem.replace(/"([^"]+)"/, '$1')
-          if (!errors[propertyName]) {
-            errors[propertyName] = [sanitizedProblem]
-          } else {
-            errors[propertyName].push(sanitizedProblem)
+          if (matches && matches.length > 1) {
+            const propertyName = matches[1]
+            const sanitizedProblem = problem
+              .replace(/"([^"]+)"/, '$1')
+              .replace('\n', '')
+              .replace('·', '')
+              .trim()
+            if (!errors[propertyName]) {
+              errors[propertyName] = [sanitizedProblem]
+            } else {
+              errors[propertyName].push(sanitizedProblem)
+            }
           }
         }
       })
-
-      if (req.session) {
-        req.session.errors = errors
-      }
-
-      return res.status(statusCodeToSet).redirect('back')
+      req.session.errors = errors
+      return res.redirect(303, 'back')
     }
   }
 
