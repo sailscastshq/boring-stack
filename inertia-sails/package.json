@@ -17,7 +17,8 @@
     "directory": "packages/inertia-sails"
   },
   "peerDependencies": {
-    "sails": ">=1"
+    "sails": ">=1",
+    "sails-flash": ">=0.0.1"
   },
   "keywords": [
     "Inertia",
