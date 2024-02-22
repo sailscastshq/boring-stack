@@ -35,6 +35,6 @@ module.exports = function resolveValidationErrors(req) {
     const defaultErrors = { default: collectedErrors.default }
     return defaultErrors
   }
-
+  delete req.session.errors
   return collectedErrors
 }
