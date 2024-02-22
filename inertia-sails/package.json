@@ -14,7 +14,7 @@
   "repository": {
     "type": "git",
     "url": "git+https://github.com/sailscastshq/boring-stack.git",
-    "directory": "packages/inertia-sails"
+    "directory": "inertia-sails"
   },
   "peerDependencies": {
     "sails": ">=1",
