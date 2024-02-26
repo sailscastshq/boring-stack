@@ -3,6 +3,7 @@
   "version": "1.0.2",
   "type": "module",
   "description": "Quickly scaffold a fullstack Sails project with `npm init sails`",
+  "main": "index.js",
   "bin": {
     "create-sails": "./index.js"
   },
