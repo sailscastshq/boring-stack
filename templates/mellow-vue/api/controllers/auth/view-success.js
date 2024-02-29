@@ -8,7 +8,9 @@ module.exports = {
     }
   },
   exits: {
-    success: {}
+    success: {
+      responseType: 'inertia'
+    }
   },
 
   fn: async function ({ operation }) {
@@ -24,10 +26,13 @@ module.exports = {
         message = 'Password has been successful reset'
         pageHeading = 'Password reset successful'
     }
-    return sails.inertia.render('success', {
-      pageTitle,
-      pageHeading,
-      message
-    })
+    return {
+      page: 'success',
+      props: {
+        pageTitle,
+        pageHeading,
+        message
+      }
+    }
   }
 }
