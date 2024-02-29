@@ -5,9 +5,13 @@ module.exports = {
 
   inputs: {},
 
-  exits: {},
+  exits: {
+    success: {
+      responseType: 'inertia'
+    }
+  },
 
   fn: async function () {
-    return sails.inertia.render('index')
+    return { page: 'index' }
   }
 }

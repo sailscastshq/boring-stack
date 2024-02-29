@@ -10,7 +10,9 @@ module.exports = {
     }
   },
   exits: {
-    success: {},
+    success: {
+      responseType: 'inertia'
+    },
     invalidOrExpiredToken: {
       responseType: 'expired',
       description: 'The provided token is expired, invalid, or already used up.'
@@ -26,6 +28,6 @@ module.exports = {
     if (!user || user.passwordResetTokenExpiresAt <= Date.now()) {
       throw 'invalidOrExpiredToken'
     }
-    return sails.inertia.render('reset-password', { token })
+    return { page: 'reset-password', props: { token } }
   }
 }

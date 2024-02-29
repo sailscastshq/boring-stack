@@ -3,10 +3,12 @@ module.exports = {
 
   description: 'Display "Signup" page.',
   exits: {
-    success: {}
+    success: {
+      responseType: 'inertia'
+    }
   },
 
   fn: async function () {
-    return sails.inertia.render('signup')
+    return { page: 'signup' }
   }
 }

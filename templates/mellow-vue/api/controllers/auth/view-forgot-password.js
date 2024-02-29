@@ -4,10 +4,12 @@ module.exports = {
   description: 'Display "Forgot password" page.',
 
   exits: {
-    success: {}
+    success: {
+      responseType: 'inertia'
+    }
   },
 
   fn: async function () {
-    return sails.inertia.render('forgot-password')
+    return { page: 'forgot-password' }
   }
 }

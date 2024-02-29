@@ -4,7 +4,9 @@ module.exports = {
   description: 'Display "Verify email" page.',
 
   exits: {
-    success: {}
+    success: {
+      responseType: 'inertia'
+    }
   },
 
   fn: async function () {
@@ -14,8 +16,11 @@ module.exports = {
     } else {
       message = `We sent an email verification link to ${this.req.session.userEmail}`
     }
-    return sails.inertia.render('check-email', {
-      message
-    })
+    return {
+      page: 'check-email',
+      props: {
+        message
+      }
+    }
   }
 }

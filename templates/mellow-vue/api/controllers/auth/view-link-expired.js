@@ -4,10 +4,12 @@ module.exports = {
   description: 'Display "Link expired" page.',
 
   exits: {
-    success: {}
+    success: {
+      responseType: 'inertia'
+    }
   },
 
   fn: async function () {
-    return sails.inertia.render('link-expired')
+    return { page: 'link-expired' }
   }
 }
