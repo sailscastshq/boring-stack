@@ -7,9 +7,6 @@
 const inertia = require('./private/inertia-middleware')
 module.exports = function defineInertiaHook(sails) {
   let hook
-  let sharedProps = {}
-  let sharedViewData = {}
-  let rootView = 'app'
   const routesToBindInertiaTo = [
     'GET r|^((?![^?]*\\/[^?\\/]+\\.[^?\\/]+(\\?.*)?).)*$|',
     // (^^Leave out assets)
@@ -22,37 +19,36 @@ module.exports = function defineInertiaHook(sails) {
   return {
     defaults: {
       inertia: {
+        rootView: 'app',
         version: 1
       }
     },
     initialize: async function () {
       hook = this
       sails.inertia = hook
-
+      sails.inertia.sharedProps = {}
+      sails.inertia.sharedViewData = {}
       sails.on('router:before', function routerBefore() {
         routesToBindInertiaTo.forEach(function iterator(routeAddress) {
-          sails.router.bind(
-            routeAddress,
-            inertia(sails, { hook, sharedProps, sharedViewData, rootView })
-          )
+          sails.router.bind(routeAddress, inertia(hook))
         })
       })
     },
 
-    share: (key, value = null) => (sharedProps[key] = value),
+    share: (key, value = null) => (sails.inertia.sharedProps[key] = value),
 
-    getShared: (key = null) => sharedProps[key] ?? sharedProps,
+    getShared: (key = null) =>
+      sails.inertia.sharedProps[key] ?? sails.inertia.sharedProps,
 
     flushShared: (key) => {
-      key ? delete sharedProps[key] : (sharedProps = {})
+      key
+        ? delete sails.inertia.sharedProps[key]
+        : (sails.inertia.sharedProps = {})
     },
 
-    viewData: (key, value) => (sharedViewData[key] = value),
+    viewData: (key, value) => (sails.inertia.sharedViewData[key] = value),
 
-    getViewData: (key) => sharedViewData[key] ?? sharedViewData,
-
-    setRootView: (newRootView) => (rootView = newRootView),
-
-    getRootView: () => rootView
+    getViewData: (key) =>
+      sails.inertia.sharedViewData[key] ?? sails.inertia.sharedViewData
   }
 }
