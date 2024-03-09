@@ -1,6 +1,6 @@
 {
   "name": "inertia-sails",
-  "version": "0.2.1",
+  "version": "0.2.2",
   "description": "The Sails adapter for Inertia.",
   "main": "index.js",
   "sails": {
