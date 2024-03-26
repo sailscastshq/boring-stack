@@ -5,11 +5,18 @@ module.exports = {
 
   inputs: {},
 
-  exits: {},
+  exits: {
+    success: {
+      responseType: 'inertia'
+    }
+  },
 
   fn: async function () {
-    return sails.inertia.render('example', {
-      quote: "You can shine no matter what you're made of - Bigweld"
-    })
+    return {
+      page: 'example',
+      props: {
+        quote: "You can shine no matter what you're made of - Bigweld"
+      }
+    }
   }
 }
