@@ -1,0 +1,41 @@
+# create-sails-generator: A Sails Generator for The Boring JavaScript Stack
+
+This generator is specifically designed for The Boring JavaScript Stack, providing a plethora of commands for code generation and more to expedite your development process with The Boring JavaScript Stack.
+
+## Features
+
+- **Code Generation**: Quickly scaffold boilerplate code for pages, actions, and more.
+- **Enhanced CLI Commands**: Extensive CLI commands tailored for Sails.js development.
+- **Saves Time and Effort**: Automate repetitive tasks, saving you valuable development time.
+
+## Installation
+
+To use Create-Sails-Generator, you'll first need to have Node.js and npm installed on your machine. Then, follow these simple steps:
+
+1. Install Create-Sails-Generator globally via npm:
+
+```sh
+npm i create-sails-generator --save-dev
+```
+
+2. Once installed, you can access the generator commands using the `sails generate` command.
+
+## Usage
+
+### Generating Files
+
+You can generate various files using the generator with simple commands. For instance, to create a new page, use:
+
+```sh
+sails generate page dashboard
+```
+
+[Check out the docs](https://docs.sailscasts.com/boring-stack/generator) for more information on usage.
+
+## License
+
+`create-sails-generator` is licensed under the [MIT License](LICENSE.md).
+
+## About
+
+Create-Sails-Generator is maintained by The Sailscasts Company. It is part of [The Boring JavaScript Stack](https://docs.sailscasts.com/boring-stack) - The reliable full-stack JavaScript stack.

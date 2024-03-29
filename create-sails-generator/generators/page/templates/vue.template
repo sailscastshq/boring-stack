@@ -1,0 +1,4 @@
+<script setup>
+import { Head, Link, useForm, usePage } from '@inertiajs/vue3'
+</script>
+<template></template>
