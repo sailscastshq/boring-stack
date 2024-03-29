@@ -1,0 +1,5 @@
+<script>
+  import { Link, useForm, page } from '@inertiajs/svelte'
+</script>
+
+<div></div>
