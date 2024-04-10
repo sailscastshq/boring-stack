@@ -1,0 +1,15 @@
+module.exports = {
+  friendlyName: <%= util.inspect(actionFriendlyName) %>,
+
+  description: <%= util.inspect(actionDescription) %>,
+
+  exits: {
+    success: {
+      responseType: 'inertia'
+    }
+  },
+
+  fn: async function () {
+    return { page: <%= util.inspect(pagePath) %> }
+  }
+}
