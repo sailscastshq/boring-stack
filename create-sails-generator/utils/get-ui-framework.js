@@ -6,7 +6,7 @@ module.exports = function getUIFramework(packageJSON) {
   } else if (packageJSON.dependencies['@inertiajs/react']) {
     return 'react'
   } else if (packageJSON.dependencies['@inertiajs/svelte']) {
-    return svelte
+    return 'svelte'
   } else {
     throw new Error('Could not get UI framework from package.json.')
   }

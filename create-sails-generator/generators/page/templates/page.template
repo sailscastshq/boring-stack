@@ -1,0 +1,19 @@
+<% if (uiFramework == 'vue') {%>
+<script setup>
+import { Head, Link, useForm, usePage } from '@inertiajs/vue3'
+</script>
+
+<template></template>
+<% } else if (uiFramework == 'react') { %>
+import { Head, Link, useForm, usePage } from '@inertiajs/react'
+
+export default function <%= componentName %>(props) {
+  return <div></div>
+}
+<% } else if (uiFramework == 'svelte') { %>
+<script>
+  import { Link, useForm, page } from '@inertiajs/svelte'
+</script>
+
+<div></div>
+<% } %>

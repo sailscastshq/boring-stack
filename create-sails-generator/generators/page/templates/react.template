@@ -1,6 +1,0 @@
-
-import { Head, Link, useForm, usePage } from '@inertiajs/react'
-
-export default function <%= util.inspect(componentName) %>(props) {
-  return <div></div>
-}

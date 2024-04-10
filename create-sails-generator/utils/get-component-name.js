@@ -1,5 +1,5 @@
 module.exports = function getComponentName(str) {
-  const words = str.split('-')
+  const words = str.split(/-|\//)
 
   return words
     .map((word, index) =>

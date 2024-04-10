@@ -2,7 +2,7 @@ const path = require('path')
 const getUiFramework = require('../../utils/get-ui-framework')
 const getComponentName = require('../../utils/get-component-name')
 const getFileExtensionForUi = require('../../utils/get-file-extension-for-ui')
-const copy = require('../../utils/copy')
+const getActionName = require('../../utils/get-action-name')
 /**
  * Generates responses/inertia.js file
  */
@@ -11,7 +11,6 @@ module.exports = {
   before: function (scope, done) {
     const appPackageJSON = require(`${scope.topLvlRootPath}/package.json`)
     const uiFramework = getUiFramework(appPackageJSON)
-    scope.templateName = `${uiFramework}.template`
     let roughName
 
     if (scope.name) {
@@ -35,44 +34,37 @@ module.exports = {
     // (This is crucial for Windows compatibility.)
     roughName = roughName.replace(/\\/g, '/')
 
-    scope.relPath = roughName.replace(/\.+/g, '/')
-    scope.relPath += getFileExtensionForUi(uiFramework)
+    scope.pageRelPath = roughName.replace(/\.+/g, '/')
+    scope.pagePath = scope.pageRelPath
+    console.log(scope.pagePath)
+    scope.pageRelPath += getFileExtensionForUi(uiFramework)
+    scope.uiFramework = uiFramework
     if (uiFramework == 'react') {
       scope.componentName = getComponentName(roughName)
     }
-    console.log(scope)
+
+    scope.actionRelPath = getActionName(roughName)
+    scope.actionRelPath += '.js'
+    scope.actionFriendlyName = `View ${scope.pagePath}`
+    scope.actionDescription = `Display ${scope.pagePath} page`
+
     return done()
   },
   after: function (scope, done) {
     console.log()
-    console.log(`Successfully generated ${scope.relPath}`)
-    console.log(' •-', `assets/js/pages/${scope.relPath}`)
+
+    console.log(`Successfully generated ${scope.pageRelPath}`)
+    console.log(' •-', `assets/js/pages/${scope.pageRelPath}`)
+
+    console.log(`Successfully generated ${scope.actionRelPath}`)
+    console.log(' •-', `api/controllers/${scope.actionRelPath}`)
+
     console.log()
     return done()
   },
   targets: {
-    './assets/js/pages/:relPath': {
-      exec: function (scope, done) {
-        scope.templatePath = `./${scope.templateName}`
-        copy(scope, function (err) {
-          if (err) {
-            return done(err)
-          }
-          return done()
-        })
-      }
-    }
-    // './api/controllers/:actionRelPath': {
-    //   exec: function (scope, done) {
-    //     scope.templatePath = `./action.template`
-    //     copy(scope, function (err) {
-    //       if (err) {
-    //         return done(err)
-    //       }
-    //       return done()
-    //     })
-    //   }
-    // }
+    './assets/js/pages/:pageRelPath': { template: 'page.template' },
+    './api/controllers/:actionRelPath': { template: 'action.template' }
   },
   templatesDirectory: path.resolve(__dirname, './templates')
 }

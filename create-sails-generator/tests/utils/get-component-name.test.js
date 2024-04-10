@@ -9,4 +9,7 @@ describe('getComponentName', function () {
   it("returns 'UserDashboard' when given 'user-dashboard'", function () {
     assert.equal(getComponentName('user-dashboard'), 'UserDashboard')
   })
+  it("returns 'ExampleNewPage' when given 'example/new-page'", function () {
+    assert.equal(getComponentName('example/new-page'), 'ExampleNewPage')
+  })
 })
