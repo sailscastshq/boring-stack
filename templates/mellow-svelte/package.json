@@ -17,7 +17,7 @@
     "svelte": "^4.2.8"
   },
   "devDependencies": {
-    "@rsbuild/plugin-svelte": "^0.2.10",
+    "@rsbuild/plugin-svelte": "^0.6.2",
     "create-sails-generator": "^0.0.1",
     "postcss": "^8.4.13",
     "prettier": "^2.6.2",
