@@ -5,7 +5,7 @@
   "description": "a Sails application",
   "keywords": [],
   "dependencies": {
-    "@inertiajs/svelte": "^1.0.14",
+    "@inertiajs/svelte": "^1.0.15",
     "@sailshq/connect-redis": "^3.2.1",
     "@sailshq/lodash": "^3.10.3",
     "@sailshq/socket.io-redis": "^5.2.0",
@@ -14,10 +14,10 @@
     "sails-flash": "^0.0.1",
     "sails-hook-orm": "^4.0.0",
     "sails-hook-sockets": "^2.0.0",
-    "svelte": "^4.2.8"
+    "svelte": "^4.2.14"
   },
   "devDependencies": {
-    "@rsbuild/plugin-svelte": "^0.2.10",
+    "@rsbuild/plugin-svelte": "^0.6.2",
     "create-sails-generator": "^0.0.1",
     "postcss": "^8.4.13",
     "prettier": "^2.6.2",
