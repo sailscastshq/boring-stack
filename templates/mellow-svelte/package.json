@@ -14,7 +14,7 @@
     "sails-flash": "^0.0.1",
     "sails-hook-orm": "^4.0.0",
     "sails-hook-sockets": "^2.0.0",
-    "svelte": "^4.2.8"
+    "svelte": "^4.2.14"
   },
   "devDependencies": {
     "@rsbuild/plugin-svelte": "^0.6.2",
