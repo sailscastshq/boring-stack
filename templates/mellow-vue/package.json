@@ -5,7 +5,7 @@
   "description": "a Sails application",
   "keywords": [],
   "dependencies": {
-    "@inertiajs/vue3": "^1.0.9",
+    "@inertiajs/vue3": "^1.0.15",
     "@sailscasts/sails-hook-node-fetch": "^0.0.3",
     "@sailshq/connect-redis": "^3.2.1",
     "@sailshq/lodash": "^3.10.3",
