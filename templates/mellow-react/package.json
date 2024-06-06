@@ -18,11 +18,11 @@
     "sails-hook-sockets": "^2.0.0"
   },
   "devDependencies": {
-    "@rsbuild/plugin-react": "^0.6.2",
+    "@rsbuild/plugin-react": "^0.7.3",
     "create-sails-generator": "^0.0.1",
     "prettier": "^2.6.2",
     "prettier-plugin-tailwindcss": "^0.1.11",
-    "sails-hook-shipwright": "^0.1.1",
+    "sails-hook-shipwright": "^0.2.0",
     "sails.io.js": "^1.2.1",
     "socket.io-client": "^2.2.0",
     "tailwindcss": "^3.0.24"
