@@ -4,13 +4,10 @@
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="stylesheet" href="/css/app.css?version=<%=page.version%>" />
+    <%- shipwright.styles() %>
   </head>
   <body>
     <div id="app" data-page="<%= JSON.stringify(page) %>"></div>
-    <script
-      type="text/javascript"
-      src="/js/app.js?version=<%=page.version%>"
-    ></script>
+    <%- shipwright.scripts() %>
   </body>
 </html>

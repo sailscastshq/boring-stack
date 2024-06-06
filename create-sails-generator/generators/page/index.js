@@ -36,7 +36,6 @@ module.exports = {
 
     scope.pageRelPath = roughName.replace(/\.+/g, '/')
     scope.pagePath = scope.pageRelPath
-    console.log(scope.pagePath)
     scope.pageRelPath += getFileExtensionForUi(uiFramework)
     scope.uiFramework = uiFramework
     if (uiFramework == 'react') {
