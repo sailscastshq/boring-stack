@@ -6,7 +6,7 @@
 
 ## Introduction
 
-Mellow provides a minimal and simple starting point for building fullstack Sails applications with authentication. Styled with Tailwind, Mellow publishes authentication controllers and views to your application that can be easily customized based on your application's needs.
+Mellow provides a minimal and simple starting point for building fullstack Sails applications with authentication. Styled with Tailwind, Mellow ships with authentication Sails actions and Vue pages/components that can be easily customized based on your application's needs.
 
 Mellow is powered by Tailwind and Vue and made possible by Inertia.js
 
