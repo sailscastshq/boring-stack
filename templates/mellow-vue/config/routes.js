@@ -23,10 +23,13 @@ module.exports.routes = {
 
   'GET /signup': 'auth/view-signup',
   'POST /signup': 'auth/signup',
+
   'GET /check-email': 'auth/view-check-email',
   'GET /verify-email': 'auth/verify-email',
+
   'GET /link-expired': 'auth/view-link-expired',
   'GET /resend-link': 'auth/resend-link',
+
   'GET /:operation/success': 'auth/view-success',
 
   'GET /login': 'auth/view-login',
@@ -34,6 +37,7 @@ module.exports.routes = {
 
   'GET /forgot-password': 'auth/view-forgot-password',
   'POST /forgot-password': 'auth/forgot-password',
+
   'GET /reset-password': 'auth/view-reset-password',
   'POST /reset-password': 'auth/reset-password',
 
