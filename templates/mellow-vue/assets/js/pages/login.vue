@@ -21,7 +21,7 @@ const disableLoginButton = computed(() => {
 </script>
 
 <template>
-  <Head title="Login"></Head>
+  <Head title="Login | Mellow"></Head>
   <section
     class="flex min-h-screen flex-col justify-center bg-gradient-to-b from-brand-50/10 to-[#F9FAFB] text-black sm:items-center"
   >

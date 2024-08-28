@@ -11,7 +11,7 @@ const form = useForm({
 })
 </script>
 <template>
-  <Head title="Profile"></Head>
+  <Head title="Profile | Mellow"></Head>
   <header>
     <nav class="flex items-center justify-between px-4 py-6 md:px-8">
       <Link href="/">
