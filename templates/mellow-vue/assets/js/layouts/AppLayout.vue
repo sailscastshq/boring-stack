@@ -45,7 +45,8 @@ const loggedInUser = ref(usePage().props.loggedInUser)
             >
           </li>
         </ul>
-        <section class="flex items-center" v-else>
+        <section class="flex items-center space-x-6" v-else>
+          <Link href="/dashboard" class="text-brand md:text-lg">Dashboard</Link>
           <Link href="/profile">
             <p
               class="rounded-full bg-green p-2 text-white"
@@ -64,7 +65,7 @@ const loggedInUser = ref(usePage().props.loggedInUser)
       </nav>
     </header>
 
-    <main>
+    <main class="min-h-screen">
       <slot></slot>
     </main>
 

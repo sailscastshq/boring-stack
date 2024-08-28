@@ -86,7 +86,7 @@ defineOptions({
           Star on GitHub ⭐️
         </h3>
         <p class="mb-4 text-gray-600">
-          Give The Boring JavaScript Stack a star on GitHub
+          Give The Boring JavaScript Stack a star on GitHub.
         </p>
         <button
           class="mt-2 rounded-lg border border-brand px-4 py-2 text-brand transition-colors duration-300 group-hover:bg-brand group-hover:text-white"

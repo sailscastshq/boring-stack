@@ -1,18 +1,30 @@
 <script setup>
-import { usePage } from '@inertiajs/vue3'
+import { usePage, Link } from '@inertiajs/vue3'
 import AppLayout from '@/layouts/AppLayout.vue'
 
 defineOptions({
   layout: AppLayout
 })
 const page = usePage()
-const loggedInUser = page.props.user
+const loggedInUser = page.props.loggedInUser
 </script>
 <template>
-  <section class="mx-auto max-w-4xl px-4 py-12">
-    <h1 class="text-2xl font-bold text-gray-900 sm:text-3xl md:text-4xl">
-      Welcome to your dashboard,
-      <span class="text-brand">{{ loggedInUser.fullName }}</span>
-    </h1>
+  <section class="mx-auto max-w-4xl px-4">
+    <section
+      class="block rounded-lg bg-gradient-to-b from-brand-50/10 to-white p-6 shadow-md transition-all duration-300 hover:shadow-lg"
+    >
+      <h3 class="mb-2 text-xl font-semibold text-brand">
+        Welcome, {{ loggedInUser.fullName }}
+      </h3>
+      <p class="mb-4 text-gray-600">
+        You are logged in as {{ loggedInUser.email }}
+      </p>
+      <Link
+        href="/profile"
+        class="mt-2 rounded-lg border border-brand px-4 py-2 text-brand transition-colors duration-300 hover:bg-brand hover:text-white"
+      >
+        Edit Profile
+      </Link>
+    </section>
   </section>
 </template>

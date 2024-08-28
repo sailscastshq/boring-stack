@@ -1,8 +1,11 @@
 <script setup>
 import { ref } from 'vue'
 import { Link, Head, usePage, useForm } from '@inertiajs/vue3'
+import AppLayout from '@/layouts/AppLayout.vue'
 
-/** @type LoggedInUser */
+defineOptions({
+  layout: AppLayout
+})
 const loggedInUser = ref(usePage().props.loggedInUser)
 
 const form = useForm({
@@ -12,67 +15,15 @@ const form = useForm({
 </script>
 <template>
   <Head title="Profile | Mellow"></Head>
-  <header>
-    <nav class="flex items-center justify-between px-4 py-6 md:px-8">
-      <Link href="/">
-        <svg
-          class="w-12"
-          viewBox="0 0 50 33"
-          fill="none"
-          xmlns="http://www.w3.org/2000/svg"
-        >
-          <path
-            d="M37.7753 32.967C35.9901 32.967 34.8903 32.1429 33.0933 31.1722C31.2964 30.2015 26.0991 26.2934 26.0991 21.4286C26.0991 18.1284 25.2484 15.4592 23.7996 13.332C22.3616 11.2211 20.4136 9.75863 18.387 8.72626C17.4104 8.2289 16.3941 7.82214 15.3821 7.48599C14.7922 7.29016 14.4498 6.6567 14.7058 6.09038C16.3281 2.49885 19.9411 0 24.1382 0C29.8514 0 34.4831 4.63143 34.4831 10.3448C34.4831 11.5671 34.2711 12.7401 33.8818 13.8286C35.5308 12.7173 37.5176 12.0688 39.6555 12.0688C45.3687 12.0688 50 16.7003 50 22.4137C50 29.2918 43.956 32.967 37.7753 32.967Z"
-            fill="#6C25C1"
-          />
-          <path
-            d="M0 21.5518C0 27.0047 3.59506 31.5482 8.35764 32.5521C9.09275 32.8207 9.88637 32.9672 10.7143 32.9672H26.787C27.326 32.9672 27.5608 32.2463 27.1492 31.898C24.3403 29.5213 22.2527 26.1717 22.2527 21.4287C22.2527 18.8226 21.5927 16.9244 20.6205 15.4974C19.6372 14.054 18.2542 12.9752 16.641 12.1533C15.0127 11.324 13.2451 10.7957 11.557 10.4212C11.1594 10.371 10.7548 10.345 10.3448 10.345C4.63143 10.345 0 15.3625 0 21.5518Z"
-            fill="#6C25C1"
-          />
-        </svg>
-      </Link>
-      <ul
-        class="flex items-center justify-items-end space-x-4 text-sm"
-        v-if="!loggedInUser"
-      >
-        <li>
-          <Link href="/login" class="text-brand md:text-lg">Login</Link>
-        </li>
-        <li>
-          <Link
-            href="/signup"
-            class="rounded-lg bg-brand px-8 py-4 text-white md:py-3"
-            >Sign up</Link
-          >
-        </li>
-      </ul>
-      <section class="flex items-center" v-else>
-        <Link href="/profile">
-          <p
-            class="rounded-full bg-green p-2 text-white"
-            v-if="!loggedInUser.googleAvatarUrl"
-          >
-            {{ loggedInUser.initials }}
-          </p>
-          <img
-            v-else
-            class="h-12 w-12 rounded-full border-2 border-gray-100"
-            :src="loggedInUser.googleAvatarUrl"
-            :alt="loggedInUser.fullName"
-          />
-        </Link>
-      </section>
-    </nav>
-  </header>
-  <main class="mx-auto space-y-4 px-4 md:w-4/12 md:space-y-8">
+
+  <section class="mx-auto space-y-4 px-4 md:w-4/12 md:space-y-8">
     <section class="md:flex md:items-center md:justify-between">
       <section class="md:space-y-2">
         <h1 class="text-2xl md:text-3xl">Profile</h1>
-        <p class="text-gray md:text-lg">Update your name and email address</p>
       </section>
       <button
         type="button"
-        class="flex justify-center rounded-md border border-brand bg-brand px-4 py-3 text-white disabled:cursor-not-allowed disabled:border-gray-200/40 disabled:bg-gray-200/40 disabled:text-gray"
+        class="flex justify-center rounded-md border border-brand bg-brand px-4 py-2 text-white disabled:cursor-not-allowed disabled:border-gray-200/40 disabled:bg-gray-200/40 disabled:text-gray"
       >
         <svg
           v-if="form.processing"
@@ -157,14 +108,14 @@ const form = useForm({
         />
       </label>
     </form>
-  </main>
+  </section>
   <aside class="mt-4 flex items-center justify-center">
     <Link
       href="/logout"
       method="delete"
       as="button"
       class="text-red-500 hover:underline md:text-lg"
-      >Logout</Link
+      >Log out</Link
     >
   </aside>
 </template>
