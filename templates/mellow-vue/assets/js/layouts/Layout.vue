@@ -97,7 +97,7 @@ const loggedInUser = ref(usePage().props.loggedInUser)
         <a href="https://twitter.com/Dominus_Kelvin" class="underline"
           >Kelvin Omereshone</a
         >
-        and contributors
+        in Nigeria 🇳🇬 and contributors all over the world 🌍
       </p>
     </footer>
   </div>
