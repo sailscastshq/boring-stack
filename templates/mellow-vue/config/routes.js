@@ -17,8 +17,9 @@ module.exports.routes = {
    * is matched against Sails route blueprints. See `config/blueprints.js`    *
    * for configuration options and examples.                                  *
    *                                                                          *
-   ***************************************************************************/
-  'GET /': 'home/index',
+   **********************************************/
+
+  'GET /': 'home/view-home',
 
   'GET /signup': 'auth/view-signup',
   'POST /signup': 'auth/signup',
@@ -36,12 +37,11 @@ module.exports.routes = {
   'GET /reset-password': 'auth/view-reset-password',
   'POST /reset-password': 'auth/reset-password',
 
-  'GET /dashboard': 'dashboard/index',
+  'GET /dashboard': 'dashboard/view-dashboard',
 
   'GET /profile': 'user/view-profile',
   'DELETE /logout': 'user/logout',
 
-  // Continue with OAuth flow
   'GET /auth/:provider/redirect': 'auth/redirect',
   'GET /auth/:provider/callback': 'auth/callback'
 }
