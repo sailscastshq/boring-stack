@@ -47,7 +47,7 @@ and exposed as a shared data via loggedInUser prop.)`,
   },
 
   fn: async function ({ email, password, rememberMe }) {
-    var user = await User.findOne({
+    const user = await User.findOne({
       email: email.toLowerCase()
     })
 
@@ -76,6 +76,6 @@ and exposed as a shared data via loggedInUser prop.)`,
     }
 
     this.req.session.userId = user.id
-    return '/'
+    return '/dashboard'
   }
 }
