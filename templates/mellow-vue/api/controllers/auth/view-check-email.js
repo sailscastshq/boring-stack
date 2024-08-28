@@ -17,7 +17,7 @@ module.exports = {
       message = `We sent an email verification link to ${this.req.session.userEmail}`
     }
     return {
-      page: 'check-email',
+      page: 'auth/check-email',
       props: {
         message
       }

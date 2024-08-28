@@ -9,6 +9,6 @@ module.exports = {
   },
 
   fn: async function () {
-    return { page: 'signup' }
+    return { page: 'auth/signup' }
   }
 }
