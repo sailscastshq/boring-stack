@@ -9,7 +9,7 @@ defineOptions({
 
 <template>
   <Head title="Mellow"></Head>
-  <section class="mx-4 mt-24">
+  <section class="mx-4 mt-20">
     <h1 class="mb-4 text-center text-4xl font-bold text-brand md:text-5xl">
       Simplify Authentication, Focus on Shipping 🚀
     </h1>
