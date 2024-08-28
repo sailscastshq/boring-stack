@@ -76,10 +76,15 @@ const loggedInUser = ref(usePage().props.loggedInUser)
             class="block rounded-lg border-2 border-transparent bg-white p-6 shadow transition-shadow duration-300 hover:border-brand hover:shadow-lg"
           >
             <h3 class="mb-2 text-xl text-brand">Sailscasts</h3>
-            <p class="text-gray-600">
+            <p class="mb-4 text-gray-600">
               Learn Sails.js and The Boring JavaScript Stack through video
               tutorials and courses.
             </p>
+            <button
+              class="mt-2 rounded-lg border border-brand px-4 py-2 text-brand transition-colors duration-300 hover:bg-brand hover:text-white"
+            >
+              Start Learning
+            </button>
           </a>
 
           <a
@@ -89,9 +94,14 @@ const loggedInUser = ref(usePage().props.loggedInUser)
             class="block rounded-lg border-2 border-transparent bg-white p-6 shadow transition-shadow duration-300 hover:border-brand hover:shadow-lg"
           >
             <h3 class="mb-2 text-xl text-brand">Sailscasts Discord</h3>
-            <p class="text-gray-600">
+            <p class="mb-4 text-gray-600">
               Join the community to discuss Sails.js and get help.
             </p>
+            <button
+              class="mt-2 rounded-lg border border-brand px-4 py-2 text-brand transition-colors duration-300 hover:bg-brand hover:text-white"
+            >
+              Join Community
+            </button>
           </a>
 
           <a
@@ -103,10 +113,16 @@ const loggedInUser = ref(usePage().props.loggedInUser)
             <h3 class="mb-2 text-xl text-brand">
               The Boring JavaScript Stack Docs
             </h3>
-            <p class="text-gray-600">
+            <p class="mb-4 text-gray-600">
               Official documentation for The Boring JavaScript Stack.
             </p>
+            <button
+              class="mt-2 rounded-lg border border-brand px-4 py-2 text-brand transition-colors duration-300 hover:bg-brand hover:text-white"
+            >
+              Read Docs
+            </button>
           </a>
+
           <a
             href="https://github.com/sailscastshq/boring-stack"
             target="_blank"
@@ -114,9 +130,14 @@ const loggedInUser = ref(usePage().props.loggedInUser)
             class="block rounded-lg border-2 border-transparent bg-white p-6 shadow transition-shadow duration-300 hover:border-brand hover:shadow-lg"
           >
             <h3 class="mb-2 text-xl text-brand">Star on GitHub ⭐️</h3>
-            <p class="text-gray-600">
+            <p class="mb-4 text-gray-600">
               Give The Boring JavaScript Stack a star on GitHub
             </p>
+            <button
+              class="mt-2 rounded-lg border border-brand px-4 py-2 text-brand transition-colors duration-300 hover:bg-brand hover:text-white"
+            >
+              Star Project
+            </button>
           </a>
         </div>
       </section>
