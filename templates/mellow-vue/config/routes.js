@@ -36,6 +36,8 @@ module.exports.routes = {
   'GET /reset-password': 'auth/view-reset-password',
   'POST /reset-password': 'auth/reset-password',
 
+  'GET /dashboard': 'dashboard/index',
+
   'GET /profile': 'user/view-profile',
   'DELETE /logout': 'user/logout',
 
