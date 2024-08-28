@@ -54,7 +54,7 @@ const { pageTitle, pageHeading, message } = defineProps({
           {{ message }}. Click continue to go to the homepage
         </p>
         <Link
-          href="/"
+          href="/dashboard"
           class="w-full rounded-md border border-brand bg-brand px-4 py-3 text-white disabled:bg-gray-200/40 disabled:text-gray"
         >
           Continue
