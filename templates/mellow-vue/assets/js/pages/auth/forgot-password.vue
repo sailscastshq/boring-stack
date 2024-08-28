@@ -3,9 +3,7 @@ import { Link, Head, useForm } from '@inertiajs/vue3'
 import { computed } from 'vue'
 
 const form = useForm({
-  email: null,
-  password: null,
-  rememberMe: false
+  email: null
 })
 const disableForgetPasswordButton = computed(() => {
   const emailRegex = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/

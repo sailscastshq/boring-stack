@@ -73,8 +73,6 @@ module.exports = {
       }
     }
 
-    this.req.session.userEmail = unverifiedUser.email
-
     await sails.helpers.mail.send.with({
       subject: 'Verify your email',
       template: 'email-verify-account',
@@ -84,6 +82,7 @@ module.exports = {
         fullName: unverifiedUser.fullName
       }
     })
+    this.req.session.userEmail = unverifiedUser.email
     return '/check-email'
   }
 }
