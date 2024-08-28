@@ -64,7 +64,7 @@ const loggedInUser = ref(usePage().props.loggedInUser)
       </nav>
     </header>
 
-    <main class="flex-grow">
+    <main>
       <slot></slot>
     </main>
 
