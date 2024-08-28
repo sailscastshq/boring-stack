@@ -8,7 +8,7 @@ defineOptions({
 </script>
 
 <template>
-  <Head title="Mellow"></Head>
+  <Head title="Mellow | Simplify Authentication, Focus on Shipping"></Head>
   <section class="mx-4 mt-20">
     <h1 class="mb-4 text-center text-4xl font-bold text-brand md:text-5xl">
       Simplify Authentication, Focus on Shipping 🚀
@@ -143,7 +143,7 @@ defineOptions({
           How do I get started with Mellow?
         </summary>
         <p class="text-sm text-black md:text-lg">
-          Chances are you already have scaffolded a new project using mellow if
+          Chances are you already have scaffolded a new project using Mellow if
           you are seeing this. Just open up the project in your editor and start
           coding away.
         </p>
