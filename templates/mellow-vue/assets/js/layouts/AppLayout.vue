@@ -65,7 +65,7 @@ const loggedInUser = ref(usePage().props.loggedInUser)
       </nav>
     </header>
 
-    <main class="min-h-screen">
+    <main class="mb-10 min-h-screen">
       <slot></slot>
     </main>
 
