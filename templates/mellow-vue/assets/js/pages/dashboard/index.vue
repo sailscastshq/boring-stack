@@ -1,5 +1,5 @@
 <script setup>
-import { usePage, Link } from '@inertiajs/vue3'
+import { usePage, Link, Head } from '@inertiajs/vue3'
 import AppLayout from '@/layouts/AppLayout.vue'
 
 defineOptions({
@@ -9,6 +9,7 @@ const page = usePage()
 const loggedInUser = page.props.loggedInUser
 </script>
 <template>
+  <Head title="Dashboard | Mellow"></Head>
   <section class="mx-auto max-w-4xl px-4">
     <section
       class="block rounded-lg bg-gradient-to-b from-brand-50/10 to-white p-6 shadow-md transition-all duration-300 hover:shadow-lg"
