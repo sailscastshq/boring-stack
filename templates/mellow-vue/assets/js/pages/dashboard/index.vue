@@ -12,7 +12,7 @@ const loggedInUser = page.props.loggedInUser
   <Head title="Dashboard | Mellow"></Head>
   <section class="mx-auto max-w-4xl px-4">
     <section
-      class="block rounded-lg bg-gradient-to-b from-brand-50/10 to-white p-6 shadow-md transition-all duration-300 hover:shadow-lg"
+      class="rounded-lg bg-gradient-to-b from-brand-50/10 to-white p-6 shadow-md transition-all duration-300 hover:shadow-lg"
     >
       <h3 class="mb-2 text-xl font-semibold text-brand">
         Welcome, {{ loggedInUser.fullName }}
