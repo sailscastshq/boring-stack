@@ -9,6 +9,10 @@ module.exports = function inertiaRedirect(url) {
   const req = this.req
   const res = this.res
 
+  if (url === 'back') {
+    url = req.get('referer') || '/'
+  }
+
   if (req.get(inertiaHeaders.INERTIA)) {
     res.set(inertiaHeaders.LOCATION, url)
   }
