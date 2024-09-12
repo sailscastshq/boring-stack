@@ -20,40 +20,22 @@ defineOptions({
   <section class="px-4 py-12 md:mx-auto md:w-10/12 md:px-8 md:py-16">
     <div class="grid grid-cols-1 gap-8 md:grid-cols-2">
       <a
-        href="https://sailscasts.com"
-        target="_blank"
-        rel="noopener noreferrer"
-        class="group block rounded-lg bg-gradient-to-b from-brand-50/10 to-white p-6 shadow-md transition-all duration-300 hover:shadow-lg"
-      >
-        <h3 class="mb-2 text-xl font-semibold text-brand">Sailscasts</h3>
-        <p class="mb-4 text-gray-600">
-          Learn Sails.js and The Boring JavaScript Stack through video tutorials
-          and courses.
-        </p>
-        <button
-          class="mt-2 rounded-lg border border-brand px-4 py-2 text-brand transition-colors duration-300 group-hover:bg-brand group-hover:text-white"
-        >
-          Start Learning
-        </button>
-      </a>
-
-      <a
-        href="https://sailscasts.com/chat"
+        href="https://marketplace.visualstudio.com/items?itemName=Sails.sails-vscode"
         target="_blank"
         rel="noopener noreferrer"
         class="group block rounded-lg bg-gradient-to-b from-brand-50/10 to-white p-6 shadow-md transition-all duration-300 hover:shadow-lg"
       >
         <h3 class="mb-2 text-xl font-semibold text-brand">
-          Sailscasts Discord
+          Official VS Code extension
         </h3>
         <p class="mb-4 text-gray-600">
-          Join the community to discuss Sails.js and get help. Connect with
-          fellow developers and stay updated.
+          Install the official Sails VS Code extension to supercharge your
+          development experience.
         </p>
         <button
           class="mt-2 rounded-lg border border-brand px-4 py-2 text-brand transition-colors duration-300 group-hover:bg-brand group-hover:text-white"
         >
-          Join Community
+          Install Extension
         </button>
       </a>
 
@@ -75,6 +57,25 @@ defineOptions({
           Read Docs
         </button>
       </a>
+      <a
+        href="https://sailscasts.com/chat"
+        target="_blank"
+        rel="noopener noreferrer"
+        class="group block rounded-lg bg-gradient-to-b from-brand-50/10 to-white p-6 shadow-md transition-all duration-300 hover:shadow-lg"
+      >
+        <h3 class="mb-2 text-xl font-semibold text-brand">
+          Sailscasts Discord
+        </h3>
+        <p class="mb-4 text-gray-600">
+          Join the community to discuss Sails.js and get help. Connect with
+          fellow developers and stay updated.
+        </p>
+        <button
+          class="mt-2 rounded-lg border border-brand px-4 py-2 text-brand transition-colors duration-300 group-hover:bg-brand group-hover:text-white"
+        >
+          Join Community
+        </button>
+      </a>
 
       <a
         href="https://github.com/sailscastshq/boring-stack"
@@ -92,6 +93,23 @@ defineOptions({
           class="mt-2 rounded-lg border border-brand px-4 py-2 text-brand transition-colors duration-300 group-hover:bg-brand group-hover:text-white"
         >
           Star Project
+        </button>
+      </a>
+      <a
+        href="https://sailscasts.com"
+        target="_blank"
+        rel="noopener noreferrer"
+        class="group block rounded-lg bg-gradient-to-b from-brand-50/10 to-white p-6 shadow-md transition-all duration-300 hover:shadow-lg"
+      >
+        <h3 class="mb-2 text-xl font-semibold text-brand">Sailscasts</h3>
+        <p class="mb-4 text-gray-600">
+          Learn Sails.js and The Boring JavaScript Stack through video tutorials
+          and courses.
+        </p>
+        <button
+          class="mt-2 rounded-lg border border-brand px-4 py-2 text-brand transition-colors duration-300 group-hover:bg-brand group-hover:text-white"
+        >
+          Start Learning
         </button>
       </a>
     </div>
