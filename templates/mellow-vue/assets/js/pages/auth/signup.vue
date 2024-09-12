@@ -75,7 +75,7 @@ const disableSignupButton = computed(() => {
         @submit.prevent="form.post('/signup')"
         class="mb-4 flex flex-col space-y-6"
       >
-        <InputText v-model="form.name">
+        <InputText v-model="form.fullName">
           <p class="absolute text-red-500" v-if="form.errors.fullName">
             {{ form.errors.fullName }}
           </p>
