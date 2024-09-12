@@ -31,7 +31,7 @@ module.exports = {
 
     const token = await sails.helpers.strings.random('url-friendly')
 
-    const userThatForgotPassword = await User.updateOne({ id: user.id }).set({
+    const user = await User.updateOne({ email }).set({
       passwordResetToken: token,
       passwordResetTokenExpiresAt:
         Date.now() + sails.config.custom.passwordResetTokenTTL
@@ -47,7 +47,7 @@ module.exports = {
       }
     })
 
-    this.req.session.userEmail = userThatForgotPassword.email
+    this.req.session.userEmail = user.email
     return '/check-email'
   }
 }
