@@ -3,7 +3,7 @@ import InputBase from '@/components/InputBase'
 </script>
 
 <template>
-  <InputBase label="Text" id="name" type="text" placeholder="Your name">
+  <InputBase label="Name" id="name" type="text" placeholder="Your name">
     <template #icon>
       <svg
         class="h-5 w-5 fill-gray"
