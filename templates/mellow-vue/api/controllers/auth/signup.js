@@ -37,14 +37,14 @@ module.exports = {
 
   fn: async function ({ fullName, email: userEmail, password }) {
     const email = userEmail.toLowerCase()
-
+    const emailProofToken = await sails.helpers.strings.random('url-friendly')
     try {
       unverifiedUser = await User.create({
         email,
         password,
         fullName,
         tosAcceptedByIp: this.req.ip,
-        emailProofToken: sails.helpers.strings.random('url-friendly'),
+        emailProofToken,
         emailProofTokenExpiresAt:
           Date.now() + sails.config.custom.emailProofTokenTTL
       }).fetch()
