@@ -44,8 +44,12 @@ module.exports.routes = {
   'GET /dashboard': 'dashboard/view-dashboard',
 
   'GET /profile': 'user/view-profile',
+  'PATCH /profile': 'user/update-profile',
+  'DELETE /profile': 'user/delete-profile',
+
   'DELETE /logout': 'user/logout',
 
   'GET /auth/:provider/redirect': 'auth/redirect',
+
   'GET /auth/:provider/callback': 'auth/callback'
 }
