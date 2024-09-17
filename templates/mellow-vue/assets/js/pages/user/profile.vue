@@ -1,6 +1,6 @@
 <script setup>
 import { ref } from 'vue'
-import { Link, Head, usePage, useForm } from '@inertiajs/vue3'
+import { Link, Head, usePage, useForm, router } from '@inertiajs/vue3'
 
 import InputText from '@/components/InputText'
 import InputPassword from '@/components/InputPassword'
@@ -145,5 +145,12 @@ function updateProfile() {
         </div>
       </form>
     </section>
+
+    <InputButton
+      @click="router.delete('/logout')"
+      class="w-full border-red-600 bg-red-600"
+    >
+      Logout
+    </InputButton>
   </div>
 </template>
