@@ -30,7 +30,10 @@ const deleteAccountForm = useForm({
 function updateProfile() {
   form.patch(`/profile`, {
     preserveScroll: true,
-    preserveState: true
+    preserveState: true,
+    onError: (errors) => {
+      console.error('Update failed:', errors)
+    }
   })
 }
 </script>
@@ -60,6 +63,9 @@ function updateProfile() {
             Save changes
           </InputButton>
         </div>
+        <p class="text-right text-green-700" v-if="form.recentlySuccessful">
+          Profile updated successfully!
+        </p>
       </form>
     </section>
 
@@ -105,6 +111,9 @@ function updateProfile() {
             Update Password
           </InputButton>
         </div>
+        <p class="text-right text-green-700" v-if="form.recentlySuccessful">
+          Profile updated successfully!
+        </p>
       </form>
     </section>
 
