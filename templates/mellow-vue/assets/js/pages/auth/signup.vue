@@ -152,7 +152,7 @@ const disableSignupButton = computed(() => {
         </p>
         <InputButton
           :processing="form.processing"
-          disabled="disableSignupButton"
+          :disabled="disableSignupButton"
         />
       </form>
       <GoogleButton />
