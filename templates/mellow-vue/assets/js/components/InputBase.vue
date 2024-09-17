@@ -38,5 +38,6 @@ function updateValue(event) {
       @input="updateValue"
     />
     <slot></slot>
+    <slot name="suffix"></slot>
   </label>
 </template>
