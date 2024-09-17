@@ -96,9 +96,7 @@ module.exports = {
           }
         }
       }
-      updatedData.password = await sails.helpers.passwords.hashPassword(
-        password
-      )
+      updatedData.password = password
     }
 
     await User.updateOne({ id: userId }).set(updatedData)

@@ -14,6 +14,6 @@ module.exports = {
   fn: async function () {
     sails.inertia.flushShared('loggedInUser')
     delete this.req.session.userId
-    return '/'
+    return '/login'
   }
 }
