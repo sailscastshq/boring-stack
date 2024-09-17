@@ -66,7 +66,7 @@ const disableSignupButton = computed(() => {
         </p>
       </section>
       <p
-        class="b my-4 rounded-sm border-red-400 bg-red-100 p-4 text-red-500"
+        class="my-4 w-full rounded-sm border-red-400 bg-red-100 p-4 text-red-500"
         v-if="form.errors.signup"
       >
         {{ form.errors?.signup }}

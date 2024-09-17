@@ -53,7 +53,7 @@ const disableLoginButton = computed(() => {
         <h1 class="text-2xl">Log into your account</h1>
         <p class="text-lg text-gray">Welcome back, please enter your details</p>
         <p
-          class="my-4 rounded-sm border-red-400 bg-red-100 p-4 text-red-500"
+          class="my-4 w-full rounded-sm border-red-400 bg-red-100 p-4 text-red-500"
           v-if="form.errors.email || form.errors.login"
         >
           {{ form.errors?.login || form.errors?.email }}
