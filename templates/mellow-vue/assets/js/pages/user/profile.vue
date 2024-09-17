@@ -36,6 +36,16 @@ function updateProfile() {
     }
   })
 }
+
+function deleteAccount() {
+  if (
+    confirm(
+      'Are you sure you want to delete your account? This action cannot be undone.'
+    )
+  ) {
+    deleteAccountForm.delete('/profile')
+  }
+}
 </script>
 
 <template>
@@ -129,11 +139,8 @@ function updateProfile() {
         </p>
       </header>
 
-      <form
-        @submit.prevent="deleteAccountForm.delete('/profile')"
-        class="space-y-4"
-      >
-        <InputPassword v-model="deleteAccountForm.password" />
+      <form @submit.prevent="deleteAccount" class="space-y-4">
+        <InputPassword required v-model="deleteAccountForm.password" />
         <div class="flex items-center justify-end">
           <InputButton
             :processing="deleteAccountForm.processing"
