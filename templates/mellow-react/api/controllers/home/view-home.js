@@ -12,11 +12,6 @@ module.exports = {
   },
 
   fn: async function () {
-    return {
-      page: 'index',
-      props: {
-        name: 'Inertia'
-      }
-    }
+    return { page: 'index' }
   }
 }
