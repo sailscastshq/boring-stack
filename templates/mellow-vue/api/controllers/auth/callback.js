@@ -85,7 +85,7 @@ module.exports = {
       }
 
       req.session.userId = user.id
-      const urlToRedirectTo = '/'
+      const urlToRedirectTo = '/dashboard'
       return exits.success(urlToRedirectTo)
     })
   }

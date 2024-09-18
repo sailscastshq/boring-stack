@@ -67,7 +67,9 @@ module.exports = {
       await User.updateOne({ id: user.id }).set({
         emailStatus: 'confirmed',
         emailProofToken: '',
-        emailProofTokenExpiresAt: 0
+        emailProofTokenExpiresAt: 0,
+        email: user.emailChangeCandidate,
+        emailChangeCandidate: ''
       })
       this.req.session.userId = user.id
       return '/'

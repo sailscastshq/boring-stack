@@ -37,14 +37,14 @@ module.exports = {
 
   fn: async function ({ fullName, email: userEmail, password }) {
     const email = userEmail.toLowerCase()
-
+    const emailProofToken = await sails.helpers.strings.random('url-friendly')
     try {
       unverifiedUser = await User.create({
         email,
         password,
         fullName,
         tosAcceptedByIp: this.req.ip,
-        emailProofToken: sails.helpers.strings.random('url-friendly'),
+        emailProofToken,
         emailProofTokenExpiresAt:
           Date.now() + sails.config.custom.emailProofTokenTTL
       }).fetch()
@@ -73,8 +73,6 @@ module.exports = {
       }
     }
 
-    this.req.session.userEmail = unverifiedUser.email
-
     await sails.helpers.mail.send.with({
       subject: 'Verify your email',
       template: 'email-verify-account',
@@ -84,6 +82,7 @@ module.exports = {
         fullName: unverifiedUser.fullName
       }
     })
+    this.req.session.userEmail = unverifiedUser.email
     return '/check-email'
   }
 }

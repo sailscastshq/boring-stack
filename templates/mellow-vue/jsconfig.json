@@ -1,5 +1,5 @@
 {
-  "include": ["api/**/*", "assets/js/**/*", "types/index.d.ts"],
+  "include": ["api/**/*", "assets/js/**/*"],
 
   "compilerOptions": {
     "types": ["node"],

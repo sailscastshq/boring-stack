@@ -10,6 +10,6 @@ module.exports = {
   },
 
   fn: async function () {
-    return { page: 'forgot-password' }
+    return { page: 'auth/forgot-password' }
   }
 }

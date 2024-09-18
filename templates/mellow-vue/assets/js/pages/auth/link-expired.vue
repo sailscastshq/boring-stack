@@ -2,7 +2,7 @@
 import { Link, Head } from '@inertiajs/vue3'
 </script>
 <template>
-  <Head title="Verification expired"></Head>
+  <Head title="Verification expired | Mellow"></Head>
   <section
     class="flex min-h-screen flex-col justify-center bg-gradient-to-b from-brand-50/10 to-[#F9FAFB] text-black sm:items-center"
   >

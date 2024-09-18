@@ -28,6 +28,6 @@ module.exports = {
     if (!user || user.passwordResetTokenExpiresAt <= Date.now()) {
       throw 'invalidOrExpiredToken'
     }
-    return { page: 'reset-password', props: { token } }
+    return { page: 'auth/reset-password', props: { token } }
   }
 }

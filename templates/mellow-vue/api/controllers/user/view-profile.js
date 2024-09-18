@@ -10,6 +10,6 @@ module.exports = {
   },
 
   fn: async function () {
-    return { page: 'profile' }
+    return { page: 'user/profile' }
   }
 }

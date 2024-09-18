@@ -24,14 +24,14 @@ module.exports = {
   },
 
   fn: async function ({ email }) {
-    const user = await User.findOne({ email })
-    if (!user) {
-      return
+    const userExists = await User.count({ email: this.req.session.userEmail })
+    if (!userExists) {
+      return '/check-email'
     }
 
     const token = await sails.helpers.strings.random('url-friendly')
 
-    await User.update({ id: user.id }).set({
+    const user = await User.updateOne({ email }).set({
       passwordResetToken: token,
       passwordResetTokenExpiresAt:
         Date.now() + sails.config.custom.passwordResetTokenTTL
@@ -46,6 +46,7 @@ module.exports = {
         token
       }
     })
+
     this.req.session.userEmail = user.email
     return '/check-email'
   }

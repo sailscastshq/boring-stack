@@ -10,14 +10,9 @@ module.exports = {
   },
 
   fn: async function () {
-    let message = null
-    if (this.req.get('referrer').includes('forgot-password')) {
-      message = `We sent a password reset link to ${this.req.session.userEmail}`
-    } else {
-      message = `We sent an email verification link to ${this.req.session.userEmail}`
-    }
+    let message = `We sent a link to the email address you provided. Please check your inbox and follow the instructions.`
     return {
-      page: 'check-email',
+      page: 'auth/check-email',
       props: {
         message
       }

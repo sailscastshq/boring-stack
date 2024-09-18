@@ -13,7 +13,7 @@ const { pageTitle, pageHeading, message } = defineProps({
 })
 </script>
 <template>
-  <Head :title="pageTitle"></Head>
+  <Head :title="`${pageTitle} | Mellow`"></Head>
   <section
     class="flex min-h-screen flex-col justify-center bg-gradient-to-b from-brand-50/10 to-[#F9FAFB] text-black sm:items-center"
   >
@@ -54,7 +54,7 @@ const { pageTitle, pageHeading, message } = defineProps({
           {{ message }}. Click continue to go to the homepage
         </p>
         <Link
-          href="/"
+          href="/dashboard"
           class="w-full rounded-md border border-brand bg-brand px-4 py-3 text-white disabled:bg-gray-200/40 disabled:text-gray"
         >
           Continue

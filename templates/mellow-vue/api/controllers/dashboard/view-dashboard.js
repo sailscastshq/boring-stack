@@ -1,7 +1,7 @@
 module.exports = {
-  friendlyName: 'View login',
+  friendlyName: 'View dashboard',
 
-  description: 'Display "Login" page.',
+  description: 'Display "Dashboard" page.',
 
   exits: {
     success: {
@@ -10,6 +10,6 @@ module.exports = {
   },
 
   fn: async function () {
-    return { page: 'auth/login' }
+    return { page: 'dashboard/index' }
   }
 }

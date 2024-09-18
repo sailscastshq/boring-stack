@@ -27,7 +27,7 @@ module.exports = {
         pageHeading = 'Password reset successful'
     }
     return {
-      page: 'success',
+      page: 'auth/success',
       props: {
         pageTitle,
         pageHeading,
