@@ -40,8 +40,6 @@
     "start": "NODE_ENV=production node app.js",
     "lint": "prettier --check .",
     "lint:fix": "prettier --write .",
-    "test:e2e": "node bin/test.js e2e",
-    "test:unit": "node bin/test.js unit",
     "test": "npm run test:unit && npm run test:e2e"
   },
   "main": "app.js",
