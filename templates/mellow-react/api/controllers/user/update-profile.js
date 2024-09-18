@@ -25,7 +25,7 @@ module.exports = {
       allowNull: true,
       description: 'The new password of the user.'
     },
-    confirmPassword: {
+    passwordConfirmation: {
       type: 'string',
       description: 'The confirmation of the new password.',
       allowNull: true
@@ -52,7 +52,7 @@ module.exports = {
     email,
     currentPassword,
     password,
-    confirmPassword
+    passwordConfirmation
   }) {
     const userId = this.req.session.userId
     const user = await User.findOne({ id: userId }).select([
@@ -89,7 +89,7 @@ module.exports = {
     }
 
     if (password) {
-      if (password !== confirmPassword) {
+      if (password !== passwordConfirmation) {
         throw {
           invalid: {
             problems: [{ password: 'Password confirmation does not match.' }]
