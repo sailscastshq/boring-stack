@@ -120,7 +120,6 @@ module.exports = {
     }, {})
   },
   beforeCreate: async function (valuesToSet, proceed) {
-    valuesToSet.id = sails.helpers.strings.uuid()
     valuesToSet.initials = sails.helpers.getUserInitials(valuesToSet.fullName)
     if (valuesToSet.password) {
       valuesToSet.password = await sails.helpers.passwords.hashPassword(
