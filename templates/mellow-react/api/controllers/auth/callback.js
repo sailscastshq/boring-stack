@@ -21,7 +21,6 @@ module.exports = {
   },
   fn: async function ({ code, provider }, exits) {
     const req = this.req
-    /** @type GoogleUser */
     const googleUser = await sails.wish.provider(provider).user(code)
 
     User.findOrCreate(
