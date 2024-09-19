@@ -88,11 +88,11 @@ export default function AppLayout({ children }) {
         </svg>
 
         <p className="text-sm text-gray">
-          <span>Made with love 💚 by </span>
+          Made with love 💚 by
           <a href="https://twitter.com/Dominus_Kelvin" className="underline">
             Kelvin Omereshone
           </a>
-          <span> in Nigeria 🇳🇬 and contributors all over the world 🌍</span>
+          in Nigeria 🇳🇬 and contributors all over the world 🌍
         </p>
       </footer>
     </div>

@@ -2,7 +2,7 @@ export default function GoogleButton() {
   return (
     <a
       href="/auth/google/redirect"
-      className="text-gray flex w-full justify-center space-x-3 rounded-md border border-gray-200 px-4 py-3 text-center text-lg"
+      className="flex w-full justify-center space-x-3 rounded-md border border-gray-200 px-4 py-3 text-center text-lg text-gray"
     >
       <svg
         className="h-6 w-6"
