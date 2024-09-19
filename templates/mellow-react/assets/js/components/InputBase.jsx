@@ -1,27 +1,41 @@
-import '~/css/forms.css'
-
 export default function InputBase({
-  name,
+  value,
+  onChange,
   label,
   id,
   icon,
   suffix,
-  type,
-  placeholder,
   ...props
 }) {
   return (
-    <label htmlFor={id} className="relative block">
-      <span className="block text-lg"> {label}</span>
-      <span className="absolute left-2 top-[55%]">{icon}</span>
-      <input
-        id={id}
-        className="block w-full rounded-lg border border-gray/50 bg-white py-3 pl-10 pr-3 shadow-sm placeholder:text-lg placeholder:text-gray focus:outline-none focus:ring-1 focus:ring-gray-100"
-        type={type}
-        placeholder={placeholder}
-        {...props}
-      />
-      {suffix ? suffix : null}
-    </label>
+    <div className="relative">
+      {label && (
+        <label htmlFor={id} className="mb-1 block text-lg">
+          {label}
+        </label>
+      )}
+      <div className="relative">
+        {Icon && (
+          <span className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400">
+            <Icon className="h-5 w-5" />
+          </span>
+        )}
+        <input
+          ref={ref}
+          id={id}
+          className={`block w-full rounded-lg border border-gray-300 bg-white py-2 ${
+            Icon ? 'pl-10' : 'pl-3'
+          } pr-3 shadow-sm placeholder:text-gray-400 focus:border-blue-500 focus:outline-none focus:ring-2 focus:ring-blue-500 ${className}`}
+          value={value}
+          onChange={onChange}
+          {...props}
+        />
+        {suffix && (
+          <span className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-400">
+            {suffix}
+          </span>
+        )}
+      </div>
+    </div>
   )
 }
