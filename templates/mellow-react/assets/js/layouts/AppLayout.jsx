@@ -4,7 +4,7 @@ export default function AppLayout({ children }) {
   const { loggedInUser } = usePage().props
 
   return (
-    <div className="from-brand-50/10 flex min-h-screen flex-col bg-gradient-to-b to-[#F9FAFB]">
+    <div className="flex min-h-screen flex-col bg-gradient-to-b from-brand-50/10 to-[#F9FAFB]">
       <header>
         <nav className="flex items-center justify-between px-4 py-6 md:px-8">
           <Link href="/">
@@ -34,7 +34,7 @@ export default function AppLayout({ children }) {
               <li>
                 <Link
                   href="/signup"
-                  className="bg-brand rounded-lg px-8 py-4 text-white md:py-3"
+                  className="rounded-lg bg-brand px-8 py-4 text-white md:py-3"
                 >
                   Sign up
                 </Link>
@@ -47,7 +47,7 @@ export default function AppLayout({ children }) {
               </Link>
               <Link href="/profile">
                 {!loggedInUser.googleAvatarUrl ? (
-                  <p className="bg-green rounded-full p-2 text-white">
+                  <p className="rounded-full bg-green p-2 text-white">
                     {loggedInUser.initials}
                   </p>
                 ) : (
@@ -87,7 +87,7 @@ export default function AppLayout({ children }) {
           />
         </svg>
 
-        <p className="text-gray text-sm">
+        <p className="text-sm text-gray">
           Made with love 💚 by
           <a href="https://twitter.com/Dominus_Kelvin" className="underline">
             Kelvin Omereshone
