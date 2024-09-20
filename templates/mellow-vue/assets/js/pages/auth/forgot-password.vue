@@ -69,7 +69,8 @@ const disableForgetPasswordButton = computed(() => {
         <InputButton
           :processing="form.processing"
           :disabled="disableForgetPasswordButton"
-        />
+          >Forgot password</InputButton
+        >
       </form>
     </main>
     <footer class="my-8 text-center text-black">
