@@ -61,7 +61,11 @@ const disableForgetPasswordButton = computed(() => {
         @submit.prevent="form.post('/forgot-password')"
         class="mb-4 flex flex-col space-y-6"
       >
-        <InputEmail v-model="form.email" />
+        <InputEmail v-model="form.email">
+          <p class="absolute text-red-500" v-if="form.errors.email">
+            {{ form.errors.email }}
+          </p>
+        </InputEmail>
         <InputButton
           :processing="form.processing"
           :disabled="disableForgetPasswordButton"
