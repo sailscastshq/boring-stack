@@ -1,4 +1,4 @@
-export default function InputButton({ processing, ...props }) {
+export default function InputButton({ processing, label, ...props }) {
   return (
     <button
       type="submit"
@@ -28,7 +28,7 @@ export default function InputButton({ processing, ...props }) {
         </svg>
       )}
       <span className={processing ? 'invisible' : undefined}>
-        <slot>Submit</slot>
+        {label ? label : 'Submit'}
       </span>
     </button>
   )
