@@ -68,7 +68,7 @@ module.exports = function badRequest(optionalData) {
         }
       })
       req.session.errors = errors
-      return res.redirect(303, 'back')
+      return res.redirect(303, req.get('Referrer') || '/')
     }
   }
 

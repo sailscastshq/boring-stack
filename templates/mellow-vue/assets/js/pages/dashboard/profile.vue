@@ -1,5 +1,4 @@
 <script setup>
-import { ref } from 'vue'
 import { Link, Head, usePage, useForm, router } from '@inertiajs/vue3'
 
 import InputText from '@/components/InputText'
@@ -13,14 +12,14 @@ defineOptions({
   layout: AppLayout
 })
 
-const loggedInUser = ref(usePage().props.loggedInUser)
+const loggedInUser = usePage().props.loggedInUser
 
 const form = useForm({
-  email: loggedInUser.value.email,
-  fullName: loggedInUser.value.fullName,
+  email: loggedInUser.email,
+  fullName: loggedInUser.fullName,
   currentPassword: null,
   password: null,
-  passwordConfirmation: null
+  confirmPassword: null
 })
 
 const deleteAccountForm = useForm({
@@ -105,8 +104,8 @@ function deleteAccount() {
         <InputPassword
           label="Confirm Password"
           placeholder="Confirm Password"
-          id="passwordConfirmation"
-          v-model="form.passwordConfirmation"
+          id="confirmPassword"
+          v-model="form.confirmPassword"
         >
           <p class="text-red-500" v-if="form.errors.password">
             {{ form.errors.password }}

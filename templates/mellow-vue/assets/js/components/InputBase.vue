@@ -41,3 +41,8 @@ function updateValue(event) {
     <slot name="suffix"></slot>
   </label>
 </template>
+<style>
+::-ms-reveal {
+  display: none;
+}
+</style>

@@ -78,7 +78,8 @@ const disableLoginButton = computed(() => {
         <InputButton
           :processing="form.processing"
           :disabled="disableLoginButton"
-        />
+          >Login</InputButton
+        >
       </form>
       <GoogleButton />
     </main>
@@ -90,8 +91,3 @@ const disableLoginButton = computed(() => {
     </footer>
   </section>
 </template>
-<style>
-::-ms-reveal {
-  display: none;
-}
-</style>

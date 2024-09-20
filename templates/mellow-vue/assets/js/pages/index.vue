@@ -8,7 +8,7 @@ defineOptions({
 </script>
 
 <template>
-  <Head title=" Simplify Authentication, Focus on Shipping | Mellow"></Head>
+  <Head title="Simplify Authentication, Focus on Shipping | Mellow"></Head>
   <section class="mx-4 mt-20">
     <h1 class="mb-4 text-center text-4xl font-bold text-brand md:text-5xl">
       Simplify Authentication, Focus on Shipping 🚀
