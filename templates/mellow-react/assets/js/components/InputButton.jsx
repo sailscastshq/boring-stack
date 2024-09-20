@@ -27,7 +27,7 @@ export default function InputButton({ processing, ...props }) {
           ></path>
         </svg>
       )}
-      <span className={processing && 'invisible'}>
+      <span className={processing ? 'invisible' : undefined}>
         <slot>Submit</slot>
       </span>
     </button>
