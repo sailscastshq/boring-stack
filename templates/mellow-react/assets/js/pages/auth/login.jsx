@@ -93,6 +93,7 @@ export default function Login() {
             <InputButton
               processing={form.processing}
               disabled={disableLoginButton}
+              label="Login"
             />
           </form>
           <GoogleButton />

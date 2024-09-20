@@ -159,6 +159,7 @@ export default function Signup() {
             <InputButton
               processing={form.processing}
               disabled={disableResetPasswordButton}
+              label="Sign up"
             />
           </form>
           <GoogleButton />
