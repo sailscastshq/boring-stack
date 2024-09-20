@@ -1,3 +1,5 @@
+import '~/css/forms.css'
+
 export default function InputBase({
   name,
   label,
