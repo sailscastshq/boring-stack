@@ -1,7 +1,8 @@
 <script setup>
 import { Link, Head, useForm } from '@inertiajs/vue3'
 import { computed } from 'vue'
-
+import InputEmail from '@/components/InputEmail'
+import InputButton from '@/components/InputButton'
 const form = useForm({
   email: null
 })
@@ -60,57 +61,11 @@ const disableForgetPasswordButton = computed(() => {
         @submit.prevent="form.post('/forgot-password')"
         class="mb-4 flex flex-col space-y-6"
       >
-        <label for="email" class="relative block"
-          ><span class="block text-lg">Email</span>
-          <span class="absolute left-2 top-[55%]">
-            <svg
-              class="h-5 w-5 fill-gray"
-              viewBox="0 0 16 16"
-              fill="none"
-              xmlns="http://www.w3.org/2000/svg"
-            >
-              <path
-                d="M12.6667 0.666626H3.33333C2.4496 0.667685 1.60237 1.01921 0.97748 1.64411C0.352588 2.269 0.00105857 3.11623 0 3.99996L0 12C0.00105857 12.8837 0.352588 13.7309 0.97748 14.3558C1.60237 14.9807 2.4496 15.3322 3.33333 15.3333H12.6667C13.5504 15.3322 14.3976 14.9807 15.0225 14.3558C15.6474 13.7309 15.9989 12.8837 16 12V3.99996C15.9989 3.11623 15.6474 2.269 15.0225 1.64411C14.3976 1.01921 13.5504 0.667685 12.6667 0.666626ZM3.33333 1.99996H12.6667C13.0659 2.00074 13.4557 2.12097 13.786 2.34516C14.1163 2.56935 14.3719 2.88726 14.52 3.25796L9.41467 8.36396C9.03895 8.73817 8.53028 8.94827 8 8.94827C7.46972 8.94827 6.96105 8.73817 6.58533 8.36396L1.48 3.25796C1.6281 2.88726 1.88374 2.56935 2.21403 2.34516C2.54432 2.12097 2.93414 2.00074 3.33333 1.99996ZM12.6667 14H3.33333C2.8029 14 2.29419 13.7892 1.91912 13.4142C1.54405 13.0391 1.33333 12.5304 1.33333 12V4.99996L5.64267 9.30663C6.26842 9.9308 7.11617 10.2813 8 10.2813C8.88383 10.2813 9.73158 9.9308 10.3573 9.30663L14.6667 4.99996V12C14.6667 12.5304 14.456 13.0391 14.0809 13.4142C13.7058 13.7892 13.1971 14 12.6667 14Z"
-                fill="#878787"
-              />
-            </svg>
-          </span>
-          <input
-            type="email"
-            id="email"
-            placeholder="Your email"
-            class="block w-full rounded-lg border border-gray/50 bg-white py-3 pl-10 pr-3 shadow-sm placeholder:text-lg placeholder:text-gray focus:outline-none focus:ring-1 focus:ring-gray-100"
-            v-model="form.email"
-          />
-        </label>
-        <button
-          type="submit"
-          class="flex justify-center rounded-md border border-brand bg-brand px-4 py-3 text-white disabled:cursor-not-allowed disabled:border-gray-200/40 disabled:bg-gray-200/40 disabled:text-gray"
+        <InputEmail v-model="form.email" />
+        <InputButton
+          :processing="form.processing"
           :disabled="disableForgetPasswordButton"
-        >
-          <svg
-            v-if="form.processing"
-            class="-ml-1 mr-3 h-5 w-5 animate-spin text-white"
-            xmlns="http://www.w3.org/2000/svg"
-            fill="none"
-            viewBox="0 0 24 24"
-          >
-            <circle
-              class="opacity-25"
-              cx="12"
-              cy="12"
-              r="10"
-              stroke="currentColor"
-              stroke-width="4"
-            ></circle>
-            <path
-              class="opacity-75"
-              fill="currentColor"
-              d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"
-            ></path>
-          </svg>
-          <span v-else> Reset password </span>
-        </button>
+        />
       </form>
     </main>
     <footer class="my-8 text-center text-black">
@@ -132,8 +87,3 @@ const disableForgetPasswordButton = computed(() => {
     </footer>
   </section>
 </template>
-<style>
-::-ms-reveal {
-  display: none;
-}
-</style>
