@@ -1,0 +1,57 @@
+<h2
+  style="
+    margin-bottom: 32px;
+    font-size: 24px;
+    font-style: normal;
+    font-weight: 700;
+    line-height: 33px;
+    letter-spacing: 0em;
+    text-align: left;
+  "
+>
+  Confirm Your New Email, <%= fullName %>!
+</h2>
+<p style="margin-bottom: 32px">
+  We've received a request to change your email address. To complete this
+  process, please click the button below to verify your new email address:
+</p>
+<div
+  style="
+    background-color: #6c25c1;
+    display: inline-block;
+    color: #fff;
+    text-decoration: none;
+    border-radius: 4px;
+    text-align: center;
+    width: 151px;
+    padding: 8px 16px 8px 16px;
+  "
+>
+  <a
+    style="
+      margin: auto;
+      font-size: 16px;
+      text-decoration: none;
+      color: white;
+      line-height: 22px;
+    "
+    href="<%= url.resolve(sails.config.custom.baseUrl,'/verify-email')+'?token='+encodeURIComponent(token) %>"
+    >Confirm New Email</a
+  >
+</div>
+<p style="margin-bottom: 25px">
+  If you have any trouble, try pasting this link in your browser:
+  <a
+    style="color: #6c25c1; word-wrap: break-word"
+    href="<%= url.resolve(sails.config.custom.baseUrl,'/verify-email')+'?token='+encodeURIComponent(token) %>"
+    ><%=
+    url.resolve(sails.config.custom.baseUrl,'/verify-email')+'?token='+encodeURIComponent(token)
+    %></a
+  >
+</p>
+<p style="margin-bottom: 25px">
+  If you didn't request this change, please ignore this email or contact our
+  support team if you have any concerns.
+</p>
+<p style="margin-bottom: 5px">Sincerely,</p>
+<p style="margin-top: 0px">The Mellow Team</p>
