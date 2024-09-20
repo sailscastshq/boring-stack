@@ -1,4 +1,4 @@
-import { Link, Head } from '@inertiajs/react'
+import { Link, Head, usePage } from '@inertiajs/react'
 import AppLayout from '@/layouts/AppLayout'
 
 Dashboard.layout = (page) => <AppLayout children={page} />
