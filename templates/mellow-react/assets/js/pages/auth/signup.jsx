@@ -158,7 +158,7 @@ export default function Signup() {
             </p>
             <InputButton
               processing={form.processing}
-              disabled={disableResetPasswordButton}
+              disabled={disableSignupButton}
               label="Sign up"
             />
           </form>
