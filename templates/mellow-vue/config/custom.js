@@ -40,11 +40,8 @@ module.exports.custom = {
   rememberMeCookieMaxAge: 30 * 24 * 60 * 60 * 1000, // 30 days
 
   // Email address for receiving support messages & other correspondences.
-  internalEmail: 'support+development@example.com',
+  internalEmail: 'support+development@example.com'
 
-  // Whether to require proof of email address ownership any time a new user
-  // signs up, or when an existing user attempts to change their email address.
-  verifyEmail: false
   /***************************************************************************
    *                                                                          *
    * Any other custom config this Sails app should use during development.    *
