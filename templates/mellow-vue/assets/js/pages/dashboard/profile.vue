@@ -15,8 +15,8 @@ defineOptions({
 const loggedInUser = usePage().props.loggedInUser
 
 const form = useForm({
-  email: loggedInUser.value.email,
-  fullName: loggedInUser.value.fullName,
+  email: loggedInUser.email,
+  fullName: loggedInUser.fullName,
   currentPassword: null,
   password: null,
   confirmPassword: null
