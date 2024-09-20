@@ -22,7 +22,8 @@ export default function Login() {
 
   function submit(e) {
     e.preventDefault()
-    form.post('/login')
+    console.log(data)
+    // form.post('/login')
   }
   return (
     <>
@@ -77,8 +78,8 @@ export default function Login() {
                 <input
                   id="rememberMe"
                   type="checkbox"
-                  value={data.rememberMe}
-                  onChange={(e) => setData('rememberMe', e.target.value)}
+                  checked={data.rememberMe}
+                  onChange={(e) => setData('rememberMe', !data.rememberMe)}
                 />
                 <span>Remember me</span>
               </label>
