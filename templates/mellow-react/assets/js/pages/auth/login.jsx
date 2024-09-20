@@ -22,7 +22,8 @@ export default function Login() {
 
   function submit(e) {
     e.preventDefault()
-    form.post('/login')
+    console.log(data)
+    // form.post('/login')
   }
   return (
     <>
