@@ -3,7 +3,7 @@ import InputBase from '@/components/InputBase'
 </script>
 
 <template>
-  <InputBase label="Email" id="email" type="text" placeholder="Your email">
+  <InputBase label="Email" id="email" type="email" placeholder="Your email">
     <template #icon>
       <svg
         class="h-5 w-5 fill-gray"
