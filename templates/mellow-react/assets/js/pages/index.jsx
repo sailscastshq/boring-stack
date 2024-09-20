@@ -6,7 +6,6 @@ Index.layout = (page) => <AppLayout children={page} />
 
 Index.layout = (page) => <AppLayout children={page} />
 export default function Index() {
-export default function Index() {
   return (
     <>
       <Head title="Simplify Authentication, Focus on Shipping | Mellow" />
