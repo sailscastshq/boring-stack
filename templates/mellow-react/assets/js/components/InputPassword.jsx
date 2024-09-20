@@ -1,7 +1,7 @@
 import { useState } from 'react'
 import InputBase from '@/components/InputBase'
 
-export default function InputPassword() {
+export default function InputPassword(props) {
   const [showPassword, setShowPassword] = useState(false)
 
   function toggleShowPassword() {
@@ -43,16 +43,16 @@ export default function InputPassword() {
           <button
             type="button"
             onClick={toggleShowPassword}
-            ariaLabel="Toggle Password Visibility"
+            aria-label="Toggle Password Visibility"
           >
             {showPassword ? (
               <svg
                 className="h-5 w-5 fill-gray"
                 viewBox="0 0 16 16"
                 role="img"
-                ariaLabel="Password is not visible"
+                aria-label="Password is not visible"
                 fill="none"
-                ariaHidden="true"
+                aria-hidden="true"
                 xmlns="http://www.w3.org/2000/svg"
               >
                 <g clipPath="url(#clip0_198_553)">
@@ -76,9 +76,9 @@ export default function InputPassword() {
                 className="h-5 w-5 fill-gray"
                 viewBox="0 0 16 16"
                 role="img"
-                ariaLabel="Password is visible"
+                aria-label="Password is visible"
                 fill="none"
-                ariaHidden="true"
+                aria-hidden="true"
                 xmlns="http://www.w3.org/2000/svg"
               >
                 <g clipPath="url(#clip0_208_684)">
