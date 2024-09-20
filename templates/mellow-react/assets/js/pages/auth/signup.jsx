@@ -32,7 +32,7 @@ export default function Signup() {
 
   function submit(e) {
     e.preventDefault()
-    form.post('/login')
+    form.post('/signup')
   }
   return (
     <>
@@ -158,7 +158,7 @@ export default function Signup() {
             </p>
             <InputButton
               processing={form.processing}
-              disabled={disableSignupButton}
+              disabled={disableResetPasswordButton}
             />
           </form>
           <GoogleButton />
