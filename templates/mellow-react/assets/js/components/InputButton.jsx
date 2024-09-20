@@ -1,20 +1,8 @@
-const mergeClasses = (...classes) => {
-  return classes.filter(Boolean).join(' ')
-}
-export default function InputButton({
-  processing,
-  className,
-  label,
-  ...props
-}) {
+export default function InputButton({ processing, ...props }) {
   return (
     <button
       type="submit"
-      className={mergeClasses(
-        'relative flex items-center justify-center rounded-md border border-brand bg-brand px-4 py-3 text-white',
-        'disabled:cursor-not-allowed disabled:border-gray-200/40 disabled:bg-gray-200/40 disabled:text-gray',
-        className
-      )}
+      className="relative flex items-center justify-center rounded-md border border-brand bg-brand px-4 py-3 text-white disabled:cursor-not-allowed disabled:border-gray-200/40 disabled:bg-gray-200/40 disabled:text-gray"
       {...props}
     >
       {processing && (
@@ -39,8 +27,8 @@ export default function InputButton({
           ></path>
         </svg>
       )}
-      <span className={processing ? 'invisible' : undefined}>
-        {label ? label : 'Submit'}
+      <span className={processing && 'invisible'}>
+        <slot>Submit</slot>
       </span>
     </button>
   )
