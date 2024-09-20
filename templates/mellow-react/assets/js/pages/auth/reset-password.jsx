@@ -19,14 +19,12 @@ export default function ResetPassword({ token }) {
   })
 
   const disableResetPasswordButton = useMemo(() => {
-    const emailRegex = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/
-    const isEmailValid = emailRegex.test(data.email)
-    if (!isEmailValid) return true
+    if (!passwordIsValid) return true
+    if (!containsSpecialChars) return true
     if (form.processing) return true
-    if (form.password != form.confirmPassword) return true
-
+    if (data.password != data.confirmPassword) return true
     return false
-  }, [])
+  }, [data.password, data.confirmPassword, form.processing])
 
   function submit(e) {
     e.preventDefault()
