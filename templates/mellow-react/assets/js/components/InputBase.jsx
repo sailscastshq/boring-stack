@@ -1,7 +1,5 @@
 export default function InputBase({
   name,
-  value,
-  onChange,
   label,
   id,
   icon,
