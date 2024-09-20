@@ -13,9 +13,9 @@ export default function Profile() {
   const { data, setData, ...form } = useForm({
     email: loggedInUser.email,
     fullName: loggedInUser.fullName,
-    currentPassword: '',
-    password: '',
-    confirmPassword: ''
+    currentPassword: undefined,
+    password: undefined,
+    confirmPassword: undefined
   })
 
   const {
@@ -23,10 +23,11 @@ export default function Profile() {
     setData: setDeleteAccountData,
     ...deleteAccountForm
   } = useForm({
-    password: ''
+    password: undefined
   })
 
-  function updateProfile() {
+  function updateProfile(e) {
+    e.preventDefault()
     form.patch(`/profile`, {
       preserveScroll: true,
       preserveState: true,
