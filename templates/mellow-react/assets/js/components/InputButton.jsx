@@ -1,8 +1,20 @@
-export default function InputButton({ processing, label, ...props }) {
+const mergeClasses = (...classes) => {
+  return classes.filter(Boolean).join(' ')
+}
+export default function InputButton({
+  processing,
+  className,
+  label,
+  ...props
+}) {
   return (
     <button
       type="submit"
-      className="relative flex items-center justify-center rounded-md border border-brand bg-brand px-4 py-3 text-white disabled:cursor-not-allowed disabled:border-gray-200/40 disabled:bg-gray-200/40 disabled:text-gray"
+      className={mergeClasses(
+        'relative flex items-center justify-center rounded-md border border-brand bg-brand px-4 py-3 text-white',
+        'disabled:cursor-not-allowed disabled:border-gray-200/40 disabled:bg-gray-200/40 disabled:text-gray',
+        className
+      )}
       {...props}
     >
       {processing && (
