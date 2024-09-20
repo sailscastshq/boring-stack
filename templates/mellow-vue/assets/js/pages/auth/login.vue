@@ -90,8 +90,3 @@ const disableLoginButton = computed(() => {
     </footer>
   </section>
 </template>
-<style>
-::-ms-reveal {
-  display: none;
-}
-</style>
