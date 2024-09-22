@@ -2,6 +2,7 @@ import { Link, Head, useForm } from '@inertiajs/react'
 import InputEmail from '@/components/InputEmail'
 import InputButton from '@/components/InputButton'
 import { useMemo } from 'react'
+
 export default function ForgotPassword() {
   const { data, setData, ...form } = useForm({
     email: ''
