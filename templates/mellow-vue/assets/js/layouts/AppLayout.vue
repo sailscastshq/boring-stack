@@ -1,8 +1,7 @@
 <script setup>
 import { Link, usePage } from '@inertiajs/vue3'
-import { ref } from 'vue'
 
-const loggedInUser = ref(usePage().props.loggedInUser)
+const loggedInUser = usePage().props.loggedInUser
 </script>
 
 <template>
