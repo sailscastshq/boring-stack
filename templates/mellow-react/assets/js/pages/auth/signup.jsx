@@ -1,11 +1,11 @@
 import { Link, Head, useForm } from '@inertiajs/react'
 import { useMemo } from 'react'
 
-import InputText from '@/components/InputText'
-import InputEmail from '@/components/InputEmail'
-import InputPassword from '@/components/InputPassword'
-import InputButton from '@/components/InputButton'
-import GoogleButton from '@/components/GoogleButton'
+import InputText from '@/components/InputText.jsx'
+import InputEmail from '@/components/InputEmail.jsx'
+import InputPassword from '@/components/InputPassword.jsx'
+import InputButton from '@/components/InputButton.jsx'
+import GoogleButton from '@/components/GoogleButton.jsx'
 
 export default function Signup() {
   const { data, setData, ...form } = useForm({

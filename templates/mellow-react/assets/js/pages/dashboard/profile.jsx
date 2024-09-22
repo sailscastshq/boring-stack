@@ -1,11 +1,11 @@
 import { Link, Head, usePage, useForm, router } from '@inertiajs/react'
 
-import AppLayout from '@/layouts/AppLayout'
+import AppLayout from '@/layouts/AppLayout.jsx'
 
-import InputText from '@/components/InputText'
-import InputPassword from '@/components/InputPassword'
-import InputEmail from '@/components/InputEmail'
-import InputButton from '@/components/InputButton'
+import InputText from '@/components/InputText.jsx'
+import InputPassword from '@/components/InputPassword.jsx'
+import InputEmail from '@/components/InputEmail.jsx'
+import InputButton from '@/components/InputButton.jsx'
 
 Profile.layout = (page) => <AppLayout children={page} />
 export default function Profile() {

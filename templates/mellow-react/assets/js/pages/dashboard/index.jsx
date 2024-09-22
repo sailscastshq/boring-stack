@@ -1,5 +1,5 @@
 import { Link, Head, usePage } from '@inertiajs/react'
-import AppLayout from '@/layouts/AppLayout'
+import AppLayout from '@/layouts/AppLayout.jsx'
 
 Dashboard.layout = (page) => <AppLayout children={page} />
 export default function Dashboard() {

@@ -1,5 +1,5 @@
 import { Head } from '@inertiajs/react'
-import AppLayout from '@/layouts/AppLayout'
+import AppLayout from '@/layouts/AppLayout.jsx'
 import '~/css/homepage.css'
 
 Index.layout = (page) => <AppLayout children={page} />
