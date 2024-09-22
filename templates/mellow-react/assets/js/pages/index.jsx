@@ -1,4 +1,4 @@
-import { Link, Head } from '@inertiajs/react'
+import { Head } from '@inertiajs/react'
 import AppLayout from '@/layouts/AppLayout'
 import '~/css/homepage.css'
 
