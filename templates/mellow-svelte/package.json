@@ -10,8 +10,10 @@
     "@sailshq/lodash": "^3.10.6",
     "@sailshq/socket.io-redis": "^6.1.2",
     "inertia-sails": "^0.2.2",
+    "nodemailer": "^6.9.15",
     "sails": "^1.5.12",
     "sails-flash": "^0.0.1",
+    "sails-hook-mail": "^0.1.0",
     "sails-hook-orm": "^4.0.3",
     "sails-hook-sockets": "^3.0.1"
   },
