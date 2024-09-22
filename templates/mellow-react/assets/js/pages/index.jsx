@@ -4,7 +4,6 @@ import '~/css/homepage.css'
 
 Index.layout = (page) => <AppLayout children={page} />
 
-Index.layout = (page) => <AppLayout children={page} />
 export default function Index() {
   return (
     <>
