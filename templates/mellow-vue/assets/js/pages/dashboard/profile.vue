@@ -6,7 +6,7 @@ import InputPassword from '@/components/InputPassword.vue'
 import InputEmail from '@/components/InputEmail.vue'
 import InputButton from '@/components/InputButton.vue'
 
-import AppLayout from '@/layouts/AppLayout.vue'
+import AppLayout from '@/layouts/AppLayout'
 
 defineOptions({
   layout: AppLayout
