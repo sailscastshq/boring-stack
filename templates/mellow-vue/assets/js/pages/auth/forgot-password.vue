@@ -1,8 +1,8 @@
 <script setup>
 import { Link, Head, useForm } from '@inertiajs/vue3'
 import { computed } from 'vue'
-import InputEmail from '@/components/InputEmail'
-import InputButton from '@/components/InputButton'
+import InputEmail from '@/components/InputEmail.vue'
+import InputButton from '@/components/InputButton.vue'
 const form = useForm({
   email: null
 })

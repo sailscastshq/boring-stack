@@ -1,8 +1,8 @@
 <script setup>
 import { Link, Head, useForm } from '@inertiajs/vue3'
 import { ref, computed } from 'vue'
-import InputButton from '@/components/InputButton'
-import InputPassword from '@/components/InputPassword'
+import InputButton from '@/components/InputButton.vue'
+import InputPassword from '@/components/InputPassword.vue'
 const { token } = defineProps({
   token: String
 })

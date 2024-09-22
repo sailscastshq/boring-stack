@@ -1,10 +1,10 @@
 <script setup>
 import { Link, Head, useForm } from '@inertiajs/vue3'
 import { ref, computed } from 'vue'
-import InputEmail from '@/components/InputEmail'
-import InputPassword from '@/components/InputPassword'
-import InputButton from '@/components/InputButton'
-import GoogleButton from '@/components/GoogleButton'
+import InputEmail from '@/components/InputEmail.vue'
+import InputPassword from '@/components/InputPassword.vue'
+import InputButton from '@/components/InputButton.vue'
+import GoogleButton from '@/components/GoogleButton.vue'
 
 const form = useForm({
   email: null,

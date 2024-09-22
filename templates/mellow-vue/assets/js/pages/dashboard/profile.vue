@@ -1,10 +1,10 @@
 <script setup>
 import { Link, Head, usePage, useForm, router } from '@inertiajs/vue3'
 
-import InputText from '@/components/InputText'
-import InputPassword from '@/components/InputPassword'
-import InputEmail from '@/components/InputEmail'
-import InputButton from '@/components/InputButton'
+import InputText from '@/components/InputText.vue'
+import InputPassword from '@/components/InputPassword.vue'
+import InputEmail from '@/components/InputEmail.vue'
+import InputButton from '@/components/InputButton.vue'
 
 import AppLayout from '@/layouts/AppLayout'
 
