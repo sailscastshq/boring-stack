@@ -1,10 +1,10 @@
 import { Link, Head, useForm } from '@inertiajs/react'
 import { useState, useMemo } from 'react'
 
-import InputEmail from '@/components/InputEmail'
-import InputPassword from '@/components/InputPassword'
-import InputButton from '@/components/InputButton'
-import GoogleButton from '@/components/GoogleButton'
+import InputEmail from '@/components/InputEmail.jsx'
+import InputPassword from '@/components/InputPassword.jsx'
+import InputButton from '@/components/InputButton.jsx'
+import GoogleButton from '@/components/GoogleButton.jsx'
 
 export default function Login() {
   const { data, setData, ...form } = useForm({

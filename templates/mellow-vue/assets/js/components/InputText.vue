@@ -1,5 +1,5 @@
 <script setup>
-import InputBase from '@/components/InputBase'
+import InputBase from '@/components/InputBase.vue'
 </script>
 
 <template>

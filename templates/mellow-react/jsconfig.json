@@ -3,7 +3,7 @@
 
   "compilerOptions": {
     "types": ["node"],
-    "typeRoots": ["./types", "./node_modules/@types"],
+    "typeRoots": ["./node_modules/@types"],
     "lib": ["es2016"],
     // silences wrong TS error, we don't compile, we only typecheck
     "outDir": "./irrelevant/unused",
@@ -16,7 +16,8 @@
     "noErrorTruncation": true,
     "baseUrl": ".",
     "paths": {
-      "@/*": ["assets/js/*"]
+      "@/*": ["assets/js/*"],
+      "~/*": ["assets/*"]
     }
   }
 }

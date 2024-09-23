@@ -1,5 +1,5 @@
 <script setup>
-import { Link, Head } from '@inertiajs/vue3'
+import { Head } from '@inertiajs/vue3'
 import AppLayout from '@/layouts/AppLayout.vue'
 
 defineOptions({
