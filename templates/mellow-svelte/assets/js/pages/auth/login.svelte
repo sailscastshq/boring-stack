@@ -12,7 +12,7 @@
     rememberMe: false
   })
 
-  const isLoginButtonDisabled = (form) => {
+  function isLoginButtonDisabled(form) {
     if (!form.email) return true
     if (!form.password) return true
     if (form.processing) return true
