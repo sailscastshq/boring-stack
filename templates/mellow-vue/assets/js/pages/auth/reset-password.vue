@@ -6,10 +6,7 @@ import InputPassword from '@/components/InputPassword.vue'
 const { token } = defineProps({
   token: String
 })
-const showPassword = ref(false)
-function toggleShowPassword() {
-  showPassword.value = !showPassword.value
-}
+
 const form = useForm({
   token,
   password: null,
