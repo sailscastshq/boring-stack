@@ -17,7 +17,8 @@
     "sails-hook-mail": "^0.1.0",
     "sails-hook-orm": "^4.0.3",
     "sails-hook-sockets": "^3.0.1",
-    "sails-hook-wish": "^0.0.9"
+    "sails-hook-wish": "^0.0.9",
+    "svelte": "^4.2.19"
   },
   "devDependencies": {
     "@rsbuild/plugin-svelte": "^1.0.1",
