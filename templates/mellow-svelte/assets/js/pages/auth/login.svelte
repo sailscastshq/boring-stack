@@ -12,12 +12,14 @@
     rememberMe: false
   })
 
-  $: disableLoginButton = () => {
-    if (!$form.email) return true
-    if (!$form.password) return true
-    if ($form.processing) return true
+  const isLoginButtonDisabled = (form) => {
+    if (!form.email) return true
+    if (!form.password) return true
+    if (form.processing) return true
     return false
   }
+
+  $: disableLoginButton = isLoginButtonDisabled($form)
 </script>
 
 <svelte:head>
@@ -53,11 +55,11 @@
       </Link>
       <h1 class="text-2xl">Log into your account</h1>
       <p class="text-lg text-gray">Welcome back, please enter your details</p>
-      {#if $form.errors?.email || $form.errors?.login}
+      {#if $form.errors.email || $form.errors.login}
         <p
           class="my-4 w-full rounded-sm border-red-400 bg-red-100 p-4 text-red-500"
         >
-          {$form.errors?.login || $form.errors?.email}
+          {$form.errors.login || $form.errors.email}
         </p>
       {/if}
     </section>
