@@ -23,7 +23,7 @@ module.exports = {
         pageHeading = 'Email verification successful'
         break
       case 'reset-password':
-        message = 'Password has been successful reset'
+        message = 'Password has been successfully reset'
         pageHeading = 'Password reset successful'
     }
     return {
