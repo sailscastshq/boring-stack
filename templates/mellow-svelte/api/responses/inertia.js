@@ -1,4 +1,3 @@
-// @ts-nocheck
 const { encode } = require('querystring')
 module.exports = function inertia(data) {
   const req = this.req

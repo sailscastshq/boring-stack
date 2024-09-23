@@ -6,5 +6,8 @@ createInertiaApp({
   resolve: (name) => require(`./pages/${name}`),
   setup({ el, App, props }) {
     createRoot(el).render(<App {...props} />)
+  },
+  progress: {
+    color: '#6C25C1'
   }
 })

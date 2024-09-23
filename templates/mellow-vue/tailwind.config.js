@@ -1,5 +1,5 @@
 module.exports = {
-  content: ['./views/**/*.ejs', './assets/js/**/*.{js,vue,jsx,ts,tsx}'],
+  content: ['./views/**/*.ejs', './assets/js/**/*.{js,ts,vue}'],
   theme: {
     extend: {
       colors: {
