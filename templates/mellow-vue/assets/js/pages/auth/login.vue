@@ -56,7 +56,7 @@ const disableLoginButton = computed(() => {
           class="my-4 w-full rounded-sm border-red-400 bg-red-100 p-4 text-red-500"
           v-if="form.errors.email || form.errors.login"
         >
-          {{ form.errors?.login || form.errors?.email }}
+          {{ form.errors.login || form.errors.email }}
         </p>
       </section>
       <form
