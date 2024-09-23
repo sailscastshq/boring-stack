@@ -1,5 +1,3 @@
-// @ts-nocheck
-
 const inertiaHeaders = {
   INERTIA: 'X-Inertia',
   LOCATION: 'X-Inertia-Location'
