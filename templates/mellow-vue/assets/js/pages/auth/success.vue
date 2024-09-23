@@ -51,7 +51,7 @@ const { pageTitle, pageHeading, message } = defineProps({
 
         <h1 class="text-2xl">{{ pageHeading }}</h1>
         <p class="text-lg text-gray">
-          {{ message }}. Click continue to go to your dashboard
+          {{ message }}. Click continue to go to your dashboard.
         </p>
         <Link
           href="/dashboard"
