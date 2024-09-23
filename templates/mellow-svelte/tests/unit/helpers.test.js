@@ -9,7 +9,7 @@ describe('sails.helpers.capitalize()', () => {
   before(async () => {
     sails = await new Promise((resolve, reject) => {
       sailsApp.load(
-        { environment: 'test', hooks: { shipwright: false } },
+        { environment: 'testing', hooks: { shipwright: false } },
         (err, sailsInstance) => {
           if (err) {
             return reject(err)
@@ -49,7 +49,7 @@ describe('sails.helpers.getUserIntials()', () => {
   before(async () => {
     sails = await new Promise((resolve, reject) => {
       sailsApp.load(
-        { environment: 'test', hooks: { shipwright: false } },
+        { environment: 'testing', hooks: { shipwright: false } },
         (err, sailsInstance) => {
           if (err) {
             return reject(err)
