@@ -1,8 +1,9 @@
 <script>
   import InputBase from '@/components/InputBase.svelte'
 
-  let showPassword = false
+  export let value = ''
 
+  let showPassword = false
   function toggleShowPassword() {
     showPassword = !showPassword
   }
@@ -13,6 +14,7 @@
   id="password"
   type={showPassword ? 'text' : 'password'}
   placeholder="Your password"
+  bind:value
 >
   <svg
     slot="icon"

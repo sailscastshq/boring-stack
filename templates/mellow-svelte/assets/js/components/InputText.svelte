@@ -1,8 +1,15 @@
 <script>
   import InputBase from '@/components/InputBase.svelte'
+  export let value = null
 </script>
 
-<InputBase label="Name" id="name" type="text" placeholder="Your name">
+<InputBase
+  label="Name"
+  id="name"
+  type="text"
+  placeholder="Your name"
+  bind:value
+>
   <svg
     slot="icon"
     class="h-5 w-5 fill-gray"
