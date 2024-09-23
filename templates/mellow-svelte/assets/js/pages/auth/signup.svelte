@@ -28,7 +28,7 @@
     return false
   }
 
-  $: disableSignupButton = shouldDisableSignupButton(form.processing)
+  $: disableSignupButton = shouldDisableSignupButton($form.processing)
 </script>
 
 <svelte:head>
