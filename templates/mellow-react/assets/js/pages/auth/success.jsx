@@ -35,7 +35,7 @@ export default function Success({ pageTitle, pageHeading, message }) {
 
             <h1 className="text-2xl">{pageHeading}</h1>
             <p className="text-lg text-gray">
-              {message}. Click continue to go to the homepage
+              {message}. Click continue to go to your dashboard.
             </p>
             <Link
               href="/dashboard"

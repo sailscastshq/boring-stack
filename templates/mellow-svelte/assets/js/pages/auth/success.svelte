@@ -45,7 +45,7 @@
 
       <h1 class="text-2xl">{pageHeading}</h1>
       <p class="text-lg text-gray">
-        {message}. Click continue to go to the homepage
+        {message}. Click continue to go to your dashboard.
       </p>
       <Link
         href="/dashboard"
