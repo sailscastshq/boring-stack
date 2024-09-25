@@ -50,7 +50,7 @@ function deleteAccount() {
 <template>
   <Head title="Profile | Mellow"></Head>
 
-  <div class="mx-auto space-y-8 px-4 md:w-4/12">
+  <div class="mx-auto space-y-8 px-4 md:w-8/12 xl:w-4/12">
     <section
       class="rounded-lg bg-gradient-to-b from-brand-50/10 to-white p-6 shadow-md transition-all duration-300 hover:shadow-lg"
     >

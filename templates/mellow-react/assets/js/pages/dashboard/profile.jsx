@@ -51,7 +51,7 @@ export default function Profile() {
   return (
     <>
       <Head title="Profile | Mellow"></Head>
-      <div className="mx-auto space-y-8 px-4 md:w-4/12">
+      <div className="mx-auto space-y-8 px-4 md:w-8/12 xl:w-4/12">
         <section className="rounded-lg bg-gradient-to-b from-brand-50/10 to-white p-6 shadow-md transition-all duration-300 hover:shadow-lg">
           <header className="mb-6">
             <h1 className="text-2xl">Profile Information</h1>
