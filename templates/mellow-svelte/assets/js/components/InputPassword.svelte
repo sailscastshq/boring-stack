@@ -2,6 +2,9 @@
   import InputBase from '@/components/InputBase.svelte'
 
   export let value = ''
+  export let label = 'Password'
+  export let placeholder = 'Your password'
+  export let id = 'password'
 
   let showPassword = false
   function toggleShowPassword() {
@@ -10,10 +13,10 @@
 </script>
 
 <InputBase
-  label="Password"
-  id="password"
+  {label}
+  {id}
   type={showPassword ? 'text' : 'password'}
-  placeholder="Your password"
+  {placeholder}
   bind:value
 >
   <svg
