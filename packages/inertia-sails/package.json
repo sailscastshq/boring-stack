@@ -8,13 +8,12 @@
     "hookName": "inertia"
   },
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "prepare": "cd .. && husky install"
+    "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/sailscastshq/boring-stack.git",
-    "directory": "inertia-sails"
+    "directory": "packages/inertia-sails"
   },
   "peerDependencies": {
     "sails": ">=1",
@@ -29,5 +28,6 @@
   "bugs": {
     "url": "https://github.com/sailscastshq/boring-stack/issues"
   },
-  "homepage": "https://github.com/sailscastshq/boring-stack/inertia-sails#readme"
+  "homepage": "https://github.com/sailscastshq/boring-stack/tree/main/inertia-sails#readme",
+  "devDependencies": {}
 }
