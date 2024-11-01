@@ -27,6 +27,9 @@
     "lint-staged": "^13.2.2",
     "prettier": "2.8.8"
   },
+  "workspaces": [
+    "packages/*"
+  ],
   "lint-staged": {
     "**/*": "prettier --config ./.prettierrc.js --write --ignore-unknown"
   }

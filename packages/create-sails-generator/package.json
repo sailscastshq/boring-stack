@@ -10,7 +10,7 @@
     "sails",
     "senerator"
   ],
-  "author": "Kelvin Omereshone<kelvin@sailscasts.com>",
+  "author": "Kelvin Omereshone <kelvin@sailscasts.com>",
   "license": "MIT",
   "peerDependencies": {
     "sails": ">=1"
@@ -18,5 +18,15 @@
   "bugs": {
     "url": "https://github.com/sailscastshq/boring-stack/issues"
   },
-  "homepage": "https://github.com/sailscastshq/boring-stack/create-sails-generator#readme"
+  "homepage": "https://github.com/sailscastshq/boring-stack/tree/main/create-sails-generator#readme",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/sailscastshq/boring-stack.git",
+    "directory": "packages/create-sails-generator"
+  },
+  "main": "index.js",
+  "directories": {
+    "test": "tests"
+  },
+  "devDependencies": {}
 }
