@@ -18,7 +18,10 @@ module.exports.routes = {
    * for configuration options and examples.                                  *
    *                                                                          *
    ***************************************************************************/
-  'GET /': 'home/view-waitlist',
+  // Waitlist routes
+  'GET /': 'waitlist/view-waitlist',
+  'POST /waitlist': 'waitlist/join-waitlist',
+
   // Uncomment the following line to serve the home page
   // 'GET /': 'home/view-home',
 
