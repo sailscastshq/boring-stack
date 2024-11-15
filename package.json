@@ -28,8 +28,7 @@
     "prettier": "2.8.8"
   },
   "workspaces": [
-    "packages/*",
-    "templates/*"
+    "packages/*"
   ],
   "lint-staged": {
     "**/*": "prettier --config ./.prettierrc.js --write --ignore-unknown"
