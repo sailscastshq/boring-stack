@@ -169,6 +169,10 @@ module.exports = function defineInertiaHook(sails) {
       sails.inertia.shouldEncryptHistory = encrypt
     },
 
+    /**
+     * Clear history state.
+     * @docs https://docs.sailscasts.com/boring-stack/history-encryption#clearing-history
+     */
     clearHistory() {
       sails.inertia.shouldClearHistory = true
     }
