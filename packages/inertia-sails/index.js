@@ -10,6 +10,7 @@ const render = require('./lib/render')
 const location = require('./lib/location')
 const OptionalProp = require('./lib/props/optional-prop')
 const MergeProp = require('./lib/props/merge-prop')
+const AlwaysProp = require('./lib/props/always-prop')
 module.exports = function defineInertiaHook(sails) {
   let hook
   const routesToBindInertiaTo = [
@@ -112,6 +113,16 @@ module.exports = function defineInertiaHook(sails) {
       return new MergeProp(callback)
     },
 
+    /**
+     * Create an always prop
+     * Always props are resolved on every request, whether partial or not.
+     * @docs https://docs.sailscasts.com/boring-stack/partial-reloads#lazy-data-evaluation
+     * @param {Function} callback - The callback function
+     * @returns {AlwaysProp} - The always prop
+     */
+    always: function (callback) {
+      return new AlwaysProp(callback)
+    },
     /**
      * Create a deferred prop
      * This allows you to load certain page data after the initial render.
