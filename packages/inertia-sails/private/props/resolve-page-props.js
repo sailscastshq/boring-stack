@@ -15,9 +15,9 @@ module.exports = async function resolvePageProps(props = {}) {
     Object.entries(props).map(async ([key, value]) => {
       if (typeof value === 'function') {
         const result = await value()
-        return await resolveProp(key, result)
+        return resolveProp(key, result)
       }
-      return await resolveProp(key, value)
+      return resolveProp(key, value)
     })
   )
   return Object.fromEntries(entries)
