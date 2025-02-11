@@ -53,7 +53,7 @@ module.exports = function defineInertiaHook(sails) {
      * @param {string} key - The key of the property
      * @param {*} value - The value of the property
      */
-    share: function (key, value = null) {
+    share(key, value = null) {
       return (sails.inertia.sharedProps[key] = value)
     },
 
@@ -62,7 +62,7 @@ module.exports = function defineInertiaHook(sails) {
      * @param {string|null} key - The key of the property to get, or null to get all
      * @returns {*} - The shared property or all shared properties
      */
-    getShared: function (key = null) {
+    getShared(key = null) {
       return sails.inertia.sharedProps[key] ?? sails.inertia.sharedProps
     },
 
@@ -70,7 +70,7 @@ module.exports = function defineInertiaHook(sails) {
      * Flush shared properties
      * @param {string|null} key - The key of the property to flush, or null to flush all
      */
-    flushShared: function (key) {
+    flushShared(key) {
       return key
         ? delete sails.inertia.sharedProps[key]
         : (sails.inertia.sharedProps = {})
@@ -81,7 +81,7 @@ module.exports = function defineInertiaHook(sails) {
      * @param {string} key - The key of the view data
      * @param {*} value - The value of the view data
      */
-    viewData: function (key, value) {
+    viewData(key, value) {
       return (sails.inertia.sharedViewData[key] = value)
     },
 
@@ -90,7 +90,7 @@ module.exports = function defineInertiaHook(sails) {
      * @param {string} key - The key of the view data to get
      * @returns {*} - The view data
      */
-    getViewData: function (key) {
+    getViewData(key) {
       return sails.inertia.sharedViewData[key] ?? sails.inertia.sharedViewData
     },
 
@@ -101,7 +101,7 @@ module.exports = function defineInertiaHook(sails) {
      * @param {Function} callback - The callback function to execute
      * @returns {OptionalProp} - The optional prop
      */
-    optional: function (callback) {
+    optional(callback) {
       return new OptionalProp(callback)
     },
 
@@ -112,7 +112,7 @@ module.exports = function defineInertiaHook(sails) {
      * @param {Function} callback - The callback function to execute
      * @returns {MergeProp} - The mergeable prop
      */
-    merge: function (callback) {
+    merge(callback) {
       return new MergeProp(callback)
     },
 
@@ -123,7 +123,7 @@ module.exports = function defineInertiaHook(sails) {
      * @param {Function} callback - The callback function
      * @returns {AlwaysProp} - The always prop
      */
-    always: function (callback) {
+    always(callback) {
       return new AlwaysProp(callback)
     },
     /**
@@ -134,7 +134,7 @@ module.exports = function defineInertiaHook(sails) {
      * @param {string} group - The group name
      * @returns {DeferProp} - The deferred prop
      */
-    defer: function (cb, group = 'default') {
+    defer(cb, group = 'default') {
       return new DeferProp(cb, group)
     },
 
@@ -145,7 +145,7 @@ module.exports = function defineInertiaHook(sails) {
      * @param {Object} data - The data to render
      * @returns {*} - The rendered response
      */
-    render: function (req, res, data) {
+    render(req, res, data) {
       return render(req, res, data)
     },
     /**
@@ -156,7 +156,7 @@ module.exports = function defineInertiaHook(sails) {
      * @param {string} url - The URL to redirect to
      * @returns {Object} - The response object with the redirect
      */
-    location: function (req, res, url) {
+    location(req, res, url) {
       return location(req, res, url)
     },
 
