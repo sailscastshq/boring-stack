@@ -6,7 +6,8 @@
  */
 const inertia = require('./private/middleware/inertia-middleware')
 const DeferProp = require('./private/props/defer-prop')
-const render = require('./private/render')
+const render = require('./render')
+const location = require('./location')
 module.exports = function defineInertiaHook(sails) {
   let hook
   const routesToBindInertiaTo = [
@@ -108,6 +109,17 @@ module.exports = function defineInertiaHook(sails) {
      */
     render: function (req, res, data) {
       return render(req, res, data)
+    },
+    /**
+     * Handle Inertia redirects
+     * See https://docs.sailscasts.com/boring-stack/redirects
+     * @param {Object} req - The request object
+     * @param {Object} res - The response object
+     * @param {string} url - The URL to redirect to
+     * @returns {Object} - The response object with the redirect
+     */
+    location: function (req, res, url) {
+      return location(req, res, url)
     }
   }
 }
