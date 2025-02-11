@@ -1,6 +1,6 @@
-const isInertiaRequest = require('./is-inertia-request')
+const isInertiaRequest = require('../helpers/is-inertia-request')
 
-const resolveValidationErrors = require('./resolve-validation-errors')
+const resolveValidationErrors = require('../helpers/resolve-validation-errors')
 function inertia(hook) {
   return function inertiaMiddleware(req, res, next) {
     if (isInertiaRequest(req)) {
