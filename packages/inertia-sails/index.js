@@ -4,10 +4,10 @@
  * @description :: A hook definition.  Extends Sails by adding shadow routes, implicit actions, and/or initialization logic.
  * @docs        :: https://sailsjs.com/docs/concepts/extending-sails/hooks
  */
-const inertia = require('./private/middleware/inertia-middleware')
-const DeferProp = require('./private/props/defer-prop')
-const render = require('./render')
-const location = require('./location')
+const inertia = require('./lib/middleware/inertia-middleware')
+const DeferProp = require('./lib/props/defer-prop')
+const render = require('./lib/render')
+const location = require('./lib/location')
 module.exports = function defineInertiaHook(sails) {
   let hook
   const routesToBindInertiaTo = [

@@ -1,5 +1,5 @@
 const ignoreFirstLoadSymbol = require('../helpers/ignore-first-load-symbol')
-const MergeableProp = require('../props/mergeable-prop')
+const MergeableProp = require('./mergeable-prop')
 
 module.exports = class DeferProp extends MergeableProp {
   constructor(callback, group) {

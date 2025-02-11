@@ -1,4 +1,4 @@
-const { INERTIA, LOCATION } = require('./private/helpers/inertia-headers')
+const { INERTIA, LOCATION } = require('./helpers/inertia-headers')
 
 module.exports = function (req, res, url) {
   // If this is an Inertia request, send a 409 Conflict response

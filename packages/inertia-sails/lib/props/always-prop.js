@@ -1,4 +1,4 @@
-const MergeableProp = require('../props/mergeable-prop')
+const MergeableProp = require('./mergeable-prop')
 
 module.exports = class AlwaysProp extends MergeableProp {
   constructor(callback) {
