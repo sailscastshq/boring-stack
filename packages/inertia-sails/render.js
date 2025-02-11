@@ -1,6 +1,6 @@
 const { encode } = require('querystring')
-const inertiaHeaders = require('./helpers/inertia-headers')
-const buildPageObject = require('./helpers/build-page-object')
+const inertiaHeaders = require('./private/helpers/inertia-headers')
+const buildPageObject = require('./private/helpers/build-page-object')
 
 module.exports = async function render(req, res, data) {
   const sails = req._sails
