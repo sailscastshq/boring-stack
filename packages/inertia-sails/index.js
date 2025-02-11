@@ -8,6 +8,7 @@ const inertia = require('./lib/middleware/inertia-middleware')
 const DeferProp = require('./lib/props/defer-prop')
 const render = require('./lib/render')
 const location = require('./lib/location')
+const OptionalProp = require('./lib/props/optional-prop')
 module.exports = function defineInertiaHook(sails) {
   let hook
   const routesToBindInertiaTo = [
@@ -86,6 +87,17 @@ module.exports = function defineInertiaHook(sails) {
      */
     getViewData: function (key) {
       return sails.inertia.sharedViewData[key] ?? sails.inertia.sharedViewData
+    },
+
+    /**
+     * Create an optional prop
+     * This allows you to define properties that are only evaluated when accessed.
+     * @docs https://docs.sailscasts.com/boring-stack/partial-reloads#lazy-data-evaluation
+     * @param {Function} callback - The callback function to execute
+     * @returns {OptionalProp} - The optional prop
+     */
+    optional: function (callback) {
+      return new OptionalProp(callback)
     },
 
     /**
