@@ -30,8 +30,7 @@ module.exports = function defineInertiaHook(sails) {
         rootView: 'app',
         version: 1,
         history: {
-          encrypt: false,
-          clear: false
+          encrypt: false
         }
       }
     },
@@ -40,6 +39,8 @@ module.exports = function defineInertiaHook(sails) {
       sails.inertia = hook
       sails.inertia.sharedProps = {}
       sails.inertia.sharedViewData = {}
+      sails.inertia.shouldEncryptHistory = sails.config.inertia.history.encrypt
+      sails.inertia.shouldClearHistory = false
       sails.on('router:before', function () {
         routesToBindInertiaTo.forEach(function (routeAddress) {
           sails.router.bind(routeAddress, inertia(hook))
@@ -157,6 +158,19 @@ module.exports = function defineInertiaHook(sails) {
      */
     location: function (req, res, url) {
       return location(req, res, url)
+    },
+
+    /**
+     * Encrypt history
+     * @docs https://docs.sailscasts.com/boring-stack/history-encryption
+     * @param {boolean} encrypt - Whether to encrypt the history
+     */
+    encryptHistory(encrypt = true) {
+      sails.inertia.shouldEncryptHistory = encrypt
+    },
+
+    clearHistory() {
+      sails.inertia.shouldClearHistory = true
     }
   }
 }
