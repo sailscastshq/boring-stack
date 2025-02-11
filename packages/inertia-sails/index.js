@@ -104,7 +104,7 @@ module.exports = function defineInertiaHook(sails) {
     /**
      * Create a mergeable prop
      * This allows you to merge multiple props together.
-     * @docs https://docs.sailscasts.com/boring-stack/partial-reloads#lazy-data-evaluation
+     * @docs https://docs.sailscasts.com/boring-stack/merging-props
      * @param {Function} callback - The callback function to execute
      * @returns {MergeProp} - The mergeable prop
      */
