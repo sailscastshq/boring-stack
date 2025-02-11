@@ -5,12 +5,14 @@
  * @docs        :: https://sailsjs.com/docs/concepts/extending-sails/hooks
  */
 const inertia = require('./lib/middleware/inertia-middleware')
-const DeferProp = require('./lib/props/defer-prop')
 const render = require('./lib/render')
 const location = require('./lib/location')
+
+const DeferProp = require('./lib/props/defer-prop')
 const OptionalProp = require('./lib/props/optional-prop')
 const MergeProp = require('./lib/props/merge-prop')
 const AlwaysProp = require('./lib/props/always-prop')
+
 module.exports = function defineInertiaHook(sails) {
   let hook
   const routesToBindInertiaTo = [
