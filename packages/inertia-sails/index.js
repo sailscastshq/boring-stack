@@ -9,6 +9,7 @@ const DeferProp = require('./lib/props/defer-prop')
 const render = require('./lib/render')
 const location = require('./lib/location')
 const OptionalProp = require('./lib/props/optional-prop')
+const MergeProp = require('./lib/props/merge-prop')
 module.exports = function defineInertiaHook(sails) {
   let hook
   const routesToBindInertiaTo = [
@@ -98,6 +99,17 @@ module.exports = function defineInertiaHook(sails) {
      */
     optional: function (callback) {
       return new OptionalProp(callback)
+    },
+
+    /**
+     * Create a mergeable prop
+     * This allows you to merge multiple props together.
+     * @docs https://docs.sailscasts.com/boring-stack/partial-reloads#lazy-data-evaluation
+     * @param {Function} callback - The callback function to execute
+     * @returns {MergeProp} - The mergeable prop
+     */
+    merge: function (callback) {
+      return new MergeProp(callback)
     },
 
     /**
