@@ -19,8 +19,8 @@ module.exports = async function buildPageObject(req, component, pageProps) {
     url,
     version: currentVersion,
     props: await resolvePageProps(propsToResolve),
-    clearHistory: sails.config.inertia.history.clear,
-    encryptHistory: sails.config.inertia.history.encrypt,
+    clearHistory: sails.inertia.shouldClearHistory,
+    encryptHistory: sails.inertia.shouldEncryptHistory,
     ...resolveMergeProps(req, pageProps),
     ...resolveDeferredProps(req, component, pageProps)
   }
