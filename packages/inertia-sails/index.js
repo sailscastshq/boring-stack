@@ -12,6 +12,7 @@ const DeferProp = require('./lib/props/defer-prop')
 const OptionalProp = require('./lib/props/optional-prop')
 const MergeProp = require('./lib/props/merge-prop')
 const AlwaysProp = require('./lib/props/always-prop')
+const handleBadRequest = require('./lib/handle-bad-request')
 
 module.exports = function defineInertiaHook(sails) {
   let hook
@@ -175,6 +176,9 @@ module.exports = function defineInertiaHook(sails) {
      */
     clearHistory() {
       sails.inertia.shouldClearHistory = true
+    },
+    handleBadRequest(req, res, optionaLData) {
+      return handleBadRequest(req, res, optionaLData)
     }
   }
 }
