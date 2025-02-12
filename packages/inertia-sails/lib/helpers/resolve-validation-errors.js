@@ -1,3 +1,6 @@
+// @ts-nocheck
+const { ERROR_BAG } = require('./inertia-headers')
+
 /**
  * @module resolveValidationErrors
  * @description Resolves and formats validation errors from the session for Inertia responses.
@@ -22,7 +25,7 @@ module.exports = function resolveValidationErrors(req) {
     return result
   }, {})
 
-  const inertiaErrorBag = req.headers['x-inertia-error-bag']
+  const inertiaErrorBag = req.headers[ERROR_BAG]
 
   if (inertiaErrorBag && collectedErrors[inertiaErrorBag]) {
     const selectedErrors = {

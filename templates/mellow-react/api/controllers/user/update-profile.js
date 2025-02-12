@@ -101,6 +101,6 @@ module.exports = {
 
     await User.updateOne({ id: userId }).set(updatedData)
 
-    return 'back'
+    return '/profile'
   }
 }
