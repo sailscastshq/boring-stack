@@ -1,36 +1,6 @@
-/**
- * badRequest.js
- *
- * A custom response.
- *
- * Example usage:
- * ```
- *     return res.badRequest();
- *     // -or-
- *     return res.badRequest(optionalData);
- * ```
- *
- * Or with actions2:
- * ```
- *     exits: {
- *       somethingHappened: {
- *         responseType: 'badRequest'
- *       }
- *     }
- * ```
- *
- * ```
- *     throw 'somethingHappened';
- *     // -or-
- *     throw { somethingHappened: optionalData }
- * ```
- */
-
-module.exports = function badRequest(optionalData) {
-  // Get access to `req` and `res`
-  const req = this.req
-  const res = this.res
-
+// @ts-nocheck
+module.exports = function handleBadRequest(req, res, optionalData) {
+  const sails = req._sails
   // Define the status code to send in the response.
   const statusCodeToSet = 400
 
@@ -68,7 +38,7 @@ module.exports = function badRequest(optionalData) {
         }
       })
       req.session.errors = errors
-      return res.redirect(303, 'back')
+      return res.redirect(303, req.get('Referrer') || '/')
     }
   }
 

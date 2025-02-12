@@ -1,0 +1,32 @@
+{
+  "name": "create-sails-generator",
+  "version": "0.1.0",
+  "description": "Sails generator for The Boring JavaScript Stack.",
+  "scripts": {
+    "test": "node --test"
+  },
+  "keywords": [
+    "The Boring JavaScript Stack",
+    "sails",
+    "senerator"
+  ],
+  "author": "Kelvin Omereshone <kelvin@sailscasts.com>",
+  "license": "MIT",
+  "peerDependencies": {
+    "sails": ">=1"
+  },
+  "bugs": {
+    "url": "https://github.com/sailscastshq/boring-stack/issues"
+  },
+  "homepage": "https://github.com/sailscastshq/boring-stack/tree/main/create-sails-generator#readme",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/sailscastshq/boring-stack.git",
+    "directory": "packages/create-sails-generator"
+  },
+  "main": "index.js",
+  "directories": {
+    "test": "tests"
+  },
+  "devDependencies": {}
+}

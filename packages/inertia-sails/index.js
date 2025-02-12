@@ -1,0 +1,184 @@
+/**
+ * inertia hook
+ *
+ * @description :: A hook definition.  Extends Sails by adding shadow routes, implicit actions, and/or initialization logic.
+ * @docs        :: https://sailsjs.com/docs/concepts/extending-sails/hooks
+ */
+const inertia = require('./lib/middleware/inertia-middleware')
+const render = require('./lib/render')
+const location = require('./lib/location')
+
+const DeferProp = require('./lib/props/defer-prop')
+const OptionalProp = require('./lib/props/optional-prop')
+const MergeProp = require('./lib/props/merge-prop')
+const AlwaysProp = require('./lib/props/always-prop')
+const handleBadRequest = require('./lib/handle-bad-request')
+
+module.exports = function defineInertiaHook(sails) {
+  let hook
+  const routesToBindInertiaTo = [
+    'GET r|^((?![^?]*\\/[^?\\/]+\\.[^?\\/]+(\\?.*)?).)*$|',
+    // (^^Leave out assets)
+    'POST /*',
+    'PATCH /*',
+    'PUT /*',
+    'DELETE /*'
+  ]
+
+  return {
+    defaults: {
+      inertia: {
+        rootView: 'app',
+        version: 1,
+        history: {
+          encrypt: false
+        }
+      }
+    },
+    initialize: async function () {
+      hook = this
+      sails.inertia = hook
+      sails.inertia.sharedProps = {}
+      sails.inertia.sharedViewData = {}
+      sails.inertia.shouldEncryptHistory = sails.config.inertia.history.encrypt
+      sails.inertia.shouldClearHistory = false
+      sails.on('router:before', function () {
+        routesToBindInertiaTo.forEach(function (routeAddress) {
+          sails.router.bind(routeAddress, inertia(hook))
+        })
+      })
+    },
+
+    /**
+     * Share a property globally
+     * @param {string} key - The key of the property
+     * @param {*} value - The value of the property
+     */
+    share(key, value = null) {
+      return (sails.inertia.sharedProps[key] = value)
+    },
+
+    /**
+     * Get shared properties
+     * @param {string|null} key - The key of the property to get, or null to get all
+     * @returns {*} - The shared property or all shared properties
+     */
+    getShared(key = null) {
+      return sails.inertia.sharedProps[key] ?? sails.inertia.sharedProps
+    },
+
+    /**
+     * Flush shared properties
+     * @param {string|null} key - The key of the property to flush, or null to flush all
+     */
+    flushShared(key) {
+      return key
+        ? delete sails.inertia.sharedProps[key]
+        : (sails.inertia.sharedProps = {})
+    },
+
+    /**
+     * Add view data
+     * @param {string} key - The key of the view data
+     * @param {*} value - The value of the view data
+     */
+    viewData(key, value) {
+      return (sails.inertia.sharedViewData[key] = value)
+    },
+
+    /**
+     * Get view data
+     * @param {string} key - The key of the view data to get
+     * @returns {*} - The view data
+     */
+    getViewData(key) {
+      return sails.inertia.sharedViewData[key] ?? sails.inertia.sharedViewData
+    },
+
+    /**
+     * Create an optional prop
+     * This allows you to define properties that are only evaluated when accessed.
+     * @docs https://docs.sailscasts.com/boring-stack/partial-reloads#lazy-data-evaluation
+     * @param {Function} callback - The callback function to execute
+     * @returns {OptionalProp} - The optional prop
+     */
+    optional(callback) {
+      return new OptionalProp(callback)
+    },
+
+    /**
+     * Create a mergeable prop
+     * This allows you to merge multiple props together.
+     * @docs https://docs.sailscasts.com/boring-stack/merging-props
+     * @param {Function} callback - The callback function to execute
+     * @returns {MergeProp} - The mergeable prop
+     */
+    merge(callback) {
+      return new MergeProp(callback)
+    },
+
+    /**
+     * Create an always prop
+     * Always props are resolved on every request, whether partial or not.
+     * @docs https://docs.sailscasts.com/boring-stack/partial-reloads#lazy-data-evaluation
+     * @param {Function} callback - The callback function
+     * @returns {AlwaysProp} - The always prop
+     */
+    always(callback) {
+      return new AlwaysProp(callback)
+    },
+    /**
+     * Create a deferred prop
+     * This allows you to load certain page data after the initial render.
+     * @docs https://docs.sailscasts.com/boring-stack/deferred-props
+     * @param {Function} cb - The callback function to execute
+     * @param {string} group - The group name
+     * @returns {DeferProp} - The deferred prop
+     */
+    defer(cb, group = 'default') {
+      return new DeferProp(cb, group)
+    },
+
+    /**
+     * Render the response
+     * @param {Object} req - The request object
+     * @param {Object} res - The response object
+     * @param {Object} data - The data to render
+     * @returns {*} - The rendered response
+     */
+    render(req, res, data) {
+      return render(req, res, data)
+    },
+    /**
+     * Handle Inertia redirects
+     * See https://docs.sailscasts.com/boring-stack/redirects
+     * @param {Object} req - The request object
+     * @param {Object} res - The response object
+     * @param {string} url - The URL to redirect to
+     * @returns {Object} - The response object with the redirect
+     */
+    location(req, res, url) {
+      return location(req, res, url)
+    },
+
+    /**
+     * Encrypt history
+     * @docs https://docs.sailscasts.com/boring-stack/history-encryption
+     * @param {boolean} encrypt - Whether to encrypt the history
+     */
+    encryptHistory(encrypt = true) {
+      sails.inertia.shouldEncryptHistory = encrypt
+    },
+
+    /**
+     * Clear history state.
+     * @docs https://docs.sailscasts.com/boring-stack/history-encryption#clearing-history
+     */
+    clearHistory() {
+      sails.inertia.shouldClearHistory = true
+    },
+    handleBadRequest(req, res, optionaLData) {
+      return handleBadRequest(req, res, optionaLData)
+    }
+  }
+}
