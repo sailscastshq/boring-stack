@@ -17,8 +17,11 @@ module.exports = async function render(req, res, data) {
 
   const queryParams = req.query
   if (req.method === 'GET' && Object.keys(queryParams).length) {
-    // Keep original request query params
-    page.url += `?${encode(queryParams)}`
+    // Only append query params if the URL doesn't already contain them
+    // This prevents duplication when redirecting with query parameters
+    if (!page.url.includes('?')) {
+      page.url += `?${encode(queryParams)}`
+    }
   }
 
   if (req.get(inertiaHeaders.INERTIA)) {
