@@ -4,7 +4,7 @@ module.exports = {
   description: 'Display "Success" page.',
   inputs: {
     operation: {
-      isIn: ['verify-email', 'reset-password']
+      isIn: ['verify-email', 'check-email', 'reset-password']
     }
   },
   exits: {
@@ -21,6 +21,10 @@ module.exports = {
       case 'verify-email':
         message = 'Email has been successfully verified'
         pageHeading = 'Email verification successful'
+        break
+      case 'check-email':
+        message = 'An email has been sent to your inbox'
+        pageHeading = 'Please check your email'
         break
       case 'reset-password':
         message = 'Password has been successfully reset'
