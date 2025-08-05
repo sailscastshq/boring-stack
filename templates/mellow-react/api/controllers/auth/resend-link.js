@@ -19,7 +19,7 @@ module.exports = {
     if (!userExists) {
       return '/check-email'
     }
-    const unverifiedUser = await User.updateOne({ where: { email: this.req.session.userEmail } }).set(
+    const unverifiedUser = await User.updateOne({ email: this.req.session.userEmail }).set(
       {
         emailStatus: 'unverified',
         emailProofToken: sails.helpers.strings.random('url-friendly'),
