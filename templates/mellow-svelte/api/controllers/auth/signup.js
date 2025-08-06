@@ -39,7 +39,7 @@ module.exports = {
     const email = userEmail.toLowerCase()
     const emailProofToken = await sails.helpers.strings.random('url-friendly')
     try {
-      unverifiedUser = await User.create({
+      const unverifiedUser = await User.create({
         email,
         password,
         fullName,
