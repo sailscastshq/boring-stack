@@ -5,54 +5,96 @@ export default function AppLayout({ children }) {
 
   return (
     <div className="flex min-h-screen flex-col bg-gradient-to-b from-brand-50/10 to-[#F9FAFB]">
-      <header>
-        <nav className="flex items-center justify-between px-4 py-6 md:px-8">
-          <Link href="/">
-            <svg
-              className="w-12"
-              viewBox="0 0 50 33"
-              fill="none"
-              xmlns="http://www.w3.org/2000/svg"
-            >
-              <path
-                d="M37.7753 32.967C35.9901 32.967 34.8903 32.1429 33.0933 31.1722C31.2964 30.2015 26.0991 26.2934 26.0991 21.4286C26.0991 18.1284 25.2484 15.4592 23.7996 13.332C22.3616 11.2211 20.4136 9.75863 18.387 8.72626C17.4104 8.2289 16.3941 7.82214 15.3821 7.48599C14.7922 7.29016 14.4498 6.6567 14.7058 6.09038C16.3281 2.49885 19.9411 0 24.1382 0C29.8514 0 34.4831 4.63143 34.4831 10.3448C34.4831 11.5671 34.2711 12.7401 33.8818 13.8286C35.5308 12.7173 37.5176 12.0688 39.6555 12.0688C45.3687 12.0688 50 16.7003 50 22.4137C50 29.2918 43.956 32.967 37.7753 32.967Z"
-                fill="#6C25C1"
+      <header className="sticky top-0 z-50 border-b border-gray-100/40 bg-white/90 backdrop-blur-md">
+        <nav className="mx-auto flex max-w-7xl items-center justify-between px-4 py-4 md:px-8">
+          <Link href="/" className="group flex items-center space-x-2">
+            <div className="relative">
+              <div className="absolute inset-0 scale-110 rounded-xl bg-brand-200/20 opacity-0 blur-sm transition-opacity group-hover:opacity-100"></div>
+              <img
+                src="/images/logo.svg"
+                alt="Ascent Logo"
+                className="relative h-10 w-auto transition-transform group-hover:scale-105"
               />
-              <path
-                d="M0 21.5518C0 27.0047 3.59506 31.5482 8.35764 32.5521C9.09275 32.8207 9.88637 32.9672 10.7143 32.9672H26.787C27.326 32.9672 27.5608 32.2463 27.1492 31.898C24.3403 29.5213 22.2527 26.1717 22.2527 21.4287C22.2527 18.8226 21.5927 16.9244 20.6205 15.4974C19.6372 14.054 18.2542 12.9752 16.641 12.1533C15.0127 11.324 13.2451 10.7957 11.557 10.4212C11.1594 10.371 10.7548 10.345 10.3448 10.345C4.63143 10.345 0 15.3625 0 21.5518Z"
-                fill="#6C25C1"
-              />
-            </svg>
+            </div>
           </Link>
+
           {!loggedInUser ? (
-            <ul className="flex items-center justify-items-end space-x-4 text-sm">
-              <li>
-                <Link href="/login" className="text-brand md:text-lg">
+            <div className="flex items-center space-x-8">
+              {/* Navigation Links */}
+              <div className="hidden items-center space-x-1 md:flex">
+                <Link
+                  href="/features"
+                  className="rounded-lg px-3 py-2 font-medium text-gray-700 transition-all duration-200 hover:bg-brand-50/80 hover:text-brand-600"
+                >
+                  Features
+                </Link>
+                <Link
+                  href="/pricing"
+                  className="rounded-lg px-3 py-2 font-medium text-gray-700 transition-all duration-200 hover:bg-brand-50/80 hover:text-brand-600"
+                >
+                  Pricing
+                </Link>
+                <Link
+                  href="/blog"
+                  className="rounded-lg px-3 py-2 font-medium text-gray-700 transition-all duration-200 hover:bg-brand-50/80 hover:text-brand-600"
+                >
+                  Blog
+                </Link>
+                <Link
+                  href="/docs"
+                  className="rounded-lg px-3 py-2 font-medium text-gray-700 transition-all duration-200 hover:bg-brand-50/80 hover:text-brand-600"
+                >
+                  Docs
+                </Link>
+              </div>
+
+              {/* Auth Buttons */}
+              <div className="flex items-center space-x-3">
+                <Link
+                  href="/login"
+                  className="rounded-lg px-4 py-2 font-medium text-gray-700 transition-all duration-200 hover:bg-gray-50 hover:text-brand-600"
+                >
                   Login
                 </Link>
-              </li>
-              <li>
                 <Link
                   href="/signup"
-                  className="rounded-lg bg-brand px-8 py-4 text-white md:py-3"
+                  className="group relative rounded-lg bg-gradient-to-r from-brand-600 to-accent-600 px-6 py-2.5 font-semibold text-white shadow-lg transition-all duration-200 hover:scale-105 hover:shadow-xl"
                 >
-                  Sign up
+                  <span className="relative z-10">Get Started</span>
+                  <div className="absolute inset-0 rounded-lg bg-gradient-to-r from-brand-700 to-accent-700 opacity-0 transition-opacity group-hover:opacity-100"></div>
                 </Link>
-              </li>
-            </ul>
+              </div>
+            </div>
           ) : (
             <section className="flex items-center space-x-6">
-              <Link href="/dashboard" className="text-brand md:text-lg">
-                Dashboard
-              </Link>
+              <div className="hidden items-center space-x-4 md:flex">
+                <Link
+                  href="/dashboard"
+                  className="font-medium text-gray-600 transition-colors hover:text-brand"
+                >
+                  Dashboard
+                </Link>
+                <Link
+                  href="/billing"
+                  className="font-medium text-gray-600 transition-colors hover:text-brand"
+                >
+                  Billing
+                </Link>
+                <Link
+                  href="/team"
+                  className="font-medium text-gray-600 transition-colors hover:text-brand"
+                >
+                  Team
+                </Link>
+              </div>
               <Link href="/profile">
                 {!loggedInUser.googleAvatarUrl ? (
-                  <p className="rounded-full bg-green p-2 text-white">
+                  <div className="flex h-10 w-10 items-center justify-center rounded-full bg-brand p-2 font-medium text-white">
                     {loggedInUser.initials}
-                  </p>
+                  </div>
                 ) : (
                   <img
-                    className="h-12 w-12 rounded-full border-2 border-gray-100"
+                    className="h-10 w-10 rounded-full border-2 border-gray-200 transition-colors hover:border-brand"
                     src={loggedInUser.googleAvatarUrl}
                     alt={loggedInUser.fullName}
                   />
@@ -65,35 +107,283 @@ export default function AppLayout({ children }) {
 
       <main className="mb-10 min-h-screen">{children}</main>
 
-      <footer className="flex flex-col items-center justify-center space-y-4 px-4 py-8 text-center">
-        <svg
-          width="93"
-          height="25"
-          viewBox="0 0 93 25"
-          fill="none"
-          xmlns="http://www.w3.org/2000/svg"
-        >
-          <path
-            d="M24.6619 24.3911C23.5081 24.3911 22.7973 23.7813 21.6359 23.0632C20.4744 22.345 17.1153 19.4535 17.1153 15.8542C17.1153 13.4125 16.5655 11.4377 15.6291 9.86384C14.6997 8.30208 13.4406 7.22005 12.1308 6.45624C11.4996 6.08826 10.8428 5.78732 10.1887 5.53861C9.80742 5.39373 9.58614 4.92505 9.75159 4.50605C10.8001 1.8488 13.1353 0 15.848 0C19.5405 0 22.5341 3.42662 22.5341 7.65376C22.5341 8.5581 22.3971 9.42594 22.1455 10.2313C23.2112 9.40907 24.4953 8.9293 25.8771 8.9293C29.5697 8.9293 32.563 12.3559 32.563 16.5831C32.563 21.6719 28.6567 24.3911 24.6619 24.3911Z"
-            fill="#6C25C1"
-          />
-          <path
-            d="M0.246826 15.9458C0.246826 19.9803 2.57039 23.3418 5.64856 24.0845C6.12368 24.2833 6.63661 24.3916 7.17171 24.3916H17.5599C17.9083 24.3916 18.06 23.8583 17.794 23.6006C15.9785 21.8422 14.6293 19.3639 14.6293 15.8547C14.6293 13.9265 14.2027 12.5222 13.5743 11.4664C12.9388 10.3985 12.0449 9.60034 11.0023 8.99219C9.9499 8.37863 8.80741 7.98776 7.71636 7.71068C7.4594 7.67357 7.19789 7.6543 6.93293 7.6543C3.24022 7.6543 0.246826 11.3666 0.246826 15.9458Z"
-            fill="#6C25C1"
-          />
-          <path
-            d="M43.8205 18.1587H42.2799V6.55585H43.8205L47.8165 16.3131L51.8125 6.55585H53.3853V18.1587H51.8446V13.5689C51.8446 11.4024 51.8607 10.616 51.9409 9.79758L48.5548 18.1587H47.0783L43.7082 9.82968C43.7884 10.3914 43.8205 11.5789 43.8205 13.1998V18.1587ZM59.2164 18.3513C56.9055 18.3513 55.3167 16.6823 55.3167 14.2429C55.3167 11.7876 56.8734 10.0865 59.1522 10.0865C61.3829 10.0865 62.8433 11.6271 62.8433 13.9541V14.5158L56.7771 14.5318C56.8894 16.1848 57.756 17.0995 59.2485 17.0995C60.42 17.0995 61.1903 16.6181 61.4471 15.7194H62.8593C62.4742 17.4044 61.1582 18.3513 59.2164 18.3513ZM59.1522 11.3543C57.8363 11.3543 57.0018 12.1406 56.8092 13.5208H61.3348C61.3348 12.2209 60.4842 11.3543 59.1522 11.3543ZM66.0689 18.1587H64.5603V6.34722H66.0689V18.1587ZM69.8301 18.1587H68.3216V6.34722H69.8301V18.1587ZM71.5373 14.2269C71.5373 11.8036 73.2705 10.1025 75.6296 10.1025C77.9726 10.1025 79.7058 11.8036 79.7058 14.2269C79.7058 16.6502 77.9726 18.3513 75.6296 18.3513C73.2705 18.3513 71.5373 16.6502 71.5373 14.2269ZM73.0619 14.2269C73.0619 15.8638 74.105 17.0032 75.6296 17.0032C77.1381 17.0032 78.1973 15.8638 78.1973 14.2269C78.1973 12.59 77.1381 11.4505 75.6296 11.4505C74.105 11.4505 73.0619 12.59 73.0619 14.2269ZM82.7003 18.1587L80.1326 10.3111H81.6893L82.9892 14.3874C83.1657 14.9651 83.3262 15.5589 83.4706 16.249C83.599 15.5589 83.8076 14.9009 83.9842 14.3874L85.3001 10.3111H86.8407L88.1406 14.3874C88.269 14.7725 88.5258 15.6873 88.6542 16.249C88.7826 15.6231 88.927 15.0774 89.1517 14.3874L90.4676 10.3111H92.0403L89.3603 18.1587H87.932L86.5679 13.9541C86.3111 13.1677 86.1507 12.5579 86.0704 12.1246C85.9902 12.5097 85.8457 13.0233 85.5569 13.9701L84.1928 18.1587H82.7003Z"
-            fill="#333333"
-          />
-        </svg>
+      <footer className="relative overflow-hidden bg-gradient-to-br from-gray-900 via-gray-800 to-brand-900 text-white">
+        {/* Background Elements */}
+        <div className="absolute left-1/4 top-0 h-96 w-96 rounded-full bg-brand-500/10 blur-3xl"></div>
+        <div className="absolute bottom-0 right-1/4 h-72 w-72 rounded-full bg-accent-500/10 blur-3xl"></div>
 
-        <p className="text-sm text-gray">
-          <span>Made with love 💚 by </span>
-          <a href="https://twitter.com/Dominus_Kelvin" className="underline">
-            Kelvin Omereshone
-          </a>
-          <span> in Nigeria 🇳🇬 and contributors all over the world 🌍</span>
-        </p>
+        <div className="relative mx-auto max-w-7xl px-4 py-16 md:px-8">
+          <div className="grid grid-cols-1 gap-12 md:grid-cols-4">
+            {/* Company Info */}
+            <div className="md:col-span-1">
+              <Link href="/" className="group mb-6 flex items-center space-x-2">
+                <div className="relative">
+                  <div className="absolute inset-0 scale-110 rounded-xl bg-brand-300/20 opacity-0 blur-sm transition-opacity group-hover:opacity-100"></div>
+                  <img
+                    src="/images/logo.svg"
+                    alt="Ascent Logo"
+                    className="relative h-10 w-auto filter brightness-0 invert drop-shadow-[0_0_8px_rgba(0,0,0,0.9)] drop-shadow-[0_0_2px_rgba(255,255,255,1)] transition-transform group-hover:scale-105"
+                  />
+                </div>
+              </Link>
+              <p className="mb-6 text-sm leading-relaxed text-gray-300">
+                The complete SaaS platform for modern teams. Scale your business
+                with battle-tested technologies and launch faster than ever.
+              </p>
+              <div className="flex space-x-4">
+                <a
+                  href="https://twitter.com/sailscastshq"
+                  className="group flex h-10 w-10 items-center justify-center rounded-lg bg-gray-800/50 text-gray-400 transition-all duration-200 hover:bg-brand-600 hover:text-white"
+                >
+                  <svg
+                    className="h-5 w-5"
+                    fill="currentColor"
+                    viewBox="0 0 24 24"
+                  >
+                    <path d="M23 3a10.9 10.9 0 01-3.14 1.53 4.48 4.48 0 00-7.86 3v1A10.66 10.66 0 013 4s-4 9 5 13a11.64 11.64 0 01-7 2c9 5 20 0 20-11.5a4.5 4.5 0 00-.08-.83A7.72 7.72 0 0023 3z" />
+                  </svg>
+                </a>
+                <a
+                  href="https://github.com/sailscastshq/boring-stack"
+                  className="group flex h-10 w-10 items-center justify-center rounded-lg bg-gray-800/50 text-gray-400 transition-all duration-200 hover:bg-brand-600 hover:text-white"
+                >
+                  <svg
+                    className="h-5 w-5"
+                    fill="currentColor"
+                    viewBox="0 0 24 24"
+                  >
+                    <path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z" />
+                  </svg>
+                </a>
+                <a
+                  href="https://sailsjs.com/chat"
+                  className="group flex h-10 w-10 items-center justify-center rounded-lg bg-gray-800/50 text-gray-400 transition-all duration-200 hover:bg-brand-600 hover:text-white"
+                >
+                  <svg
+                    className="h-5 w-5"
+                    fill="currentColor"
+                    viewBox="0 0 24 24"
+                  >
+                    <path d="M20.317 4.492c-1.53-.69-3.17-1.2-4.885-1.49a.075.075 0 00-.079.036c-.21.369-.444.85-.608 1.23a18.566 18.566 0 00-5.487 0 12.36 12.36 0 00-.617-1.23A.077.077 0 008.562 3c-1.714.29-3.354.8-4.885 1.491a.07.07 0 00-.032.027C.533 9.093-.32 13.555.099 17.961a.08.08 0 00.031.055 20.03 20.03 0 005.993 2.98.078.078 0 00.084-.026 13.83 13.83 0 001.226-1.963.074.074 0 00-.041-.104 13.201 13.201 0 01-1.872-.878.075.075 0 01-.008-.125c.126-.093.252-.19.372-.287a.075.075 0 01.078-.01c3.927 1.764 8.18 1.764 12.061 0a.075.075 0 01.079.009c.12.098.245.195.372.288a.075.075 0 01-.006.125c-.598.344-1.22.635-1.873.877a.075.075 0 00-.041.105c.36.687.772 1.341 1.225 1.962a.077.077 0 00.084.028 19.963 19.963 0 006.002-2.981.076.076 0 00.032-.054c.5-5.094-.838-9.52-3.549-13.442a.06.06 0 00-.031-.028zM8.02 15.278c-1.182 0-2.157-1.069-2.157-2.38 0-1.312.956-2.38 2.157-2.38 1.21 0 2.176 1.077 2.157 2.38 0 1.312-.956 2.38-2.157 2.38zm7.975 0c-1.183 0-2.157-1.069-2.157-2.38 0-1.312.955-2.38 2.157-2.38 1.21 0 2.176 1.077 2.157 2.38 0 1.312-.946 2.38-2.157 2.38z" />
+                  </svg>
+                </a>
+              </div>
+            </div>
+
+            {/* Product */}
+            <div>
+              <h3 className="mb-6 text-lg font-bold text-white">Product</h3>
+              <ul className="space-y-4">
+                <li>
+                  <Link
+                    href="/features"
+                    className="group flex items-center text-gray-300 transition-colors duration-200 hover:text-white"
+                  >
+                    <span className="mr-3 h-1.5 w-1.5 rounded-full bg-brand-500 opacity-0 transition-opacity group-hover:opacity-100"></span>
+                    Features
+                  </Link>
+                </li>
+                <li>
+                  <Link
+                    href="/pricing"
+                    className="group flex items-center text-gray-300 transition-colors duration-200 hover:text-white"
+                  >
+                    <span className="mr-3 h-1.5 w-1.5 rounded-full bg-brand-500 opacity-0 transition-opacity group-hover:opacity-100"></span>
+                    Pricing
+                  </Link>
+                </li>
+                <li>
+                  <Link
+                    href="/security"
+                    className="group flex items-center text-gray-300 transition-colors duration-200 hover:text-white"
+                  >
+                    <span className="mr-3 h-1.5 w-1.5 rounded-full bg-brand-500 opacity-0 transition-opacity group-hover:opacity-100"></span>
+                    Security
+                  </Link>
+                </li>
+                <li>
+                  <Link
+                    href="/integrations"
+                    className="group flex items-center text-gray-300 transition-colors duration-200 hover:text-white"
+                  >
+                    <span className="mr-3 h-1.5 w-1.5 rounded-full bg-brand-500 opacity-0 transition-opacity group-hover:opacity-100"></span>
+                    Integrations
+                  </Link>
+                </li>
+                <li>
+                  <Link
+                    href="/api"
+                    className="group flex items-center text-gray-300 transition-colors duration-200 hover:text-white"
+                  >
+                    <span className="mr-3 h-1.5 w-1.5 rounded-full bg-brand-500 opacity-0 transition-opacity group-hover:opacity-100"></span>
+                    API
+                  </Link>
+                </li>
+              </ul>
+            </div>
+
+            {/* Resources */}
+            <div>
+              <h3 className="mb-6 text-lg font-bold text-white">Resources</h3>
+              <ul className="space-y-4">
+                <li>
+                  <Link
+                    href="/blog"
+                    className="group flex items-center text-gray-300 transition-colors duration-200 hover:text-white"
+                  >
+                    <span className="mr-3 h-1.5 w-1.5 rounded-full bg-accent-500 opacity-0 transition-opacity group-hover:opacity-100"></span>
+                    Blog
+                  </Link>
+                </li>
+                <li>
+                  <Link
+                    href="/docs"
+                    className="group flex items-center text-gray-300 transition-colors duration-200 hover:text-white"
+                  >
+                    <span className="mr-3 h-1.5 w-1.5 rounded-full bg-accent-500 opacity-0 transition-opacity group-hover:opacity-100"></span>
+                    Documentation
+                  </Link>
+                </li>
+                <li>
+                  <Link
+                    href="/guides"
+                    className="group flex items-center text-gray-300 transition-colors duration-200 hover:text-white"
+                  >
+                    <span className="mr-3 h-1.5 w-1.5 rounded-full bg-accent-500 opacity-0 transition-opacity group-hover:opacity-100"></span>
+                    Guides
+                  </Link>
+                </li>
+                <li>
+                  <Link
+                    href="/help"
+                    className="group flex items-center text-gray-300 transition-colors duration-200 hover:text-white"
+                  >
+                    <span className="mr-3 h-1.5 w-1.5 rounded-full bg-accent-500 opacity-0 transition-opacity group-hover:opacity-100"></span>
+                    Help Center
+                  </Link>
+                </li>
+                <li>
+                  <Link
+                    href="/community"
+                    className="group flex items-center text-gray-300 transition-colors duration-200 hover:text-white"
+                  >
+                    <span className="mr-3 h-1.5 w-1.5 rounded-full bg-accent-500 opacity-0 transition-opacity group-hover:opacity-100"></span>
+                    Community
+                  </Link>
+                </li>
+              </ul>
+            </div>
+
+            {/* Company */}
+            <div>
+              <h3 className="mb-6 text-lg font-bold text-white">Company</h3>
+              <ul className="space-y-4">
+                <li>
+                  <Link
+                    href="/about"
+                    className="group flex items-center text-gray-300 transition-colors duration-200 hover:text-white"
+                  >
+                    <span className="mr-3 h-1.5 w-1.5 rounded-full bg-success-500 opacity-0 transition-opacity group-hover:opacity-100"></span>
+                    About
+                  </Link>
+                </li>
+                <li>
+                  <Link
+                    href="/careers"
+                    className="group flex items-center text-gray-300 transition-colors duration-200 hover:text-white"
+                  >
+                    <span className="mr-3 h-1.5 w-1.5 rounded-full bg-success-500 opacity-0 transition-opacity group-hover:opacity-100"></span>
+                    Careers
+                  </Link>
+                </li>
+                <li>
+                  <Link
+                    href="/contact"
+                    className="group flex items-center text-gray-300 transition-colors duration-200 hover:text-white"
+                  >
+                    <span className="mr-3 h-1.5 w-1.5 rounded-full bg-success-500 opacity-0 transition-opacity group-hover:opacity-100"></span>
+                    Contact
+                  </Link>
+                </li>
+                <li>
+                  <Link
+                    href="/privacy"
+                    className="group flex items-center text-gray-300 transition-colors duration-200 hover:text-white"
+                  >
+                    <span className="mr-3 h-1.5 w-1.5 rounded-full bg-success-500 opacity-0 transition-opacity group-hover:opacity-100"></span>
+                    Privacy Policy
+                  </Link>
+                </li>
+                <li>
+                  <Link
+                    href="/terms"
+                    className="group flex items-center text-gray-300 transition-colors duration-200 hover:text-white"
+                  >
+                    <span className="mr-3 h-1.5 w-1.5 rounded-full bg-success-500 opacity-0 transition-opacity group-hover:opacity-100"></span>
+                    Terms of Service
+                  </Link>
+                </li>
+              </ul>
+            </div>
+          </div>
+
+          {/* Bottom Section */}
+          <div className="mt-16 border-t border-gray-700/50 pt-8">
+            <div className="flex flex-col items-center justify-between space-y-4 md:flex-row md:space-y-0">
+              <div className="flex items-center space-x-6">
+                <p className="text-sm text-gray-400">
+                  © 2025 Ascent. All rights reserved.
+                </p>
+                <div className="hidden items-center space-x-4 text-xs text-gray-500 md:flex">
+                  <span className="flex items-center space-x-1">
+                    <div className="h-2 w-2 animate-pulse rounded-full bg-green-400"></div>
+                    <span>All systems operational</span>
+                  </span>
+                </div>
+              </div>
+
+              <div className="flex items-center space-x-6">
+                <p className="text-sm text-gray-400">
+                  <span>Built with </span>
+                  <a
+                    href="https://github.com/sailscastshq/boring-stack"
+                    className="font-semibold text-brand-400 transition-colors hover:text-brand-300"
+                  >
+                    The Boring Stack
+                  </a>
+                  <span> by </span>
+                  <a
+                    href="https://twitter.com/Dominus_Kelvin"
+                    className="font-semibold text-brand-400 transition-colors hover:text-brand-300"
+                  >
+                    Kelvin Omereshone
+                  </a>
+                  <span> and contributors.</span>
+                </p>
+              </div>
+            </div>
+
+            {/* Newsletter CTA */}
+            <div className="mt-8 rounded-2xl border border-brand-500/20 bg-gradient-to-r from-brand-500/10 to-accent-500/10 p-6">
+              <div className="text-center">
+                <h4 className="mb-2 font-bold text-white">Stay Updated</h4>
+                <p className="mb-4 text-sm text-gray-300">
+                  Get the latest updates on new features and product launches.
+                </p>
+                <div className="mx-auto flex max-w-md flex-col gap-3 sm:flex-row">
+                  <input
+                    type="email"
+                    placeholder="Enter your email"
+                    className="flex-1 rounded-lg border border-white/20 bg-white/10 px-4 py-2 text-white placeholder-gray-400 transition-all focus:border-brand-400 focus:outline-none focus:ring-2 focus:ring-brand-400/50"
+                  />
+                  <button className="rounded-lg bg-gradient-to-r from-brand-600 to-accent-600 px-6 py-2 font-semibold text-white transition-all duration-200 hover:scale-105 hover:shadow-lg">
+                    Subscribe
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
       </footer>
     </div>
   )
