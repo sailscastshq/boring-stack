@@ -1,247 +1,892 @@
 import { Head } from '@inertiajs/react'
 import AppLayout from '@/layouts/AppLayout.jsx'
+import { useState } from 'react'
 import '~/css/homepage.css'
 
 Index.layout = (page) => <AppLayout children={page} />
 export default function Index() {
+  const [email, setEmail] = useState('')
+  const [isSubmitting, setIsSubmitting] = useState(false)
+  const [isSubmitted, setIsSubmitted] = useState(false)
+  const [isWaitlistActive] = useState(true) // Toggle this to switch between waitlist and CTA
+  const [shouldShake, setShouldShake] = useState(false)
+
+  const handleWaitlistSubmit = async (e) => {
+    e.preventDefault()
+
+    // Check if email is empty and trigger shake animation
+    if (!email.trim()) {
+      setShouldShake(true)
+      // Reset shake animation after it completes
+      setTimeout(() => setShouldShake(false), 500)
+      return
+    }
+
+    setIsSubmitting(true)
+
+    // Simulate API call - replace with actual waitlist logic
+    setTimeout(() => {
+      setIsSubmitted(true)
+      setIsSubmitting(false)
+      setEmail('')
+    }, 1000)
+  }
+
   return (
     <>
-      <Head title="The Boring SaaS Stack - Ship Fast with Battle-Tested Tech | Ascent" />
-      <section className="mx-4 mt-20">
-        <div className="flex items-center justify-center mb-6">
-          <img
-            src="/images/ascent-logo.svg"
-            alt="Ascent"
-            className="h-12 w-auto"
-          />
-        </div>
-        <h1 className="mb-4 text-center text-4xl font-bold text-brand md:text-5xl">
-          Ship Fast with Battle-Tested Technologies 🚀
-        </h1>
-        <p className="mx-auto max-w-3xl text-center text-xl text-gray-600">
-          The ultimate React SaaS template built on The Boring Stack. Focus on
-          shipping to real users, not chasing trends.
-        </p>
-        <div className="flex justify-center mt-8 space-x-4">
-          <button className="bg-brand text-white px-8 py-3 rounded-lg font-semibold hover:bg-brand-600 transition-colors">
-            Get Started
-          </button>
-          <button className="border border-brand text-brand px-8 py-3 rounded-lg font-semibold hover:bg-brand hover:text-white transition-colors">
-            View Docs
-          </button>
-        </div>
-      </section>
-      <section className="px-4 py-12 md:mx-auto md:w-10/12 md:px-8 md:py-16">
-        <div className="grid grid-cols-1 gap-8 md:grid-cols-2">
-          <a
-            href="https://marketplace.visualstudio.com/items?itemName=Sails.sails-vscode"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="group block rounded-lg bg-gradient-to-b from-brand-50/10 to-white p-6 shadow-md transition-all duration-300 hover:shadow-lg"
-          >
-            <h3 className="mb-2 text-xl font-semibold text-brand">
-              Official VS Code extension
-            </h3>
-            <p className="mb-4 text-gray-600">
-              Install the official Sails VS Code extension to supercharge your
-              development experience.
-            </p>
-            <button className="mt-2 rounded-lg border border-brand px-4 py-2 text-brand transition-colors duration-300 group-hover:bg-brand group-hover:text-white">
-              Install Extension
-            </button>
-          </a>
+      <Head title="Ascent - The Complete SaaS Platform for Modern Teams" />
+      <section className="relative overflow-hidden px-4 pb-16 pt-20">
+        {/* Background Elements */}
+        <div className="absolute inset-0 bg-gradient-to-br from-brand-50/30 via-white to-accent-50/20"></div>
+        <div className="absolute left-1/2 top-20 h-96 w-96 -translate-x-1/2 transform rounded-full bg-brand-100/20 blur-3xl"></div>
 
-          <a
-            href="https://sailsjs.com/documentation"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="group block rounded-lg bg-gradient-to-b from-brand-50/10 to-white p-6 shadow-md transition-all duration-300 hover:shadow-lg"
-          >
-            <h3 className="mb-2 text-xl font-semibold text-brand">
-              The Boring JavaScript Stack Docs
-            </h3>
-            <p className="mb-4 text-gray-600">
-              Official documentation for The Boring JavaScript Stack.
-            </p>
-            <button className="mt-2 rounded-lg border border-brand px-4 py-2 text-brand transition-colors duration-300 group-hover:bg-brand group-hover:text-white">
-              Read Docs
-            </button>
-          </a>
-          <a
-            href="https://sailscasts.com/chat"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="group block rounded-lg bg-gradient-to-b from-brand-50/10 to-white p-6 shadow-md transition-all duration-300 hover:shadow-lg"
-          >
-            <h3 className="mb-2 text-xl font-semibold text-brand">
-              Sailscasts Discord
-            </h3>
-            <p className="mb-4 text-gray-600">
-              Join the community to discuss Sails.js and get help. Connect with
-              fellow developers and stay updated.
-            </p>
-            <button className="mt-2 rounded-lg border border-brand px-4 py-2 text-brand transition-colors duration-300 group-hover:bg-brand group-hover:text-white">
-              Join Community
-            </button>
-          </a>
+        <div className="relative mx-auto max-w-4xl text-center">
+          {/* Logo with subtle animation */}
+          <div className="mb-8 flex items-center justify-center">
+            <div className="relative">
+              <div className="absolute inset-0 scale-110 rounded-2xl bg-brand-200/20 blur-xl"></div>
+              <img
+                src="/images/logo.svg"
+                alt="Ascent Logo"
+                className="relative h-14 w-auto"
+              />
+            </div>
+          </div>
 
-          <a
-            href="https://github.com/sailscastshq/boring-stack"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="group block rounded-lg bg-gradient-to-b from-brand-50/10 to-white p-6 shadow-md transition-all duration-300 hover:shadow-lg"
-          >
-            <h3 className="mb-2 text-xl font-semibold text-brand">
-              Star on GitHub ⭐️
-            </h3>
-            <p className="mb-4 text-gray-600">
-              Give The Boring JavaScript Stack a star on GitHub.
-            </p>
-            <button className="mt-2 rounded-lg border border-brand px-4 py-2 text-brand transition-colors duration-300 group-hover:bg-brand group-hover:text-white">
-              Star Project
-            </button>
-          </a>
-          <a
-            href="https://sailscasts.com"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="group block rounded-lg bg-gradient-to-b from-brand-50/10 to-white p-6 shadow-md transition-all duration-300 hover:shadow-lg"
-          >
-            <h3 className="mb-2 text-xl font-semibold text-brand">
-              Sailscasts
-            </h3>
-            <p className="mb-4 text-gray-600">
-              Learn Sails.js and The Boring JavaScript Stack through video
-              tutorials and courses.
-            </p>
-            <button className="mt-2 rounded-lg border border-brand px-4 py-2 text-brand transition-colors duration-300 group-hover:bg-brand group-hover:text-white">
-              Start Learning
-            </button>
-          </a>
+          {/* Hero headline with better typography */}
+          <h1 className="mb-6 text-5xl font-extrabold tracking-tight md:text-6xl lg:text-7xl">
+            <span className="block leading-tight text-gray-900">
+              Scale Your Team,
+            </span>
+            <span className="block bg-gradient-to-r from-brand-600 to-accent-600 bg-clip-text leading-tight text-transparent">
+              Streamline Success
+            </span>
+          </h1>
+
+          {/* Improved subheading */}
+          <p className="mx-auto mb-10 max-w-2xl text-xl font-medium leading-relaxed text-gray-600">
+            Stop building the same authentication, billing, and team features
+            over and over.
+            <span className="font-semibold text-gray-900">
+              {' '}
+              Launch your SaaS in days, not months.
+            </span>
+          </p>
+
+          {/* Social Proof Badge */}
+          <div className="mb-8 flex items-center justify-center">
+            <div className="inline-flex items-center space-x-2 rounded-full border border-gray-200 bg-white/80 px-4 py-2 shadow-sm backdrop-blur-sm">
+              <div className="flex -space-x-1">
+                <div className="h-6 w-6 rounded-full border-2 border-white bg-gradient-to-br from-blue-400 to-blue-600"></div>
+                <div className="h-6 w-6 rounded-full border-2 border-white bg-gradient-to-br from-green-400 to-green-600"></div>
+                <div className="h-6 w-6 rounded-full border-2 border-white bg-gradient-to-br from-purple-400 to-purple-600"></div>
+              </div>
+              <span className="text-sm font-medium text-gray-700">
+                Join 2,847+ developers
+              </span>
+            </div>
+          </div>
+
+          {/* Waitlist/CTA Section */}
+          <div className="mx-auto mb-16 max-w-lg">
+            {isWaitlistActive ? (
+              // Waitlist Mode
+              isSubmitted ? (
+                <div className="relative overflow-hidden rounded-2xl border border-success-200/50 bg-gradient-to-r from-success-50 to-emerald-50 p-8 text-center shadow-xl">
+                  <div className="absolute left-1/2 top-0 h-32 w-32 -translate-x-1/2 transform rounded-full bg-success-200/20 blur-2xl"></div>
+                  <div className="relative">
+                    <div className="mb-4 text-success-600">
+                      <svg
+                        className="mx-auto h-16 w-16"
+                        fill="none"
+                        stroke="currentColor"
+                        viewBox="0 0 24 24"
+                      >
+                        <path
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                          strokeWidth={1.5}
+                          d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"
+                        />
+                      </svg>
+                    </div>
+                    <h3 className="mb-2 text-xl font-bold text-success-900">
+                      Welcome to the future! ✨
+                    </h3>
+                    <p className="font-medium text-success-700">
+                      You'll be the first to know when Ascent launches.
+                    </p>
+                  </div>
+                </div>
+              ) : (
+                <div className="relative">
+                  {/* Form with better shadows and design */}
+                  <div className="absolute inset-0 scale-105 rounded-2xl bg-gradient-to-r from-brand-600 to-accent-600 opacity-20 blur-xl"></div>
+                  <form
+                    onSubmit={handleWaitlistSubmit}
+                    className={`relative rounded-2xl border border-gray-100 bg-white p-8 shadow-2xl transition-all duration-300 ${
+                      shouldShake ? 'ring-4 ring-red-100' : 'hover:shadow-3xl'
+                    }`}
+                    style={{
+                      animation: shouldShake ? 'shake 0.5s ease-in-out' : 'none'
+                    }}
+                  >
+                    <div className="mb-6 text-center">
+                      <h3 className="mb-2 text-2xl font-bold text-gray-900">
+                        Join the Waitlist
+                      </h3>
+                      <p className="font-medium text-gray-600">
+                        Be the first to scale with Ascent
+                      </p>
+                    </div>
+
+                    <div className="space-y-4">
+                      <div className="relative">
+                        <input
+                          type="email"
+                          value={email}
+                          onChange={(e) => setEmail(e.target.value)}
+                          placeholder="Enter your email address"
+                          className={`w-full rounded-xl border px-4 py-4 text-lg font-medium transition-all duration-200 ${
+                            shouldShake
+                              ? 'border-red-300 bg-red-50 ring-2 ring-red-100'
+                              : 'border-gray-200 bg-gray-50 focus:border-brand-300 focus:bg-white focus:ring-4 focus:ring-brand-100'
+                          }`}
+                          disabled={isSubmitting}
+                        />
+                      </div>
+
+                      <button
+                        type="submit"
+                        disabled={isSubmitting}
+                        className="w-full rounded-xl bg-gradient-to-r from-brand-600 to-accent-600 px-8 py-4 text-lg font-bold text-white shadow-lg transition-all duration-200 hover:scale-[1.02] hover:shadow-xl disabled:cursor-not-allowed disabled:opacity-50 disabled:hover:scale-100"
+                      >
+                        {isSubmitting ? (
+                          <span className="flex items-center justify-center space-x-2">
+                            <svg
+                              className="h-5 w-5 animate-spin"
+                              fill="none"
+                              viewBox="0 0 24 24"
+                            >
+                              <circle
+                                className="opacity-25"
+                                cx="12"
+                                cy="12"
+                                r="10"
+                                stroke="currentColor"
+                                strokeWidth="4"
+                              ></circle>
+                              <path
+                                className="opacity-75"
+                                fill="currentColor"
+                                d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"
+                              ></path>
+                            </svg>
+                            <span>Joining...</span>
+                          </span>
+                        ) : (
+                          'Join the Waitlist →'
+                        )}
+                      </button>
+                    </div>
+
+                    <div className="mt-6 flex items-center justify-center space-x-6 text-xs text-gray-500">
+                      <div className="flex items-center space-x-1">
+                        <svg
+                          className="h-4 w-4 text-green-500"
+                          fill="currentColor"
+                          viewBox="0 0 20 20"
+                        >
+                          <path
+                            fillRule="evenodd"
+                            d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
+                            clipRule="evenodd"
+                          />
+                        </svg>
+                        <span>Early access</span>
+                      </div>
+                      <div className="flex items-center space-x-1">
+                        <svg
+                          className="h-4 w-4 text-green-500"
+                          fill="currentColor"
+                          viewBox="0 0 20 20"
+                        >
+                          <path
+                            fillRule="evenodd"
+                            d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
+                            clipRule="evenodd"
+                          />
+                        </svg>
+                        <span>No spam</span>
+                      </div>
+                      <div className="flex items-center space-x-1">
+                        <svg
+                          className="h-4 w-4 text-green-500"
+                          fill="currentColor"
+                          viewBox="0 0 20 20"
+                        >
+                          <path
+                            fillRule="evenodd"
+                            d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
+                            clipRule="evenodd"
+                          />
+                        </svg>
+                        <span>Unsubscribe anytime</span>
+                      </div>
+                    </div>
+                  </form>
+                </div>
+              )
+            ) : (
+              // CTA Mode (when waitlist is disabled)
+              <div className="text-center">
+                <div className="flex flex-col justify-center gap-4 sm:flex-row">
+                  <button className="hover:shadow-3xl group relative rounded-xl bg-gradient-to-r from-brand-600 to-accent-600 px-8 py-4 font-bold text-white shadow-2xl transition-all duration-200 hover:scale-[1.02]">
+                    <span className="relative z-10">Start Free Trial</span>
+                    <div className="absolute inset-0 rounded-xl bg-gradient-to-r from-brand-700 to-accent-700 opacity-0 transition-opacity group-hover:opacity-100"></div>
+                  </button>
+                  <button className="rounded-xl border-2 border-gray-200 bg-white px-8 py-4 font-bold text-gray-700 shadow-lg transition-all duration-200 hover:scale-[1.02] hover:border-brand-300 hover:shadow-xl">
+                    Schedule Demo
+                  </button>
+                </div>
+                <p className="mt-6 text-sm font-medium text-gray-500">
+                  No credit card required • 14-day free trial • Cancel anytime
+                </p>
+              </div>
+            )}
+          </div>
         </div>
       </section>
-      <section className="space-y-8 px-4 py-8 md:grid md:grid-cols-3 md:gap-8 md:space-y-0 md:p-12">
-        <article className="text-center">
-          <div className="mb-4 flex justify-center">
-            <div className="rounded-full bg-brand/10 p-3">
-              <svg
-                className="h-8 w-8 text-brand"
-                fill="none"
-                stroke="currentColor"
-                viewBox="0 0 24 24"
-              >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth={2}
-                  d="M13 10V3L4 14h7v7l9-11h-7z"
-                />
-              </svg>
+      {/* Key Features Section */}
+      <section className="relative bg-white px-4 py-20">
+        {/* Subtle background pattern */}
+        <div className="absolute inset-0 bg-gradient-to-b from-gray-50/50 to-white"></div>
+        <div
+          className="absolute inset-0"
+          style={{
+            backgroundImage:
+              'radial-gradient(circle at 1px 1px, rgba(15,23,42,0.15) 1px, transparent 0)',
+            backgroundSize: '24px 24px'
+          }}
+        ></div>
+
+        <div className="relative mx-auto max-w-7xl">
+          <div className="mb-16 text-center">
+            <div className="mb-4">
+              <span className="inline-flex items-center rounded-full bg-brand-100 px-3 py-1 text-sm font-semibold text-brand-700">
+                ✨ Features
+              </span>
+            </div>
+            <h2 className="mb-6 text-4xl font-extrabold tracking-tight text-gray-900 md:text-5xl">
+              Everything You Need to
+              <span className="block bg-gradient-to-r from-brand-600 to-accent-600 bg-clip-text text-transparent">
+                Scale Fast
+              </span>
+            </h2>
+            <p className="mx-auto max-w-3xl text-xl font-medium leading-relaxed text-gray-600">
+              From authentication to payments, we've built all the
+              infrastructure your growing business needs.
+              <span className="mt-2 block font-semibold text-gray-900">
+                Focus on what makes you unique.
+              </span>
+            </p>
+          </div>
+
+          <div className="grid grid-cols-1 gap-8 md:grid-cols-2 lg:grid-cols-3">
+            {/* Secure Authentication */}
+            <div className="group relative rounded-2xl border border-gray-100 bg-white p-8 shadow-sm transition-all duration-300 hover:-translate-y-1 hover:shadow-xl">
+              <div className="absolute inset-0 rounded-2xl bg-gradient-to-br from-brand-50/50 to-transparent opacity-0 transition-opacity group-hover:opacity-100"></div>
+              <div className="relative">
+                <div className="mb-6 flex h-14 w-14 items-center justify-center rounded-2xl bg-gradient-to-br from-brand-500 to-brand-600 shadow-lg">
+                  <svg
+                    className="h-7 w-7 text-white"
+                    fill="none"
+                    stroke="currentColor"
+                    viewBox="0 0 24 24"
+                  >
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      strokeWidth={2}
+                      d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"
+                    />
+                  </svg>
+                </div>
+                <h3 className="mb-3 text-xl font-bold text-gray-900">
+                  Secure Authentication
+                </h3>
+                <p className="mb-4 leading-relaxed text-gray-600">
+                  OAuth, magic links, 2FA, and session management.
+                  Enterprise-grade security that scales.
+                </p>
+                <div className="flex items-center text-sm font-medium text-brand-600">
+                  <span>OAuth • 2FA • Magic Links</span>
+                </div>
+              </div>
+            </div>
+
+            {/* Subscription Billing */}
+            <div className="group relative rounded-2xl border border-gray-100 bg-white p-8 shadow-sm transition-all duration-300 hover:-translate-y-1 hover:shadow-xl">
+              <div className="absolute inset-0 rounded-2xl bg-gradient-to-br from-accent-50/50 to-transparent opacity-0 transition-opacity group-hover:opacity-100"></div>
+              <div className="relative">
+                <div className="mb-6 flex h-14 w-14 items-center justify-center rounded-2xl bg-gradient-to-br from-accent-500 to-accent-600 shadow-lg">
+                  <svg
+                    className="h-7 w-7 text-white"
+                    fill="none"
+                    stroke="currentColor"
+                    viewBox="0 0 24 24"
+                  >
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      strokeWidth={2}
+                      d="M3 10h18M7 15h1m4 0h1m-7 4h12a3 3 0 003-3V8a3 3 0 00-3-3H6a3 3 0 00-3 3v8a3 3 0 003 3z"
+                    />
+                  </svg>
+                </div>
+                <h3 className="mb-3 text-xl font-bold text-gray-900">
+                  Subscription Billing
+                </h3>
+                <p className="mb-4 leading-relaxed text-gray-600">
+                  Lemon Squeezy integration for seamless recurring payments and
+                  subscription management.
+                </p>
+                <div className="flex items-center text-sm font-medium text-accent-600">
+                  <span>Recurring • One-time • Trials</span>
+                </div>
+              </div>
+            </div>
+
+            {/* Team Management */}
+            <div className="group relative rounded-2xl border border-gray-100 bg-white p-8 shadow-sm transition-all duration-300 hover:-translate-y-1 hover:shadow-xl">
+              <div className="absolute inset-0 rounded-2xl bg-gradient-to-br from-success-50/50 to-transparent opacity-0 transition-opacity group-hover:opacity-100"></div>
+              <div className="relative">
+                <div className="mb-6 flex h-14 w-14 items-center justify-center rounded-2xl bg-gradient-to-br from-success-500 to-success-600 shadow-lg">
+                  <svg
+                    className="h-7 w-7 text-white"
+                    fill="none"
+                    stroke="currentColor"
+                    viewBox="0 0 24 24"
+                  >
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      strokeWidth={2}
+                      d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z"
+                    />
+                  </svg>
+                </div>
+                <h3 className="mb-3 text-xl font-bold text-gray-900">
+                  Team Management
+                </h3>
+                <p className="mb-4 leading-relaxed text-gray-600">
+                  Multi-tenancy with team invites, role-based permissions, and
+                  complete workspace isolation.
+                </p>
+                <div className="flex items-center text-sm font-medium text-success-600">
+                  <span>Roles • Invites • Workspaces</span>
+                </div>
+              </div>
+            </div>
+
+            {/* Admin Dashboard */}
+            <div className="group relative rounded-2xl border border-gray-100 bg-white p-8 shadow-sm transition-all duration-300 hover:-translate-y-1 hover:shadow-xl">
+              <div className="absolute inset-0 rounded-2xl bg-gradient-to-br from-purple-50/50 to-transparent opacity-0 transition-opacity group-hover:opacity-100"></div>
+              <div className="relative">
+                <div className="mb-6 flex h-14 w-14 items-center justify-center rounded-2xl bg-gradient-to-br from-purple-500 to-purple-600 shadow-lg">
+                  <svg
+                    className="h-7 w-7 text-white"
+                    fill="none"
+                    stroke="currentColor"
+                    viewBox="0 0 24 24"
+                  >
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      strokeWidth={2}
+                      d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"
+                    />
+                  </svg>
+                </div>
+                <h3 className="mb-3 text-xl font-bold text-gray-900">
+                  Admin Dashboard
+                </h3>
+                <p className="mb-4 leading-relaxed text-gray-600">
+                  Powerful admin interface to manage users, subscriptions, and
+                  monitor your business metrics.
+                </p>
+                <div className="flex items-center text-sm font-medium text-purple-600">
+                  <span>Analytics • Users • Revenue</span>
+                </div>
+              </div>
+            </div>
+
+            {/* Content & Blog */}
+            <div className="group relative rounded-2xl border border-gray-100 bg-white p-8 shadow-sm transition-all duration-300 hover:-translate-y-1 hover:shadow-xl">
+              <div className="absolute inset-0 rounded-2xl bg-gradient-to-br from-orange-50/50 to-transparent opacity-0 transition-opacity group-hover:opacity-100"></div>
+              <div className="relative">
+                <div className="mb-6 flex h-14 w-14 items-center justify-center rounded-2xl bg-gradient-to-br from-orange-500 to-orange-600 shadow-lg">
+                  <svg
+                    className="h-7 w-7 text-white"
+                    fill="none"
+                    stroke="currentColor"
+                    viewBox="0 0 24 24"
+                  >
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      strokeWidth={2}
+                      d="M7 8h10M7 12h4m1 8l-4-4H5a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v8a2 2 0 01-2 2h-3l-4 4z"
+                    />
+                  </svg>
+                </div>
+                <h3 className="mb-3 text-xl font-bold text-gray-900">
+                  Content & Blog
+                </h3>
+                <p className="mb-4 leading-relaxed text-gray-600">
+                  Built-in CMS and blog system powered by Sails Content to
+                  engage your audience and improve SEO.
+                </p>
+                <div className="flex items-center text-sm font-medium text-orange-600">
+                  <span>CMS • Blog • SEO Ready</span>
+                </div>
+              </div>
+            </div>
+
+            {/* Transactional Email */}
+            <div className="group relative rounded-2xl border border-gray-100 bg-white p-8 shadow-sm transition-all duration-300 hover:-translate-y-1 hover:shadow-xl">
+              <div className="absolute inset-0 rounded-2xl bg-gradient-to-br from-red-50/50 to-transparent opacity-0 transition-opacity group-hover:opacity-100"></div>
+              <div className="relative">
+                <div className="mb-6 flex h-14 w-14 items-center justify-center rounded-2xl bg-gradient-to-br from-red-500 to-red-600 shadow-lg">
+                  <svg
+                    className="h-7 w-7 text-white"
+                    fill="none"
+                    stroke="currentColor"
+                    viewBox="0 0 24 24"
+                  >
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      strokeWidth={2}
+                      d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"
+                    />
+                  </svg>
+                </div>
+                <h3 className="mb-3 text-xl font-bold text-gray-900">
+                  Transactional Email
+                </h3>
+                <p className="mb-4 leading-relaxed text-gray-600">
+                  Automated emails for onboarding, billing, notifications, and
+                  customer communication.
+                </p>
+                <div className="flex items-center text-sm font-medium text-red-600">
+                  <span>Templates • Triggers • Analytics</span>
+                </div>
+              </div>
             </div>
           </div>
-          <h3 className="text-xl text-brand md:mb-2 md:text-2xl">Ship Fast</h3>
-          <p className="font-light text-gray md:text-lg">
-            Built with battle-tested technologies. No more wrestling with
-            complex build tools or chasing JavaScript trends.
-          </p>
-        </article>
-        <article className="text-center">
-          <div className="mb-4 flex justify-center">
-            <div className="rounded-full bg-accent/10 p-3">
-              <svg
-                className="h-8 w-8 text-accent"
-                fill="none"
-                stroke="currentColor"
-                viewBox="0 0 24 24"
-              >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth={2}
-                  d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"
-                />
-              </svg>
-            </div>
-          </div>
-          <h3 className="text-xl text-brand md:mb-2 md:text-2xl">SaaS Ready</h3>
-          <p className="font-light text-gray md:text-lg">
-            Authentication, payments, teams, admin dashboard, and more.
-            Everything you need to launch your SaaS.
-          </p>
-        </article>
-        <article className="text-center">
-          <div className="mb-4 flex justify-center">
-            <div className="rounded-full bg-success/10 p-3">
-              <svg
-                className="h-8 w-8 text-success"
-                fill="none"
-                stroke="currentColor"
-                viewBox="0 0 24 24"
-              >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth={2}
-                  d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"
-                />
-              </svg>
-            </div>
-          </div>
-          <h3 className="text-xl text-brand md:mb-2 md:text-2xl">
-            Developer Experience
-          </h3>
-          <p className="font-light text-gray md:text-lg">
-            PrimeReact components, Tailwind CSS, and modern tooling. Everything
-            works together seamlessly.
-          </p>
-        </article>
+        </div>
       </section>
-      <section className="bg-[#F9FAFB] px-4 py-8 md:flex md:space-x-64 md:p-12">
-        <h2 className="flex-grow-0 text-xl text-black md:w-2/12 md:text-3xl">
-          Frequently asked questions
-        </h2>
-        <section className="flex-1">
-          <details className="relative border-b border-[#D7D7D7] py-4">
-            <summary className="text-gray md:text-lg">
-              What is Ascent React?
-            </summary>
-            <p className="text-sm text-black md:text-lg">
-              Ascent React is the ultimate free React SaaS template built on The
-              Boring JavaScript Stack. It provides everything you need to ship a
-              production-ready SaaS application quickly.
+      {/* Value Proposition Section */}
+      <section className="relative overflow-hidden bg-gray-900 px-4 py-24">
+        {/* Background Elements */}
+        <div className="absolute inset-0 bg-gradient-to-br from-gray-900 via-gray-800 to-brand-900"></div>
+        <div className="absolute left-1/2 top-0 h-96 w-96 -translate-x-1/2 transform rounded-full bg-brand-500/10 blur-3xl"></div>
+
+        <div className="relative mx-auto max-w-6xl">
+          <div className="mb-16 text-center">
+            <h2 className="mb-6 text-4xl font-extrabold tracking-tight text-white md:text-5xl">
+              Why Choose
+              <span className="block bg-gradient-to-r from-brand-400 to-accent-400 bg-clip-text text-transparent">
+                The Boring Stack?
+              </span>
+            </h2>
+            <p className="mx-auto max-w-3xl text-xl font-medium leading-relaxed text-gray-300">
+              Because it works. No drama, no complexity, just results.
             </p>
-          </details>
-          <details className="relative border-b border-[#D7D7D7] py-4">
-            <summary className="text-gray md:text-lg">
-              What features are included?
-            </summary>
-            <p className="text-sm text-black md:text-lg">
-              Authentication (OAuth, Magic Links, 2FA), subscription payments
-              with Lemon Squeezy, multi-tenancy, admin dashboard, content blog,
-              transactional emails, and more.
+          </div>
+
+          <div className="grid grid-cols-1 gap-8 md:grid-cols-3">
+            <div className="group text-center">
+              <div className="mb-6 flex justify-center">
+                <div className="relative">
+                  <div className="absolute inset-0 scale-110 rounded-2xl bg-brand-500/20 blur-xl"></div>
+                  <div className="relative rounded-2xl bg-gradient-to-br from-brand-500 to-brand-600 p-4 shadow-2xl">
+                    <svg
+                      className="h-8 w-8 text-white"
+                      fill="none"
+                      stroke="currentColor"
+                      viewBox="0 0 24 24"
+                    >
+                      <path
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        strokeWidth={2}
+                        d="M13 10V3L4 14h7v7l9-11h-7z"
+                      />
+                    </svg>
+                  </div>
+                </div>
+              </div>
+              <h3 className="mb-4 text-2xl font-bold text-white">Ship Fast</h3>
+              <p className="leading-relaxed text-gray-300">
+                Built with battle-tested technologies. No more wrestling with
+                complex build tools or chasing JavaScript trends.
+              </p>
+              <div className="mt-4 inline-flex items-center text-sm font-medium text-brand-400">
+                <span>React • Node.js • PostgreSQL</span>
+              </div>
+            </div>
+
+            <div className="group text-center">
+              <div className="mb-6 flex justify-center">
+                <div className="relative">
+                  <div className="absolute inset-0 scale-110 rounded-2xl bg-accent-500/20 blur-xl"></div>
+                  <div className="relative rounded-2xl bg-gradient-to-br from-accent-500 to-accent-600 p-4 shadow-2xl">
+                    <svg
+                      className="h-8 w-8 text-white"
+                      fill="none"
+                      stroke="currentColor"
+                      viewBox="0 0 24 24"
+                    >
+                      <path
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        strokeWidth={2}
+                        d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"
+                      />
+                    </svg>
+                  </div>
+                </div>
+              </div>
+              <h3 className="mb-4 text-2xl font-bold text-white">SaaS Ready</h3>
+              <p className="leading-relaxed text-gray-300">
+                Authentication, payments, teams, admin dashboard, and more.
+                Everything you need to launch your SaaS.
+              </p>
+              <div className="mt-4 inline-flex items-center text-sm font-medium text-accent-400">
+                <span>Auth • Billing • Multi-tenancy</span>
+              </div>
+            </div>
+
+            <div className="group text-center">
+              <div className="mb-6 flex justify-center">
+                <div className="relative">
+                  <div className="absolute inset-0 scale-110 rounded-2xl bg-success-500/20 blur-xl"></div>
+                  <div className="relative rounded-2xl bg-gradient-to-br from-success-500 to-success-600 p-4 shadow-2xl">
+                    <svg
+                      className="h-8 w-8 text-white"
+                      fill="none"
+                      stroke="currentColor"
+                      viewBox="0 0 24 24"
+                    >
+                      <path
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        strokeWidth={2}
+                        d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"
+                      />
+                    </svg>
+                  </div>
+                </div>
+              </div>
+              <h3 className="mb-4 text-2xl font-bold text-white">
+                Premium Experience
+              </h3>
+              <p className="leading-relaxed text-gray-300">
+                PrimeReact components, Tailwind CSS, and modern tooling.
+                Everything works together seamlessly.
+              </p>
+              <div className="mt-4 inline-flex items-center text-sm font-medium text-success-400">
+                <span>PrimeReact • Tailwind • TypeScript</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+      {/* FAQ Section - Enhanced with Refactoring UI principles */}
+      <section className="relative overflow-hidden bg-white px-4 py-20">
+        {/* Subtle background pattern */}
+        <div className="absolute inset-0 bg-gradient-to-b from-gray-50/30 to-white"></div>
+        <div className="absolute right-1/4 top-0 h-72 w-72 rounded-full bg-brand-100/20 blur-3xl"></div>
+        <div className="absolute bottom-0 left-1/4 h-96 w-96 rounded-full bg-accent-100/20 blur-3xl"></div>
+
+        <div className="relative mx-auto max-w-4xl">
+          <div className="mb-16 text-center">
+            <div className="mb-4">
+              <span className="inline-flex items-center rounded-full bg-brand-100 px-4 py-2 text-sm font-semibold text-brand-700">
+                ❓ FAQ
+              </span>
+            </div>
+            <h2 className="mb-6 text-4xl font-extrabold tracking-tight text-gray-900 md:text-5xl">
+              Got Questions?
+              <span className="block bg-gradient-to-r from-brand-600 to-accent-600 bg-clip-text text-transparent">
+                We've Got Answers
+              </span>
+            </h2>
+            <p className="mx-auto max-w-2xl text-xl font-medium leading-relaxed text-gray-600">
+              Everything you need to know about launching your SaaS with Ascent.
             </p>
-          </details>
-          <details className="relative border-b border-[#D7D7D7] py-4">
-            <summary className="text-gray md:text-lg">
-              Can I customize Ascent React?
-            </summary>
-            <p className="text-sm text-black md:text-lg">
-              Absolutely! All the code is open source and built with modern,
-              maintainable patterns. Customize to your heart's content with
-              PrimeReact components and Tailwind CSS.
-            </p>
-          </details>
-          <details className="relative border-b border-[#D7D7D7] py-4">
-            <summary className="text-gray md:text-lg">
-              Why "The Boring Stack"?
-            </summary>
-            <p className="text-sm text-black md:text-lg">
-              Because it uses battle-tested technologies that just work. No
-              chasing trends, no complex build tools. Focus on shipping to real
-              users, not wrestling with your tools.
-            </p>
-          </details>
-        </section>
+          </div>
+
+          <div className="space-y-6">
+            <details className="group relative overflow-hidden rounded-2xl border border-gray-100 bg-white shadow-sm transition-all duration-300 hover:shadow-lg">
+              <summary className="flex cursor-pointer list-none items-center justify-between p-6 [&::-webkit-details-marker]:hidden">
+                <h3 className="text-lg font-bold text-gray-900 transition-colors group-hover:text-brand-600">
+                  Why should I choose Ascent over building from scratch?
+                </h3>
+                <div className="ml-4 flex-shrink-0">
+                  <div className="flex h-8 w-8 items-center justify-center rounded-full bg-brand-50 transition-colors group-hover:bg-brand-100">
+                    <svg
+                      className="h-4 w-4 text-brand-600 transition-transform group-open:rotate-180"
+                      fill="none"
+                      stroke="currentColor"
+                      viewBox="0 0 24 24"
+                    >
+                      <path
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        strokeWidth={2}
+                        d="M19 9l-7 7-7-7"
+                      />
+                    </svg>
+                  </div>
+                </div>
+              </summary>
+              <div className="px-6 pb-6">
+                <div className="border-t border-gray-100 pt-4">
+                  <p className="mb-4 leading-relaxed text-gray-600">
+                    Building a SaaS from scratch takes 6-12 months of expensive
+                    development time. Ascent gives you
+                    everything—authentication, billing, teams, admin
+                    dashboard—in minutes, not months.
+                  </p>
+                  <div className="inline-flex items-center space-x-2 rounded-lg bg-brand-50 px-3 py-2 text-sm font-semibold text-brand-700">
+                    <svg
+                      className="h-4 w-4"
+                      fill="none"
+                      stroke="currentColor"
+                      viewBox="0 0 24 24"
+                    >
+                      <path
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        strokeWidth={2}
+                        d="M13 10V3L4 14h7v7l9-11h-7z"
+                      />
+                    </svg>
+                    <span>Save 6+ months of development time</span>
+                  </div>
+                </div>
+              </div>
+            </details>
+
+            <details className="group relative overflow-hidden rounded-2xl border border-gray-100 bg-white shadow-sm transition-all duration-300 hover:shadow-lg">
+              <summary className="flex cursor-pointer list-none items-center justify-between p-6 [&::-webkit-details-marker]:hidden">
+                <h3 className="text-lg font-bold text-gray-900 transition-colors group-hover:text-brand-600">
+                  How much money could this save my startup?
+                </h3>
+                <div className="ml-4 flex-shrink-0">
+                  <div className="flex h-8 w-8 items-center justify-center rounded-full bg-success-50 transition-colors group-hover:bg-success-100">
+                    <svg
+                      className="h-4 w-4 text-success-600 transition-transform group-open:rotate-180"
+                      fill="none"
+                      stroke="currentColor"
+                      viewBox="0 0 24 24"
+                    >
+                      <path
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        strokeWidth={2}
+                        d="M19 9l-7 7-7-7"
+                      />
+                    </svg>
+                  </div>
+                </div>
+              </summary>
+              <div className="px-6 pb-6">
+                <div className="border-t border-gray-100 pt-4">
+                  <p className="mb-4 leading-relaxed text-gray-600">
+                    Hiring a full-stack developer costs $120k+ annually.
+                    Building auth, payments, and admin features takes months of
+                    expensive development time. Ascent delivers production-ready
+                    SaaS infrastructure immediately.
+                  </p>
+                  <div className="inline-flex items-center space-x-2 rounded-lg bg-success-50 px-3 py-2 text-sm font-semibold text-success-700">
+                    <svg
+                      className="h-4 w-4"
+                      fill="none"
+                      stroke="currentColor"
+                      viewBox="0 0 24 24"
+                    >
+                      <path
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        strokeWidth={2}
+                        d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1"
+                      />
+                    </svg>
+                    <span>ROI from day one instead of month six</span>
+                  </div>
+                </div>
+              </div>
+            </details>
+
+            <details className="group relative overflow-hidden rounded-2xl border border-gray-100 bg-white shadow-sm transition-all duration-300 hover:shadow-lg">
+              <summary className="flex cursor-pointer list-none items-center justify-between p-6 [&::-webkit-details-marker]:hidden">
+                <h3 className="text-lg font-bold text-gray-900 transition-colors group-hover:text-brand-600">
+                  Is this actually production-ready or just a demo?
+                </h3>
+                <div className="ml-4 flex-shrink-0">
+                  <div className="flex h-8 w-8 items-center justify-center rounded-full bg-accent-50 transition-colors group-hover:bg-accent-100">
+                    <svg
+                      className="h-4 w-4 text-accent-600 transition-transform group-open:rotate-180"
+                      fill="none"
+                      stroke="currentColor"
+                      viewBox="0 0 24 24"
+                    >
+                      <path
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        strokeWidth={2}
+                        d="M19 9l-7 7-7-7"
+                      />
+                    </svg>
+                  </div>
+                </div>
+              </summary>
+              <div className="px-6 pb-6">
+                <div className="border-t border-gray-100 pt-4">
+                  <p className="mb-4 leading-relaxed text-gray-600">
+                    100% production-ready. Enterprise-grade security, real
+                    payment processing, automated emails, database migrations,
+                    deployment scripts—everything you need to launch and scale.
+                  </p>
+                  <div className="inline-flex items-center space-x-2 rounded-lg bg-accent-50 px-3 py-2 text-sm font-semibold text-accent-700">
+                    <svg
+                      className="h-4 w-4"
+                      fill="none"
+                      stroke="currentColor"
+                      viewBox="0 0 24 24"
+                    >
+                      <path
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        strokeWidth={2}
+                        d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"
+                      />
+                    </svg>
+                    <span>Deploy to production in hours, not months</span>
+                  </div>
+                </div>
+              </div>
+            </details>
+
+            <details className="group relative overflow-hidden rounded-2xl border border-gray-100 bg-white shadow-sm transition-all duration-300 hover:shadow-lg">
+              <summary className="flex cursor-pointer list-none items-center justify-between p-6 [&::-webkit-details-marker]:hidden">
+                <h3 className="text-lg font-bold text-gray-900 transition-colors group-hover:text-brand-600">
+                  What if I need to customize or add features?
+                </h3>
+                <div className="ml-4 flex-shrink-0">
+                  <div className="flex h-8 w-8 items-center justify-center rounded-full bg-purple-50 transition-colors group-hover:bg-purple-100">
+                    <svg
+                      className="h-4 w-4 text-purple-600 transition-transform group-open:rotate-180"
+                      fill="none"
+                      stroke="currentColor"
+                      viewBox="0 0 24 24"
+                    >
+                      <path
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        strokeWidth={2}
+                        d="M19 9l-7 7-7-7"
+                      />
+                    </svg>
+                  </div>
+                </div>
+              </summary>
+              <div className="px-6 pb-6">
+                <div className="border-t border-gray-100 pt-4">
+                  <p className="mb-4 leading-relaxed text-gray-600">
+                    You get the full source code—no black boxes, no vendor
+                    lock-in. Built with clean, modern patterns that are easy to
+                    extend. Add your unique features on top of our solid
+                    foundation.
+                  </p>
+                  <div className="inline-flex items-center space-x-2 rounded-lg bg-purple-50 px-3 py-2 text-sm font-semibold text-purple-700">
+                    <svg
+                      className="h-4 w-4"
+                      fill="none"
+                      stroke="currentColor"
+                      viewBox="0 0 24 24"
+                    >
+                      <path
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        strokeWidth={2}
+                        d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4"
+                      />
+                    </svg>
+                    <span>Your code, your control, your IP</span>
+                  </div>
+                </div>
+              </div>
+            </details>
+
+            <details className="group relative overflow-hidden rounded-2xl border border-gray-100 bg-white shadow-sm transition-all duration-300 hover:shadow-lg">
+              <summary className="flex cursor-pointer list-none items-center justify-between p-6 [&::-webkit-details-marker]:hidden">
+                <h3 className="text-lg font-bold text-gray-900 transition-colors group-hover:text-brand-600">
+                  How do I know this won't become technical debt?
+                </h3>
+                <div className="ml-4 flex-shrink-0">
+                  <div className="flex h-8 w-8 items-center justify-center rounded-full bg-orange-50 transition-colors group-hover:bg-orange-100">
+                    <svg
+                      className="h-4 w-4 text-orange-600 transition-transform group-open:rotate-180"
+                      fill="none"
+                      stroke="currentColor"
+                      viewBox="0 0 24 24"
+                    >
+                      <path
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        strokeWidth={2}
+                        d="M19 9l-7 7-7-7"
+                      />
+                    </svg>
+                  </div>
+                </div>
+              </summary>
+              <div className="px-6 pb-6">
+                <div className="border-t border-gray-100 pt-4">
+                  <p className="mb-4 leading-relaxed text-gray-600">
+                    Built on The Boring Stack—proven technologies that have
+                    powered successful companies for years. No experimental
+                    frameworks, no bleeding-edge risks. Just reliable,
+                    maintainable code that scales.
+                  </p>
+                  <div className="inline-flex items-center space-x-2 rounded-lg bg-orange-50 px-3 py-2 text-sm font-semibold text-orange-700">
+                    <svg
+                      className="h-4 w-4"
+                      fill="none"
+                      stroke="currentColor"
+                      viewBox="0 0 24 24"
+                    >
+                      <path
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        strokeWidth={2}
+                        d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"
+                      />
+                    </svg>
+                    <span>
+                      Battle-tested foundation, future-proof architecture
+                    </span>
+                  </div>
+                </div>
+              </div>
+            </details>
+          </div>
+        </div>
       </section>
     </>
   )
