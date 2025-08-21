@@ -1,5 +1,5 @@
 import { Link, Head, useForm } from '@inertiajs/react'
-import { useState, useMemo } from 'react'
+import { useState, useMemo, useEffect } from 'react'
 
 import InputEmail from '@/components/InputEmail.jsx'
 import InputPassword from '@/components/InputPassword.jsx'
@@ -16,6 +16,31 @@ export default function Login() {
   const [focusedField, setFocusedField] = useState('')
   const [showExpandedOptions, setShowExpandedOptions] = useState(false)
   const [isSendingMagicLink, setIsSendingMagicLink] = useState(false)
+
+  // Handle query parameters for controlling the initial view
+  useEffect(() => {
+    const urlParams = new URLSearchParams(window.location.search)
+    const mode = urlParams.get('mode')
+
+    if (mode === 'password') {
+      setShowExpandedOptions(true)
+    }
+  }, [])
+
+  // Update URL when toggling modes
+  const toggleToPasswordMode = () => {
+    setShowExpandedOptions(true)
+    const url = new URL(window.location)
+    url.searchParams.set('mode', 'password')
+    window.history.pushState({}, '', url)
+  }
+
+  const toggleToMagicMode = () => {
+    setShowExpandedOptions(false)
+    const url = new URL(window.location)
+    url.searchParams.delete('mode')
+    window.history.pushState({}, '', url)
+  }
 
   const disableLoginButton = useMemo(() => {
     if (!data.email) return true
@@ -227,7 +252,7 @@ export default function Login() {
                   <div className="pt-4 text-center">
                     <button
                       type="button"
-                      onClick={() => setShowExpandedOptions(true)}
+                      onClick={toggleToPasswordMode}
                       className="text-sm font-medium text-gray-600 hover:text-brand-600 transition-colors underline underline-offset-2"
                     >
                       Use password instead
@@ -241,7 +266,7 @@ export default function Login() {
                   <div className="flex items-center justify-between mb-4">
                     <button
                       type="button"
-                      onClick={() => setShowExpandedOptions(false)}
+                      onClick={toggleToMagicMode}
                       className="flex items-center text-sm font-medium text-gray-600 hover:text-brand-600 transition-colors"
                     >
                       <svg
