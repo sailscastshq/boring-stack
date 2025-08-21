@@ -1,5 +1,5 @@
 import { Link, Head, useForm } from '@inertiajs/react'
-import { useMemo } from 'react'
+import { useMemo, useState } from 'react'
 
 import InputText from '@/components/InputText.jsx'
 import InputEmail from '@/components/InputEmail.jsx'
@@ -14,6 +14,8 @@ export default function Signup() {
     password: ''
   })
 
+  const [focusedField, setFocusedField] = useState('')
+
   const containsSpecialChars = useMemo(() => {
     const specialChars = /[`!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?~]/
     return specialChars.test(data.password)
@@ -24,6 +26,8 @@ export default function Signup() {
   })
 
   const disableSignupButton = useMemo(() => {
+    if (!data.fullName) return true
+    if (!data.email) return true
     if (!passwordIsValid) return true
     if (!containsSpecialChars) return true
     if (form.processing) return true
@@ -34,145 +38,344 @@ export default function Signup() {
     e.preventDefault()
     form.post('/signup')
   }
+
   return (
     <>
-      <Head title="Sign up | Mellow"></Head>
-      <section className="flex min-h-screen flex-col justify-center bg-gradient-to-b from-brand-50/10 to-[#F9FAFB] text-black sm:items-center">
-        <main className="mt-10 bg-white px-4 py-10 text-black sm:w-7/12 sm:rounded-lg sm:px-8 sm:shadow-lg md:w-6/12 lg:w-5/12 xl:w-4/12">
-          <section className="mb-6 flex flex-col items-center justify-center space-y-2 text-center">
-            <Link href="/">
-              <svg
-                className="self-center"
-                width="57"
-                height="38"
-                viewBox="0 0 57 38"
-                fill="none"
-                xmlns="http://www.w3.org/2000/svg"
-              >
-                <path
-                  d="M42.5981 38C40.585 38 39.3448 37.0706 37.3184 35.976C35.292 34.8814 29.4312 30.4743 29.4312 24.9884C29.4312 21.2669 28.4719 18.2569 26.8381 15.8581C25.2166 13.4778 23.0198 11.8286 20.7345 10.6644C19.6332 10.1036 18.4872 9.64488 17.346 9.26581C16.6808 9.04499 16.2947 8.33065 16.5834 7.69203C18.4128 3.64197 22.4871 0.824097 27.22 0.824097C33.6625 0.824097 38.8855 6.04681 38.8855 12.4896C38.8855 13.868 38.6465 15.1907 38.2075 16.4181C40.067 15.165 42.3075 14.4338 44.7183 14.4338C51.1609 14.4338 56.3835 19.6565 56.3835 26.0994C56.3835 33.8555 49.5679 38 42.5981 38Z"
-                  fill="#6C25C1"
+      <Head title="Create Account | Ascent"></Head>
+      <div className="min-h-screen bg-gradient-to-br from-brand-50/30 via-white to-accent-50/20 flex flex-col justify-center py-12 sm:px-6 lg:px-8">
+        {/* Background Elements */}
+        <div className="absolute inset-0 overflow-hidden pointer-events-none">
+          <div className="absolute top-20 left-1/4 w-96 h-96 bg-brand-200/20 rounded-full blur-3xl"></div>
+          <div className="absolute bottom-20 right-1/4 w-72 h-72 bg-accent-200/20 rounded-full blur-3xl"></div>
+        </div>
+
+        <div className="relative sm:mx-auto sm:w-full sm:max-w-lg">
+          {/* Logo */}
+          <div className="flex items-center justify-center mb-8">
+            <Link href="/" className="group">
+              <div className="relative">
+                <div className="absolute inset-0 bg-brand-200/30 rounded-2xl blur-xl scale-110 opacity-0 group-hover:opacity-100 transition-opacity"></div>
+                <img
+                  src="/images/logo.svg"
+                  alt="Ascent Logo"
+                  className="relative h-12 w-auto"
                 />
-                <path
-                  d="M0 25.1274C0 31.2765 4.05403 36.4 9.42465 37.532C10.2536 37.8349 11.1486 38.0001 12.0822 38.0001H30.2069C30.8147 38.0001 31.0794 37.1872 30.6153 36.7945C27.4478 34.1143 25.0937 30.3371 25.0937 24.9885C25.0937 22.0496 24.3495 19.9092 23.2531 18.3C22.1443 16.6723 20.5847 15.4558 18.7655 14.5289C16.9294 13.5937 14.936 12.998 13.0324 12.5757C12.5841 12.5191 12.1278 12.4897 11.6655 12.4897C5.22272 12.4897 0 18.1479 0 25.1274Z"
-                  fill="#6C25C1"
-                />
-              </svg>
+              </div>
             </Link>
+          </div>
 
-            <h1 className="text-2xl">Create your account</h1>
-            <p className="text-lg text-gray">
-              Welcome! Please enter your details to sign up
+          {/* Header */}
+          <div className="text-center mb-8">
+            <h1 className="text-3xl font-bold text-gray-900 tracking-tight">
+              Create your account
+            </h1>
+            <p className="mt-2 text-base text-gray-600">
+              Join thousands of teams scaling with Ascent
             </p>
-          </section>
-          {form.errors.signup && (
-            <p className="my-4 w-full rounded-sm border-red-400 bg-red-100 p-4 text-red-500">
-              {form.errors?.signup}
-            </p>
-          )}
-
-          <form onSubmit={submit} className="mb-4 flex flex-col space-y-6">
-            <InputText
-              value={data.fullName}
-              onChange={(e) => setData('fullName', e.target.value)}
-            />
-
-            {form.errors.fullName && (
-              <p className="text-red-500" v-if="form.errors.fullName">
-                {form.errors.fullName}
-              </p>
-            )}
-            <InputEmail
-              value={data.email}
-              onChange={(e) => setData('email', e.target.value)}
-            />
-            {form.errors.email && (
-              <p className="text-red-500">{form.errors.email}</p>
-            )}
-            <InputPassword
-              value={data.password}
-              onChange={(e) => setData('password', e.target.value)}
-            />
-            {form.errors.password && (
-              <p className="text-red-500">{form.errors.password}</p>
-            )}
-            <ul className="flex justify-between text-sm">
-              <li
-                className={`flex items-center space-x-1 text-gray-500 ${
-                  passwordIsValid && 'text-green'
-                }`}
+            <p className="mt-2 text-base text-gray-600">
+              Or{' '}
+              <Link
+                href="/login"
+                className="font-semibold text-brand-600 hover:text-brand-500 transition-colors"
               >
-                <svg
-                  width="16"
-                  height="16"
-                  viewBox="0 0 16 16"
-                  fill="none"
-                  className="fill-current"
-                  xmlns="http://www.w3.org/2000/svg"
-                >
-                  <g clipPath="url(#clip0_74_1911)">
-                    <path d="M8 0C3.58867 0 0 3.58867 0 8C0 12.4113 3.58867 16 8 16C12.4113 16 16 12.4113 16 8C16 3.58867 12.4113 0 8 0ZM12.1333 7.008L9.18267 9.90467C8.66067 10.4167 7.98867 10.672 7.316 10.672C6.65067 10.672 5.98533 10.4213 5.46533 9.91933L4.19933 8.67467C3.93667 8.41667 3.93333 7.99467 4.19133 7.732C4.44867 7.46867 4.872 7.46533 5.134 7.724L6.396 8.96467C6.91333 9.46467 7.73 9.462 8.25 8.95267L11.2 6.05667C11.462 5.798 11.8827 5.80267 12.1427 6.06533C12.4007 6.328 12.3967 6.75 12.1333 7.008Z" />
-                  </g>
-                  <defs>
-                    <clipPath id="clip0_74_1911">
-                      <rect width="16" height="16" fill="white" />
-                    </clipPath>
-                  </defs>
-                </svg>
-                <span>At least 8 characters</span>
-              </li>
-              <li
-                className={`flex items-center space-x-1 text-gray-500 ${
-                  containsSpecialChars && 'text-green'
-                }`}
-              >
-                <svg
-                  width="16"
-                  height="16"
-                  viewBox="0 0 16 16"
-                  fill="none"
-                  className="fill-current"
-                  xmlns="http://www.w3.org/2000/svg"
-                >
-                  <g clipPath="url(#clip0_74_1911)">
-                    <path d="M8 0C3.58867 0 0 3.58867 0 8C0 12.4113 3.58867 16 8 16C12.4113 16 16 12.4113 16 8C16 3.58867 12.4113 0 8 0ZM12.1333 7.008L9.18267 9.90467C8.66067 10.4167 7.98867 10.672 7.316 10.672C6.65067 10.672 5.98533 10.4213 5.46533 9.91933L4.19933 8.67467C3.93667 8.41667 3.93333 7.99467 4.19133 7.732C4.44867 7.46867 4.872 7.46533 5.134 7.724L6.396 8.96467C6.91333 9.46467 7.73 9.462 8.25 8.95267L11.2 6.05667C11.462 5.798 11.8827 5.80267 12.1427 6.06533C12.4007 6.328 12.3967 6.75 12.1333 7.008Z" />
-                  </g>
-                  <defs>
-                    <clipPath id="clip0_74_1911">
-                      <rect width="16" height="16" fill="white" />
-                    </clipPath>
-                  </defs>
-                </svg>
-                <span>At least 1 special characters</span>
-              </li>
-            </ul>
-            <p className="text-gray">
-              <span>You agree to our </span>
-              <a href="/terms" className="text-brand hover:underline">
-                Terms Of Use
-              </a>
-              <span> and </span>
-              <a href="/privacy-policy" className="text-brand hover:underline">
-                Privacy Policy
-              </a>
+                sign in to your existing account
+              </Link>
             </p>
-            <InputButton
-              processing={form.processing}
-              disabled={disableSignupButton}
-              label="Sign up"
-            />
-          </form>
-          <GoogleButton />
-        </main>
-        <footer className="my-8 text-center text-gray">
-          <p>
-            <span>Already have an account? </span>
-            <Link href="/login" className="text-brand hover:underline">
-              Login
-            </Link>
-          </p>
-        </footer>
-      </section>
+          </div>
+        </div>
+
+        <div className="relative sm:mx-auto sm:w-full sm:max-w-lg">
+          <div className="relative">
+            {/* Background blur effect */}
+            <div className="absolute inset-0 bg-gradient-to-r from-brand-600/10 to-accent-600/10 rounded-2xl blur-xl scale-105"></div>
+
+            {/* Main card */}
+            <div className="relative bg-white py-10 px-8 shadow-2xl rounded-2xl border border-gray-100">
+              {/* Global error */}
+              {form.errors.signup && (
+                <div className="mb-6 p-4 rounded-lg bg-red-50 border border-red-200">
+                  <div className="flex items-start space-x-3">
+                    <svg
+                      className="h-5 w-5 text-red-500 flex-shrink-0 mt-0.5"
+                      fill="none"
+                      stroke="currentColor"
+                      viewBox="0 0 24 24"
+                    >
+                      <path
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        strokeWidth={2}
+                        d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
+                      />
+                    </svg>
+                    <p className="text-sm text-red-700 font-medium">
+                      {form.errors.signup}
+                    </p>
+                  </div>
+                </div>
+              )}
+              <form onSubmit={submit} className="space-y-5">
+                {/* Full Name */}
+                <div>
+                  <label
+                    htmlFor="fullName"
+                    className="block text-sm font-semibold text-gray-900 mb-2"
+                  >
+                    Full Name
+                  </label>
+                  <div className="relative">
+                    <input
+                      id="fullName"
+                      type="text"
+                      autoComplete="name"
+                      required
+                      value={data.fullName}
+                      onChange={(e) => setData('fullName', e.target.value)}
+                      onFocus={() => setFocusedField('fullName')}
+                      onBlur={() => setFocusedField('')}
+                      className={`w-full rounded-xl border px-4 py-4 text-lg font-medium transition-all duration-200 ${
+                        form.errors.fullName
+                          ? 'border-red-300 bg-red-50 ring-2 ring-red-100'
+                          : 'border-gray-200 bg-gray-50 focus:border-brand-300 focus:bg-white focus:ring-4 focus:ring-brand-100'
+                      }`}
+                      placeholder="Enter your full name"
+                    />
+                  </div>
+                  {form.errors.fullName && (
+                    <p className="mt-2 text-sm text-red-600">
+                      {form.errors.fullName}
+                    </p>
+                  )}
+                </div>
+
+                {/* Email */}
+                <div>
+                  <label
+                    htmlFor="email"
+                    className="block text-sm font-semibold text-gray-900 mb-2"
+                  >
+                    Email Address
+                  </label>
+                  <div className="relative">
+                    <input
+                      id="email"
+                      type="email"
+                      autoComplete="email"
+                      required
+                      value={data.email}
+                      onChange={(e) => setData('email', e.target.value)}
+                      onFocus={() => setFocusedField('email')}
+                      onBlur={() => setFocusedField('')}
+                      className={`w-full rounded-xl border px-4 py-4 text-lg font-medium transition-all duration-200 ${
+                        form.errors.email
+                          ? 'border-red-300 bg-red-50 ring-2 ring-red-100'
+                          : 'border-gray-200 bg-gray-50 focus:border-brand-300 focus:bg-white focus:ring-4 focus:ring-brand-100'
+                      }`}
+                      placeholder="Enter your email address"
+                    />
+                  </div>
+                  {form.errors.email && (
+                    <p className="mt-2 text-sm text-red-600">
+                      {form.errors.email}
+                    </p>
+                  )}
+                </div>
+
+                {/* Password */}
+                <div>
+                  <label
+                    htmlFor="password"
+                    className="block text-sm font-semibold text-gray-900 mb-2"
+                  >
+                    Password
+                  </label>
+                  <div className="relative">
+                    <input
+                      id="password"
+                      type="password"
+                      autoComplete="new-password"
+                      required
+                      value={data.password}
+                      onChange={(e) => setData('password', e.target.value)}
+                      onFocus={() => setFocusedField('password')}
+                      onBlur={() => setFocusedField('')}
+                      className={`w-full rounded-xl border px-4 py-4 text-lg font-medium transition-all duration-200 ${
+                        form.errors.password
+                          ? 'border-red-300 bg-red-50 ring-2 ring-red-100'
+                          : 'border-gray-200 bg-gray-50 focus:border-brand-300 focus:bg-white focus:ring-4 focus:ring-brand-100'
+                      }`}
+                      placeholder="Create a secure password"
+                    />
+                  </div>
+                  {form.errors.password && (
+                    <p className="mt-2 text-sm text-red-600">
+                      {form.errors.password}
+                    </p>
+                  )}
+
+                  {/* Password Requirements */}
+                  <div className="mt-4 space-y-2">
+                    <div
+                      className={`flex items-center text-sm transition-colors ${
+                        passwordIsValid ? 'text-green-600' : 'text-gray-500'
+                      }`}
+                    >
+                      <div
+                        className={`w-5 h-5 rounded-full flex items-center justify-center mr-3 ${
+                          passwordIsValid ? 'bg-green-100' : 'bg-gray-100'
+                        }`}
+                      >
+                        <svg
+                          className="w-3 h-3"
+                          fill="currentColor"
+                          viewBox="0 0 20 20"
+                        >
+                          <path
+                            fillRule="evenodd"
+                            d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
+                            clipRule="evenodd"
+                          />
+                        </svg>
+                      </div>
+                      <span className="font-medium">At least 8 characters</span>
+                    </div>
+                    <div
+                      className={`flex items-center text-sm transition-colors ${
+                        containsSpecialChars
+                          ? 'text-green-600'
+                          : 'text-gray-500'
+                      }`}
+                    >
+                      <div
+                        className={`w-5 h-5 rounded-full flex items-center justify-center mr-3 ${
+                          containsSpecialChars ? 'bg-green-100' : 'bg-gray-100'
+                        }`}
+                      >
+                        <svg
+                          className="w-3 h-3"
+                          fill="currentColor"
+                          viewBox="0 0 20 20"
+                        >
+                          <path
+                            fillRule="evenodd"
+                            d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
+                            clipRule="evenodd"
+                          />
+                        </svg>
+                      </div>
+                      <span className="font-medium">
+                        At least 1 special character
+                      </span>
+                    </div>
+                  </div>
+                </div>
+
+                {/* Submit Button */}
+                <div className="pt-2">
+                  <button
+                    type="submit"
+                    disabled={disableSignupButton}
+                    className={`w-full flex justify-center px-8 py-4 rounded-xl text-lg font-bold text-white shadow-lg transition-all duration-200 hover:scale-[1.02] hover:shadow-xl disabled:cursor-not-allowed disabled:opacity-50 disabled:hover:scale-100 ${
+                      disableSignupButton
+                        ? 'bg-gray-300'
+                        : 'bg-gradient-to-r from-brand-600 to-accent-600 hover:from-brand-700 hover:to-accent-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-brand-500'
+                    }`}
+                  >
+                    {form.processing ? (
+                      <div className="flex items-center space-x-2">
+                        <svg
+                          className="animate-spin h-5 w-5"
+                          fill="none"
+                          viewBox="0 0 24 24"
+                        >
+                          <circle
+                            className="opacity-25"
+                            cx="12"
+                            cy="12"
+                            r="10"
+                            stroke="currentColor"
+                            strokeWidth="4"
+                          ></circle>
+                          <path
+                            className="opacity-75"
+                            fill="currentColor"
+                            d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"
+                          ></path>
+                        </svg>
+                        <span>Creating account...</span>
+                      </div>
+                    ) : (
+                      'Create Account'
+                    )}
+                  </button>
+                </div>
+
+                {/* Terms - cleaner positioning */}
+                <div className="pt-4 text-center">
+                  <p className="text-sm text-gray-600">
+                    By creating an account, you agree to our{' '}
+                    <a
+                      href="/terms"
+                      className="font-medium text-brand-600 hover:text-brand-500 underline underline-offset-2"
+                    >
+                      Terms of Service
+                    </a>{' '}
+                    and{' '}
+                    <a
+                      href="/privacy-policy"
+                      className="font-medium text-brand-600 hover:text-brand-500 underline underline-offset-2"
+                    >
+                      Privacy Policy
+                    </a>
+                  </p>
+                </div>
+              </form>
+
+              {/* Divider */}
+              <div className="my-6">
+                <div className="relative">
+                  <div className="absolute inset-0 flex items-center">
+                    <div className="w-full border-t border-gray-200"></div>
+                  </div>
+                  <div className="relative flex justify-center text-sm">
+                    <span className="px-4 bg-white text-gray-500 font-medium">
+                      Or continue with
+                    </span>
+                  </div>
+                </div>
+              </div>
+
+              {/* Google Button */}
+              <div>
+                <a
+                  href="/auth/google/redirect"
+                  className="w-full flex items-center justify-center px-4 py-3 border border-gray-300 rounded-lg shadow-sm bg-white text-sm font-medium text-gray-700 hover:bg-gray-50 hover:border-gray-400 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-brand-500 transition-all duration-200"
+                >
+                  <svg className="w-5 h-5 mr-3" viewBox="0 0 24 24">
+                    <path
+                      fill="#4285F4"
+                      d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"
+                    />
+                    <path
+                      fill="#34A853"
+                      d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"
+                    />
+                    <path
+                      fill="#FBBC05"
+                      d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z"
+                    />
+                    <path
+                      fill="#EA4335"
+                      d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z"
+                    />
+                  </svg>
+                  <span>Continue with Google</span>
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
     </>
   )
 }

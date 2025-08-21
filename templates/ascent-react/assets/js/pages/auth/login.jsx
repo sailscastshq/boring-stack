@@ -13,6 +13,8 @@ export default function Login() {
     rememberMe: false
   })
 
+  const [focusedField, setFocusedField] = useState('')
+
   const disableLoginButton = useMemo(() => {
     if (!data.email) return true
     if (!data.password) return true
@@ -24,89 +26,264 @@ export default function Login() {
     e.preventDefault()
     form.post('/login')
   }
+
   return (
     <>
-      <Head title="Login | Mellow"></Head>
-      <section className="flex min-h-screen flex-col justify-center bg-gradient-to-b from-brand-50/10 to-[#F9FAFB] text-black sm:items-center">
-        <main className="mt-10 bg-white px-4 py-10 text-black sm:w-7/12 sm:rounded-lg sm:px-8 sm:shadow-lg md:w-6/12 lg:w-5/12 xl:w-4/12">
-          <section className="mb-6 flex flex-col items-center justify-center space-y-2 text-center">
-            <Link href="/">
-              <svg
-                className="self-center"
-                width="57"
-                height="38"
-                viewBox="0 0 57 38"
-                fill="none"
-                xmlns="http://www.w3.org/2000/svg"
-              >
-                <path
-                  d="M42.5981 38C40.585 38 39.3448 37.0706 37.3184 35.976C35.292 34.8814 29.4312 30.4743 29.4312 24.9884C29.4312 21.2669 28.4719 18.2569 26.8381 15.8581C25.2166 13.4778 23.0198 11.8286 20.7345 10.6644C19.6332 10.1036 18.4872 9.64488 17.346 9.26581C16.6808 9.04499 16.2947 8.33065 16.5834 7.69203C18.4128 3.64197 22.4871 0.824097 27.22 0.824097C33.6625 0.824097 38.8855 6.04681 38.8855 12.4896C38.8855 13.868 38.6465 15.1907 38.2075 16.4181C40.067 15.165 42.3075 14.4338 44.7183 14.4338C51.1609 14.4338 56.3835 19.6565 56.3835 26.0994C56.3835 33.8555 49.5679 38 42.5981 38Z"
-                  fill="#6C25C1"
-                />
-                <path
-                  d="M0 25.1274C0 31.2765 4.05403 36.4 9.42465 37.532C10.2536 37.8349 11.1486 38.0001 12.0822 38.0001H30.2069C30.8147 38.0001 31.0794 37.1872 30.6153 36.7945C27.4478 34.1143 25.0937 30.3371 25.0937 24.9885C25.0937 22.0496 24.3495 19.9092 23.2531 18.3C22.1443 16.6723 20.5847 15.4558 18.7655 14.5289C16.9294 13.5937 14.936 12.998 13.0324 12.5757C12.5841 12.5191 12.1278 12.4897 11.6655 12.4897C5.22272 12.4897 0 18.1479 0 25.1274Z"
-                  fill="#6C25C1"
-                />
-              </svg>
-            </Link>
-            <h1 className="text-2xl">Log into your account</h1>
-            <p className="text-lg text-gray">
-              Welcome back, please enter your details
-            </p>
-            {form.errors.email ||
-              (form.errors.login && (
-                <p className="my-4 w-full rounded-sm border-red-400 bg-red-100 p-4 text-red-500">
-                  {form.errors.login || form.errors.email}
-                </p>
-              ))}
-          </section>
-          <form onSubmit={submit} className="mb-4 flex flex-col space-y-6">
-            <InputEmail
-              value={data.email}
-              onChange={(e) => setData('email', e.target.value)}
-            />
-            <InputPassword
-              value={data.password}
-              onChange={(e) => setData('password', e.target.value)}
-            />
-            <section className="flex justify-between text-sm accent-brand">
-              <label
-                htmlFor="rememberMe"
-                className="flex items-center space-x-2 text-gray"
-              >
-                <input
-                  id="rememberMe"
-                  type="checkbox"
-                  checked={data.rememberMe}
-                  onChange={(e) => setData('rememberMe', !data.rememberMe)}
-                />
-                <span>Remember me</span>
-              </label>
+      <Head title="Sign In | Ascent"></Head>
+      <div className="min-h-screen bg-gradient-to-br from-brand-50/30 via-white to-accent-50/20 flex flex-col justify-center py-12 sm:px-6 lg:px-8">
+        {/* Background Elements */}
+        <div className="absolute inset-0 overflow-hidden pointer-events-none">
+          <div className="absolute top-20 left-1/4 w-96 h-96 bg-brand-200/20 rounded-full blur-3xl"></div>
+          <div className="absolute bottom-20 right-1/4 w-72 h-72 bg-accent-200/20 rounded-full blur-3xl"></div>
+        </div>
 
-              <Link
-                href="/forgot-password"
-                className="text-brand hover:underline"
-              >
-                Forgot Password
-              </Link>
-            </section>
-            <InputButton
-              processing={form.processing}
-              disabled={disableLoginButton}
-              label="Login"
-            />
-          </form>
-          <GoogleButton />
-        </main>
-        <footer className="my-8 text-center text-gray">
-          <p>
-            <span>Don't have an account yet? </span>
-            <Link href="/signup" className="text-brand hover:underline">
-              Sign up
+        <div className="relative sm:mx-auto sm:w-full sm:max-w-lg">
+          {/* Logo */}
+          <div className="flex items-center justify-center mb-8">
+            <Link href="/" className="group">
+              <div className="relative">
+                <div className="absolute inset-0 bg-brand-200/30 rounded-2xl blur-xl scale-110 opacity-0 group-hover:opacity-100 transition-opacity"></div>
+                <img
+                  src="/images/logo.svg"
+                  alt="Ascent Logo"
+                  className="relative h-12 w-auto"
+                />
+              </div>
             </Link>
-          </p>
-        </footer>
-      </section>
+          </div>
+
+          {/* Header */}
+          <div className="text-center mb-8">
+            <h1 className="text-3xl font-bold text-gray-900 tracking-tight">
+              Welcome back
+            </h1>
+            <p className="mt-2 text-base text-gray-600">
+              Sign in to your Ascent account
+            </p>
+            <p className="mt-2 text-base text-gray-600">
+              Or{' '}
+              <Link
+                href="/signup"
+                className="font-semibold text-brand-600 hover:text-brand-500 transition-colors"
+              >
+                create a new account
+              </Link>
+            </p>
+          </div>
+        </div>
+
+        <div className="relative sm:mx-auto sm:w-full sm:max-w-lg">
+          <div className="relative">
+            {/* Background blur effect */}
+            <div className="absolute inset-0 bg-gradient-to-r from-brand-600/10 to-accent-600/10 rounded-2xl blur-xl scale-105"></div>
+
+            {/* Main card */}
+            <div className="relative bg-white py-10 px-8 shadow-2xl rounded-2xl border border-gray-100">
+              {/* Global error */}
+              {(form.errors.email || form.errors.login) && (
+                <div className="mb-6 p-4 rounded-lg bg-red-50 border border-red-200">
+                  <div className="flex items-start space-x-3">
+                    <svg
+                      className="h-5 w-5 text-red-500 flex-shrink-0 mt-0.5"
+                      fill="none"
+                      stroke="currentColor"
+                      viewBox="0 0 24 24"
+                    >
+                      <path
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        strokeWidth={2}
+                        d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
+                      />
+                    </svg>
+                    <p className="text-sm text-red-700 font-medium">
+                      {form.errors.login || form.errors.email}
+                    </p>
+                  </div>
+                </div>
+              )}
+
+              <form onSubmit={submit} className="space-y-5">
+                {/* Email */}
+                <div>
+                  <label
+                    htmlFor="email"
+                    className="block text-sm font-semibold text-gray-900 mb-2"
+                  >
+                    Email Address
+                  </label>
+                  <div className="relative">
+                    <input
+                      id="email"
+                      type="email"
+                      autoComplete="email"
+                      required
+                      value={data.email}
+                      onChange={(e) => setData('email', e.target.value)}
+                      onFocus={() => setFocusedField('email')}
+                      onBlur={() => setFocusedField('')}
+                      className={`w-full rounded-xl border px-4 py-4 text-lg font-medium transition-all duration-200 ${
+                        form.errors.email
+                          ? 'border-red-300 bg-red-50 ring-2 ring-red-100'
+                          : 'border-gray-200 bg-gray-50 focus:border-brand-300 focus:bg-white focus:ring-4 focus:ring-brand-100'
+                      }`}
+                      placeholder="Enter your email address"
+                    />
+                  </div>
+                  {form.errors.email && (
+                    <p className="mt-2 text-sm text-red-600">
+                      {form.errors.email}
+                    </p>
+                  )}
+                </div>
+
+                {/* Password */}
+                <div>
+                  <label
+                    htmlFor="password"
+                    className="block text-sm font-semibold text-gray-900 mb-2"
+                  >
+                    Password
+                  </label>
+                  <div className="relative">
+                    <input
+                      id="password"
+                      type="password"
+                      autoComplete="current-password"
+                      required
+                      value={data.password}
+                      onChange={(e) => setData('password', e.target.value)}
+                      onFocus={() => setFocusedField('password')}
+                      onBlur={() => setFocusedField('')}
+                      className={`w-full rounded-xl border px-4 py-4 text-lg font-medium transition-all duration-200 ${
+                        form.errors.password
+                          ? 'border-red-300 bg-red-50 ring-2 ring-red-100'
+                          : 'border-gray-200 bg-gray-50 focus:border-brand-300 focus:bg-white focus:ring-4 focus:ring-brand-100'
+                      }`}
+                      placeholder="Enter your password"
+                    />
+                  </div>
+                  {form.errors.password && (
+                    <p className="mt-2 text-sm text-red-600">
+                      {form.errors.password}
+                    </p>
+                  )}
+                </div>
+
+                {/* Remember me and Forgot password */}
+                <div className="flex items-center justify-between">
+                  <div className="flex items-center space-x-3">
+                    <input
+                      id="rememberMe"
+                      type="checkbox"
+                      checked={data.rememberMe}
+                      onChange={(e) => setData('rememberMe', !data.rememberMe)}
+                      className="h-4 w-4 text-brand-600 focus:ring-brand-500 border-gray-300 rounded"
+                    />
+                    <label
+                      htmlFor="rememberMe"
+                      className="text-sm font-medium text-gray-700"
+                    >
+                      Remember me
+                    </label>
+                  </div>
+
+                  <div>
+                    <Link
+                      href="/forgot-password"
+                      className="text-sm font-medium text-brand-600 hover:text-brand-500 transition-colors"
+                    >
+                      Forgot password?
+                    </Link>
+                  </div>
+                </div>
+
+                {/* Submit Button */}
+                <div className="pt-2">
+                  <button
+                    type="submit"
+                    disabled={disableLoginButton}
+                    className={`w-full flex justify-center px-8 py-4 rounded-xl text-lg font-bold text-white shadow-lg transition-all duration-200 hover:scale-[1.02] hover:shadow-xl disabled:cursor-not-allowed disabled:opacity-50 disabled:hover:scale-100 ${
+                      disableLoginButton
+                        ? 'bg-gray-300'
+                        : 'bg-gradient-to-r from-brand-600 to-accent-600 hover:from-brand-700 hover:to-accent-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-brand-500'
+                    }`}
+                  >
+                    {form.processing ? (
+                      <div className="flex items-center space-x-2">
+                        <svg
+                          className="animate-spin h-5 w-5"
+                          fill="none"
+                          viewBox="0 0 24 24"
+                        >
+                          <circle
+                            className="opacity-25"
+                            cx="12"
+                            cy="12"
+                            r="10"
+                            stroke="currentColor"
+                            strokeWidth="4"
+                          ></circle>
+                          <path
+                            className="opacity-75"
+                            fill="currentColor"
+                            d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"
+                          ></path>
+                        </svg>
+                        <span>Signing in...</span>
+                      </div>
+                    ) : (
+                      'Sign In'
+                    )}
+                  </button>
+                </div>
+              </form>
+
+              {/* Divider */}
+              <div className="my-6">
+                <div className="relative">
+                  <div className="absolute inset-0 flex items-center">
+                    <div className="w-full border-t border-gray-200"></div>
+                  </div>
+                  <div className="relative flex justify-center text-sm">
+                    <span className="px-4 bg-white text-gray-500 font-medium">
+                      Or continue with
+                    </span>
+                  </div>
+                </div>
+              </div>
+
+              {/* Google Button */}
+              <div>
+                <a
+                  href="/auth/google/redirect"
+                  className="w-full flex items-center justify-center px-4 py-3 border border-gray-300 rounded-lg shadow-sm bg-white text-sm font-medium text-gray-700 hover:bg-gray-50 hover:border-gray-400 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-brand-500 transition-all duration-200"
+                >
+                  <svg className="w-5 h-5 mr-3" viewBox="0 0 24 24">
+                    <path
+                      fill="#4285F4"
+                      d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"
+                    />
+                    <path
+                      fill="#34A853"
+                      d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"
+                    />
+                    <path
+                      fill="#FBBC05"
+                      d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z"
+                    />
+                    <path
+                      fill="#EA4335"
+                      d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z"
+                    />
+                  </svg>
+                  <span>Continue with Google</span>
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
     </>
   )
 }
