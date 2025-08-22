@@ -41,20 +41,24 @@
 
   <!-- Security notice -->
   <div style="margin-top: 40px; padding: 20px; background-color: #fef3cd; border: 1px solid #f59e0b; border-radius: 12px; text-align: left;">
-    <div style="display: flex; align-items: flex-start; gap: 12px;">
-      <div style="flex-shrink: 0; width: 20px; height: 20px; margin-top: 2px;">
-        <svg width="20" height="20" fill="#f59e0b" viewBox="0 0 24 24">
-          <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/>
-        </svg>
-      </div>
-      <div>
-        <p style="margin: 0 0 8px; font-size: 14px; color: #92400e; font-weight: 600;">
-          Security Notice
-        </p>
-        <p style="margin: 0; font-size: 14px; color: #92400e; line-height: 1.5;">
-          This magic link was requested for <strong><%= email %></strong>. If you didn't request this, you can safely ignore this email.
-        </p>
-      </div>
-    </div>
+    <table role="presentation" style="width: 100%; border-spacing: 0; border-collapse: collapse;">
+      <tr>
+        <td style="width: 32px; vertical-align: top; padding-right: 12px;">
+          <div style="width: 20px; height: 20px; margin-top: 2px;">
+            <svg width="20" height="20" fill="#f59e0b" viewBox="0 0 24 24">
+              <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/>
+            </svg>
+          </div>
+        </td>
+        <td style="vertical-align: top;">
+          <p style="margin: 0 0 8px; font-size: 14px; color: #92400e; font-weight: 600;">
+            Security Notice
+          </p>
+          <p style="margin: 0; font-size: 14px; color: #92400e; line-height: 1.5;">
+            This magic link was requested for <strong><%= email %></strong>. If you didn't request this, you can safely ignore this email.
+          </p>
+        </td>
+      </tr>
+    </table>
   </div>
 </div>
