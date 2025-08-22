@@ -1,13 +1,25 @@
 import { createInertiaApp } from '@inertiajs/react'
 import { createRoot } from 'react-dom/client'
+import { PrimeReactProvider } from 'primereact/api'
+import Tailwind from 'primereact/passthrough/tailwind'
 import '~/css/main.css'
 
 createInertiaApp({
   resolve: (name) => require(`./pages/${name}`),
   setup({ el, App, props }) {
-    createRoot(el).render(<App {...props} />)
+    createRoot(el).render(
+      <PrimeReactProvider
+        value={{
+          unstyled: true,
+          pt: Tailwind,
+          ptOptions: { mergeProps: true, mergeSections: true }
+        }}
+      >
+        <App {...props} />
+      </PrimeReactProvider>
+    )
   },
   progress: {
-    color: '#6C25C1'
+    color: '#0EA5E9'
   }
 })
