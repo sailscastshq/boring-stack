@@ -83,10 +83,7 @@ module.exports = {
       user.magicLinkTokenExpiresAt > Date.now()
     ) {
       // Previous token is still valid, don't send new one
-      this.req.flash(
-        'message',
-        'Magic link already sent. Please check your email or wait before requesting another.'
-      )
+      this.req.flash('message', 'Magic link already sent. Check your email.')
       return redirectUrl
     }
 
@@ -132,7 +129,7 @@ module.exports = {
         }
       }
     }
-    this.req.flash('success', 'Magic link sent! Please check your email.')
+    this.req.flash('success', 'Check your email for the magic link.')
     return redirectUrl
   }
 }
