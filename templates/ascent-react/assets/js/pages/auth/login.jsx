@@ -3,6 +3,8 @@ import { useState, useMemo, useEffect, useRef } from 'react'
 import { Toast } from 'primereact/toast'
 import { useFlashToast } from '@/hooks/useFlashToast'
 
+import { Message } from 'primereact/message'
+
 import InputEmail from '@/components/InputEmail.jsx'
 import InputPassword from '@/components/InputPassword.jsx'
 import InputButton from '@/components/InputButton.jsx'
@@ -159,26 +161,10 @@ export default function Login() {
             <div className="relative rounded-2xl border border-gray-100 bg-white px-8 py-10 shadow-2xl">
               {/* Global error */}
               {(form.errors.login || form.errors.magicLink) && (
-                <div className="mb-6 rounded-lg border border-red-200 bg-red-50 p-4">
-                  <div className="flex items-start space-x-3">
-                    <svg
-                      className="mt-0.5 h-5 w-5 flex-shrink-0 text-red-500"
-                      fill="none"
-                      stroke="currentColor"
-                      viewBox="0 0 24 24"
-                    >
-                      <path
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                        strokeWidth={2}
-                        d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
-                      />
-                    </svg>
-                    <p className="text-sm font-medium text-red-700">
-                      {form.errors.login || form.errors.magicLink}
-                    </p>
-                  </div>
-                </div>
+                <Message
+                  severity="error"
+                  text={form.errors.login || form.errors.magicLink}
+                />
               )}
 
               {!showExpandedOptions ? (
@@ -211,9 +197,7 @@ export default function Login() {
                       />
                     </div>
                     {form.errors.email && (
-                      <p className="mt-2 text-sm text-red-600">
-                        {form.errors.email}
-                      </p>
+                      <Message severity="error" text={form.errors.email} />
                     )}
                   </div>
 
@@ -338,9 +322,7 @@ export default function Login() {
                         />
                       </div>
                       {form.errors.email && (
-                        <p className="mt-2 text-sm text-red-600">
-                          {form.errors.email}
-                        </p>
+                        <Message severity="error" text={form.errors.email} />
                       )}
                     </div>
 
@@ -371,9 +353,7 @@ export default function Login() {
                         />
                       </div>
                       {form.errors.password && (
-                        <p className="mt-2 text-sm text-red-600">
-                          {form.errors.password}
-                        </p>
+                        <Message severity="error" text={form.errors.password} />
                       )}
                     </div>
 
@@ -520,7 +500,6 @@ export default function Login() {
         </div>
       </div>
 
-      {/* Toast notifications */}
       <Toast ref={toast} />
     </>
   )
