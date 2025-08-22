@@ -1,7 +1,14 @@
 import { Link, usePage } from '@inertiajs/react'
+import { useRef } from 'react'
+import { Toast } from 'primereact/toast'
+import { useFlashToast } from '@/hooks/useFlashToast'
 
 export default function AppLayout({ children }) {
   const { loggedInUser } = usePage().props
+  const toast = useRef(null)
+
+  // Initialize flash toast notifications
+  useFlashToast(toast)
 
   return (
     <div className="flex min-h-screen flex-col bg-gradient-to-b from-brand-50/10 to-[#F9FAFB]">
@@ -106,6 +113,9 @@ export default function AppLayout({ children }) {
       </header>
 
       <main className="mb-10 min-h-screen">{children}</main>
+
+      {/* Toast notifications */}
+      <Toast ref={toast} />
 
       <footer className="relative overflow-hidden bg-gradient-to-br from-gray-900 via-gray-800 to-brand-900 text-white">
         {/* Background Elements */}

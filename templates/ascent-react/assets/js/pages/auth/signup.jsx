@@ -1,5 +1,7 @@
 import { Link, Head, useForm } from '@inertiajs/react'
-import { useMemo, useState, useEffect } from 'react'
+import { useMemo, useState, useEffect, useRef } from 'react'
+import { Toast } from 'primereact/toast'
+import { useFlashToast } from '@/hooks/useFlashToast'
 
 import InputText from '@/components/InputText.jsx'
 import InputEmail from '@/components/InputEmail.jsx'
@@ -18,29 +20,51 @@ export default function Signup() {
   const [showExpandedOptions, setShowExpandedOptions] = useState(false)
   const [isSendingMagicLink, setIsSendingMagicLink] = useState(false)
 
+  // Initialize toast notifications
+  const toast = useRef(null)
+  useFlashToast(toast)
+
   // Handle query parameters for controlling the initial view
   useEffect(() => {
-    const urlParams = new URLSearchParams(window.location.search)
-    const mode = urlParams.get('mode')
+    try {
+      if (typeof window !== 'undefined' && window.location) {
+        const urlParams = new URLSearchParams(window.location.search)
+        const mode = urlParams.get('mode')
 
-    if (mode === 'password') {
-      setShowExpandedOptions(true)
+        if (mode === 'password') {
+          setShowExpandedOptions(true)
+        }
+      }
+    } catch (error) {
+      console.error('Error handling URL parameters:', error)
     }
   }, [])
 
   // Update URL when toggling modes
   const toggleToPasswordMode = () => {
     setShowExpandedOptions(true)
-    const url = new URL(window.location)
-    url.searchParams.set('mode', 'password')
-    window.history.pushState({}, '', url)
+    try {
+      if (typeof window !== 'undefined' && window.location && window.history) {
+        const url = new URL(window.location)
+        url.searchParams.set('mode', 'password')
+        window.history.pushState({}, '', url)
+      }
+    } catch (error) {
+      console.error('Error updating URL for password mode:', error)
+    }
   }
 
   const toggleToMagicMode = () => {
     setShowExpandedOptions(false)
-    const url = new URL(window.location)
-    url.searchParams.delete('mode')
-    window.history.pushState({}, '', url)
+    try {
+      if (typeof window !== 'undefined' && window.location && window.history) {
+        const url = new URL(window.location)
+        url.searchParams.delete('mode')
+        window.history.pushState({}, '', url)
+      }
+    } catch (error) {
+      console.error('Error updating URL for magic mode:', error)
+    }
   }
 
   const containsSpecialChars = useMemo(() => {
@@ -80,45 +104,43 @@ export default function Signup() {
     form.post('/signup')
   }
 
-  async function sendMagicLink(e) {
+  function sendMagicLink(e) {
     e.preventDefault()
     if (!data.fullName || !data.email) return
 
     setIsSendingMagicLink(true)
 
-    // TODO: Replace with actual magic link API call
-    try {
-      // Simulate API call
-      await new Promise((resolve) => setTimeout(resolve, 1000))
-
-      // Show success message or redirect
-      alert(
-        `Magic link sent to ${data.email}! Check your inbox to complete signup.`
-      )
-    } catch (error) {
-      console.error('Error sending magic link:', error)
-      alert('Failed to send magic link. Please try again.')
-    } finally {
-      setIsSendingMagicLink(false)
-    }
+    form.post('/magic-link', {
+      data: {
+        email: data.email,
+        fullName: data.fullName,
+        redirectUrl: '/signup'
+      },
+      onSuccess: () => {
+        setIsSendingMagicLink(false)
+      },
+      onError: (errors) => {
+        setIsSendingMagicLink(false)
+      }
+    })
   }
 
   return (
     <>
       <Head title="Create Account | Ascent"></Head>
-      <div className="min-h-screen bg-gradient-to-br from-brand-50/30 via-white to-accent-50/20 flex flex-col justify-center py-12 sm:px-6 lg:px-8">
+      <div className="flex min-h-screen flex-col justify-center bg-gradient-to-br from-brand-50/30 via-white to-accent-50/20 py-12 sm:px-6 lg:px-8">
         {/* Background Elements */}
-        <div className="absolute inset-0 overflow-hidden pointer-events-none">
-          <div className="absolute top-20 left-1/4 w-96 h-96 bg-brand-200/20 rounded-full blur-3xl"></div>
-          <div className="absolute bottom-20 right-1/4 w-72 h-72 bg-accent-200/20 rounded-full blur-3xl"></div>
+        <div className="pointer-events-none absolute inset-0 overflow-hidden">
+          <div className="absolute left-1/4 top-20 h-96 w-96 rounded-full bg-brand-200/20 blur-3xl"></div>
+          <div className="absolute bottom-20 right-1/4 h-72 w-72 rounded-full bg-accent-200/20 blur-3xl"></div>
         </div>
 
         <div className="relative sm:mx-auto sm:w-full sm:max-w-lg">
           {/* Logo */}
-          <div className="flex items-center justify-center mb-8">
+          <div className="mb-8 flex items-center justify-center">
             <Link href="/" className="group">
               <div className="relative">
-                <div className="absolute inset-0 bg-brand-200/30 rounded-2xl blur-xl scale-110 opacity-0 group-hover:opacity-100 transition-opacity"></div>
+                <div className="absolute inset-0 scale-110 rounded-2xl bg-brand-200/30 opacity-0 blur-xl transition-opacity group-hover:opacity-100"></div>
                 <img
                   src="/images/logo.svg"
                   alt="Ascent Logo"
@@ -129,8 +151,8 @@ export default function Signup() {
           </div>
 
           {/* Header */}
-          <div className="text-center mb-8">
-            <h1 className="text-3xl font-bold text-gray-900 tracking-tight">
+          <div className="mb-8 text-center">
+            <h1 className="text-3xl font-bold tracking-tight text-gray-900">
               Create your account
             </h1>
             <p className="mt-2 text-base text-gray-600">
@@ -140,7 +162,7 @@ export default function Signup() {
               Or{' '}
               <Link
                 href="/login"
-                className="font-semibold text-brand-600 hover:text-brand-500 transition-colors"
+                className="font-semibold text-brand-600 transition-colors hover:text-brand-500"
               >
                 sign in to your existing account
               </Link>
@@ -151,16 +173,16 @@ export default function Signup() {
         <div className="relative sm:mx-auto sm:w-full sm:max-w-lg">
           <div className="relative">
             {/* Background blur effect */}
-            <div className="absolute inset-0 bg-gradient-to-r from-brand-600/10 to-accent-600/10 rounded-2xl blur-xl scale-105"></div>
+            <div className="absolute inset-0 scale-105 rounded-2xl bg-gradient-to-r from-brand-600/10 to-accent-600/10 blur-xl"></div>
 
             {/* Main card */}
-            <div className="relative bg-white py-10 px-8 shadow-2xl rounded-2xl border border-gray-100">
+            <div className="relative rounded-2xl border border-gray-100 bg-white px-8 py-10 shadow-2xl">
               {/* Global error */}
               {form.errors.signup && (
-                <div className="mb-6 p-4 rounded-lg bg-red-50 border border-red-200">
+                <div className="mb-6 rounded-lg border border-red-200 bg-red-50 p-4">
                   <div className="flex items-start space-x-3">
                     <svg
-                      className="h-5 w-5 text-red-500 flex-shrink-0 mt-0.5"
+                      className="mt-0.5 h-5 w-5 flex-shrink-0 text-red-500"
                       fill="none"
                       stroke="currentColor"
                       viewBox="0 0 24 24"
@@ -172,7 +194,7 @@ export default function Signup() {
                         d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
                       />
                     </svg>
-                    <p className="text-sm text-red-700 font-medium">
+                    <p className="text-sm font-medium text-red-700">
                       {form.errors.signup}
                     </p>
                   </div>
@@ -186,7 +208,7 @@ export default function Signup() {
                   <div>
                     <label
                       htmlFor="fullName"
-                      className="block text-sm font-semibold text-gray-900 mb-2"
+                      className="mb-2 block text-sm font-semibold text-gray-900"
                     >
                       Full Name
                     </label>
@@ -219,7 +241,7 @@ export default function Signup() {
                   <div>
                     <label
                       htmlFor="email"
-                      className="block text-sm font-semibold text-gray-900 mb-2"
+                      className="mb-2 block text-sm font-semibold text-gray-900"
                     >
                       Email Address
                     </label>
@@ -253,16 +275,16 @@ export default function Signup() {
                     <button
                       type="submit"
                       disabled={disableMagicLinkButton}
-                      className={`w-full flex justify-center px-8 py-4 rounded-xl text-lg font-bold text-white shadow-lg transition-all duration-200 hover:scale-[1.02] hover:shadow-xl disabled:cursor-not-allowed disabled:opacity-50 disabled:hover:scale-100 ${
+                      className={`flex w-full justify-center rounded-xl px-8 py-4 text-lg font-bold text-white shadow-lg transition-all duration-200 hover:scale-[1.02] hover:shadow-xl disabled:cursor-not-allowed disabled:opacity-50 disabled:hover:scale-100 ${
                         disableMagicLinkButton
                           ? 'bg-gray-300'
-                          : 'bg-gradient-to-r from-brand-600 to-accent-600 hover:from-brand-700 hover:to-accent-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-brand-500'
+                          : 'bg-gradient-to-r from-brand-600 to-accent-600 hover:from-brand-700 hover:to-accent-700 focus:outline-none focus:ring-2 focus:ring-brand-500 focus:ring-offset-2'
                       }`}
                     >
                       {isSendingMagicLink ? (
                         <div className="flex items-center space-x-2">
                           <svg
-                            className="animate-spin h-5 w-5"
+                            className="h-5 w-5 animate-spin"
                             fill="none"
                             viewBox="0 0 24 24"
                           >
@@ -285,7 +307,7 @@ export default function Signup() {
                       ) : (
                         <div className="flex items-center justify-center">
                           <svg
-                            className="w-5 h-5 mr-2"
+                            className="mr-2 h-5 w-5"
                             fill="none"
                             stroke="currentColor"
                             viewBox="0 0 24 24"
@@ -308,7 +330,7 @@ export default function Signup() {
                     <button
                       type="button"
                       onClick={toggleToPasswordMode}
-                      className="text-sm font-medium text-gray-600 hover:text-brand-600 transition-colors underline underline-offset-2"
+                      className="text-sm font-medium text-gray-600 underline underline-offset-2 transition-colors hover:text-brand-600"
                     >
                       Use password instead
                     </button>
@@ -318,14 +340,14 @@ export default function Signup() {
                 // Expanded Traditional Signup View
                 <div className="space-y-5">
                   {/* Back to Magic Link */}
-                  <div className="flex items-center justify-between mb-4">
+                  <div className="mb-4 flex items-center justify-between">
                     <button
                       type="button"
                       onClick={toggleToMagicMode}
-                      className="flex items-center text-sm font-medium text-gray-600 hover:text-brand-600 transition-colors"
+                      className="flex items-center text-sm font-medium text-gray-600 transition-colors hover:text-brand-600"
                     >
                       <svg
-                        className="w-4 h-4 mr-1"
+                        className="mr-1 h-4 w-4"
                         fill="none"
                         stroke="currentColor"
                         viewBox="0 0 24 24"
@@ -346,7 +368,7 @@ export default function Signup() {
                     <div>
                       <label
                         htmlFor="fullName-expanded"
-                        className="block text-sm font-semibold text-gray-900 mb-2"
+                        className="mb-2 block text-sm font-semibold text-gray-900"
                       >
                         Full Name
                       </label>
@@ -379,7 +401,7 @@ export default function Signup() {
                     <div>
                       <label
                         htmlFor="email-expanded"
-                        className="block text-sm font-semibold text-gray-900 mb-2"
+                        className="mb-2 block text-sm font-semibold text-gray-900"
                       >
                         Email Address
                       </label>
@@ -412,7 +434,7 @@ export default function Signup() {
                     <div>
                       <label
                         htmlFor="password"
-                        className="block text-sm font-semibold text-gray-900 mb-2"
+                        className="mb-2 block text-sm font-semibold text-gray-900"
                       >
                         Password
                       </label>
@@ -448,12 +470,12 @@ export default function Signup() {
                           }`}
                         >
                           <div
-                            className={`w-5 h-5 rounded-full flex items-center justify-center mr-3 ${
+                            className={`mr-3 flex h-5 w-5 items-center justify-center rounded-full ${
                               passwordIsValid ? 'bg-green-100' : 'bg-gray-100'
                             }`}
                           >
                             <svg
-                              className="w-3 h-3"
+                              className="h-3 w-3"
                               fill="currentColor"
                               viewBox="0 0 20 20"
                             >
@@ -476,14 +498,14 @@ export default function Signup() {
                           }`}
                         >
                           <div
-                            className={`w-5 h-5 rounded-full flex items-center justify-center mr-3 ${
+                            className={`mr-3 flex h-5 w-5 items-center justify-center rounded-full ${
                               containsSpecialChars
                                 ? 'bg-green-100'
                                 : 'bg-gray-100'
                             }`}
                           >
                             <svg
-                              className="w-3 h-3"
+                              className="h-3 w-3"
                               fill="currentColor"
                               viewBox="0 0 20 20"
                             >
@@ -506,16 +528,16 @@ export default function Signup() {
                       <button
                         type="submit"
                         disabled={disableSignupButton}
-                        className={`w-full flex justify-center px-8 py-4 rounded-xl text-lg font-bold text-white shadow-lg transition-all duration-200 hover:scale-[1.02] hover:shadow-xl disabled:cursor-not-allowed disabled:opacity-50 disabled:hover:scale-100 ${
+                        className={`flex w-full justify-center rounded-xl px-8 py-4 text-lg font-bold text-white shadow-lg transition-all duration-200 hover:scale-[1.02] hover:shadow-xl disabled:cursor-not-allowed disabled:opacity-50 disabled:hover:scale-100 ${
                           disableSignupButton
                             ? 'bg-gray-300'
-                            : 'bg-gradient-to-r from-brand-600 to-accent-600 hover:from-brand-700 hover:to-accent-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-brand-500'
+                            : 'bg-gradient-to-r from-brand-600 to-accent-600 hover:from-brand-700 hover:to-accent-700 focus:outline-none focus:ring-2 focus:ring-brand-500 focus:ring-offset-2'
                         }`}
                       >
                         {form.processing ? (
                           <div className="flex items-center space-x-2">
                             <svg
-                              className="animate-spin h-5 w-5"
+                              className="h-5 w-5 animate-spin"
                               fill="none"
                               viewBox="0 0 24 24"
                             >
@@ -547,14 +569,14 @@ export default function Signup() {
                         By creating an account, you agree to our{' '}
                         <a
                           href="/terms"
-                          className="font-medium text-brand-600 hover:text-brand-500 underline underline-offset-2"
+                          className="font-medium text-brand-600 underline underline-offset-2 hover:text-brand-500"
                         >
                           Terms of Service
                         </a>{' '}
                         and{' '}
                         <a
                           href="/privacy-policy"
-                          className="font-medium text-brand-600 hover:text-brand-500 underline underline-offset-2"
+                          className="font-medium text-brand-600 underline underline-offset-2 hover:text-brand-500"
                         >
                           Privacy Policy
                         </a>
@@ -572,7 +594,7 @@ export default function Signup() {
                       <div className="w-full border-t border-gray-200"></div>
                     </div>
                     <div className="relative flex justify-center text-sm">
-                      <span className="px-4 bg-white text-gray-500 font-medium">
+                      <span className="bg-white px-4 font-medium text-gray-500">
                         Or continue with
                       </span>
                     </div>
@@ -586,9 +608,9 @@ export default function Signup() {
                   {/* Google Button - Half width */}
                   <a
                     href="/auth/google/redirect"
-                    className="flex items-center justify-center px-4 py-4 border border-gray-200 rounded-xl bg-gray-50 text-base font-medium text-gray-700 hover:bg-gray-100 hover:border-gray-300 hover:scale-[1.02] focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-brand-500 transition-all duration-200 shadow-lg hover:shadow-xl"
+                    className="flex items-center justify-center rounded-xl border border-gray-200 bg-gray-50 px-4 py-4 text-base font-medium text-gray-700 shadow-lg transition-all duration-200 hover:scale-[1.02] hover:border-gray-300 hover:bg-gray-100 hover:shadow-xl focus:outline-none focus:ring-2 focus:ring-brand-500 focus:ring-offset-2"
                   >
-                    <svg className="w-5 h-5 mr-2" viewBox="0 0 24 24">
+                    <svg className="mr-2 h-5 w-5" viewBox="0 0 24 24">
                       <path
                         fill="#4285F4"
                         d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"
@@ -612,10 +634,10 @@ export default function Signup() {
                   {/* GitHub Button - Half width */}
                   <a
                     href="/auth/github/redirect"
-                    className="flex items-center justify-center px-4 py-4 border border-gray-200 rounded-xl bg-gray-50 text-base font-medium text-gray-700 hover:bg-gray-100 hover:border-gray-300 hover:scale-[1.02] focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-brand-500 transition-all duration-200 shadow-lg hover:shadow-xl"
+                    className="flex items-center justify-center rounded-xl border border-gray-200 bg-gray-50 px-4 py-4 text-base font-medium text-gray-700 shadow-lg transition-all duration-200 hover:scale-[1.02] hover:border-gray-300 hover:bg-gray-100 hover:shadow-xl focus:outline-none focus:ring-2 focus:ring-brand-500 focus:ring-offset-2"
                   >
                     <svg
-                      className="w-5 h-5 mr-2"
+                      className="mr-2 h-5 w-5"
                       fill="currentColor"
                       viewBox="0 0 24 24"
                     >
@@ -633,6 +655,9 @@ export default function Signup() {
           </div>
         </div>
       </div>
+
+      {/* Toast notifications */}
+      <Toast ref={toast} />
     </>
   )
 }
