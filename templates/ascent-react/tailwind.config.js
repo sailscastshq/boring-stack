@@ -1,5 +1,9 @@
 module.exports = {
-  content: ['./views/**/*.ejs', './assets/js/**/*.{js,ts,jsx,tsx}'],
+  content: [
+    './views/**/*.ejs',
+    './assets/js/**/*.{js,ts,jsx,tsx}',
+    './node_modules/primereact/**/*.{js,ts,jsx,tsx}'
+  ],
   theme: {
     extend: {
       colors: {
