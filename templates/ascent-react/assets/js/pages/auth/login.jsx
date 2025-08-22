@@ -161,10 +161,13 @@ export default function Login() {
             <div className="relative rounded-2xl border border-gray-100 bg-white px-8 py-10 shadow-2xl">
               {/* Global error */}
               {(form.errors.login || form.errors.magicLink) && (
-                <Message
-                  severity="error"
-                  text={form.errors.login || form.errors.magicLink}
-                />
+                <section className="mb-6">
+                  <Message
+                    severity="error"
+                    text={form.errors.login || form.errors.magicLink}
+                    className="w-full"
+                  />
+                </section>
               )}
 
               {!showExpandedOptions ? (

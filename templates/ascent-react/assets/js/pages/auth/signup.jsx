@@ -181,7 +181,13 @@ export default function Signup() {
             <div className="relative rounded-2xl border border-gray-100 bg-white px-8 py-10 shadow-2xl">
               {/* Global error */}
               {form.errors.signup && (
-                <Message severity="error" text={form.errors.signup} />
+                <section className="mb-6">
+                  <Message
+                    severity="error"
+                    text={form.errors.signup}
+                    className="w-full"
+                  />
+                </section>
               )}
 
               {!showExpandedOptions ? (
