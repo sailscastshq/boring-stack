@@ -18,6 +18,7 @@
     "@sailshq/lodash": "^3.10.7",
     "@sailshq/socket.io-redis": "^6.1.2",
     "inertia-sails": "^0.3.3",
+    "nodemailer": "^7.0.5",
     "primeicons": "^7.0.0",
     "primereact": "^10.9.7",
     "react": "^19.1.1",
