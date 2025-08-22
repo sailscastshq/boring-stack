@@ -34,6 +34,9 @@ module.exports.routes = {
   'GET /login': 'auth/view-login',
   'POST /login': 'auth/login',
 
+  'POST /magic-link': 'auth/request-magic-link',
+  'GET /magic-link/:token': 'auth/verify-magic-link',
+
   'GET /forgot-password': 'auth/view-forgot-password',
   'POST /forgot-password': 'auth/forgot-password',
 

@@ -99,6 +99,31 @@ module.exports = {
       type: 'string',
       description: 'The picture URL provided by Google for an OAuth user.',
       columnName: 'google_avatar_url'
+    },
+
+    //  ╔╦╗┌─┐┌─┐┬┌─┐  ╦  ┬┌┐┌┬┌─
+    //  ║║║├─┤│ ┬││   ║  ││││├┴┐
+    //  ╩ ╩┴ ┴└─┘┴└─┘  ╩═╝┴┘└┘┴ ┴
+    magicLinkToken: {
+      type: 'string',
+      description:
+        'A secure token used for magic link authentication. This is hashed before storage.',
+      columnName: 'magic_link_token'
+    },
+    magicLinkTokenExpiresAt: {
+      type: 'number',
+      description:
+        'A JS timestamp (epoch ms) representing when this magic link token expires.',
+      example: 1502844074211,
+      columnName: 'magic_link_token_expires_at'
+    },
+    magicLinkTokenUsedAt: {
+      type: 'number',
+      description:
+        'A JS timestamp (epoch ms) representing when this magic link token was used (null if unused).',
+      example: 1502844074211,
+      columnName: 'magic_link_token_used_at',
+      allowNull: true
     }
   },
   customToJSON: function () {
@@ -111,7 +136,10 @@ module.exports = {
           'password',
           'passwordResetTokenExpiresAt',
           'emailProofToken',
-          'emailProofTokenExpiresAt'
+          'emailProofTokenExpiresAt',
+          'magicLinkToken',
+          'magicLinkTokenExpiresAt',
+          'magicLinkTokenUsedAt'
         ].includes(key)
       ) {
         result[key] = this[key]
