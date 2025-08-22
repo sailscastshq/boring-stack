@@ -73,7 +73,6 @@ module.exports = {
 
     const expiresAt = now + 15 * 60 * 1000
 
-    // Check if user already has a valid magic link token
     let user = await User.findOne({ email: normalizedEmail })
 
     if (
@@ -87,9 +86,7 @@ module.exports = {
       return redirectUrl
     }
 
-    // Create or update user with new magic link token
     if (!user) {
-      // Create new user
       const defaultFullName = fullName || normalizedEmail.split('@')[0]
       user = await User.create({
         email: normalizedEmail,
@@ -100,7 +97,6 @@ module.exports = {
         magicLinkTokenUsedAt: null
       }).fetch()
     } else {
-      // Update existing user
       await User.updateOne({ id: user.id }).set({
         magicLinkToken: hashedToken,
         magicLinkTokenExpiresAt: expiresAt,
@@ -108,9 +104,8 @@ module.exports = {
       })
     }
 
-    // Send magic link email
-    try {
-      await sails.helpers.mail.send.with({
+    await sails.helpers.mail.send
+      .with({
         subject: 'Your magic link to sign in',
         template: 'email-magic-link',
         to: normalizedEmail,
@@ -121,14 +116,14 @@ module.exports = {
           magicLinkUrl: `${sails.config.custom.baseUrl}/magic-link/${plainToken}`
         }
       })
-    } catch (error) {
-      sails.log.error('Error sending magic link email:', error)
-      throw {
-        badRequest: {
-          problems: [{ magicLink: 'Failed to send magic link email' }]
+      .intercept((error) => {
+        sails.log.error('Error sending magic link email:', error)
+        throw {
+          badRequest: {
+            problems: [{ magicLink: 'Failed to send magic link email' }]
+          }
         }
-      }
-    }
+      })
     this.req.flash('success', 'Check your email for the magic link.')
     return redirectUrl
   }
