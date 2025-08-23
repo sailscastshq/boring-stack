@@ -159,7 +159,7 @@ export default function Index() {
                       <button
                         type="submit"
                         disabled={isSubmitting}
-                        className="w-full rounded-xl bg-gradient-to-r from-brand-600 to-accent-600 px-8 py-4 text-lg font-bold text-white shadow-lg transition-all duration-200 hover:scale-[1.02] hover:shadow-xl disabled:cursor-not-allowed disabled:opacity-50 disabled:hover:scale-100"
+                        className="w-full rounded-xl bg-gradient-to-r from-brand-600 to-accent-600 px-8 py-4 text-lg font-bold text-white shadow-lg transition-all duration-200 hover:shadow-xl"
                       >
                         {isSubmitting ? (
                           <span className="flex items-center justify-center space-x-2">

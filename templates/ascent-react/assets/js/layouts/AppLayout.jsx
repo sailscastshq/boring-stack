@@ -65,7 +65,7 @@ export default function AppLayout({ children }) {
                 </Link>
                 <Link
                   href="/signup"
-                  className="group relative rounded-lg bg-gradient-to-r from-brand-600 to-accent-600 px-6 py-2.5 font-semibold text-white shadow-lg transition-all duration-200 hover:scale-105 hover:shadow-xl"
+                  className="group relative rounded-lg bg-gradient-to-r from-brand-600 to-accent-600 px-6 py-2.5 font-semibold text-white shadow-lg transition-all duration-200 hover:shadow-xl"
                 >
                   <span className="relative z-10">Get Started</span>
                   <div className="absolute inset-0 rounded-lg bg-gradient-to-r from-brand-700 to-accent-700 opacity-0 transition-opacity group-hover:opacity-100"></div>
@@ -128,11 +128,11 @@ export default function AppLayout({ children }) {
             <div className="md:col-span-1">
               <Link href="/" className="group mb-6 flex items-center space-x-2">
                 <div className="relative">
-                  <div className="absolute inset-0 scale-110 rounded-xl bg-brand-300/20 opacity-0 blur-sm transition-opacity group-hover:opacity-100"></div>
+                  <div className="absolute inset-0 scale-110 rounded-xl bg-brand-300/20 opacity-0 blur-sm transition-opacity group-hover:opacity-10"></div>
                   <img
                     src="/images/logo.svg"
                     alt="Ascent Logo"
-                    className="relative h-10 w-auto filter brightness-0 invert drop-shadow-[0_0_8px_rgba(0,0,0,0.9)] drop-shadow-[0_0_2px_rgba(255,255,255,1)] transition-transform group-hover:scale-105"
+                    className="relative h-10 w-auto brightness-0 drop-shadow-[0_0_8px_rgba(0,0,0,0.9)] invert filter transition-transform group-hover:scale-105"
                   />
                 </div>
               </Link>
@@ -386,7 +386,7 @@ export default function AppLayout({ children }) {
                     placeholder="Enter your email"
                     className="flex-1 rounded-lg border border-white/20 bg-white/10 px-4 py-2 text-white placeholder-gray-400 transition-all focus:border-brand-400 focus:outline-none focus:ring-2 focus:ring-brand-400/50"
                   />
-                  <button className="rounded-lg bg-gradient-to-r from-brand-600 to-accent-600 px-6 py-2 font-semibold text-white transition-all duration-200 hover:scale-105 hover:shadow-lg">
+                  <button className="rounded-lg bg-gradient-to-r from-brand-600 to-accent-600 px-6 py-2 font-semibold text-white transition-all duration-200 hover:shadow-lg">
                     Subscribe
                   </button>
                 </div>
