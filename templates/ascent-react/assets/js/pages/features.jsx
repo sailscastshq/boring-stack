@@ -1,4 +1,4 @@
-import { Head } from '@inertiajs/react'
+import { Head, Link } from '@inertiajs/react'
 import AppLayout from '@/layouts/AppLayout.jsx'
 
 Features.layout = (page) => <AppLayout children={page} />
@@ -38,13 +38,21 @@ export default function Features() {
           </p>
 
           <div className="flex flex-col justify-center gap-4 sm:flex-row">
-            <button className="hover:shadow-3xl group relative rounded-xl bg-gradient-to-r from-brand-600 to-accent-600 px-8 py-4 font-bold text-white shadow-2xl transition-all duration-200 hover:scale-[1.02]">
+            <Link
+              href="/signup"
+              className="hover:shadow-3xl group relative inline-block rounded-xl bg-gradient-to-r from-brand-600 to-accent-600 px-8 py-4 font-bold text-white shadow-2xl transition-all duration-200 hover:scale-[1.02] no-underline"
+            >
               <span className="relative z-10">Start Building Today</span>
               <div className="absolute inset-0 rounded-xl bg-gradient-to-r from-brand-700 to-accent-700 opacity-0 transition-opacity group-hover:opacity-100"></div>
-            </button>
-            <button className="rounded-xl border-2 border-gray-200 bg-white px-8 py-4 font-bold text-gray-700 shadow-lg transition-all duration-200 hover:scale-[1.02] hover:border-brand-300 hover:shadow-xl">
+            </Link>
+            <a
+              href="YOUTUBE_VIDEO_URL"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-block rounded-xl border-2 border-gray-200 bg-white px-8 py-4 font-bold text-gray-700 shadow-lg transition-all duration-200 hover:scale-[1.02] hover:border-brand-300 hover:shadow-xl no-underline"
+            >
               View Live Demo
-            </button>
+            </a>
           </div>
         </div>
       </section>
@@ -818,12 +826,14 @@ export default function Features() {
               <span className="relative z-10">Get Started Today</span>
               <div className="absolute inset-0 rounded-xl bg-gradient-to-r from-brand-700 to-accent-700 opacity-0 transition-opacity group-hover:opacity-100"></div>
             </a>
-            <button
-              className="rounded-xl border-2 border-gray-600 bg-transparent px-10 py-5 text-lg font-bold text-white shadow-lg transition-all duration-200 hover:scale-[1.02] hover:border-brand-400 hover:bg-brand-500/10"
-              onClick={() => window.open('YOUTUBE_VIDEO_URL', '_blank')}
+            <a
+              href="YOUTUBE_VIDEO_URL"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-block rounded-xl border-2 border-gray-600 bg-transparent px-10 py-5 text-lg font-bold text-white shadow-lg transition-all duration-200 hover:scale-[1.02] hover:border-brand-400 hover:bg-brand-500/10 no-underline"
             >
               View Live Demo
-            </button>
+            </a>
           </div>
 
           <div className="flex flex-wrap items-center justify-center gap-8 text-sm text-gray-400">
