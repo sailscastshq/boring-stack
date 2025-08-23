@@ -20,6 +20,7 @@ module.exports.routes = {
    ***************************************************************************/
   'GET /': 'home/view-home',
   'GET /features': 'home/view-features',
+  'GET /pricing': 'home/view-pricing',
 
   'GET /signup': 'auth/view-signup',
   'POST /signup': 'auth/signup',
