@@ -112,7 +112,7 @@ export default function AppLayout({ children }) {
         </nav>
       </header>
 
-      <main className="mb-10 min-h-screen">{children}</main>
+      <main className="flex-1">{children}</main>
 
       {/* Toast notifications */}
       <Toast ref={toast} />
