@@ -5,6 +5,8 @@ import { useFlashToast } from '@/hooks/useFlashToast'
 
 export default function AppLayout({ children }) {
   const { loggedInUser } = usePage().props
+  const { url } = usePage()
+
   const toast = useRef(null)
 
   // Initialize flash toast notifications
@@ -31,25 +33,41 @@ export default function AppLayout({ children }) {
               <div className="hidden items-center space-x-1 md:flex">
                 <Link
                   href="/features"
-                  className="rounded-lg px-3 py-2 font-medium text-gray-700 transition-all duration-200 hover:bg-brand-50/80 hover:text-brand-600"
+                  className={`rounded-lg px-3 py-2 font-medium transition-all duration-200 ${
+                    url === '/features'
+                      ? 'bg-brand-100 text-brand-700'
+                      : 'text-gray-700 hover:bg-brand-50/80 hover:text-brand-600'
+                  }`}
                 >
                   Features
                 </Link>
                 <Link
                   href="/pricing"
-                  className="rounded-lg px-3 py-2 font-medium text-gray-700 transition-all duration-200 hover:bg-brand-50/80 hover:text-brand-600"
+                  className={`rounded-lg px-3 py-2 font-medium transition-all duration-200 ${
+                    url === '/pricing'
+                      ? 'bg-brand-100 text-brand-700'
+                      : 'text-gray-700 hover:bg-brand-50/80 hover:text-brand-600'
+                  }`}
                 >
                   Pricing
                 </Link>
                 <Link
                   href="/blog"
-                  className="rounded-lg px-3 py-2 font-medium text-gray-700 transition-all duration-200 hover:bg-brand-50/80 hover:text-brand-600"
+                  className={`rounded-lg px-3 py-2 font-medium transition-all duration-200 ${
+                    url.startsWith('/blog')
+                      ? 'bg-brand-100 text-brand-700'
+                      : 'text-gray-700 hover:bg-brand-50/80 hover:text-brand-600'
+                  }`}
                 >
                   Blog
                 </Link>
                 <Link
                   href="/docs"
-                  className="rounded-lg px-3 py-2 font-medium text-gray-700 transition-all duration-200 hover:bg-brand-50/80 hover:text-brand-600"
+                  className={`rounded-lg px-3 py-2 font-medium transition-all duration-200 ${
+                    url.startsWith('/docs')
+                      ? 'bg-brand-100 text-brand-700'
+                      : 'text-gray-700 hover:bg-brand-50/80 hover:text-brand-600'
+                  }`}
                 >
                   Docs
                 </Link>
