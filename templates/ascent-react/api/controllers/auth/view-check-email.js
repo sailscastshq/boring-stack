@@ -7,7 +7,7 @@ module.exports = {
   inputs: {
     type: {
       type: 'string',
-      isIn: ['verification', 'magic-link'],
+      isIn: ['verification', 'magic-link', 'password-reset'],
       defaultsTo: 'verification'
     },
     email: {
