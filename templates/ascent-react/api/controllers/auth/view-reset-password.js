@@ -14,7 +14,7 @@ module.exports = {
       responseType: 'inertia'
     },
     invalidOrExpiredToken: {
-      responseType: 'expired',
+      responseType: 'redirect',
       description: 'The provided token is expired, invalid, or already used up.'
     }
   },
@@ -26,7 +26,11 @@ module.exports = {
     const user = await User.findOne({ passwordResetToken: token })
 
     if (!user || user.passwordResetTokenExpiresAt <= Date.now()) {
-      throw 'invalidOrExpiredToken'
+      this.req.flash(
+        'error',
+        'The password reset link is invalid or has expired. Please request a new link.'
+      )
+      throw { invalidOrExpiredToken: '/forgot-password' }
     }
     return { page: 'auth/reset-password', props: { token } }
   }
