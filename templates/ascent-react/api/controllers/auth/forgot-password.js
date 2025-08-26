@@ -24,30 +24,27 @@ module.exports = {
   },
 
   fn: async function ({ email }) {
-    const userExists = await User.count({ email: this.req.session.userEmail })
-    if (!userExists) {
-      return '/check-email'
+    const user = await User.findOne({ email })
+
+    if (user) {
+      const token = await sails.helpers.strings.random('url-friendly')
+
+      await User.updateOne({ id: user.id }).set({
+        passwordResetToken: token,
+        passwordResetTokenExpiresAt:
+          Date.now() + sails.config.custom.passwordResetTokenTTL
+      })
+
+      await sails.helpers.mail.send.with({
+        to: user.email,
+        subject: 'Password reset instructions',
+        template: 'email-reset-password',
+        templateData: {
+          fullName: user.fullName,
+          token
+        }
+      })
     }
-
-    const token = await sails.helpers.strings.random('url-friendly')
-
-    const user = await User.updateOne({ email }).set({
-      passwordResetToken: token,
-      passwordResetTokenExpiresAt:
-        Date.now() + sails.config.custom.passwordResetTokenTTL
-    })
-
-    await sails.helpers.mail.send.with({
-      to: user.email,
-      subject: 'Password reset instructions',
-      template: 'email-reset-password',
-      templateData: {
-        fullName: user.fullName,
-        token
-      }
-    })
-
-    this.req.session.userEmail = user.email
-    return '/check-email'
+    return `/check-email?email=${encodeURIComponent(email)}&type=password-reset`
   }
 }
