@@ -11,7 +11,7 @@ export default function Pricing() {
       <Head title="Simple, Transparent Pricing - No Hidden Fees | Ascent" />
 
       {/* Hero Section */}
-      <section className="relative overflow-hidden px-4 pb-16 pt-20">
+      <section className="relative overflow-hidden px-4 pt-20">
         <div className="absolute inset-0 bg-gradient-to-br from-brand-50/30 via-white to-accent-50/20"></div>
         <div className="absolute left-1/2 top-20 h-96 w-96 -translate-x-1/2 transform rounded-full bg-brand-100/20 blur-3xl"></div>
 
@@ -44,7 +44,7 @@ export default function Pricing() {
             <div className="relative inline-flex items-center rounded-2xl border border-gray-200 bg-white p-2 shadow-lg">
               {/* Sliding Background */}
               <div
-                className={`absolute top-2 bottom-2 rounded-xl bg-gradient-to-r from-brand-600 to-accent-600 shadow-md transition-all duration-500 ease-in-out ${
+                className={`absolute bottom-2 top-2 rounded-xl bg-gradient-to-r from-brand-600 to-accent-600 shadow-md transition-all duration-500 ease-in-out ${
                   billingCycle === 'monthly'
                     ? 'left-2 w-[160px]'
                     : 'left-[162px] w-[160px]'
@@ -77,7 +77,7 @@ export default function Pricing() {
             </div>
 
             {/* Savings indicator below toggle - always reserve space */}
-            <div className="mt-3 h-6 flex items-center justify-center">
+            <div className="mt-3 flex h-6 items-center justify-center">
               {billingCycle === 'yearly' && (
                 <div className="inline-flex items-center rounded-full bg-success-100 px-3 py-1 text-xs font-bold text-success-700 transition-all duration-300">
                   Save 20%
@@ -116,19 +116,19 @@ export default function Pricing() {
                     </span>
                   </div>
                   {billingCycle === 'yearly' && (
-                    <p className="mt-1 text-sm text-success-600 font-medium">
+                    <p className="mt-1 text-sm font-medium text-success-600">
                       Save $72 per year
                     </p>
                   )}
                 </div>
 
-                <div className="space-y-4 mb-8">
+                <div className="mb-8 space-y-4">
                   <h4 className="font-semibold text-gray-900">
                     What's included:
                   </h4>
 
                   <div className="flex items-start space-x-3">
-                    <div className="flex h-5 w-5 items-center justify-center rounded-full bg-success-100 mt-0.5">
+                    <div className="mt-0.5 flex h-5 w-5 items-center justify-center rounded-full bg-success-100">
                       <svg
                         className="h-3 w-3 text-success-600"
                         fill="currentColor"
@@ -152,7 +152,7 @@ export default function Pricing() {
                   </div>
 
                   <div className="flex items-start space-x-3">
-                    <div className="flex h-5 w-5 items-center justify-center rounded-full bg-success-100 mt-0.5">
+                    <div className="mt-0.5 flex h-5 w-5 items-center justify-center rounded-full bg-success-100">
                       <svg
                         className="h-3 w-3 text-success-600"
                         fill="currentColor"
@@ -176,7 +176,7 @@ export default function Pricing() {
                   </div>
 
                   <div className="flex items-start space-x-3">
-                    <div className="flex h-5 w-5 items-center justify-center rounded-full bg-success-100 mt-0.5">
+                    <div className="mt-0.5 flex h-5 w-5 items-center justify-center rounded-full bg-success-100">
                       <svg
                         className="h-3 w-3 text-success-600"
                         fill="currentColor"
@@ -200,7 +200,7 @@ export default function Pricing() {
                   </div>
 
                   <div className="flex items-start space-x-3">
-                    <div className="flex h-5 w-5 items-center justify-center rounded-full bg-success-100 mt-0.5">
+                    <div className="mt-0.5 flex h-5 w-5 items-center justify-center rounded-full bg-success-100">
                       <svg
                         className="h-3 w-3 text-success-600"
                         fill="currentColor"
@@ -222,7 +222,7 @@ export default function Pricing() {
                   </div>
 
                   <div className="flex items-start space-x-3">
-                    <div className="flex h-5 w-5 items-center justify-center rounded-full bg-success-100 mt-0.5">
+                    <div className="mt-0.5 flex h-5 w-5 items-center justify-center rounded-full bg-success-100">
                       <svg
                         className="h-3 w-3 text-success-600"
                         fill="currentColor"
@@ -263,9 +263,9 @@ export default function Pricing() {
             {/* Pro Plan - Featured */}
             <div className="group relative">
               <div className="absolute -inset-0.5 rounded-3xl bg-gradient-to-r from-brand-600 to-accent-600 opacity-30 blur transition duration-300 group-hover:opacity-40"></div>
-              <div className="relative rounded-3xl border border-brand-200 bg-white p-10 shadow-2xl overflow-hidden">
+              <div className="relative overflow-hidden rounded-3xl border border-brand-200 bg-white p-10 shadow-2xl">
                 {/* Ribbon Banner */}
-                <div className="absolute top-6 -right-12 w-48 py-2 bg-gradient-to-r from-brand-600 to-accent-600 text-white text-xs font-bold text-center transform rotate-45 shadow-lg z-10">
+                <div className="absolute -right-12 top-6 z-10 w-48 rotate-45 transform bg-gradient-to-r from-brand-600 to-accent-600 py-2 text-center text-xs font-bold text-white shadow-lg">
                   MOST POPULAR
                 </div>
 
@@ -290,19 +290,19 @@ export default function Pricing() {
                     </span>
                   </div>
                   {billingCycle === 'yearly' && (
-                    <p className="mt-1 text-sm text-success-600 font-medium">
+                    <p className="mt-1 text-sm font-medium text-success-600">
                       Save $216 per year
                     </p>
                   )}
                 </div>
 
-                <div className="space-y-4 mb-8">
+                <div className="mb-8 space-y-4">
                   <h4 className="font-semibold text-gray-900">
                     Everything in Starter, plus:
                   </h4>
 
                   <div className="flex items-start space-x-3">
-                    <div className="flex h-5 w-5 items-center justify-center rounded-full bg-success-100 mt-0.5">
+                    <div className="mt-0.5 flex h-5 w-5 items-center justify-center rounded-full bg-success-100">
                       <svg
                         className="h-3 w-3 text-success-600"
                         fill="currentColor"
@@ -326,7 +326,7 @@ export default function Pricing() {
                   </div>
 
                   <div className="flex items-start space-x-3">
-                    <div className="flex h-5 w-5 items-center justify-center rounded-full bg-success-100 mt-0.5">
+                    <div className="mt-0.5 flex h-5 w-5 items-center justify-center rounded-full bg-success-100">
                       <svg
                         className="h-3 w-3 text-success-600"
                         fill="currentColor"
@@ -350,7 +350,7 @@ export default function Pricing() {
                   </div>
 
                   <div className="flex items-start space-x-3">
-                    <div className="flex h-5 w-5 items-center justify-center rounded-full bg-success-100 mt-0.5">
+                    <div className="mt-0.5 flex h-5 w-5 items-center justify-center rounded-full bg-success-100">
                       <svg
                         className="h-3 w-3 text-success-600"
                         fill="currentColor"
@@ -374,7 +374,7 @@ export default function Pricing() {
                   </div>
 
                   <div className="flex items-start space-x-3">
-                    <div className="flex h-5 w-5 items-center justify-center rounded-full bg-success-100 mt-0.5">
+                    <div className="mt-0.5 flex h-5 w-5 items-center justify-center rounded-full bg-success-100">
                       <svg
                         className="h-3 w-3 text-success-600"
                         fill="currentColor"
@@ -398,7 +398,7 @@ export default function Pricing() {
                   </div>
 
                   <div className="flex items-start space-x-3">
-                    <div className="flex h-5 w-5 items-center justify-center rounded-full bg-success-100 mt-0.5">
+                    <div className="mt-0.5 flex h-5 w-5 items-center justify-center rounded-full bg-success-100">
                       <svg
                         className="h-3 w-3 text-success-600"
                         fill="currentColor"
@@ -422,7 +422,7 @@ export default function Pricing() {
                   </div>
 
                   <div className="flex items-start space-x-3">
-                    <div className="flex h-5 w-5 items-center justify-center rounded-full bg-success-100 mt-0.5">
+                    <div className="mt-0.5 flex h-5 w-5 items-center justify-center rounded-full bg-success-100">
                       <svg
                         className="h-3 w-3 text-success-600"
                         fill="currentColor"
@@ -449,7 +449,7 @@ export default function Pricing() {
                 <div className="mt-8">
                   <Link
                     href="/signup"
-                    className="block w-full rounded-xl bg-gradient-to-r from-brand-600 to-accent-600 px-6 py-4 text-center text-lg font-bold text-white shadow-xl transition-all duration-200 hover:shadow-2xl hover:scale-[1.02]"
+                    className="block w-full rounded-xl bg-gradient-to-r from-brand-600 to-accent-600 px-6 py-4 text-center text-lg font-bold text-white shadow-xl transition-all duration-200 hover:scale-[1.02] hover:shadow-2xl"
                   >
                     Start Free Trial
                   </Link>
@@ -499,7 +499,7 @@ export default function Pricing() {
                         </div>
                       </div>
                     </th>
-                    <th className="px-6 py-4 text-center bg-brand-50">
+                    <th className="bg-brand-50 px-6 py-4 text-center">
                       <div>
                         <div className="text-lg font-bold text-brand-700">
                           Pro
@@ -507,7 +507,7 @@ export default function Pricing() {
                         <div className="text-sm text-brand-600">
                           ${billingCycle === 'monthly' ? '89' : '71'}/month
                         </div>
-                        <div className="inline-flex items-center rounded-full bg-brand-100 px-2 py-0.5 text-xs font-medium text-brand-700 mt-1">
+                        <div className="mt-1 inline-flex items-center rounded-full bg-brand-100 px-2 py-0.5 text-xs font-medium text-brand-700">
                           Most Popular
                         </div>
                       </div>
@@ -527,7 +527,7 @@ export default function Pricing() {
                     <td className="px-6 py-4 text-center text-gray-700">
                       Up to 5
                     </td>
-                    <td className="px-6 py-4 text-center text-gray-700 bg-brand-50/30">
+                    <td className="bg-brand-50/30 px-6 py-4 text-center text-gray-700">
                       Unlimited
                     </td>
                   </tr>
@@ -548,7 +548,7 @@ export default function Pricing() {
                         />
                       </svg>
                     </td>
-                    <td className="px-6 py-4 text-center bg-brand-50/30">
+                    <td className="bg-brand-50/30 px-6 py-4 text-center">
                       <svg
                         className="mx-auto h-5 w-5 text-success-600"
                         fill="currentColor"
@@ -579,7 +579,7 @@ export default function Pricing() {
                         />
                       </svg>
                     </td>
-                    <td className="px-6 py-4 text-center bg-brand-50/30">
+                    <td className="bg-brand-50/30 px-6 py-4 text-center">
                       <svg
                         className="mx-auto h-5 w-5 text-success-600"
                         fill="currentColor"
@@ -608,7 +608,7 @@ export default function Pricing() {
                         />
                       </svg>
                     </td>
-                    <td className="px-6 py-4 text-center bg-brand-50/30">
+                    <td className="bg-brand-50/30 px-6 py-4 text-center">
                       <svg
                         className="mx-auto h-5 w-5 text-success-600"
                         fill="currentColor"
@@ -637,7 +637,7 @@ export default function Pricing() {
                     <td className="px-6 py-4 text-center">
                       <span className="text-gray-400">–</span>
                     </td>
-                    <td className="px-6 py-4 text-center bg-brand-50/30">
+                    <td className="bg-brand-50/30 px-6 py-4 text-center">
                       <svg
                         className="mx-auto h-5 w-5 text-success-600"
                         fill="currentColor"
@@ -658,7 +658,7 @@ export default function Pricing() {
                     <td className="px-6 py-4 text-center">
                       <span className="text-gray-400">–</span>
                     </td>
-                    <td className="px-6 py-4 text-center bg-brand-50/30">
+                    <td className="bg-brand-50/30 px-6 py-4 text-center">
                       <svg
                         className="mx-auto h-5 w-5 text-success-600"
                         fill="currentColor"
@@ -679,7 +679,7 @@ export default function Pricing() {
                     <td className="px-6 py-4 text-center">
                       <span className="text-gray-400">–</span>
                     </td>
-                    <td className="px-6 py-4 text-center bg-brand-50/30">
+                    <td className="bg-brand-50/30 px-6 py-4 text-center">
                       <svg
                         className="mx-auto h-5 w-5 text-success-600"
                         fill="currentColor"
@@ -700,7 +700,7 @@ export default function Pricing() {
                     <td className="px-6 py-4 text-center">
                       <span className="text-gray-400">–</span>
                     </td>
-                    <td className="px-6 py-4 text-center bg-brand-50/30">
+                    <td className="bg-brand-50/30 px-6 py-4 text-center">
                       <svg
                         className="mx-auto h-5 w-5 text-success-600"
                         fill="currentColor"
@@ -727,7 +727,7 @@ export default function Pricing() {
                     <td className="px-6 py-4 text-center text-gray-700">
                       Standard
                     </td>
-                    <td className="px-6 py-4 text-center text-gray-700 bg-brand-50/30">
+                    <td className="bg-brand-50/30 px-6 py-4 text-center text-gray-700">
                       Priority (4hr response)
                     </td>
                   </tr>
@@ -736,7 +736,7 @@ export default function Pricing() {
                     <td className="px-6 py-4 text-center">
                       <span className="text-gray-400">–</span>
                     </td>
-                    <td className="px-6 py-4 text-center bg-brand-50/30">
+                    <td className="bg-brand-50/30 px-6 py-4 text-center">
                       <svg
                         className="mx-auto h-5 w-5 text-success-600"
                         fill="currentColor"
@@ -757,7 +757,7 @@ export default function Pricing() {
                     <td className="px-6 py-4 text-center">
                       <span className="text-gray-400">–</span>
                     </td>
-                    <td className="px-6 py-4 text-center bg-brand-50/30">
+                    <td className="bg-brand-50/30 px-6 py-4 text-center">
                       <svg
                         className="mx-auto h-5 w-5 text-success-600"
                         fill="currentColor"
@@ -951,7 +951,7 @@ export default function Pricing() {
           <div className="mb-8 flex flex-col justify-center gap-4 sm:flex-row">
             <Link
               href="/signup"
-              className="hover:shadow-3xl group relative inline-block rounded-xl bg-gradient-to-r from-brand-600 to-accent-600 px-10 py-5 text-lg font-bold text-white shadow-2xl transition-all duration-200 hover:scale-[1.02] no-underline"
+              className="hover:shadow-3xl group relative inline-block rounded-xl bg-gradient-to-r from-brand-600 to-accent-600 px-10 py-5 text-lg font-bold text-white no-underline shadow-2xl transition-all duration-200 hover:scale-[1.02]"
             >
               <span className="relative z-10">Start Free Trial</span>
               <div className="absolute inset-0 rounded-xl bg-gradient-to-r from-brand-700 to-accent-700 opacity-0 transition-opacity group-hover:opacity-100"></div>
@@ -960,7 +960,7 @@ export default function Pricing() {
               href="YOUTUBE_VIDEO_URL"
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-block rounded-xl border-2 border-gray-600 bg-transparent px-10 py-5 text-lg font-bold text-white shadow-lg transition-all duration-200 hover:scale-[1.02] hover:border-brand-400 hover:bg-brand-500/10 no-underline"
+              className="inline-block rounded-xl border-2 border-gray-600 bg-transparent px-10 py-5 text-lg font-bold text-white no-underline shadow-lg transition-all duration-200 hover:scale-[1.02] hover:border-brand-400 hover:bg-brand-500/10"
             >
               See It in Action
             </a>
