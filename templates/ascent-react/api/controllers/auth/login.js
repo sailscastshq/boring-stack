@@ -51,7 +51,7 @@ and exposed as a shared data via loggedInUser prop.)`,
       email: email.toLowerCase()
     })
 
-    if (!user) {
+    if (!user || !user.password) {
       throw {
         badCombo: {
           problems: [{ login: 'Wrong email/password.' }]
@@ -59,16 +59,15 @@ and exposed as a shared data via loggedInUser prop.)`,
       }
     }
 
-    try {
-      await sails.helpers.passwords.checkPassword(password, user.password)
-    } catch (e) {
-      sails.log.error(e.message)
-      throw {
-        badCombo: {
-          problems: [{ login: 'Wrong email/password.' }]
+    await sails.helpers.passwords
+      .checkPassword(password, user.password)
+      .intercept('incorrect', () => {
+        throw {
+          badCombo: {
+            problems: [{ login: 'Wrong email/password.' }]
+          }
         }
-      }
-    }
+      })
 
     if (rememberMe) {
       this.req.session.cookie.maxAge =
