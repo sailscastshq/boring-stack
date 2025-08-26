@@ -39,6 +39,12 @@ module.exports = {
         fullName: unverifiedUser.fullName
       }
     })
-    return '/check-email/success'
+
+    this.req.flash(
+      'success',
+      'Verification email has been resent to your inbox.'
+    )
+
+    return '/check-email'
   }
 }
