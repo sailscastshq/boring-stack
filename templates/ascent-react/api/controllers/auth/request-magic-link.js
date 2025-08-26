@@ -124,7 +124,8 @@ module.exports = {
           }
         }
       })
-    this.req.flash('success', 'Check your email for the magic link.')
-    return redirectUrl
+    return `/check-email?type=magic-link&email=${encodeURIComponent(
+      normalizedEmail
+    )}&backUrl=${encodeURIComponent(redirectUrl)}`
   }
 }
