@@ -18,17 +18,30 @@ export default function CheckEmail({
   const getSubtitle = () => {
     if (type === 'magic-link') {
       return 'We sent you a secure sign-in link'
+    } else if (type === 'password-reset') {
+      return 'Password reset instructions sent'
     }
     return 'Please verify your email address'
   }
 
   const getEmailText = () => {
     if (email) {
-      return `We sent ${
-        type === 'magic-link' ? 'a magic link' : 'a verification link'
-      } to ${email}`
+      let linkType = 'a verification link'
+      if (type === 'magic-link') {
+        linkType = 'a magic link'
+      } else if (type === 'password-reset') {
+        linkType = 'password reset instructions'
+      }
+      return `We sent ${linkType} to ${email}`
     }
     return message
+  }
+
+  const getTitle = () => {
+    if (type === 'password-reset') {
+      return 'Check your email'
+    }
+    return title
   }
 
   return (
@@ -82,7 +95,7 @@ export default function CheckEmail({
               </div>
 
               <h1 className="mb-3 text-3xl font-bold tracking-tight text-gray-900">
-                {title}
+                {getTitle()}
               </h1>
 
               <p className="mb-2 text-lg text-gray-600 font-medium">
@@ -102,16 +115,31 @@ export default function CheckEmail({
                 Open email app
               </button>
 
-              {/* Resend Link */}
-              <p className="text-base text-gray-600">
-                Didn't receive the email?{' '}
-                <Link
-                  href="/resend-link"
-                  className="font-semibold text-brand-600 transition-colors hover:text-brand-500"
-                >
-                  Resend link
-                </Link>
-              </p>
+              {/* Resend Link - Only show for verification and magic-link */}
+              {type !== 'password-reset' && (
+                <p className="text-base text-gray-600">
+                  Didn't receive the email?{' '}
+                  <Link
+                    href="/resend-link"
+                    className="font-semibold text-brand-600 transition-colors hover:text-brand-500"
+                  >
+                    Resend link
+                  </Link>
+                </p>
+              )}
+
+              {/* Back to forgot password for password-reset type */}
+              {type === 'password-reset' && (
+                <p className="text-base text-gray-600">
+                  Try a different email?{' '}
+                  <Link
+                    href="/forgot-password"
+                    className="font-semibold text-brand-600 transition-colors hover:text-brand-500"
+                  >
+                    Back to forgot password
+                  </Link>
+                </p>
+              )}
             </div>
           </div>
 
