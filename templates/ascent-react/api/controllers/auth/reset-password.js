@@ -20,7 +20,7 @@ module.exports = {
       responseType: 'redirect'
     },
     invalidOrExpiredToken: {
-      responseType: 'expired',
+      responseType: 'redirect',
       description: 'The provided token is expired, invalid, or already used up.'
     },
     badSignupRequest: {
@@ -35,13 +35,21 @@ module.exports = {
 
   fn: async function ({ token, password }) {
     if (!token) {
-      throw 'invalidOrExpiredToken'
+      this.req.flash(
+        'error',
+        'The password reset link is invalid or has expired. Please request a new link.'
+      )
+      throw { invalidOrExpiredToken: '/forgot-password' }
     }
 
     const user = await User.findOne({ passwordResetToken: token })
 
     if (!user || user.passwordResetTokenExpiresAt <= Date.now()) {
-      throw 'invalidOrExpiredToken'
+      this.req.flash(
+        'error',
+        'The password reset link is invalid or has expired. Please request a new link.'
+      )
+      throw { invalidOrExpiredToken: '/forgot-password' }
     }
     await User.updateOne({ id: user.id }).set({
       password,
@@ -53,6 +61,11 @@ module.exports = {
 
     delete this.req.session.userEmail
 
-    return '/reset-password/success'
+    this.req.flash(
+      'success',
+      'Your password has been successfully reset. Welcome back!'
+    )
+
+    return '/dashboard'
   }
 }
