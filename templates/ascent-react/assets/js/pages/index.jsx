@@ -1,6 +1,7 @@
 import { Head, useForm } from '@inertiajs/react'
 import AppLayout from '@/layouts/AppLayout.jsx'
 import { useState } from 'react'
+import { Message } from 'primereact/message'
 import '~/css/homepage.css'
 
 Index.layout = (page) => <AppLayout children={page} />
@@ -20,7 +21,7 @@ export default function Index() {
       return
     }
 
-    post('/waitlist')
+    post('/waitlist', { preserveScroll: true })
   }
 
   return (
@@ -100,6 +101,17 @@ export default function Index() {
                       Be the first to scale with Ascent
                     </p>
                   </div>
+
+                  {/* Global error */}
+                  {errors.waitlist && (
+                    <section className="mb-6">
+                      <Message
+                        severity="error"
+                        text={errors.waitlist}
+                        className="w-full"
+                      />
+                    </section>
+                  )}
 
                   <div className="space-y-4">
                     <div className="relative">
