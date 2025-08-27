@@ -1,11 +1,9 @@
 module.exports = {
   friendlyName: 'Callback',
-
-  description: 'Callback auth.',
-
+  description: 'OAuth callback handler for Google and GitHub.',
   inputs: {
     provider: {
-      isIn: ['google'],
+      isIn: ['google', 'github'],
       required: true
     },
     code: {
@@ -13,7 +11,6 @@ module.exports = {
       required: true
     }
   },
-
   exits: {
     success: {
       responseType: 'redirect'
@@ -21,71 +18,139 @@ module.exports = {
   },
   fn: async function ({ code, provider }, exits) {
     const req = this.req
-    const googleUser = await sails.wish.provider(provider).user(code)
 
-    User.findOrCreate(
-      { or: [{ googleId: googleUser.id }, { email: googleUser.email }] },
-      {
-        googleId: googleUser.id,
-        email: googleUser.email,
-        fullName: googleUser.name,
-        googleAvatarUrl: googleUser.picture,
-        googleAccessToken: googleUser.accessToken,
-        googleIdToken: googleUser.idToken,
-        emailStatus: googleUser.verified_email ? 'verified' : 'unverified'
-      }
-    ).exec(async (error, user, wasCreated) => {
-      if (error) throw error
+    try {
+      const oauthUser = await sails.wish.provider(provider).user(code)
 
-      if (!wasCreated && googleUser.verified_email) {
-        await User.updateOne({ id: user.id }).set({
-          emailStatus: 'verified'
-        })
-      }
-      if (!wasCreated && user.googleId !== googleUser.id) {
-        // Checks if the user email has changed since last log in
-        // And then update the email change candidate which will be used be used to prompt the user to update their email
-        await User.updateOne({ id: user.id }).set({
-          emailChangeCandidate: googleUser.email
-        })
-      }
-      if (!wasCreated && user.email !== googleUser.email) {
-        // Checks if the user email has changed since last log in
-        // And then update the email change candidate which will be used be used to prompt the user to update their email
-        await User.updateOne({ id: user.id }).set({
-          emailChangeCandidate: googleUser.email
-        })
+      const userSearchCriteria =
+        provider === 'google'
+          ? { or: [{ googleId: oauthUser.id }, { email: oauthUser.email }] }
+          : { or: [{ githubId: oauthUser.id }, { email: oauthUser.email }] }
+
+      let newUserData = {
+        email: oauthUser.email,
+        fullName: oauthUser.name,
+        emailStatus: 'verified',
+        tosAcceptedByIp: req.ip
       }
 
-      // Checks if the user name has changed since last log in
-      // And then update the name if changed
-      if (!wasCreated && user.fullName !== googleUser.name) {
-        await User.updateOne({ id: user.id }).set({
-          fullName: googleUser.name
-        })
+      if (provider === 'google') {
+        newUserData = {
+          ...newUserData,
+          googleId: oauthUser.id,
+          googleAvatarUrl: oauthUser.picture,
+          googleAccessToken: oauthUser.accessToken,
+          googleIdToken: oauthUser.idToken
+        }
+      } else if (provider === 'github') {
+        newUserData = {
+          ...newUserData,
+          githubId: oauthUser.id,
+          githubAvatarUrl: oauthUser.avatar_url,
+          githubAccessToken: oauthUser.accessToken
+        }
       }
 
-      if (!wasCreated && user.googleAvatarUrl !== googleUser.picture) {
-        await User.updateOne({ id: user.id }).set({
-          googleAvatarUrl: googleUser.picture
-        })
-      }
+      User.findOrCreate(userSearchCriteria, newUserData).exec(
+        async (error, user, wasCreated) => {
+          if (error && error.code === 'E_INVALID_NEW_RECORD') {
+            const problems = []
+            if (error.message.includes('email')) {
+              problems.push({
+                email: `Unable to access your email from ${
+                  provider === 'google' ? 'Google' : 'GitHub'
+                }. Please make sure it is public.`
+              })
+            }
+            if (
+              error.message.includes('name') ||
+              error.message.includes('fullName')
+            ) {
+              problems.push({
+                fullName: `Unable to access your name from ${
+                  provider === 'google' ? 'Google' : 'GitHub'
+                }. Please make sure you have one set.`
+              })
+            }
+            throw {
+              badRequest: {
+                problems:
+                  problems.length > 0
+                    ? problems
+                    : [
+                        {
+                          login:
+                            'OAuth authentication failed due to missing required information.'
+                        }
+                      ]
+              }
+            }
+          }
 
-      if (!wasCreated && user.googleAccessToken !== googleUser.accessToken) {
-        await User.updateOne({ id: user.id }).set({
-          googleAccessToken: googleUser.accessToken
-        })
-      }
+          if (error) {
+            sails.log.error('OAuth callback error:', error)
+            req.flash('error', 'Authentication failed. Please try again.')
+            return exits.success('/login?mode=password')
+          }
 
-      if (!wasCreated && user.googleIdToken !== googleUser.idToken) {
-        await User.updateOne({ id: user.id }).set({
-          googleIdToken: googleUser.idToken
-        })
-      }
+          if (!wasCreated) {
+            const updates = {}
 
-      req.session.userId = user.id
-      const urlToRedirectTo = '/dashboard'
-      return exits.success(urlToRedirectTo)
-    })
+            if (provider === 'google') {
+              if (user.email !== oauthUser.email) {
+                updates.emailChangeCandidate = oauthUser.email
+              }
+              if (user.googleId !== oauthUser.id) {
+                updates.googleId = oauthUser.id
+              }
+              if (user.fullName !== oauthUser.name) {
+                updates.fullName = oauthUser.name
+              }
+              if (user.googleAvatarUrl !== oauthUser.picture) {
+                updates.googleAvatarUrl = oauthUser.picture
+              }
+              if (user.googleAccessToken !== oauthUser.accessToken) {
+                updates.googleAccessToken = oauthUser.accessToken
+              }
+              if (user.googleIdToken !== oauthUser.idToken) {
+                updates.googleIdToken = oauthUser.idToken
+              }
+            } else if (provider === 'github') {
+              if (user.email !== oauthUser.email) {
+                updates.emailChangeCandidate = oauthUser.email
+              }
+              if (user.githubId !== oauthUser.id) {
+                updates.githubId = oauthUser.id
+              }
+              if (user.fullName !== oauthUser.name) {
+                updates.fullName = oauthUser.name
+              }
+              if (user.githubAvatarUrl !== oauthUser.avatar_url) {
+                updates.githubAvatarUrl = oauthUser.avatar_url
+              }
+              if (user.githubAccessToken !== oauthUser.accessToken) {
+                updates.githubAccessToken = oauthUser.accessToken
+              }
+            }
+            if (user.emailStatus !== 'verified') {
+              updates.emailStatus = 'verified'
+            }
+            if (!user.tosAcceptedByIp) {
+              updates.tosAcceptedByIp = req.ip
+            }
+            if (Object.keys(updates).length > 0) {
+              await User.updateOne({ id: user.id }).set(updates)
+            }
+          }
+
+          req.session.userId = user.id
+          return exits.success('/dashboard')
+        }
+      )
+    } catch (error) {
+      sails.log.error('OAuth provider error:', error)
+      req.flash('error', 'Authentication failed. Please try again.')
+      return exits.success('/login?mode=password')
+    }
   }
 }
