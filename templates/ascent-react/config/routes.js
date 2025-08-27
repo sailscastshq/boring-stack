@@ -19,6 +19,7 @@ module.exports.routes = {
    *                                                                          *
    ***************************************************************************/
   'GET /': 'home/view-home',
+  'POST /waitlist': 'home/join-waitlist',
   'GET /features': 'home/view-features',
   'GET /pricing': 'home/view-pricing',
 
