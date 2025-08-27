@@ -1,7 +1,8 @@
 import { Link, usePage } from '@inertiajs/react'
-import { useRef } from 'react'
 import { Toast } from 'primereact/toast'
+import { Avatar } from 'primereact/avatar'
 import { useFlashToast } from '@/hooks/useFlashToast'
+import { useRef } from 'react'
 
 export default function AppLayout({ children }) {
   const { loggedInUser } = usePage().props
@@ -113,17 +114,19 @@ export default function AppLayout({ children }) {
                 </Link>
               </div>
               <Link href="/profile">
-                {!loggedInUser.googleAvatarUrl ? (
-                  <div className="flex h-10 w-10 items-center justify-center rounded-full bg-brand p-2 font-medium text-white">
-                    {loggedInUser.initials}
-                  </div>
-                ) : (
-                  <img
-                    className="h-10 w-10 rounded-full border-2 border-gray-200 transition-colors hover:border-brand"
-                    src={loggedInUser.googleAvatarUrl}
-                    alt={loggedInUser.fullName}
-                  />
-                )}
+                <Avatar
+                  image={loggedInUser.avatarUrl}
+                  label={loggedInUser.initials}
+                  size="large"
+                  shape="circle"
+                  className="border-2 border-gray-200 transition-colors hover:border-brand [&_img]:rounded-full"
+                  style={{
+                    backgroundColor: loggedInUser.avatarUrl
+                      ? undefined
+                      : '#6366f1',
+                    color: '#ffffff'
+                  }}
+                />
               </Link>
             </section>
           )}
