@@ -5,7 +5,7 @@ module.exports = {
 
   inputs: {
     provider: {
-      isIn: ['google'],
+      isIn: ['google', 'github'],
       required: true
     }
   },
