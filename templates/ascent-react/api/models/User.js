@@ -100,7 +100,21 @@ module.exports = {
       description: 'The picture URL provided by Google for an OAuth user.',
       columnName: 'google_avatar_url'
     },
-
+    githubId: {
+      type: 'string',
+      description: 'The unique GitHub ID for an OAuth user.',
+      columnName: 'github_id'
+    },
+    githubAccessToken: {
+      type: 'string',
+      description: 'Access token provided by GitHub for an OAuth user.',
+      columnName: 'github_access_token'
+    },
+    githubAvatarUrl: {
+      type: 'string',
+      description: 'The avatar URL provided by GitHub for an OAuth user.',
+      columnName: 'github_avatar_url'
+    },
     //  ╔╦╗┌─┐┌─┐┬┌─┐  ╦  ┬┌┐┌┬┌─
     //  ║║║├─┤│ ┬││   ║  ││││├┴┐
     //  ╩ ╩┴ ┴└─┘┴└─┘  ╩═╝┴┘└┘┴ ┴
@@ -133,6 +147,8 @@ module.exports = {
           'googleIdToken',
           'googleUserId',
           'googleAccessToken',
+          'githubId',
+          'githubAccessToken',
           'password',
           'passwordResetTokenExpiresAt',
           'emailProofToken',
@@ -154,7 +170,6 @@ module.exports = {
         valuesToSet.password
       )
     }
-
     return proceed()
   },
   beforeUpdate: async function (valuesToSet, proceed) {
