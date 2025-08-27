@@ -52,6 +52,5 @@ module.exports.routes = {
   'DELETE /logout': 'user/logout',
 
   'GET /auth/:provider/redirect': 'auth/redirect',
-
   'GET /auth/:provider/callback': 'auth/callback'
 }
