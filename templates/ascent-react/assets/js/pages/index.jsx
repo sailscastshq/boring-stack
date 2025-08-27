@@ -1,35 +1,26 @@
-import { Head } from '@inertiajs/react'
+import { Head, useForm } from '@inertiajs/react'
 import AppLayout from '@/layouts/AppLayout.jsx'
 import { useState } from 'react'
 import '~/css/homepage.css'
 
 Index.layout = (page) => <AppLayout children={page} />
 export default function Index() {
-  const [email, setEmail] = useState('')
-  const [isSubmitting, setIsSubmitting] = useState(false)
-  const [isSubmitted, setIsSubmitted] = useState(false)
-  const [isWaitlistActive] = useState(true) // Toggle this to switch between waitlist and CTA
+  const [isWaitlistActive] = useState(true)
   const [shouldShake, setShouldShake] = useState(false)
+  const { data, setData, post, processing, errors } = useForm({
+    email: ''
+  })
 
-  const handleWaitlistSubmit = async (e) => {
+  const handleWaitlistSubmit = (e) => {
     e.preventDefault()
 
-    // Check if email is empty and trigger shake animation
-    if (!email.trim()) {
+    if (!data.email.trim()) {
       setShouldShake(true)
-      // Reset shake animation after it completes
       setTimeout(() => setShouldShake(false), 500)
       return
     }
 
-    setIsSubmitting(true)
-
-    // Simulate API call - replace with actual waitlist logic
-    setTimeout(() => {
-      setIsSubmitted(true)
-      setIsSubmitting(false)
-      setEmail('')
-    }, 1000)
+    post('/waitlist')
   }
 
   return (
@@ -90,153 +81,127 @@ export default function Index() {
           {/* Waitlist/CTA Section */}
           <div className="mx-auto mb-16 max-w-lg">
             {isWaitlistActive ? (
-              // Waitlist Mode
-              isSubmitted ? (
-                <div className="relative overflow-hidden rounded-2xl border border-success-200/50 bg-gradient-to-r from-success-50 to-emerald-50 p-8 text-center shadow-xl">
-                  <div className="absolute left-1/2 top-0 h-32 w-32 -translate-x-1/2 transform rounded-full bg-success-200/20 blur-2xl"></div>
-                  <div className="relative">
-                    <div className="mb-4 text-success-600">
-                      <svg
-                        className="mx-auto h-16 w-16"
-                        fill="none"
-                        stroke="currentColor"
-                        viewBox="0 0 24 24"
-                      >
-                        <path
-                          strokeLinecap="round"
-                          strokeLinejoin="round"
-                          strokeWidth={1.5}
-                          d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"
-                        />
-                      </svg>
-                    </div>
-                    <h3 className="mb-2 text-xl font-bold text-success-900">
-                      Welcome to the future! ✨
+              <div className="relative">
+                <div className="absolute inset-0 scale-105 rounded-2xl bg-gradient-to-r from-brand-600 to-accent-600 opacity-20 blur-xl"></div>
+                <form
+                  onSubmit={handleWaitlistSubmit}
+                  className={`relative rounded-2xl border border-gray-100 bg-white p-8 shadow-2xl transition-all duration-300 ${
+                    shouldShake ? 'ring-4 ring-red-100' : 'hover:shadow-3xl'
+                  }`}
+                  style={{
+                    animation: shouldShake ? 'shake 0.5s ease-in-out' : 'none'
+                  }}
+                >
+                  <div className="mb-6 text-center">
+                    <h3 className="mb-2 text-2xl font-bold text-gray-900">
+                      Join the Waitlist
                     </h3>
-                    <p className="font-medium text-success-700">
-                      You'll be the first to know when Ascent launches.
+                    <p className="font-medium text-gray-600">
+                      Be the first to scale with Ascent
                     </p>
                   </div>
-                </div>
-              ) : (
-                <div className="relative">
-                  {/* Form with better shadows and design */}
-                  <div className="absolute inset-0 scale-105 rounded-2xl bg-gradient-to-r from-brand-600 to-accent-600 opacity-20 blur-xl"></div>
-                  <form
-                    onSubmit={handleWaitlistSubmit}
-                    className={`relative rounded-2xl border border-gray-100 bg-white p-8 shadow-2xl transition-all duration-300 ${
-                      shouldShake ? 'ring-4 ring-red-100' : 'hover:shadow-3xl'
-                    }`}
-                    style={{
-                      animation: shouldShake ? 'shake 0.5s ease-in-out' : 'none'
-                    }}
-                  >
-                    <div className="mb-6 text-center">
-                      <h3 className="mb-2 text-2xl font-bold text-gray-900">
-                        Join the Waitlist
-                      </h3>
-                      <p className="font-medium text-gray-600">
-                        Be the first to scale with Ascent
-                      </p>
+
+                  <div className="space-y-4">
+                    <div className="relative">
+                      <input
+                        type="email"
+                        value={data.email}
+                        onChange={(e) => setData('email', e.target.value)}
+                        placeholder="Enter your email address"
+                        className={`w-full rounded-xl border px-4 py-4 text-lg font-medium transition-all duration-200 ${
+                          shouldShake || errors.email
+                            ? 'border-red-300 bg-red-50 ring-2 ring-red-100'
+                            : 'border-gray-200 bg-gray-50 focus:border-brand-300 focus:bg-white focus:ring-4 focus:ring-brand-100'
+                        }`}
+                        disabled={processing}
+                      />
+                      {errors.email && (
+                        <p className="mt-2 text-sm text-red-600">
+                          {errors.email}
+                        </p>
+                      )}
                     </div>
 
-                    <div className="space-y-4">
-                      <div className="relative">
-                        <input
-                          type="email"
-                          value={email}
-                          onChange={(e) => setEmail(e.target.value)}
-                          placeholder="Enter your email address"
-                          className={`w-full rounded-xl border px-4 py-4 text-lg font-medium transition-all duration-200 ${
-                            shouldShake
-                              ? 'border-red-300 bg-red-50 ring-2 ring-red-100'
-                              : 'border-gray-200 bg-gray-50 focus:border-brand-300 focus:bg-white focus:ring-4 focus:ring-brand-100'
-                          }`}
-                          disabled={isSubmitting}
-                        />
-                      </div>
+                    <button
+                      type="submit"
+                      disabled={processing}
+                      className="w-full rounded-xl bg-gradient-to-r from-brand-600 to-accent-600 px-8 py-4 text-lg font-bold text-white shadow-lg transition-all duration-200 hover:shadow-xl disabled:opacity-75"
+                    >
+                      {processing ? (
+                        <span className="flex items-center justify-center space-x-2">
+                          <svg
+                            className="h-5 w-5 animate-spin"
+                            fill="none"
+                            viewBox="0 0 24 24"
+                          >
+                            <circle
+                              className="opacity-25"
+                              cx="12"
+                              cy="12"
+                              r="10"
+                              stroke="currentColor"
+                              strokeWidth="4"
+                            ></circle>
+                            <path
+                              className="opacity-75"
+                              fill="currentColor"
+                              d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"
+                            ></path>
+                          </svg>
+                          <span>Joining...</span>
+                        </span>
+                      ) : (
+                        'Join the Waitlist →'
+                      )}
+                    </button>
+                  </div>
 
-                      <button
-                        type="submit"
-                        disabled={isSubmitting}
-                        className="w-full rounded-xl bg-gradient-to-r from-brand-600 to-accent-600 px-8 py-4 text-lg font-bold text-white shadow-lg transition-all duration-200 hover:shadow-xl"
+                  <div className="mt-6 flex items-center justify-center space-x-6 text-xs text-gray-500">
+                    <div className="flex items-center space-x-1">
+                      <svg
+                        className="h-4 w-4 text-green-500"
+                        fill="currentColor"
+                        viewBox="0 0 20 20"
                       >
-                        {isSubmitting ? (
-                          <span className="flex items-center justify-center space-x-2">
-                            <svg
-                              className="h-5 w-5 animate-spin"
-                              fill="none"
-                              viewBox="0 0 24 24"
-                            >
-                              <circle
-                                className="opacity-25"
-                                cx="12"
-                                cy="12"
-                                r="10"
-                                stroke="currentColor"
-                                strokeWidth="4"
-                              ></circle>
-                              <path
-                                className="opacity-75"
-                                fill="currentColor"
-                                d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"
-                              ></path>
-                            </svg>
-                            <span>Joining...</span>
-                          </span>
-                        ) : (
-                          'Join the Waitlist →'
-                        )}
-                      </button>
+                        <path
+                          fillRule="evenodd"
+                          d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
+                          clipRule="evenodd"
+                        />
+                      </svg>
+                      <span>Early access</span>
                     </div>
-
-                    <div className="mt-6 flex items-center justify-center space-x-6 text-xs text-gray-500">
-                      <div className="flex items-center space-x-1">
-                        <svg
-                          className="h-4 w-4 text-green-500"
-                          fill="currentColor"
-                          viewBox="0 0 20 20"
-                        >
-                          <path
-                            fillRule="evenodd"
-                            d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
-                            clipRule="evenodd"
-                          />
-                        </svg>
-                        <span>Early access</span>
-                      </div>
-                      <div className="flex items-center space-x-1">
-                        <svg
-                          className="h-4 w-4 text-green-500"
-                          fill="currentColor"
-                          viewBox="0 0 20 20"
-                        >
-                          <path
-                            fillRule="evenodd"
-                            d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
-                            clipRule="evenodd"
-                          />
-                        </svg>
-                        <span>No spam</span>
-                      </div>
-                      <div className="flex items-center space-x-1">
-                        <svg
-                          className="h-4 w-4 text-green-500"
-                          fill="currentColor"
-                          viewBox="0 0 20 20"
-                        >
-                          <path
-                            fillRule="evenodd"
-                            d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
-                            clipRule="evenodd"
-                          />
-                        </svg>
-                        <span>Unsubscribe anytime</span>
-                      </div>
+                    <div className="flex items-center space-x-1">
+                      <svg
+                        className="h-4 w-4 text-green-500"
+                        fill="currentColor"
+                        viewBox="0 0 20 20"
+                      >
+                        <path
+                          fillRule="evenodd"
+                          d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
+                          clipRule="evenodd"
+                        />
+                      </svg>
+                      <span>No spam</span>
                     </div>
-                  </form>
-                </div>
-              )
+                    <div className="flex items-center space-x-1">
+                      <svg
+                        className="h-4 w-4 text-green-500"
+                        fill="currentColor"
+                        viewBox="0 0 20 20"
+                      >
+                        <path
+                          fillRule="evenodd"
+                          d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
+                          clipRule="evenodd"
+                        />
+                      </svg>
+                      <span>Unsubscribe anytime</span>
+                    </div>
+                  </div>
+                </form>
+              </div>
             ) : (
               // CTA Mode (when waitlist is disabled)
               <div className="text-center">
