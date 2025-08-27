@@ -139,6 +139,12 @@ module.exports = {
 - User data automatically passed to React components via AppLayout
 - Magic link tokens have cleanup script for maintenance
 
+### Error Handling
+
+- Use `.intercept()` method instead of try/catch blocks for database operations
+- Example: `await Model.create(data).intercept('E_UNIQUE', 'customExitName')`
+- This provides cleaner error handling that integrates with Sails exit system
+
 ### Styling Guidelines
 
 - Custom Tailwind config with brand colors (brand, accent, success)
