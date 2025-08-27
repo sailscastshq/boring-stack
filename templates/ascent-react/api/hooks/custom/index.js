@@ -21,7 +21,13 @@ module.exports = function defineCustomHook(sails) {
             if (req.session.userId) {
               const loggedInUser = await User.findOne({
                 id: req.session.userId
-              }).select(['email', 'fullName', 'googleAvatarUrl', 'initials'])
+              }).select([
+                'email',
+                'fullName',
+                'googleAvatarUrl',
+                'githubAvatarUrl',
+                'initials'
+              ])
               if (!loggedInUser) {
                 sails.log.warn(
                   'Somehow, the user record for the logged-in user (`' +
@@ -31,6 +37,10 @@ module.exports = function defineCustomHook(sails) {
                 delete req.session.userId
                 return res.redirect('/login')
               }
+              // Add avatar URL using helper
+              loggedInUser.avatarUrl = await sails.helpers.user.getAvatarUrl(
+                loggedInUser
+              )
               sails.inertia.share('loggedInUser', loggedInUser)
               res.setHeader('Cache-Control', 'no-cache, no-store')
               return next()
