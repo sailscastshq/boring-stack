@@ -3,6 +3,7 @@ import { createRoot } from 'react-dom/client'
 import { PrimeReactProvider } from 'primereact/api'
 import Tailwind from 'primereact/passthrough/tailwind'
 import '~/css/main.css'
+import 'primeicons/primeicons.css'
 
 createInertiaApp({
   resolve: (name) => require(`./pages/${name}`),
