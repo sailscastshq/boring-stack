@@ -18,5 +18,5 @@ module.exports.policies = {
   'auth/*': 'is-guest',
   'user/*': 'is-authenticated',
   'dashboard/*': 'is-authenticated',
-  'settings/*': 'is-authenticated'
+  'setting/*': 'is-authenticated'
 }
