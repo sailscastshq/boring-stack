@@ -57,7 +57,7 @@ module.exports.routes = {
   'GET /settings/billing': 'setting/view-billing',
   'GET /settings/team': 'setting/view-team',
 
-  // Redirects for backward compatibility
+  // Redirects
   'GET /profile': '/settings/profile',
   'GET /settings': '/settings/profile',
   'PATCH /profile': 'settings/update-profile',
