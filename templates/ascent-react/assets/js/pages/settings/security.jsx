@@ -404,7 +404,7 @@ export default function SecuritySettings() {
                         }
                         size="small"
                         severity="danger"
-                        icon="pi pi-trash"
+                        icon="pi pi-times"
                         tooltip="Remove device"
                         text
                         tooltipOptions={{ position: 'left' }}
