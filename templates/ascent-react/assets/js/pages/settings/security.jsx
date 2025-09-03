@@ -257,8 +257,10 @@ export default function SecuritySettings() {
                       type="button"
                       label="Cancel"
                       size="small"
-                      className="p-button-outlined w-full px-4 py-2 text-sm sm:w-auto"
-                      icon="pi pi-times"
+                      className=" w-full px-4 py-2 text-sm sm:w-auto"
+                      outlined
+                      text
+                      severity="secondary"
                       onClick={() => {
                         setShowPasswordForm(false)
                         setData({
@@ -272,8 +274,8 @@ export default function SecuritySettings() {
                       type="submit"
                       label="Save new password"
                       size="small"
+                      outlined
                       className="w-full px-4 py-2 text-sm sm:w-auto"
-                      icon="pi pi-check"
                       loading={form.processing}
                     />
                   </div>
