@@ -15,7 +15,7 @@ module.exports = {
   exits: {
     success: {
       description: 'Avatar URL retrieved successfully.',
-      outputType: 'string?'
+      outputType: 'string'
     }
   },
 
