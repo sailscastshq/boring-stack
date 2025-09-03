@@ -49,13 +49,13 @@ module.exports.routes = {
   'GET /blog': 'blog/view-blog',
 
   // Settings routes with nested layout
-  'GET /settings/profile': 'settings/view-profile',
-  'PATCH /settings/profile': 'settings/update-profile',
-  'DELETE /settings/profile': 'settings/delete-profile',
+  'GET /settings/profile': 'setting/view-profile',
+  'PATCH /settings/profile': 'setting/update-profile',
+  'DELETE /settings/profile': 'setting/delete-profile',
 
-  'GET /settings/security': 'settings/view-security',
-  'GET /settings/billing': 'settings/view-billing',
-  'GET /settings/team': 'settings/view-team',
+  'GET /settings/security': 'setting/view-security',
+  'GET /settings/billing': 'setting/view-billing',
+  'GET /settings/team': 'setting/view-team',
 
   // Redirects for backward compatibility
   'GET /profile': '/settings/profile',
