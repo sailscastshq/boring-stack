@@ -150,7 +150,7 @@ export default function TotpSetupModal({ visible, onHide, setupData }) {
               )}
             </div>
 
-            <div className="flex flex-col justify-between space-y-3 sm:flex-row sm:space-x-3 sm:space-y-0">
+            <div className="flex flex-col justify-end space-y-3 sm:flex-row sm:space-x-3 sm:space-y-0">
               <Button
                 type="button"
                 label="Cancel"
