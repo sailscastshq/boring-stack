@@ -53,7 +53,9 @@ module.exports = {
         twoFactorVerificationCode: null,
         twoFactorVerificationCodeExpiresAt: null
       })
-      throw 'invalid'
+      throw {
+        invalid: { problems: [{ code: 'Verification code has expired.' }] }
+      }
     }
 
     if (user.twoFactorVerificationCode !== code) {
