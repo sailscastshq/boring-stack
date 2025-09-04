@@ -163,17 +163,17 @@ export default function ProfileSettings() {
 
           <div className="space-y-4">
             {/* Sign out everywhere card */}
-            <div className="rounded-lg border border-gray-200 bg-white p-4 shadow-sm sm:p-6">
+            <div className="rounded-lg border border-orange-200 bg-orange-50 p-4 shadow-sm sm:p-6">
               <div className="flex flex-col space-y-4 sm:flex-row sm:items-start sm:justify-between sm:space-y-0">
                 <div className="flex items-start space-x-3">
-                  <div className="flex h-10 w-10 flex-shrink-0 items-center justify-center rounded-lg bg-brand-50">
-                    <i className="pi pi-sign-out text-brand-600"></i>
+                  <div className="flex h-10 w-10 flex-shrink-0 items-center justify-center rounded-lg bg-orange-50">
+                    <i className="pi pi-sign-out text-orange-600"></i>
                   </div>
                   <div className="min-w-0 flex-1">
-                    <h4 className="text-sm font-medium text-gray-900">
+                    <h4 className="text-sm font-medium text-orange-900">
                       Sign out everywhere
                     </h4>
-                    <p className="mt-1 text-sm text-gray-500">
+                    <p className="mt-1 text-sm text-orange-700">
                       Sign out from all devices and browser sessions for
                       enhanced security.
                     </p>
