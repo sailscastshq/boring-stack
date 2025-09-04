@@ -9,14 +9,10 @@
 
 module.exports = {
   friendlyName: 'Cleanup expired magic link tokens',
-
   description: 'Remove expired and used magic link tokens from the database.',
-
   fn: async function () {
     const now = Date.now()
-
     try {
-      // Find and update users with expired or used tokens
       const result = await User.update({
         or: [
           {
@@ -43,7 +39,6 @@ module.exports = {
         )
         sails.log.info(`   - Used tokens that were no longer needed`)
       }
-
       return {
         success: true,
         cleanedCount: result.length,
