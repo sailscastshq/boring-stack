@@ -57,16 +57,8 @@ export default function ProfileSettings() {
     })
   }
 
-  function confirmSignOutEverywhere() {
-    confirmDialog({
-      message:
-        'This will sign you out of all browser sessions. You will need to log in again.',
-      header: 'Sign Out Everywhere',
-      icon: 'pi pi-sign-out',
-      accept: () => {
-        router.delete('/logout')
-      }
-    })
+  function signOutEverywhere() {
+    router.delete('/logout')
   }
 
   return (
@@ -182,7 +174,7 @@ export default function ProfileSettings() {
                 <div className="flex justify-end sm:ml-4 sm:flex-shrink-0">
                   <Button
                     label="Sign out"
-                    onClick={confirmSignOutEverywhere}
+                    onClick={signOutEverywhere}
                     size="small"
                     className="w-full px-4 py-2 text-sm sm:w-auto"
                     outlined
