@@ -94,6 +94,19 @@ assets/js/
 └── pages/             # Inertia pages matching controller responses
 ```
 
+**PrimeReact Component Patterns**
+
+- Use **props** instead of CSS classes for component variants:
+  - `<Button outlined />` instead of `className="p-button-outlined"`
+  - `<Button text />` instead of `className="p-button-text"`
+  - `<Button severity="danger" />` instead of `className="p-button-danger"`
+  - `<Button size="small" />` instead of `className="p-button-sm"`
+- Button labels use sentence case: "Set up", "Save changes", "Sign out"
+- Use `InputOtp` component for all OTP/verification code inputs
+- Page components receive props directly: `function Page({ loggedInUser, otherProps })`
+- Non-page components use `usePage()` to access props
+- Controllers should return `{ page: 'path', props: { data } }` structure
+
 ### Database and Models
 
 - Uses Waterline ORM (database agnostic)
@@ -145,6 +158,20 @@ module.exports = {
 - Example: `await Model.create(data).intercept('E_UNIQUE', 'customExitName')`
 - This provides cleaner error handling that integrates with Sails exit system
 
+### Routing Conventions
+
+- Use flat route structure: `/security/setup-totp` instead of `/security/totp/setup`
+- Use descriptive action names: `setup-totp`, `verify-totp`, `disable-2fa`
+- Controllers in singular form: `security/`, `auth/`, not `securities/`
+
+### 2FA Implementation Patterns
+
+- Store temporary data in session, pass via props to frontend
+- Use `InputOtp` for all verification code inputs
+- Fine-grained disable: allow disabling individual methods or all
+- JSON fields in models don't use `allowNull` (null is default)
+- Use `router.post()` and `useForm()` for all form submissions
+
 ### Styling Guidelines
 
 - Custom Tailwind config with brand colors (brand, accent, success)
@@ -193,12 +220,19 @@ module.exports = {
 ```javascript
 module.exports = {
   friendlyName: 'Action name',
+  inputs: {
+    param1: { type: 'string', required: true },
+    param2: { type: 'number' }
+  },
   exits: { success: { responseType: 'inertia' } },
-  fn: async function () {
+  fn: async function ({ param1, param2 }) {
+    // Always destructure inputs
     return { page: 'component/path', data: processedData }
   }
 }
 ```
+
+**Input Destructuring**: Always destructure inputs in the `fn` function parameter for cleaner code and better readability. Use `{ param1, param2 }` instead of `inputs` parameter.
 
 ### React Component Pattern
 
