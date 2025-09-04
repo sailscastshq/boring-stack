@@ -54,14 +54,23 @@ module.exports.routes = {
   'DELETE /settings/profile': 'setting/delete-profile',
 
   'GET /settings/security': 'setting/view-security',
+  'PATCH /settings/update-password': 'security/update-password',
   'GET /settings/billing': 'setting/view-billing',
   'GET /settings/team': 'setting/view-team',
+
+  // 2FA Security routes
+  'POST /security/setup-totp': 'security/setup-totp',
+  'POST /security/verify-totp-setup': 'security/verify-totp-setup',
+  'POST /security/setup-email-2fa': 'security/setup-email-2fa',
+  'POST /security/verify-email-2fa': 'security/verify-email-2fa',
+  'POST /security/disable-2fa': 'security/disable-2fa',
+  'POST /security/generate-backup-codes': 'security/generate-backup-codes',
 
   // Redirects
   'GET /profile': '/settings/profile',
   'GET /settings': '/settings/profile',
-  'PATCH /profile': 'settings/update-profile',
-  'DELETE /profile': 'settings/delete-profile',
+  'PATCH /profile': 'setting/update-profile',
+  'DELETE /profile': 'setting/delete-profile',
 
   'DELETE /logout': 'user/logout',
 

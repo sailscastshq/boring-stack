@@ -26,7 +26,10 @@ module.exports = function defineCustomHook(sails) {
                 'fullName',
                 'googleAvatarUrl',
                 'githubAvatarUrl',
-                'initials'
+                'initials',
+                'twoFactorEnabled',
+                'totpEnabled',
+                'emailTwoFactorEnabled'
               ])
               if (!loggedInUser) {
                 sails.log.warn(
