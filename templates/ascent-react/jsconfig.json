@@ -1,5 +1,5 @@
 {
-  "include": ["api/**/*", "assets/js/**/*"],
+  "include": ["api/**/*", "assets/js/**/*", "scripts/**/*"],
 
   "compilerOptions": {
     "types": ["node"],
