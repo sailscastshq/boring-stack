@@ -35,7 +35,7 @@ module.exports = {
           'error',
           'This magic link is invalid, expired, or has already been used. Please request a new one.'
         )
-        throw { invalid: '/login' }
+        return { invalid: '/login' }
       })
 
     const { user } = result

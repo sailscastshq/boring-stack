@@ -118,7 +118,7 @@ module.exports = {
       })
       .intercept((error) => {
         sails.log.error('Error sending magic link email:', error)
-        throw {
+        return {
           badRequest: {
             problems: [{ magicLink: 'Failed to send magic link email' }]
           }
