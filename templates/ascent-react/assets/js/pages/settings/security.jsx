@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { Head, useForm, usePage, router } from '@inertiajs/react'
 import { Button } from 'primereact/button'
 import { Password } from 'primereact/password'
@@ -7,6 +7,9 @@ import { ConfirmDialog } from 'primereact/confirmdialog'
 import { confirmDialog } from 'primereact/confirmdialog'
 import AppLayout from '@/layouts/AppLayout.jsx'
 import SettingsLayout from '@/layouts/SettingsLayout.jsx'
+import TotpSetupModal from '@/components/TotpSetupModal.jsx'
+import BackupCodesModal from '@/components/BackupCodesModal.jsx'
+import EmailTwoFactorSetupModal from '@/components/EmailTwoFactorSetupModal.jsx'
 
 SecuritySettings.layout = (page) => (
   <AppLayout>
@@ -14,10 +17,34 @@ SecuritySettings.layout = (page) => (
   </AppLayout>
 )
 
-export default function SecuritySettings() {
-  const loggedInUser = usePage().props.loggedInUser
+export default function SecuritySettings({
+  loggedInUser,
+  totpSetupData,
+  backupCodes
+}) {
   const [showPasswordForm, setShowPasswordForm] = useState(false)
-  const [twoFactorEnabled, setTwoFactorEnabled] = useState(false)
+  const [showSetupFlow, setShowSetupFlow] = useState(false)
+  const [showTotpModal, setShowTotpModal] = useState(false)
+  const [showBackupCodesModal, setShowBackupCodesModal] = useState(false)
+  const [showEmailTwoFactorModal, setShowEmailTwoFactorModal] = useState(false)
+
+  const twoFactorEnabled = loggedInUser?.twoFactorEnabled
+  const totpEnabled = loggedInUser?.totpEnabled
+  const emailTwoFactorEnabled = loggedInUser?.emailTwoFactorEnabled
+
+  // Auto-open TOTP modal if setup data is present
+  useEffect(() => {
+    if (totpSetupData) {
+      setShowTotpModal(true)
+    }
+  }, [totpSetupData])
+
+  // Auto-open backup codes modal if backup codes are available
+  useEffect(() => {
+    if (backupCodes && backupCodes.length > 0) {
+      setShowBackupCodesModal(true)
+    }
+  }, [backupCodes])
 
   const { data, setData, ...form } = useForm({
     currentPassword: '',
@@ -25,7 +52,6 @@ export default function SecuritySettings() {
     confirmPassword: ''
   })
 
-  // Mock session data - replace with real data from your backend
   const [sessions, setSessions] = useState([
     {
       id: 1,
@@ -76,7 +102,7 @@ export default function SecuritySettings() {
 
   function updatePassword(e) {
     e.preventDefault()
-    form.patch('/settings/security/password', {
+    form.patch('/settings/update-password', {
       preserveScroll: true,
       preserveState: true,
       onSuccess: () => {
@@ -102,22 +128,95 @@ export default function SecuritySettings() {
       acceptLabel: 'Undo',
       rejectLabel: 'Dismiss',
       accept: () => {
-        // Undo the removal (add back to sessions)
         console.log('Undo removal')
       },
       reject: () => {
-        // Actually remove session from state
         setSessions(sessions.filter((session) => session.id !== sessionId))
-
-        // You would also call your backend API here:
-        // router.delete(`/settings/security/sessions/${sessionId}`, {
-        //   preserveScroll: true,
-        //   onSuccess: () => {
-        //     console.log(`Session ${sessionId} revoked`)
-        //   }
-        // })
       }
     })
+  }
+
+  function handleTwoFactorToggle() {
+    if (!twoFactorEnabled) {
+      // User wants to enable 2FA - show setup flow with individual method cards
+      setShowSetupFlow(true)
+    } else {
+      // User wants to disable all 2FA methods
+      router.post('/security/disable-2fa', {
+        preserveScroll: true,
+        onSuccess: () => {
+          setShowSetupFlow(false)
+        },
+        onError: (errors) => {
+          console.error('2FA disable failed:', errors)
+        }
+      })
+    }
+  }
+
+  function handleTotpToggle() {
+    if (!totpEnabled) {
+      setupTOTP()
+    } else {
+      // Disable TOTP
+      router.post(
+        '/security/disable-2fa',
+        { method: 'totp' },
+        {
+          preserveScroll: true,
+          onError: (errors) => {
+            console.error('TOTP disable failed:', errors)
+          }
+        }
+      )
+    }
+  }
+
+  function handleEmailTwoFactorToggle() {
+    if (!emailTwoFactorEnabled) {
+      setupEmail2FA()
+    } else {
+      // Disable Email 2FA
+      router.post(
+        '/security/disable-2fa',
+        { method: 'email' },
+        {
+          preserveScroll: true,
+          onError: (errors) => {
+            console.error('Email 2FA disable failed:', errors)
+          }
+        }
+      )
+    }
+  }
+
+  function setupTOTP() {
+    router.post(
+      '/security/setup-totp',
+      {},
+      {
+        preserveScroll: true,
+        onError: (errors) => {
+          console.error('TOTP setup failed:', errors)
+        }
+      }
+    )
+  }
+
+  function setupEmail2FA() {
+    router.post(
+      '/security/setup-email-2fa',
+      {},
+      {
+        preserveScroll: true,
+        onSuccess: () => {
+          setShowEmailTwoFactorModal(true)
+        },
+        onError: (errors) => {
+          console.error('Email 2FA setup failed:', errors)
+        }
+      }
+    )
   }
 
   return (
@@ -322,7 +421,7 @@ export default function SecuritySettings() {
                 </div>
               </div>
               <button
-                onClick={() => setTwoFactorEnabled(!twoFactorEnabled)}
+                onClick={handleTwoFactorToggle}
                 className={`relative inline-flex h-6 w-11 items-center rounded-full transition-colors ${
                   twoFactorEnabled ? 'bg-brand-600' : 'bg-gray-300'
                 }`}
@@ -335,6 +434,151 @@ export default function SecuritySettings() {
               </button>
             </div>
           </div>
+
+          {/* 2FA Methods - Show when 2FA is enabled OR setup flow is active */}
+          {(twoFactorEnabled || showSetupFlow) && (
+            <div className="mt-6 space-y-4">
+              <div>
+                <h4 className="mb-2 text-sm font-medium text-gray-900">
+                  {twoFactorEnabled
+                    ? 'Two-factor authentication methods'
+                    : 'Choose your verification methods'}
+                </h4>
+                <p className="mb-4 text-sm text-gray-500">
+                  {twoFactorEnabled
+                    ? 'Manage your two-step verification methods.'
+                    : 'Select one or both methods to secure your account. You can add more methods later.'}
+                </p>
+              </div>
+
+              {/* TOTP Card */}
+              <div
+                className={`rounded-lg border p-4 shadow-sm ${
+                  totpEnabled
+                    ? 'border-success-200 bg-success-50'
+                    : 'border-gray-200 bg-white'
+                }`}
+              >
+                <div className="flex items-center justify-between">
+                  <div className="flex items-center space-x-3">
+                    <div
+                      className={`flex h-10 w-10 items-center justify-center rounded-lg ${
+                        totpEnabled ? 'bg-success-100' : 'bg-brand-50'
+                      }`}
+                    >
+                      <i
+                        className={`pi pi-mobile ${
+                          totpEnabled ? 'text-success-600' : 'text-brand-600'
+                        }`}
+                      ></i>
+                    </div>
+                    <div className="flex-1">
+                      <h5 className="text-sm font-medium text-gray-900">
+                        Authenticator App (TOTP)
+                      </h5>
+                      <p className="text-sm text-gray-500">
+                        Use Passwords, 1Password, Google Authenticator, or
+                        similar apps
+                      </p>
+                    </div>
+                  </div>
+                  <div className="flex items-center space-x-3">
+                    {totpEnabled && (
+                      <span className="inline-flex items-center rounded-full bg-success-100 px-2.5 py-0.5 text-xs font-medium text-success-800">
+                        Active
+                      </span>
+                    )}
+                    {!totpEnabled ? (
+                      <Button
+                        label="Set up"
+                        size="small"
+                        outlined
+                        onClick={setupTOTP}
+                      />
+                    ) : (
+                      <button
+                        onClick={handleTotpToggle}
+                        className={`relative inline-flex h-6 w-11 items-center rounded-full bg-brand-600 transition-colors`}
+                      >
+                        <span className="inline-block h-4 w-4 translate-x-6 transform rounded-full bg-white transition-transform" />
+                      </button>
+                    )}
+                  </div>
+                </div>
+              </div>
+
+              {/* Email Card */}
+              <div
+                className={`rounded-lg border p-4 shadow-sm ${
+                  emailTwoFactorEnabled
+                    ? 'border-success-200 bg-success-50'
+                    : 'border-gray-200 bg-white'
+                }`}
+              >
+                <div className="flex items-center justify-between">
+                  <div className="flex items-center space-x-3">
+                    <div
+                      className={`flex h-10 w-10 items-center justify-center rounded-lg ${
+                        emailTwoFactorEnabled ? 'bg-success-100' : 'bg-brand-50'
+                      }`}
+                    >
+                      <i
+                        className={`pi pi-envelope ${
+                          emailTwoFactorEnabled
+                            ? 'text-success-600'
+                            : 'text-brand-600'
+                        }`}
+                      ></i>
+                    </div>
+                    <div className="flex-1">
+                      <h5 className="text-sm font-medium text-gray-900">
+                        Email Verification
+                      </h5>
+                      <p className="text-sm text-gray-500">
+                        Receive verification codes via email
+                      </p>
+                    </div>
+                  </div>
+                  <div className="flex items-center space-x-3">
+                    {emailTwoFactorEnabled && (
+                      <span className="inline-flex items-center rounded-full bg-success-100 px-2.5 py-0.5 text-xs font-medium text-success-800">
+                        Active
+                      </span>
+                    )}
+                    {!emailTwoFactorEnabled ? (
+                      <Button
+                        label="Set up"
+                        size="small"
+                        outlined
+                        onClick={setupEmail2FA}
+                      />
+                    ) : (
+                      <button
+                        onClick={handleEmailTwoFactorToggle}
+                        className={`relative inline-flex h-6 w-11 items-center rounded-full bg-brand-600 transition-colors`}
+                      >
+                        <span className="inline-block h-4 w-4 translate-x-6 transform rounded-full bg-white transition-transform" />
+                      </button>
+                    )}
+                  </div>
+                </div>
+              </div>
+
+              {/* Cancel button - only show during setup flow when no 2FA is enabled */}
+              {!twoFactorEnabled && showSetupFlow && (
+                <div className="flex justify-end">
+                  <Button
+                    label="Cancel"
+                    size="small"
+                    text
+                    severity="secondary"
+                    className="p-button-outlined px-4 py-2 text-sm"
+                    onClick={() => setShowSetupFlow(false)}
+                  />
+                </div>
+              )}
+            </div>
+          )}
         </div>
 
         {/* Browser and Devices Sessions */}
@@ -417,6 +661,27 @@ export default function SecuritySettings() {
           </div>
         </div>
       </div>
+
+      {/* TOTP Setup Modal */}
+      <TotpSetupModal
+        visible={showTotpModal}
+        onHide={() => setShowTotpModal(false)}
+        setupData={totpSetupData}
+      />
+
+      {/* Backup Codes Modal */}
+      <BackupCodesModal
+        visible={showBackupCodesModal}
+        onHide={() => setShowBackupCodesModal(false)}
+        backupCodes={backupCodes}
+      />
+
+      {/* Email Two-Factor Setup Modal */}
+      <EmailTwoFactorSetupModal
+        visible={showEmailTwoFactorModal}
+        onHide={() => setShowEmailTwoFactorModal(false)}
+        userEmail={loggedInUser?.email}
+      />
     </>
   )
 }

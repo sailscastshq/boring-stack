@@ -1,0 +1,62 @@
+<!-- Main content -->
+<div style="text-align: center;">
+  <h1 style="margin: 0 0 16px; font-size: 32px; font-weight: 800; color: #0f172a; line-height: 1.2; letter-spacing: -0.5px;">
+    Email Verification Code
+  </h1>
+  
+  <p style="margin: 0 0 40px; font-size: 18px; color: #475569; line-height: 1.6; max-width: 480px; margin-left: auto; margin-right: auto;">
+    Hi <strong><%= fullName %></strong>, you're setting up email-based two-factor authentication for your account. Please use the verification code below to complete the setup.
+  </p>
+
+  <!-- Verification Code Display -->
+  <div style="margin: 0 auto 40px; background: linear-gradient(135deg, #f8fafc 0%, #f1f5f9 100%); border: 2px solid #e2e8f0; border-radius: 16px; padding: 32px; max-width: 300px;">
+    <p style="margin: 0 0 12px; font-size: 14px; color: #64748b; font-weight: 600; text-transform: uppercase; letter-spacing: 0.5px;">
+      Your Verification Code
+    </p>
+    <div style="font-family: 'SF Mono', 'Monaco', 'Inconsolata', 'Roboto Mono', monospace; font-size: 36px; font-weight: 700; color: #1e40af; letter-spacing: 8px; text-align: center; padding: 16px 24px; background: white; border-radius: 12px; border: 1px solid #cbd5e1; margin: 0 auto;">
+      <%= verificationCode %>
+    </div>
+  </div>
+
+  <p style="margin: 0 0 32px; font-size: 14px; color: #64748b; line-height: 1.5;">
+    This verification code expires in <strong>10 minutes</strong>.
+  </p>
+
+  <!-- Security notice -->
+  <div style="padding: 24px; background-color: #fef3c7; border-radius: 12px; border: 1px solid #f59e0b; margin: 32px 0; text-align: left;">
+    <div style="display: flex; align-items: flex-start; gap: 12px;">
+      <div style="flex-shrink: 0; width: 20px; height: 20px; margin-top: 2px;">
+        <svg width="20" height="20" fill="#f59e0b" viewBox="0 0 24 24">
+          <path d="M12 9v2m0 4h.01M12 3a9 9 0 100 18 9 9 0 000-18z"/>
+        </svg>
+      </div>
+      <div>
+        <p style="margin: 0 0 8px; font-size: 14px; color: #92400e; font-weight: 600;">
+          Security Notice
+        </p>
+        <p style="margin: 0; font-size: 14px; color: #92400e; line-height: 1.5;">
+          Never share this code with anyone. Ascent support will never ask for your verification codes.
+        </p>
+      </div>
+    </div>
+  </div>
+
+  <!-- What happens next -->
+  <div style="margin-top: 40px; padding: 20px; background-color: #f0f9ff; border: 1px solid #0ea5e9; border-radius: 12px; text-align: left;">
+    <div style="display: flex; align-items: flex-start; gap: 12px;">
+      <div style="flex-shrink: 0; width: 20px; height: 20px; margin-top: 2px;">
+        <svg width="20" height="20" fill="#0ea5e9" viewBox="0 0 24 24">
+          <path d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/>
+        </svg>
+      </div>
+      <div>
+        <p style="margin: 0 0 8px; font-size: 14px; color: #0c4a6e; font-weight: 600;">
+          What's Next?
+        </p>
+        <p style="margin: 0; font-size: 14px; color: #0c4a6e; line-height: 1.5;">
+          Enter this code in your security settings to complete email 2FA setup. Once enabled, you'll receive similar codes when logging in.
+        </p>
+      </div>
+    </div>
+  </div>
+</div>

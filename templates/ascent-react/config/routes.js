@@ -62,7 +62,7 @@ module.exports.routes = {
   'POST /security/setup-totp': 'security/setup-totp',
   'POST /security/verify-totp-setup': 'security/verify-totp-setup',
   'POST /security/setup-email-2fa': 'security/setup-email-2fa',
-  'POST /security/verify-email-2fa': 'security/verify-email-2fa',
+  'POST /security/verify-email-2fa-setup': 'security/verify-email-2fa-setup',
   'POST /security/disable-2fa': 'security/disable-2fa',
   'POST /security/generate-backup-codes': 'security/generate-backup-codes',
 
