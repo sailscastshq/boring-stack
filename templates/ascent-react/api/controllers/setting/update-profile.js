@@ -14,21 +14,6 @@ module.exports = {
       required: true,
       isEmail: true,
       description: 'The email address of the user.'
-    },
-    currentPassword: {
-      type: 'string',
-      description: 'The current password of the user.',
-      allowNull: true
-    },
-    password: {
-      type: 'string',
-      allowNull: true,
-      description: 'The new password of the user.'
-    },
-    confirmPassword: {
-      type: 'string',
-      description: 'The confirmation of the new password.',
-      allowNull: true
     }
   },
 
@@ -40,38 +25,17 @@ module.exports = {
     invalid: {
       responseType: 'badRequest',
       description: 'The provided inputs are invalid.'
-    },
-    unauthorized: {
-      responseType: 'inertiaRedirect',
-      description: 'The provided current password is incorrect.'
     }
   },
 
-  fn: async function ({
-    fullName,
-    email,
-    currentPassword,
-    password,
-    confirmPassword
-  }) {
+  fn: async function ({ fullName, email }) {
     const userId = this.req.session.userId
-    const user = await User.findOne({ id: userId }).select([
-      'password',
-      'email'
-    ])
-
-    if (currentPassword) {
-      await sails.helpers.passwords
-        .checkPassword(currentPassword, user.password)
-        .intercept('incorrect', () => {
-          delete this.req.session.userId
-          return { unauthorized: '/login' }
-        })
-    }
+    const user = await User.findOne({ id: userId }).select(['email'])
 
     const updatedData = {
       fullName
     }
+
     if (email !== user.email) {
       updatedData.emailChangeCandidate = email
       updatedData.emailStatus = 'change-requested'
@@ -90,17 +54,6 @@ module.exports = {
           token: emailProofToken
         }
       })
-    }
-
-    if (password) {
-      if (password !== confirmPassword) {
-        throw {
-          invalid: {
-            problems: [{ password: 'Password confirmation does not match.' }]
-          }
-        }
-      }
-      updatedData.password = password
     }
 
     await User.updateOne({ id: userId }).set(updatedData)
