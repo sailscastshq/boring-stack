@@ -22,6 +22,7 @@ module.exports.routes = {
   'POST /waitlist': 'home/join-waitlist',
   'GET /features': 'home/view-features',
   'GET /pricing': 'home/view-pricing',
+  'GET /contact': 'home/view-contact',
 
   'GET /signup': 'auth/view-signup',
   'POST /signup': 'auth/signup',
@@ -33,6 +34,10 @@ module.exports.routes = {
 
   'GET /login': 'auth/view-login',
   'POST /login': 'auth/login',
+
+  'GET /verify-2fa': 'auth/view-verify-2fa',
+  'POST /verify-2fa': 'auth/verify-2fa',
+  'POST /verify-2fa/send-email': 'auth/send-login-email-2fa',
 
   'POST /magic-link': 'auth/request-magic-link',
   'GET /magic-link/:token': 'auth/verify-magic-link',
