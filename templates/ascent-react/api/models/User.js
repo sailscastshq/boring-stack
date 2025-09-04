@@ -138,6 +138,58 @@ module.exports = {
       example: 1502844074211,
       columnName: 'magic_link_token_used_at',
       allowNull: true
+    },
+
+    //  ╔╦╗┬ ┬┌─┐  ╔═╗┌─┐┌─┐┌┬┐┌─┐┬─┐  ╔═╗┬ ┬┌┬┐┬ ┬┌─┐┌┐┌┌┬┐┬┌─┐┌─┐┌┬┐┬┌─┐┌┐┌
+    //  ║ ║││││ │  ╠╣ ├─┤│   │ │ │├┬┘  ╠═╣│ │ │ ├─┤├┤ │││ │ ││  ├─┤ │ ││ ││││
+    //  ╩ ╩└┴┘└─┘  ╚  ┴ ┴└─┘ ┴ └─┘┴└─  ╩ ╩└─┘ ┴ ┴ ┴└─┘┘└┘ ┴ ┴└─┘┴ ┴ ┴ ┴└─┘┘└┘
+    twoFactorEnabled: {
+      type: 'boolean',
+      defaultsTo: false,
+      description:
+        'Whether the user has any two-factor authentication methods enabled.',
+      columnName: 'two_factor_enabled'
+    },
+    totpSecret: {
+      type: 'string',
+      description:
+        'The base32 secret key for TOTP (Time-based One-Time Password) authentication.',
+      protect: true,
+      columnName: 'totp_secret',
+      allowNull: true
+    },
+    totpEnabled: {
+      type: 'boolean',
+      defaultsTo: false,
+      description:
+        'Whether TOTP (authenticator app) two-factor authentication is enabled.',
+      columnName: 'totp_enabled'
+    },
+    emailTwoFactorEnabled: {
+      type: 'boolean',
+      defaultsTo: false,
+      description: 'Whether email-based two-factor authentication is enabled.',
+      columnName: 'email_two_factor_enabled'
+    },
+    backupCodes: {
+      type: 'json',
+      description:
+        'Array of one-time backup codes for account recovery when 2FA is unavailable.',
+      columnName: 'backup_codes'
+    },
+    twoFactorVerificationCode: {
+      type: 'string',
+      description: 'Temporary storage for email-based 2FA verification codes.',
+      columnName: 'two_factor_verification_code',
+      allowNull: true
+    },
+    twoFactorVerificationCodeExpiresAt: {
+      type: 'number',
+      description:
+        'A JS timestamp (epoch ms) representing when the 2FA verification code expires.',
+      example: 1502844074211,
+      columnName: 'two_factor_verification_code_expires_at',
+      allowNull: true
     }
   },
   customToJSON: function () {
@@ -155,7 +207,11 @@ module.exports = {
           'emailProofTokenExpiresAt',
           'magicLinkToken',
           'magicLinkTokenExpiresAt',
-          'magicLinkTokenUsedAt'
+          'magicLinkTokenUsedAt',
+          'totpSecret',
+          'backupCodes',
+          'twoFactorVerificationCode',
+          'twoFactorVerificationCodeExpiresAt'
         ].includes(key)
       ) {
         result[key] = this[key]
