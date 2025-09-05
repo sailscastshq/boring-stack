@@ -89,6 +89,7 @@ export default function EmailTwoFactorSetupModal({
                 onChange={(e) => setData('code', e.value)}
                 length={6}
                 integerOnly
+                mask
               />
             </div>
           </div>

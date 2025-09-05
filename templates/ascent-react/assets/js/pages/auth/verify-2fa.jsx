@@ -126,6 +126,7 @@ export default function VerifyTwoFactor({ twoFactorMethods, userEmail }) {
                         onChange={(e) => setData('code', e.value)}
                         length={6}
                         integerOnly
+                        mask
                       />
                     </div>
                   </div>
@@ -142,6 +143,7 @@ export default function VerifyTwoFactor({ twoFactorMethods, userEmail }) {
                         onChange={(e) => setData('code', e.value)}
                         length={6}
                         integerOnly
+                        mask
                       />
                     </div>
                   </div>

@@ -139,6 +139,7 @@ export default function TotpSetupModal({ visible, onHide, setupData }) {
                   onChange={(e) => setData('token', e.value)}
                   length={6}
                   integerOnly
+                  mask
                 />
               </div>
               {errors.token && (
