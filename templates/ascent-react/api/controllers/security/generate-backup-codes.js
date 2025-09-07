@@ -1,37 +1,31 @@
 module.exports = {
   friendlyName: 'Generate backup codes',
-
   description: 'Generate new backup codes for 2FA recovery.',
-
   inputs: {},
-
   exits: {
     success: {
-      description: 'Backup codes generated successfully.',
-      outputType: 'ref'
+      responseType: 'redirect',
+      description: 'Backup codes generated successfully.'
     },
-    unauthorized: {
-      description: 'User is not authenticated.',
-      responseType: 'unauthorized'
-    },
-    forbidden: {
-      description: '2FA is not enabled for this user.',
-      responseType: 'forbidden'
+    badRequest: {
+      responseType: 'badRequest'
     }
   },
-
   fn: async function (inputs) {
-    // Ensure user is authenticated
-    if (!this.req.session.userId) {
-      throw 'unauthorized'
-    }
-
     const crypto = require('crypto')
-
     const user = await User.findOne({ id: this.req.session.userId })
 
     if (!user.twoFactorEnabled) {
-      throw 'forbidden'
+      throw {
+        badRequest: {
+          problems: [
+            {
+              generateBackupCodes:
+                'You must enable enable 2FA to generate backup codes'
+            }
+          ]
+        }
+      }
     }
 
     // Generate 8 backup codes (8 characters each)
@@ -41,7 +35,6 @@ module.exports = {
       backupCodes.push(code)
     }
 
-    // Store hashed backup codes
     const hashedCodes = []
     for (const code of backupCodes) {
       const hashed = await sails.helpers.passwords.hashPassword(code)
@@ -51,11 +44,7 @@ module.exports = {
     await User.updateOne({ id: user.id }).set({
       backupCodes: hashedCodes
     })
-
-    return {
-      codes: backupCodes,
-      message:
-        'New backup codes generated successfully. Save these codes in a secure place.'
-    }
+    this.req.session.backupCodes = backupCodes
+    return '/settings/security'
   }
 }
