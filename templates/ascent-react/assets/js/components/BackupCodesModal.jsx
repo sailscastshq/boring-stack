@@ -2,7 +2,12 @@ import { Dialog } from 'primereact/dialog'
 import { Button } from 'primereact/button'
 import { Message } from 'primereact/message'
 
-export default function BackupCodesModal({ visible, onHide, backupCodes }) {
+export default function BackupCodesModal({
+  visible,
+  onHide,
+  backupCodes,
+  context = 'setup'
+}) {
   function copyToClipboard(text) {
     navigator.clipboard.writeText(text)
   }
@@ -30,21 +35,28 @@ export default function BackupCodesModal({ visible, onHide, backupCodes }) {
         {/* Header */}
         <div className="text-center">
           <div className="mx-auto mb-4 flex h-12 w-12 items-center justify-center rounded-full bg-success-100">
-            <i className="pi pi-check text-xl text-success-600"></i>
+            <i className="pi pi-key text-xl text-success-600"></i>
           </div>
           <h2 className="mb-2 text-xl font-semibold text-gray-900">
-            Authenticator App Setup Complete!
+            {context === 'setup'
+              ? 'Authenticator App Setup Complete!'
+              : 'New Backup Codes Generated'}
           </h2>
           <p className="text-sm text-gray-600">
-            Save these backup codes in a secure place. You can use them to
-            access your account if you lose your authenticator device.
+            {context === 'setup'
+              ? 'Save these backup codes in a secure place. You can use them to access your account if you lose your authenticator device.'
+              : 'Your new backup codes are ready. Save them in a secure place - they replace any previous backup codes.'}
           </p>
         </div>
 
         {/* Important Notice */}
         <Message
           severity="warn"
-          text="Please save these codes now—they're shown only once."
+          text={
+            context === 'setup'
+              ? "Please save these codes now—they're shown only once."
+              : "Important: These new codes replace all previous backup codes. Save them now—they're shown only once."
+          }
           className="w-full"
         />
 
