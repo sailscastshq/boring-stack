@@ -5,6 +5,7 @@ import { Password } from 'primereact/password'
 import { InputText } from 'primereact/inputtext'
 import { ConfirmDialog } from 'primereact/confirmdialog'
 import { confirmDialog } from 'primereact/confirmdialog'
+import { Message } from 'primereact/message'
 import AppLayout from '@/layouts/AppLayout.jsx'
 import SettingsLayout from '@/layouts/SettingsLayout.jsx'
 import TotpSetupModal from '@/components/TotpSetupModal.jsx'
@@ -62,7 +63,7 @@ export default function SecuritySettings({
 
   function updatePassword(e) {
     e.preventDefault()
-    form.patch('/settings/update-password', {
+    form.patch('/security/update-password', {
       preserveScroll: true,
       preserveState: true,
       onSuccess: () => {
@@ -264,6 +265,13 @@ export default function SecuritySettings({
                       placeholder="Enter your current password"
                       className="w-full"
                     />
+                    {form.errors.currentPassword && (
+                      <Message
+                        severity="error"
+                        text={form.errors.currentPassword}
+                        className="mt-2"
+                      />
+                    )}
                   </div>
 
                   <div>
@@ -281,6 +289,13 @@ export default function SecuritySettings({
                       placeholder="Enter new password"
                       className="w-full"
                     />
+                    {form.errors.password && (
+                      <Message
+                        severity="error"
+                        text={form.errors.password}
+                        className="mt-2"
+                      />
+                    )}
                   </div>
 
                   <div>
@@ -300,12 +315,15 @@ export default function SecuritySettings({
                       placeholder="Confirm new password"
                       className="w-full"
                     />
+                    {form.errors.confirmPassword && (
+                      <Message
+                        severity="error"
+                        text={form.errors.confirmPassword}
+                        className="mt-2"
+                      />
+                    )}
                   </div>
                 </div>
-
-                {form.errors.password && (
-                  <p className="text-sm text-red-600">{form.errors.password}</p>
-                )}
 
                 <div className="flex flex-col space-y-3 pt-4 sm:flex-row sm:items-center sm:justify-between sm:space-y-0">
                   {form.recentlySuccessful && (
