@@ -58,12 +58,13 @@ module.exports.routes = {
   'PATCH /settings/profile': 'setting/update-profile',
   'DELETE /settings/profile': 'setting/delete-profile',
 
+  // Settings sub-pages
   'GET /settings/security': 'setting/view-security',
-  'PATCH /settings/update-password': 'security/update-password',
   'GET /settings/billing': 'setting/view-billing',
   'GET /settings/team': 'setting/view-team',
 
-  // 2FA Security routes
+  // Update password & 2FA Security routes
+  'PATCH /security/update-password': 'security/update-password',
   'POST /security/setup-totp': 'security/setup-totp',
   'POST /security/verify-totp-setup': 'security/verify-totp-setup',
   'POST /security/setup-email-2fa': 'security/setup-email-2fa',
@@ -79,6 +80,7 @@ module.exports.routes = {
 
   'DELETE /logout': 'user/logout',
 
+  // OAuth authentication routes
   'GET /auth/:provider/redirect': 'auth/redirect',
   'GET /auth/:provider/callback': 'auth/callback'
 }
