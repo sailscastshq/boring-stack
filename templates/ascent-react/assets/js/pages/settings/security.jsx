@@ -22,6 +22,7 @@ export default function SecuritySettings({
   loggedInUser,
   totpSetupData,
   backupCodes,
+  hasPassword,
   passwordLastUpdated,
   passwordStrength
 }) {
@@ -60,6 +61,11 @@ export default function SecuritySettings({
 
   const { post: generateBackupCodes, processing: generatingBackupCodes } =
     useForm({})
+  const { post: setupPassword, processing: settingUpPassword } = useForm({})
+  const { post: setupTotpForm, processing: settingUpTotp } = useForm({})
+  const { post: setupEmailForm, processing: settingUpEmail } = useForm({})
+  const { post: disableTwoFactorForm, processing: disablingTwoFactor } =
+    useForm({})
 
   function updatePassword(e) {
     e.preventDefault()
@@ -82,19 +88,25 @@ export default function SecuritySettings({
 
   function handleTwoFactorToggle() {
     if (!twoFactorEnabled) {
+      // Check if user has password before allowing 2FA setup
+      if (!hasPassword) return // Should be disabled anyway
       // User wants to enable 2FA - show setup flow with individual method cards
       setShowSetupFlow(true)
     } else {
       // User wants to disable all 2FA methods
-      router.post('/security/disable-2fa', {
-        preserveScroll: true,
-        onSuccess: () => {
-          setShowSetupFlow(false)
-        },
-        onError: (errors) => {
-          console.error('2FA disable failed:', errors)
+      disableTwoFactorForm(
+        '/security/disable-2fa',
+        {},
+        {
+          preserveScroll: true,
+          onSuccess: () => {
+            setShowSetupFlow(false)
+          },
+          onError: (errors) => {
+            console.error('2FA disable failed:', errors)
+          }
         }
-      })
+      )
     }
   }
 
@@ -135,7 +147,9 @@ export default function SecuritySettings({
   }
 
   function setupTOTP() {
-    router.post(
+    if (!hasPassword) return // Should be disabled anyway, but extra safety
+
+    setupTotpForm(
       '/security/setup-totp',
       {},
       {
@@ -148,7 +162,9 @@ export default function SecuritySettings({
   }
 
   function setupEmail2FA() {
-    router.post(
+    if (!hasPassword) return // Should be disabled anyway, but extra safety
+
+    setupEmailForm(
       '/security/setup-email-2fa',
       {},
       {
@@ -172,6 +188,22 @@ export default function SecuritySettings({
     })
   }
 
+  function handleSetupPassword() {
+    // Use the forgot-password flow to let user set a password
+    setupPassword(
+      '/forgot-password',
+      { email: loggedInUser.email },
+      {
+        onSuccess: () => {
+          // Show success message that email was sent
+        },
+        onError: (errors) => {
+          console.error('Password setup email failed:', errors)
+        }
+      }
+    )
+  }
+
   return (
     <>
       <Head title="Security Settings | Ascent React"></Head>
@@ -183,12 +215,41 @@ export default function SecuritySettings({
           <div>
             <h3 className="mb-4 text-sm font-medium text-gray-900">Password</h3>
             <p className="mb-6 text-sm text-gray-500">
-              Set a strong password to protect your account.
+              {hasPassword
+                ? 'Set a strong password to protect your account.'
+                : 'Set up a password to enable two-factor authentication and enhance your account security.'}
             </p>
           </div>
 
           <div className="rounded-lg border border-gray-200 bg-white p-4 shadow-sm sm:p-6">
-            {!showPasswordForm ? (
+            {!hasPassword ? (
+              // No Password State - Show Setup Option
+              <div className="flex flex-col space-y-4 sm:flex-row sm:items-center sm:justify-between sm:space-y-0">
+                <div className="flex items-center space-x-3 sm:space-x-4">
+                  <div className="flex h-10 w-10 flex-shrink-0 items-center justify-center rounded-lg bg-orange-50">
+                    <i className="pi pi-lock text-orange-600"></i>
+                  </div>
+                  <div className="flex-1">
+                    <h4 className="text-sm font-medium text-gray-900">
+                      You don't have a password set
+                    </h4>
+                    <p className="mt-1 text-sm text-gray-500">
+                      Set one up to enable two-factor authentication
+                    </p>
+                  </div>
+                </div>
+                <div className="flex justify-end sm:ml-4">
+                  <Button
+                    label={settingUpPassword ? 'Sending email...' : 'Set up'}
+                    size="small"
+                    outlined
+                    loading={settingUpPassword}
+                    disabled={settingUpPassword}
+                    onClick={handleSetupPassword}
+                  />
+                </div>
+              </div>
+            ) : !showPasswordForm ? (
               // Password Display View
               <div className="flex flex-col space-y-4 sm:flex-row sm:items-center sm:justify-between sm:space-y-0">
                 <div className="flex items-center space-x-3 sm:space-x-4">
@@ -402,9 +463,21 @@ export default function SecuritySettings({
               </div>
               <button
                 onClick={handleTwoFactorToggle}
-                className={`relative inline-flex h-6 w-11 items-center rounded-full transition-colors ${
-                  twoFactorEnabled ? 'bg-brand-600' : 'bg-gray-300'
+                disabled={
+                  (!hasPassword && !twoFactorEnabled) || disablingTwoFactor
+                }
+                className={`relative inline-flex h-6 w-11 items-center rounded-full transition-colors disabled:cursor-not-allowed disabled:opacity-50 ${
+                  twoFactorEnabled
+                    ? 'bg-brand-600'
+                    : !hasPassword
+                    ? 'bg-gray-200'
+                    : 'bg-gray-300'
                 }`}
+                title={
+                  !hasPassword && !twoFactorEnabled
+                    ? 'Set up a password first'
+                    : undefined
+                }
               >
                 <span
                   className={`inline-block h-4 w-4 transform rounded-full bg-white transition-transform ${
@@ -470,10 +543,15 @@ export default function SecuritySettings({
                     )}
                     {!totpEnabled ? (
                       <Button
-                        label="Set up"
+                        label={settingUpTotp ? 'Setting up...' : 'Set up'}
                         size="small"
                         outlined
+                        loading={settingUpTotp}
+                        disabled={!hasPassword || settingUpTotp}
                         onClick={setupTOTP}
+                        tooltip={
+                          !hasPassword ? 'Set up a password first' : undefined
+                        }
                       />
                     ) : (
                       <button
@@ -527,10 +605,15 @@ export default function SecuritySettings({
                     )}
                     {!emailTwoFactorEnabled ? (
                       <Button
-                        label="Set up"
+                        label={settingUpEmail ? 'Setting up...' : 'Set up'}
                         size="small"
                         outlined
+                        loading={settingUpEmail}
+                        disabled={!hasPassword || settingUpEmail}
                         onClick={setupEmail2FA}
+                        tooltip={
+                          !hasPassword ? 'Set up a password first' : undefined
+                        }
                       />
                     ) : (
                       <button

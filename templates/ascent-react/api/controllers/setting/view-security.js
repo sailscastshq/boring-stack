@@ -15,6 +15,7 @@ module.exports = {
 
     // Get current user to access password info
     const user = await User.findOne({ id: this.req.session.userId })
+    const hasPassword = !!user.password
     const passwordLastUpdated = user.passwordUpdatedAt
       ? await sails.helpers.formatRelativeDate(user.passwordUpdatedAt)
       : 'Unknown'
@@ -36,6 +37,7 @@ module.exports = {
       props: {
         totpSetupData,
         backupCodes,
+        hasPassword,
         passwordLastUpdated,
         passwordStrength
       }
