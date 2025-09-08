@@ -46,11 +46,17 @@ export default function SecuritySettings({
     }
   }, [backupCodes])
 
+  // Determine backup codes context based on whether TOTP setup data is present
+  const backupCodesContext = totpSetupData ? 'setup' : 'regenerate'
+
   const { data, setData, ...form } = useForm({
     currentPassword: '',
     password: '',
     confirmPassword: ''
   })
+
+  const { post: generateBackupCodes, processing: generatingBackupCodes } =
+    useForm({})
 
   const [sessions, setSessions] = useState([
     {
@@ -217,6 +223,15 @@ export default function SecuritySettings({
         }
       }
     )
+  }
+
+  function handleGenerateBackupCodes() {
+    generateBackupCodes('/security/generate-backup-codes', {
+      preserveScroll: true,
+      onError: (errors) => {
+        console.error('Backup codes generation failed:', errors)
+      }
+    })
   }
 
   return (
@@ -564,6 +579,42 @@ export default function SecuritySettings({
                 </div>
               </div>
 
+              {/* Backup Codes Section - only show when 2FA is enabled */}
+              {twoFactorEnabled && (
+                <div className="rounded-lg border border-gray-200 bg-white p-4 shadow-sm">
+                  <div className="flex items-center justify-between">
+                    <div className="flex items-center space-x-3">
+                      <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-orange-50">
+                        <i className="pi pi-key text-orange-600"></i>
+                      </div>
+                      <div className="flex-1">
+                        <h5 className="text-sm font-medium text-gray-900">
+                          Backup Recovery Codes
+                        </h5>
+                        <p className="text-sm text-gray-500">
+                          Generate backup codes to access your account if you
+                          lose your 2FA device
+                        </p>
+                      </div>
+                    </div>
+                    <div className="flex items-center space-x-3">
+                      <Button
+                        label={
+                          generatingBackupCodes
+                            ? 'Generating...'
+                            : 'Generate codes'
+                        }
+                        size="small"
+                        outlined
+                        loading={generatingBackupCodes}
+                        disabled={generatingBackupCodes}
+                        onClick={handleGenerateBackupCodes}
+                      />
+                    </div>
+                  </div>
+                </div>
+              )}
+
               {/* Cancel button - only show during setup flow when no 2FA is enabled */}
               {!twoFactorEnabled && showSetupFlow && (
                 <div className="flex justify-end">
@@ -674,6 +725,7 @@ export default function SecuritySettings({
         visible={showBackupCodesModal}
         onHide={() => setShowBackupCodesModal(false)}
         backupCodes={backupCodes}
+        context={backupCodesContext}
       />
 
       {/* Email Two-Factor Setup Modal */}
