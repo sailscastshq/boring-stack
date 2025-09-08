@@ -103,14 +103,23 @@ export default function VerifyTwoFactor({ twoFactorMethods, userEmail }) {
 
             {/* Main card */}
             <div className="relative rounded-2xl border border-gray-100 bg-white px-8 py-10 shadow-2xl">
-              {/* Global error */}
-              {errors.method && (
+              {/* Global errors */}
+              {(errors.method || errors.code) && (
                 <section className="mb-6">
-                  <Message
-                    severity="error"
-                    text={errors.method}
-                    className="w-full"
-                  />
+                  {errors.method && (
+                    <Message
+                      severity="error"
+                      text={errors.method}
+                      className="w-full mb-3"
+                    />
+                  )}
+                  {errors.code && (
+                    <Message
+                      severity="error"
+                      text={errors.code}
+                      className="w-full"
+                    />
+                  )}
                 </section>
               )}
 
@@ -149,17 +158,42 @@ export default function VerifyTwoFactor({ twoFactorMethods, userEmail }) {
                   </div>
                 )}
 
-                {errors.code && <Message severity="error" text={errors.code} />}
+                {activeMethod === 'backup' && (
+                  <div>
+                    <label className="mb-4 block text-center text-sm font-medium text-gray-700">
+                      Enter a backup recovery code
+                    </label>
+                    <div className="flex justify-center">
+                      <InputOtp
+                        value={data.code}
+                        onChange={(e) => setData('code', e.value.toUpperCase())}
+                        length={8}
+                        mask
+                      />
+                    </div>
+                    <p className="mt-3 text-center text-xs text-gray-500">
+                      Each backup code can only be used once
+                    </p>
+                  </div>
+                )}
 
                 {/* Submit button - always visible like login page */}
                 <div className="pt-2">
                   <button
                     type="submit"
                     disabled={
-                      processing || !data.code || String(data.code).length !== 6
+                      processing ||
+                      !data.code ||
+                      (activeMethod === 'backup'
+                        ? String(data.code).length !== 8
+                        : String(data.code).length !== 6)
                     }
                     className={`flex w-full justify-center rounded-xl px-8 py-4 text-lg font-bold text-white shadow-lg transition-all duration-200 hover:scale-[1.02] hover:shadow-xl disabled:cursor-not-allowed disabled:opacity-50 disabled:hover:scale-100 ${
-                      processing || !data.code || String(data.code).length !== 6
+                      processing ||
+                      !data.code ||
+                      (activeMethod === 'backup'
+                        ? String(data.code).length !== 8
+                        : String(data.code).length !== 6)
                         ? 'bg-gray-300'
                         : 'bg-gradient-to-r from-brand-600 to-accent-600 hover:from-brand-700 hover:to-accent-700 focus:outline-none focus:ring-2 focus:ring-brand-500 focus:ring-offset-2'
                     }`}
@@ -193,31 +227,69 @@ export default function VerifyTwoFactor({ twoFactorMethods, userEmail }) {
                   </button>
                 </div>
 
-                {/* Method switching like login page */}
-                {((activeMethod === 'totp' && twoFactorMethods.email) ||
-                  (activeMethod === 'email' && twoFactorMethods.totp)) && (
-                  <div className="text-center">
-                    {activeMethod === 'totp' && twoFactorMethods.email && (
-                      <button
-                        type="button"
-                        onClick={() => handleSwitchMethod('email')}
-                        className="text-sm font-medium text-gray-600 underline underline-offset-2 transition-colors hover:text-brand-600"
-                      >
-                        Get the code via email instead
-                      </button>
-                    )}
+                {/* Method switching */}
+                <div className="text-center space-y-3">
+                  {/* Primary method alternatives */}
+                  {activeMethod !== 'backup' && (
+                    <>
+                      {((activeMethod === 'totp' && twoFactorMethods.email) ||
+                        (activeMethod === 'email' &&
+                          twoFactorMethods.totp)) && (
+                        <div>
+                          {activeMethod === 'totp' &&
+                            twoFactorMethods.email && (
+                              <button
+                                type="button"
+                                onClick={() => handleSwitchMethod('email')}
+                                className="text-sm font-medium text-gray-600 underline underline-offset-2 transition-colors hover:text-brand-600"
+                              >
+                                Get the code via email instead
+                              </button>
+                            )}
 
-                    {activeMethod === 'email' && twoFactorMethods.totp && (
-                      <button
-                        type="button"
-                        onClick={() => handleSwitchMethod('totp')}
-                        className="text-sm font-medium text-gray-600 underline underline-offset-2 transition-colors hover:text-brand-600"
-                      >
-                        Use authenticator app instead
-                      </button>
-                    )}
-                  </div>
-                )}
+                          {activeMethod === 'email' &&
+                            twoFactorMethods.totp && (
+                              <button
+                                type="button"
+                                onClick={() => handleSwitchMethod('totp')}
+                                className="text-sm font-medium text-gray-600 underline underline-offset-2 transition-colors hover:text-brand-600"
+                              >
+                                Use authenticator app instead
+                              </button>
+                            )}
+                        </div>
+                      )}
+
+                      {/* Backup code option - always available */}
+                      <div>
+                        <button
+                          type="button"
+                          onClick={() => handleSwitchMethod('backup')}
+                          className="text-sm font-medium text-gray-600 underline underline-offset-2 transition-colors hover:text-brand-600"
+                        >
+                          Use backup code
+                        </button>
+                      </div>
+                    </>
+                  )}
+
+                  {/* Back from backup code */}
+                  {activeMethod === 'backup' && (
+                    <button
+                      type="button"
+                      onClick={() =>
+                        handleSwitchMethod(twoFactorMethods.defaultMethod)
+                      }
+                      className="text-sm font-medium text-gray-600 underline underline-offset-2 transition-colors hover:text-brand-600"
+                    >
+                      Use{' '}
+                      {twoFactorMethods.defaultMethod === 'totp'
+                        ? 'authenticator app'
+                        : 'email code'}{' '}
+                      instead
+                    </button>
+                  )}
+                </div>
               </form>
             </div>
           </div>
