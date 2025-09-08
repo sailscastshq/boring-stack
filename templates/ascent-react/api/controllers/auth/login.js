@@ -1,8 +1,6 @@
 module.exports = {
   friendlyName: 'Login',
-
   description: 'Log in using the provided email and password combination.',
-
   extendedDescription: `This action attempts to look up the user record in the database with the
 specified email address.  Then, if such a user exists, it uses
 bcrypt to compare the hashed password from the database with the provided
@@ -15,14 +13,12 @@ password attempt.`,
       isEmail: true,
       required: true
     },
-
     password: {
       description:
         'The unencrypted password to try in this attempt, e.g. "passwordlol".',
       type: 'string',
       required: true
     },
-
     rememberMe: {
       description: "Whether to extend the lifetime of the user's session.",
       type: 'boolean'
