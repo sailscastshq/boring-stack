@@ -1,3 +1,4 @@
+import { useState, useEffect } from 'react'
 import { Dialog } from 'primereact/dialog'
 import { Button } from 'primereact/button'
 import { Message } from 'primereact/message'
@@ -8,9 +9,27 @@ export default function BackupCodesModal({
   backupCodes,
   context = 'setup'
 }) {
+  const [copied, setCopied] = useState(false)
+
   function copyToClipboard(text) {
-    navigator.clipboard.writeText(text)
+    navigator.clipboard
+      .writeText(text)
+      .then(() => {
+        setCopied(true)
+        // Reset after 2 seconds
+        setTimeout(() => setCopied(false), 2000)
+      })
+      .catch((err) => {
+        console.error('Failed to copy:', err)
+      })
   }
+
+  // Reset copied state when modal opens/closes
+  useEffect(() => {
+    if (visible) {
+      setCopied(false)
+    }
+  }, [visible])
 
   function handleSavedCodes() {
     onHide()
@@ -67,13 +86,17 @@ export default function BackupCodesModal({
               Your backup codes
             </h3>
             <Button
-              icon="pi pi-copy"
+              icon={copied ? 'pi pi-check' : 'pi pi-copy'}
               text
               size="small"
               onClick={() => copyToClipboard(backupCodes.join('\n'))}
-              tooltip="Copy all codes"
+              tooltip={copied ? 'Copied!' : 'Copy all codes'}
               tooltipOptions={{ position: 'left' }}
-              className="text-gray-500 hover:text-gray-700"
+              className={
+                copied
+                  ? 'text-success-600 hover:text-success-700'
+                  : 'text-gray-500 hover:text-gray-700'
+              }
             />
           </div>
           <div className="grid grid-cols-2 gap-4">
