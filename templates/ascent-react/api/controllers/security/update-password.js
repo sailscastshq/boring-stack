@@ -20,7 +20,7 @@ module.exports = {
   },
   exits: {
     success: {
-      responseType: 'redirect',
+      responseType: 'inertiaRedirect',
       description: 'Password updated successfully.'
     },
     invalid: {
