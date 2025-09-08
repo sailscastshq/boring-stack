@@ -20,7 +20,8 @@ SecuritySettings.layout = (page) => (
 export default function SecuritySettings({
   loggedInUser,
   totpSetupData,
-  backupCodes
+  backupCodes,
+  passwordLastUpdated
 }) {
   const [showPasswordForm, setShowPasswordForm] = useState(false)
   const [showSetupFlow, setShowSetupFlow] = useState(false)
@@ -58,54 +59,6 @@ export default function SecuritySettings({
   const { post: generateBackupCodes, processing: generatingBackupCodes } =
     useForm({})
 
-  const [sessions, setSessions] = useState([
-    {
-      id: 1,
-      device: 'Safari on Mac OS X',
-      location: 'Melbourne, Australia',
-      lastActive: 'Current session',
-      isCurrent: true,
-      icon: 'pi pi-globe',
-      browserIcon: '🌐'
-    },
-    {
-      id: 2,
-      device: "Sienna's MacBook Pro",
-      location: 'Melbourne, Australia',
-      lastActive: '1 day ago',
-      isCurrent: false,
-      icon: 'pi pi-desktop',
-      browserIcon: '💻'
-    },
-    {
-      id: 3,
-      device: 'Safari on Mac OS X',
-      location: 'Melbourne, Australia',
-      lastActive: '1 month ago',
-      isCurrent: false,
-      icon: 'pi pi-globe',
-      browserIcon: '🌐'
-    },
-    {
-      id: 4,
-      device: "Sienna's MacBook Pro",
-      location: 'Melbourne, Australia',
-      lastActive: '1 month ago',
-      isCurrent: false,
-      icon: 'pi pi-desktop',
-      browserIcon: '💻'
-    },
-    {
-      id: 5,
-      device: 'Brave on Mac OS X',
-      location: 'Melbourne, Australia',
-      lastActive: '1 month ago',
-      isCurrent: false,
-      icon: 'pi pi-shield',
-      browserIcon: '🦁'
-    }
-  ])
-
   function updatePassword(e) {
     e.preventDefault()
     form.patch('/settings/update-password', {
@@ -121,23 +74,6 @@ export default function SecuritySettings({
       },
       onError: (errors) => {
         console.error('Password update failed:', errors)
-      }
-    })
-  }
-
-  function revokeSession(sessionId, deviceName) {
-    confirmDialog({
-      message: `This device will be automatically logged out.`,
-      header: `"${deviceName}" removed`,
-      icon: 'pi pi-check-circle',
-      acceptClassName: 'p-button-success',
-      acceptLabel: 'Undo',
-      rejectLabel: 'Dismiss',
-      accept: () => {
-        console.log('Undo removal')
-      },
-      reject: () => {
-        setSessions(sessions.filter((session) => session.id !== sessionId))
       }
     })
   }
@@ -268,7 +204,7 @@ export default function SecuritySettings({
                       </span>
                     </div>
                     <p className="mt-1 text-sm text-gray-500">
-                      Last updated 3 months ago
+                      Last updated {passwordLastUpdated}
                     </p>
                   </div>
                 </div>
@@ -630,86 +566,6 @@ export default function SecuritySettings({
               )}
             </div>
           )}
-        </div>
-
-        {/* Browser and Devices Sessions */}
-        <div className="space-y-6">
-          <div>
-            <h3 className="mb-4 text-sm font-medium text-gray-900">
-              Active sessions
-            </h3>
-            <p className="mb-6 text-sm text-gray-500">
-              These browsers and devices are currently signed in to your
-              account. Remove any unauthorized devices.
-            </p>
-          </div>
-
-          <div className="space-y-3">
-            {sessions.map((session) => (
-              <div
-                key={session.id}
-                className={`rounded-lg border p-4 shadow-sm transition-colors ${
-                  session.isCurrent
-                    ? 'border-brand-200 bg-brand-50'
-                    : 'border-gray-200 bg-white hover:border-gray-300'
-                }`}
-              >
-                <div className="flex items-center justify-between">
-                  <div className="flex items-center space-x-4">
-                    <div
-                      className={`flex h-10 w-10 items-center justify-center rounded-lg ${
-                        session.isCurrent ? 'bg-brand-100' : 'bg-gray-50'
-                      }`}
-                    >
-                      <i
-                        className={`${session.icon} ${
-                          session.isCurrent ? 'text-brand-600' : 'text-gray-400'
-                        }`}
-                      ></i>
-                    </div>
-                    <div className="flex-1">
-                      <div className="flex items-center space-x-2">
-                        <h4 className="text-sm font-medium text-gray-900">
-                          {session.device}
-                        </h4>
-                        {session.isCurrent && (
-                          <span className="inline-flex items-center rounded-full bg-brand-100 px-2 py-0.5 text-xs font-medium text-brand-800">
-                            <i className="pi pi-circle-fill mr-1 text-brand-600"></i>
-                            Current
-                          </span>
-                        )}
-                      </div>
-                      <div className="mt-1 flex items-center space-x-3 text-sm text-gray-500">
-                        <span className="flex items-center">
-                          <i className="pi pi-map-marker mr-1"></i>
-                          {session.location}
-                        </span>
-                        <span className="flex items-center">
-                          <i className="pi pi-clock mr-1"></i>
-                          {session.lastActive}
-                        </span>
-                      </div>
-                    </div>
-                  </div>
-                  <div className="flex items-center space-x-3">
-                    {!session.isCurrent && (
-                      <Button
-                        onClick={() =>
-                          revokeSession(session.id, session.device)
-                        }
-                        size="small"
-                        severity="danger"
-                        icon="pi pi-times"
-                        tooltip="Remove device"
-                        text
-                        tooltipOptions={{ position: 'left' }}
-                      />
-                    )}
-                  </div>
-                </div>
-              </div>
-            ))}
-          </div>
         </div>
       </div>
 

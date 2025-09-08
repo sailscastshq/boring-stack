@@ -54,6 +54,14 @@ module.exports = {
       minLength: 8,
       example: '$2a$12$ymX0WdZU9vc0nM3ftCxGn.6p3aIFvI4haSrr/Y8ByW2BfnzqI1M0y'
     },
+    passwordUpdatedAt: {
+      type: 'number',
+      description:
+        'A JS timestamp (epoch ms) representing when the password was last updated.',
+      example: 1502844074211,
+      columnName: 'password_updated_at',
+      allowNull: true
+    },
     passwordResetToken: {
       type: 'string',
       description:
@@ -226,6 +234,7 @@ module.exports = {
       valuesToSet.password = await sails.helpers.passwords.hashPassword(
         valuesToSet.password
       )
+      valuesToSet.passwordUpdatedAt = Date.now()
     }
     return proceed()
   },
@@ -234,6 +243,7 @@ module.exports = {
       valuesToSet.password = await sails.helpers.passwords.hashPassword(
         valuesToSet.password
       )
+      valuesToSet.passwordUpdatedAt = Date.now()
     }
     return proceed()
   }
