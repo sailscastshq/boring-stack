@@ -21,7 +21,8 @@ export default function SecuritySettings({
   loggedInUser,
   totpSetupData,
   backupCodes,
-  passwordLastUpdated
+  passwordLastUpdated,
+  passwordStrength
 }) {
   const [showPasswordForm, setShowPasswordForm] = useState(false)
   const [showSetupFlow, setShowSetupFlow] = useState(false)
@@ -198,9 +199,19 @@ export default function SecuritySettings({
                       <span className="font-mono text-sm text-gray-400">
                         ••••••••••••••
                       </span>
-                      <span className="inline-flex w-fit items-center rounded-full bg-success-100 px-2.5 py-0.5 text-xs font-medium text-success-800">
+                      <span
+                        className={`inline-flex w-fit items-center rounded-full px-2.5 py-0.5 text-xs font-medium ${
+                          passwordStrength.color === 'success'
+                            ? 'bg-success-100 text-success-800'
+                            : passwordStrength.color === 'warning'
+                            ? 'bg-warning-100 text-warning-800'
+                            : passwordStrength.color === 'danger'
+                            ? 'bg-red-100 text-red-800'
+                            : 'bg-gray-100 text-gray-800'
+                        }`}
+                      >
                         <i className="pi pi-shield mr-1"></i>
-                        Very secure
+                        {passwordStrength.label}
                       </span>
                     </div>
                     <p className="mt-1 text-sm text-gray-500">

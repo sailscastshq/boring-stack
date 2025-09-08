@@ -62,6 +62,11 @@ module.exports = {
       columnName: 'password_updated_at',
       allowNull: true
     },
+    passwordStrength: {
+      type: 'json',
+      description: 'Password strength analysis (score, label, color)',
+      columnName: 'password_strength'
+    },
     passwordResetToken: {
       type: 'string',
       description:
@@ -231,6 +236,16 @@ module.exports = {
   beforeCreate: async function (valuesToSet, proceed) {
     valuesToSet.initials = sails.helpers.getUserInitials(valuesToSet.fullName)
     if (valuesToSet.password) {
+      // Calculate password strength before hashing
+      const strength = await sails.helpers.calculatePasswordStrength(
+        valuesToSet.password
+      )
+      valuesToSet.passwordStrength = {
+        score: strength.score,
+        label: strength.label,
+        color: strength.color
+      }
+
       valuesToSet.password = await sails.helpers.passwords.hashPassword(
         valuesToSet.password
       )
@@ -240,6 +255,16 @@ module.exports = {
   },
   beforeUpdate: async function (valuesToSet, proceed) {
     if (valuesToSet.password) {
+      // Calculate password strength before hashing
+      const strength = await sails.helpers.calculatePasswordStrength(
+        valuesToSet.password
+      )
+      valuesToSet.passwordStrength = {
+        score: strength.score,
+        label: strength.label,
+        color: strength.color
+      }
+
       valuesToSet.password = await sails.helpers.passwords.hashPassword(
         valuesToSet.password
       )
