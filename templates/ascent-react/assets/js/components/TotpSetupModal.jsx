@@ -3,11 +3,14 @@ import { Dialog } from 'primereact/dialog'
 import { Button } from 'primereact/button'
 import { InputOtp } from 'primereact/inputotp'
 import { Message } from 'primereact/message'
+import { useCopyToClipboard } from '@/hooks/useCopyToClipboard'
 
 export default function TotpSetupModal({ visible, onHide, setupData }) {
   const { data, setData, post, processing, errors, reset } = useForm({
     token: ''
   })
+
+  const { copied, copyToClipboard } = useCopyToClipboard()
 
   function handleVerifyTOTP(e) {
     e.preventDefault()
@@ -26,10 +29,6 @@ export default function TotpSetupModal({ visible, onHide, setupData }) {
   function handleClose() {
     reset()
     onHide()
-  }
-
-  function copyToClipboard(text) {
-    navigator.clipboard.writeText(text)
   }
 
   // Don't render modal if no setup data
@@ -104,10 +103,15 @@ export default function TotpSetupModal({ visible, onHide, setupData }) {
                   {setupData.manualEntryKey}
                 </div>
                 <Button
-                  icon="pi pi-copy"
+                  icon={copied ? 'pi pi-check' : 'pi pi-copy'}
                   text
                   onClick={() => copyToClipboard(setupData.manualEntryKey)}
-                  tooltip="Copy code"
+                  tooltip={copied ? 'Copied!' : 'Copy code'}
+                  className={
+                    copied
+                      ? 'text-success-600 hover:text-success-700'
+                      : 'text-gray-500 hover:text-gray-700'
+                  }
                 />
               </div>
             </div>

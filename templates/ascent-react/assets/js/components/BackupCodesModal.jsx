@@ -1,7 +1,8 @@
-import { useState, useEffect } from 'react'
+import { useEffect } from 'react'
 import { Dialog } from 'primereact/dialog'
 import { Button } from 'primereact/button'
 import { Message } from 'primereact/message'
+import { useCopyToClipboard } from '@/hooks/useCopyToClipboard'
 
 export default function BackupCodesModal({
   visible,
@@ -9,27 +10,14 @@ export default function BackupCodesModal({
   backupCodes,
   context = 'setup'
 }) {
-  const [copied, setCopied] = useState(false)
-
-  function copyToClipboard(text) {
-    navigator.clipboard
-      .writeText(text)
-      .then(() => {
-        setCopied(true)
-        // Reset after 2 seconds
-        setTimeout(() => setCopied(false), 2000)
-      })
-      .catch((err) => {
-        console.error('Failed to copy:', err)
-      })
-  }
+  const { copied, copyToClipboard, reset } = useCopyToClipboard()
 
   // Reset copied state when modal opens/closes
   useEffect(() => {
     if (visible) {
-      setCopied(false)
+      reset()
     }
-  }, [visible])
+  }, [visible, reset])
 
   function handleSavedCodes() {
     onHide()

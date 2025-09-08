@@ -12,6 +12,7 @@ import { Message } from 'primereact/message'
 import { ConfirmDialog } from 'primereact/confirmdialog'
 import { confirmDialog } from 'primereact/confirmdialog'
 import { Menu } from 'primereact/menu'
+import { useCopyToClipboard } from '@/hooks/useCopyToClipboard'
 
 TeamSettings.layout = (page) => (
   <AppLayout>
@@ -30,6 +31,8 @@ export default function TeamSettings() {
   const { data, setData, post, processing, errors, reset } = useForm({
     emails: ''
   })
+
+  const { copied, copyToClipboard } = useCopyToClipboard()
 
   const teamMembers = [
     {
@@ -70,11 +73,6 @@ export default function TeamSettings() {
         setShowInviteForm(false)
       }
     })
-  }
-
-  function copyInviteLink() {
-    navigator.clipboard.writeText(inviteLink)
-    // You could show a toast notification here
   }
 
   function resetInviteLink() {
@@ -141,10 +139,15 @@ export default function TeamSettings() {
                   className="flex-1 text-sm"
                 />
                 <Button
-                  icon="pi pi-copy"
-                  onClick={copyInviteLink}
+                  icon={copied ? 'pi pi-check' : 'pi pi-copy'}
+                  onClick={() => copyToClipboard(inviteLink)}
                   size="small"
-                  tooltip="Copy link"
+                  tooltip={copied ? 'Copied!' : 'Copy link'}
+                  className={
+                    copied
+                      ? 'text-success-600 hover:text-success-700'
+                      : 'text-gray-500 hover:text-gray-700'
+                  }
                   text
                 />
               </div>
