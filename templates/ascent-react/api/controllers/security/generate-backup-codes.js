@@ -35,14 +35,8 @@ module.exports = {
       backupCodes.push(code)
     }
 
-    const hashedCodes = []
-    for (const code of backupCodes) {
-      const hashed = await sails.helpers.passwords.hashPassword(code)
-      hashedCodes.push(hashed)
-    }
-
     await User.updateOne({ id: user.id }).set({
-      backupCodes: hashedCodes
+      backupCodes: backupCodes
     })
     this.req.session.backupCodes = backupCodes
     return '/settings/security'
