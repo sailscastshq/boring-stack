@@ -153,7 +153,6 @@ module.exports = {
       columnName: 'magic_link_token_used_at',
       allowNull: true
     },
-
     //  ╔╦╗┬ ┬┌─┐  ╔═╗┌─┐┌─┐┌┬┐┌─┐┬─┐  ╔═╗┬ ┬┌┬┐┬ ┬┌─┐┌┐┌┌┬┐┬┌─┐┌─┐┌┬┐┬┌─┐┌┐┌
     //  ║ ║││││ │  ╠╣ ├─┤│   │ │ │├┬┘  ╠═╣│ │ │ ├─┤├┤ │││ │ ││  ├─┤ │ ││ ││││
     //  ╩ ╩└┴┘└─┘  ╚  ┴ ┴└─┘ ┴ └─┘┴└─  ╩ ╩└─┘ ┴ ┴ ┴└─┘┘└┘ ┴ ┴└─┘┴ ┴ ┴ ┴└─┘┘└┘
@@ -204,6 +203,20 @@ module.exports = {
       example: 1502844074211,
       columnName: 'two_factor_verification_code_expires_at',
       allowNull: true
+    },
+    //  ╔╦╗┌─┐┌─┐┌┬┐┌─┐
+    //   ║ ├┤ ├─┤││││└─┐
+    //   ╩ └─┘┴ ┴┴ ┴┴└─┘
+    team: {
+      collection: 'team',
+      via: 'owner',
+      description: 'The team this user owns - every user owns exactly one team'
+    },
+    memberships: {
+      collection: 'membership',
+      via: 'member',
+      description:
+        'All team memberships for this user (teams they belong to including their own)'
     }
   },
   customToJSON: function () {
