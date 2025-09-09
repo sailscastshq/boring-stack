@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import { Head, useForm } from '@inertiajs/react'
+import { Head, useForm, usePage, router } from '@inertiajs/react'
 
 import AppLayout from '@/layouts/AppLayout.jsx'
 import SettingsLayout from '@/layouts/SettingsLayout.jsx'
@@ -20,11 +20,8 @@ TeamSettings.layout = (page) => (
   </AppLayout>
 )
 
-export default function TeamSettings() {
+export default function TeamSettings({ team }) {
   const [inviteByLink, setInviteByLink] = useState(true)
-  const [inviteLink] = useState(
-    'https://app.ascent-react.com/team/MZZCRmdFKsDjr7SmU7Rl0e'
-  )
   const [domainRestriction, setDomainRestriction] = useState('')
   const [showInviteForm, setShowInviteForm] = useState(false)
 
@@ -76,8 +73,9 @@ export default function TeamSettings() {
   }
 
   function resetInviteLink() {
-    // Handle invite link reset logic
-    console.log('Reset invite link')
+    if (team) {
+      router.post(`/teams/${team.id}/reset-invite-token`)
+    }
   }
 
   function setDomainRestrictions() {
@@ -133,14 +131,14 @@ export default function TeamSettings() {
             <div>
               <div className="flex items-center space-x-3 space-y-1">
                 <InputText
-                  value={inviteLink}
+                  value={team.inviteUrl}
                   readOnly
                   size="small"
                   className="flex-1 text-sm"
                 />
                 <Button
                   icon={copied ? 'pi pi-check' : 'pi pi-copy'}
-                  onClick={() => copyToClipboard(inviteLink)}
+                  onClick={() => copyToClipboard(team.inviteUrl)}
                   size="small"
                   tooltip={copied ? 'Copied!' : 'Copy link'}
                   className={
