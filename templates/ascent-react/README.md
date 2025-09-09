@@ -51,9 +51,9 @@ import { Card } from 'primereact/card'
 
 function LoginForm() {
   return (
-    <Card className="w-96 mx-auto mt-8">
-      <div className="p-6 space-y-4">
-        <h2 className="text-2xl font-bold text-center">Welcome Back</h2>
+    <Card className="mx-auto mt-8 w-96">
+      <div className="space-y-4 p-6">
+        <h2 className="text-center text-2xl font-bold">Welcome Back</h2>
         <InputText placeholder="Enter your email" className="w-full" />
         <Button label="Sign In" className="w-full" severity="info" />
       </div>
