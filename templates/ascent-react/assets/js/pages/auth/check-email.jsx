@@ -74,7 +74,7 @@ export default function CheckEmail({
             <div className="absolute inset-0 scale-105 rounded-2xl bg-gradient-to-r from-brand-600/10 to-accent-600/10 blur-xl"></div>
 
             {/* Main card */}
-            <div className="relative rounded-2xl border border-gray-100 bg-white px-8 py-10 shadow-2xl text-center">
+            <div className="relative rounded-2xl border border-gray-100 bg-white px-8 py-10 text-center shadow-2xl">
               {/* Email Icon */}
               <div className="mb-6 flex justify-center">
                 <div className="flex h-16 w-16 items-center justify-center rounded-full bg-gradient-to-br from-brand-100 to-accent-100">
@@ -98,11 +98,11 @@ export default function CheckEmail({
                 {getTitle()}
               </h1>
 
-              <p className="mb-2 text-lg text-gray-600 font-medium">
+              <p className="mb-2 text-lg font-medium text-gray-600">
                 {getSubtitle()}
               </p>
 
-              <p className="mb-8 text-base text-gray-600 max-w-md mx-auto">
+              <p className="mx-auto mb-8 max-w-md text-base text-gray-600">
                 {getEmailText()}
               </p>
 
