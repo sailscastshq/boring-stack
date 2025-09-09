@@ -35,11 +35,7 @@ module.exports = {
     // Create the team with the user as owner
     const team = await Team.create({
       name: defaultTeamName,
-      owner: user.id,
-      settings: {
-        createdAt: Date.now(),
-        autoCreated: true
-      }
+      owner: user.id
     })
       .fetch()
       .intercept((err) => {
@@ -49,7 +45,7 @@ module.exports = {
 
     // Create the membership record for the owner
     const membership = await Membership.create({
-      user: user.id,
+      member: user.id,
       team: team.id,
       role: 'owner',
       status: 'active',
