@@ -107,11 +107,11 @@ module.exports = {
         })
 
       // Create team for new magic link user (they're already verified)
-      await sails.helpers.user
-        .createTeam({ user })
-        .intercept('teamCreationFailed', () => {
+      await sails.helpers.user.createTeam
+        .with({ user })
+        .intercept('teamCreationFailed', (error) => {
           sails.log.warn(`Failed to create team for magic link user ${user.id}`)
-          // Continue with magic link flow even if team creation fails
+          return error
         })
     } else {
       await User.updateOne({ id: user.id }).set({
