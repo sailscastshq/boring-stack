@@ -110,7 +110,7 @@ export default function VerifyTwoFactor({ twoFactorMethods, userEmail }) {
                     <Message
                       severity="error"
                       text={errors.method}
-                      className="w-full mb-3"
+                      className="mb-3 w-full"
                     />
                   )}
                   {errors.code && (
@@ -228,7 +228,7 @@ export default function VerifyTwoFactor({ twoFactorMethods, userEmail }) {
                 </div>
 
                 {/* Method switching */}
-                <div className="text-center space-y-3">
+                <div className="space-y-3 text-center">
                   {/* Primary method alternatives */}
                   {activeMethod !== 'backup' && (
                     <>
