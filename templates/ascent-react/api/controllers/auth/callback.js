@@ -93,6 +93,18 @@ module.exports = {
             return exits.success('/login?mode=password')
           }
 
+          if (wasCreated) {
+            // Create team for new OAuth user (they're already verified)
+            await sails.helpers.user
+              .createTeam({ user })
+              .intercept('teamCreationFailed', () => {
+                sails.log.warn(
+                  `Failed to create team for OAuth user ${user.id}`
+                )
+                // Continue with OAuth flow even if team creation fails
+              })
+          }
+
           if (!wasCreated) {
             const updates = {}
 
