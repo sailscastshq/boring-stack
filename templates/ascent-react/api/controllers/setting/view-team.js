@@ -10,6 +10,17 @@ module.exports = {
   },
 
   fn: async function () {
-    return { page: 'settings/team' }
+    const req = this.req
+    const userId = req.session.userId
+
+    const team = await Team.findOne({ owner: userId })
+    team.inviteUrl = sails.helpers.team.getInviteUrl(team)
+
+    return {
+      page: 'settings/team',
+      props: {
+        team
+      }
+    }
   }
 }
