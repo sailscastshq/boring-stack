@@ -36,18 +36,38 @@ module.exports = {
       throw 'invalidOrExpiredToken'
     }
 
-    const user = await User.findOne({ emailProofToken: token })
+    const user = await User.findOne({ emailProofToken: token }).intercept(
+      (err) => {
+        sails.log.error('Error finding user for email verification:', err)
+        return 'invalidOrExpiredToken'
+      }
+    )
 
     if (!user || user.emailProofTokenExpiresAt <= Date.now()) {
       throw 'invalidOrExpiredToken'
     }
 
     if (user.emailStatus == 'unverified') {
-      await User.updateOne({ id: user.id }).set({
-        emailStatus: 'verified',
-        emailProofToken: '',
-        emailProofTokenExpiresAt: 0
-      })
+      await User.updateOne({ id: user.id })
+        .set({
+          emailStatus: 'verified',
+          emailProofToken: '',
+          emailProofTokenExpiresAt: 0
+        })
+        .intercept((err) => {
+          sails.log.error('Error updating user email status:', err)
+          return 'invalidOrExpiredToken'
+        })
+
+      // Create team for newly verified user
+      await sails.helpers.user
+        .createTeam({ user })
+        .intercept('teamCreationFailed', () => {
+          sails.log.warn(
+            `Failed to create team for user ${user.id} during email verification`
+          )
+          // Continue with verification even if team creation fails
+        })
 
       this.req.session.userId = user.id
       delete this.req.session.userEmail
