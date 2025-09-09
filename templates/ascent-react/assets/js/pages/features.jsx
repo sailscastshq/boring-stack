@@ -40,7 +40,7 @@ export default function Features() {
           <div className="flex flex-col justify-center gap-4 sm:flex-row">
             <Link
               href="/signup"
-              className="hover:shadow-3xl group relative inline-block rounded-xl bg-gradient-to-r from-brand-600 to-accent-600 px-8 py-4 font-bold text-white shadow-2xl transition-all duration-200 hover:scale-[1.02] no-underline"
+              className="hover:shadow-3xl group relative inline-block rounded-xl bg-gradient-to-r from-brand-600 to-accent-600 px-8 py-4 font-bold text-white no-underline shadow-2xl transition-all duration-200 hover:scale-[1.02]"
             >
               <span className="relative z-10">Start Building Today</span>
               <div className="absolute inset-0 rounded-xl bg-gradient-to-r from-brand-700 to-accent-700 opacity-0 transition-opacity group-hover:opacity-100"></div>
@@ -49,7 +49,7 @@ export default function Features() {
               href="YOUTUBE_VIDEO_URL"
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-block rounded-xl border-2 border-gray-200 bg-white px-8 py-4 font-bold text-gray-700 shadow-lg transition-all duration-200 hover:scale-[1.02] hover:border-brand-300 hover:shadow-xl no-underline"
+              className="inline-block rounded-xl border-2 border-gray-200 bg-white px-8 py-4 font-bold text-gray-700 no-underline shadow-lg transition-all duration-200 hover:scale-[1.02] hover:border-brand-300 hover:shadow-xl"
             >
               View Live Demo
             </a>
@@ -95,7 +95,7 @@ export default function Features() {
                     <h3 className="text-2xl font-bold text-gray-900">
                       Enterprise Authentication
                     </h3>
-                    <p className="text-brand-600 font-medium">
+                    <p className="font-medium text-brand-600">
                       Security that scales with you
                     </p>
                   </div>
@@ -204,7 +204,7 @@ export default function Features() {
                       <h4 className="font-semibold text-brand-900">
                         Enterprise Ready
                       </h4>
-                      <p className="text-sm text-brand-700 leading-relaxed">
+                      <p className="text-sm leading-relaxed text-brand-700">
                         Built with OWASP security standards, rate limiting, and
                         audit logging. Your users' data is protected from day
                         one.
@@ -239,7 +239,7 @@ export default function Features() {
                     <h3 className="text-2xl font-bold text-gray-900">
                       Revenue-Ready Billing
                     </h3>
-                    <p className="text-accent-600 font-medium">
+                    <p className="font-medium text-accent-600">
                       Start earning from day one
                     </p>
                   </div>
@@ -347,7 +347,7 @@ export default function Features() {
                       <h4 className="font-semibold text-accent-900">
                         Revenue Analytics
                       </h4>
-                      <p className="text-sm text-accent-700 leading-relaxed">
+                      <p className="text-sm leading-relaxed text-accent-700">
                         Track MRR, churn, LTV, and other key metrics with
                         built-in analytics dashboard. Make data-driven decisions
                         from day one.
@@ -382,7 +382,7 @@ export default function Features() {
                     <h3 className="text-2xl font-bold text-gray-900">
                       Multi-Tenant Teams
                     </h3>
-                    <p className="text-success-600 font-medium">
+                    <p className="font-medium text-success-600">
                       Scale to enterprise customers
                     </p>
                   </div>
@@ -491,7 +491,7 @@ export default function Features() {
                       <h4 className="font-semibold text-success-900">
                         Enterprise Security
                       </h4>
-                      <p className="text-sm text-success-700 leading-relaxed">
+                      <p className="text-sm leading-relaxed text-success-700">
                         Every team action is logged and auditable. Perfect for
                         compliance requirements and enterprise security
                         standards.
@@ -526,7 +526,7 @@ export default function Features() {
                     <h3 className="text-2xl font-bold text-gray-900">
                       Powerful Admin Dashboard
                     </h3>
-                    <p className="text-purple-600 font-medium">
+                    <p className="font-medium text-purple-600">
                       Control everything from one place
                     </p>
                   </div>
@@ -634,7 +634,7 @@ export default function Features() {
                       <h4 className="font-semibold text-purple-900">
                         Real-time Insights
                       </h4>
-                      <p className="text-sm text-purple-700 leading-relaxed">
+                      <p className="text-sm leading-relaxed text-purple-700">
                         Get instant notifications about important events, track
                         user behavior, and make informed decisions with
                         real-time data.
@@ -821,7 +821,7 @@ export default function Features() {
           <div className="mb-8 flex flex-col justify-center gap-4 sm:flex-row">
             <a
               href="/signup"
-              className="hover:shadow-3xl group relative inline-block rounded-xl bg-gradient-to-r from-brand-600 to-accent-600 px-10 py-5 text-lg font-bold text-white shadow-2xl transition-all duration-200 hover:scale-[1.02] no-underline"
+              className="hover:shadow-3xl group relative inline-block rounded-xl bg-gradient-to-r from-brand-600 to-accent-600 px-10 py-5 text-lg font-bold text-white no-underline shadow-2xl transition-all duration-200 hover:scale-[1.02]"
             >
               <span className="relative z-10">Get Started Today</span>
               <div className="absolute inset-0 rounded-xl bg-gradient-to-r from-brand-700 to-accent-700 opacity-0 transition-opacity group-hover:opacity-100"></div>
@@ -830,7 +830,7 @@ export default function Features() {
               href="YOUTUBE_VIDEO_URL"
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-block rounded-xl border-2 border-gray-600 bg-transparent px-10 py-5 text-lg font-bold text-white shadow-lg transition-all duration-200 hover:scale-[1.02] hover:border-brand-400 hover:bg-brand-500/10 no-underline"
+              className="inline-block rounded-xl border-2 border-gray-600 bg-transparent px-10 py-5 text-lg font-bold text-white no-underline shadow-lg transition-all duration-200 hover:scale-[1.02] hover:border-brand-400 hover:bg-brand-500/10"
             >
               View Live Demo
             </a>
