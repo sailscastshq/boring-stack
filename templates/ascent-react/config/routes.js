@@ -72,6 +72,12 @@ module.exports.routes = {
   'POST /security/disable-2fa': 'security/disable-2fa',
   'POST /security/generate-backup-codes': 'security/generate-backup-codes',
 
+  // Team routes
+  'POST /teams/:teamId/reset-invite-token': 'team/reset-invite-token',
+
+  // Redirects
+  'POST /team/reset-invite-token': 'team/reset-invite-token',
+
   // Redirects
   'GET /profile': '/settings/profile',
   'GET /settings': '/settings/profile',
