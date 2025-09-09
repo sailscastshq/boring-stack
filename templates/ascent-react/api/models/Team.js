@@ -11,8 +11,6 @@ module.exports = {
     },
     slug: {
       type: 'string',
-      required: true,
-      unique: true,
       regex: /^[a-z0-9-]+$/,
       maxLength: 50,
       example: 'my-team',
@@ -25,10 +23,8 @@ module.exports = {
       description:
         'Team-specific configuration and preferences stored as JSON object'
     },
-
     inviteToken: {
       type: 'string',
-      unique: true,
       description:
         'Unique token for team invitation links - can be reset for security'
     },
@@ -52,6 +48,7 @@ module.exports = {
       slug: this.slug,
       settings: this.settings,
       inviteToken: this.inviteToken,
+      inviteUrl: this.inviteUrl,
       owner: this.owner,
       createdAt: this.createdAt,
       updatedAt: this.updatedAt
