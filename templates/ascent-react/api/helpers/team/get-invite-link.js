@@ -1,8 +1,8 @@
 module.exports = {
-  friendlyName: 'Get invite URL',
+  friendlyName: 'Get invite link',
   sync: true,
   description:
-    'Get the complete team invitation URL using the base URL and team invite token.',
+    'Get the complete team invitation link using the base URL and team invite token.',
   inputs: {
     team: {
       type: 'ref',
