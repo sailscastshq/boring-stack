@@ -259,14 +259,14 @@ export default function Login() {
                     </button>
                   </div>
 
-                  {/* Use Password Instead Button */}
+                  {/* Other Sign-in Options */}
                   <div className="pt-4 text-center">
                     <button
                       type="button"
                       onClick={toggleToPasswordMode}
                       className="text-sm font-medium text-gray-600 underline underline-offset-2 transition-colors hover:text-brand-600"
                     >
-                      Use password instead
+                      Other sign-in options
                     </button>
                   </div>
                 </form>
