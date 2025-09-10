@@ -15,19 +15,20 @@ module.exports = {
     success: {
       responseType: 'inertia'
     },
-
-    invalidToken: {
-      responseType: 'redirect'
+    notFound: {
+      responseType: 'notFound'
     }
   },
 
   fn: async function ({ inviteToken }) {
     // Find team by invite token
-    const team = await Team.findOne({ inviteToken }).populate('owner')
+    const team = await Team.findOne({
+      inviteToken,
+      inviteLinkEnabled: true
+    }).populate('owner')
 
     if (!team) {
-      this.req.flash('error', 'Invalid or expired invitation link.')
-      throw { invalidToken: '/login' }
+      throw 'notFound'
     }
 
     return {
