@@ -6,6 +6,9 @@ module.exports = {
   exits: {
     success: {
       responseType: 'inertia'
+    },
+    notFound: {
+      responseType: 'notFound'
     }
   },
 
@@ -13,13 +16,25 @@ module.exports = {
     const req = this.req
     const userId = req.session.userId
 
-    const team = await Team.findOne({ owner: userId })
+    const team = await Team.findOne({ owner: userId }).populate('owner')
+    if (!team) {
+      throw 'notFound'
+    }
+
     team.inviteLink = sails.helpers.team.getInviteLink(team)
+
+    // Fetch all memberships for this team
+    const memberships = await Membership.find({
+      team: team.id
+    })
+      .sort('createdAt DESC')
+      .populate('member')
 
     return {
       page: 'settings/team',
       props: {
-        team
+        team,
+        memberships
       }
     }
   }

@@ -22,7 +22,7 @@ TeamSettings.layout = (page) => (
   </AppLayout>
 )
 
-export default function TeamSettings({ team }) {
+export default function TeamSettings({ team, memberships }) {
   const { copied, copyToClipboard } = useCopyToClipboard()
   // Form for toggle invite link
   const {
@@ -61,39 +61,22 @@ export default function TeamSettings({ team }) {
     emails: ''
   })
 
-  const teamMembers = [
-    {
-      id: 1,
-      name: 'Kelvin Omereshone',
-      email: 'kelvinomereshone@gmail.com',
-      role: 'Admin',
-      avatar:
-        'https://ui-avatars.com/api/?name=Kelvin+Omereshone&background=0EA5E9&color=fff'
-    },
-    {
-      id: 2,
-      name: 'Jane Smith',
-      email: 'jane@example.com',
-      role: 'Member',
-      avatar:
-        'https://ui-avatars.com/api/?name=Jane+Smith&background=10B981&color=fff'
-    },
-    {
-      id: 3,
-      name: 'Bob Johnson',
-      email: 'bob@example.com',
-      role: 'Member',
-      avatar:
-        'https://ui-avatars.com/api/?name=Bob+Johnson&background=F59E0B&color=fff'
-    }
-  ]
+  // Create team members list from memberships only (owner has a membership record too)
+  const teamMembers = (memberships || []).map((membership) => ({
+    id: membership.member.id,
+    name: membership.member.fullName || membership.member.email,
+    email: membership.member.email,
+    role: membership.role.charAt(0).toUpperCase() + membership.role.slice(1), // Capitalize first letter
+    avatar: `https://ui-avatars.com/api/?name=${encodeURIComponent(
+      membership.member.fullName || membership.member.email
+    )}&background=10B981&color=fff`
+  }))
 
   function handleInvite(e) {
     e.preventDefault()
     postEmails('/team/invite', {
       data: {
-        ...emailData,
-        role: 'Member'
+        ...emailData
       },
       onSuccess: () => {
         resetEmails()
@@ -264,14 +247,18 @@ export default function TeamSettings({ team }) {
                     value={member.role}
                     className="rounded-md border-0 bg-gray-200 px-2 py-1 text-xs text-gray-700"
                   />
-                  <Button
-                    icon="pi pi-ellipsis-h"
-                    size="small"
-                    text
-                    onClick={(e) => {
-                      console.log('Show menu for', member.name)
-                    }}
-                  />
+                  {member.role !== 'Owner' && (
+                    <Button
+                      icon="pi pi-times"
+                      size="small"
+                      text
+                      className="text-red-600 hover:bg-red-50 hover:text-red-700"
+                      onClick={(e) => {
+                        confirmRemoveMember(member)
+                      }}
+                      tooltip="Remove member"
+                    />
+                  )}
                 </div>
               </div>
             ))}
