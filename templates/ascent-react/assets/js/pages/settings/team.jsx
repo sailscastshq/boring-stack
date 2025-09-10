@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { Head, useForm, usePage, router } from '@inertiajs/react'
 
 import AppLayout from '@/layouts/AppLayout.jsx'
@@ -6,6 +6,8 @@ import SettingsLayout from '@/layouts/SettingsLayout.jsx'
 
 import { Button } from 'primereact/button'
 import { InputText } from 'primereact/inputtext'
+import { InputSwitch } from 'primereact/inputswitch'
+import { Chips } from 'primereact/chips'
 import { Avatar } from 'primereact/avatar'
 import { Tag } from 'primereact/tag'
 import { Message } from 'primereact/message'
@@ -21,15 +23,43 @@ TeamSettings.layout = (page) => (
 )
 
 export default function TeamSettings({ team }) {
-  const [inviteByLink, setInviteByLink] = useState(true)
-  const [domainRestriction, setDomainRestriction] = useState('')
+  const { copied, copyToClipboard } = useCopyToClipboard()
+  // Form for toggle invite link
+  const {
+    data: toggleData,
+    setData: setToggleData,
+    post: postToggle,
+    processing: processingToggle
+  } = useForm({
+    inviteLinkEnabled: team?.inviteLinkEnabled ?? true
+  })
+  // Auto-submit when toggle data changes
+  useEffect(() => {
+    // Only submit if we have a team and the value is different from the initial team value
+    if (
+      team &&
+      toggleData.inviteLinkEnabled !== (team.inviteLinkEnabled ?? true)
+    ) {
+      postToggle(`/teams/${team.id}/toggle-invite-link`)
+    }
+  }, [toggleData.inviteLinkEnabled])
+
+  const [domainRestrictions, setDomainRestrictions] = useState(
+    team?.domainRestrictions || []
+  )
   const [showInviteForm, setShowInviteForm] = useState(false)
 
-  const { data, setData, post, processing, errors, reset } = useForm({
+  // Form for invite emails
+  const {
+    data: emailData,
+    setData: setEmailData,
+    post: postEmails,
+    processing: processingEmails,
+    errors: emailErrors,
+    reset: resetEmails
+  } = useForm({
     emails: ''
   })
-
-  const { copied, copyToClipboard } = useCopyToClipboard()
 
   const teamMembers = [
     {
@@ -60,27 +90,29 @@ export default function TeamSettings({ team }) {
 
   function handleInvite(e) {
     e.preventDefault()
-    post('/team/invite', {
+    postEmails('/team/invite', {
       data: {
-        ...data,
+        ...emailData,
         role: 'Member'
       },
       onSuccess: () => {
-        reset()
+        resetEmails()
         setShowInviteForm(false)
       }
     })
+  }
+  function handleToggleInviteLink(e) {
+    const newValue = e.value
+
+    if (team) {
+      setToggleData('inviteLinkEnabled', newValue)
+    }
   }
 
   function resetInviteLink() {
     if (team) {
       router.post(`/teams/${team.id}/reset-invite-token`)
     }
-  }
-
-  function setDomainRestrictions() {
-    // Handle domain restriction logic
-    console.log('Set domain restrictions:', domainRestriction)
   }
 
   function confirmRemoveMember(member) {
@@ -109,82 +141,71 @@ export default function TeamSettings({ team }) {
                 Invite by link
               </h3>
               <p className="mt-1 text-sm text-gray-500">
-                As an admin, you can choose whether to enable or disable the
-                ability for team members to invite others by invitation link.
+                Allow team members to invite others using a shareable link.
               </p>
             </div>
-            <button
-              onClick={() => setInviteByLink(!inviteByLink)}
-              className={`relative inline-flex h-6 w-11 items-center rounded-full transition-colors ${
-                inviteByLink ? 'bg-success-600' : 'bg-gray-300'
-              }`}
-            >
-              <span
-                className={`inline-block h-4 w-4 transform rounded-full bg-white transition-transform ${
-                  inviteByLink ? 'translate-x-6' : 'translate-x-1'
-                }`}
-              />
-            </button>
+            <InputSwitch
+              checked={toggleData.inviteLinkEnabled}
+              onChange={handleToggleInviteLink}
+              disabled={processingToggle}
+            />
           </div>
 
-          {inviteByLink && (
-            <div>
-              <div className="flex items-center space-x-3 space-y-1">
-                <InputText
-                  value={team.inviteLink}
-                  readOnly
-                  size="small"
-                  className="flex-1 text-sm"
-                />
+          {team.inviteLinkEnabled && (
+            <div className="space-y-6">
+              {/* Invite Link */}
+              <div>
+                <div className="flex items-center space-x-3 space-y-1">
+                  <InputText
+                    value={team?.inviteLink || ''}
+                    readOnly
+                    size="small"
+                    className="flex-1 text-sm"
+                  />
+                  <Button
+                    icon={copied ? 'pi pi-check' : 'pi pi-copy'}
+                    onClick={() => copyToClipboard(team?.inviteLink)}
+                    size="small"
+                    tooltip={copied ? 'Copied!' : 'Copy link'}
+                    className={
+                      copied
+                        ? 'text-success-600 hover:text-success-700'
+                        : 'text-gray-500 hover:text-gray-700'
+                    }
+                    text
+                  />
+                </div>
                 <Button
-                  icon={copied ? 'pi pi-check' : 'pi pi-copy'}
-                  onClick={() => copyToClipboard(team.inviteLink)}
+                  label="Reset invite link"
+                  onClick={resetInviteLink}
                   size="small"
-                  tooltip={copied ? 'Copied!' : 'Copy link'}
-                  className={
-                    copied
-                      ? 'text-success-600 hover:text-success-700'
-                      : 'text-gray-500 hover:text-gray-700'
-                  }
-                  text
+                  link
                 />
               </div>
-              <Button
-                label="Reset invite link"
-                onClick={resetInviteLink}
-                size="small"
-                link
-              />
+
+              {/* Restrict by Domain */}
+              <div className="space-y-3">
+                <div>
+                  <h4 className="text-sm font-medium text-gray-900">
+                    Restrict by domain
+                  </h4>
+                  <p className="text-sm text-gray-500">
+                    Only allow users with emails at specific domains to join
+                    your team through the invite link.
+                  </p>
+                </div>
+                <div>
+                  <Chips
+                    value={domainRestrictions}
+                    onChange={(e) => setDomainRestrictions(e.value)}
+                    placeholder="Domains, comma separated"
+                    className="w-full"
+                    separator=","
+                  />
+                </div>
+              </div>
             </div>
           )}
-
-          {/* Restrict by Domain */}
-          <div className="space-y-3">
-            <div>
-              <h4 className="text-sm font-medium text-gray-900">
-                Restrict by domain
-              </h4>
-              <p className="text-sm text-gray-500">
-                Only allow users with emails at specific domains to join your
-                team through the invite link.
-              </p>
-            </div>
-            <div className="flex items-center space-x-3">
-              <InputText
-                value={domainRestriction}
-                onChange={(e) => setDomainRestriction(e.target.value)}
-                placeholder="domains, comma separated"
-                size="small"
-                className="flex-1"
-              />
-              <Button
-                label="Set"
-                onClick={setDomainRestrictions}
-                size="small"
-                outlined
-              />
-            </div>
-          </div>
         </div>
 
         {/* Invite by Email */}
@@ -200,8 +221,8 @@ export default function TeamSettings({ team }) {
           <form onSubmit={handleInvite} className="space-y-4">
             <div className="flex items-center space-x-3">
               <InputText
-                value={data.emails}
-                onChange={(e) => setData('emails', e.target.value)}
+                value={emailData.emails}
+                onChange={(e) => setEmailData('emails', e.target.value)}
                 placeholder="Emails, comma separated"
                 size="small"
                 className="flex-1"
@@ -212,7 +233,7 @@ export default function TeamSettings({ team }) {
                 label="Invite"
                 size="small"
                 outlined
-                loading={processing}
+                loading={processingEmails}
               />
             </div>
           </form>
