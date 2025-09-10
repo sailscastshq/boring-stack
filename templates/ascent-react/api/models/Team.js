@@ -28,7 +28,7 @@ module.exports = {
       description:
         'Unique token for team invitation links - can be reset for security'
     },
-    inviteByLinkEnabled: {
+    inviteLinkEnabled: {
       type: 'boolean',
       defaultsTo: true,
       description: 'Whether the invite link is enabled for this team'
@@ -61,7 +61,7 @@ module.exports = {
       settings: this.settings,
       inviteToken: this.inviteToken,
       inviteLink: this.inviteLink,
-      inviteByLinkEnabled: this.inviteByLinkEnabled,
+      inviteLinkEnabled: this.inviteLinkEnabled,
       domainRestrictions: this.domainRestrictions,
       owner: this.owner,
       createdAt: this.createdAt,
