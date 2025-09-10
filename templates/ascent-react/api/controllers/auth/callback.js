@@ -156,6 +156,12 @@ module.exports = {
           }
 
           req.session.userId = user.id
+
+          // Set user's team ID in session
+          if (user.team) {
+            req.session.teamId = user.team
+          }
+
           return exits.success('/dashboard')
         }
       )
