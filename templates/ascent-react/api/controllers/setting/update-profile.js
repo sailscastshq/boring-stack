@@ -57,6 +57,7 @@ module.exports = {
     }
 
     await User.updateOne({ id: userId }).set(updatedData)
+    this.req.flash('success', 'Profile updated successfully!')
 
     return '/settings/profile'
   }
