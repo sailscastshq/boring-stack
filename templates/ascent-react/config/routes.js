@@ -73,6 +73,7 @@ module.exports.routes = {
   'POST /security/generate-backup-codes': 'security/generate-backup-codes',
 
   // Team routes
+  'GET /team/:inviteToken': 'team/view-invite',
   'POST /teams/:teamId/reset-invite-token': 'team/reset-invite-token',
 
   // Redirects
