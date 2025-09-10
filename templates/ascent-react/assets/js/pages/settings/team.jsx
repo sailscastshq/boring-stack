@@ -138,7 +138,7 @@ export default function TeamSettings({ team }) {
                 />
                 <Button
                   icon={copied ? 'pi pi-check' : 'pi pi-copy'}
-                  onClick={() => copyToClipboard(team.getInviteLink)}
+                  onClick={() => copyToClipboard(team.inviteLink)}
                   size="small"
                   tooltip={copied ? 'Copied!' : 'Copy link'}
                   className={
