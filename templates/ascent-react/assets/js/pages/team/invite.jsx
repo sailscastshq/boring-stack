@@ -1,4 +1,4 @@
-import { Link, Head, router } from '@inertiajs/react'
+import { Link, Head, useForm } from '@inertiajs/react'
 import { useRef } from 'react'
 import { Toast } from 'primereact/toast'
 import { useFlashToast } from '@/hooks/useFlashToast'
@@ -7,12 +7,13 @@ export default function TeamInvite({ team, inviteToken }) {
   const toast = useRef(null)
   useFlashToast(toast)
 
-  function handleAccept() {
-    router.post(`/team/${inviteToken}/accept`)
-  }
+  const { post, processing } = useForm()
 
-  function handleDecline() {
-    router.post(`/team/${inviteToken}/decline`)
+  function handleInviteResponse(action) {
+    post(`/teams/${team.id}/invite-response`, {
+      inviteToken: inviteToken,
+      action: action
+    })
   }
 
   return (
@@ -107,47 +108,65 @@ export default function TeamInvite({ team, inviteToken }) {
 
                 {/* Action Buttons */}
                 <div className="flex flex-col gap-4 sm:flex-row">
-                  {/* Decline Button */}
-                  <button
-                    onClick={handleDecline}
-                    className="order-2 flex flex-1 items-center justify-center rounded-xl border border-red-200 bg-white px-6 py-4 text-lg font-medium text-red-600 shadow-lg transition-all duration-200 hover:scale-[1.02] hover:border-red-300 hover:bg-red-50 hover:shadow-xl focus:outline-none focus:ring-2 focus:ring-red-500 focus:ring-offset-2 sm:order-1"
+                  {/* Decline Form */}
+                  <form
+                    onSubmit={(e) => {
+                      e.preventDefault()
+                      handleInviteResponse('decline')
+                    }}
+                    className="order-2 flex-1 sm:order-1"
                   >
-                    <svg
-                      className="mr-2 h-5 w-5"
-                      fill="none"
-                      stroke="currentColor"
-                      viewBox="0 0 24 24"
+                    <button
+                      type="submit"
+                      disabled={processing}
+                      className="flex w-full items-center justify-center rounded-xl border border-red-200 bg-white px-6 py-4 text-lg font-medium text-red-600 shadow-lg transition-all duration-200 hover:scale-[1.02] hover:border-red-300 hover:bg-red-50 hover:shadow-xl focus:outline-none focus:ring-2 focus:ring-red-500 focus:ring-offset-2 disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:scale-100"
                     >
-                      <path
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                        strokeWidth={2}
-                        d="M6 18L18 6M6 6l12 12"
-                      />
-                    </svg>
-                    Decline
-                  </button>
+                      <svg
+                        className="mr-2 h-5 w-5"
+                        fill="none"
+                        stroke="currentColor"
+                        viewBox="0 0 24 24"
+                      >
+                        <path
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                          strokeWidth={2}
+                          d="M6 18L18 6M6 6l12 12"
+                        />
+                      </svg>
+                      {processing ? 'Processing...' : 'Decline'}
+                    </button>
+                  </form>
 
-                  {/* Accept Button */}
-                  <button
-                    onClick={handleAccept}
-                    className="order-1 flex flex-1 items-center justify-center rounded-xl bg-gradient-to-r from-brand-600 to-accent-600 px-6 py-4 text-lg font-bold text-white shadow-lg transition-all duration-200 hover:scale-[1.02] hover:from-brand-700 hover:to-accent-700 hover:shadow-xl focus:outline-none focus:ring-2 focus:ring-brand-500 focus:ring-offset-2 sm:order-2"
+                  {/* Accept Form */}
+                  <form
+                    onSubmit={(e) => {
+                      e.preventDefault()
+                      handleInviteResponse('accept')
+                    }}
+                    className="order-1 flex-1 sm:order-2"
                   >
-                    <svg
-                      className="mr-2 h-5 w-5"
-                      fill="none"
-                      stroke="currentColor"
-                      viewBox="0 0 24 24"
+                    <button
+                      type="submit"
+                      disabled={processing}
+                      className="flex w-full items-center justify-center rounded-xl bg-gradient-to-r from-brand-600 to-accent-600 px-6 py-4 text-lg font-bold text-white shadow-lg transition-all duration-200 hover:scale-[1.02] hover:from-brand-700 hover:to-accent-700 hover:shadow-xl focus:outline-none focus:ring-2 focus:ring-brand-500 focus:ring-offset-2 disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:scale-100"
                     >
-                      <path
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                        strokeWidth={2}
-                        d="M5 13l4 4L19 7"
-                      />
-                    </svg>
-                    Accept
-                  </button>
+                      <svg
+                        className="mr-2 h-5 w-5"
+                        fill="none"
+                        stroke="currentColor"
+                        viewBox="0 0 24 24"
+                      >
+                        <path
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                          strokeWidth={2}
+                          d="M5 13l4 4L19 7"
+                        />
+                      </svg>
+                      {processing ? 'Processing...' : 'Accept'}
+                    </button>
+                  </form>
                 </div>
 
                 {/* Footer Info */}
