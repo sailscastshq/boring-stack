@@ -179,6 +179,33 @@ module.exports = {
 - JSON fields in models don't use `allowNull` (null is default)
 - Use `router.post()` and `useForm()` for all form submissions
 
+### Form Handling Best Practices
+
+- **Always use `useForm()` and `<form>` elements** for any data submission
+- Never use `router.post()` directly - always go through form handling
+- Wrap form controls in proper `<form>` elements with `onSubmit` handlers
+- Use form validation and loading states provided by `useForm()`
+- Example pattern:
+
+  ```javascript
+  const { data, setData, post, processing } = useForm({ field: '' })
+
+  function handleSubmit(e) {
+    e.preventDefault()
+    post('/endpoint')
+  }
+
+  ;<form onSubmit={handleSubmit}>
+    <input
+      value={data.field}
+      onChange={(e) => setData('field', e.target.value)}
+    />
+    <button type="submit" disabled={processing}>
+      Submit
+    </button>
+  </form>
+  ```
+
 ### Styling Guidelines
 
 - Custom Tailwind config with brand colors (brand, accent, success)
