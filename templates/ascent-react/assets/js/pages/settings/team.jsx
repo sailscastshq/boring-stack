@@ -33,6 +33,16 @@ export default function TeamSettings({ team, memberships }) {
   } = useForm({
     inviteLinkEnabled: team?.inviteLinkEnabled ?? true
   })
+
+  // Form for domain restrictions
+  const {
+    data: domainData,
+    setData: setDomainData,
+    post: postDomains,
+    processing: processingDomains
+  } = useForm({
+    domainRestrictions: team?.domainRestrictions || []
+  })
   // Auto-submit when toggle data changes
   useEffect(() => {
     // Only submit if we have a team and the value is different from the initial team value
@@ -44,9 +54,6 @@ export default function TeamSettings({ team, memberships }) {
     }
   }, [toggleData.inviteLinkEnabled])
 
-  const [domainRestrictions, setDomainRestrictions] = useState(
-    team?.domainRestrictions || []
-  )
   const [showInviteForm, setShowInviteForm] = useState(false)
 
   // Form for invite emails
@@ -95,6 +102,13 @@ export default function TeamSettings({ team, memberships }) {
   function resetInviteLink() {
     if (team) {
       router.post(`/teams/${team.id}/reset-invite-token`)
+    }
+  }
+
+  function handleDomainRestrictionsSubmit(e) {
+    e.preventDefault()
+    if (team) {
+      postDomains(`/teams/${team.id}/set-domain-restrictions`)
     }
   }
 
@@ -176,15 +190,26 @@ export default function TeamSettings({ team, memberships }) {
                     your team through the invite link.
                   </p>
                 </div>
-                <div>
+                <form
+                  onSubmit={handleDomainRestrictionsSubmit}
+                  className="flex items-center space-x-3"
+                >
                   <Chips
-                    value={domainRestrictions}
-                    onChange={(e) => setDomainRestrictions(e.value)}
-                    placeholder="Domains, comma separated"
-                    className="w-full"
+                    value={domainData.domainRestrictions}
+                    onChange={(e) =>
+                      setDomainData('domainRestrictions', e.value)
+                    }
+                    placeholder="Domains, separated by comma"
+                    className="flex-1"
                     separator=","
                   />
-                </div>
+                  <Button
+                    type="submit"
+                    label="Set"
+                    outlined
+                    loading={processingDomains}
+                  />
+                </form>
               </div>
             </div>
           )}
