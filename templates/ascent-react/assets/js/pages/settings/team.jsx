@@ -131,14 +131,14 @@ export default function TeamSettings({ team }) {
             <div>
               <div className="flex items-center space-x-3 space-y-1">
                 <InputText
-                  value={team.inviteUrl}
+                  value={team.inviteLink}
                   readOnly
                   size="small"
                   className="flex-1 text-sm"
                 />
                 <Button
                   icon={copied ? 'pi pi-check' : 'pi pi-copy'}
-                  onClick={() => copyToClipboard(team.inviteUrl)}
+                  onClick={() => copyToClipboard(team.getInviteLink)}
                   size="small"
                   tooltip={copied ? 'Copied!' : 'Copy link'}
                   className={
