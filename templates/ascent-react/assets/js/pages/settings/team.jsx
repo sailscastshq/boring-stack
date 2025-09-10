@@ -43,6 +43,16 @@ export default function TeamSettings({ team, memberships }) {
   } = useForm({
     domainRestrictions: team?.domainRestrictions || []
   })
+
+  // Form for removing individual domains
+  const {
+    data: removeDomainData,
+    setData: setRemoveDomainData,
+    delete: deleteDomain,
+    processing: processingRemoveDomain
+  } = useForm({
+    domain: ''
+  })
   // Auto-submit when toggle data changes
   useEffect(() => {
     // Only submit if we have a team and the value is different from the initial team value
@@ -108,7 +118,19 @@ export default function TeamSettings({ team, memberships }) {
   function handleDomainRestrictionsSubmit(e) {
     e.preventDefault()
     if (team) {
-      postDomains(`/teams/${team.id}/set-domain-restrictions`)
+      postDomains(`/teams/${team.id}/set-domain-restrictions`, {
+        onSuccess: () => {
+          // Clear the chips after successful submission
+          setDomainData('domainRestrictions', [])
+        }
+      })
+    }
+  }
+
+  function handleRemoveDomain(domain) {
+    if (team) {
+      setRemoveDomainData('domain', domain)
+      deleteDomain(`/teams/${team.id}/remove-domain-restriction`)
     }
   }
 
@@ -210,6 +232,58 @@ export default function TeamSettings({ team, memberships }) {
                     loading={processingDomains}
                   />
                 </form>
+
+                {/* Domain List */}
+                {team?.domainRestrictions &&
+                  team.domainRestrictions.length > 0 && (
+                    <div className="mt-4">
+                      <h5 className="mb-2 text-xs font-medium text-gray-700">
+                        Restricted Domains
+                      </h5>
+                      <div className="space-y-2">
+                        {team.domainRestrictions.map((domain, index) => (
+                          <div
+                            key={index}
+                            className="flex items-center justify-between rounded-lg bg-gray-50 px-3 py-2"
+                          >
+                            <div className="flex items-center space-x-3">
+                              <div className="flex h-8 w-8 items-center justify-center rounded-full bg-blue-100 text-blue-600">
+                                <svg
+                                  className="h-4 w-4"
+                                  fill="none"
+                                  stroke="currentColor"
+                                  viewBox="0 0 24 24"
+                                >
+                                  <path
+                                    strokeLinecap="round"
+                                    strokeLinejoin="round"
+                                    strokeWidth={2}
+                                    d="M21 12a9 9 0 01-9 9m9-9a9 9 0 00-9-9m9 9H3m9 9v-9m0-9v9"
+                                  />
+                                </svg>
+                              </div>
+                              <div>
+                                <div className="text-sm font-medium text-gray-900">
+                                  {domain}
+                                </div>
+                                <div className="text-xs text-gray-500">
+                                  Domain restriction
+                                </div>
+                              </div>
+                            </div>
+                            <Button
+                              icon="pi pi-times"
+                              size="small"
+                              text
+                              className="text-red-600 hover:bg-red-50 hover:text-red-700"
+                              onClick={() => handleRemoveDomain(domain)}
+                              tooltip="Remove domain restriction"
+                            />
+                          </div>
+                        ))}
+                      </div>
+                    </div>
+                  )}
               </div>
             </div>
           )}
