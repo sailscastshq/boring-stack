@@ -19,8 +19,7 @@ module.exports = {
   },
 
   fn: async function ({ teamId }) {
-    const req = this.req
-    const userId = req.session.userId
+    const userId = this.req.session.userId
 
     // Check if user is owner of the team
     const team = await Team.findOne({ id: teamId, owner: userId })
@@ -28,19 +27,12 @@ module.exports = {
     if (!team) {
       throw 'notFound'
     }
-
     // Generate new invite token and update team
-    const newToken = await sails.helpers.strings.random('url-friendly')
     const updatedTeam = await Team.updateOne({ id: teamId }).set({
-      inviteToken: newToken
+      inviteToken: sails.helpers.strings.random('url-friendly')
     })
 
-    // Get the new invite URL
-    const inviteUrl = await sails.helpers.team.getInviteUrl({
-      team: updatedTeam
-    })
-
-    req.flash('success', 'Team invite link has been reset successfully!')
+    this.req.flash('success', 'Team invite link has been reset successfully!')
     return '/settings/team'
   }
 }
