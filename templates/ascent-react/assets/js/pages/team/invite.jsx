@@ -7,13 +7,14 @@ export default function TeamInvite({ team, inviteToken }) {
   const toast = useRef(null)
   useFlashToast(toast)
 
-  const { post, processing } = useForm()
+  const { data, setData, post, processing } = useForm({
+    inviteToken,
+    response: ''
+  })
 
-  function handleInviteResponse(action) {
-    post(`/teams/${team.id}/invite-response`, {
-      inviteToken: inviteToken,
-      action: action
-    })
+  function handleInviteResponse(response) {
+    setData('response', response)
+    post(`/teams/${team.id}/invite-response`)
   }
 
   return (
@@ -119,7 +120,7 @@ export default function TeamInvite({ team, inviteToken }) {
                     <button
                       type="submit"
                       disabled={processing}
-                      className="flex w-full items-center justify-center rounded-xl border border-red-200 bg-white px-6 py-4 text-lg font-medium text-red-600 shadow-lg transition-all duration-200 hover:scale-[1.02] hover:border-red-300 hover:bg-red-50 hover:shadow-xl focus:outline-none focus:ring-2 focus:ring-red-500 focus:ring-offset-2 disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:scale-100"
+                      className="flex w-full items-center justify-center rounded-xl border border-red-200 bg-white px-6 py-4 text-lg font-medium text-red-600 shadow-lg transition-all duration-200 hover:scale-[1.02] hover:border-red-300 hover:bg-red-50 hover:shadow-xl focus:outline-none focus:ring-2 focus:ring-red-500 focus:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50 disabled:hover:scale-100"
                     >
                       <svg
                         className="mr-2 h-5 w-5"
@@ -149,7 +150,7 @@ export default function TeamInvite({ team, inviteToken }) {
                     <button
                       type="submit"
                       disabled={processing}
-                      className="flex w-full items-center justify-center rounded-xl bg-gradient-to-r from-brand-600 to-accent-600 px-6 py-4 text-lg font-bold text-white shadow-lg transition-all duration-200 hover:scale-[1.02] hover:from-brand-700 hover:to-accent-700 hover:shadow-xl focus:outline-none focus:ring-2 focus:ring-brand-500 focus:ring-offset-2 disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:scale-100"
+                      className="flex w-full items-center justify-center rounded-xl bg-gradient-to-r from-brand-600 to-accent-600 px-6 py-4 text-lg font-bold text-white shadow-lg transition-all duration-200 hover:scale-[1.02] hover:from-brand-700 hover:to-accent-700 hover:shadow-xl focus:outline-none focus:ring-2 focus:ring-brand-500 focus:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50 disabled:hover:scale-100"
                     >
                       <svg
                         className="mr-2 h-5 w-5"
