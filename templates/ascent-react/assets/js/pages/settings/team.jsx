@@ -41,7 +41,7 @@ export default function TeamSettings({ team, memberships }) {
     post: postDomains,
     processing: processingDomains
   } = useForm({
-    domainRestrictions: team?.domainRestrictions || []
+    domainRestrictions: []
   })
 
   // Form for removing individual domains
@@ -244,23 +244,11 @@ export default function TeamSettings({ team, memberships }) {
                         {team.domainRestrictions.map((domain, index) => (
                           <div
                             key={index}
-                            className="flex items-center justify-between rounded-lg bg-gray-50 px-3 py-2"
+                            className="flex items-center justify-between py-3"
                           >
                             <div className="flex items-center space-x-3">
-                              <div className="flex h-8 w-8 items-center justify-center rounded-full bg-blue-100 text-blue-600">
-                                <svg
-                                  className="h-4 w-4"
-                                  fill="none"
-                                  stroke="currentColor"
-                                  viewBox="0 0 24 24"
-                                >
-                                  <path
-                                    strokeLinecap="round"
-                                    strokeLinejoin="round"
-                                    strokeWidth={2}
-                                    d="M21 12a9 9 0 01-9 9m9-9a9 9 0 00-9-9m9 9H3m9 9v-9m0-9v9"
-                                  />
-                                </svg>
+                              <div className="flex h-8 w-8 items-center justify-center rounded-full text-blue-600">
+                                <i class="pi pi-globe"></i>
                               </div>
                               <div>
                                 <div className="text-sm font-medium text-gray-900">
