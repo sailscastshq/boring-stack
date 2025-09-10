@@ -76,6 +76,7 @@ module.exports.routes = {
   'GET /team/:inviteToken': 'team/view-invite',
   'POST /teams/:teamId/reset-invite-token': 'team/reset-invite-token',
   'POST /teams/:teamId/invite-response': 'team/invite-response',
+  'POST /teams/:teamId/toggle-invite-link': 'team/toggle-invite-link',
 
   // Redirects
   'POST /team/reset-invite-token': 'team/reset-invite-token',
