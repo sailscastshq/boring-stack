@@ -159,7 +159,6 @@ export default function TeamSettings({ team }) {
                   <InputText
                     value={team?.inviteLink || ''}
                     readOnly
-                    size="small"
                     className="flex-1 text-sm"
                   />
                   <Button
