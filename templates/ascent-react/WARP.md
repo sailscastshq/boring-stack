@@ -121,6 +121,13 @@ assets/js/
 - Custom configuration for Inertia.js integration
 - Shipwright build configuration with React plugin
 
+### Policy Configuration
+
+- All policy mappings should be defined in `config/policies.js`
+- Avoid inline policy definitions in routes
+- Example: `'team/*': ['is-authenticated', 'is-team-owner']`
+- Use policy chaining for complex authorization patterns
+
 ## Development Workflow
 
 ### Adding New Features
