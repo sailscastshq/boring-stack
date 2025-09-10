@@ -21,5 +21,7 @@ module.exports.policies = {
   'auth/send-login-email-2fa': 'has-partially-logged-in',
   'user/*': 'is-authenticated',
   'dashboard/*': 'is-authenticated',
-  'setting/*': 'is-authenticated'
+  'setting/*': 'is-authenticated',
+  'team/*': 'is-authenticated',
+  'team/reset-invite-token': ['is-authenticated', 'is-team-owner']
 }
