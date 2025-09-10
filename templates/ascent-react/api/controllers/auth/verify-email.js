@@ -75,7 +75,6 @@ module.exports = {
       if (user.team) {
         this.req.session.teamId = user.team
       }
-
       delete this.req.session.userEmail
 
       this.req.flash(
