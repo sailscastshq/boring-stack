@@ -28,6 +28,18 @@ module.exports = {
       description:
         'Unique token for team invitation links - can be reset for security'
     },
+    inviteByLinkEnabled: {
+      type: 'boolean',
+      defaultsTo: true,
+      description: 'Whether the invite link is enabled for this team'
+    },
+    domainRestrictions: {
+      type: 'json',
+      defaultsTo: [],
+      description:
+        'Array of email domains that are allowed to join via invite link (empty = no restrictions)'
+    },
+
     owner: {
       model: 'user',
       required: true,
@@ -48,7 +60,9 @@ module.exports = {
       slug: this.slug,
       settings: this.settings,
       inviteToken: this.inviteToken,
-      inviteUrl: this.inviteUrl,
+      inviteLink: this.inviteLink,
+      inviteByLinkEnabled: this.inviteByLinkEnabled,
+      domainRestrictions: this.domainRestrictions,
       owner: this.owner,
       createdAt: this.createdAt,
       updatedAt: this.updatedAt
