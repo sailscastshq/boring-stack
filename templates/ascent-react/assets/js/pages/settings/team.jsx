@@ -65,7 +65,7 @@ export default function TeamSettings({ team, memberships }) {
     errors: emailErrors,
     reset: resetEmails
   } = useForm({
-    emails: ''
+    emails: []
   })
 
   // Create team members list from memberships only (owner has a membership record too)
@@ -227,18 +227,16 @@ export default function TeamSettings({ team, memberships }) {
           </div>
           <form onSubmit={handleInvite} className="space-y-4">
             <div className="flex items-center space-x-3">
-              <InputText
+              <Chips
                 value={emailData.emails}
-                onChange={(e) => setEmailData('emails', e.target.value)}
-                placeholder="Emails, comma separated"
-                size="small"
+                onChange={(e) => setEmailData('emails', e.value)}
+                placeholder="Enter email addresses and press enter"
                 className="flex-1"
+                separator=","
               />
-
               <Button
                 type="submit"
                 label="Invite"
-                size="small"
                 outlined
                 loading={processingEmails}
               />
