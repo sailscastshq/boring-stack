@@ -162,7 +162,13 @@ module.exports = {
             req.session.teamId = user.team
           }
 
-          return exits.success('/dashboard')
+          // Check for stored OAuth returnUrl
+          const returnUrl = req.session.oauthReturnUrl
+          delete req.session.oauthReturnUrl // Clean up
+
+          return exits.success(
+            returnUrl && returnUrl.startsWith('/') ? returnUrl : '/dashboard'
+          )
         }
       )
     } catch (error) {

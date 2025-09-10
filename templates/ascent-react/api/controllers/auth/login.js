@@ -22,6 +22,10 @@ password attempt.`,
     rememberMe: {
       description: "Whether to extend the lifetime of the user's session.",
       type: 'boolean'
+    },
+    returnUrl: {
+      description: 'URL to redirect to after successful login.',
+      type: 'string'
     }
   },
 
@@ -39,7 +43,7 @@ password attempt.`,
     }
   },
 
-  fn: async function ({ email, password, rememberMe }) {
+  fn: async function ({ email, password, rememberMe, returnUrl }) {
     const user = await User.findOne({
       email: email.toLowerCase()
     })
@@ -66,7 +70,8 @@ password attempt.`,
       this.req.session.partialLogin = {
         userId: user.id,
         rememberMe: rememberMe,
-        intendedDestination: '/dashboard',
+        intendedDestination:
+          returnUrl && returnUrl.startsWith('/') ? returnUrl : '/dashboard',
         loginTimestamp: Date.now()
       }
 
@@ -93,6 +98,6 @@ password attempt.`,
       this.req.session.teamId = user.team
     }
 
-    return '/dashboard'
+    return returnUrl && returnUrl.startsWith('/') ? returnUrl : '/dashboard'
   }
 }

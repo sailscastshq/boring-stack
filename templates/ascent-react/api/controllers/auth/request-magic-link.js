@@ -28,6 +28,11 @@ module.exports = {
       description: 'URL to redirect to after sending the magic link',
       type: 'string',
       defaultsTo: '/login'
+    },
+    returnUrl: {
+      description:
+        'URL to redirect to after successful magic link authentication',
+      type: 'string'
     }
   },
 
@@ -43,7 +48,7 @@ module.exports = {
     }
   },
 
-  fn: async function ({ email, fullName, redirectUrl }) {
+  fn: async function ({ email, fullName, redirectUrl, returnUrl }) {
     const normalizedEmail = email.toLowerCase().trim()
     const now = Date.now()
     const rateLimitWindow = 15 * 60 * 1000 // 15 minutes
@@ -130,7 +135,14 @@ module.exports = {
           token: plainToken,
           fullName: user.fullName,
           email: normalizedEmail,
-          magicLinkUrl: `${sails.config.custom.baseUrl}/magic-link/${plainToken}`
+          magicLinkUrl:
+            returnUrl && returnUrl.startsWith('/')
+              ? `${
+                  sails.config.custom.baseUrl
+                }/magic-link/${plainToken}?returnUrl=${encodeURIComponent(
+                  returnUrl
+                )}`
+              : `${sails.config.custom.baseUrl}/magic-link/${plainToken}`
         }
       })
       .intercept((error) => {
