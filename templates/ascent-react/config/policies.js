@@ -24,5 +24,6 @@ module.exports.policies = {
   'setting/*': 'is-authenticated',
   'team/*': 'is-authenticated',
   'team/view-invite': true,
-  'team/reset-invite-token': ['is-authenticated', 'is-team-owner']
+  'team/reset-invite-token': ['is-authenticated', 'is-team-owner'],
+  'team/toggle-invite-link': ['is-authenticated', 'is-team-owner']
 }
