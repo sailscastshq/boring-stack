@@ -150,11 +150,10 @@ export default function TeamSettings({ team }) {
                 />
               </div>
               <Button
-                label="Reset Links"
+                label="Reset invite link"
                 onClick={resetInviteLink}
-                text
                 size="small"
-                severity="secondary"
+                link
               />
             </div>
           )}
