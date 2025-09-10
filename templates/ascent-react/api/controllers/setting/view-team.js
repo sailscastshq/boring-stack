@@ -14,7 +14,7 @@ module.exports = {
     const userId = req.session.userId
 
     const team = await Team.findOne({ owner: userId })
-    team.inviteUrl = sails.helpers.team.getInviteUrl(team)
+    team.inviteLink = sails.helpers.team.getInviteLink(team)
 
     return {
       page: 'settings/team',
