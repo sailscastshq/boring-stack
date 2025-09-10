@@ -61,6 +61,9 @@ module.exports = {
         return 'teamCreationFailed'
       })
 
+    // Update user record to reference their team
+    await User.updateOne({ id: user.id }).set({ team: team.id })
+
     return { team, membership }
   }
 }
