@@ -54,7 +54,7 @@ module.exports = {
       invitedBy: this.invitedBy,
       invitedAt: this.invitedAt,
       joinedAt: this.joinedAt,
-      user: this.user,
+      member: this.member,
       team: this.team,
       createdAt: this.createdAt,
       updatedAt: this.updatedAt
