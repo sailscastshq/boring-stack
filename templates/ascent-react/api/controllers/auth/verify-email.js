@@ -70,6 +70,12 @@ module.exports = {
         })
 
       this.req.session.userId = user.id
+
+      // Set user's team ID in session
+      if (user.team) {
+        this.req.session.teamId = user.team
+      }
+
       delete this.req.session.userEmail
 
       this.req.flash(
