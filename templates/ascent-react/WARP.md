@@ -268,6 +268,8 @@ module.exports = {
 
 **Input Destructuring**: Always destructure inputs in the `fn` function parameter for cleaner code and better readability. Use `{ param1, param2 }` instead of `inputs` parameter.
 
+**Response Types**: For routes using HTTP verbs other than GET or POST (DELETE, PATCH, PUT), always use `responseType: 'inertiaRedirect'` for the success exit to ensure proper client-side handling.
+
 ### React Component Pattern
 
 ```javascript
