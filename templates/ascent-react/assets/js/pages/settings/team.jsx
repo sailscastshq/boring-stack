@@ -38,7 +38,7 @@ export default function TeamSettings({ team, memberships }) {
   const {
     data: domainData,
     setData: setDomainData,
-    post: postDomains,
+    patch: patchDomains,
     processing: processingDomains
   } = useForm({
     domainRestrictions: []
@@ -111,7 +111,7 @@ export default function TeamSettings({ team, memberships }) {
   function handleDomainRestrictionsSubmit(e) {
     e.preventDefault()
     if (team) {
-      postDomains(`/teams/${team.id}/set-domain-restrictions`, {
+      patchDomains(`/teams/${team.id}/domain-restrictions`, {
         onSuccess: () => {
           // Clear the chips after successful submission
           setDomainData('domainRestrictions', [])
@@ -236,6 +236,11 @@ export default function TeamSettings({ team, memberships }) {
                     label="Set"
                     outlined
                     loading={processingDomains}
+                    disabled={
+                      processingDomains ||
+                      !domainData.domainRestrictions ||
+                      domainData.domainRestrictions.length === 0
+                    }
                   />
                 </form>
 
@@ -316,6 +321,11 @@ export default function TeamSettings({ team, memberships }) {
                 label="Invite"
                 outlined
                 loading={processingEmails}
+                disabled={
+                  processingEmails ||
+                  !emailData.emails ||
+                  emailData.emails.length === 0
+                }
               />
             </div>
           </form>
