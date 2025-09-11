@@ -44,15 +44,8 @@ export default function TeamSettings({ team, memberships }) {
     domainRestrictions: []
   })
 
-  // Form for removing individual domains
-  const {
-    data: removeDomainData,
-    setData: setRemoveDomainData,
-    delete: deleteDomain,
-    processing: processingRemoveDomain
-  } = useForm({
-    domain: ''
-  })
+  // Track which domains are being removed
+  const [removingDomains, setRemovingDomains] = useState(new Set())
   // Auto-submit when toggle data changes
   useEffect(() => {
     // Only submit if we have a team and the value is different from the initial team value
@@ -129,8 +122,21 @@ export default function TeamSettings({ team, memberships }) {
 
   function handleRemoveDomain(domain) {
     if (team) {
-      setRemoveDomainData('domain', domain)
-      deleteDomain(`/teams/${team.id}/remove-domain-restriction`)
+      // Add domain to removing set
+      setRemovingDomains((prev) => new Set([...prev, domain]))
+
+      // Use router directly for the DELETE request
+      router.delete(`/teams/${team.id}/remove-domain-restriction`, {
+        data: { domain },
+        onFinish: () => {
+          // Remove domain from removing set when request completes
+          setRemovingDomains((prev) => {
+            const newSet = new Set(prev)
+            newSet.delete(domain)
+            return newSet
+          })
+        }
+      })
     }
   }
 
@@ -248,7 +254,7 @@ export default function TeamSettings({ team, memberships }) {
                           >
                             <div className="flex items-center space-x-3">
                               <div className="flex h-8 w-8 items-center justify-center rounded-full text-blue-600">
-                                <i class="pi pi-globe"></i>
+                                <i className="pi pi-globe"></i>
                               </div>
                               <div>
                                 <div className="text-sm font-medium text-gray-900">
@@ -260,12 +266,21 @@ export default function TeamSettings({ team, memberships }) {
                               </div>
                             </div>
                             <Button
-                              icon="pi pi-times"
+                              icon={
+                                removingDomains.has(domain)
+                                  ? 'pi pi-spin pi-spinner'
+                                  : 'pi pi-times'
+                              }
                               size="small"
                               text
+                              disabled={removingDomains.has(domain)}
                               className="text-red-600 hover:bg-red-50 hover:text-red-700"
                               onClick={() => handleRemoveDomain(domain)}
-                              tooltip="Remove domain restriction"
+                              tooltip={
+                                removingDomains.has(domain)
+                                  ? 'Removing...'
+                                  : 'Remove domain restriction'
+                              }
                             />
                           </div>
                         ))}
