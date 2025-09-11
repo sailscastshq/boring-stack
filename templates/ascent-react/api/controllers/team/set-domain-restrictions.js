@@ -17,7 +17,7 @@ module.exports = {
   },
 
   exits: {
-    success: { responseType: 'redirect' },
+    success: { responseType: 'inertiaRedirect' },
     teamNotFound: {
       responseType: 'notFound'
     },
