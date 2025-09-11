@@ -58,6 +58,32 @@ module.exports = {
     }
 
     if (response === 'accept') {
+      // Check domain restrictions before allowing user to join
+      if (team.domainRestrictions && team.domainRestrictions.length > 0) {
+        // Get the user's email to extract domain
+        const user = await User.findOne({ id: userId })
+        if (!user) {
+          throw 'teamNotFound' // User should exist if they're authenticated
+        }
+
+        // Extract domain from user's email
+        const emailDomain = user.email.split('@')[1].toLowerCase()
+
+        // Check if user's domain is in the allowed list (case-insensitive)
+        const allowedDomains = team.domainRestrictions.map((domain) =>
+          domain.toLowerCase()
+        )
+        const isDomainAllowed = allowedDomains.includes(emailDomain)
+
+        if (!isDomainAllowed) {
+          this.req.flash(
+            'error',
+            'Sorry, only users with email addresses from allowed domains can join this team.'
+          )
+          return `/team/${team.inviteToken}`
+        }
+      }
+
       await Membership.create({
         member: userId,
         team: teamId,
