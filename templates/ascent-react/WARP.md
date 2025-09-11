@@ -179,6 +179,10 @@ module.exports = {
 - JSON fields in models don't use `allowNull` (null is default)
 - Use `router.post()` and `useForm()` for all form submissions
 
+### Security Best Practices
+
+- **Domain restrictions**: When rejecting users due to domain restrictions, use generic messages like "only users with email addresses from allowed domains can join" rather than revealing specific allowed domains to prevent information disclosure and enumeration attacks
+
 ### Form Handling Best Practices
 
 - **Always use `useForm()` and `<form>` elements** for any data submission
@@ -269,6 +273,15 @@ module.exports = {
 **Input Destructuring**: Always destructure inputs in the `fn` function parameter for cleaner code and better readability. Use `{ param1, param2 }` instead of `inputs` parameter.
 
 **Response Types**: For routes using HTTP verbs other than GET or POST (DELETE, PATCH, PUT), always use `responseType: 'inertiaRedirect'` for the success exit to ensure proper client-side handling.
+
+**RESTful HTTP Verbs**: Choose appropriate HTTP verbs for different operations:
+
+- `GET` - Retrieve/read data
+- `POST` - Create new resources or non-idempotent actions
+- `PATCH` - Partial updates (e.g., adding domains to existing restrictions)
+- `PUT` - Complete replacement of resource
+- `DELETE` - Remove resources
+- Example: `PATCH /teams/:id/domain-restrictions` for adding domains, `DELETE /teams/:id/domain-restrictions/:domain` for removing
 
 ### React Component Pattern
 
