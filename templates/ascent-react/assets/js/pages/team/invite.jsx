@@ -3,7 +3,7 @@ import { useRef } from 'react'
 import { Toast } from 'primereact/toast'
 import { useFlashToast } from '@/hooks/useFlashToast'
 
-export default function TeamInvite({ team, inviteToken }) {
+export default function TeamInvite({ team, inviteToken, via, invite }) {
   const toast = useRef(null)
   useFlashToast(toast)
 
@@ -69,8 +69,16 @@ export default function TeamInvite({ team, inviteToken }) {
               Join {team.name}
             </h1>
             <p className="mt-4 text-lg text-gray-600">
-              {team.owner?.fullName || team.owner?.email} invited you to join
-              their team
+              {via === 'email' && invite?.invitedBy ? (
+                <>
+                  <strong>
+                    {invite.invitedBy.fullName || invite.invitedBy.email}
+                  </strong>{' '}
+                  invited you to join their team
+                </>
+              ) : (
+                `You've been invited to join ${team.name}`
+              )}
             </p>
           </div>
         </div>
@@ -105,6 +113,71 @@ export default function TeamInvite({ team, inviteToken }) {
                   <h3 className="text-lg font-semibold text-gray-900">
                     {team.name}
                   </h3>
+
+                  {/* Invitation Details */}
+                  {via === 'email' && invite && (
+                    <div className="mt-4 space-y-2 text-sm text-gray-600">
+                      <div className="flex items-center justify-center space-x-2">
+                        <svg
+                          className="h-4 w-4"
+                          fill="none"
+                          stroke="currentColor"
+                          viewBox="0 0 24 24"
+                        >
+                          <path
+                            strokeLinecap="round"
+                            strokeLinejoin="round"
+                            strokeWidth={2}
+                            d="M16 12a4 4 0 10-8 0 4 4 0 008 0zm0 0v1.5a2.5 2.5 0 005 0V12a9 9 0 10-9 9m4.5-1.206a8.959 8.959 0 01-4.5 1.207"
+                          />
+                        </svg>
+                        <span>Sent to {invite.email}</span>
+                      </div>
+
+                      {invite.expiresAt && (
+                        <div className="flex items-center justify-center space-x-2">
+                          <svg
+                            className="h-4 w-4"
+                            fill="none"
+                            stroke="currentColor"
+                            viewBox="0 0 24 24"
+                          >
+                            <path
+                              strokeLinecap="round"
+                              strokeLinejoin="round"
+                              strokeWidth={2}
+                              d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"
+                            />
+                          </svg>
+                          <span>
+                            Expires{' '}
+                            {new Date(invite.expiresAt).toLocaleDateString()}
+                          </span>
+                        </div>
+                      )}
+                    </div>
+                  )}
+
+                  {via === 'link' && (
+                    <div className="mt-4">
+                      <div className="flex items-center justify-center space-x-2 text-sm text-gray-600">
+                        <svg
+                          className="h-4 w-4"
+                          fill="none"
+                          stroke="currentColor"
+                          viewBox="0 0 24 24"
+                        >
+                          <path
+                            strokeLinecap="round"
+                            strokeLinejoin="round"
+                            strokeWidth={2}
+                            d="M13.828 10.172a4 4 0 00-5.656 0l-4 4a4 4 0 105.656 5.656l1.102-1.101m-.758-4.899a4 4 0 005.656 0l4-4a4 4 0 00-5.656-5.656l-1.1 1.1"
+                          />
+                        </svg>
+                        <span>Shareable team invitation</span>
+                      </div>
+                    </div>
+                  )}
                 </div>
 
                 {/* Action Buttons */}
