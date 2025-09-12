@@ -216,6 +216,12 @@ module.exports = {
       via: 'member',
       description:
         'All team memberships for this user (teams they belong to including their own)'
+    },
+    invitesSent: {
+      collection: 'invite',
+      via: 'invitedBy',
+      description: 'All invitations this user has sent to others',
+      columnName: 'invites_sent'
     }
   },
   customToJSON: function () {
