@@ -22,6 +22,8 @@ module.exports.clearance = {
     // Team settings - only owners for sensitive operations
     'team/toggle-invite-link': { level: 2 },
     'team/set-domain-restrictions': { level: 2 },
+    'team/remove-domain-restriction': { level: 2 },
+    'team/reset-invite-token': { level: 2 },
     'team/update-settings': { level: 2 },
 
     // Member management
