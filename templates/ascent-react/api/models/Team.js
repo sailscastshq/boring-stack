@@ -51,6 +51,12 @@ module.exports = {
       via: 'team',
       description:
         'All memberships for this team (includes owner, admins, and members)'
+    },
+    invites: {
+      collection: 'invite',
+      via: 'team',
+      description:
+        'All invitations for this team (pending, accepted, expired, cancelled)'
     }
   },
   customToJSON: function () {
