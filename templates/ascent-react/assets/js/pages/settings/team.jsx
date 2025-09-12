@@ -84,15 +84,13 @@ export default function TeamSettings({ team, memberships }) {
 
   function handleInvite(e) {
     e.preventDefault()
-    postEmails('/team/invite', {
-      data: {
-        ...emailData
-      },
-      onSuccess: () => {
-        resetEmails()
-        setShowInviteForm(false)
-      }
-    })
+    if (team) {
+      postEmails(`/teams/${team.id}/send-email-invite`, {
+        onSuccess: () => {
+          resetEmails()
+        }
+      })
+    }
   }
   function handleToggleInviteLink(e) {
     const newValue = e.value
@@ -308,25 +306,30 @@ export default function TeamSettings({ team, memberships }) {
             </p>
           </div>
           <form onSubmit={handleInvite} className="space-y-4">
-            <div className="flex items-center space-x-3">
-              <Chips
-                value={emailData.emails}
-                onChange={(e) => setEmailData('emails', e.value)}
-                placeholder="Enter email addresses and press enter"
-                className="flex-1"
-                separator=","
-              />
-              <Button
-                type="submit"
-                label="Invite"
-                outlined
-                loading={processingEmails}
-                disabled={
-                  processingEmails ||
-                  !emailData.emails ||
-                  emailData.emails.length === 0
-                }
-              />
+            <div className="space-y-3">
+              <div className="flex items-center space-x-3">
+                <Chips
+                  value={emailData.emails}
+                  onChange={(e) => setEmailData('emails', e.value)}
+                  placeholder="Enter email addresses and press enter"
+                  className="flex-1"
+                  separator=","
+                />
+                <Button
+                  type="submit"
+                  label="Invite"
+                  outlined
+                  loading={processingEmails}
+                  disabled={
+                    processingEmails ||
+                    !emailData.emails ||
+                    emailData.emails.length === 0
+                  }
+                />
+              </div>
+              {emailErrors.emails && (
+                <Message severity="error" text={emailErrors.emails} />
+              )}
             </div>
           </form>
         </div>
