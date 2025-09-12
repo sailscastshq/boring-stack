@@ -210,6 +210,35 @@ module.exports = {
   </form>
   ```
 
+### Flash Messages and Redirects
+
+- **Flash messages**: Use `this.req.flash('type', 'message')` where type is `success`, `error`, or `message`
+- **Redirects**: When using `responseType: 'redirect'` or `responseType: 'inertiaRedirect'`, you can:
+  - `throw 'redirect'` (uses default redirect URL)
+  - `throw { redirect: '/custom/path' }`
+  - `return '/custom/path'` (simple return)
+- **Security**: Use `throw 'notFound'` instead of revealing "not found" details for security
+
+### Error Handling Patterns
+
+- **Bad Request with form errors**: Use `responseType: 'badRequest'` and throw with problems array:
+  ```javascript
+  throw {
+    badCombo: {
+      problems: [{ fieldName: 'Error message for this field.' }]
+    }
+  }
+  ```
+- **Generic bad request**: `throw 'badRequest'`
+- **Custom exit names**: Use descriptive exit names like `badCombo`, `emailTaken`, `invalidCredentials`
+
+### Code Comments
+
+- **Avoid unnecessary comments**: Don't repeat what the code already clearly expresses
+- **Use comments for context**: Add comments only when they provide human-specific context, business logic reasoning, or non-obvious implementation details
+- **Good comment**: `// Magic link tokens expire after 24 hours for security`
+- **Bad comment**: `// Set the user ID` (when code is `userId = user.id`)
+
 ### Styling Guidelines
 
 - Custom Tailwind config with brand colors (brand, accent, success)
