@@ -59,19 +59,9 @@ module.exports = {
           return 'invalidOrExpiredToken'
         })
 
-      // Create team for newly verified user
-      await sails.helpers.user
-        .createTeam({ user })
-        .intercept('teamCreationFailed', () => {
-          sails.log.warn(
-            `Failed to create team for user ${user.id} during email verification`
-          )
-          // Continue with verification even if team creation fails
-        })
-
       this.req.session.userId = user.id
 
-      // Set user's team ID in session
+      // Set user's team ID in session (team was created during signup)
       if (user.team) {
         this.req.session.teamId = user.team
       }
