@@ -72,7 +72,6 @@ module.exports = {
 
     acceptedBy: {
       model: 'user',
-      allowNull: true,
       description: 'User who accepted this invitation',
       columnName: 'accepted_by'
     },
