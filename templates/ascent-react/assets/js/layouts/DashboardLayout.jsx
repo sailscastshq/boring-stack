@@ -511,7 +511,7 @@ export default function DashboardLayout({ children, title = 'Dashboard' }) {
 
         {/* Main content */}
         <main className="flex-1 p-4 sm:p-6 lg:p-8">
-          <div className="mx-auto py-12 sm:w-7/12">{children}</div>
+          <div className="mx-auto py-12 sm:w-10/12">{children}</div>
         </main>
       </div>
 
