@@ -18,26 +18,40 @@ function DashboardSidebar({
   const { url } = usePage()
   const userMenuRef = useRef(null)
 
-  const navigationItems = [
+  const navigationSections = [
     {
-      name: 'Dashboard',
-      href: '/dashboard',
-      icon: 'pi-home'
+      items: [
+        {
+          name: 'Dashboard',
+          href: '/dashboard',
+          icon: 'pi-home'
+        }
+      ]
     },
     {
-      name: 'Team',
-      href: '/settings/team',
-      icon: 'pi-users'
-    },
-    {
-      name: 'Billing',
-      href: '/settings/billing',
-      icon: 'pi-credit-card'
-    },
-    {
-      name: 'Settings',
-      href: '/settings',
-      icon: 'pi-cog'
+      label: 'Settings',
+      items: [
+        {
+          name: 'Profile',
+          href: '/settings/profile',
+          icon: 'pi-user'
+        },
+        {
+          name: 'Team',
+          href: '/settings/team',
+          icon: 'pi-users'
+        },
+        {
+          name: 'Billing',
+          href: '/settings/billing',
+          icon: 'pi-credit-card'
+        },
+        {
+          name: 'Security',
+          href: '/settings/security',
+          icon: 'pi-shield'
+        }
+      ]
     }
   ]
 
@@ -144,34 +158,52 @@ function DashboardSidebar({
 
         {/* Navigation */}
         <nav className="flex-1 px-3 py-4">
-          <div className="space-y-1">
-            {navigationItems.map((item) => {
-              const isActive = isActiveRoute(item.href)
+          <div className="space-y-6">
+            {navigationSections.map((section, sectionIndex) => {
               const showText = !isCollapsed || isMobileOpen
               return (
-                <Link
-                  key={item.name}
-                  href={item.href}
-                  className={`group flex items-center rounded-lg px-3 py-2.5 text-sm font-medium transition-colors ${
-                    isActive
-                      ? 'bg-brand-50 text-brand-700'
-                      : 'text-gray-600 hover:bg-gray-50 hover:text-gray-900'
-                  }`}
-                  title={!showText ? item.name : undefined}
-                  onClick={() => {
-                    // Close mobile menu when navigating
-                    if (isMobileOpen) onMobileToggle()
-                  }}
-                >
-                  <i
-                    className={`pi ${item.icon} text-base ${
-                      isActive
-                        ? 'text-brand-600'
-                        : 'text-gray-400 group-hover:text-gray-500'
-                    } ${showText ? 'mr-3' : ''}`}
-                  />
-                  {showText && <span>{item.name}</span>}
-                </Link>
+                <div key={sectionIndex}>
+                  {/* Section Label */}
+                  {section.label && showText && (
+                    <div className="px-3 pb-2">
+                      <h3 className="text-xs font-semibold uppercase tracking-wider text-gray-500">
+                        {section.label}
+                      </h3>
+                    </div>
+                  )}
+
+                  {/* Section Items */}
+                  <div className="space-y-1">
+                    {section.items.map((item) => {
+                      const isActive = isActiveRoute(item.href)
+                      return (
+                        <Link
+                          key={item.name}
+                          href={item.href}
+                          className={`group flex items-center rounded-lg px-3 py-2.5 text-sm font-medium transition-colors ${
+                            isActive
+                              ? 'bg-brand-50 text-brand-700'
+                              : 'text-gray-600 hover:bg-gray-50 hover:text-gray-900'
+                          }`}
+                          title={!showText ? item.name : undefined}
+                          onClick={() => {
+                            // Close mobile menu when navigating
+                            if (isMobileOpen) onMobileToggle()
+                          }}
+                        >
+                          <i
+                            className={`pi ${item.icon} text-base ${
+                              isActive
+                                ? 'text-brand-600'
+                                : 'text-gray-400 group-hover:text-gray-500'
+                            } ${showText ? 'mr-3' : ''}`}
+                          />
+                          {showText && <span>{item.name}</span>}
+                        </Link>
+                      )
+                    })}
+                  </div>
+                </div>
               )
             })}
           </div>
@@ -439,12 +471,6 @@ export default function DashboardLayout({ children, title = 'Dashboard' }) {
       template: itemRenderer
     },
     {
-      label: 'My settings',
-      icon: 'pi pi-cog',
-      command: () => router.visit('/security'),
-      template: itemRenderer
-    },
-    {
       label: 'Help',
       icon: 'pi pi-question-circle',
       command: () => router.visit('/help'),
@@ -454,11 +480,7 @@ export default function DashboardLayout({ children, title = 'Dashboard' }) {
       label: 'Sign out',
       icon: 'pi pi-sign-out',
       command: () => {
-        const form = document.createElement('form')
-        form.method = 'POST'
-        form.action = '/logout'
-        document.body.appendChild(form)
-        form.submit()
+        router.delete('/logout')
       },
       template: signOutRenderer
     }
@@ -489,7 +511,7 @@ export default function DashboardLayout({ children, title = 'Dashboard' }) {
 
         {/* Main content */}
         <main className="flex-1 p-4 sm:p-6 lg:p-8">
-          <div className="mx-auto max-w-7xl">{children}</div>
+          <div className="mx-auto py-12 sm:w-7/12">{children}</div>
         </main>
       </div>
 
