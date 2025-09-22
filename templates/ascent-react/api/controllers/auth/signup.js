@@ -30,6 +30,10 @@ module.exports = {
         'If this request was sent from a graphical user interface, the request ' +
         'parameters should have been validated/coerced _before_ they were sent.'
     },
+    emailTaken: {
+      responseType: 'badRequest',
+      description: 'An account with this email address already exists.'
+    },
     success: {
       responseType: 'redirect'
     }
@@ -38,20 +42,19 @@ module.exports = {
   fn: async function ({ fullName, email: userEmail, password }) {
     const email = userEmail.toLowerCase()
     const emailProofToken = await sails.helpers.strings.random('url-friendly')
-    let unverifiedUser
-    try {
-      unverifiedUser = await User.create({
+
+    const signupResult = await sails.helpers.user.signupWithTeam
+      .with({
+        fullName,
         email,
         password,
-        fullName,
-        tosAcceptedByIp: this.req.ip,
         emailProofToken,
         emailProofTokenExpiresAt:
-          Date.now() + sails.config.custom.emailProofTokenTTL
-      }).fetch()
-    } catch (error) {
-      if (error.code === 'E_UNIQUE') {
-        throw {
+          Date.now() + sails.config.custom.emailProofTokenTTL,
+        tosAcceptedByIp: this.req.ip
+      })
+      .intercept('emailTaken', () => {
+        return {
           badSignupRequest: {
             problems: [
               {
@@ -60,8 +63,9 @@ module.exports = {
             ]
           }
         }
-      } else if (error.name === 'UsageError') {
-        throw {
+      })
+      .intercept('serverError', () => {
+        return {
           badSignupRequest: {
             problems: [
               {
@@ -71,8 +75,9 @@ module.exports = {
             ]
           }
         }
-      }
-    }
+      })
+
+    const unverifiedUser = signupResult.user
 
     await sails.helpers.mail.send.with({
       subject: 'Verify your email',
@@ -83,6 +88,7 @@ module.exports = {
         fullName: unverifiedUser.fullName
       }
     })
+
     this.req.session.userEmail = unverifiedUser.email
     return '/check-email'
   }
