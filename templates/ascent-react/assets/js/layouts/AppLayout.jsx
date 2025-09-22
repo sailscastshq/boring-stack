@@ -100,18 +100,6 @@ export default function AppLayout({ children }) {
                 >
                   Dashboard
                 </Link>
-                <Link
-                  href="/billing"
-                  className="font-medium text-gray-600 transition-colors hover:text-brand"
-                >
-                  Billing
-                </Link>
-                <Link
-                  href="/team"
-                  className="font-medium text-gray-600 transition-colors hover:text-brand"
-                >
-                  Team
-                </Link>
               </div>
               <Link href="/profile">
                 <Avatar
