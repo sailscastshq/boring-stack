@@ -17,9 +17,7 @@ import { Menu } from 'primereact/menu'
 import { useCopyToClipboard } from '@/hooks/useCopyToClipboard'
 
 TeamSettings.layout = (page) => (
-  <DashboardLayout title="Settings">
-    <SettingsLayout children={page} />
-  </DashboardLayout>
+  <DashboardLayout title="Settings">{page}</DashboardLayout>
 )
 
 export default function TeamSettings({ team, memberships }) {

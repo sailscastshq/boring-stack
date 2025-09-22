@@ -15,9 +15,7 @@ import BackupCodesModal from '@/components/BackupCodesModal.jsx'
 import EmailTwoFactorSetupModal from '@/components/EmailTwoFactorSetupModal.jsx'
 
 SecuritySettings.layout = (page) => (
-  <DashboardLayout title="Security">
-    <SettingsLayout children={page} />
-  </DashboardLayout>
+  <DashboardLayout title="Security">{page}</DashboardLayout>
 )
 
 export default function SecuritySettings({
