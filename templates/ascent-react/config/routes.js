@@ -77,6 +77,7 @@ module.exports.routes = {
   'POST /teams/:teamId/reset-invite-token': 'team/reset-invite-token',
   'POST /teams/:teamId/invite-response': 'team/invite-response',
   'POST /teams/:teamId/toggle-invite-link': 'team/toggle-invite-link',
+  'POST /teams/:teamId/send-email-invite': 'team/send-email-invite',
   'PATCH /teams/:teamId/domain-restrictions': 'team/set-domain-restrictions',
   'DELETE /teams/:teamId/remove-domain-restriction':
     'team/remove-domain-restriction',
