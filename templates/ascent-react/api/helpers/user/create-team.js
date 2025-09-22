@@ -31,39 +31,46 @@ module.exports = {
 
   fn: async function ({ user, teamName }) {
     const defaultTeamName = teamName || `${user.fullName}'s Team`
+    const datastore = sails.getDatastore()
 
-    // Create the team with the user as owner
-    const team = await Team.create({
-      name: defaultTeamName,
-      owner: user.id
-    })
-      .fetch()
-      .intercept((err) => {
-        sails.log.error('Error creating team for user:', err)
-        return 'teamCreationFailed'
+    return await datastore.transaction(async (db) => {
+      // Create the team with the user as owner
+      const team = await Team.create({
+        name: defaultTeamName,
+        owner: user.id
       })
+        .usingConnection(db)
+        .fetch()
+        .intercept((err) => {
+          sails.log.error('Error creating team for user:', err)
+          return 'teamCreationFailed'
+        })
 
-    // Create the membership record for the owner
-    const membership = await Membership.create({
-      member: user.id,
-      team: team.id,
-      role: 'owner',
-      status: 'active',
-      joinedAt: Date.now()
-    })
-      .fetch()
-      .intercept((err) => {
-        sails.log.error('Error creating membership for user:', err)
-        // If membership creation fails, we should clean up the team
-        sails.log.warn(
-          `Team ${team.id} created but membership failed for user ${user.id}`
-        )
-        return 'teamCreationFailed'
+      // Create the membership record for the owner
+      const membership = await Membership.create({
+        member: user.id,
+        team: team.id,
+        role: 'owner',
+        status: 'active',
+        joinedAt: Date.now()
       })
+        .usingConnection(db)
+        .fetch()
+        .intercept((err) => {
+          sails.log.error('Error creating membership for user:', err)
+          return 'teamCreationFailed'
+        })
 
-    // Update user record to reference their team
-    await User.updateOne({ id: user.id }).set({ team: team.id })
+      // Update user record to reference their team
+      await User.updateOne({ id: user.id })
+        .set({ team: team.id })
+        .usingConnection(db)
+        .intercept((err) => {
+          sails.log.error('Error updating user with team reference:', err)
+          return 'teamCreationFailed'
+        })
 
-    return { team, membership }
+      return { team, membership }
+    })
   }
 }
