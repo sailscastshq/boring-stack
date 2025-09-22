@@ -93,16 +93,28 @@ module.exports = {
 
     if (!user) {
       const defaultFullName = fullName || normalizedEmail.split('@')[0]
-      user = await User.create({
-        email: normalizedEmail,
-        fullName: defaultFullName,
-        emailStatus: 'verified',
-        magicLinkToken: hashedToken,
-        magicLinkTokenExpiresAt: expiresAt,
-        magicLinkTokenUsedAt: null
-      })
-        .fetch()
-        .intercept((err) => {
+
+      // Create user with team using transaction
+      const signupResult = await sails.helpers.user.signupWithTeam
+        .with({
+          fullName: defaultFullName,
+          email: normalizedEmail,
+          password: await sails.helpers.strings.random('url-friendly'), // Random password for magic link users
+          emailProofToken: '', // Not needed for magic link users
+          emailProofTokenExpiresAt: 0, // Not needed
+          tosAcceptedByIp: this.req.ip
+        })
+        .intercept('emailTaken', (err) => {
+          sails.log.error('Magic link user creation failed - email taken:', err)
+          throw {
+            badRequest: {
+              problems: [
+                { magicLink: 'An account with this email already exists' }
+              ]
+            }
+          }
+        })
+        .intercept('serverError', (err) => {
           sails.log.error('Error creating user via magic link:', err)
           throw {
             badRequest: {
@@ -111,12 +123,23 @@ module.exports = {
           }
         })
 
-      // Create team for new magic link user (they're already verified)
-      await sails.helpers.user.createTeam
-        .with({ user })
-        .intercept('teamCreationFailed', (error) => {
-          sails.log.warn(`Failed to create team for magic link user ${user.id}`)
-          return error
+      user = signupResult.user
+
+      // Update user with magic link token and verified status
+      await User.updateOne({ id: user.id })
+        .set({
+          emailStatus: 'verified',
+          magicLinkToken: hashedToken,
+          magicLinkTokenExpiresAt: expiresAt,
+          magicLinkTokenUsedAt: null
+        })
+        .intercept((err) => {
+          sails.log.error('Error updating magic link token:', err)
+          throw {
+            badRequest: {
+              problems: [{ magicLink: 'Failed to setup magic link' }]
+            }
+          }
         })
     } else {
       await User.updateOne({ id: user.id }).set({
