@@ -6,13 +6,13 @@ import { ConfirmDialog } from 'primereact/confirmdialog'
 import { confirmDialog } from 'primereact/confirmdialog'
 import { ProgressBar } from 'primereact/progressbar'
 
-import AppLayout from '@/layouts/AppLayout.jsx'
+import DashboardLayout from '@/layouts/DashboardLayout'
 import SettingsLayout from '@/layouts/SettingsLayout.jsx'
 
 BillingSettings.layout = (page) => (
-  <AppLayout>
+  <DashboardLayout title="Billing">
     <SettingsLayout children={page} />
-  </AppLayout>
+  </DashboardLayout>
 )
 
 export default function BillingSettings() {

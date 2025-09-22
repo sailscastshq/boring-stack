@@ -1,7 +1,7 @@
 import { useState } from 'react'
 import { Head, usePage, useForm, router } from '@inertiajs/react'
 
-import AppLayout from '@/layouts/AppLayout.jsx'
+import DashboardLayout from '@/layouts/DashboardLayout'
 import SettingsLayout from '@/layouts/SettingsLayout.jsx'
 
 import { InputText } from 'primereact/inputtext'
@@ -12,9 +12,9 @@ import { ConfirmDialog } from 'primereact/confirmdialog'
 import { confirmDialog } from 'primereact/confirmdialog'
 
 ProfileSettings.layout = (page) => (
-  <AppLayout>
+  <DashboardLayout title="Profile">
     <SettingsLayout children={page} />
-  </AppLayout>
+  </DashboardLayout>
 )
 
 export default function ProfileSettings() {

@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react'
 import { Head, useForm, usePage, router } from '@inertiajs/react'
 
-import AppLayout from '@/layouts/AppLayout.jsx'
+import DashboardLayout from '@/layouts/DashboardLayout'
 import SettingsLayout from '@/layouts/SettingsLayout.jsx'
 
 import { Button } from 'primereact/button'
@@ -17,9 +17,9 @@ import { Menu } from 'primereact/menu'
 import { useCopyToClipboard } from '@/hooks/useCopyToClipboard'
 
 TeamSettings.layout = (page) => (
-  <AppLayout>
+  <DashboardLayout title="Settings">
     <SettingsLayout children={page} />
-  </AppLayout>
+  </DashboardLayout>
 )
 
 export default function TeamSettings({ team, memberships }) {

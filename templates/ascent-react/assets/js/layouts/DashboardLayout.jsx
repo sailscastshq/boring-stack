@@ -1,0 +1,500 @@
+import { useState, useRef } from 'react'
+import { Link, usePage, router } from '@inertiajs/react'
+import { Toast } from 'primereact/toast'
+import { Avatar } from 'primereact/avatar'
+import { Button } from 'primereact/button'
+import { Menu } from 'primereact/menu'
+import { classNames } from 'primereact/utils'
+import { useFlashToast } from '@/hooks/useFlashToast'
+
+function DashboardSidebar({
+  isCollapsed,
+  onToggle,
+  isMobileOpen,
+  onMobileToggle,
+  userMenuItems
+}) {
+  const { loggedInUser } = usePage().props
+  const { url } = usePage()
+  const userMenuRef = useRef(null)
+
+  const navigationItems = [
+    {
+      name: 'Dashboard',
+      href: '/dashboard',
+      icon: 'pi-home'
+    },
+    {
+      name: 'Team',
+      href: '/settings/team',
+      icon: 'pi-users'
+    },
+    {
+      name: 'Billing',
+      href: '/settings/billing',
+      icon: 'pi-credit-card'
+    },
+    {
+      name: 'Settings',
+      href: '/settings',
+      icon: 'pi-cog'
+    }
+  ]
+
+  const isActiveRoute = (href) => {
+    if (href === '/dashboard') {
+      return url === '/dashboard'
+    }
+    return url.startsWith(href)
+  }
+
+  return (
+    <>
+      {/* Mobile backdrop overlay */}
+      {isMobileOpen && (
+        <div
+          className="fixed inset-0 z-40 bg-black/20 backdrop-blur-sm lg:hidden"
+          onClick={onMobileToggle}
+        />
+      )}
+
+      {/* Sidebar */}
+      <aside
+        className={`
+        flex flex-col border-r border-gray-50 bg-white transition-all duration-300 ease-in-out
+        lg:relative lg:translate-x-0
+        ${
+          // Desktop behavior
+          isCollapsed ? 'lg:w-16' : 'lg:w-64'
+        }
+        ${
+          // Mobile behavior - fixed overlay
+          isMobileOpen
+            ? 'fixed inset-y-0 left-0 z-50 w-64 translate-x-0'
+            : 'fixed inset-y-0 left-0 z-50 w-64 -translate-x-full lg:translate-x-0'
+        }
+      `}
+      >
+        {/* Header */}
+        <div className="flex h-16 items-center justify-between px-4">
+          {!isCollapsed || isMobileOpen ? (
+            <>
+              <Link href="/" className="group">
+                <img
+                  src="/images/logo.svg"
+                  alt="Ascent Logo"
+                  className="h-8 w-auto transition-transform group-hover:scale-105"
+                />
+              </Link>
+
+              {/* Desktop collapse button */}
+              <button
+                onClick={onToggle}
+                className="hidden rounded-md p-1.5 text-gray-400 transition-colors hover:bg-gray-50 hover:text-gray-600 lg:block"
+                title="Collapse sidebar"
+              >
+                <svg
+                  width="16"
+                  height="16"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  strokeWidth="2"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                >
+                  <rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect>
+                  <line x1="9" y1="3" x2="9" y2="21"></line>
+                </svg>
+              </button>
+
+              {/* Mobile close button */}
+              <button
+                onClick={onMobileToggle}
+                className="rounded-md p-1.5 text-gray-400 transition-colors hover:bg-gray-50 hover:text-gray-600 lg:hidden"
+                title="Close sidebar"
+              >
+                <svg
+                  width="16"
+                  height="16"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  strokeWidth="2"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                >
+                  <line x1="18" y1="6" x2="6" y2="18"></line>
+                  <line x1="6" y1="6" x2="18" y2="18"></line>
+                </svg>
+              </button>
+            </>
+          ) : (
+            <div className="mx-auto">
+              <Link href="/">
+                <img
+                  src="/images/logomark.svg"
+                  alt="Ascent"
+                  className="h-8 w-8"
+                />
+              </Link>
+            </div>
+          )}
+        </div>
+
+        {/* Navigation */}
+        <nav className="flex-1 px-3 py-4">
+          <div className="space-y-1">
+            {navigationItems.map((item) => {
+              const isActive = isActiveRoute(item.href)
+              const showText = !isCollapsed || isMobileOpen
+              return (
+                <Link
+                  key={item.name}
+                  href={item.href}
+                  className={`group flex items-center rounded-lg px-3 py-2.5 text-sm font-medium transition-colors ${
+                    isActive
+                      ? 'bg-brand-50 text-brand-700'
+                      : 'text-gray-600 hover:bg-gray-50 hover:text-gray-900'
+                  }`}
+                  title={!showText ? item.name : undefined}
+                  onClick={() => {
+                    // Close mobile menu when navigating
+                    if (isMobileOpen) onMobileToggle()
+                  }}
+                >
+                  <i
+                    className={`pi ${item.icon} text-base ${
+                      isActive
+                        ? 'text-brand-600'
+                        : 'text-gray-400 group-hover:text-gray-500'
+                    } ${showText ? 'mr-3' : ''}`}
+                  />
+                  {showText && <span>{item.name}</span>}
+                </Link>
+              )
+            })}
+          </div>
+        </nav>
+
+        {/* User Section */}
+        <div className="p-3">
+          {!isCollapsed || isMobileOpen ? (
+            <>
+              <div
+                className="flex cursor-pointer items-center rounded-lg p-3 transition-colors hover:bg-gray-50"
+                onClick={(e) => userMenuRef.current.toggle(e)}
+              >
+                <Avatar
+                  image={loggedInUser?.avatarUrl}
+                  label={loggedInUser?.initials}
+                  size="normal"
+                  shape="circle"
+                  className="[&_img]:rounded-full"
+                  style={{
+                    backgroundColor: loggedInUser?.avatarUrl
+                      ? undefined
+                      : '#6366f1',
+                    color: '#ffffff'
+                  }}
+                />
+                <div className="ml-3 min-w-0 flex-1">
+                  <p className="truncate text-sm font-medium text-gray-900">
+                    {loggedInUser?.fullName}
+                  </p>
+                  <p className="truncate text-xs text-gray-500">
+                    {loggedInUser?.email}
+                  </p>
+                </div>
+                <i className="pi pi-ellipsis-v text-xs text-gray-400" />
+              </div>
+
+              <Menu
+                ref={userMenuRef}
+                model={userMenuItems}
+                popup
+                className="w-64"
+              />
+            </>
+          ) : (
+            <div className="flex justify-center">
+              <Avatar
+                image={loggedInUser?.avatarUrl}
+                label={loggedInUser?.initials}
+                size="normal"
+                shape="circle"
+                className="cursor-pointer [&_img]:rounded-full"
+                onClick={(e) => userMenuRef.current.toggle(e)}
+                style={{
+                  backgroundColor: loggedInUser?.avatarUrl
+                    ? undefined
+                    : '#6366f1',
+                  color: '#ffffff'
+                }}
+              />
+              <Menu
+                ref={userMenuRef}
+                model={userMenuItems}
+                popup
+                className="w-64"
+              />
+            </div>
+          )}
+        </div>
+      </aside>
+    </>
+  )
+}
+
+function DashboardNavbar({
+  onSidebarToggle,
+  onMobileToggle,
+  title,
+  isCollapsed,
+  userMenuItems,
+  loggedInUser
+}) {
+  const navbarUserMenuRef = useRef(null)
+
+  return (
+    <header className="border-b border-gray-50 bg-white">
+      <div className="flex h-16 items-center justify-between px-4 sm:px-6 lg:px-8">
+        <div className="flex items-center gap-4">
+          {/* Mobile menu button */}
+          <button
+            onClick={onMobileToggle}
+            className="rounded-md p-1.5 text-gray-500 transition-colors hover:bg-gray-50 hover:text-gray-700 lg:hidden"
+            title="Open sidebar"
+          >
+            <svg
+              width="16"
+              height="16"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              strokeWidth="2"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+            >
+              <rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect>
+              <line x1="9" y1="3" x2="9" y2="21"></line>
+              <line x1="14" y1="8" x2="20" y2="8"></line>
+              <line x1="14" y1="12" x2="20" y2="12"></line>
+              <line x1="14" y1="16" x2="20" y2="16"></line>
+            </svg>
+          </button>
+
+          {/* Desktop expand button */}
+          {isCollapsed && (
+            <button
+              onClick={onSidebarToggle}
+              className="hidden rounded-md p-1.5 text-gray-500 transition-colors hover:bg-gray-50 hover:text-gray-700 lg:block"
+              title="Expand sidebar"
+            >
+              <svg
+                width="16"
+                height="16"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                strokeWidth="2"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+              >
+                <rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect>
+                <line x1="9" y1="3" x2="9" y2="21"></line>
+                <line x1="14" y1="8" x2="20" y2="8"></line>
+                <line x1="14" y1="12" x2="20" y2="12"></line>
+                <line x1="14" y1="16" x2="20" y2="16"></line>
+              </svg>
+            </button>
+          )}
+
+          <h1 className="text-lg font-medium text-gray-700">{title}</h1>
+        </div>
+
+        <div className="flex items-center gap-3">
+          <Button
+            icon="pi pi-search"
+            text
+            className="text-gray-500 hover:text-gray-700"
+            size="small"
+            tooltip="Search"
+          />
+          <Button
+            icon="pi pi-bell"
+            text
+            className="text-gray-500 hover:text-gray-700"
+            size="small"
+            tooltip="Notifications"
+          />
+
+          {/* User Avatar Dropdown */}
+          <div className="relative">
+            <Avatar
+              image={loggedInUser?.avatarUrl}
+              label={loggedInUser?.initials}
+              size="normal"
+              shape="circle"
+              className="cursor-pointer transition-all hover:ring-2 hover:ring-brand-200 [&_img]:rounded-full"
+              onClick={(e) => navbarUserMenuRef.current.toggle(e)}
+              style={{
+                backgroundColor: loggedInUser?.avatarUrl
+                  ? undefined
+                  : '#6366f1',
+                color: '#ffffff'
+              }}
+            />
+
+            <Menu
+              ref={navbarUserMenuRef}
+              model={userMenuItems}
+              popup
+              className="w-64"
+            />
+          </div>
+        </div>
+      </div>
+    </header>
+  )
+}
+
+export default function DashboardLayout({ children, title = 'Dashboard' }) {
+  const [isCollapsed, setIsCollapsed] = useState(false)
+  const [isMobileOpen, setIsMobileOpen] = useState(false)
+  const toast = useRef(null)
+  const { loggedInUser } = usePage().props
+
+  useFlashToast(toast)
+
+  const toggleSidebar = () => {
+    setIsCollapsed(!isCollapsed)
+  }
+
+  const toggleMobileMenu = () => {
+    setIsMobileOpen(!isMobileOpen)
+  }
+
+  // Reuse the same menu items for both sidebar and navbar
+  const itemRenderer = (item) => (
+    <div className="p-menuitem-content">
+      <a
+        className="flex cursor-pointer items-center px-4 py-2.5 text-sm font-medium text-gray-700 hover:bg-gray-50"
+        onClick={item.command}
+      >
+        <i className={`${item.icon} mr-3 text-base text-gray-500`} />
+        <span className="flex-1">{item.label}</span>
+      </a>
+    </div>
+  )
+
+  const signOutRenderer = (item) => (
+    <div className="p-menuitem-content">
+      <a
+        className="flex cursor-pointer items-center px-4 py-2.5 text-sm font-medium text-red-600 hover:bg-red-50"
+        onClick={item.command}
+      >
+        <i className={`${item.icon} mr-3 text-base text-red-500`} />
+        <span className="flex-1">{item.label}</span>
+      </a>
+    </div>
+  )
+
+  const sharedUserMenuItems = [
+    {
+      template: (item, options) => {
+        return (
+          <div className="border-b border-gray-200 px-4 py-3">
+            <div className="flex items-center">
+              <Avatar
+                image={loggedInUser?.avatarUrl}
+                label={loggedInUser?.initials}
+                className="mr-3 [&_img]:rounded-full"
+                shape="circle"
+                size="normal"
+                style={{
+                  backgroundColor: loggedInUser?.avatarUrl
+                    ? undefined
+                    : '#6366f1',
+                  color: '#ffffff'
+                }}
+              />
+              <div className="flex flex-col">
+                <span className="text-sm font-semibold text-gray-900">
+                  {loggedInUser?.fullName}
+                </span>
+                <span className="text-xs text-gray-500">
+                  {loggedInUser?.email}
+                </span>
+              </div>
+            </div>
+          </div>
+        )
+      }
+    },
+    {
+      label: 'My profile',
+      icon: 'pi pi-user',
+      command: () => router.visit('/profile'),
+      template: itemRenderer
+    },
+    {
+      label: 'My settings',
+      icon: 'pi pi-cog',
+      command: () => router.visit('/security'),
+      template: itemRenderer
+    },
+    {
+      label: 'Help',
+      icon: 'pi pi-question-circle',
+      command: () => router.visit('/help'),
+      template: itemRenderer
+    },
+    {
+      label: 'Sign out',
+      icon: 'pi pi-sign-out',
+      command: () => {
+        const form = document.createElement('form')
+        form.method = 'POST'
+        form.action = '/logout'
+        document.body.appendChild(form)
+        form.submit()
+      },
+      template: signOutRenderer
+    }
+  ]
+
+  return (
+    <div className="flex min-h-screen bg-white">
+      {/* Sidebar */}
+      <DashboardSidebar
+        isCollapsed={isCollapsed}
+        onToggle={toggleSidebar}
+        isMobileOpen={isMobileOpen}
+        onMobileToggle={toggleMobileMenu}
+        userMenuItems={sharedUserMenuItems}
+      />
+
+      {/* Main content area */}
+      <div className="flex flex-1 flex-col">
+        {/* Navbar */}
+        <DashboardNavbar
+          onSidebarToggle={toggleSidebar}
+          onMobileToggle={toggleMobileMenu}
+          title={title}
+          isCollapsed={isCollapsed}
+          userMenuItems={sharedUserMenuItems}
+          loggedInUser={loggedInUser}
+        />
+
+        {/* Main content */}
+        <main className="flex-1 p-4 sm:p-6 lg:p-8">
+          <div className="mx-auto max-w-7xl">{children}</div>
+        </main>
+      </div>
+
+      {/* Toast notifications */}
+      <Toast ref={toast} />
+    </div>
+  )
+}

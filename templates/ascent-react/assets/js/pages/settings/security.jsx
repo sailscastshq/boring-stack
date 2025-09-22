@@ -6,16 +6,18 @@ import { InputText } from 'primereact/inputtext'
 import { ConfirmDialog } from 'primereact/confirmdialog'
 import { confirmDialog } from 'primereact/confirmdialog'
 import { Message } from 'primereact/message'
-import AppLayout from '@/layouts/AppLayout.jsx'
+
+import DashboardLayout from '@/layouts/DashboardLayout'
 import SettingsLayout from '@/layouts/SettingsLayout.jsx'
+
 import TotpSetupModal from '@/components/TotpSetupModal.jsx'
 import BackupCodesModal from '@/components/BackupCodesModal.jsx'
 import EmailTwoFactorSetupModal from '@/components/EmailTwoFactorSetupModal.jsx'
 
 SecuritySettings.layout = (page) => (
-  <AppLayout>
+  <DashboardLayout title="Security">
     <SettingsLayout children={page} />
-  </AppLayout>
+  </DashboardLayout>
 )
 
 export default function SecuritySettings({
