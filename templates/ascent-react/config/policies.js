@@ -23,6 +23,7 @@ module.exports.policies = {
   'dashboard/*': 'is-authenticated',
   'setting/*': 'is-authenticated',
   'team/*': 'is-authenticated',
+  'security/*': 'is-authenticated',
   'team/view-invite': true,
   'team/send-email-invite': ['is-authenticated', 'has-clearance'],
   'team/reset-invite-token': [

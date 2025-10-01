@@ -64,6 +64,7 @@ module.exports.routes = {
   'GET /settings/team': 'setting/view-team',
 
   // Update password & 2FA Security routes
+  'POST /security/setup-initial-password': 'security/setup-initial-password',
   'PATCH /security/update-password': 'security/update-password',
   'POST /security/setup-totp': 'security/setup-totp',
   'POST /security/verify-totp-setup': 'security/verify-totp-setup',

@@ -29,6 +29,7 @@ export default function SecuritySettings({
   passwordStrength
 }) {
   const [showPasswordForm, setShowPasswordForm] = useState(false)
+  const [showInitialPasswordForm, setShowInitialPasswordForm] = useState(false)
   const [showSetupFlow, setShowSetupFlow] = useState(false)
   const [showTotpModal, setShowTotpModal] = useState(false)
   const [showBackupCodesModal, setShowBackupCodesModal] = useState(false)
@@ -63,7 +64,16 @@ export default function SecuritySettings({
 
   const { post: generateBackupCodes, processing: generatingBackupCodes } =
     useForm({})
-  const { post: setupPassword, processing: settingUpPassword } = useForm({})
+  const {
+    data: initialPasswordData,
+    setData: setInitialPasswordData,
+    post: setupInitialPassword,
+    processing: settingUpPassword,
+    errors: initialPasswordErrors
+  } = useForm({
+    password: '',
+    confirmPassword: ''
+  })
   const { post: setupTotpForm, processing: settingUpTotp } = useForm({})
   const { post: setupEmailForm, processing: settingUpEmail } = useForm({})
   const { post: disableTwoFactorForm, processing: disablingTwoFactor } =
@@ -151,34 +161,26 @@ export default function SecuritySettings({
   function setupTOTP() {
     if (!hasPassword) return // Should be disabled anyway, but extra safety
 
-    setupTotpForm(
-      '/security/setup-totp',
-      {},
-      {
-        preserveScroll: true,
-        onError: (errors) => {
-          console.error('TOTP setup failed:', errors)
-        }
+    setupTotpForm('/security/setup-totp', {
+      preserveScroll: true,
+      onError: (errors) => {
+        console.error('TOTP setup failed:', errors)
       }
-    )
+    })
   }
 
   function setupEmail2FA() {
     if (!hasPassword) return // Should be disabled anyway, but extra safety
 
-    setupEmailForm(
-      '/security/setup-email-2fa',
-      {},
-      {
-        preserveScroll: true,
-        onSuccess: () => {
-          setShowEmailTwoFactorModal(true)
-        },
-        onError: (errors) => {
-          console.error('Email 2FA setup failed:', errors)
-        }
+    setupEmailForm('/security/setup-email-2fa', {
+      preserveScroll: true,
+      onSuccess: () => {
+        setShowEmailTwoFactorModal(true)
+      },
+      onError: (errors) => {
+        console.error('Email 2FA setup failed:', errors)
       }
-    )
+    })
   }
 
   function handleGenerateBackupCodes() {
@@ -191,19 +193,25 @@ export default function SecuritySettings({
   }
 
   function handleSetupPassword() {
-    // Use the forgot-password flow to let user set a password
-    setupPassword(
-      '/forgot-password',
-      { email: loggedInUser.email },
-      {
-        onSuccess: () => {
-          // Show success message that email was sent
-        },
-        onError: (errors) => {
-          console.error('Password setup email failed:', errors)
-        }
+    setShowInitialPasswordForm(true)
+  }
+
+  function submitInitialPassword(e) {
+    e.preventDefault()
+    setupInitialPassword('/security/setup-initial-password', {
+      preserveScroll: true,
+      preserveState: true,
+      onSuccess: () => {
+        setInitialPasswordData({
+          password: '',
+          confirmPassword: ''
+        })
+        setShowInitialPasswordForm(false)
+      },
+      onError: (errors) => {
+        console.error('Initial password setup failed:', errors)
       }
-    )
+    })
   }
 
   return (
@@ -225,32 +233,142 @@ export default function SecuritySettings({
 
           <div className="rounded-lg border border-gray-200 bg-white p-4 shadow-sm sm:p-6">
             {!hasPassword ? (
-              // No Password State - Show Setup Option
-              <div className="flex flex-col space-y-4 sm:flex-row sm:items-center sm:justify-between sm:space-y-0">
-                <div className="flex items-center space-x-3 sm:space-x-4">
-                  <div className="flex h-10 w-10 flex-shrink-0 items-center justify-center rounded-lg bg-orange-50">
-                    <i className="pi pi-lock text-orange-600"></i>
+              !showInitialPasswordForm ? (
+                // No Password State - Show Setup Option
+                <div className="flex flex-col space-y-4 sm:flex-row sm:items-center sm:justify-between sm:space-y-0">
+                  <div className="flex items-center space-x-3 sm:space-x-4">
+                    <div className="flex h-10 w-10 flex-shrink-0 items-center justify-center rounded-lg bg-orange-50">
+                      <i className="pi pi-lock text-orange-600"></i>
+                    </div>
+                    <div className="flex-1">
+                      <h4 className="text-sm font-medium text-gray-900">
+                        You don't have a password set
+                      </h4>
+                      <p className="mt-1 text-sm text-gray-500">
+                        Set one up to enable two-factor authentication
+                      </p>
+                    </div>
                   </div>
-                  <div className="flex-1">
-                    <h4 className="text-sm font-medium text-gray-900">
-                      You don't have a password set
-                    </h4>
-                    <p className="mt-1 text-sm text-gray-500">
-                      Set one up to enable two-factor authentication
-                    </p>
+                  <div className="flex justify-end sm:ml-4">
+                    <Button
+                      label="Set up"
+                      size="small"
+                      outlined
+                      onClick={handleSetupPassword}
+                    />
                   </div>
                 </div>
-                <div className="flex justify-end sm:ml-4">
-                  <Button
-                    label={settingUpPassword ? 'Sending email...' : 'Set up'}
-                    size="small"
-                    outlined
-                    loading={settingUpPassword}
-                    disabled={settingUpPassword}
-                    onClick={handleSetupPassword}
-                  />
-                </div>
-              </div>
+              ) : (
+                // Initial Password Setup Form
+                <form onSubmit={submitInitialPassword} className="space-y-6">
+                  <div className="mb-4 flex items-center space-x-3">
+                    <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-brand-50">
+                      <i className="pi pi-lock text-brand-600"></i>
+                    </div>
+                    <div>
+                      <h4 className="text-sm font-medium text-gray-900">
+                        Set up your password
+                      </h4>
+                      <p className="text-sm text-gray-500">
+                        Create a secure password for your account
+                      </p>
+                    </div>
+                  </div>
+
+                  {initialPasswordErrors.setupInitialPassword && (
+                    <Message
+                      severity="error"
+                      text={initialPasswordErrors.setupInitialPassword}
+                      className="mb-4"
+                    />
+                  )}
+
+                  <div className="grid gap-4">
+                    <div>
+                      <label
+                        htmlFor="initialPassword"
+                        className="mb-2 block text-sm font-medium text-gray-700"
+                      >
+                        Password
+                      </label>
+                      <InputText
+                        id="initialPassword"
+                        type="password"
+                        value={initialPasswordData.password}
+                        onChange={(e) =>
+                          setInitialPasswordData('password', e.target.value)
+                        }
+                        placeholder="Enter your password"
+                        className="w-full"
+                      />
+                      {initialPasswordErrors.password && (
+                        <Message
+                          severity="error"
+                          text={initialPasswordErrors.password}
+                          className="mt-2"
+                        />
+                      )}
+                    </div>
+
+                    <div>
+                      <label
+                        htmlFor="confirmInitialPassword"
+                        className="mb-2 block text-sm font-medium text-gray-700"
+                      >
+                        Confirm password
+                      </label>
+                      <InputText
+                        id="confirmInitialPassword"
+                        type="password"
+                        value={initialPasswordData.confirmPassword}
+                        onChange={(e) =>
+                          setInitialPasswordData(
+                            'confirmPassword',
+                            e.target.value
+                          )
+                        }
+                        placeholder="Confirm your password"
+                        className="w-full"
+                      />
+                      {initialPasswordErrors.confirmPassword && (
+                        <Message
+                          severity="error"
+                          text={initialPasswordErrors.confirmPassword}
+                          className="mt-2"
+                        />
+                      )}
+                    </div>
+                  </div>
+
+                  <div className="flex flex-col space-y-3 pt-4 sm:flex-row sm:items-center sm:justify-end sm:space-x-3 sm:space-y-0">
+                    <Button
+                      type="button"
+                      label="Cancel"
+                      size="small"
+                      className="w-full px-4 py-2 text-sm sm:w-auto"
+                      outlined
+                      text
+                      severity="secondary"
+                      onClick={() => {
+                        setShowInitialPasswordForm(false)
+                        setInitialPasswordData({
+                          password: '',
+                          confirmPassword: ''
+                        })
+                      }}
+                    />
+                    <Button
+                      type="submit"
+                      label="Set up password"
+                      size="small"
+                      outlined
+                      className="w-full px-4 py-2 text-sm sm:w-auto"
+                      disabled={settingUpPassword}
+                      loading={settingUpPassword}
+                    />
+                  </div>
+                </form>
+              )
             ) : !showPasswordForm ? (
               // Password Display View
               <div className="flex flex-col space-y-4 sm:flex-row sm:items-center sm:justify-between sm:space-y-0">
