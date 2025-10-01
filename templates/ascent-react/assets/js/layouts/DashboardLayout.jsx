@@ -4,6 +4,7 @@ import { Toast } from 'primereact/toast'
 import { Avatar } from 'primereact/avatar'
 import { Button } from 'primereact/button'
 import { Menu } from 'primereact/menu'
+import { Tooltip } from 'primereact/tooltip'
 import { classNames } from 'primereact/utils'
 import { useFlashToast } from '@/hooks/useFlashToast'
 import { useLocalStorage } from '@/hooks/useLocalStorage'
@@ -186,7 +187,10 @@ function DashboardSidebar({
                               ? 'bg-brand-50 text-brand-700'
                               : 'text-gray-600 hover:bg-gray-50 hover:text-gray-900'
                           }`}
-                          title={!showText ? item.name : undefined}
+                          data-pr-tooltip={!showText ? item.name : undefined}
+                          data-pr-position="right"
+                          data-pr-at="right center"
+                          data-pr-my="left center"
                           onClick={() => {
                             // Close mobile menu when navigating
                             if (isMobileOpen) onMobileToggle()
@@ -258,6 +262,10 @@ function DashboardSidebar({
                 shape="circle"
                 className="cursor-pointer [&_img]:rounded-full"
                 onClick={(e) => userMenuRef.current.toggle(e)}
+                data-pr-tooltip={loggedInUser?.fullName || 'User menu'}
+                data-pr-position="right"
+                data-pr-at="right center"
+                data-pr-my="left center"
                 style={{
                   backgroundColor: loggedInUser?.avatarUrl
                     ? undefined
@@ -274,6 +282,9 @@ function DashboardSidebar({
             </div>
           )}
         </div>
+
+        {/* Tooltip for collapsed sidebar */}
+        {isCollapsed && <Tooltip target="[data-pr-tooltip]" />}
       </aside>
     </>
   )
