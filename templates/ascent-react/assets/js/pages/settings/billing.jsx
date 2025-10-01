@@ -10,7 +10,9 @@ import DashboardLayout from '@/layouts/DashboardLayout'
 import SettingsLayout from '@/layouts/SettingsLayout.jsx'
 
 BillingSettings.layout = (page) => (
-  <DashboardLayout title="Billing">{page}</DashboardLayout>
+  <DashboardLayout title="Billing" maxWidth="narrow">
+    {page}
+  </DashboardLayout>
 )
 
 export default function BillingSettings() {

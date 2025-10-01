@@ -391,7 +391,11 @@ function DashboardNavbar({
   )
 }
 
-export default function DashboardLayout({ children, title = 'Dashboard' }) {
+export default function DashboardLayout({
+  children,
+  title = 'Dashboard',
+  maxWidth = 'default'
+}) {
   const [isCollapsed, setIsCollapsed] = useState(false)
   const [isMobileOpen, setIsMobileOpen] = useState(false)
   const toast = useRef(null)
@@ -511,7 +515,17 @@ export default function DashboardLayout({ children, title = 'Dashboard' }) {
 
         {/* Main content */}
         <main className="flex-1 p-4 sm:p-6 lg:p-8">
-          <div className="mx-auto py-12 sm:w-10/12">{children}</div>
+          <div
+            className={`mx-auto py-12 ${
+              maxWidth === 'narrow'
+                ? 'max-w-3xl'
+                : maxWidth === 'wide'
+                ? 'max-w-7xl'
+                : 'sm:w-10/12' // default
+            }`}
+          >
+            {children}
+          </div>
         </main>
       </div>
 

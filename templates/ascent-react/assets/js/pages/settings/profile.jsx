@@ -12,7 +12,9 @@ import { ConfirmDialog } from 'primereact/confirmdialog'
 import { confirmDialog } from 'primereact/confirmdialog'
 
 ProfileSettings.layout = (page) => (
-  <DashboardLayout title="Profile">{page}</DashboardLayout>
+  <DashboardLayout title="Profile" maxWidth="narrow">
+    {page}
+  </DashboardLayout>
 )
 
 export default function ProfileSettings() {
