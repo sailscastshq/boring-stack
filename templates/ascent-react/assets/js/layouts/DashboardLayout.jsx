@@ -6,6 +6,7 @@ import { Button } from 'primereact/button'
 import { Menu } from 'primereact/menu'
 import { classNames } from 'primereact/utils'
 import { useFlashToast } from '@/hooks/useFlashToast'
+import { useLocalStorage } from '@/hooks/useLocalStorage'
 
 function DashboardSidebar({
   isCollapsed,
@@ -396,7 +397,10 @@ export default function DashboardLayout({
   title = 'Dashboard',
   maxWidth = 'default'
 }) {
-  const [isCollapsed, setIsCollapsed] = useState(false)
+  const [isCollapsed, setIsCollapsed] = useLocalStorage(
+    'ASCENT_SIDEBAR_COLLAPSED',
+    false
+  )
   const [isMobileOpen, setIsMobileOpen] = useState(false)
   const toast = useRef(null)
   const { loggedInUser } = usePage().props
