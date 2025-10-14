@@ -42,6 +42,9 @@ module.exports.routes = {
   'POST /magic-link': 'auth/request-magic-link',
   'GET /magic-link/:token': 'auth/verify-magic-link',
 
+  'POST /challenge-passkey': 'auth/challenge-passkey',
+  'POST /verify-passkey': 'auth/verify-passkey',
+
   'GET /forgot-password': 'auth/view-forgot-password',
   'POST /forgot-password': 'auth/forgot-password',
 
@@ -72,6 +75,11 @@ module.exports.routes = {
   'POST /security/verify-email-2fa-setup': 'security/verify-email-2fa-setup',
   'POST /security/disable-2fa': 'security/disable-2fa',
   'POST /security/generate-backup-codes': 'security/generate-backup-codes',
+  'POST /security/setup-passkey': 'security/setup-passkey',
+  'POST /security/verify-passkey-setup': 'security/verify-passkey-setup',
+  'POST /security/disable-passkeys': 'security/disable-passkeys',
+  'PATCH /security/rename-passkey/:credentialId': 'security/rename-passkey',
+  'DELETE /security/delete-passkey/:credentialId': 'security/delete-passkey',
 
   // Team routes
   'GET /team/:inviteToken': 'team/view-invite',
