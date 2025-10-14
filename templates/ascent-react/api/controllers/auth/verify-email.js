@@ -61,10 +61,17 @@ module.exports = {
 
       this.req.session.userId = user.id
 
-      // Set user's team ID in session (team was created during signup)
-      if (user.team) {
-        this.req.session.teamId = user.team
-      }
+      await sails.helpers
+        .setTeamSession(this.req, user.id, user.team)
+        .tolerate('notFound')
+        .intercept((err) => {
+          sails.log.error(
+            `Error setting team session for user ${user.id} and team ${user.team}:`,
+            err
+          )
+          return err
+        })
+      // Clear out any stale userEmail in session (set during signup)
       delete this.req.session.userEmail
 
       this.req.flash(

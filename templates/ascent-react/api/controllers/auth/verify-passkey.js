@@ -112,13 +112,17 @@ module.exports = {
       passkeys: updatedPasskeys
     })
 
-    // Log user in
     this.req.session.userId = user.id
-
-    // Set user's team ID in session if they have one
-    if (user.team) {
-      this.req.session.teamId = user.team
-    }
+    await sails.helpers
+      .setTeamSession(this.req, user.id, user.team)
+      .tolerate('notFound')
+      .intercept((err) => {
+        sails.log.error(
+          `Error setting team session for user ${user.id} and team ${user.team}:`,
+          err
+        )
+        return err
+      })
 
     return '/dashboard'
   }

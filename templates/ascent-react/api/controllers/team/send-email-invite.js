@@ -112,7 +112,7 @@ module.exports = {
 
       const inviteUrl = `${sails.config.custom.baseUrl}/team/invite/${invite.token}`
 
-      await sails.helpers.mail.send({
+      await sails.helpers.mail.send.with({
         template: 'email-team-invitation',
         templateData: {
           teamName: team.name,

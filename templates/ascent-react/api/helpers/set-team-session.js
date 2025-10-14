@@ -37,10 +37,7 @@ module.exports = {
     }
   },
 
-  fn: async function (inputs, exits) {
-    const { req, userId, teamId } = inputs
-
-    // Find the user's membership in this team
+  fn: async function ({ req, userId, teamId }, exits) {
     const membership = await Membership.findOne({
       member: userId,
       team: teamId,
@@ -51,13 +48,8 @@ module.exports = {
       return exits.notFound()
     }
 
-    // Set team context and user role in session
     req.session.teamId = teamId
     req.session.userRole = membership.role
-
-    sails.log.debug(
-      `Set team session: user ${userId} has role '${membership.role}' in team ${teamId}`
-    )
 
     return exits.success()
   }

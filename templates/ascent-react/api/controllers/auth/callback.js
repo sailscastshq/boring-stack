@@ -157,10 +157,16 @@ module.exports = {
 
           req.session.userId = user.id
 
-          // Set user's team ID in session
-          if (user.team) {
-            req.session.teamId = user.team
-          }
+          await sails.helpers
+            .setTeamSession(req, user.id, user.team)
+            .tolerate('notFound')
+            .intercept((err) => {
+              sails.log.error(
+                `Error setting team session for user ${user.id} and team ${user.team}:`,
+                err
+              )
+              return err
+            })
 
           // Check for stored OAuth returnUrl
           const returnUrl = req.session.oauthReturnUrl
