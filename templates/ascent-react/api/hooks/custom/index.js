@@ -29,7 +29,8 @@ module.exports = function defineCustomHook(sails) {
                 'initials',
                 'twoFactorEnabled',
                 'totpEnabled',
-                'emailTwoFactorEnabled'
+                'emailTwoFactorEnabled',
+                'passkeyEnabled'
               ])
               if (!loggedInUser) {
                 sails.log.warn(
