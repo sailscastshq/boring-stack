@@ -14,7 +14,7 @@ import SettingsLayout from '@/layouts/SettingsLayout.jsx'
 import TotpSetupModal from '@/components/TotpSetupModal.jsx'
 import BackupCodesModal from '@/components/BackupCodesModal.jsx'
 import EmailTwoFactorSetupModal from '@/components/EmailTwoFactorSetupModal.jsx'
-import PasskeyManageModal from '@/components/PasskeyManageModal.jsx'
+import ManagePasskeysModal from '@/components/ManagePasskeysModal.jsx'
 
 SecuritySettings.layout = (page) => (
   <DashboardLayout title="Security" maxWidth="narrow">

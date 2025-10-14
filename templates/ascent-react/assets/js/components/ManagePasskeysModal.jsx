@@ -7,7 +7,7 @@ import { Message } from 'primereact/message'
 import { confirmDialog } from 'primereact/confirmdialog'
 import { Divider } from 'primereact/divider'
 
-export default function PasskeyManageModal({ visible, onHide, passkeys = [] }) {
+export default function ManagePasskeysModal({ visible, onHide, passkeys }) {
   const [editingPasskeyId, setEditingPasskeyId] = useState(null)
 
   const {
