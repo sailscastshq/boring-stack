@@ -10,6 +10,17 @@ module.exports = {
   },
 
   fn: async function () {
-    return { page: 'auth/login' }
+    const passkeyChallenge = this.req.session.passkeyChallenge || null
+    // Clear challenge from session after retrieving
+    if (passkeyChallenge) {
+      delete this.req.session.passkeyChallenge
+    }
+
+    return {
+      page: 'auth/login',
+      props: {
+        passkeyChallenge
+      }
+    }
   }
 }
