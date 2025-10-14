@@ -10,22 +10,47 @@ import InputPassword from '@/components/InputPassword.jsx'
 import InputButton from '@/components/InputButton.jsx'
 import GoogleButton from '@/components/GoogleButton.jsx'
 
-export default function Login() {
+export default function Login({ passkeyChallenge }) {
   const { data, setData, ...form } = useForm({
     email: '',
     password: '',
     rememberMe: false
   })
 
+  const {
+    data: passkeyData,
+    setData: setPasskeyData,
+    post: postPasskeySignin,
+    processing: isSigningInWithPasskey,
+    ...passkeyForm
+  } = useForm({
+    email: ''
+  })
+  // Form for verifying passkey assertion
+  const {
+    data: verifyPasskeyData,
+    setData: setVerifyPasskeyData,
+    post: postVerifyPasskey,
+    processing: isVerifyingPasskey,
+    ...verifyPasskeyForm
+  } = useForm({
+    assertion: null,
+    email: ''
+  })
+
   const [focusedField, setFocusedField] = useState('')
   const [showExpandedOptions, setShowExpandedOptions] = useState(false)
   const [isSendingMagicLink, setIsSendingMagicLink] = useState(false)
 
-  // Toast notifications
   const toast = useRef(null)
   useFlashToast(toast)
 
-  // Handle query parameters for controlling the initial view
+  useEffect(() => {
+    if (passkeyChallenge) {
+      handleWebAuthnChallenge(passkeyChallenge)
+    }
+  }, [passkeyChallenge])
+
   useEffect(() => {
     try {
       if (typeof window !== 'undefined' && window.location) {
@@ -41,7 +66,6 @@ export default function Login() {
     }
   }, [])
 
-  // Update URL when toggling modes
   const toggleToPasswordMode = () => {
     setShowExpandedOptions(true)
     try {
@@ -98,13 +122,50 @@ export default function Login() {
         fullName: data.fullName || undefined
       },
       onSuccess: () => {
-        // Reset the form or show success message
         setIsSendingMagicLink(false)
       },
       onError: (errors) => {
         setIsSendingMagicLink(false)
       }
     })
+  }
+
+  function handlePasskeySignin(e) {
+    e.preventDefault()
+    if (!data.email) return
+    passkeyForm.transform(() => ({ email: data.email }))
+    postPasskeySignin('/challenge-passkey', {
+      onError: (errors) => {
+        console.error('Passkey signin failed:', errors)
+      }
+    })
+  }
+
+  async function handleWebAuthnChallenge(challengeData) {
+    try {
+      const { startAuthentication } = await import('@simplewebauthn/browser')
+      const assertion = await startAuthentication(challengeData.options)
+      const email = challengeData.email
+
+      verifyPasskeyForm.transform(() => ({
+        assertion,
+        email
+      }))
+
+      postVerifyPasskey('/verify-passkey', {
+        onError: (errors) => {
+          console.error('Passkey verification failed:', errors)
+        }
+      })
+    } catch (error) {
+      if (error.name === 'NotAllowedError') {
+        // User cancelled the passkey prompt
+        console.log('User cancelled passkey authentication')
+      } else {
+        console.error('WebAuthn error:', error)
+        // Could show a toast or flash message here
+      }
+    }
   }
 
   return (
@@ -160,11 +221,17 @@ export default function Login() {
             {/* Main card */}
             <div className="relative rounded-2xl border border-gray-100 bg-white px-8 py-10 shadow-2xl">
               {/* Global error */}
-              {(form.errors.login || form.errors.magicLink) && (
+              {(form.errors.login ||
+                form.errors.magicLink ||
+                verifyPasskeyForm.errors.passkey) && (
                 <section className="mb-6">
                   <Message
                     severity="error"
-                    text={form.errors.login || form.errors.magicLink}
+                    text={
+                      form.errors.login ||
+                      form.errors.magicLink ||
+                      verifyPasskeyForm.errors.passkey
+                    }
                     className="w-full"
                   />
                 </section>
@@ -260,7 +327,32 @@ export default function Login() {
                   </div>
 
                   {/* Other Sign-in Options */}
-                  <div className="pt-4 text-center">
+                  <div className="flex flex-col items-center space-y-2 text-center">
+                    {/* Passkey Sign-in - appears below magic link button */}
+                    {data.email && (
+                      <button
+                        type="button"
+                        onClick={handlePasskeySignin}
+                        disabled={isSigningInWithPasskey}
+                        className="inline-flex items-center text-sm font-medium text-brand-600 transition-colors hover:text-brand-500 disabled:cursor-not-allowed disabled:opacity-50"
+                      >
+                        {isSigningInWithPasskey ? (
+                          'Signing in...'
+                        ) : (
+                          <>
+                            <svg
+                              className="mr-1 h-4 w-4"
+                              fill="currentColor"
+                              viewBox="0 0 24 24"
+                            >
+                              <path d="M17.81 4.47c-.08 0-.16-.02-.23-.06C15.66 3.42 14 3 12.01 3c-1.98 0-3.86.47-5.57 1.41-.24.13-.54.04-.68-.2-.13-.24-.04-.55.2-.68C7.82 2.52 9.86 2 12.01 2c2.13 0 3.99.47 6.03 1.52.25.13.34.43.21.67-.09.18-.26.28-.44.28zM3.5 9.72c-.1 0-.2-.03-.29-.09-.23-.16-.28-.47-.12-.7.99-1.4 2.25-2.5 3.75-3.27C9.98 4.04 14 4.03 17.15 5.65c1.5.77 2.76 1.86 3.75 3.25.16.22.11.54-.12.7-.23.16-.54.11-.7-.12-.9-1.26-2.04-2.25-3.39-2.94-2.87-1.47-6.54-1.47-9.4.01-1.36.7-2.5 1.7-3.4 2.96-.08.14-.23.21-.39.21zm6.25 12.07c-.13 0-.26-.05-.35-.15-.87-.87-1.34-2.04-1.34-3.27 0-1.23.47-2.4 1.34-3.27.87-.87 2.04-1.34 3.27-1.34 1.23 0 2.4.47 3.27 1.34.87.87 1.34 2.04 1.34 3.27 0 1.23-.47 2.4-1.34 3.27-.09.1-.22.15-.35.15s-.26-.05-.35-.15c-.87-.87-1.34-2.04-1.34-3.27s.47-2.4 1.34-3.27c.87-.87 2.04-1.34 3.27-1.34s2.4.47 3.27 1.34c.87.87 1.34 2.04 1.34 3.27s-.47 2.4-1.34 3.27c-.09.1-.22.15-.35.15z" />
+                              <circle cx="12" cy="12" r="2" />
+                            </svg>
+                            Use passkey
+                          </>
+                        )}
+                      </button>
+                    )}
                     <button
                       type="button"
                       onClick={toggleToPasswordMode}
