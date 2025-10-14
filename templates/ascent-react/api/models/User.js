@@ -204,6 +204,34 @@ module.exports = {
       columnName: 'two_factor_verification_code_expires_at',
       allowNull: true
     },
+    //  ╔═╗┌─┐┌─┐┌─┐┬┌─┌─┐┬ ┬┌─┐
+    //  ╠═╝├─┤└─┐└─┐├┴┐├┤ └┬┘└─┐
+    //  ╩  ┴ ┴└─┘└─┘┴ ┴└─┘ ┴ └─┘
+    passkeyEnabled: {
+      type: 'boolean',
+      defaultsTo: false,
+      description: 'Whether passkey (WebAuthn) authentication is enabled.',
+      columnName: 'passkey_enabled'
+    },
+    passkeys: {
+      type: 'json',
+      description: 'Array of WebAuthn passkey credentials for this user.',
+      columnName: 'passkeys'
+    },
+    passkeyChallenge: {
+      type: 'string',
+      description: 'Temporary storage for WebAuthn authentication challenges.',
+      columnName: 'passkey_challenge',
+      allowNull: true
+    },
+    passkeyChallengeExpiresAt: {
+      type: 'number',
+      description:
+        'A JS timestamp (epoch ms) representing when the passkey challenge expires.',
+      example: 1502844074211,
+      columnName: 'passkey_challenge_expires_at',
+      allowNull: true
+    },
     //  ╔╦╗┌─┐┌─┐┌┬┐┌─┐
     //   ║ ├┤ ├─┤││││└─┐
     //   ╩ └─┘┴ ┴┴ ┴┴└─┘
@@ -243,7 +271,9 @@ module.exports = {
           'totpSecret',
           'backupCodes',
           'twoFactorVerificationCode',
-          'twoFactorVerificationCodeExpiresAt'
+          'twoFactorVerificationCodeExpiresAt',
+          'passkeyChallenge',
+          'passkeyChallengeExpiresAt'
         ].includes(key)
       ) {
         result[key] = this[key]
