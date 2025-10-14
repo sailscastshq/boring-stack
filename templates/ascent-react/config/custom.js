@@ -21,6 +21,7 @@ module.exports.custom = {
    * > but it can also be used for user-uploaded images, webhooks, etc.      *
    *                                                                         *
    **************************************************************************/
+  appName: 'Ascent React',
   baseUrl: 'http://localhost:1337',
 
   /**************************************************************************
