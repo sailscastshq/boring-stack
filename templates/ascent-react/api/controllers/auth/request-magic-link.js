@@ -94,14 +94,10 @@ module.exports = {
     if (!user) {
       const defaultFullName = fullName || normalizedEmail.split('@')[0]
 
-      // Create user with team using transaction
       const signupResult = await sails.helpers.user.signupWithTeam
         .with({
           fullName: defaultFullName,
           email: normalizedEmail,
-          password: await sails.helpers.strings.random('url-friendly'), // Random password for magic link users
-          emailProofToken: '', // Not needed for magic link users
-          emailProofTokenExpiresAt: 0, // Not needed
           tosAcceptedByIp: this.req.ip
         })
         .intercept('emailTaken', (err) => {
