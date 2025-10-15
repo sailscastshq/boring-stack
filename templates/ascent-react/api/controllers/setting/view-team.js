@@ -1,40 +1,63 @@
 module.exports = {
   friendlyName: 'View team settings',
-
-  description: 'Display "Team Settings" page.',
+  description: 'Display team settings page with multi-team support',
 
   exits: {
-    success: {
-      responseType: 'inertia'
-    },
-    notFound: {
-      responseType: 'notFound'
-    }
+    success: { responseType: 'inertia' },
+    notFound: { responseType: 'notFound' }
   },
 
   fn: async function () {
-    const req = this.req
-    const userId = req.session.userId
+    const userId = this.req.session.userId
 
-    const team = await Team.findOne({ owner: userId }).populate('owner')
-    if (!team) {
+    const userMemberships = await Membership.find({
+      member: userId,
+      status: 'active'
+    })
+      .populate('team')
+      .sort('createdAt DESC')
+
+    if (!userMemberships.length) {
       throw 'notFound'
     }
 
+    const currentTeamId = this.req.session.teamId || userMemberships[0].team.id
+    const currentMembership =
+      userMemberships.find((m) => m.team.id === currentTeamId) ||
+      userMemberships[0]
+
+    if (!this.req.session.teamId) {
+      await sails.helpers
+        .setTeamSession(this.req, userId, currentMembership.team.id)
+        .tolerate()
+    }
+
+    const team = await Team.findOne({ id: currentMembership.team.id }).populate(
+      'owner'
+    )
     team.inviteLink = sails.helpers.team.getInviteLink(team)
 
-    // Fetch all memberships for this team
-    const memberships = await Membership.find({
-      team: team.id
+    const teamMemberships = await Membership.find({
+      team: team.id,
+      status: 'active'
     })
-      .sort('createdAt DESC')
       .populate('member')
+      .sort('createdAt DESC')
+
+    const teams = userMemberships.map((m) => ({
+      id: m.team.id,
+      name: m.team.name,
+      role: m.role,
+      isCurrent: m.team.id === currentMembership.team.id
+    }))
 
     return {
       page: 'settings/team',
       props: {
         team,
-        memberships
+        memberships: teamMemberships,
+        teams,
+        userRole: currentMembership.role
       }
     }
   }
