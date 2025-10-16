@@ -19,19 +19,16 @@ module.exports = {
 
   exits: {
     success: { responseType: 'inertiaRedirect' },
-    forbidden: { responseType: 'forbidden' },
     notFound: { responseType: 'notFound' },
     badRequest: { responseType: 'badRequest' }
   },
 
   fn: async function ({ teamId, name }) {
-    // Policy already checked ownership, so we can proceed directly
     const team = await Team.findOne({ id: teamId })
     if (!team) {
       throw 'notFound'
     }
 
-    // Update team name
     await Team.updateOne({ id: teamId }).set({
       name: name.trim()
     })
