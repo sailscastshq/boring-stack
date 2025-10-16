@@ -22,7 +22,12 @@ TeamSettings.layout = (page) => (
   </DashboardLayout>
 )
 
-export default function TeamSettings({ team, memberships, userRole }) {
+export default function TeamSettings({
+  team,
+  memberships,
+  userRole,
+  pendingInvites = []
+}) {
   const { copied, copyToClipboard } = useCopyToClipboard()
   const { loggedInUser } = usePage().props
   const isOwnerOrAdmin = userRole === 'owner' || userRole === 'admin'
@@ -30,6 +35,9 @@ export default function TeamSettings({ team, memberships, userRole }) {
 
   // Track member actions
   const [memberActions, setMemberActions] = useState(new Set())
+
+  // Track invitation actions
+  const [inviteActions, setInviteActions] = useState(new Set())
 
   // Form for editing team name
   const {
@@ -529,6 +537,136 @@ export default function TeamSettings({ team, memberships, userRole }) {
             })}
           </div>
         </div>
+
+        {/* Pending Invitations - Only for owners/admins */}
+        {isOwnerOrAdmin && pendingInvites.length > 0 && (
+          <div className="space-y-6">
+            <div>
+              <h3 className="text-sm font-medium text-gray-900">
+                Pending Invitations
+              </h3>
+              <p className="mt-1 text-sm text-gray-500">
+                {pendingInvites.length}{' '}
+                {pendingInvites.length === 1 ? 'invitation' : 'invitations'}{' '}
+                waiting for response
+              </p>
+            </div>
+
+            <div className="divide-y divide-gray-50">
+              {pendingInvites.map((invite) => {
+                const isExpiring =
+                  invite.expiresAt - Date.now() < 24 * 60 * 60 * 1000 // expires in less than 24 hours
+                const inviterName =
+                  invite.invitedBy?.fullName ||
+                  invite.invitedBy?.email ||
+                  'Someone'
+                const inviteDate = new Date(
+                  invite.createdAt
+                ).toLocaleDateString()
+
+                return (
+                  <div
+                    key={invite.id}
+                    className="hover:bg-gray-25 flex items-center justify-between py-3 transition-colors"
+                  >
+                    <div className="flex items-center space-x-3">
+                      <div className="flex h-8 w-8 items-center justify-center rounded-full bg-blue-100 text-blue-600">
+                        <i className="pi pi-envelope text-sm"></i>
+                      </div>
+                      <div className="min-w-0 flex-1">
+                        <div className="flex items-center space-x-2">
+                          <span className="truncate text-sm font-medium text-gray-900">
+                            {invite.email}
+                          </span>
+                          {isExpiring && (
+                            <span className="rounded-full bg-orange-100 px-2 py-0.5 text-xs text-orange-800">
+                              Expires soon
+                            </span>
+                          )}
+                        </div>
+                        <div className="text-sm text-gray-500">
+                          Invited by {inviterName} on {inviteDate}
+                        </div>
+                      </div>
+                    </div>
+
+                    <div className="flex flex-shrink-0 items-center space-x-2">
+                      <Button
+                        label="Resend"
+                        size="small"
+                        text
+                        className="text-blue-600 hover:text-blue-700"
+                        loading={inviteActions.has(`resend-${invite.id}`)}
+                        disabled={
+                          inviteActions.has(`resend-${invite.id}`) ||
+                          inviteActions.has(`cancel-${invite.id}`)
+                        }
+                        onClick={() => {
+                          setInviteActions(
+                            (prev) => new Set([...prev, `resend-${invite.id}`])
+                          )
+                          router.post(
+                            `/teams/${team.id}/invites/${invite.id}/resend`,
+                            {},
+                            {
+                              preserveScroll: true,
+                              onFinish: () => {
+                                setInviteActions((prev) => {
+                                  const newSet = new Set(prev)
+                                  newSet.delete(`resend-${invite.id}`)
+                                  return newSet
+                                })
+                              }
+                            }
+                          )
+                        }}
+                      />
+                      <Button
+                        label="Cancel"
+                        size="small"
+                        text
+                        className="text-red-600 hover:text-red-700"
+                        loading={inviteActions.has(`cancel-${invite.id}`)}
+                        disabled={
+                          inviteActions.has(`resend-${invite.id}`) ||
+                          inviteActions.has(`cancel-${invite.id}`)
+                        }
+                        onClick={() => {
+                          confirmDialog({
+                            message: `Cancel invitation for ${invite.email}?`,
+                            header: 'Cancel Invitation',
+                            icon: 'pi pi-exclamation-triangle',
+                            acceptClassName:
+                              'bg-red-600 hover:bg-red-700 text-white border-red-600',
+                            accept: () => {
+                              setInviteActions(
+                                (prev) =>
+                                  new Set([...prev, `cancel-${invite.id}`])
+                              )
+                              router.delete(
+                                `/teams/${team.id}/invites/${invite.id}`,
+                                {
+                                  preserveScroll: true,
+                                  onFinish: () => {
+                                    setInviteActions((prev) => {
+                                      const newSet = new Set(prev)
+                                      newSet.delete(`cancel-${invite.id}`)
+                                      return newSet
+                                    })
+                                  }
+                                }
+                              )
+                            }
+                          })
+                        }}
+                      />
+                    </div>
+                  </div>
+                )
+              })}
+            </div>
+          </div>
+        )}
 
         {/* Team Settings - Only for owners - At bottom for dangerous actions */}
         {isOwner && (

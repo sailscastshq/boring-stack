@@ -44,12 +44,28 @@ module.exports = {
       .populate('member')
       .sort('createdAt DESC')
 
+    // Get pending invitations for owners/admins
+    let pendingInvites = []
+    if (
+      currentMembership.role === 'owner' ||
+      currentMembership.role === 'admin'
+    ) {
+      pendingInvites = await Invite.find({
+        team: team.id,
+        status: 'pending',
+        expiresAt: { '>': Date.now() }
+      })
+        .populate('invitedBy')
+        .sort('createdAt DESC')
+    }
+
     return {
       page: 'settings/team',
       props: {
         team,
         memberships: teamMemberships,
-        userRole: currentMembership.role
+        userRole: currentMembership.role,
+        pendingInvites
       }
     }
   }
