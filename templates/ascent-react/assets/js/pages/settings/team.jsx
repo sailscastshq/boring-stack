@@ -180,7 +180,7 @@ export default function TeamSettings({ team, memberships, userRole }) {
         'Are you sure you want to leave this team? You will lose access to all team resources.',
       header: 'Leave Team',
       icon: 'pi pi-exclamation-triangle',
-      acceptClassName: 'p-button-danger',
+      acceptClassName: 'bg-red-600 hover:bg-red-700 text-white border-red-600',
       accept: () => {
         router.post(`/teams/${team.id}/leave`)
       }
@@ -189,7 +189,7 @@ export default function TeamSettings({ team, memberships, userRole }) {
 
   function handleUpdateTeam(e) {
     e.preventDefault()
-    patchTeam(`/teams/${team.id}`)
+    patchTeam(`/teams/${team.id}`, { preserveScroll: true })
   }
 
   function confirmDeleteTeam() {
@@ -410,7 +410,7 @@ export default function TeamSettings({ team, memberships, userRole }) {
                 label="Leave team"
                 icon="pi pi-sign-out"
                 size="small"
-                severity="secondary"
+                severity="danger"
                 outlined
                 onClick={confirmLeaveTeam}
               />
@@ -466,7 +466,7 @@ export default function TeamSettings({ team, memberships, userRole }) {
               return (
                 <div
                   key={member.id}
-                  className="flex items-center justify-between py-3 hover:bg-gray-25 transition-colors"
+                  className="hover:bg-gray-25 flex items-center justify-between py-3 transition-colors"
                 >
                   <div className="flex items-center space-x-3">
                     <Avatar
@@ -476,25 +476,25 @@ export default function TeamSettings({ team, memberships, userRole }) {
                     />
                     <div className="min-w-0 flex-1">
                       <div className="flex items-center space-x-2">
-                        <span className="text-sm font-medium text-gray-900 truncate">
+                        <span className="truncate text-sm font-medium text-gray-900">
                           {member.name}
                         </span>
                         {isCurrentUser && (
-                          <span className="text-xs text-gray-500 flex-shrink-0">
+                          <span className="flex-shrink-0 text-xs text-gray-500">
                             (you)
                           </span>
                         )}
                       </div>
-                      <div className="text-sm text-gray-500 truncate">
+                      <div className="truncate text-sm text-gray-500">
                         {member.email}
                       </div>
                     </div>
                   </div>
 
-                  <div className="flex items-center space-x-3 flex-shrink-0">
+                  <div className="flex flex-shrink-0 items-center space-x-3">
                     {/* Custom Role Badge */}
                     <span
-                      className={`inline-flex items-center px-2 py-0.5 rounded-full text-xs font-medium ${
+                      className={`inline-flex items-center rounded-full px-2 py-0.5 text-xs font-medium ${
                         member.role.toLowerCase() === 'owner'
                           ? 'bg-green-100 text-green-800'
                           : member.role.toLowerCase() === 'admin'
