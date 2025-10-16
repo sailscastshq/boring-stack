@@ -85,6 +85,8 @@ module.exports.routes = {
   'GET /team/:inviteToken': 'team/view-invite',
   'POST /team/:inviteToken': 'team/handle-invite',
   'POST /teams/:teamId/switch': 'team/switch-team',
+  'PATCH /teams/:teamId': 'team/update-team',
+  'DELETE /teams/:teamId': 'team/delete-team',
   'DELETE /teams/:teamId/members/:memberId': 'team/remove-member',
   'PATCH /teams/:teamId/members/:memberId/role': 'team/update-role',
   'POST /teams/:teamId/leave': 'team/leave-team',
