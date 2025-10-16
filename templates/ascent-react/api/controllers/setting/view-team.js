@@ -44,19 +44,11 @@ module.exports = {
       .populate('member')
       .sort('createdAt DESC')
 
-    const teams = userMemberships.map((m) => ({
-      id: m.team.id,
-      name: m.team.name,
-      role: m.role,
-      isCurrent: m.team.id === currentMembership.team.id
-    }))
-
     return {
       page: 'settings/team',
       props: {
         team,
         memberships: teamMemberships,
-        teams,
         userRole: currentMembership.role
       }
     }
