@@ -414,7 +414,7 @@ export default function DashboardLayout({
   )
   const [isMobileOpen, setIsMobileOpen] = useState(false)
   const toast = useRef(null)
-  const { loggedInUser } = usePage().props
+  const { loggedInUser, teams, currentTeam } = usePage().props
 
   useFlashToast(toast)
 
@@ -451,6 +451,44 @@ export default function DashboardLayout({
     </div>
   )
 
+  const teamSwitcherRenderer = () => {
+    if (!teams || teams.length <= 1) return null
+
+    return (
+      <div className="border-b border-gray-200 px-4 py-3">
+        <div className="mb-2">
+          <span className="text-xs font-medium text-gray-500 uppercase tracking-wide">
+            Teams
+          </span>
+        </div>
+        <div className="space-y-1">
+          {teams.map((team) => (
+            <button
+              key={team.id}
+              onClick={() => router.post(`/teams/${team.id}/switch`)}
+              className={`flex w-full items-center rounded-md px-3 py-2 text-left text-sm transition-colors ${
+                team.isCurrent
+                  ? 'bg-brand-50 text-brand-700'
+                  : 'text-gray-700 hover:bg-gray-50'
+              }`}
+            >
+              <div className="flex h-7 w-7 items-center justify-center rounded bg-gray-200 text-xs font-medium text-gray-600 mr-3">
+                {team.name.charAt(0).toUpperCase()}
+              </div>
+              <div className="flex-1 min-w-0">
+                <div className="truncate font-medium">{team.name}</div>
+                <div className="text-xs text-gray-500 capitalize">
+                  {team.role}
+                </div>
+              </div>
+              {team.isCurrent && <i className="pi pi-check text-brand-600" />}
+            </button>
+          ))}
+        </div>
+      </div>
+    )
+  }
+
   const sharedUserMenuItems = [
     {
       template: (item, options) => {
@@ -483,6 +521,13 @@ export default function DashboardLayout({
         )
       }
     },
+    ...(teams && teams.length > 1
+      ? [
+          {
+            template: teamSwitcherRenderer
+          }
+        ]
+      : []),
     {
       label: 'My profile',
       icon: 'pi pi-user',
