@@ -56,7 +56,7 @@ module.exports = {
       return exits.challengeExpired()
     }
 
-    const matchingPasskey = user.passkeys.find(
+    const matchingPasskey = user.passkeys?.find(
       (passkey) => passkey.credentialID === assertion.id
     )
 
