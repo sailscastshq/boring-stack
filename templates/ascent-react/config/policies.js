@@ -22,30 +22,12 @@ module.exports.policies = {
   'user/*': 'is-authenticated',
   'dashboard/*': 'is-authenticated',
   'setting/*': 'is-authenticated',
-  'team/*': 'is-authenticated',
+  'team/*': ['is-authenticated', 'has-clearance'],
   'security/*': 'is-authenticated',
-  'team/view-invite': true,
-  'team/send-email-invite': ['is-authenticated', 'has-clearance'],
-  'team/reset-invite-token': [
-    'is-authenticated',
-    'is-team-owner',
-    'has-clearance'
-  ],
-  'team/toggle-invite-link': [
-    'is-authenticated',
-    'is-team-owner',
-    'has-clearance'
-  ],
-  'team/set-domain-restrictions': [
-    'is-authenticated',
-    'is-team-owner',
-    'has-clearance'
-  ],
-  'team/remove-domain-restriction': [
-    'is-authenticated',
-    'is-team-owner',
-    'has-clearance'
-  ],
+
+  // Team route exceptions
+  'team/view-invite': true, // Public invite viewing
+  'team/handle-invite': 'is-authenticated', // Just need auth for accepting invites
 
   // Member management policies
   'team/remove-member': ['is-authenticated', 'has-clearance'],
