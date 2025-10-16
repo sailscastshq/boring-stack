@@ -96,11 +96,13 @@ assets/js/
 
 **PrimeReact Component Patterns**
 
+- **NEVER use PrimeReact CSS classes** (p-button, p-input, etc.) - the project uses PrimeReact in unstyled mode with Tailwind CSS
 - Use **props** instead of CSS classes for component variants:
   - `<Button outlined />` instead of `className="p-button-outlined"`
   - `<Button text />` instead of `className="p-button-text"`
   - `<Button severity="danger" />` instead of `className="p-button-danger"`
   - `<Button size="small" />` instead of `className="p-button-sm"`
+- Use Tailwind classes for custom styling: `className="bg-blue-500 hover:bg-blue-600"`
 - Button labels use sentence case: "Set up", "Save changes", "Sign out"
 - Use `InputOtp` component for all OTP/verification code inputs
 - Page components receive props directly: `function Page({ loggedInUser, otherProps })`
