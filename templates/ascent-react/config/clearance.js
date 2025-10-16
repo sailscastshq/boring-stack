@@ -24,7 +24,8 @@ module.exports.clearance = {
     'team/set-domain-restrictions': { level: 2 },
     'team/remove-domain-restriction': { level: 2 },
     'team/reset-invite-token': { level: 2 },
-    'team/update-settings': { level: 2 },
+    'team/update-team': { level: 2 },
+    'team/delete-team': { level: 2 },
 
     // Member management
     'team/remove-member': { level: 1 }, // Admins and owners can remove members
