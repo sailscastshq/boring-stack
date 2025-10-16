@@ -27,8 +27,10 @@ module.exports.clearance = {
     'team/update-settings': { level: 2 },
 
     // Member management
-    'team/remove-member': { level: 1 },
-    'team/update-member-role': { level: 2 },
+    'team/remove-member': { level: 1 }, // Admins and owners can remove members
+    'team/update-role': { level: 2 }, // Only owners can change roles
+    'team/leave-team': { level: 0 }, // Any member can leave (except owners)
+    'team/switch-team': { level: 0 }, // Any member can switch teams
 
     // Platform admin routes (for future use)
     'admin/*': { level: 3 }
