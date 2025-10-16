@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useRef } from 'react'
 import { Link, usePage, router, useForm, Head } from '@inertiajs/react'
 
 import DashboardLayout from '@/layouts/DashboardLayout'
@@ -417,7 +417,7 @@ export default function TeamSettings({ team, memberships, userRole }) {
             )}
           </div>
 
-          <div className="space-y-2">
+          <div className="divide-y divide-gray-50">
             {teamMembers.map((member) => {
               const isCurrentUser = member.id === loggedInUser.id
               const canManage = isOwnerOrAdmin && !isCurrentUser
@@ -427,74 +427,101 @@ export default function TeamSettings({ team, memberships, userRole }) {
                 member.role.toLowerCase() !== 'owner'
               const canRemove =
                 canManage && member.role.toLowerCase() !== 'owner'
+              const currentRole = member.role.toLowerCase()
+
+              // Create a ref for this member's menu
+              const menuRef = useRef(null)
+
+              // Build action menu items
+              const actionItems = []
+
+              if (canChangeRole) {
+                if (currentRole === 'member') {
+                  actionItems.push({
+                    label: 'Make admin',
+                    icon: 'pi pi-shield',
+                    command: () => handleRoleChange(member, 'admin')
+                  })
+                } else if (currentRole === 'admin') {
+                  actionItems.push({
+                    label: 'Make member',
+                    icon: 'pi pi-user',
+                    command: () => handleRoleChange(member, 'member')
+                  })
+                }
+              }
+
+              if (canRemove) {
+                if (actionItems.length > 0) {
+                  actionItems.push({ separator: true })
+                }
+                actionItems.push({
+                  label: 'Remove member',
+                  icon: 'pi pi-times',
+                  className: 'text-red-600',
+                  command: () => confirmRemoveMember(member)
+                })
+              }
 
               return (
                 <div
                   key={member.id}
-                  className="flex items-center justify-between rounded-lg border border-gray-200 p-4"
+                  className="flex items-center justify-between py-3 hover:bg-gray-25 transition-colors"
                 >
                   <div className="flex items-center space-x-3">
-                    <Avatar image={member.avatar} size="large" shape="circle" />
-                    <div>
+                    <Avatar
+                      image={member.avatar}
+                      size="normal"
+                      shape="circle"
+                    />
+                    <div className="min-w-0 flex-1">
                       <div className="flex items-center space-x-2">
-                        <span className="text-sm font-medium text-gray-900">
+                        <span className="text-sm font-medium text-gray-900 truncate">
                           {member.name}
                         </span>
                         {isCurrentUser && (
-                          <span className="text-xs text-gray-500">(you)</span>
+                          <span className="text-xs text-gray-500 flex-shrink-0">
+                            (you)
+                          </span>
                         )}
                       </div>
-                      <div className="text-sm text-gray-500">
+                      <div className="text-sm text-gray-500 truncate">
                         {member.email}
                       </div>
                     </div>
                   </div>
 
-                  <div className="flex items-center space-x-3">
-                    {/* Role Management */}
-                    {canChangeRole ? (
-                      <Dropdown
-                        value={member.role.toLowerCase()}
-                        options={[
-                          { label: 'Member', value: 'member' },
-                          { label: 'Admin', value: 'admin' }
-                        ]}
-                        onChange={(e) => handleRoleChange(member, e.value)}
-                        className="w-28"
-                        size="small"
-                        disabled={memberActions.has(`role-${member.id}`)}
-                      />
-                    ) : (
-                      <Tag
-                        value={member.role}
-                        severity={
-                          member.role.toLowerCase() === 'owner'
-                            ? 'success'
-                            : 'info'
-                        }
-                        className="text-xs"
-                      />
-                    )}
+                  <div className="flex items-center space-x-3 flex-shrink-0">
+                    {/* Custom Role Badge */}
+                    <span
+                      className={`inline-flex items-center px-2 py-0.5 rounded-full text-xs font-medium ${
+                        member.role.toLowerCase() === 'owner'
+                          ? 'bg-green-100 text-green-800'
+                          : member.role.toLowerCase() === 'admin'
+                          ? 'bg-blue-100 text-blue-800'
+                          : 'bg-gray-100 text-gray-700'
+                      }`}
+                    >
+                      {member.role}
+                    </span>
 
-                    {/* Remove Member Button */}
-                    {canRemove && (
-                      <Button
-                        icon={
-                          memberActions.has(`remove-${member.id}`)
-                            ? 'pi pi-spin pi-spinner'
-                            : 'pi pi-times'
-                        }
-                        size="small"
-                        text
-                        severity="danger"
-                        disabled={memberActions.has(`remove-${member.id}`)}
-                        onClick={() => confirmRemoveMember(member)}
-                        tooltip={
-                          memberActions.has(`remove-${member.id}`)
-                            ? 'Removing...'
-                            : 'Remove member'
-                        }
-                      />
+                    {/* Action Menu */}
+                    {actionItems.length > 0 && (
+                      <div className="relative">
+                        <Button
+                          icon="pi pi-ellipsis-v"
+                          size="small"
+                          text
+                          className="text-gray-400 hover:text-gray-600"
+                          onClick={(e) => menuRef.current?.toggle(e)}
+                        />
+                        <Menu
+                          ref={menuRef}
+                          model={actionItems}
+                          popup
+                          className="w-48"
+                        />
+                      </div>
                     )}
                   </div>
                 </div>
