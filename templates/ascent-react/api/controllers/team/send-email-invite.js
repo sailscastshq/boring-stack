@@ -110,7 +110,7 @@ module.exports = {
         expiresAt: Date.now() + sails.config.custom.invitationExpiresTTL
       }).fetch()
 
-      const inviteUrl = `${sails.config.custom.baseUrl}/team/invite/${invite.token}`
+      const inviteUrl = `${sails.config.custom.baseUrl}/team/${invite.token}`
 
       await sails.helpers.mail.send.with({
         template: 'email-team-invitation',
