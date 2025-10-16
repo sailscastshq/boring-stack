@@ -129,6 +129,13 @@ module.exports = {
       description: 'The avatar URL provided by GitHub for an OAuth user.',
       columnName: 'github_avatar_url'
     },
+    tosAcceptedByIp: {
+      type: 'string',
+      description:
+        'The IP address of the user when they accepted the terms of service.',
+      isIP: true,
+      columnName: 'tos_accepted_by_ip'
+    },
     //  ╔╦╗┌─┐┌─┐┬┌─┐  ╦  ┬┌┐┌┬┌─
     //  ║║║├─┤│ ┬││   ║  ││││├┴┐
     //  ╩ ╩┴ ┴└─┘┴└─┘  ╩═╝┴┘└┘┴ ┴
