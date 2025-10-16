@@ -992,7 +992,7 @@ export default function SecuritySettings({
       />
 
       {/* Passkey Manage Modal */}
-      <PasskeyManageModal
+      <ManagePasskeysModal
         visible={showPasskeyManageModal}
         onHide={() => setShowPasskeyManageModal(false)}
         passkeys={passkeys}
