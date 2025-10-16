@@ -45,5 +45,11 @@ module.exports.policies = {
     'is-authenticated',
     'is-team-owner',
     'has-clearance'
-  ]
+  ],
+
+  // Member management policies
+  'team/remove-member': ['is-authenticated', 'has-clearance'],
+  'team/update-role': ['is-authenticated', 'has-clearance'],
+  'team/leave-team': ['is-authenticated', 'has-clearance'],
+  'team/switch-team': ['is-authenticated', 'has-clearance']
 }
