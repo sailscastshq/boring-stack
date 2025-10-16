@@ -83,8 +83,12 @@ module.exports.routes = {
 
   // Team routes
   'GET /team/:inviteToken': 'team/view-invite',
+  'POST /team/:inviteToken': 'team/handle-invite',
+  'POST /teams/:teamId/switch': 'team/switch-team',
+  'DELETE /teams/:teamId/members/:memberId': 'team/remove-member',
+  'PATCH /teams/:teamId/members/:memberId/role': 'team/update-role',
+  'POST /teams/:teamId/leave': 'team/leave-team',
   'POST /teams/:teamId/reset-invite-token': 'team/reset-invite-token',
-  'POST /teams/:teamId/invite-response': 'team/invite-response',
   'POST /teams/:teamId/toggle-invite-link': 'team/toggle-invite-link',
   'POST /teams/:teamId/send-email-invite': 'team/send-email-invite',
   'PATCH /teams/:teamId/domain-restrictions': 'team/set-domain-restrictions',
