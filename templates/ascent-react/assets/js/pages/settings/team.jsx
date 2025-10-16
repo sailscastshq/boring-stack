@@ -30,6 +30,18 @@ export default function TeamSettings({ team, memberships, userRole }) {
 
   // Track member actions
   const [memberActions, setMemberActions] = useState(new Set())
+
+  // Form for editing team name
+  const {
+    data: teamData,
+    setData: setTeamData,
+    patch: patchTeam,
+    processing: processingTeam,
+    errors: teamErrors,
+    reset: resetTeam
+  } = useForm({
+    name: team?.name
+  })
   // Form for toggle invite link
   const {
     data: toggleData,
@@ -171,6 +183,23 @@ export default function TeamSettings({ team, memberships, userRole }) {
       acceptClassName: 'p-button-danger',
       accept: () => {
         router.post(`/teams/${team.id}/leave`)
+      }
+    })
+  }
+
+  function handleUpdateTeam(e) {
+    e.preventDefault()
+    patchTeam(`/teams/${team.id}`)
+  }
+
+  function confirmDeleteTeam() {
+    confirmDialog({
+      message: `Are you sure you want to delete ${team.name}? This action cannot be undone and will permanently delete all team data, memberships, and invitations.`,
+      header: 'Delete Team',
+      icon: 'pi pi-exclamation-triangle',
+      acceptClassName: 'p-button-danger',
+      accept: () => {
+        router.delete(`/teams/${team.id}`)
       }
     })
   }
@@ -473,6 +502,83 @@ export default function TeamSettings({ team, memberships, userRole }) {
             })}
           </div>
         </div>
+
+        {/* Team Settings - Only for owners - At bottom for dangerous actions */}
+        {isOwner && (
+          <div className="space-y-6">
+            <div>
+              <h3 className="text-sm font-medium text-gray-900">
+                Team Settings
+              </h3>
+              <p className="mt-1 text-sm text-gray-500">
+                Manage your team's basic information and advanced settings.
+              </p>
+            </div>
+
+            <div className="space-y-6">
+              {/* Edit Team Name */}
+              <form onSubmit={handleUpdateTeam} className="space-y-4">
+                <div>
+                  <label
+                    htmlFor="teamName"
+                    className="block text-sm font-medium text-gray-700"
+                  >
+                    Team name
+                  </label>
+                  <div className="mt-1 flex space-x-3">
+                    <InputText
+                      id="teamName"
+                      value={teamData.name}
+                      onChange={(e) => setTeamData('name', e.target.value)}
+                      className="flex-1"
+                      placeholder="Enter team name"
+                    />
+                    <Button
+                      type="submit"
+                      label="Save"
+                      size="small"
+                      loading={processingTeam}
+                      disabled={
+                        processingTeam ||
+                        !teamData.name?.trim() ||
+                        teamData.name === team.name
+                      }
+                    />
+                  </div>
+                  {teamErrors.name && (
+                    <Message
+                      severity="error"
+                      text={teamErrors.name}
+                      className="mt-2"
+                    />
+                  )}
+                </div>
+              </form>
+
+              {/* Danger Zone */}
+              <div className="rounded-lg border border-red-200 bg-red-50 p-4">
+                <div className="flex items-center justify-between">
+                  <div>
+                    <h4 className="text-sm font-medium text-red-900">
+                      Danger Zone
+                    </h4>
+                    <p className="mt-1 text-sm text-red-600">
+                      Permanently delete this team and all its data. This action
+                      cannot be undone.
+                    </p>
+                  </div>
+                  <Button
+                    label="Delete team"
+                    size="small"
+                    severity="danger"
+                    outlined
+                    onClick={confirmDeleteTeam}
+                  />
+                </div>
+              </div>
+            </div>
+          </div>
+        )}
       </div>
     </>
   )
