@@ -19,29 +19,21 @@ module.exports = {
     },
     password: {
       type: 'string',
-      required: true,
       minLength: 8,
       description: "The user's password"
     },
     emailProofToken: {
       type: 'string',
-      required: true,
       description: 'Token for email verification'
     },
     emailProofTokenExpiresAt: {
       type: 'number',
-      required: true,
       description: 'Expiration timestamp for email proof token'
     },
     tosAcceptedByIp: {
       type: 'string',
       required: true,
       description: 'IP address where TOS was accepted'
-    },
-    teamName: {
-      type: 'string',
-      description:
-        'Optional custom team name. Defaults to "{User\'s Name} Team"'
     }
   },
 
