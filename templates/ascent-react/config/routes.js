@@ -82,6 +82,8 @@ module.exports.routes = {
   'DELETE /security/delete-passkey/:credentialId': 'security/delete-passkey',
 
   // Team routes
+  'GET /team/create': 'team/view-create-team',
+  'POST /teams': 'team/create-team',
   'GET /team/:inviteToken': 'team/view-invite',
   'POST /team/:inviteToken': 'team/handle-invite',
   'POST /teams/:teamId/switch': 'team/switch-team',
