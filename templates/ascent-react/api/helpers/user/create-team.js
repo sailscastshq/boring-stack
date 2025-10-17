@@ -34,10 +34,8 @@ module.exports = {
     const datastore = sails.getDatastore()
 
     return await datastore.transaction(async (db) => {
-      // Create the team with the user as owner
       const team = await Team.create({
-        name: defaultTeamName,
-        owner: user.id
+        name: defaultTeamName
       })
         .usingConnection(db)
         .fetch()
@@ -46,7 +44,6 @@ module.exports = {
           return 'teamCreationFailed'
         })
 
-      // Create the membership record for the owner
       const membership = await Membership.create({
         member: user.id,
         team: team.id,
@@ -58,15 +55,6 @@ module.exports = {
         .fetch()
         .intercept((err) => {
           sails.log.error('Error creating membership for user:', err)
-          return 'teamCreationFailed'
-        })
-
-      // Update user record to reference their team
-      await User.updateOne({ id: user.id })
-        .set({ team: team.id })
-        .usingConnection(db)
-        .intercept((err) => {
-          sails.log.error('Error updating user with team reference:', err)
           return 'teamCreationFailed'
         })
 
