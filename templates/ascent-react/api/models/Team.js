@@ -32,12 +32,6 @@ module.exports = {
         'Array of email domains that are allowed to join via invite link (empty = no restrictions)'
     },
 
-    owner: {
-      model: 'user',
-      required: true,
-      description:
-        'The user who owns this team - every user gets exactly one team they own'
-    },
     memberships: {
       collection: 'membership',
       via: 'team',
@@ -60,7 +54,6 @@ module.exports = {
       inviteLink: this.inviteLink,
       inviteLinkEnabled: this.inviteLinkEnabled,
       domainRestrictions: this.domainRestrictions,
-      owner: this.owner,
       createdAt: this.createdAt,
       updatedAt: this.updatedAt
     }

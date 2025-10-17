@@ -242,10 +242,6 @@ module.exports = {
     //  ╔╦╗┌─┐┌─┐┌┬┐┌─┐
     //   ║ ├┤ ├─┤││││└─┐
     //   ╩ └─┘┴ ┴┴ ┴┴└─┘
-    team: {
-      model: 'team',
-      description: 'The team this user owns - every user owns exactly one team'
-    },
     memberships: {
       collection: 'membership',
       via: 'member',
