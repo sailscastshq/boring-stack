@@ -32,9 +32,7 @@ module.exports = {
         .tolerate()
     }
 
-    const team = await Team.findOne({ id: currentMembership.team.id }).populate(
-      'owner'
-    )
+    const team = await Team.findOne({ id: currentMembership.team.id })
     team.inviteLink = sails.helpers.team.getInviteLink(team)
 
     const teamMemberships = await Membership.find({

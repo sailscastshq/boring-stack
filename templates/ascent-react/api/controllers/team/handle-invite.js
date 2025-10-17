@@ -69,7 +69,7 @@ module.exports = {
       }
     } else {
       // If not an email invite, try to find team by invite link token
-      team = await Team.findOne({ inviteToken }).populate('owner')
+      team = await Team.findOne({ inviteToken })
 
       if (!team) {
         throw 'inviteNotFound'

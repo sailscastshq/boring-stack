@@ -29,7 +29,7 @@ module.exports = {
     team = await Team.findOne({
       inviteToken,
       inviteLinkEnabled: true
-    }).populate('owner')
+    })
 
     if (!team) {
       // Second: Check if it's an individual invite token

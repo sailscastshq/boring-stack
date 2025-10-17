@@ -21,8 +21,7 @@ module.exports = {
   fn: async function ({ teamId }) {
     const userId = this.req.session.userId
 
-    // Check if user is owner of the team
-    const team = await Team.findOne({ id: teamId, owner: userId })
+    const team = await Team.findOne({ id: teamId })
 
     if (!team) {
       throw 'notFound'
