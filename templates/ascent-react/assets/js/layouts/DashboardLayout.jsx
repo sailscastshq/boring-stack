@@ -479,7 +479,10 @@ export default function DashboardLayout({
                 <div className="truncate font-medium">{team.name}</div>
               </div>
               {team.isCurrent && (
-                <i className="pi pi-circle-fill text-brand-600 flex-shrink-0" />
+                <span className="relative flex h-3 w-3 flex-shrink-0">
+                  <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-brand-400 opacity-75"></span>
+                  <span className="relative inline-flex h-3 w-3 rounded-full bg-brand-500"></span>
+                </span>
               )}
             </button>
           ))}
