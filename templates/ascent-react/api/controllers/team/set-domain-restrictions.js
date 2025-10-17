@@ -53,8 +53,7 @@ module.exports = {
       }
     }
 
-    // Find the team and verify ownership
-    const team = await Team.findOne({ id: teamId, owner: userId })
+    const team = await Team.findOne({ id: teamId })
 
     if (!team) {
       throw 'teamNotFound'
