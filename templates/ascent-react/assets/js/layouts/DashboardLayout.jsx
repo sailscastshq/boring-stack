@@ -451,8 +451,8 @@ export default function DashboardLayout({
     </div>
   )
 
-  const teamSwitcherRenderer = () => {
-    if (!teams || teams.length <= 1) return null
+  const teamSwitcherRenderer = (item, options) => {
+    if (!teams || teams.length === 0) return null
 
     return (
       <div className="border-b border-gray-200 px-4 py-3">
@@ -484,6 +484,15 @@ export default function DashboardLayout({
               {team.isCurrent && <i className="pi pi-check text-brand-600" />}
             </button>
           ))}
+          <Link
+            href="/team/create"
+            className="flex w-full items-center rounded-md px-3 py-2 text-left text-sm text-gray-700 transition-colors hover:bg-gray-50"
+          >
+            <div className="mr-3 flex h-7 w-7 items-center justify-center rounded border-2 border-dashed border-gray-300 text-xs font-medium text-gray-400">
+              +
+            </div>
+            <div className="font-medium">New team</div>
+          </Link>
         </div>
       </div>
     )
@@ -521,10 +530,11 @@ export default function DashboardLayout({
         )
       }
     },
-    ...(teams && teams.length > 1
+    ...(teams && teams.length > 0
       ? [
           {
-            template: teamSwitcherRenderer
+            template: teamSwitcherRenderer,
+            className: 'team-switcher-item'
           }
         ]
       : []),
