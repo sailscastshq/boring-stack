@@ -57,7 +57,6 @@ module.exports = function defineCustomHook(sails) {
               const teams = userMemberships.map((m) => ({
                 id: m.team.id,
                 name: m.team.name,
-                role: m.role,
                 isCurrent: m.team.id === req.session.teamId
               }))
 

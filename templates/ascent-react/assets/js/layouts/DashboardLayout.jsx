@@ -477,11 +477,10 @@ export default function DashboardLayout({
               </div>
               <div className="min-w-0 flex-1">
                 <div className="truncate font-medium">{team.name}</div>
-                <div className="text-xs capitalize text-gray-500">
-                  {team.role}
-                </div>
               </div>
-              {team.isCurrent && <i className="pi pi-check text-brand-600" />}
+              {team.isCurrent && (
+                <i className="pi pi-check text-brand-600 flex-shrink-0" />
+              )}
             </button>
           ))}
           <Link
