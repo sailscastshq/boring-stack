@@ -479,7 +479,7 @@ export default function DashboardLayout({
                 <div className="truncate font-medium">{team.name}</div>
               </div>
               {team.isCurrent && (
-                <i className="pi pi-check text-brand-600 flex-shrink-0" />
+                <i className="pi pi-circle-fill text-brand-600 flex-shrink-0" />
               )}
             </button>
           ))}
@@ -516,11 +516,11 @@ export default function DashboardLayout({
                   color: '#ffffff'
                 }}
               />
-              <div className="flex flex-col">
-                <span className="text-sm font-semibold text-gray-900">
+              <div className="flex flex-col min-w-0 flex-1">
+                <span className="text-sm font-semibold text-gray-900 truncate">
                   {loggedInUser?.fullName}
                 </span>
-                <span className="text-xs text-gray-500">
+                <span className="text-xs text-gray-500 truncate">
                   {loggedInUser?.email}
                 </span>
               </div>
