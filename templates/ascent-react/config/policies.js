@@ -25,13 +25,15 @@ module.exports.policies = {
   'team/*': ['is-authenticated', 'has-clearance'],
   'security/*': 'is-authenticated',
 
-  // Team route exceptions
-  'team/view-invite': true, // Public invite viewing
-  'team/handle-invite': 'is-authenticated', // Just need auth for accepting invites
-
-  // Member management policies
+  // Team
+  'team/view-invite': true,
+  'team/handle-invite': 'is-authenticated',
   'team/remove-member': ['is-authenticated', 'has-clearance'],
   'team/update-role': ['is-authenticated', 'has-clearance'],
   'team/leave-team': ['is-authenticated', 'has-clearance'],
-  'team/switch-team': ['is-authenticated', 'has-clearance']
+  'team/switch-team': ['is-authenticated', 'has-clearance'],
+
+  // Billing
+  'billing/*': 'is-authenticated',
+  'billing/view-pricing': true
 }
