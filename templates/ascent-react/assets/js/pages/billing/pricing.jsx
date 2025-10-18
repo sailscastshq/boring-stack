@@ -3,7 +3,7 @@ import AppLayout from '@/layouts/AppLayout.jsx'
 import { useState } from 'react'
 
 Pricing.layout = (page) => <AppLayout children={page} />
-export default function Pricing() {
+export default function Pricing({ plans }) {
   const [billingCycle, setBillingCycle] = useState('monthly')
 
   return (
@@ -106,7 +106,7 @@ export default function Pricing() {
                 <div className="mb-8">
                   <div className="flex items-baseline">
                     <span className="text-6xl font-bold text-gray-900">
-                      ${billingCycle === 'monthly' ? '29' : '23'}
+                      ${plans.starter.variants[billingCycle].amount}
                     </span>
                     <span className="ml-2 text-lg font-medium text-gray-500">
                       /
@@ -117,7 +117,10 @@ export default function Pricing() {
                   </div>
                   {billingCycle === 'yearly' && (
                     <p className="mt-1 text-sm font-medium text-success-600">
-                      Save $72 per year
+                      Save $
+                      {plans.starter.variants.monthly.amount * 12 -
+                        plans.starter.variants.yearly.amount * 12}{' '}
+                      per year
                     </p>
                   )}
                 </div>
@@ -248,13 +251,13 @@ export default function Pricing() {
 
                 <div className="mt-8">
                   <Link
-                    href="/signup"
+                    href={`/checkout?plan=starter&billingCycle=${billingCycle}`}
                     className="block w-full rounded-xl border-2 border-gray-900 bg-gray-900 px-6 py-4 text-center text-lg font-bold text-white transition-all duration-200 hover:bg-gray-800 hover:shadow-lg"
                   >
-                    Start Free Trial
+                    Get Started
                   </Link>
                   <p className="mt-3 text-center text-sm text-gray-500">
-                    14-day free trial, no credit card required
+                    Start your Starter subscription today
                   </p>
                 </div>
               </div>
@@ -280,7 +283,7 @@ export default function Pricing() {
                 <div className="mb-8">
                   <div className="flex items-baseline">
                     <span className="text-6xl font-bold text-gray-900">
-                      ${billingCycle === 'monthly' ? '89' : '71'}
+                      ${plans.pro.variants[billingCycle].amount}
                     </span>
                     <span className="ml-2 text-lg font-medium text-gray-500">
                       /
@@ -291,7 +294,10 @@ export default function Pricing() {
                   </div>
                   {billingCycle === 'yearly' && (
                     <p className="mt-1 text-sm font-medium text-success-600">
-                      Save $216 per year
+                      Save $
+                      {plans.pro.variants.monthly.amount * 12 -
+                        plans.pro.variants.yearly.amount * 12}{' '}
+                      per year
                     </p>
                   )}
                 </div>
@@ -448,13 +454,13 @@ export default function Pricing() {
 
                 <div className="mt-8">
                   <Link
-                    href="/signup"
+                    href={`/checkout?plan=pro&billingCycle=${billingCycle}`}
                     className="block w-full rounded-xl bg-gradient-to-r from-brand-600 to-accent-600 px-6 py-4 text-center text-lg font-bold text-white shadow-xl transition-all duration-200 hover:scale-[1.02] hover:shadow-2xl"
                   >
-                    Start Free Trial
+                    Get Started
                   </Link>
                   <p className="mt-3 text-center text-sm text-gray-500">
-                    14-day free trial, no credit card required
+                    Start your Pro subscription today
                   </p>
                 </div>
               </div>
@@ -495,7 +501,7 @@ export default function Pricing() {
                           Starter
                         </div>
                         <div className="text-sm text-gray-500">
-                          ${billingCycle === 'monthly' ? '29' : '23'}/month
+                          ${plans.starter.variants[billingCycle].amount}/month
                         </div>
                       </div>
                     </th>
@@ -505,7 +511,7 @@ export default function Pricing() {
                           Pro
                         </div>
                         <div className="text-sm text-brand-600">
-                          ${billingCycle === 'monthly' ? '89' : '71'}/month
+                          ${plans.pro.variants[billingCycle].amount}/month
                         </div>
                         <div className="mt-1 inline-flex items-center rounded-full bg-brand-100 px-2 py-0.5 text-xs font-medium text-brand-700">
                           Most Popular
