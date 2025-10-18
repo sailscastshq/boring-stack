@@ -18,7 +18,7 @@ module.exports = {
 
   exits: {
     success: {
-      responseType: 'redirect'
+      responseType: 'inertiaRedirect'
     },
     badRequest: {
       responseType: 'badRequest'
@@ -29,6 +29,7 @@ module.exports = {
   },
 
   fn: async function ({ plan, billingCycle }) {
+    let checkoutUrl
     const planConfig = sails.config.pay.plans[plan]
 
     if (!planConfig) {
@@ -38,7 +39,6 @@ module.exports = {
         }
       }
     }
-
     const variant = planConfig.variants[billingCycle]
     if (!variant || !variant.id) {
       throw {
@@ -49,10 +49,12 @@ module.exports = {
         }
       }
     }
-
     try {
-      const checkoutUrl = await sails.pay.checkout({
+      checkoutUrl = await sails.pay.checkout({
         variant: variant.id,
+        productOptions: {
+          enabled_variants: [variant.id]
+        },
         checkoutData: {
           email: this.req.session.userId
             ? (
@@ -61,11 +63,10 @@ module.exports = {
             : undefined
         }
       })
-
-      return checkoutUrl
     } catch (error) {
       sails.log.error('Checkout error:', error)
       throw 'serverError'
     }
+    return checkoutUrl
   }
 }
