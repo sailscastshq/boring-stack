@@ -13,7 +13,7 @@ export default function TeamInvite({ team, inviteToken, via, invite }) {
   })
 
   function handleInviteResponse(response) {
-    form.transform((data) => ({ ...data, response: reponse }))
+    form.transform((data) => ({ ...data, response }))
     post(`/team/${inviteToken}`)
   }
 
