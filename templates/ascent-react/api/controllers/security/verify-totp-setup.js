@@ -28,7 +28,6 @@ module.exports = {
   },
 
   fn: async function ({ token }) {
-    const speakeasy = require('speakeasy')
     const user = await User.findOne({ id: this.req.session.userId })
     if (!user.totpSecret) {
       throw {
@@ -43,11 +42,9 @@ module.exports = {
       }
     }
 
-    const verified = speakeasy.totp.verify({
+    const verified = await sails.helpers.totp.verify.with({
       secret: user.totpSecret,
-      encoding: 'base32',
-      token,
-      window: 2 // Allow for some time drift
+      token: token
     })
 
     if (!verified) {
