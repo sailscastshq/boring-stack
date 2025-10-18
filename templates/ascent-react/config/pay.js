@@ -12,8 +12,6 @@ module.exports.pay = {
         'http://localhost:1337/billing'
     }
   },
-
-  // Simplified plan definitions
   plans: {
     starter: {
       name: 'Starter',
