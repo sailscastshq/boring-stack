@@ -13,6 +13,7 @@
   ],
   "dependencies": {
     "@inertiajs/react": "^2.1.5",
+    "@sails-pay/lemonsqueezy": "^0.0.2",
     "@sailscasts/sails-hook-node-fetch": "^0.0.3",
     "@sailshq/connect-redis": "^6.1.3",
     "@sailshq/lodash": "^3.10.7",
@@ -35,6 +36,7 @@
     "sails-hook-orm": "^4.0.3",
     "sails-hook-sockets": "^3.0.2",
     "sails-hook-wish": "^0.0.9",
+    "sails-pay": "^0.0.5",
     "speakeasy": "^2.0.0"
   },
   "devDependencies": {
