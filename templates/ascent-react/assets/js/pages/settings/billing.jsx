@@ -15,20 +15,13 @@ BillingSettings.layout = (page) => (
   </DashboardLayout>
 )
 
-export default function BillingSettings() {
-  const [isSubscribed] = useState(true) // Set to true to show full billing interface
-  const [currentPlan] = useState('Pro')
-  const [billingCycle] = useState('monthly')
+export default function BillingSettings({ subscription, plans }) {
+  const isSubscribed = !!subscription
 
-  // Mock data - replace with real data from your backend
-  const subscription = {
-    plan: 'Pro',
-    status: 'active',
-    price: 29,
-    currency: 'USD',
-    cycle: 'monthly',
-    nextBilling: '2024-02-15'
-  }
+  const planConfig = subscription ? plans[subscription.planName] : null
+  const planPrice = planConfig
+    ? planConfig.variants[subscription.billingCycle]?.amount
+    : 0
 
   const paymentMethods = [
     {
@@ -161,17 +154,26 @@ export default function BillingSettings() {
                 <div>
                   <div className="flex items-center space-x-3">
                     <h4 className="text-lg font-semibold text-gray-900">
-                      {subscription.plan} Plan
+                      {subscription.planName.charAt(0).toUpperCase() +
+                        subscription.planName.slice(1)}{' '}
+                      Plan
                     </h4>
                     <Tag
                       value={subscription.status.toUpperCase()}
-                      style={{ background: '#10B981' }}
+                      style={{
+                        background:
+                          subscription.status === 'active'
+                            ? '#10B981'
+                            : '#EF4444'
+                      }}
                       className="rounded-md border-0 px-2 py-1 text-xs text-white"
                     />
                   </div>
                   <p className="text-sm text-gray-500">
-                    ${subscription.price}/{subscription.cycle} • Next billing:{' '}
-                    {subscription.nextBilling}
+                    ${planPrice}/{subscription.billingCycle} • Next billing:{' '}
+                    {new Date(
+                      subscription.nextBillingDate
+                    ).toLocaleDateString()}
                   </p>
                 </div>
               </div>
