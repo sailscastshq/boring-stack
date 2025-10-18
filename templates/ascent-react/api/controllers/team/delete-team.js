@@ -25,22 +25,11 @@ module.exports = {
 
     const teamName = team.name
 
-    // Use transaction for data consistency
     const datastore = sails.getDatastore()
     await datastore.transaction(async (db) => {
-      // Delete all memberships
       await Membership.destroy({ team: teamId }).usingConnection(db)
-
-      // Delete all pending invitations
       await Invite.destroy({ team: teamId }).usingConnection(db)
-
-      // Delete the team
       await Team.destroyOne({ id: teamId }).usingConnection(db)
-
-      // Update user's team reference if this was their primary team
-      await User.update({ team: teamId })
-        .set({ team: null })
-        .usingConnection(db)
     })
 
     // Handle user's team switching after deletion
@@ -61,7 +50,6 @@ module.exports = {
         `${teamName} has been deleted. Switched to ${firstTeam.name}.`
       )
     } else {
-      // Create new personal team as fallback
       const user = await User.findOne({ id: userId })
       const result = await sails.helpers.user.createTeam(user).tolerate()
 
