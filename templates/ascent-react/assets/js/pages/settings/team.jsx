@@ -12,6 +12,7 @@ import { Avatar } from 'primereact/avatar'
 import { Tag } from 'primereact/tag'
 import { Message } from 'primereact/message'
 import { ConfirmDialog, confirmDialog } from 'primereact/confirmdialog'
+import { Dialog } from 'primereact/dialog'
 import { Menu } from 'primereact/menu'
 import { Dropdown } from 'primereact/dropdown'
 import { useCopyToClipboard } from '@/hooks/useCopyToClipboard'
@@ -84,6 +85,7 @@ export default function TeamSettings({
   }, [toggleData.inviteLinkEnabled])
 
   const [showInviteForm, setShowInviteForm] = useState(false)
+  const [showTransferModal, setShowTransferModal] = useState(false)
 
   // Form for invite emails
   const {
@@ -95,6 +97,19 @@ export default function TeamSettings({
     reset: resetEmails
   } = useForm({
     emails: []
+  })
+
+  // Form for transfer ownership
+  const {
+    data: transferData,
+    setData: setTransferData,
+    post: postTransfer,
+    processing: processingTransfer,
+    errors: transferErrors,
+    reset: resetTransfer
+  } = useForm({
+    newOwnerEmail: '',
+    confirmationText: ''
   })
 
   // Create team members list from memberships only (owner has a membership record too)
@@ -198,6 +213,18 @@ export default function TeamSettings({
   function handleUpdateTeam(e) {
     e.preventDefault()
     patchTeam(`/teams/${team.id}`, { preserveScroll: true })
+  }
+
+  function handleTransferOwnership(e) {
+    e.preventDefault()
+    if (team) {
+      postTransfer(`/teams/${team.id}/transfer`, {
+        onSuccess: () => {
+          resetTransfer()
+          setShowTransferModal(false)
+        }
+      })
+    }
   }
 
   function confirmDeleteTeam() {
@@ -721,11 +748,32 @@ export default function TeamSettings({
               </form>
 
               {/* Danger Zone */}
-              <div className="rounded-lg border border-red-200 bg-red-50 p-4">
+              <div className="space-y-4 rounded-lg border border-red-200 bg-red-50 p-4">
+                {/* Transfer Ownership */}
                 <div className="flex items-center justify-between">
                   <div>
                     <h4 className="text-sm font-medium text-red-900">
-                      Danger Zone
+                      Transfer Ownership
+                    </h4>
+                    <p className="mt-1 text-sm text-red-600">
+                      Transfer team ownership to another team member. You will
+                      become an admin.
+                    </p>
+                  </div>
+                  <Button
+                    label="Transfer ownership"
+                    size="small"
+                    severity="danger"
+                    outlined
+                    onClick={() => setShowTransferModal(true)}
+                  />
+                </div>
+
+                {/* Delete Team */}
+                <div className="flex items-center justify-between border-t border-red-200 pt-4">
+                  <div>
+                    <h4 className="text-sm font-medium text-red-900">
+                      Delete Team
                     </h4>
                     <p className="mt-1 text-sm text-red-600">
                       Permanently delete this team and all its data. This action
@@ -745,6 +793,117 @@ export default function TeamSettings({
           </div>
         )}
       </div>
+
+      {/* Transfer Ownership Modal */}
+      <Dialog
+        header="Transfer Team Ownership"
+        visible={showTransferModal}
+        onHide={() => {
+          setShowTransferModal(false)
+          resetTransfer()
+        }}
+        style={{ width: '32rem' }}
+        modal
+      >
+        <form onSubmit={handleTransferOwnership} className="space-y-4">
+          <div>
+            <label
+              htmlFor="newOwnerEmail"
+              className="mb-2 block text-sm font-medium text-gray-700"
+            >
+              New Owner Email
+            </label>
+            <InputText
+              id="newOwnerEmail"
+              value={transferData.newOwnerEmail}
+              onChange={(e) => setTransferData('newOwnerEmail', e.target.value)}
+              placeholder="Enter team member's email"
+              className="w-full"
+              invalid={!!transferErrors.newOwnerEmail}
+            />
+            {transferErrors.newOwnerEmail && (
+              <Message
+                severity="error"
+                text={transferErrors.newOwnerEmail}
+                className="mt-2"
+              />
+            )}
+          </div>
+
+          <div>
+            <label
+              htmlFor="confirmationText"
+              className="mb-2 block text-sm font-medium text-gray-700"
+            >
+              Type <strong>transfer {team?.name}</strong> to confirm the
+              transfer:
+            </label>
+            <InputText
+              id="confirmationText"
+              value={transferData.confirmationText}
+              onChange={(e) =>
+                setTransferData('confirmationText', e.target.value)
+              }
+              placeholder={`transfer ${team?.name}`}
+              className="w-full"
+              invalid={!!transferErrors.confirmationText}
+            />
+            {transferErrors.confirmationText && (
+              <Message
+                severity="error"
+                text={transferErrors.confirmationText}
+                className="mt-2"
+              />
+            )}
+          </div>
+
+          <div className="rounded-lg border border-red-200 bg-red-50 p-4">
+            <div className="flex">
+              <div className="flex-shrink-0">
+                <i className="pi pi-exclamation-triangle text-red-400" />
+              </div>
+              <div className="ml-3">
+                <h3 className="text-sm font-medium text-red-800">
+                  Warning: This action cannot be undone
+                </h3>
+                <p className="mt-2 text-sm text-red-700">
+                  You will transfer full ownership to the selected team member
+                  and become an admin. They will be able to manage all team
+                  settings, including transferring ownership again or deleting
+                  the team.
+                </p>
+              </div>
+            </div>
+          </div>
+
+          <div className="flex justify-end gap-3 pt-4">
+            <Button
+              type="button"
+              outlined
+              onClick={() => {
+                setShowTransferModal(false)
+                resetTransfer()
+              }}
+              disabled={processingTransfer}
+            >
+              Cancel
+            </Button>
+            <Button
+              type="submit"
+              severity="danger"
+              loading={processingTransfer}
+              disabled={
+                processingTransfer ||
+                !transferData.newOwnerEmail.trim() ||
+                transferData.confirmationText.toLowerCase().trim() !==
+                  `transfer ${team?.name}`.toLowerCase()
+              }
+            >
+              Transfer Ownership
+            </Button>
+          </div>
+        </form>
+      </Dialog>
     </>
   )
 }
