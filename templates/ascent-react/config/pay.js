@@ -7,9 +7,7 @@ module.exports.pay = {
       adapter: '@sails-pay/lemonsqueezy',
       apiKey: process.env.LEMON_SQUEEZY_API_KEY,
       store: process.env.LEMON_SQUEEZY_STORE_ID,
-      redirectUrl:
-        process.env.LEMON_SQUEEZY_REDIRECT_URL ||
-        'http://localhost:1337/billing'
+      redirectUrl: process.env.LEMON_SQUEEZY_REDIRECT_URL
     }
   },
   plans: {
