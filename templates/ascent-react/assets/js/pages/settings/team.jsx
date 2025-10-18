@@ -232,7 +232,7 @@ export default function TeamSettings({
       message: `Are you sure you want to delete ${team.name}? This action cannot be undone and will permanently delete all team data, memberships, and invitations.`,
       header: 'Delete Team',
       icon: 'pi pi-exclamation-triangle',
-      acceptClassName: 'p-button-danger',
+      acceptClassName: 'bg-red-600 hover:bg-red-700 text-white border-red-600',
       accept: () => {
         router.delete(`/teams/${team.id}`)
       }
