@@ -100,6 +100,7 @@ module.exports.routes = {
     'team/remove-domain-restriction',
   'DELETE /teams/:teamId/invites/:inviteId': 'team/cancel-invite',
   'POST /teams/:teamId/invites/:inviteId/resend': 'team/resend-invite',
+  'POST /teams/:teamId/transfer': 'team/transfer-ownership',
 
   // Redirects
   'POST /team/reset-invite-token': 'team/reset-invite-token',
