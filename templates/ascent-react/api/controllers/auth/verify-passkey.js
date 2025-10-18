@@ -34,8 +34,7 @@ module.exports = {
       'id',
       'passkeyChallenge',
       'passkeyChallengeExpiresAt',
-      'passkeys',
-      'team'
+      'passkeys'
     ])
 
     if (!user) {
