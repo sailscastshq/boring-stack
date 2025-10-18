@@ -311,7 +311,7 @@ export default function SecuritySettings({
   return (
     <>
       <Head title="Security Settings | Ascent React"></Head>
-      <ConfirmDialog />
+      <ConfirmDialog style={{ width: '32rem' }} />
 
       <div className="max-w-4xl space-y-8">
         {/* Password Section */}

@@ -64,7 +64,7 @@ export default function ProfileSettings() {
   return (
     <>
       <Head title="Profile Settings | Ascent React"></Head>
-      <ConfirmDialog />
+      <ConfirmDialog style={{ width: '32rem' }} />
 
       <div className="max-w-2xl space-y-12">
         {/* Profile Header */}

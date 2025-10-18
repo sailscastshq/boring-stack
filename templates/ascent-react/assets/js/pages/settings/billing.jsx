@@ -140,7 +140,7 @@ export default function BillingSettings() {
   return (
     <>
       <Head title="Billing Settings | Ascent React"></Head>
-      <ConfirmDialog />
+      <ConfirmDialog style={{ width: '32rem' }} />
 
       <div className="max-w-4xl space-y-8">
         {/* Current Plan */}

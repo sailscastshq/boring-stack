@@ -242,7 +242,7 @@ export default function TeamSettings({
   return (
     <>
       <Head title="Team Settings | Ascent React"></Head>
-      <ConfirmDialog />
+      <ConfirmDialog style={{ width: '32rem' }} />
 
       <div className="max-w-4xl space-y-8">
         {/* Invite by Link - Only for owners/admins */}
