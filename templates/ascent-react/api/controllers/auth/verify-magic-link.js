@@ -12,10 +12,6 @@ module.exports = {
       description: 'The magic link token from the URL',
       type: 'string',
       required: true
-    },
-    returnUrl: {
-      description: 'URL to redirect to after successful authentication',
-      type: 'string'
     }
   },
 
@@ -31,7 +27,9 @@ module.exports = {
     }
   },
 
-  fn: async function ({ token, returnUrl }) {
+  fn: async function ({ token }) {
+    // Get returnUrl from session
+    const storedReturnUrl = await sails.helpers.returnUrl.get(this.req)
     const result = await sails.helpers.magicLink
       .validateToken(token)
       .intercept('invalid', () => {
@@ -64,6 +62,9 @@ module.exports = {
         })
     }
 
-    return returnUrl && returnUrl.startsWith('/') ? returnUrl : '/dashboard'
+    // Clear the stored returnUrl after successful authentication
+    await sails.helpers.returnUrl.clear(this.req)
+
+    return storedReturnUrl
   }
 }

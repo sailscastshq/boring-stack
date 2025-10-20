@@ -7,10 +7,6 @@ module.exports = {
     provider: {
       isIn: ['google', 'github'],
       required: true
-    },
-    returnUrl: {
-      type: 'string',
-      description: 'URL to redirect to after successful OAuth login'
     }
   },
 
@@ -20,12 +16,7 @@ module.exports = {
     }
   },
 
-  fn: async function ({ provider, returnUrl }) {
-    // Store returnUrl in session for OAuth callback
-    if (returnUrl && returnUrl.startsWith('/')) {
-      this.req.session.oauthReturnUrl = returnUrl
-    }
-
+  fn: async function ({ provider }) {
     return sails.wish.provider(provider).redirect()
   }
 }

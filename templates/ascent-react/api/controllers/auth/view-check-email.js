@@ -37,6 +37,9 @@ module.exports = {
     // Get email from session if not provided (for signup flow)
     const emailToShow = email
 
+    // Get stored returnUrl for resend functionality
+    const storedReturnUrl = await sails.helpers.returnUrl.get(this.req)
+
     return {
       page: 'auth/check-email',
       props: {
@@ -44,7 +47,8 @@ module.exports = {
         email: emailToShow,
         title,
         backUrl,
-        backText
+        backText,
+        returnUrl: storedReturnUrl !== '/dashboard' ? storedReturnUrl : null
       }
     }
   }

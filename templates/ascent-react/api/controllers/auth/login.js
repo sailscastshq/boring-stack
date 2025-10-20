@@ -21,10 +21,6 @@ password attempt.`,
     rememberMe: {
       description: "Whether to extend the lifetime of the user's session.",
       type: 'boolean'
-    },
-    returnUrl: {
-      description: 'URL to redirect to after successful login.',
-      type: 'string'
     }
   },
 
@@ -42,7 +38,7 @@ password attempt.`,
     }
   },
 
-  fn: async function ({ email, password, rememberMe, returnUrl }) {
+  fn: async function ({ email, password, rememberMe }) {
     const user = await User.findOne({
       email: email.toLowerCase()
     })
@@ -66,11 +62,13 @@ password attempt.`,
       })
 
     if (user.twoFactorEnabled) {
+      // Get the stored returnUrl for 2FA flow
+      const storedReturnUrl = await sails.helpers.returnUrl.get(this.req)
+
       this.req.session.partialLogin = {
         userId: user.id,
         rememberMe: rememberMe,
-        intendedDestination:
-          returnUrl && returnUrl.startsWith('/') ? returnUrl : '/dashboard',
+        intendedDestination: storedReturnUrl,
         loginTimestamp: Date.now()
       }
 
@@ -106,6 +104,10 @@ password attempt.`,
         })
     }
 
-    return returnUrl && returnUrl.startsWith('/') ? returnUrl : '/dashboard'
+    // Get stored returnUrl and clear it after successful login
+    const storedReturnUrl = await sails.helpers.returnUrl.get(this.req)
+    await sails.helpers.returnUrl.clear(this.req)
+
+    return storedReturnUrl
   }
 }

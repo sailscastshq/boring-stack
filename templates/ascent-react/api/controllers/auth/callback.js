@@ -171,13 +171,11 @@ module.exports = {
               })
           }
 
-          // Check for stored OAuth returnUrl
-          const returnUrl = req.session.oauthReturnUrl
-          delete req.session.oauthReturnUrl // Clean up
+          // Get stored returnUrl and clear it after successful OAuth login
+          const storedReturnUrl = await sails.helpers.returnUrl.get(req)
+          await sails.helpers.returnUrl.clear(req)
 
-          return exits.success(
-            returnUrl && returnUrl.startsWith('/') ? returnUrl : '/dashboard'
-          )
+          return exits.success(storedReturnUrl)
         }
       )
     } catch (error) {

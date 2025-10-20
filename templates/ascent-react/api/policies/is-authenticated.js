@@ -1,9 +1,9 @@
 module.exports = async function (req, res, proceed) {
   if (req.session.userId) return proceed()
 
-  // Build login URL with returnUrl parameter
-  const returnUrl = req.url
-  const loginUrl = `/login?returnUrl=${encodeURIComponent(returnUrl)}`
+  // Store the intended destination in session
+  await sails.helpers.returnUrl.set(req)
 
-  return res.redirect(loginUrl)
+  // Redirect to login without exposing returnUrl in query params
+  return res.redirect('/login')
 }
