@@ -81,16 +81,15 @@ export default function BillingSettings({ subscription, plans }) {
                         subscription.planName.slice(1)}{' '}
                       Plan
                     </h4>
-                    <Tag
-                      value={subscription.status.toUpperCase()}
-                      style={{
-                        background:
-                          subscription.status === 'active'
-                            ? '#10B981'
-                            : '#EF4444'
-                      }}
-                      className="rounded-md border-0 px-2 py-1 text-xs text-white"
-                    />
+                    <span
+                      className={`inline-flex items-center rounded-full px-2 py-0.5 text-xs font-medium ${
+                        subscription.status === 'active'
+                          ? 'bg-green-100 text-green-800'
+                          : 'bg-red-100 text-red-800'
+                      }`}
+                    >
+                      {subscription.status.toUpperCase()}
+                    </span>
                   </div>
                   <p className="text-sm text-gray-500">
                     ${planPrice}/{subscription.billingCycle} • Next billing:{' '}
@@ -140,11 +139,9 @@ export default function BillingSettings({ subscription, plans }) {
                         {subscription.cardBrand} ••••{' '}
                         {subscription.cardLastFour}
                       </span>
-                      <Tag
-                        value="ACTIVE"
-                        style={{ background: '#10B981' }}
-                        className="rounded-md border-0 px-2 py-1 text-xs text-white"
-                      />
+                      <span className="inline-flex items-center rounded-full bg-green-100 px-2 py-0.5 text-xs font-medium text-green-800">
+                        ACTIVE
+                      </span>
                     </div>
                     <p className="text-sm text-gray-500">
                       Processed by {subscription.paymentProcessor}
