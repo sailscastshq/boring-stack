@@ -20,6 +20,10 @@ module.exports = {
   },
 
   fn: async function ({ user }) {
+    // Return custom avatar URL if set
+    if (user.avatarUrl) {
+      return user.avatarUrl.trim()
+    }
     // Prioritize Google avatar, then GitHub avatar
     if (user.googleAvatarUrl && user.googleAvatarUrl.trim()) {
       return user.googleAvatarUrl.trim()

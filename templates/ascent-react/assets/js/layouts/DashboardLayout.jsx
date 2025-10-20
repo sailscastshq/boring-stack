@@ -223,13 +223,13 @@ function DashboardSidebar({
                 onClick={(e) => userMenuRef.current.toggle(e)}
               >
                 <Avatar
-                  image={loggedInUser?.avatarUrl}
+                  image={loggedInUser?.currentAvatarUrl}
                   label={loggedInUser?.initials}
                   size="normal"
                   shape="circle"
                   className="[&_img]:rounded-full"
                   style={{
-                    backgroundColor: loggedInUser?.avatarUrl
+                    backgroundColor: loggedInUser?.currentAvatarUrl
                       ? undefined
                       : '#6366f1',
                     color: '#ffffff'
@@ -256,7 +256,7 @@ function DashboardSidebar({
           ) : (
             <div className="flex justify-center">
               <Avatar
-                image={loggedInUser?.avatarUrl}
+                image={loggedInUser?.currentAvatarUrl}
                 label={loggedInUser?.initials}
                 size="normal"
                 shape="circle"
@@ -267,7 +267,7 @@ function DashboardSidebar({
                 data-pr-at="right center"
                 data-pr-my="left center"
                 style={{
-                  backgroundColor: loggedInUser?.avatarUrl
+                  backgroundColor: loggedInUser?.currentAvatarUrl
                     ? undefined
                     : '#6366f1',
                   color: '#ffffff'
@@ -376,14 +376,14 @@ function DashboardNavbar({
           {/* User Avatar Dropdown */}
           <div className="relative">
             <Avatar
-              image={loggedInUser?.avatarUrl}
+              image={loggedInUser?.currentAvatarUrl}
               label={loggedInUser?.initials}
               size="normal"
               shape="circle"
               className="cursor-pointer transition-all hover:ring-2 hover:ring-brand-200 [&_img]:rounded-full"
               onClick={(e) => navbarUserMenuRef.current.toggle(e)}
               style={{
-                backgroundColor: loggedInUser?.avatarUrl
+                backgroundColor: loggedInUser?.currentAvatarUrl
                   ? undefined
                   : '#6366f1',
                 color: '#ffffff'
@@ -507,23 +507,23 @@ export default function DashboardLayout({
           <div className="border-b border-gray-200 px-4 py-3">
             <div className="flex items-center">
               <Avatar
-                image={loggedInUser?.avatarUrl}
+                image={loggedInUser?.currentAvatarUrl}
                 label={loggedInUser?.initials}
                 className="mr-3 [&_img]:rounded-full"
                 shape="circle"
                 size="normal"
                 style={{
-                  backgroundColor: loggedInUser?.avatarUrl
+                  backgroundColor: loggedInUser?.currentAvatarUrl
                     ? undefined
                     : '#6366f1',
                   color: '#ffffff'
                 }}
               />
-              <div className="flex flex-col min-w-0 flex-1">
-                <span className="text-sm font-semibold text-gray-900 truncate">
+              <div className="flex min-w-0 flex-1 flex-col">
+                <span className="truncate text-sm font-semibold text-gray-900">
                   {loggedInUser?.fullName}
                 </span>
-                <span className="text-xs text-gray-500 truncate">
+                <span className="truncate text-xs text-gray-500">
                   {loggedInUser?.email}
                 </span>
               </div>

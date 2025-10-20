@@ -42,9 +42,8 @@ module.exports = function defineCustomHook(sails) {
                 return res.redirect('/login')
               }
               // Add avatar URL using helper
-              loggedInUser.avatarUrl = await sails.helpers.user.getAvatarUrl(
-                loggedInUser
-              )
+              loggedInUser.currentAvatarUrl =
+                await sails.helpers.user.getAvatarUrl(loggedInUser)
 
               // Get user's teams for team switcher
               const userMemberships = await Membership.find({

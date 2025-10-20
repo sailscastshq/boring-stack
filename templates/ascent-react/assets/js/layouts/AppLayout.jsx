@@ -103,13 +103,13 @@ export default function AppLayout({ children }) {
               </div>
               <Link href="/profile">
                 <Avatar
-                  image={loggedInUser.avatarUrl}
+                  image={loggedInUser.currentAvatarUrl}
                   label={loggedInUser.initials}
                   size="large"
                   shape="circle"
                   className="border-2 border-gray-200 transition-colors hover:border-brand [&_img]:rounded-full"
                   style={{
-                    backgroundColor: loggedInUser.avatarUrl
+                    backgroundColor: loggedInUser.currentAvatarUrl
                       ? undefined
                       : '#6366f1',
                     color: '#ffffff'
