@@ -35,6 +35,7 @@
     "sails-hook-organics": "^3.0.0",
     "sails-hook-orm": "^4.0.3",
     "sails-hook-sockets": "^3.0.2",
+    "sails-hook-uploads": "^0.4.3",
     "sails-hook-wish": "^0.0.9",
     "sails-pay": "^0.0.5",
     "speakeasy": "^2.0.0"
