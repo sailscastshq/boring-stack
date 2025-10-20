@@ -714,8 +714,8 @@ export default function TeamSettings({
               <form onSubmit={handleUpdateTeam} className="space-y-4">
                 {/* Team Logo */}
                 <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-2">
-                    Team Logo
+                  <label className="mb-2 block text-sm font-medium text-gray-700">
+                    Logo
                   </label>
                   <ImageUpload
                     currentImageUrl={team?.logoUrl}
