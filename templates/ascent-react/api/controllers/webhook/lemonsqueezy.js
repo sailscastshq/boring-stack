@@ -57,7 +57,7 @@ module.exports = {
           return
         }
 
-        await Subscription.create({
+        const subscriptionData = {
           subscriptionId: data.id,
           status: data.attributes.status,
           planName: planInfo.plan,
@@ -68,11 +68,37 @@ module.exports = {
           currentPeriodEnd: data.attributes.renews_at,
           nextBillingDate: data.attributes.renews_at,
           team: teamId
-        })
+        }
 
-        sails.log.info(
-          `Subscription created for team ${teamId}: ${planInfo.plan}/${planInfo.cycle}`
-        )
+        Subscription.findOrCreate(
+          { subscriptionId: data.id },
+          subscriptionData
+        ).exec(async (err, subscription, wasCreated) => {
+          if (err) {
+            throw err
+          }
+
+          if (wasCreated) {
+            sails.log.info(
+              `Subscription created for team ${teamId}: ${planInfo.plan}/${planInfo.cycle}`
+            )
+          } else {
+            await Subscription.updateOne({ subscriptionId: data.id }).set({
+              status: data.attributes.status,
+              planName: planInfo.plan,
+              billingCycle: planInfo.cycle,
+              currentPeriodStart: new Date(
+                data.attributes.created_at
+              ).toISOString(),
+              currentPeriodEnd: data.attributes.renews_at,
+              nextBillingDate: data.attributes.renews_at
+            })
+
+            sails.log.info(
+              `Subscription updated for team ${teamId}: ${planInfo.plan}/${planInfo.cycle} (webhook retry)`
+            )
+          }
+        })
         break
 
       case 'subscription_updated':
