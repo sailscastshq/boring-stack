@@ -54,7 +54,7 @@ module.exports = {
   customToJSON: function () {
     return {
       id: this.id,
-      lemonSqueezyId: this.lemonSqueezyId,
+      subscriptionId: this.subscriptionId,
       status: this.status,
       planName: this.planName,
       billingCycle: this.billingCycle,
