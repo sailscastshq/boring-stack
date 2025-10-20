@@ -34,6 +34,8 @@ module.exports = {
           paymentProcessor: data.attributes.payment_processor,
           cancelled: data.attributes.cancelled,
           customerPortalUrl: data.attributes.urls.customer_portal,
+          customerPortalUpdateSubscriptionUrl:
+            data.attributes.urls.customer_portal_update_subscription,
           updatePaymentMethodUrl: data.attributes.urls.update_payment_method
         }
       } catch (error) {

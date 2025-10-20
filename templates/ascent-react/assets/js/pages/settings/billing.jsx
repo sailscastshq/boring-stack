@@ -101,14 +101,15 @@ export default function BillingSettings({ subscription, plans }) {
                 </div>
               </div>
               <div className="flex space-x-3">
-                {subscription.customerPortalUrl && (
-                  <Link
-                    href={subscription.customerPortalUrl}
+                {subscription.customerPortalUpdateSubscriptionUrl && (
+                  <a
+                    href={subscription.customerPortalUpdateSubscriptionUrl}
+                    target="_blank"
                     className="inline-flex items-center rounded-lg border border-brand-600 bg-brand-600 px-4 py-2 text-sm font-medium text-white no-underline transition-colors duration-200 hover:bg-brand-700"
                   >
                     <i className="pi pi-external-link mr-2"></i>
                     Manage Subscription
-                  </Link>
+                  </a>
                 )}
               </div>
             </div>
@@ -151,13 +152,14 @@ export default function BillingSettings({ subscription, plans }) {
                   </div>
                 </div>
                 {subscription.updatePaymentMethodUrl && (
-                  <Link
+                  <a
                     href={subscription.updatePaymentMethodUrl}
+                    target="_blank"
                     className="inline-flex items-center rounded-lg border border-gray-300 px-3 py-2 text-sm font-medium text-gray-700 no-underline transition-colors duration-200 hover:bg-gray-50"
                   >
                     <i className="pi pi-external-link mr-2"></i>
                     Update
-                  </Link>
+                  </a>
                 )}
               </div>
             </div>
@@ -183,21 +185,22 @@ export default function BillingSettings({ subscription, plans }) {
                   <i className="pi pi-receipt text-brand-600"></i>
                 </div>
               </div>
-              <h4 className="text-lg font-medium text-gray-900 mb-2">
+              <h4 className="mb-2 text-lg font-medium text-gray-900">
                 Customer Portal
               </h4>
-              <p className="text-sm text-gray-500 mb-4">
+              <p className="mb-4 text-sm text-gray-500">
                 View invoices, download receipts, update payment methods, and
                 manage your subscription.
               </p>
               {subscription.customerPortalUrl && (
-                <Link
+                <a
                   href={subscription.customerPortalUrl}
+                  target="_blank"
                   className="inline-flex items-center rounded-lg border border-brand-600 bg-brand-600 px-4 py-2 text-sm font-medium text-white no-underline transition-colors duration-200 hover:bg-brand-700"
                 >
                   <i className="pi pi-external-link mr-2"></i>
                   Open Customer Portal
-                </Link>
+                </a>
               )}
             </div>
           </div>
