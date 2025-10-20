@@ -23,83 +23,6 @@ export default function BillingSettings({ subscription, plans }) {
     ? planConfig.variants[subscription.billingCycle]?.amount
     : 0
 
-  const paymentMethods = [
-    {
-      id: 1,
-      type: 'card',
-      brand: 'visa',
-      last4: '4242',
-      expiry: '12/26',
-      isDefault: true
-    },
-    {
-      id: 2,
-      type: 'card',
-      brand: 'mastercard',
-      last4: '8888',
-      expiry: '09/25',
-      isDefault: false
-    }
-  ]
-
-  const invoices = [
-    {
-      id: 'inv_001',
-      date: 'Jan 15, 2024',
-      amount: 29.0,
-      status: 'paid',
-      description: 'Pro Plan'
-    },
-    {
-      id: 'inv_002',
-      date: 'Dec 15, 2023',
-      amount: 29.0,
-      status: 'paid',
-      description: 'Pro Plan'
-    },
-    {
-      id: 'inv_003',
-      date: 'Nov 15, 2023',
-      amount: 38.75,
-      status: 'past_due',
-      description: 'Turbo Plan'
-    },
-    {
-      id: 'inv_004',
-      date: 'Oct 15, 2023',
-      amount: 0.0,
-      status: 'paid',
-      description: 'Starter Plan'
-    }
-  ]
-
-  function handleCancelSubscription() {
-    confirmDialog({
-      message:
-        'Are you sure you want to cancel your subscription? You will lose access to Pro features at the end of your billing cycle.',
-      header: 'Cancel Subscription',
-      icon: 'pi pi-exclamation-triangle',
-      acceptClassName: 'p-button-danger',
-      acceptLabel: 'Cancel Subscription',
-      rejectLabel: 'Keep Subscription',
-      accept: () => {
-        console.log('Subscription cancelled')
-      }
-    })
-  }
-
-  function removePaymentMethod(methodId) {
-    confirmDialog({
-      message: 'Are you sure you want to remove this payment method?',
-      header: 'Remove Payment Method',
-      icon: 'pi pi-exclamation-triangle',
-      acceptClassName: 'p-button-danger',
-      accept: () => {
-        console.log('Payment method removed:', methodId)
-      }
-    })
-  }
-
   if (!isSubscribed) {
     return (
       <>
@@ -178,168 +101,104 @@ export default function BillingSettings({ subscription, plans }) {
                 </div>
               </div>
               <div className="flex space-x-3">
-                <Button
-                  label="Change Plan"
-                  outlined
-                  size="small"
-                  icon="pi pi-refresh"
-                />
-                <Button
-                  label="Cancel"
-                  size="small"
-                  icon="pi pi-times"
-                  outlined
-                  severity="danger"
-                  onClick={handleCancelSubscription}
-                />
+                {subscription.customerPortalUrl && (
+                  <Link
+                    href={subscription.customerPortalUrl}
+                    className="inline-flex items-center rounded-lg border border-brand-600 bg-brand-600 px-4 py-2 text-sm font-medium text-white no-underline transition-colors duration-200 hover:bg-brand-700"
+                  >
+                    <i className="pi pi-external-link mr-2"></i>
+                    Manage Subscription
+                  </Link>
+                )}
               </div>
             </div>
           </div>
         </div>
 
-        {/* Payment Methods */}
-        <div className="space-y-6">
-          <div className="flex items-center justify-between">
+        {/* Payment Method */}
+        {subscription.cardBrand && subscription.cardLastFour && (
+          <div className="space-y-6">
             <div>
               <h3 className="text-sm font-medium text-gray-900">
-                Payment Methods
+                Payment Method
               </h3>
               <p className="mt-1 text-sm text-gray-500">
-                Manage your payment methods and billing information.
+                Your current payment method for this subscription.
               </p>
             </div>
-            <Button
-              label="Add Method"
-              size="small"
-              icon="pi pi-plus"
-              outlined
-              severity="secondary"
-            />
-          </div>
 
-          <div className="space-y-3">
-            {paymentMethods.map((method) => (
-              <div
-                key={method.id}
-                className="rounded-lg border border-gray-200 bg-white p-4 shadow-sm"
-              >
-                <div className="flex items-center justify-between">
-                  <div className="flex items-center space-x-3">
-                    <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-gray-50">
-                      <i className="pi pi-credit-card text-gray-400"></i>
-                    </div>
-                    <div>
-                      <div className="flex items-center space-x-2">
-                        <span className="text-sm font-medium capitalize text-gray-900">
-                          {method.brand} •••• {method.last4}
-                        </span>
-                        {method.isDefault && (
-                          <Tag
-                            value="DEFAULT"
-                            className="rounded-md border-0 bg-gray-200 px-2 py-1 text-xs text-gray-700"
-                          />
-                        )}
-                      </div>
-                      <p className="text-sm text-gray-500">
-                        Expires {method.expiry}
-                      </p>
-                    </div>
+            <div className="rounded-lg border border-gray-200 bg-white p-4 shadow-sm">
+              <div className="flex items-center justify-between">
+                <div className="flex items-center space-x-3">
+                  <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-gray-50">
+                    <i className="pi pi-credit-card text-gray-400"></i>
                   </div>
-                  <div className="flex items-center space-x-2">
-                    {!method.isDefault && (
-                      <Button
-                        label="Set Default"
-                        size="small"
-                        severity="secondary"
-                        text
+                  <div>
+                    <div className="flex items-center space-x-2">
+                      <span className="text-sm font-medium capitalize text-gray-900">
+                        {subscription.cardBrand} ••••{' '}
+                        {subscription.cardLastFour}
+                      </span>
+                      <Tag
+                        value="ACTIVE"
+                        style={{ background: '#10B981' }}
+                        className="rounded-md border-0 px-2 py-1 text-xs text-white"
                       />
-                    )}
-                    <Button
-                      icon="pi pi-trash"
-                      size="small"
-                      severity="danger"
-                      onClick={() => removePaymentMethod(method.id)}
-                      tooltip="Remove payment method"
-                      text
-                      disabled={method.isDefault}
-                    />
+                    </div>
+                    <p className="text-sm text-gray-500">
+                      Processed by {subscription.paymentProcessor}
+                    </p>
                   </div>
                 </div>
+                {subscription.updatePaymentMethodUrl && (
+                  <Link
+                    href={subscription.updatePaymentMethodUrl}
+                    className="inline-flex items-center rounded-lg border border-gray-300 px-3 py-2 text-sm font-medium text-gray-700 no-underline transition-colors duration-200 hover:bg-gray-50"
+                  >
+                    <i className="pi pi-external-link mr-2"></i>
+                    Update
+                  </Link>
+                )}
               </div>
-            ))}
+            </div>
           </div>
-        </div>
+        )}
 
-        {/* Invoice History */}
+        {/* Billing Management */}
         <div className="space-y-6">
-          <div className="flex items-center justify-between">
-            <div>
-              <h3 className="text-sm font-medium uppercase tracking-wide text-gray-900">
-                Invoice History
-              </h3>
-            </div>
-            <Button
-              label="View All"
-              size="small"
-              link
-              icon="pi pi-external-link"
-            />
+          <div>
+            <h3 className="text-sm font-medium text-gray-900">
+              Full Billing Management
+            </h3>
+            <p className="mt-1 text-sm text-gray-500">
+              Access your complete billing history, invoices, and subscription
+              settings.
+            </p>
           </div>
 
-          <div className="overflow-hidden rounded-lg border border-gray-200 bg-white shadow-sm">
-            {/* Table Header */}
-            <div className="grid grid-cols-5 gap-4 border-b border-gray-200 bg-gray-50 p-4">
-              <div className="text-xs font-medium uppercase tracking-wide text-gray-500">
-                Date
-              </div>
-              <div className="text-xs font-medium uppercase tracking-wide text-gray-500">
-                Amount
-              </div>
-              <div className="text-xs font-medium uppercase tracking-wide text-gray-500">
-                Status
-              </div>
-              <div className="text-xs font-medium uppercase tracking-wide text-gray-500">
-                Plan
-              </div>
-              <div className="text-xs font-medium uppercase tracking-wide text-gray-500">
-                Action
-              </div>
-            </div>
-
-            {/* Table Body */}
-            <div className="divide-y divide-gray-200">
-              {invoices.map((invoice) => (
-                <div
-                  key={invoice.id}
-                  className="grid grid-cols-5 gap-4 p-4 transition-colors hover:bg-gray-50"
-                >
-                  <div className="text-sm text-gray-900">{invoice.date}</div>
-                  <div className="text-sm font-medium text-gray-900">
-                    ${invoice.amount.toFixed(2)}
-                  </div>
-                  <div className="flex items-center">
-                    <Tag
-                      value={invoice.status === 'paid' ? 'Paid' : 'Past due'}
-                      style={{
-                        background:
-                          invoice.status === 'paid' ? '#10B981' : '#EF4444'
-                      }}
-                      className="rounded-md border-0 px-2 py-1 text-xs text-white"
-                    />
-                  </div>
-                  <div className="text-sm text-gray-900">
-                    {invoice.description}
-                  </div>
-                  <div className="flex items-center">
-                    <Button
-                      icon="pi pi-download"
-                      size="small"
-                      text
-                      tooltip="Download invoice"
-                    />
-                  </div>
+          <div className="rounded-lg border border-gray-200 bg-white p-6 shadow-sm">
+            <div className="text-center">
+              <div className="mb-4">
+                <div className="mx-auto flex h-12 w-12 items-center justify-center rounded-lg bg-brand-50">
+                  <i className="pi pi-receipt text-brand-600"></i>
                 </div>
-              ))}
+              </div>
+              <h4 className="text-lg font-medium text-gray-900 mb-2">
+                Customer Portal
+              </h4>
+              <p className="text-sm text-gray-500 mb-4">
+                View invoices, download receipts, update payment methods, and
+                manage your subscription.
+              </p>
+              {subscription.customerPortalUrl && (
+                <Link
+                  href={subscription.customerPortalUrl}
+                  className="inline-flex items-center rounded-lg border border-brand-600 bg-brand-600 px-4 py-2 text-sm font-medium text-white no-underline transition-colors duration-200 hover:bg-brand-700"
+                >
+                  <i className="pi pi-external-link mr-2"></i>
+                  Open Customer Portal
+                </Link>
+              )}
             </div>
           </div>
         </div>
