@@ -3,6 +3,8 @@ module.exports = {
 
   description: 'Update the profile information of the logged-in user.',
 
+  files: ['avatar'],
+
   inputs: {
     fullName: {
       type: 'string',
@@ -14,6 +16,10 @@ module.exports = {
       required: true,
       isEmail: true,
       description: 'The email address of the user.'
+    },
+    avatar: {
+      type: 'ref',
+      description: 'An uploaded avatar image file.'
     }
   },
 
@@ -28,12 +34,62 @@ module.exports = {
     }
   },
 
-  fn: async function ({ fullName, email }) {
+  fn: async function ({ fullName, email, avatar }) {
     const userId = this.req.session.userId
-    const user = await User.findOne({ id: userId }).select(['email'])
+    const user = await User.findOne({ id: userId }).select([
+      'email',
+      'avatarUrl'
+    ])
 
     const updatedData = {
       fullName
+    }
+
+    // Handle avatar upload if provided
+    if (avatar) {
+      try {
+        // Cleanup old avatar file
+        if (user.avatarUrl) {
+          await sails.helpers.upload.cleanupOldFile(user.avatarUrl)
+        }
+
+        // Upload new avatar
+        const uploadedFile = await sails.uploadOne(avatar, {
+          maxBytes: 5 * 1024 * 1024, // 5MB limit
+          allowedTypes: [
+            'image/jpeg',
+            'image/jpg',
+            'image/png',
+            'image/gif',
+            'image/webp'
+          ]
+        })
+
+        if (uploadedFile) {
+          // Extract filename from fd path
+          const filename = uploadedFile.fd.split('/').pop()
+          updatedData.avatarUrl = `/uploads/${filename}`
+        }
+      } catch (err) {
+        // Handle upload errors
+        let errorMessage = 'Failed to upload avatar'
+        if (err.code === 'E_EXCEEDS_UPLOAD_LIMIT') {
+          errorMessage = 'Avatar file size must be less than 5MB'
+        } else if (err.code === 'E_INVALID_FILE_TYPE') {
+          errorMessage =
+            'Avatar must be an image file (JPEG, PNG, GIF, or WebP)'
+        }
+
+        throw {
+          invalid: {
+            problems: [
+              {
+                avatar: errorMessage
+              }
+            ]
+          }
+        }
+      }
     }
 
     if (email !== user.email) {
