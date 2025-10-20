@@ -18,6 +18,10 @@ module.exports = {
     invalidEmails: {
       responseType: 'badRequest',
       description: 'One or more emails cannot be invited'
+    },
+    memberLimitReached: {
+      responseType: 'badRequest',
+      description: 'Team member limit reached for current plan'
     }
   },
 
@@ -28,6 +32,30 @@ module.exports = {
     const team = await Team.findOne({ id: teamId })
     if (!team) {
       throw 'notFound'
+    }
+
+    const subscriptionInfo = await sails.helpers.subscription.checkPlan(teamId)
+
+    const potentialNewMembers = subscriptionInfo.memberCount + emails.length
+
+    if (
+      !subscriptionInfo.canAddMembers ||
+      (subscriptionInfo.memberLimit !== 'unlimited' &&
+        potentialNewMembers > subscriptionInfo.memberLimit)
+    ) {
+      throw {
+        memberLimitReached: {
+          problems: [
+            {
+              emails: `Team member limit reached. ${
+                subscriptionInfo.hasSubscription
+                  ? `Your ${subscriptionInfo.planName} plan allows ${subscriptionInfo.memberLimit} members.`
+                  : 'Subscribe to a plan to add team members.'
+              } Upgrade your plan to add more members.`
+            }
+          ]
+        }
+      }
     }
 
     const problems = []
