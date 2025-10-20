@@ -129,6 +129,12 @@ module.exports = {
       description: 'The avatar URL provided by GitHub for an OAuth user.',
       columnName: 'github_avatar_url'
     },
+    avatarUrl: {
+      type: 'string',
+      description: 'URL of the user uploaded avatar image.',
+      columnName: 'avatar_url',
+      allowNull: true
+    },
     tosAcceptedByIp: {
       type: 'string',
       description:

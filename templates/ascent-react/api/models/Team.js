@@ -31,6 +31,12 @@ module.exports = {
       description:
         'Array of email domains that are allowed to join via invite link (empty = no restrictions)'
     },
+    logoUrl: {
+      type: 'string',
+      description: 'URL of the team uploaded logo image.',
+      columnName: 'logo_url',
+      allowNull: true
+    },
 
     memberships: {
       collection: 'membership',
@@ -54,6 +60,7 @@ module.exports = {
       inviteLink: this.inviteLink,
       inviteLinkEnabled: this.inviteLinkEnabled,
       domainRestrictions: this.domainRestrictions,
+      logoUrl: this.logoUrl,
       createdAt: this.createdAt,
       updatedAt: this.updatedAt
     }
