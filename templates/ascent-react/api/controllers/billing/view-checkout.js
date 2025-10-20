@@ -60,7 +60,10 @@ module.exports = {
             ? (
                 await User.findOne(this.req.session.userId)
               ).emailAddress
-            : undefined
+            : undefined,
+          custom: {
+            team_id: this.req.session.teamId
+          }
         }
       })
     } catch (error) {
