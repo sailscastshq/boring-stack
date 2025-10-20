@@ -114,6 +114,9 @@ module.exports.routes = {
 
   'DELETE /logout': 'user/logout',
 
+  // Webhook routes
+  'POST /webhooks/lemonsqueezy': 'webhook/lemonsqueezy',
+
   // OAuth authentication routes
   'GET /auth/:provider/redirect': 'auth/redirect',
   'GET /auth/:provider/callback': 'auth/callback'
