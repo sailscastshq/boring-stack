@@ -11,17 +11,21 @@ export default function Sidebar({ isOpen, onToggle }) {
     {
       name: 'Dashboard',
       href: '/dashboard',
-      icon: 'pi pi-home'
+      icon: 'pi pi-home',
+      prefetch: true
     },
     {
       name: 'Team',
       href: '/settings/team',
-      icon: 'pi pi-users'
+      icon: 'pi pi-users',
+      prefetch: true
     },
     {
       name: 'Billing',
       href: '/settings/billing',
-      icon: 'pi pi-credit-card'
+      icon: 'pi pi-credit-card',
+      prefetch: true,
+      cacheFor: '1m'
     }
   ]
 
@@ -29,12 +33,14 @@ export default function Sidebar({ isOpen, onToggle }) {
     {
       name: 'Profile',
       href: '/settings/profile',
-      icon: 'pi pi-user'
+      icon: 'pi pi-user',
+      prefetch: true
     },
     {
       name: 'Security',
       href: '/settings/security',
-      icon: 'pi pi-shield'
+      icon: 'pi pi-shield',
+      prefetch: true
     }
   ]
 
@@ -97,6 +103,8 @@ export default function Sidebar({ isOpen, onToggle }) {
                     ? 'bg-brand-100 text-brand-700 shadow-sm'
                     : 'text-gray-700 hover:bg-gray-50 hover:text-brand-600'
                 }`}
+                prefetch={item.prefetch}
+                cacheFor={item.cacheFor}
               >
                 <i
                   className={`${item.icon} mr-3 text-lg transition-colors ${
@@ -127,6 +135,8 @@ export default function Sidebar({ isOpen, onToggle }) {
                       ? 'bg-brand-100 text-brand-700 shadow-sm'
                       : 'text-gray-700 hover:bg-gray-50 hover:text-brand-600'
                   }`}
+                  prefetch={item.prefetch}
+                  cacheFor={item.cacheFor}
                 >
                   <i
                     className={`${item.icon} mr-3 text-lg transition-colors ${
