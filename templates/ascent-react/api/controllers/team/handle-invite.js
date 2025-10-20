@@ -147,7 +147,22 @@ module.exports = {
         }
       }
 
-      // Create the membership
+      const subscriptionInfo = await sails.helpers.subscription.checkPlan(
+        team.id
+      )
+
+      if (!subscriptionInfo.canAddMembers) {
+        this.req.flash(
+          'error',
+          `This team has reached its member limit. ${
+            subscriptionInfo.hasSubscription
+              ? `The ${subscriptionInfo.planName} plan allows ${subscriptionInfo.memberLimit} members.`
+              : 'The team needs a subscription to add members.'
+          } Please ask the team owner to upgrade.`
+        )
+        return isEmailInvite ? '/login' : `/team/${team.inviteToken}`
+      }
+
       await Membership.create({
         member: userId,
         team: team.id,
