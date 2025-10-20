@@ -62,7 +62,7 @@ module.exports = {
               ).emailAddress
             : undefined,
           custom: {
-            team_id: this.req.session.teamId
+            team: this.req.session.teamId.toString()
           }
         }
       })
