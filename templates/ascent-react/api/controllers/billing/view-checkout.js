@@ -50,17 +50,16 @@ module.exports = {
       }
     }
     try {
+      const loggedInUser = await User.findOne(this.req.session.userId).select([
+        'email'
+      ])
       checkoutUrl = await sails.pay.checkout({
         variant: variant.id,
         productOptions: {
           enabled_variants: [variant.id]
         },
         checkoutData: {
-          email: this.req.session.userId
-            ? (
-                await User.findOne(this.req.session.userId)
-              ).emailAddress
-            : undefined,
+          email: loggedInUser.email,
           custom: {
             team: this.req.session.teamId.toString()
           }
