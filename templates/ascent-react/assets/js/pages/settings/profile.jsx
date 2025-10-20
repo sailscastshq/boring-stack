@@ -10,6 +10,7 @@ import { Avatar } from 'primereact/avatar'
 import { Message } from 'primereact/message'
 import { ConfirmDialog } from 'primereact/confirmdialog'
 import { confirmDialog } from 'primereact/confirmdialog'
+import ImageUpload from '@/components/ImageUpload'
 
 ProfileSettings.layout = (page) => (
   <DashboardLayout title="Profile" maxWidth="narrow">
@@ -22,7 +23,8 @@ export default function ProfileSettings() {
 
   const { data, setData, ...form } = useForm({
     email: loggedInUser.email,
-    fullName: loggedInUser.fullName
+    fullName: loggedInUser.fullName,
+    avatar: null
   })
 
   const {
@@ -70,7 +72,7 @@ export default function ProfileSettings() {
         {/* Profile Header */}
         <div className="flex items-center space-x-4">
           <Avatar
-            image={loggedInUser.avatarUrl}
+            image={loggedInUser.currentAvatarUrl}
             label={loggedInUser.initials}
             size="large"
             shape="circle"
@@ -95,6 +97,24 @@ export default function ProfileSettings() {
           </div>
 
           <form onSubmit={updateProfile} className="space-y-4">
+            {/* Avatar Upload */}
+            <div>
+              <label className="mb-2 block text-sm font-medium text-gray-700">
+                Avatar
+              </label>
+              <ImageUpload
+                currentImageUrl={loggedInUser.avatarUrl}
+                onImageSelect={(file) => setData('avatar', file)}
+              />
+              {form.errors.avatar && (
+                <Message
+                  severity="error"
+                  text={form.errors.avatar}
+                  className="mt-2"
+                />
+              )}
+            </div>
+
             <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
               <div>
                 <label

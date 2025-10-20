@@ -16,6 +16,7 @@ import { Dialog } from 'primereact/dialog'
 import { Menu } from 'primereact/menu'
 import { Dropdown } from 'primereact/dropdown'
 import { useCopyToClipboard } from '@/hooks/useCopyToClipboard'
+import ImageUpload from '@/components/ImageUpload'
 
 TeamSettings.layout = (page) => (
   <DashboardLayout title="Team" maxWidth="narrow">
@@ -49,7 +50,8 @@ export default function TeamSettings({
     errors: teamErrors,
     reset: resetTeam
   } = useForm({
-    name: team?.name
+    name: team?.name,
+    logo: null
   })
   // Form for toggle invite link
   const {
@@ -708,8 +710,27 @@ export default function TeamSettings({
             </div>
 
             <div className="space-y-6">
-              {/* Edit Team Name */}
+              {/* Edit Team Name and Logo */}
               <form onSubmit={handleUpdateTeam} className="space-y-4">
+                {/* Team Logo */}
+                <div>
+                  <label className="block text-sm font-medium text-gray-700 mb-2">
+                    Team Logo
+                  </label>
+                  <ImageUpload
+                    currentImageUrl={team?.logoUrl}
+                    onImageSelect={(file) => setTeamData('logo', file)}
+                    placeholder="Choose logo"
+                  />
+                  {teamErrors.logo && (
+                    <Message
+                      severity="error"
+                      text={teamErrors.logo}
+                      className="mt-2"
+                    />
+                  )}
+                </div>
+
                 <div>
                   <label
                     htmlFor="teamName"
@@ -732,8 +753,8 @@ export default function TeamSettings({
                       loading={processingTeam}
                       disabled={
                         processingTeam ||
-                        !teamData.name?.trim() ||
-                        teamData.name === team.name
+                        (!teamData.name?.trim() && !teamData.logo) ||
+                        (teamData.name === team.name && !teamData.logo)
                       }
                     />
                   </div>
