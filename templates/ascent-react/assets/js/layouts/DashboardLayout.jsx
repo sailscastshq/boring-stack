@@ -472,9 +472,18 @@ export default function DashboardLayout({
                   : 'text-gray-700 hover:bg-gray-50'
               }`}
             >
-              <div className="mr-3 flex h-7 w-7 items-center justify-center rounded bg-gray-200 text-xs font-medium text-gray-600">
-                {team.name.charAt(0).toUpperCase()}
-              </div>
+              <Avatar
+                image={team.logoUrl}
+                label={team.name.charAt(0).toUpperCase()}
+                size="normal"
+                className="mr-3 text-xs font-medium [&_img]:rounded-full"
+                style={{
+                  backgroundColor: team.logoUrl ? 'transparent' : '#6b7280',
+                  color: '#ffffff',
+                  width: '1.75rem',
+                  height: '1.75rem'
+                }}
+              />
               <div className="min-w-0 flex-1">
                 <div className="truncate font-medium">{team.name}</div>
               </div>
