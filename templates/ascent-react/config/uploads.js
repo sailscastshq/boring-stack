@@ -21,9 +21,32 @@ module.exports.uploads = {
    *                                                                          *
    ***************************************************************************/
 
-  // Store uploads in public directory for development
-  dirpath: '.tmp/public/uploads',
-
   // Maximum file size (5MB for images)
-  maxBytes: 5 * 1024 * 1024
+  maxBytes: 5 * 1024 * 1024,
+  // dirpath: '.tmp/uploads',
+  adapter: require('skipper-s3'),
+  /**
+   * Amazon S3
+   */
+  // key: process.env.S3_ACCESS_KEY,
+  // secret: process.env.S3_SECRET_KEY,
+  // bucket: process.env.S3_BUCKET
+
+  /**
+   * Cloudflare R2
+   */
+  key: process.env.R2_ACCESS_KEY,
+  secret: process.env.R2_SECRET_KEY,
+  bucket: process.env.R2_BUCKET,
+  endpoint: process.env.R2_ENDPOINT
+
+  /**
+   * DigitalOcean Spaces
+   */
+
+  // https://cloud.digitalocean.com/account/api/spaces
+  // key: process.env.SPACES_ACCESS_KEY,
+  // secret: process.env.SPACES_SECRET_KEY,
+  // bucket: process.env.SPACES_BUCKET,
+  // endpoint: process.env.SPACES_ENDPOINT
 }

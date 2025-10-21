@@ -23,6 +23,10 @@ module.exports.custom = {
    **************************************************************************/
   appName: 'Ascent React',
   baseUrl: 'http://localhost:1337',
+  /**
+   * The base URL for uploaded files
+   */
+  // uploadBaseUrl: '',
 
   /**************************************************************************
    *                                                                         *
