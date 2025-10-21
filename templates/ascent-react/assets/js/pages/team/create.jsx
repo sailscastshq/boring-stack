@@ -17,9 +17,9 @@ export default function CreateTeam() {
 
   return (
     <DashboardLayout>
-      <div className="max-w-2xl mx-auto">
+      <div className="mx-auto max-w-2xl">
         <div className="mb-8">
-          <h1 className="text-2xl font-bold text-gray-900 mb-2">
+          <h1 className="mb-2 text-2xl font-bold text-gray-900">
             Create New Team
           </h1>
           <p className="text-gray-600">
@@ -32,7 +32,7 @@ export default function CreateTeam() {
           <div>
             <label
               htmlFor="name"
-              className="block text-sm font-medium text-gray-700 mb-2"
+              className="mb-2 block text-sm font-medium text-gray-700"
             >
               Team Name
             </label>

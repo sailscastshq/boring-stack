@@ -31,7 +31,10 @@ export default function AppLayout({ children }) {
           {!loggedInUser ? (
             <div className="flex items-center space-x-8">
               {/* Navigation Links */}
-              <div className="hidden items-center space-x-1 md:flex">
+              <nav
+                className="hidden items-center space-x-1 md:flex"
+                aria-label="Primary navigation"
+              >
                 <Link
                   href="/features"
                   className={`rounded-lg px-3 py-2 font-medium transition-all duration-200 ${
@@ -72,7 +75,7 @@ export default function AppLayout({ children }) {
                 >
                   Docs
                 </Link>
-              </div>
+              </nav>
 
               {/* Auth Buttons */}
               <div className="flex items-center space-x-3">
@@ -92,16 +95,16 @@ export default function AppLayout({ children }) {
               </div>
             </div>
           ) : (
-            <section className="flex items-center space-x-6">
-              <div className="hidden items-center space-x-4 md:flex">
+            <div className="flex items-center space-x-6">
+              <nav className="hidden items-center space-x-4 md:flex">
                 <Link
                   href="/dashboard"
                   className="font-medium text-gray-600 transition-colors hover:text-brand"
                 >
                   Dashboard
                 </Link>
-              </div>
-              <Link href="/profile">
+              </nav>
+              <Link href="/profile" aria-label="Go to profile">
                 <Avatar
                   image={loggedInUser.currentAvatarUrl}
                   label={loggedInUser.initials}
@@ -116,7 +119,7 @@ export default function AppLayout({ children }) {
                   }}
                 />
               </Link>
-            </section>
+            </div>
           )}
         </nav>
       </header>
@@ -151,7 +154,7 @@ export default function AppLayout({ children }) {
               </p>
               <div className="flex space-x-4">
                 <a
-                  href="https://twitter.com/sailscastshq"
+                  href="https://x.com/Dominus_Kelvin"
                   className="group flex h-10 w-10 items-center justify-center rounded-lg bg-gray-800/50 text-gray-400 transition-all duration-200 hover:bg-brand-600 hover:text-white"
                 >
                   <svg
@@ -159,7 +162,7 @@ export default function AppLayout({ children }) {
                     fill="currentColor"
                     viewBox="0 0 24 24"
                   >
-                    <path d="M23 3a10.9 10.9 0 01-3.14 1.53 4.48 4.48 0 00-7.86 3v1A10.66 10.66 0 013 4s-4 9 5 13a11.64 11.64 0 01-7 2c9 5 20 0 20-11.5a4.5 4.5 0 00-.08-.83A7.72 7.72 0 0023 3z" />
+                    <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z" />
                   </svg>
                 </a>
                 <a
@@ -190,161 +193,167 @@ export default function AppLayout({ children }) {
             </div>
 
             {/* Product */}
-            <div>
+            <section>
               <h3 className="mb-6 text-lg font-bold text-white">Product</h3>
-              <ul className="space-y-4">
-                <li>
-                  <Link
-                    href="/features"
-                    className="group flex items-center text-gray-300 transition-colors duration-200 hover:text-white"
-                  >
-                    <span className="mr-3 h-1.5 w-1.5 rounded-full bg-brand-500 opacity-0 transition-opacity group-hover:opacity-100"></span>
-                    Features
-                  </Link>
-                </li>
-                <li>
-                  <Link
-                    href="/pricing"
-                    className="group flex items-center text-gray-300 transition-colors duration-200 hover:text-white"
-                  >
-                    <span className="mr-3 h-1.5 w-1.5 rounded-full bg-brand-500 opacity-0 transition-opacity group-hover:opacity-100"></span>
-                    Pricing
-                  </Link>
-                </li>
-                <li>
-                  <Link
-                    href="/security"
-                    className="group flex items-center text-gray-300 transition-colors duration-200 hover:text-white"
-                  >
-                    <span className="mr-3 h-1.5 w-1.5 rounded-full bg-brand-500 opacity-0 transition-opacity group-hover:opacity-100"></span>
-                    Security
-                  </Link>
-                </li>
-                <li>
-                  <Link
-                    href="/integrations"
-                    className="group flex items-center text-gray-300 transition-colors duration-200 hover:text-white"
-                  >
-                    <span className="mr-3 h-1.5 w-1.5 rounded-full bg-brand-500 opacity-0 transition-opacity group-hover:opacity-100"></span>
-                    Integrations
-                  </Link>
-                </li>
-                <li>
-                  <Link
-                    href="/api"
-                    className="group flex items-center text-gray-300 transition-colors duration-200 hover:text-white"
-                  >
-                    <span className="mr-3 h-1.5 w-1.5 rounded-full bg-brand-500 opacity-0 transition-opacity group-hover:opacity-100"></span>
-                    API
-                  </Link>
-                </li>
-              </ul>
-            </div>
+              <nav>
+                <ul className="space-y-4">
+                  <li>
+                    <Link
+                      href="/features"
+                      className="group flex items-center text-gray-300 transition-colors duration-200 hover:text-white"
+                    >
+                      <span className="mr-3 h-1.5 w-1.5 rounded-full bg-brand-500 opacity-0 transition-opacity group-hover:opacity-100"></span>
+                      Features
+                    </Link>
+                  </li>
+                  <li>
+                    <Link
+                      href="/pricing"
+                      className="group flex items-center text-gray-300 transition-colors duration-200 hover:text-white"
+                    >
+                      <span className="mr-3 h-1.5 w-1.5 rounded-full bg-brand-500 opacity-0 transition-opacity group-hover:opacity-100"></span>
+                      Pricing
+                    </Link>
+                  </li>
+                  <li>
+                    <Link
+                      href="/security"
+                      className="group flex items-center text-gray-300 transition-colors duration-200 hover:text-white"
+                    >
+                      <span className="mr-3 h-1.5 w-1.5 rounded-full bg-brand-500 opacity-0 transition-opacity group-hover:opacity-100"></span>
+                      Security
+                    </Link>
+                  </li>
+                  <li>
+                    <Link
+                      href="/integrations"
+                      className="group flex items-center text-gray-300 transition-colors duration-200 hover:text-white"
+                    >
+                      <span className="mr-3 h-1.5 w-1.5 rounded-full bg-brand-500 opacity-0 transition-opacity group-hover:opacity-100"></span>
+                      Integrations
+                    </Link>
+                  </li>
+                  <li>
+                    <Link
+                      href="/api"
+                      className="group flex items-center text-gray-300 transition-colors duration-200 hover:text-white"
+                    >
+                      <span className="mr-3 h-1.5 w-1.5 rounded-full bg-brand-500 opacity-0 transition-opacity group-hover:opacity-100"></span>
+                      API
+                    </Link>
+                  </li>
+                </ul>
+              </nav>
+            </section>
 
             {/* Resources */}
-            <div>
+            <section>
               <h3 className="mb-6 text-lg font-bold text-white">Resources</h3>
-              <ul className="space-y-4">
-                <li>
-                  <a
-                    href="/blog"
-                    target="_blank"
-                    className="group flex items-center text-gray-300 transition-colors duration-200 hover:text-white"
-                  >
-                    <span className="mr-3 h-1.5 w-1.5 rounded-full bg-accent-500 opacity-0 transition-opacity group-hover:opacity-100"></span>
-                    Blog
-                  </a>
-                </li>
-                <li>
-                  <Link
-                    href="/docs"
-                    className="group flex items-center text-gray-300 transition-colors duration-200 hover:text-white"
-                  >
-                    <span className="mr-3 h-1.5 w-1.5 rounded-full bg-accent-500 opacity-0 transition-opacity group-hover:opacity-100"></span>
-                    Documentation
-                  </Link>
-                </li>
-                <li>
-                  <Link
-                    href="/guides"
-                    className="group flex items-center text-gray-300 transition-colors duration-200 hover:text-white"
-                  >
-                    <span className="mr-3 h-1.5 w-1.5 rounded-full bg-accent-500 opacity-0 transition-opacity group-hover:opacity-100"></span>
-                    Guides
-                  </Link>
-                </li>
-                <li>
-                  <Link
-                    href="/help"
-                    className="group flex items-center text-gray-300 transition-colors duration-200 hover:text-white"
-                  >
-                    <span className="mr-3 h-1.5 w-1.5 rounded-full bg-accent-500 opacity-0 transition-opacity group-hover:opacity-100"></span>
-                    Help Center
-                  </Link>
-                </li>
-                <li>
-                  <Link
-                    href="/community"
-                    className="group flex items-center text-gray-300 transition-colors duration-200 hover:text-white"
-                  >
-                    <span className="mr-3 h-1.5 w-1.5 rounded-full bg-accent-500 opacity-0 transition-opacity group-hover:opacity-100"></span>
-                    Community
-                  </Link>
-                </li>
-              </ul>
-            </div>
+              <nav>
+                <ul className="space-y-4">
+                  <li>
+                    <a
+                      href="/blog"
+                      target="_blank"
+                      className="group flex items-center text-gray-300 transition-colors duration-200 hover:text-white"
+                    >
+                      <span className="mr-3 h-1.5 w-1.5 rounded-full bg-accent-500 opacity-0 transition-opacity group-hover:opacity-100"></span>
+                      Blog
+                    </a>
+                  </li>
+                  <li>
+                    <Link
+                      href="/docs"
+                      className="group flex items-center text-gray-300 transition-colors duration-200 hover:text-white"
+                    >
+                      <span className="mr-3 h-1.5 w-1.5 rounded-full bg-accent-500 opacity-0 transition-opacity group-hover:opacity-100"></span>
+                      Documentation
+                    </Link>
+                  </li>
+                  <li>
+                    <Link
+                      href="/guides"
+                      className="group flex items-center text-gray-300 transition-colors duration-200 hover:text-white"
+                    >
+                      <span className="mr-3 h-1.5 w-1.5 rounded-full bg-accent-500 opacity-0 transition-opacity group-hover:opacity-100"></span>
+                      Guides
+                    </Link>
+                  </li>
+                  <li>
+                    <Link
+                      href="/help"
+                      className="group flex items-center text-gray-300 transition-colors duration-200 hover:text-white"
+                    >
+                      <span className="mr-3 h-1.5 w-1.5 rounded-full bg-accent-500 opacity-0 transition-opacity group-hover:opacity-100"></span>
+                      Help Center
+                    </Link>
+                  </li>
+                  <li>
+                    <Link
+                      href="/community"
+                      className="group flex items-center text-gray-300 transition-colors duration-200 hover:text-white"
+                    >
+                      <span className="mr-3 h-1.5 w-1.5 rounded-full bg-accent-500 opacity-0 transition-opacity group-hover:opacity-100"></span>
+                      Community
+                    </Link>
+                  </li>
+                </ul>
+              </nav>
+            </section>
 
             {/* Company */}
-            <div>
+            <section>
               <h3 className="mb-6 text-lg font-bold text-white">Company</h3>
-              <ul className="space-y-4">
-                <li>
-                  <Link
-                    href="/about"
-                    className="group flex items-center text-gray-300 transition-colors duration-200 hover:text-white"
-                  >
-                    <span className="mr-3 h-1.5 w-1.5 rounded-full bg-success-500 opacity-0 transition-opacity group-hover:opacity-100"></span>
-                    About
-                  </Link>
-                </li>
-                <li>
-                  <Link
-                    href="/careers"
-                    className="group flex items-center text-gray-300 transition-colors duration-200 hover:text-white"
-                  >
-                    <span className="mr-3 h-1.5 w-1.5 rounded-full bg-success-500 opacity-0 transition-opacity group-hover:opacity-100"></span>
-                    Careers
-                  </Link>
-                </li>
-                <li>
-                  <Link
-                    href="/contact"
-                    className="group flex items-center text-gray-300 transition-colors duration-200 hover:text-white"
-                  >
-                    <span className="mr-3 h-1.5 w-1.5 rounded-full bg-success-500 opacity-0 transition-opacity group-hover:opacity-100"></span>
-                    Contact
-                  </Link>
-                </li>
-                <li>
-                  <Link
-                    href="/privacy"
-                    className="group flex items-center text-gray-300 transition-colors duration-200 hover:text-white"
-                  >
-                    <span className="mr-3 h-1.5 w-1.5 rounded-full bg-success-500 opacity-0 transition-opacity group-hover:opacity-100"></span>
-                    Privacy Policy
-                  </Link>
-                </li>
-                <li>
-                  <Link
-                    href="/terms"
-                    className="group flex items-center text-gray-300 transition-colors duration-200 hover:text-white"
-                  >
-                    <span className="mr-3 h-1.5 w-1.5 rounded-full bg-success-500 opacity-0 transition-opacity group-hover:opacity-100"></span>
-                    Terms of Service
-                  </Link>
-                </li>
-              </ul>
-            </div>
+              <nav>
+                <ul className="space-y-4">
+                  <li>
+                    <Link
+                      href="/about"
+                      className="group flex items-center text-gray-300 transition-colors duration-200 hover:text-white"
+                    >
+                      <span className="mr-3 h-1.5 w-1.5 rounded-full bg-success-500 opacity-0 transition-opacity group-hover:opacity-100"></span>
+                      About
+                    </Link>
+                  </li>
+                  <li>
+                    <Link
+                      href="/careers"
+                      className="group flex items-center text-gray-300 transition-colors duration-200 hover:text-white"
+                    >
+                      <span className="mr-3 h-1.5 w-1.5 rounded-full bg-success-500 opacity-0 transition-opacity group-hover:opacity-100"></span>
+                      Careers
+                    </Link>
+                  </li>
+                  <li>
+                    <Link
+                      href="/contact"
+                      className="group flex items-center text-gray-300 transition-colors duration-200 hover:text-white"
+                    >
+                      <span className="mr-3 h-1.5 w-1.5 rounded-full bg-success-500 opacity-0 transition-opacity group-hover:opacity-100"></span>
+                      Contact
+                    </Link>
+                  </li>
+                  <li>
+                    <Link
+                      href="/privacy"
+                      className="group flex items-center text-gray-300 transition-colors duration-200 hover:text-white"
+                    >
+                      <span className="mr-3 h-1.5 w-1.5 rounded-full bg-success-500 opacity-0 transition-opacity group-hover:opacity-100"></span>
+                      Privacy Policy
+                    </Link>
+                  </li>
+                  <li>
+                    <Link
+                      href="/terms"
+                      className="group flex items-center text-gray-300 transition-colors duration-200 hover:text-white"
+                    >
+                      <span className="mr-3 h-1.5 w-1.5 rounded-full bg-success-500 opacity-0 transition-opacity group-hover:opacity-100"></span>
+                      Terms of Service
+                    </Link>
+                  </li>
+                </ul>
+              </nav>
+            </section>
           </div>
 
           {/* Bottom Section */}
@@ -373,7 +382,7 @@ export default function AppLayout({ children }) {
                   </a>
                   <span> by </span>
                   <a
-                    href="https://twitter.com/Dominus_Kelvin"
+                    href="https://x.com/Dominus_Kelvin"
                     className="font-semibold text-brand-400 transition-colors hover:text-brand-300"
                   >
                     Kelvin Omereshone

@@ -194,7 +194,7 @@ export default function Login({ passkeyChallenge }) {
           </div>
 
           {/* Header */}
-          <div className="mb-8 text-center">
+          <header className="mb-8 text-center">
             <h1 className="text-3xl font-bold tracking-tight text-gray-900">
               Welcome back
             </h1>
@@ -210,7 +210,7 @@ export default function Login({ passkeyChallenge }) {
                 create a new account
               </Link>
             </p>
-          </div>
+          </header>
         </div>
 
         <div className="relative sm:mx-auto sm:w-full sm:max-w-lg">
@@ -224,7 +224,7 @@ export default function Login({ passkeyChallenge }) {
               {(form.errors.login ||
                 form.errors.magicLink ||
                 verifyPasskeyForm.errors.passkey) && (
-                <section className="mb-6">
+                <div className="mb-6" role="alert">
                   <Message
                     severity="error"
                     text={
@@ -234,7 +234,7 @@ export default function Login({ passkeyChallenge }) {
                     }
                     className="w-full"
                   />
-                </section>
+                </div>
               )}
 
               {!showExpandedOptions ? (

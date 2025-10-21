@@ -153,7 +153,7 @@ export default function Signup() {
           </div>
 
           {/* Header */}
-          <div className="mb-8 text-center">
+          <header className="mb-8 text-center">
             <h1 className="text-3xl font-bold tracking-tight text-gray-900">
               Create your account
             </h1>
@@ -169,7 +169,7 @@ export default function Signup() {
                 sign in to your existing account
               </Link>
             </p>
-          </div>
+          </header>
         </div>
 
         <div className="relative sm:mx-auto sm:w-full sm:max-w-lg">
@@ -181,13 +181,13 @@ export default function Signup() {
             <div className="relative rounded-2xl border border-gray-100 bg-white px-8 py-10 shadow-2xl">
               {/* Global error */}
               {form.errors.signup && (
-                <section className="mb-6">
+                <div className="mb-6" role="alert">
                   <Message
                     severity="error"
                     text={form.errors.signup}
                     className="w-full"
                   />
-                </section>
+                </div>
               )}
 
               {!showExpandedOptions ? (

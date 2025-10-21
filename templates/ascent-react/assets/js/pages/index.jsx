@@ -104,18 +104,19 @@ export default function Index() {
 
                   {/* Global error */}
                   {errors.waitlist && (
-                    <section className="mb-6">
+                    <div className="mb-6" role="alert">
                       <Message
                         severity="error"
                         text={errors.waitlist}
                         className="w-full"
                       />
-                    </section>
+                    </div>
                   )}
 
                   <div className="space-y-4">
                     <div className="relative">
                       <input
+                        id="email-input"
                         type="email"
                         value={data.email}
                         onChange={(e) => setData('email', e.target.value)}
@@ -126,9 +127,18 @@ export default function Index() {
                             : 'border-gray-200 bg-gray-50 focus:border-brand-300 focus:bg-white focus:ring-4 focus:ring-brand-100'
                         }`}
                         disabled={processing}
+                        aria-describedby={
+                          errors.email ? 'email-error' : undefined
+                        }
+                        aria-invalid={errors.email ? 'true' : 'false'}
+                        required
                       />
                       {errors.email && (
-                        <p className="mt-2 text-sm text-red-600">
+                        <p
+                          id="email-error"
+                          className="mt-2 text-sm text-red-600"
+                          role="alert"
+                        >
                           {errors.email}
                         </p>
                       )}
@@ -138,6 +148,7 @@ export default function Index() {
                       type="submit"
                       disabled={processing}
                       className="w-full rounded-xl bg-gradient-to-r from-brand-600 to-accent-600 px-8 py-4 text-lg font-bold text-white shadow-lg transition-all duration-200 hover:shadow-xl disabled:opacity-75"
+                      aria-describedby="email-input"
                     >
                       {processing ? (
                         <span className="flex items-center justify-center space-x-2">
