@@ -10,7 +10,10 @@ module.exports = {
 
   fn: async function () {
     return {
-      page: 'contact'
+      page: 'contact',
+      props: {
+        internalEmail: sails.config.custom.internalEmail
+      }
     }
   }
 }

@@ -8,7 +8,7 @@ import { Message } from 'primereact/message'
 import { Toast } from 'primereact/toast'
 import { useFlashToast } from '@/hooks/useFlashToast'
 
-export default function Contact() {
+export default function Contact({ internalEmail }) {
   const [selectedTopic, setSelectedTopic] = useState(null)
   const toast = useRef(null)
   useFlashToast(toast)
@@ -275,10 +275,10 @@ export default function Contact() {
                       <p className="text-sm text-gray-600">
                         <strong className="text-gray-900">Email:</strong>{' '}
                         <a
-                          href="mailto:hello@ascent.app"
+                          href={`mailto:${internalEmail}`}
                           className="text-brand-600 transition-colors hover:text-brand-500"
                         >
-                          hello@ascent.app
+                          {internalEmail}
                         </a>
                       </p>
                       <p className="text-sm text-gray-600">
