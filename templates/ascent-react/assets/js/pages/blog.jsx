@@ -103,7 +103,7 @@ export default function Blog({ appName, blogPosts }) {
               ))}
             </div>
           ) : (
-            <div className="py-20 text-center">
+            <div className="py-20 text-center" role="status" aria-live="polite">
               <div className="mx-auto mb-8 flex h-24 w-24 items-center justify-center rounded-full bg-gray-100">
                 <svg
                   className="h-12 w-12 text-gray-400"
@@ -111,6 +111,7 @@ export default function Blog({ appName, blogPosts }) {
                   viewBox="0 0 24 24"
                   strokeWidth={1.5}
                   stroke="currentColor"
+                  aria-hidden="true"
                 >
                   <path
                     strokeLinecap="round"

@@ -49,7 +49,7 @@ export default function Contact() {
         </div>
 
         <div className="relative px-6 py-24 sm:py-32 lg:px-8">
-          <div className="mx-auto max-w-2xl text-center">
+          <header className="mx-auto max-w-2xl text-center">
             <h1 className="text-4xl font-bold tracking-tight text-gray-900 sm:text-6xl">
               Get in Touch
             </h1>
@@ -57,7 +57,7 @@ export default function Contact() {
               Have a question or need help? We'd love to hear from you. Send us
               a message and we'll respond as soon as possible.
             </p>
-          </div>
+          </header>
 
           <div className="mx-auto mt-16 max-w-xl">
             <div className="relative">
@@ -227,7 +227,7 @@ export default function Contact() {
                 </form>
 
                 {/* Contact Info */}
-                <div className="mt-8 border-t border-gray-200 pt-8">
+                <footer className="mt-8 border-t border-gray-200 pt-8">
                   <div className="text-center">
                     <h3 className="text-lg font-semibold text-gray-900">
                       Other Ways to Reach Us
@@ -250,7 +250,7 @@ export default function Contact() {
                       </p>
                     </div>
                   </div>
-                </div>
+                </footer>
               </div>
             </div>
           </div>

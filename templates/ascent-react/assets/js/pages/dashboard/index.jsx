@@ -46,7 +46,7 @@ export default function Dashboard() {
       <Head title="Dashboard | Ascent"></Head>
 
       {/* Welcome Section */}
-      <div className="mb-8">
+      <header className="mb-8">
         <div className="relative overflow-hidden rounded-2xl bg-gradient-to-br from-brand-600 via-brand-700 to-accent-700 p-8 text-white shadow-2xl">
           <div className="absolute right-0 top-0 h-32 w-32 -translate-y-8 translate-x-8 rounded-full bg-white/10"></div>
           <div className="absolute bottom-0 left-0 h-24 w-24 -translate-x-4 translate-y-4 rounded-full bg-white/5"></div>
@@ -59,7 +59,7 @@ export default function Dashboard() {
             </p>
           </div>
         </div>
-      </div>
+      </header>
 
       {/* Stats Grid */}
       <div className="mb-8 grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-4">
@@ -102,11 +102,11 @@ export default function Dashboard() {
 
       {/* Quick Actions */}
       <div className="grid grid-cols-1 gap-6 lg:grid-cols-2">
-        <div className="rounded-xl bg-white p-6 shadow-sm ring-1 ring-gray-100">
+        <section className="rounded-xl bg-white p-6 shadow-sm ring-1 ring-gray-100">
           <h3 className="mb-4 text-lg font-semibold text-gray-900">
             Quick Actions
           </h3>
-          <div className="space-y-3">
+          <nav className="space-y-3">
             <Link
               href="/settings/team"
               className="flex items-center rounded-lg p-3 text-sm font-medium text-gray-700 transition-all hover:bg-gray-50"
@@ -134,10 +134,10 @@ export default function Dashboard() {
               </div>
               Account settings
             </Link>
-          </div>
-        </div>
+          </nav>
+        </section>
 
-        <div className="rounded-xl bg-white p-6 shadow-sm ring-1 ring-gray-100">
+        <section className="rounded-xl bg-white p-6 shadow-sm ring-1 ring-gray-100">
           <h3 className="mb-4 text-lg font-semibold text-gray-900">
             Recent Activity
           </h3>
@@ -172,7 +172,7 @@ export default function Dashboard() {
               </div>
             </div>
           </div>
-        </div>
+        </section>
       </div>
     </>
   )

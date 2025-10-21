@@ -70,7 +70,7 @@ export default function ProfileSettings() {
 
       <div className="max-w-2xl space-y-12">
         {/* Profile Header */}
-        <div className="flex items-center space-x-4">
+        <header className="flex items-center space-x-4">
           <Avatar
             image={loggedInUser.currentAvatarUrl}
             label={loggedInUser.initials}
@@ -83,10 +83,10 @@ export default function ProfileSettings() {
             </h2>
             <p className="text-sm text-gray-500">{loggedInUser.email}</p>
           </div>
-        </div>
+        </header>
 
         {/* Profile Information */}
-        <div className="space-y-6">
+        <section className="space-y-6">
           <div>
             <h3 className="mb-4 text-sm font-medium text-gray-900">
               Profile Information
@@ -160,10 +160,10 @@ export default function ProfileSettings() {
               />
             </div>
           </form>
-        </div>
+        </section>
 
         {/* Account Actions */}
-        <div className="space-y-6">
+        <section className="space-y-6">
           <div>
             <h3 className="mb-4 text-sm font-medium text-gray-900">
               Account Actions
@@ -236,7 +236,7 @@ export default function ProfileSettings() {
               </div>
             </div>
           </div>
-        </div>
+        </section>
       </div>
     </>
   )
