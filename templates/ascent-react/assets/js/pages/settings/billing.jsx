@@ -29,9 +29,12 @@ export default function BillingSettings({ subscription, plans }) {
         <Head title="Billing Settings | Ascent React"></Head>
 
         <div className="mx-auto max-w-2xl py-16 text-center">
-          <div className="mb-8">
+          <header className="mb-8">
             <div className="mx-auto mb-6 flex h-20 w-20 items-center justify-center rounded-full bg-gray-100">
-              <i className="pi pi-credit-card text-3xl text-gray-400"></i>
+              <i
+                className="pi pi-credit-card text-3xl text-gray-400"
+                aria-hidden="true"
+              ></i>
             </div>
             <h2 className="mb-3 text-2xl font-semibold text-gray-900">
               No Active Subscription
@@ -39,7 +42,7 @@ export default function BillingSettings({ subscription, plans }) {
             <p className="text-gray-600">
               Upgrade to unlock premium features and grow your business.
             </p>
-          </div>
+          </header>
 
           <Link
             href="/pricing"
@@ -60,13 +63,13 @@ export default function BillingSettings({ subscription, plans }) {
 
       <div className="max-w-4xl space-y-8">
         {/* Current Plan */}
-        <div className="space-y-6">
-          <div>
+        <section className="space-y-6">
+          <header>
             <h3 className="text-sm font-medium text-gray-900">Current Plan</h3>
             <p className="mt-1 text-sm text-gray-500">
               Manage your subscription and billing preferences.
             </p>
-          </div>
+          </header>
 
           <div className="rounded-lg border border-gray-200 bg-white p-6 shadow-sm">
             <div className="flex flex-col space-y-4 sm:flex-row sm:items-center sm:justify-between sm:space-y-0">
@@ -113,19 +116,19 @@ export default function BillingSettings({ subscription, plans }) {
               </div>
             </div>
           </div>
-        </div>
+        </section>
 
         {/* Payment Method */}
         {subscription.cardBrand && subscription.cardLastFour && (
-          <div className="space-y-6">
-            <div>
+          <section className="space-y-6">
+            <header>
               <h3 className="text-sm font-medium text-gray-900">
                 Payment Method
               </h3>
               <p className="mt-1 text-sm text-gray-500">
                 Your current payment method for this subscription.
               </p>
-            </div>
+            </header>
 
             <div className="rounded-lg border border-gray-200 bg-white p-4 shadow-sm">
               <div className="flex items-center justify-between">
@@ -160,12 +163,12 @@ export default function BillingSettings({ subscription, plans }) {
                 )}
               </div>
             </div>
-          </div>
+          </section>
         )}
 
         {/* Billing Management */}
-        <div className="space-y-6">
-          <div>
+        <section className="space-y-6">
+          <header>
             <h3 className="text-sm font-medium text-gray-900">
               Full Billing Management
             </h3>
@@ -173,7 +176,7 @@ export default function BillingSettings({ subscription, plans }) {
               Access your complete billing history, invoices, and subscription
               settings.
             </p>
-          </div>
+          </header>
 
           <div className="rounded-lg border border-gray-200 bg-white p-6 shadow-sm">
             <div className="text-center">
@@ -201,7 +204,7 @@ export default function BillingSettings({ subscription, plans }) {
               )}
             </div>
           </div>
-        </div>
+        </section>
       </div>
     </>
   )

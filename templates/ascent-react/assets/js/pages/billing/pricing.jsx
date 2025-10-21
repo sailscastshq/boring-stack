@@ -487,7 +487,11 @@ export default function Pricing({ plans }) {
 
           <div className="overflow-hidden rounded-2xl border border-gray-200 bg-white shadow-xl">
             <div className="overflow-x-auto">
-              <table className="w-full">
+              <table
+                className="w-full"
+                role="table"
+                aria-label="Plan features comparison"
+              >
                 <thead>
                   <tr className="border-b border-gray-200 bg-gray-50">
                     <th className="px-6 py-4 text-left">
