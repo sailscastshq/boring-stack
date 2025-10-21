@@ -153,7 +153,7 @@ export default function ProfileSettings() {
               )}
               <Button
                 type="submit"
-                label="Save changes"
+                label={form.processing ? 'Saving changes...' : 'Save changes'}
                 loading={form.processing}
                 size="small"
                 outlined
