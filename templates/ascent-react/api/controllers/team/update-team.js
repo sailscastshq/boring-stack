@@ -42,14 +42,7 @@ module.exports = {
     // Handle logo upload if provided
     if (logo) {
       try {
-        // Cleanup old logo file
-        if (team.logoUrl) {
-          await sails.helpers.upload.cleanupOldFile(team.logoUrl)
-        }
-
-        // Upload new logo
         const uploadedFile = await sails.uploadOne(logo, {
-          maxBytes: 5 * 1024 * 1024, // 5MB limit
           allowedTypes: [
             'image/jpeg',
             'image/jpg',
@@ -60,9 +53,8 @@ module.exports = {
         })
 
         if (uploadedFile) {
-          // Extract filename from fd path
           const filename = uploadedFile.fd.split('/').pop()
-          updatedData.logoUrl = `/uploads/${filename}`
+          updatedData.logoUrl = `${sails.config.custom.uploadBaseUrl}/${filename}`
         }
       } catch (err) {
         // Handle upload errors

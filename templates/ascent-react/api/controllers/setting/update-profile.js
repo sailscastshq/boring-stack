@@ -48,14 +48,7 @@ module.exports = {
     // Handle avatar upload if provided
     if (avatar) {
       try {
-        // Cleanup old avatar file
-        if (user.avatarUrl) {
-          await sails.helpers.upload.cleanupOldFile(user.avatarUrl)
-        }
-
-        // Upload new avatar
         const uploadedFile = await sails.uploadOne(avatar, {
-          maxBytes: 5 * 1024 * 1024, // 5MB limit
           allowedTypes: [
             'image/jpeg',
             'image/jpg',
@@ -66,9 +59,8 @@ module.exports = {
         })
 
         if (uploadedFile) {
-          // Extract filename from fd path
           const filename = uploadedFile.fd.split('/').pop()
-          updatedData.avatarUrl = `/uploads/${filename}`
+          updatedData.avatarUrl = `${sails.config.custom.uploadBaseUrl}/${filename}`
         }
       } catch (err) {
         // Handle upload errors
