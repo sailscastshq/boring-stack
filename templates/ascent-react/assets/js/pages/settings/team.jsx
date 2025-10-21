@@ -748,7 +748,7 @@ export default function TeamSettings({
                     />
                     <Button
                       type="submit"
-                      label="Save"
+                      label={processingTeam ? 'Saving...' : 'Save'}
                       size="small"
                       loading={processingTeam}
                       disabled={
