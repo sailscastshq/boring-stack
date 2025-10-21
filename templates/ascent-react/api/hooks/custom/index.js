@@ -24,6 +24,7 @@ module.exports = function defineCustomHook(sails) {
               }).select([
                 'email',
                 'fullName',
+                'avatarUrl',
                 'googleAvatarUrl',
                 'githubAvatarUrl',
                 'initials',
