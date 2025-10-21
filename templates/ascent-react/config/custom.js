@@ -46,7 +46,7 @@ module.exports.custom = {
   rememberMeCookieMaxAge: 30 * 24 * 60 * 60 * 1000, // 30 days
 
   // Email address for receiving support messages & other correspondences.
-  internalEmail: 'support+development@example.com'
+  internalEmail: 'contact@example.com'
 
   /***************************************************************************
    *                                                                          *
