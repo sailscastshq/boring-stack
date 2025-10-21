@@ -38,6 +38,7 @@
     "sails-hook-uploads": "^0.4.3",
     "sails-hook-wish": "^0.0.9",
     "sails-pay": "^0.0.5",
+    "skipper-s3": "^0.6.0",
     "speakeasy": "^2.0.0"
   },
   "devDependencies": {
