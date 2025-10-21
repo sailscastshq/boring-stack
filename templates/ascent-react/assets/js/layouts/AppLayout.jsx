@@ -246,13 +246,14 @@ export default function AppLayout({ children }) {
               <h3 className="mb-6 text-lg font-bold text-white">Resources</h3>
               <ul className="space-y-4">
                 <li>
-                  <Link
+                  <a
                     href="/blog"
+                    target="_blank"
                     className="group flex items-center text-gray-300 transition-colors duration-200 hover:text-white"
                   >
                     <span className="mr-3 h-1.5 w-1.5 rounded-full bg-accent-500 opacity-0 transition-opacity group-hover:opacity-100"></span>
                     Blog
-                  </Link>
+                  </a>
                 </li>
                 <li>
                   <Link
