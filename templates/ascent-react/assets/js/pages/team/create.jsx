@@ -18,7 +18,7 @@ export default function CreateTeam() {
   return (
     <DashboardLayout>
       <div className="mx-auto max-w-2xl">
-        <div className="mb-8">
+        <header className="mb-8">
           <h1 className="mb-2 text-2xl font-bold text-gray-900">
             Create New Team
           </h1>
@@ -26,7 +26,7 @@ export default function CreateTeam() {
             Create a new team to collaborate with others. You'll be the owner of
             this team.
           </p>
-        </div>
+        </header>
 
         <form onSubmit={handleSubmit} className="space-y-6">
           <div>

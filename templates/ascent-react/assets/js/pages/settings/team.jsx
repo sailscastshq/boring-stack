@@ -249,8 +249,8 @@ export default function TeamSettings({
       <div className="max-w-4xl space-y-8">
         {/* Invite by Link - Only for owners/admins */}
         {isOwnerOrAdmin && (
-          <div className="space-y-6">
-            <div className="flex items-center justify-between">
+          <section className="space-y-6">
+            <header className="flex items-center justify-between">
               <div>
                 <h3 className="text-sm font-medium text-gray-900">
                   Invite by link
@@ -264,7 +264,7 @@ export default function TeamSettings({
                 onChange={handleToggleInviteLink}
                 disabled={processingToggle}
               />
-            </div>
+            </header>
 
             {team.inviteLinkEnabled && (
               <div className="space-y-6">
@@ -385,20 +385,20 @@ export default function TeamSettings({
                 </div>
               </div>
             )}
-          </div>
+          </section>
         )}
 
         {/* Invite by Email - Only for owners/admins */}
         {isOwnerOrAdmin && (
-          <div className="space-y-6">
-            <div>
+          <section className="space-y-6">
+            <header>
               <h3 className="text-sm font-medium text-gray-900">
                 Invite by email
               </h3>
               <p className="mt-1 text-sm text-gray-500">
                 Email invitations are valid for 7 days.
               </p>
-            </div>
+            </header>
             <form onSubmit={handleInvite} className="space-y-4">
               <div className="space-y-3">
                 <div className="flex items-center space-x-3">
@@ -426,12 +426,12 @@ export default function TeamSettings({
                 )}
               </div>
             </form>
-          </div>
+          </section>
         )}
 
         {/* Team Members */}
-        <div className="space-y-6">
-          <div className="flex items-center justify-between">
+        <section className="space-y-6">
+          <header className="flex items-center justify-between">
             <div>
               <h3 className="text-sm font-medium text-gray-900">
                 Team Members
@@ -452,7 +452,7 @@ export default function TeamSettings({
                 onClick={confirmLeaveTeam}
               />
             )}
-          </div>
+          </header>
 
           <div className="divide-y divide-gray-50">
             {teamMembers.map((member) => {
@@ -565,12 +565,12 @@ export default function TeamSettings({
               )
             })}
           </div>
-        </div>
+        </section>
 
         {/* Pending Invitations - Only for owners/admins */}
         {isOwnerOrAdmin && pendingInvites.length > 0 && (
-          <div className="space-y-6">
-            <div>
+          <section className="space-y-6">
+            <header>
               <h3 className="text-sm font-medium text-gray-900">
                 Pending Invitations
               </h3>
@@ -579,7 +579,7 @@ export default function TeamSettings({
                 {pendingInvites.length === 1 ? 'invitation' : 'invitations'}{' '}
                 waiting for response
               </p>
-            </div>
+            </header>
 
             <div className="divide-y divide-gray-50">
               {pendingInvites.map((invite) => {
@@ -694,20 +694,20 @@ export default function TeamSettings({
                 )
               })}
             </div>
-          </div>
+          </section>
         )}
 
         {/* Team Settings - Only for owners - At bottom for dangerous actions */}
         {isOwner && (
-          <div className="space-y-6">
-            <div>
+          <section className="space-y-6">
+            <header>
               <h3 className="text-sm font-medium text-gray-900">
                 Team Settings
               </h3>
               <p className="mt-1 text-sm text-gray-500">
                 Manage your team's basic information and advanced settings.
               </p>
-            </div>
+            </header>
 
             <div className="space-y-6">
               {/* Edit Team Name and Logo */}
@@ -811,7 +811,7 @@ export default function TeamSettings({
                 </div>
               </div>
             </div>
-          </div>
+          </section>
         )}
       </div>
 

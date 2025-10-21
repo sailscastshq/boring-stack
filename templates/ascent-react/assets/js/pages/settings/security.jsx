@@ -315,15 +315,15 @@ export default function SecuritySettings({
 
       <div className="max-w-4xl space-y-8">
         {/* Password Section */}
-        <div className="space-y-6">
-          <div>
+        <section className="space-y-6">
+          <header>
             <h3 className="mb-4 text-sm font-medium text-gray-900">Password</h3>
             <p className="mb-6 text-sm text-gray-500">
               {hasPassword
                 ? 'Set a strong password to protect your account.'
                 : 'Set up a password to enable two-factor authentication and enhance your account security.'}
             </p>
-          </div>
+          </header>
 
           <div className="rounded-lg border border-gray-200 bg-white p-4 shadow-sm sm:p-6">
             {!hasPassword ? (
@@ -637,17 +637,17 @@ export default function SecuritySettings({
               </form>
             )}
           </div>
-        </div>
+        </section>
 
         {/* Passkeys */}
-        <div className="space-y-6">
-          <div>
+        <section className="space-y-6">
+          <header>
             <h3 className="mb-4 text-sm font-medium text-gray-900">Passkeys</h3>
             <p className="mb-6 text-sm text-gray-500">
               Use your device's biometric authentication (Face ID, Touch ID,
               Windows Hello) for secure, passwordless sign-in.
             </p>
-          </div>
+          </header>
 
           <div className="rounded-lg border border-gray-200 bg-white p-6 shadow-sm">
             <div className="flex items-center justify-between">
@@ -727,11 +727,11 @@ export default function SecuritySettings({
               </div>
             </div>
           )}
-        </div>
+        </section>
 
         {/* Two-Factor Authentication */}
-        <div className="space-y-6">
-          <div>
+        <section className="space-y-6">
+          <header>
             <h3 className="mb-4 text-sm font-medium text-gray-900">
               Two-step verification
             </h3>
@@ -739,7 +739,7 @@ export default function SecuritySettings({
               We recommend requiring a verification code in addition to your
               password.
             </p>
-          </div>
+          </header>
           <div className="rounded-lg border border-gray-200 bg-white p-6 shadow-sm">
             <div className="flex items-center justify-between">
               <div className="flex items-center space-x-4">
@@ -966,7 +966,7 @@ export default function SecuritySettings({
               )}
             </div>
           )}
-        </div>
+        </section>
       </div>
 
       {/* TOTP Setup Modal */}

@@ -43,7 +43,7 @@ export default function TeamInvite({ team, inviteToken, via, invite }) {
           </div>
 
           {/* Header */}
-          <div className="mb-8 text-center">
+          <header className="mb-8 text-center">
             <div className="mb-6 flex items-center justify-center">
               <div className="relative">
                 <div className="flex h-16 w-16 items-center justify-center rounded-2xl bg-gradient-to-r from-brand-600 to-accent-600 shadow-lg">
@@ -52,6 +52,7 @@ export default function TeamInvite({ team, inviteToken, via, invite }) {
                     fill="none"
                     stroke="currentColor"
                     viewBox="0 0 24 24"
+                    aria-hidden="true"
                   >
                     <path
                       strokeLinecap="round"
@@ -80,7 +81,7 @@ export default function TeamInvite({ team, inviteToken, via, invite }) {
                 `You've been invited to join ${team.name}`
               )}
             </p>
-          </div>
+          </header>
         </div>
 
         <div className="relative sm:mx-auto sm:w-full sm:max-w-lg">
@@ -231,7 +232,7 @@ export default function TeamInvite({ team, inviteToken, via, invite }) {
                 </div>
 
                 {/* Footer Info */}
-                <div className="border-t border-gray-100 pt-6 text-center">
+                <footer className="border-t border-gray-100 pt-6 text-center">
                   <p className="text-sm text-gray-500">
                     By accepting, you'll be able to collaborate with the team
                     and access shared resources.
@@ -245,7 +246,7 @@ export default function TeamInvite({ team, inviteToken, via, invite }) {
                       Contact support
                     </Link>
                   </p>
-                </div>
+                </footer>
               </div>
             </div>
           </div>

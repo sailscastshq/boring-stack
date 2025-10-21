@@ -232,7 +232,7 @@ export default function Contact() {
                     <h3 className="text-lg font-semibold text-gray-900">
                       Other Ways to Reach Us
                     </h3>
-                    <div className="mt-4 space-y-2">
+                    <address className="mt-4 space-y-2 not-italic">
                       <p className="text-sm text-gray-600">
                         <strong className="text-gray-900">Email:</strong>{' '}
                         <a
@@ -248,7 +248,7 @@ export default function Contact() {
                         </strong>{' '}
                         We typically respond within 24 hours
                       </p>
-                    </div>
+                    </address>
                   </div>
                 </footer>
               </div>

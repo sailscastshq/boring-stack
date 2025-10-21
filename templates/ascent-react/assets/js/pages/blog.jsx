@@ -151,16 +151,22 @@ export default function Blog({ appName, blogPosts }) {
                   Get the latest insights about SaaS development and product
                   launches delivered to your inbox.
                 </p>
-                <div className="mx-auto flex max-w-md flex-col justify-center gap-4 sm:flex-row">
+                <form className="mx-auto flex max-w-md flex-col justify-center gap-4 sm:flex-row">
                   <input
                     type="email"
+                    id="newsletter-email"
                     placeholder="Enter your email"
+                    aria-label="Email address for newsletter subscription"
                     className="flex-1 rounded-lg border border-white/20 bg-white/10 px-4 py-3 text-white placeholder-gray-400 transition-all focus:border-brand-400 focus:outline-none focus:ring-2 focus:ring-brand-400/50"
+                    required
                   />
-                  <button className="rounded-lg bg-gradient-to-r from-brand-600 to-accent-600 px-8 py-3 font-semibold text-white transition-all duration-200 hover:shadow-lg">
+                  <button
+                    type="submit"
+                    className="rounded-lg bg-gradient-to-r from-brand-600 to-accent-600 px-8 py-3 font-semibold text-white transition-all duration-200 hover:shadow-lg"
+                  >
                     Subscribe
                   </button>
-                </div>
+                </form>
               </div>
             </div>
           )}
