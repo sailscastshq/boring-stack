@@ -86,14 +86,14 @@ export default function VerifyTwoFactor({ twoFactorMethods, userEmail }) {
           </div>
 
           {/* Header */}
-          <div className="mb-8 text-center">
+          <header className="mb-8 text-center">
             <h1 className="text-3xl font-bold tracking-tight text-gray-900">
               Two-Factor Authentication
             </h1>
             <p className="mt-2 text-base text-gray-600">
               Please verify your identity to complete login
             </p>
-          </div>
+          </header>
         </div>
 
         <div className="relative sm:mx-auto sm:w-full sm:max-w-lg">
@@ -105,7 +105,7 @@ export default function VerifyTwoFactor({ twoFactorMethods, userEmail }) {
             <div className="relative rounded-2xl border border-gray-100 bg-white px-8 py-10 shadow-2xl">
               {/* Global errors */}
               {(errors.method || errors.code) && (
-                <section className="mb-6">
+                <div className="mb-6" role="alert">
                   {errors.method && (
                     <Message
                       severity="error"
@@ -120,7 +120,7 @@ export default function VerifyTwoFactor({ twoFactorMethods, userEmail }) {
                       className="w-full"
                     />
                   )}
-                </section>
+                </div>
               )}
 
               <form onSubmit={handleVerifyCode} className="space-y-5">

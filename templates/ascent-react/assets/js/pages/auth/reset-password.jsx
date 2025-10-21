@@ -66,14 +66,14 @@ export default function ResetPassword({ token }) {
           </div>
 
           {/* Header */}
-          <div className="mb-8 text-center">
+          <header className="mb-8 text-center">
             <h1 className="text-3xl font-bold tracking-tight text-gray-900">
               Create new password
             </h1>
             <p className="mt-2 text-base text-gray-600">
               Please create a strong password for your account
             </p>
-          </div>
+          </header>
         </div>
 
         <div className="relative sm:mx-auto sm:w-full sm:max-w-lg">
@@ -85,13 +85,13 @@ export default function ResetPassword({ token }) {
             <div className="relative rounded-2xl border border-gray-100 bg-white px-8 py-10 shadow-2xl">
               {/* Global error */}
               {form.errors.password && (
-                <section className="mb-6">
+                <div className="mb-6" role="alert">
                   <Message
                     severity="error"
                     text={form.errors.password}
                     className="w-full"
                   />
-                </section>
+                </div>
               )}
 
               <form onSubmit={submit} className="space-y-5">
