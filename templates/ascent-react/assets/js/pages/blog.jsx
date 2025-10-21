@@ -55,12 +55,12 @@ export default function Blog({ appName, blogPosts }) {
                     {/* Content */}
                     <div className="flex-1 space-y-4">
                       <h2 className="text-2xl font-bold text-gray-900 transition-colors group-hover:text-brand-600">
-                        <Link
+                        <a
                           href={`/blog/${post.slug}`}
                           className="hover:underline"
                         >
                           {post.title}
-                        </Link>
+                        </a>
                       </h2>
 
                       <p className="text-lg leading-relaxed text-gray-600">
