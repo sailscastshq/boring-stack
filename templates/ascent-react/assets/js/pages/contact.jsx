@@ -1,13 +1,17 @@
-import { useState } from 'react'
-import { Head, useForm } from '@inertiajs/react'
+import { useState, useRef } from 'react'
+import { Head, useForm, Link } from '@inertiajs/react'
 import { Button } from 'primereact/button'
 import { InputText } from 'primereact/inputtext'
 import { InputTextarea } from 'primereact/inputtextarea'
 import { Dropdown } from 'primereact/dropdown'
 import { Message } from 'primereact/message'
+import { Toast } from 'primereact/toast'
+import { useFlashToast } from '@/hooks/useFlashToast'
 
 export default function Contact() {
   const [selectedTopic, setSelectedTopic] = useState(null)
+  const toast = useRef(null)
+  useFlashToast(toast)
 
   const { data, setData, post, processing, errors, reset } = useForm({
     name: '',
@@ -30,25 +34,42 @@ export default function Contact() {
 
   function handleSubmit(e) {
     e.preventDefault()
-    // TODO: Implement actual form submission
-    console.log('Contact form submitted:', data)
-    // For now, just reset the form
-    reset()
-    setSelectedTopic(null)
+    post('/contact', {
+      onSuccess: () => {
+        reset()
+        setSelectedTopic(null)
+      }
+    })
   }
 
   return (
     <>
       <Head title="Contact Us | Ascent" />
 
-      <div className="min-h-screen bg-gradient-to-br from-brand-50/30 via-white to-accent-50/20">
-        {/* Background Elements */}
-        <div className="pointer-events-none absolute inset-0 overflow-hidden">
+      <main className="min-h-screen bg-gradient-to-br from-brand-50/30 via-white to-accent-50/20">
+        <div
+          className="pointer-events-none absolute inset-0 overflow-hidden"
+          aria-hidden="true"
+        >
           <div className="absolute left-1/4 top-20 h-96 w-96 rounded-full bg-brand-200/20 blur-3xl"></div>
           <div className="absolute bottom-20 right-1/4 h-72 w-72 rounded-full bg-accent-200/20 blur-3xl"></div>
         </div>
 
         <div className="relative px-6 py-24 sm:py-32 lg:px-8">
+          {/* Logo */}
+          <div className="mb-8 flex items-center justify-center">
+            <Link href="/" className="group">
+              <div className="relative">
+                <div className="absolute inset-0 scale-110 rounded-2xl bg-brand-200/30 opacity-0 blur-xl transition-opacity group-hover:opacity-100"></div>
+                <img
+                  src="/images/logo.svg"
+                  alt="Ascent Logo"
+                  className="relative h-12 w-auto transition-transform group-hover:scale-105"
+                />
+              </div>
+            </Link>
+          </div>
+
           <header className="mx-auto max-w-2xl text-center">
             <h1 className="text-4xl font-bold tracking-tight text-gray-900 sm:text-6xl">
               Get in Touch
@@ -59,15 +80,23 @@ export default function Contact() {
             </p>
           </header>
 
-          <div className="mx-auto mt-16 max-w-xl">
+          <section className="mx-auto mt-16 max-w-xl">
             <div className="relative">
-              {/* Background blur effect */}
-              <div className="absolute inset-0 scale-105 rounded-2xl bg-gradient-to-r from-brand-600/10 to-accent-600/10 blur-xl"></div>
+              <div
+                className="absolute inset-0 scale-105 rounded-2xl bg-gradient-to-r from-brand-600/10 to-accent-600/10 blur-xl"
+                aria-hidden="true"
+              ></div>
 
-              {/* Main card */}
               <div className="relative rounded-2xl border border-gray-100 bg-white px-8 py-10 shadow-2xl">
-                <form onSubmit={handleSubmit} className="space-y-5">
-                  <div className="grid grid-cols-1 gap-5 sm:grid-cols-2">
+                <form
+                  onSubmit={handleSubmit}
+                  className="space-y-5"
+                  aria-label="Contact form"
+                >
+                  <fieldset
+                    className="grid grid-cols-1 gap-5 sm:grid-cols-2"
+                    aria-describedby="contact-info"
+                  >
                     <div>
                       <label
                         htmlFor="name"
@@ -88,6 +117,7 @@ export default function Contact() {
                           severity="error"
                           text={errors.name}
                           className="mt-2"
+                          role="alert"
                         />
                       )}
                     </div>
@@ -113,12 +143,13 @@ export default function Contact() {
                           severity="error"
                           text={errors.email}
                           className="mt-2"
+                          role="alert"
                         />
                       )}
                     </div>
-                  </div>
+                  </fieldset>
 
-                  <div>
+                  <fieldset>
                     <label
                       htmlFor="company"
                       className="mb-2 block text-sm font-semibold text-gray-900"
@@ -132,9 +163,9 @@ export default function Contact() {
                       className="w-full rounded-xl border border-gray-200 bg-gray-50 px-4 py-4 text-lg font-medium transition-all duration-200 focus:border-brand-300 focus:bg-white focus:ring-4 focus:ring-brand-100"
                       placeholder="Your company name"
                     />
-                  </div>
+                  </fieldset>
 
-                  <div>
+                  <fieldset>
                     <label
                       htmlFor="topic"
                       className="mb-2 block text-sm font-semibold text-gray-900"
@@ -157,11 +188,12 @@ export default function Contact() {
                         severity="error"
                         text={errors.topic}
                         className="mt-2"
+                        role="alert"
                       />
                     )}
-                  </div>
+                  </fieldset>
 
-                  <div>
+                  <fieldset>
                     <label
                       htmlFor="message"
                       className="mb-2 block text-sm font-semibold text-gray-900"
@@ -182,14 +214,18 @@ export default function Contact() {
                         severity="error"
                         text={errors.message}
                         className="mt-2"
+                        role="alert"
                       />
                     )}
-                  </div>
+                  </fieldset>
 
                   <div className="pt-2">
                     <button
                       type="submit"
                       disabled={processing}
+                      aria-describedby={
+                        processing ? 'submit-status' : undefined
+                      }
                       className={`flex w-full justify-center rounded-xl px-8 py-4 text-lg font-bold text-white shadow-lg transition-all duration-200 hover:scale-[1.02] hover:shadow-xl disabled:cursor-not-allowed disabled:opacity-50 disabled:hover:scale-100 ${
                         processing
                           ? 'bg-gray-300'
@@ -197,11 +233,15 @@ export default function Contact() {
                       }`}
                     >
                       {processing ? (
-                        <div className="flex items-center space-x-2">
+                        <div
+                          className="flex items-center space-x-2"
+                          id="submit-status"
+                        >
                           <svg
                             className="h-5 w-5 animate-spin"
                             fill="none"
                             viewBox="0 0 24 24"
+                            aria-hidden="true"
                           >
                             <circle
                               className="opacity-25"
@@ -226,7 +266,6 @@ export default function Contact() {
                   </div>
                 </form>
 
-                {/* Contact Info */}
                 <footer className="mt-8 border-t border-gray-200 pt-8">
                   <div className="text-center">
                     <h3 className="text-lg font-semibold text-gray-900">
@@ -253,9 +292,11 @@ export default function Contact() {
                 </footer>
               </div>
             </div>
-          </div>
+          </section>
         </div>
-      </div>
+      </main>
+
+      <Toast ref={toast} />
     </>
   )
 }
