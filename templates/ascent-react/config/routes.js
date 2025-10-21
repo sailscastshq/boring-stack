@@ -24,6 +24,7 @@ module.exports.routes = {
   'GET /pricing': 'billing/view-pricing',
   'GET /checkout': 'billing/view-checkout',
   'GET /contact': 'home/view-contact',
+  'POST /contact': 'home/submit-contact',
 
   'GET /signup': 'auth/view-signup',
   'POST /signup': 'auth/signup',
