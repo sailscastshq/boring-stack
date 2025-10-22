@@ -75,7 +75,7 @@ export default function Login({ passkeyChallenge }) {
         window.history.pushState({}, '', url)
       }
     } catch (error) {
-      console.error('Error updating URL for password mode:', error)
+      // Silently handle URL update error - non-critical
     }
   }
 
@@ -88,7 +88,7 @@ export default function Login({ passkeyChallenge }) {
         window.history.pushState({}, '', url)
       }
     } catch (error) {
-      console.error('Error updating URL for magic mode:', error)
+      // Silently handle URL update error - non-critical
     }
   }
 
@@ -134,11 +134,7 @@ export default function Login({ passkeyChallenge }) {
     e.preventDefault()
     if (!data.email) return
     passkeyForm.transform(() => ({ email: data.email }))
-    postPasskeySignin('/challenge-passkey', {
-      onError: (errors) => {
-        console.error('Passkey signin failed:', errors)
-      }
-    })
+    postPasskeySignin('/challenge-passkey')
   }
 
   async function handleWebAuthnChallenge(challengeData) {
@@ -152,18 +148,13 @@ export default function Login({ passkeyChallenge }) {
         email
       }))
 
-      postVerifyPasskey('/verify-passkey', {
-        onError: (errors) => {
-          console.error('Passkey verification failed:', errors)
-        }
-      })
+      postVerifyPasskey('/verify-passkey')
     } catch (error) {
       if (error.name === 'NotAllowedError') {
-        // User cancelled the passkey prompt
-        console.log('User cancelled passkey authentication')
+        // User cancelled the passkey prompt - no action needed
       } else {
+        // WebAuthn errors are useful for debugging
         console.error('WebAuthn error:', error)
-        // Could show a toast or flash message here
       }
     }
   }
