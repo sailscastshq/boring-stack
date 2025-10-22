@@ -136,6 +136,8 @@ npm run lint:fix      # Auto-fix formatting
 # Testing
 npm test              # Run all tests
 npm run test:unit     # Unit tests only
+npm run test:e2e      # E2E tests with Playwright
+npm run test:e2e:ui   # E2E tests in UI mode
 
 # Sails.js generators
 npx sails generate controller auth/signup
@@ -260,7 +262,7 @@ export default function LoginForm() {
               className={`w-full ${errors.emailAddress ? 'p-invalid' : ''}`}
             />
             {errors.emailAddress && (
-              <small className="p-error block mt-1">
+              <small className="p-error mt-1 block">
                 {errors.emailAddress}
               </small>
             )}
@@ -319,7 +321,7 @@ export default function TeamMembers({ members }) {
   )
 
   return (
-    <div className="bg-white rounded-lg border">
+    <div className="rounded-lg border bg-white">
       <DataTable
         value={members}
         className="text-sm"
