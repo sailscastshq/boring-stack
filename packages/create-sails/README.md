@@ -14,6 +14,26 @@ or
 npm init sails
 ```
 
+### Options
+
+You can specify the frontend framework and template variant using flags:
+
+```sh
+# Use React with Mellow template (default)
+npx create-sails@latest my-app --react
+
+# Use React with Ascent template
+npx create-sails@latest my-app --react --ascent
+
+# Use Vue with Mellow template
+npx create-sails@latest my-app --vue
+
+# Use Svelte with Mellow template
+npx create-sails@latest my-app --svelte
+```
+
+**Note:** Ascent template variants for Vue and Svelte are not yet available. Only `--react --ascent` is currently supported.
+
 ## What you will get with this scaffolding:
 
 - [Inertia.js](https://inertiajs.com) powered by [inertia-sails](https://github.com/sailscastshq/create-sails)

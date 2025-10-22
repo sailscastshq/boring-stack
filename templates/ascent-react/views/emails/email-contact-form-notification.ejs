@@ -1,0 +1,74 @@
+<div style="text-align: left;">
+  <h1 style="margin: 0 0 24px; font-size: 28px; font-weight: 800; color: #0f172a; line-height: 1.2;">
+    New Contact Form Submission
+  </h1>
+  
+  <p style="margin: 0 0 32px; font-size: 16px; color: #475569; line-height: 1.6;">
+    You've received a new message through your contact form.
+  </p>
+
+  <div style="background-color: #f8fafc; border: 1px solid #e2e8f0; border-radius: 12px; padding: 24px; margin-bottom: 32px;">
+    <table style="width: 100%; border-collapse: collapse;">
+      <tr>
+        <td style="padding: 8px 0; border-bottom: 1px solid #e2e8f0;">
+          <strong style="color: #374151; font-size: 14px; text-transform: uppercase; font-weight: 600; letter-spacing: 0.5px;">Name:</strong>
+        </td>
+        <td style="padding: 8px 0; border-bottom: 1px solid #e2e8f0;">
+          <span style="color: #0f172a; font-size: 16px; font-weight: 500;"><%= name %></span>
+        </td>
+      </tr>
+      <tr>
+        <td style="padding: 8px 0; border-bottom: 1px solid #e2e8f0;">
+          <strong style="color: #374151; font-size: 14px; text-transform: uppercase; font-weight: 600; letter-spacing: 0.5px;">Email:</strong>
+        </td>
+        <td style="padding: 8px 0; border-bottom: 1px solid #e2e8f0;">
+          <a href="mailto:<%= email %>" style="color: #1e40af; font-size: 16px; text-decoration: none;"><%= email %></a>
+        </td>
+      </tr>
+      <tr>
+        <td style="padding: 8px 0; border-bottom: 1px solid #e2e8f0;">
+          <strong style="color: #374151; font-size: 14px; text-transform: uppercase; font-weight: 600; letter-spacing: 0.5px;">Company:</strong>
+        </td>
+        <td style="padding: 8px 0; border-bottom: 1px solid #e2e8f0;">
+          <span style="color: #0f172a; font-size: 16px;"><%= company %></span>
+        </td>
+      </tr>
+      <tr>
+        <td style="padding: 8px 0; border-bottom: 1px solid #e2e8f0;">
+          <strong style="color: #374151; font-size: 14px; text-transform: uppercase; font-weight: 600; letter-spacing: 0.5px;">Topic:</strong>
+        </td>
+        <td style="padding: 8px 0; border-bottom: 1px solid #e2e8f0;">
+          <span style="color: #0f172a; font-size: 16px; font-weight: 500;"><%= topic %></span>
+        </td>
+      </tr>
+      <tr>
+        <td style="padding: 8px 0;">
+          <strong style="color: #374151; font-size: 14px; text-transform: uppercase; font-weight: 600; letter-spacing: 0.5px;">Submitted:</strong>
+        </td>
+        <td style="padding: 8px 0;">
+          <span style="color: #64748b; font-size: 14px;"><%= new Date(timestamp).toLocaleString() %></span>
+        </td>
+      </tr>
+    </table>
+  </div>
+
+  <div style="margin-bottom: 32px;">
+    <h3 style="margin: 0 0 16px; font-size: 18px; font-weight: 700; color: #0f172a;">
+      Message:
+    </h3>
+    <div style="background-color: #ffffff; border: 2px solid #e2e8f0; border-radius: 8px; padding: 20px;">
+      <p style="margin: 0; font-size: 16px; color: #374151; line-height: 1.6; white-space: pre-wrap;"><%= message %></p>
+    </div>
+  </div>
+
+  <table role="presentation" style="margin: 32px auto 0; border-spacing: 0; border-collapse: collapse;">
+    <tr>
+      <td style="border-radius: 8px; background: linear-gradient(135deg, #1e40af 0%, #0891b2 100%); padding: 0;">
+        <a href="mailto:<%= email %>?subject=Re: <%= topic %>" 
+           style="display: inline-block; padding: 16px 32px; color: white; text-decoration: none; font-weight: 600; font-size: 16px; border-radius: 8px;">
+          Reply to <%= name %> →
+        </a>
+      </td>
+    </tr>
+  </table>
+</div>
