@@ -65,16 +65,14 @@ export default function AppLayout({ children }) {
                 >
                   Blog
                 </Link>
-                <Link
-                  href="/docs"
-                  className={`rounded-lg px-3 py-2 font-medium transition-all duration-200 ${
-                    url.startsWith('/docs')
-                      ? 'bg-brand-100 text-brand-700'
-                      : 'text-gray-700 hover:bg-brand-50/80 hover:text-brand-600'
-                  }`}
+                <a
+                  href="https://docs.sailscasts.com/boring-stack/ascent"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="rounded-lg px-3 py-2 font-medium text-gray-700 transition-all duration-200 hover:bg-brand-50/80 hover:text-brand-600"
                 >
                   Docs
-                </Link>
+                </a>
               </nav>
 
               {/* Auth Buttons */}
@@ -262,13 +260,15 @@ export default function AppLayout({ children }) {
                     </a>
                   </li>
                   <li>
-                    <Link
-                      href="/docs"
+                    <a
+                      href="https://docs.sailscasts.com/boring-stack/ascent"
+                      target="_blank"
+                      rel="noopener noreferrer"
                       className="group flex items-center text-gray-300 transition-colors duration-200 hover:text-white"
                     >
                       <span className="mr-3 h-1.5 w-1.5 rounded-full bg-accent-500 opacity-0 transition-opacity group-hover:opacity-100"></span>
                       Documentation
-                    </Link>
+                    </a>
                   </li>
                   <li>
                     <Link

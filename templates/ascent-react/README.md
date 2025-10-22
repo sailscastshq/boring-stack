@@ -378,7 +378,8 @@ ascent-react/
 
 ## 📚 Learn More
 
-- **[The Boring Stack Docs](https://docs.sailscasts.com/boring-stack)** - Complete documentation
+- **[Ascent Documentation](https://docs.sailscasts.com/boring-stack/ascent)** - Complete Ascent template guide
+- **[The Boring Stack Docs](https://docs.sailscasts.com/boring-stack)** - Core stack documentation
 - **[Database Guide](https://docs.sailscasts.com/boring-stack/database)** - Database setup and configuration
 - **[Sails.js Documentation](https://sailsjs.com/documentation)** - Backend framework guide
 - **[Inertia.js Guide](https://inertiajs.com)** - Modern monolith approach
