@@ -23,10 +23,8 @@
     "inertia-sails": "^0.3.3",
     "nodemailer": "^7.0.5",
     "primeicons": "^7.0.0",
-    "primevue": "^4.3.0",
+    "primevue": "^4.4.1",
     "qrcode": "^1.5.4",
-    "tailwind-merge": "^2.7.0",
-    "vue": "^3.5.13",
     "sails": "^1.5.15",
     "sails-content": "^0.1.0",
     "sails-flash": "^0.0.1",
@@ -41,11 +39,13 @@
     "sails-pay": "^0.0.5",
     "sails-sqlite": "^0.2.1",
     "skipper-s3": "^0.6.0",
-    "speakeasy": "^2.0.0"
+    "speakeasy": "^2.0.0",
+    "tailwind-merge": "^3.3.1",
+    "vue": "^3.5.13"
   },
   "devDependencies": {
     "@playwright/test": "^1.56.1",
-    "@rsbuild/plugin-vue": "^1.4.0",
+    "@rsbuild/plugin-vue": "^1.2.0",
     "@tailwindcss/typography": "^0.5.19",
     "create-sails-generator": "^0.1.0",
     "playwright": "^1.55.0",

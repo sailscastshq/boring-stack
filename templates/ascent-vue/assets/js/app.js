@@ -1,24 +1,22 @@
-import { createInertiaApp } from '@inertiajs/react'
-import { createRoot } from 'react-dom/client'
-import { PrimeReactProvider } from 'primereact/api'
-import Tailwind from 'primereact/passthrough/tailwind'
-import '~/css/main.css'
+import { createApp, h } from 'vue'
+import { createInertiaApp } from '@inertiajs/vue3'
+import PrimeVue from 'primevue/config'
+import ToastService from 'primevue/toastservice'
+import '~/css/app.css'
 import 'primeicons/primeicons.css'
 
 createInertiaApp({
   resolve: (name) => require(`./pages/${name}`),
-  setup({ el, App, props }) {
-    createRoot(el).render(
-      <PrimeReactProvider
-        value={{
-          unstyled: true,
-          pt: Tailwind,
-          ptOptions: { mergeProps: true, mergeSections: true }
-        }}
-      >
-        <App {...props} />
-      </PrimeReactProvider>
-    )
+  setup({ el, App, props, plugin }) {
+    const app = createApp({ render: () => h(App, props) })
+
+    app.use(plugin)
+    app.use(PrimeVue, {
+      unstyled: true
+    })
+    app.use(ToastService)
+
+    app.mount(el)
   },
   progress: {
     color: '#0EA5E9'
