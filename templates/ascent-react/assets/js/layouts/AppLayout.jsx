@@ -334,22 +334,22 @@ export default function AppLayout({ children }) {
                     </Link>
                   </li>
                   <li>
-                    <Link
-                      href="/privacy"
+                    <a
+                      href="/legal/privacy"
                       className="group flex items-center text-gray-300 transition-colors duration-200 hover:text-white"
                     >
                       <span className="mr-3 h-1.5 w-1.5 rounded-full bg-success-500 opacity-0 transition-opacity group-hover:opacity-100"></span>
                       Privacy Policy
-                    </Link>
+                    </a>
                   </li>
                   <li>
-                    <Link
-                      href="/terms"
+                    <a
+                      href="/legal/terms"
                       className="group flex items-center text-gray-300 transition-colors duration-200 hover:text-white"
                     >
                       <span className="mr-3 h-1.5 w-1.5 rounded-full bg-success-500 opacity-0 transition-opacity group-hover:opacity-100"></span>
                       Terms of Service
-                    </Link>
+                    </a>
                   </li>
                 </ul>
               </nav>
