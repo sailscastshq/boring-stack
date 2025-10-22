@@ -1,0 +1,82 @@
+/**
+ * Local environment settings
+ *
+ * Use this file to specify configuration settings for use while developing
+ * the app on your personal system.
+ *
+ * For more information, check out:
+ * https://sailsjs.com/docs/concepts/configuration/the-local-js-file
+ */
+
+module.exports = {
+  // Any configuration settings may be overridden below, whether it's built-in Sails
+  // options or custom configuration specifically for your app (e.g. Stripe, Sendgrid, etc.)
+  custom: {
+    uploadBaseUrl: 'https://your-bucket.your-provider.com'
+  },
+  uploads: {
+    key: 'your-access-key-id',
+    secret: 'your-secret-access-key',
+    bucket: 'your-bucket-name',
+    endpoint: 'https://your-endpoint.r2.cloudflarestorage.com'
+  },
+  // Mail configuration for development
+  mail: {
+    default: 'nodemailer',
+    mailers: {
+      nodemailer: {
+        transport: 'smtp',
+        host: 'localhost',
+        port: '1025',
+        username: 'your.username',
+        password: 'your.password'
+      }
+    }
+  },
+
+  // OAuth configuration for sails-hook-wish
+  github: {
+    clientId: 'your-github-client-id',
+    clientSecret: 'your-github-client-secret',
+    redirect: 'http://localhost:1337/auth/github/callback'
+  },
+  google: {
+    clientId: 'your-google-client-id.apps.googleusercontent.com',
+    clientSecret: 'your-google-client-secret',
+    redirect: 'http://localhost:1337/auth/google/callback'
+  },
+
+  // Payment configuration for development
+  pay: {
+    providers: {
+      lemonsqueezy: {
+        apiKey: 'your-lemon-squeezy-api-key-jwt-token',
+        store: 12345,
+        redirectUrl: 'http://localhost:1337/settings/billing',
+        signingSecret: 'your-webhook-signing-secret'
+      }
+    },
+    plans: {
+      starter: {
+        variants: {
+          monthly: {
+            id: 123456
+          },
+          yearly: {
+            id: 123457
+          }
+        }
+      },
+      pro: {
+        variants: {
+          monthly: {
+            id: 123458
+          },
+          yearly: {
+            id: 123459
+          }
+        }
+      }
+    }
+  }
+}
