@@ -18,13 +18,12 @@ module.exports.datastores = {
    *                                                                          *
    * Your app's default datastore.                                            *
    *                                                                          *
-   * Sails apps read and write to local disk by default, using a built-in     *
-   * database adapter called `sails-disk`.  This feature is purely for        *
-   * convenience during development; since `sails-disk` is not designed for   *
-   * use in a production environment.                                         *
+   * Sails apps use SQLite by default via the `sails-sqlite` adapter.        *
+   * This provides a production-ready database for development that supports  *
+   * transactions, foreign keys, and advanced features needed by the app.     *
    *                                                                          *
-   * To use a different db _in development_, follow the directions below.     *
-   * Otherwise, just leave the default datastore as-is, with no `adapter`.    *
+   * To use a different database, follow the directions below or check out:   *
+   * https://docs.sailscasts.com/boring-stack/database                        *
    *                                                                          *
    * (For production configuration, see `config/env/production.js`.)          *
    *                                                                          *
@@ -33,20 +32,13 @@ module.exports.datastores = {
   default: {
     /***************************************************************************
      *                                                                          *
-     * Want to use a different database during development?                     *
-     *                                                                          *
-     * 1. Choose an adapter:                                                    *
-     *    https://sailsjs.com/plugins/databases                                 *
-     *                                                                          *
-     * 2. Install it as a dependency of your Sails app.                         *
-     *    (For example:  npm install sails-mysql --save)                        *
-     *                                                                          *
-     * 3. Then pass it in, along with a connection URL.                         *
-     *    (See https://sailsjs.com/config/datastores for help.)                 *
+     * Default SQLite configuration for development and production.             *
+     * For other databases (PostgreSQL, MySQL, MongoDB), see:                  *
+     * https://docs.sailscasts.com/boring-stack/database                        *
      *                                                                          *
      ***************************************************************************/
-    // adapter: 'sails-mysql',
-    // url: 'mysql://user:password@host:port/database',
+    adapter: 'sails-sqlite',
+    url: 'db/development.sqlite'
   },
   content: {
     adapter: 'sails-content'
