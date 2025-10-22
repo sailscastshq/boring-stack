@@ -1,0 +1,79 @@
+<div style="text-align: center;">
+  <h1 style="margin: 0 0 16px; font-size: 32px; font-weight: 800; color: #0f172a; line-height: 1.2; letter-spacing: -0.5px;">
+    Thanks for reaching out!
+  </h1>
+  
+  <p style="margin: 0 0 32px; font-size: 18px; color: #475569; line-height: 1.6; max-width: 480px; margin-left: auto; margin-right: auto;">
+    Hi <strong><%= name %></strong>, we've received your message about <strong><%= topic %></strong> and our team will get back to you within 24 hours.
+  </p>
+
+  <div style="background-color: #f0f9ff; border: 1px solid #0ea5e9; border-radius: 12px; padding: 24px; margin: 32px 0; text-align: left;">
+    <div style="display: flex; align-items: flex-start; gap: 12px;">
+      <div style="flex-shrink: 0; width: 20px; height: 20px; margin-top: 2px;">
+        <svg width="20" height="20" fill="#0ea5e9" viewBox="0 0 24 24">
+          <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/>
+        </svg>
+      </div>
+      <div>
+        <p style="margin: 0 0 8px; font-size: 14px; color: #0c4a6e; font-weight: 600;">
+          Your Message Summary
+        </p>
+        <div style="background-color: #ffffff; border-radius: 6px; padding: 16px; border: 1px solid #bae6fd;">
+          <p style="margin: 0; font-size: 14px; color: #0c4a6e; line-height: 1.5; white-space: pre-wrap;"><%= message %></p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <p style="margin: 32px 0; font-size: 16px; color: #64748b; line-height: 1.6;">
+    In the meantime, feel free to explore our features or check out our documentation.
+  </p>
+
+  <table role="presentation" style="margin: 0 auto; border-spacing: 0; border-collapse: collapse;">
+    <tr>
+      <td style="padding: 0 8px;">
+        <table role="presentation" style="border-spacing: 0; border-collapse: collapse;">
+          <tr>
+            <td style="border-radius: 8px; background-color: #f8fafc; border: 1px solid #e2e8f0; padding: 0;">
+              <a href="<%= sails.config.custom.baseUrl %>/features" 
+                 style="display: inline-block; padding: 12px 24px; color: #374151; text-decoration: none; font-weight: 500; font-size: 14px; border-radius: 8px;">
+                View Features
+              </a>
+            </td>
+          </tr>
+        </table>
+      </td>
+      <td style="padding: 0 8px;">
+        <table role="presentation" style="border-spacing: 0; border-collapse: collapse;">
+          <tr>
+            <td style="border-radius: 8px; background-color: #f8fafc; border: 1px solid #e2e8f0; padding: 0;">
+              <a href="<%= sails.config.custom.baseUrl %>/pricing" 
+                 style="display: inline-block; padding: 12px 24px; color: #374151; text-decoration: none; font-weight: 500; font-size: 14px; border-radius: 8px;">
+                View Pricing
+              </a>
+            </td>
+          </tr>
+        </table>
+      </td>
+    </tr>
+  </table>
+
+  <div style="margin-top: 40px; padding: 20px; background-color: #fef3c7; border: 1px solid #f59e0b; border-radius: 12px; text-align: left;">
+    <div style="display: flex; align-items: flex-start; gap: 12px;">
+      <div style="flex-shrink: 0; width: 20px; height: 20px; margin-top: 2px;">
+        <svg width="20" height="20" fill="#d97706" viewBox="0 0 24 24">
+          <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/>
+        </svg>
+      </div>
+      <div>
+        <p style="margin: 0 0 8px; font-size: 14px; color: #92400e; font-weight: 600;">
+          Need urgent help?
+        </p>
+        <p style="margin: 0; font-size: 14px; color: #92400e; line-height: 1.5;">
+          For immediate assistance, you can also reach us directly at 
+          <a href="mailto:<%= sails.config.custom.internalEmail %>" style="color: #92400e; text-decoration: underline;"><%= sails.config.custom.internalEmail %></a>
+        </p>
+      </div>
+    </div>
+  </div>
+</div>
