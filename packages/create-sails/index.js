@@ -5,6 +5,7 @@ import color from 'picocolors'
 import path from 'path'
 import projectName from './actions/project-name.js'
 import frontend from './actions/frontend.js'
+import template from './actions/template.js'
 import downloadProject from './actions/download-project.js'
 import getCommand from './helpers/get-command.js'
 import detectPackageManager from './helpers/detect-package-manager.js'
@@ -32,9 +33,13 @@ async function main() {
   }
 
   const specifiedFrontend = await frontend(argv)
+  const specifiedTemplate = await template(argv, specifiedFrontend)
 
   s.start('Copying project files.')
-  await downloadProject(specifiedProjectName, { frontend: specifiedFrontend })
+  await downloadProject(specifiedProjectName, {
+    frontend: specifiedFrontend,
+    template: specifiedTemplate
+  })
   s.stop(color.cyan('Template copied!'))
 
   injectDefaultDek(root)
