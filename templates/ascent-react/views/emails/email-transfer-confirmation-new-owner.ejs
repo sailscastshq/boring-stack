@@ -1,0 +1,230 @@
+<!-- Main content -->
+<div style="text-align: center">
+  <h1
+    style="
+      margin: 0 0 16px;
+      font-size: 32px;
+      font-weight: 800;
+      color: #0f172a;
+      line-height: 1.2;
+      letter-spacing: -0.5px;
+    "
+  >
+    You're Now the Owner of <%= teamName %>
+  </h1>
+
+  <p
+    style="
+      margin: 0 0 40px;
+      font-size: 18px;
+      color: #475569;
+      line-height: 1.6;
+      max-width: 480px;
+      margin-left: auto;
+      margin-right: auto;
+    "
+  >
+    <strong><%= previousOwnerName %></strong> has transferred ownership of
+    <strong><%= teamName %></strong> to you. Congratulations on your new role!
+  </p>
+
+  <!-- Manage Team Button -->
+  <table
+    role="presentation"
+    style="margin: 0 auto 40px; border-spacing: 0; border-collapse: collapse"
+  >
+    <tr>
+      <td
+        style="
+          border-radius: 12px;
+          background: linear-gradient(135deg, #1e40af 0%, #0891b2 100%);
+          padding: 0;
+          box-shadow: 0 8px 25px -5px rgba(30, 64, 175, 0.4);
+        "
+      >
+        <a
+          href="<%= teamSettingsUrl %>"
+          style="
+            display: inline-block;
+            padding: 18px 36px;
+            color: white;
+            text-decoration: none;
+            font-weight: 700;
+            font-size: 18px;
+            border-radius: 12px;
+            letter-spacing: -0.25px;
+          "
+        >
+          Manage Your Team →
+        </a>
+      </td>
+    </tr>
+  </table>
+
+  <!-- Your new powers -->
+  <div
+    style="
+      padding: 24px;
+      background-color: #f1f5f9;
+      border-radius: 12px;
+      border: 1px solid #cbd5e1;
+      margin: 32px 0;
+      text-align: left;
+    "
+  >
+    <p
+      style="
+        margin: 0 0 8px;
+        font-size: 13px;
+        color: #475569;
+        font-weight: 600;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+      "
+    >
+      What you can do as owner
+    </p>
+    <ul
+      style="
+        margin: 0;
+        padding-left: 20px;
+        font-size: 14px;
+        color: #64748b;
+        line-height: 1.6;
+      "
+    >
+      <li style="margin-bottom: 8px">
+        Manage all team members and their roles
+      </li>
+      <li style="margin-bottom: 8px">
+        Configure team settings and permissions
+      </li>
+      <li style="margin-bottom: 8px">
+        Control billing and subscription settings
+      </li>
+      <li style="margin-bottom: 8px">
+        Transfer ownership to another team member
+      </li>
+      <li style="margin-bottom: 0">Delete the team if needed (be careful!)</li>
+    </ul>
+  </div>
+
+  <!-- Previous owner status -->
+  <div
+    style="
+      padding: 24px;
+      background-color: #ecfdf5;
+      border-radius: 12px;
+      border: 1px solid #22c55e;
+      margin: 32px 0;
+      text-align: left;
+    "
+  >
+    <table
+      role="presentation"
+      style="width: 100%; border-spacing: 0; border-collapse: collapse"
+    >
+      <tr>
+        <td style="width: 32px; vertical-align: top; padding-right: 12px">
+          <div style="width: 20px; height: 20px; margin-top: 2px">
+            <svg width="20" height="20" fill="#22c55e" viewBox="0 0 24 24">
+              <path
+                d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z"
+              />
+            </svg>
+          </div>
+        </td>
+        <td style="vertical-align: top">
+          <p
+            style="
+              margin: 0 0 8px;
+              font-size: 14px;
+              color: #15803d;
+              font-weight: 600;
+            "
+          >
+            <%= previousOwnerName %> Remains on the Team
+          </p>
+          <p
+            style="margin: 0; font-size: 14px; color: #15803d; line-height: 1.5"
+          >
+            <%= previousOwnerName %> is now a regular team member and can
+            continue working on team projects. You have full control over team
+            management and settings.
+          </p>
+        </td>
+      </tr>
+    </table>
+  </div>
+
+  <!-- Getting started -->
+  <div
+    style="
+      padding: 24px;
+      background-color: #fff7ed;
+      border-radius: 12px;
+      border: 1px solid #fb923c;
+      margin: 32px 0;
+      text-align: left;
+    "
+  >
+    <table
+      role="presentation"
+      style="width: 100%; border-spacing: 0; border-collapse: collapse"
+    >
+      <tr>
+        <td style="width: 32px; vertical-align: top; padding-right: 12px">
+          <div style="width: 20px; height: 20px; margin-top: 2px">
+            <svg width="20" height="20" fill="#fb923c" viewBox="0 0 24 24">
+              <path
+                d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z"
+              />
+            </svg>
+          </div>
+        </td>
+        <td style="vertical-align: top">
+          <p
+            style="
+              margin: 0 0 8px;
+              font-size: 14px;
+              color: #ea580c;
+              font-weight: 600;
+            "
+          >
+            Getting Started as Owner
+          </p>
+          <p
+            style="margin: 0; font-size: 14px; color: #ea580c; line-height: 1.5"
+          >
+            Visit your team settings to explore your new owner privileges. You
+            might want to review team members, update settings, or configure
+            billing information.
+          </p>
+        </td>
+      </tr>
+    </table>
+  </div>
+
+  <!-- Support -->
+  <div
+    style="
+      margin-top: 40px;
+      padding: 20px;
+      background-color: #f8fafc;
+      border: 1px solid #e2e8f0;
+      border-radius: 12px;
+      text-align: left;
+    "
+  >
+    <p
+      style="margin: 0 0 8px; font-size: 14px; color: #475569; font-weight: 600"
+    >
+      Questions About Being an Owner?
+    </p>
+    <p style="margin: 0; font-size: 14px; color: #64748b; line-height: 1.5">
+      Our documentation covers all owner features in detail. If you need help
+      getting started or have questions about managing your team, we're here to
+      help!
+    </p>
+  </div>
+</div>
