@@ -132,3 +132,12 @@ lib-cov
 *.out
 *.pid
 
+################################################
+# Playwright E2E test artifacts
+################################################
+
+/test-results/
+/playwright-report/
+/playwright/.cache/
+
+*.sqlite
