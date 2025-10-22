@@ -149,10 +149,7 @@ export default function SecuritySettings({
         '/security/disable-2fa',
         { method: 'totp' },
         {
-          preserveScroll: true,
-          onError: (errors) => {
-            console.error('TOTP disable failed:', errors)
-          }
+          preserveScroll: true
         }
       )
     }
@@ -167,10 +164,7 @@ export default function SecuritySettings({
         '/security/disable-2fa',
         { method: 'email' },
         {
-          preserveScroll: true,
-          onError: (errors) => {
-            console.error('Email 2FA disable failed:', errors)
-          }
+          preserveScroll: true
         }
       )
     }
@@ -180,10 +174,7 @@ export default function SecuritySettings({
     if (!hasPassword) return // Should be disabled anyway, but extra safety
 
     setupTotpForm('/security/setup-totp', {
-      preserveScroll: true,
-      onError: (errors) => {
-        console.error('TOTP setup failed:', errors)
-      }
+      preserveScroll: true
     })
   }
 
@@ -194,19 +185,13 @@ export default function SecuritySettings({
       preserveScroll: true,
       onSuccess: () => {
         setShowEmailTwoFactorModal(true)
-      },
-      onError: (errors) => {
-        console.error('Email 2FA setup failed:', errors)
       }
     })
   }
 
   function handleGenerateBackupCodes() {
     generateBackupCodes('/security/generate-backup-codes', {
-      preserveScroll: true,
-      onError: (errors) => {
-        console.error('Backup codes generation failed:', errors)
-      }
+      preserveScroll: true
     })
   }
 
@@ -214,25 +199,16 @@ export default function SecuritySettings({
     if (!hasPassword) return
 
     setupPasskeyForm('/security/setup-passkey', {
-      preserveScroll: true,
-      onError: (errors) => {
-        console.error('Passkey setup failed:', errors)
-      }
+      preserveScroll: true
     })
   }
 
   async function handlePasskeyRegistration(registrationData) {
-    console.log('Starting passkey registration with options:', registrationData)
-
     try {
       const { startRegistration } = await import('@simplewebauthn/browser')
-
-      console.log('Starting WebAuthn registration...')
       const credential = await startRegistration(registrationData.options)
-      console.log('WebAuthn registration successful, credential:', credential)
 
       // Send credential to backend for verification and storage
-      console.log('Sending credential to backend for verification...')
       router.post(
         '/security/verify-passkey-setup',
         {
@@ -240,21 +216,14 @@ export default function SecuritySettings({
           userId: registrationData.userId
         },
         {
-          preserveScroll: true,
-          onSuccess: (page) => {
-            console.log('Passkey setup successful!', page)
-            // The page should automatically refresh with updated data
-          },
-          onError: (errors) => {
-            console.error('Backend passkey registration failed:', errors)
-          }
+          preserveScroll: true
         }
       )
     } catch (error) {
       if (error.name === 'NotAllowedError') {
-        console.log('User cancelled passkey registration')
+        // User cancelled passkey registration
       } else if (error.name === 'AbortError') {
-        console.log('Passkey registration was aborted')
+        // Passkey registration was aborted
       } else if (error.name === 'NotSupportedError') {
         console.error('WebAuthn not supported in this browser')
       } else {
@@ -273,10 +242,7 @@ export default function SecuritySettings({
       acceptClassName: 'bg-red-600 hover:bg-red-700 text-white border-red-600',
       accept: () => {
         disablePasskeysForm('/security/disable-passkeys', {
-          preserveScroll: true,
-          onError: (errors) => {
-            console.error('Disable passkeys failed:', errors)
-          }
+          preserveScroll: true
         })
       }
     })
@@ -301,9 +267,6 @@ export default function SecuritySettings({
           confirmPassword: ''
         })
         setShowInitialPasswordForm(false)
-      },
-      onError: (errors) => {
-        console.error('Initial password setup failed:', errors)
       }
     })
   }
