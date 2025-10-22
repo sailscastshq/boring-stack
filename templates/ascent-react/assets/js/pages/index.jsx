@@ -179,7 +179,7 @@ export default function Index() {
                     </button>
                   </div>
 
-                  <div className="mt-6 flex items-center justify-center space-x-6 text-xs text-gray-500">
+                  <div className="mt-6 flex items-center justify-center space-x-6 text-xs text-gray-500 dark:text-gray-400">
                     <div className="flex items-center space-x-1">
                       <svg
                         className="h-4 w-4 text-green-500"
@@ -282,7 +282,7 @@ export default function Index() {
 
           <div className="grid grid-cols-1 gap-8 md:grid-cols-2 lg:grid-cols-3">
             {/* Secure Authentication */}
-            <div className="group relative rounded-2xl border border-gray-100 bg-white p-8 shadow-sm transition-all duration-300 hover:-translate-y-1 hover:shadow-xl">
+            <div className="group relative rounded-2xl border border-gray-100 bg-white p-8 shadow-sm transition-all duration-300 hover:-translate-y-1 hover:shadow-xl dark:border-gray-800 dark:bg-gray-900">
               <div className="absolute inset-0 rounded-2xl bg-gradient-to-br from-brand-50/50 to-transparent opacity-0 transition-opacity group-hover:opacity-100"></div>
               <div className="relative">
                 <div className="mb-6 flex h-14 w-14 items-center justify-center rounded-2xl bg-gradient-to-br from-brand-500 to-brand-600 shadow-lg">

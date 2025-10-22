@@ -14,8 +14,8 @@ export default function AppLayout({ children }) {
   useFlashToast(toast)
 
   return (
-    <div className="flex min-h-screen flex-col bg-gradient-to-b from-brand-50/10 to-[#F9FAFB]">
-      <header className="sticky top-0 z-50 border-b border-gray-100/40 bg-white/90 backdrop-blur-md">
+    <div className="flex min-h-screen flex-col bg-gradient-to-b from-brand-50/10 to-[#F9FAFB] dark:from-gray-900 dark:to-gray-950">
+      <header className="sticky top-0 z-50 border-b border-gray-100/40 bg-white/90 backdrop-blur-md dark:border-gray-800/40 dark:bg-gray-900/90">
         <nav className="mx-auto flex max-w-7xl items-center justify-between px-4 py-4 md:px-8">
           <Link href="/" className="group flex items-center space-x-2">
             <div className="relative">

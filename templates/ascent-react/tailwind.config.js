@@ -1,4 +1,5 @@
 module.exports = {
+  darkMode: 'class',
   content: [
     './views/**/*.ejs',
     './assets/js/**/*.{js,ts,jsx,tsx}',
