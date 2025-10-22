@@ -141,3 +141,5 @@ lib-cov
 /playwright/.cache/
 
 *.sqlite
+*.sqlite-wal
+*.sqlite-shm
