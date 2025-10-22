@@ -213,33 +213,6 @@ export default function AppLayout({ children }) {
                       Pricing
                     </Link>
                   </li>
-                  <li>
-                    <Link
-                      href="/security"
-                      className="group flex items-center text-gray-300 transition-colors duration-200 hover:text-white"
-                    >
-                      <span className="mr-3 h-1.5 w-1.5 rounded-full bg-brand-500 opacity-0 transition-opacity group-hover:opacity-100"></span>
-                      Security
-                    </Link>
-                  </li>
-                  <li>
-                    <Link
-                      href="/integrations"
-                      className="group flex items-center text-gray-300 transition-colors duration-200 hover:text-white"
-                    >
-                      <span className="mr-3 h-1.5 w-1.5 rounded-full bg-brand-500 opacity-0 transition-opacity group-hover:opacity-100"></span>
-                      Integrations
-                    </Link>
-                  </li>
-                  <li>
-                    <Link
-                      href="/api"
-                      className="group flex items-center text-gray-300 transition-colors duration-200 hover:text-white"
-                    >
-                      <span className="mr-3 h-1.5 w-1.5 rounded-full bg-brand-500 opacity-0 transition-opacity group-hover:opacity-100"></span>
-                      API
-                    </Link>
-                  </li>
                 </ul>
               </nav>
             </section>
@@ -250,14 +223,13 @@ export default function AppLayout({ children }) {
               <nav>
                 <ul className="space-y-4">
                   <li>
-                    <a
+                    <Link
                       href="/blog"
-                      target="_blank"
                       className="group flex items-center text-gray-300 transition-colors duration-200 hover:text-white"
                     >
                       <span className="mr-3 h-1.5 w-1.5 rounded-full bg-accent-500 opacity-0 transition-opacity group-hover:opacity-100"></span>
                       Blog
-                    </a>
+                    </Link>
                   </li>
                   <li>
                     <a
@@ -271,31 +243,15 @@ export default function AppLayout({ children }) {
                     </a>
                   </li>
                   <li>
-                    <Link
-                      href="/guides"
-                      className="group flex items-center text-gray-300 transition-colors duration-200 hover:text-white"
-                    >
-                      <span className="mr-3 h-1.5 w-1.5 rounded-full bg-accent-500 opacity-0 transition-opacity group-hover:opacity-100"></span>
-                      Guides
-                    </Link>
-                  </li>
-                  <li>
-                    <Link
-                      href="/help"
-                      className="group flex items-center text-gray-300 transition-colors duration-200 hover:text-white"
-                    >
-                      <span className="mr-3 h-1.5 w-1.5 rounded-full bg-accent-500 opacity-0 transition-opacity group-hover:opacity-100"></span>
-                      Help Center
-                    </Link>
-                  </li>
-                  <li>
-                    <Link
-                      href="/community"
+                    <a
+                      href="https://sailsjs.com/chat"
+                      target="_blank"
+                      rel="noopener noreferrer"
                       className="group flex items-center text-gray-300 transition-colors duration-200 hover:text-white"
                     >
                       <span className="mr-3 h-1.5 w-1.5 rounded-full bg-accent-500 opacity-0 transition-opacity group-hover:opacity-100"></span>
                       Community
-                    </Link>
+                    </a>
                   </li>
                 </ul>
               </nav>
@@ -306,24 +262,6 @@ export default function AppLayout({ children }) {
               <h3 className="mb-6 text-lg font-bold text-white">Company</h3>
               <nav>
                 <ul className="space-y-4">
-                  <li>
-                    <Link
-                      href="/about"
-                      className="group flex items-center text-gray-300 transition-colors duration-200 hover:text-white"
-                    >
-                      <span className="mr-3 h-1.5 w-1.5 rounded-full bg-success-500 opacity-0 transition-opacity group-hover:opacity-100"></span>
-                      About
-                    </Link>
-                  </li>
-                  <li>
-                    <Link
-                      href="/careers"
-                      className="group flex items-center text-gray-300 transition-colors duration-200 hover:text-white"
-                    >
-                      <span className="mr-3 h-1.5 w-1.5 rounded-full bg-success-500 opacity-0 transition-opacity group-hover:opacity-100"></span>
-                      Careers
-                    </Link>
-                  </li>
                   <li>
                     <Link
                       href="/contact"
