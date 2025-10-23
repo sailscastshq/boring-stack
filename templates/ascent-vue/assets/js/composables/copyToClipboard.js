@@ -1,20 +1,20 @@
-import { useState } from 'react'
+import { ref } from 'vue'
 
 /**
- * Custom hook for copying text to clipboard with visual feedback
+ * Composable for copying text to clipboard with visual feedback
  * @param {number} resetDelay - Time in milliseconds before resetting copied state (default: 2000)
  * @returns {object} - Contains copied state, copyToClipboard function, and reset function
  */
 export function useCopyToClipboard(resetDelay = 2000) {
-  const [copied, setCopied] = useState(false)
+  const copied = ref(false)
 
   const copyToClipboard = async (text) => {
     try {
       await navigator.clipboard.writeText(text)
-      setCopied(true)
+      copied.value = true
 
       // Auto-reset after delay
-      setTimeout(() => setCopied(false), resetDelay)
+      setTimeout(() => (copied.value = false), resetDelay)
 
       return true
     } catch (error) {
@@ -23,7 +23,7 @@ export function useCopyToClipboard(resetDelay = 2000) {
     }
   }
 
-  const reset = () => setCopied(false)
+  const reset = () => (copied.value = false)
 
   return {
     copied,
