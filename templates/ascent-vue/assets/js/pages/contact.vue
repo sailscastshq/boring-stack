@@ -4,7 +4,7 @@ import { Head, useForm, Link } from '@inertiajs/vue3'
 import Button from '@/volt/Button.vue'
 import InputText from '@/volt/InputText.vue'
 import Textarea from '@/volt/Textarea.vue'
-import Dropdown from '@/volt/Dropdown.vue'
+import Select from '@/volt/Select.vue'
 import Message from '@/volt/Message.vue'
 import Toast from '@/volt/Toast.vue'
 import { useFlashToast } from '@/composables/flashToast'
@@ -190,7 +190,7 @@ function handleTopicChange(e) {
                 >
                   Topic
                 </label>
-                <Dropdown
+                <Select
                   :model-value="selectedTopic"
                   @update:model-value="handleTopicChange"
                   :options="topicOptions"
