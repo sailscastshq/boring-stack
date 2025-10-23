@@ -1,5 +1,50 @@
 @import 'tailwindcss';
-@import 'tailwindcss-primeui';
+@plugin '@tailwindcss/typography';
+@plugin 'tailwindcss-primeui';
+
+@theme {
+  /* Brand Colors */
+  --color-brand-50: #f0f9ff;
+  --color-brand-100: #e0f2fe;
+  --color-brand-200: #bae6fd;
+  --color-brand-300: #7dd3fc;
+  --color-brand-400: #38bdf8;
+  --color-brand-500: #0ea5e9;
+  --color-brand-600: #0284c7;
+  --color-brand-700: #0369a1;
+  --color-brand-800: #075985;
+  --color-brand-900: #0c4a6e;
+  --color-brand-950: #082f49;
+  --color-brand: #0ea5e9;
+
+  /* Accent Colors */
+  --color-accent-50: #f0fdfa;
+  --color-accent-100: #ccfbf1;
+  --color-accent-200: #99f6e4;
+  --color-accent-300: #5eead4;
+  --color-accent-400: #2dd4bf;
+  --color-accent-500: #14b8a6;
+  --color-accent-600: #0d9488;
+  --color-accent-700: #0f766e;
+  --color-accent-800: #115e59;
+  --color-accent-900: #134e4a;
+  --color-accent-950: #042f2e;
+  --color-accent: #14b8a6;
+
+  /* Success Colors */
+  --color-success-50: #ecfdf5;
+  --color-success-100: #d1fae5;
+  --color-success-200: #a7f3d0;
+  --color-success-300: #6ee7b7;
+  --color-success-400: #34d399;
+  --color-success-500: #10b981;
+  --color-success-600: #059669;
+  --color-success-700: #047857;
+  --color-success-800: #065f46;
+  --color-success-900: #064e3b;
+  --color-success-950: #022c22;
+  --color-success: #10b981;
+}
 
 /* Primary and Surface Palettes */
 :root {
