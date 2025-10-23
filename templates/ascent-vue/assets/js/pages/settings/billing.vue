@@ -1,10 +1,10 @@
 <script setup>
 import { computed } from 'vue'
 import { Head, Link } from '@inertiajs/vue3'
-import { useConfirm } from 'primevue/useconfirm'
-import Button from 'primevue/button'
-import Tag from 'primevue/tag'
-import ConfirmDialog from 'primevue/confirmdialog'
+import { useConfirm } from '@/volt/useconfirm'
+import Button from '@/volt/button'
+import Tag from '@/volt/tag'
+import ConfirmDialog from '@/volt/confirmdialog'
 
 const props = defineProps({
   subscription: {
