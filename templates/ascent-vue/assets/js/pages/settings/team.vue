@@ -1,7 +1,7 @@
 <script setup>
 import { ref, computed, watch } from 'vue'
 import { Link, usePage, router, useForm, Head } from '@inertiajs/vue3'
-import { useConfirm } from '@/volt/useconfirm'
+import { useConfirm } from 'primevue/useconfirm'
 import Button from '@/volt/Button.vue'
 import InputText from '@/volt/InputText.vue'
 import ToggleSwitch from '@/volt/ToggleSwitch.vue'

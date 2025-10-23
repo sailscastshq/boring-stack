@@ -1,7 +1,7 @@
 <script setup>
 import { computed } from 'vue'
 import { Head, usePage, useForm, router } from '@inertiajs/vue3'
-import { useConfirm } from '@/volt/useconfirm'
+import { useConfirm } from 'primevue/useconfirm'
 import InputText from '@/volt/InputText.vue'
 import Button from '@/volt/Button.vue'
 import Avatar from '@/volt/Avatar.vue'

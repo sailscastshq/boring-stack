@@ -1,7 +1,7 @@
 <script setup>
 import { computed } from 'vue'
 import { Head, Link } from '@inertiajs/vue3'
-import { useConfirm } from '@/volt/useconfirm'
+import { useConfirm } from 'primevue/useconfirm'
 import Button from '@/volt/Button.vue'
 import Tag from '@/volt/Tag.vue'
 import ConfirmDialog from '@/volt/ConfirmDialog.vue'
