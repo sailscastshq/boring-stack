@@ -2,11 +2,11 @@
 import { computed } from 'vue'
 import { Head, usePage, useForm, router } from '@inertiajs/vue3'
 import { useConfirm } from '@/volt/useconfirm'
-import InputText from '@/volt/inputtext'
-import Button from '@/volt/button'
-import Avatar from '@/volt/avatar'
-import Message from '@/volt/message'
-import ConfirmDialog from '@/volt/confirmdialog'
+import InputText from '@/volt/InputText.vue'
+import Button from '@/volt/Button.vue'
+import Avatar from '@/volt/Avatar.vue'
+import Message from '@/volt/Message.vue'
+import ConfirmDialog from '@/volt/ConfirmDialog.vue'
 import ImageUpload from '@/components/ImageUpload.vue'
 
 const page = usePage()
