@@ -56,7 +56,7 @@
     "sails.io.js": "^1.2.1",
     "socket.io-client": "^4.8.1",
     "tailwindcss": "^4.0.0",
-    "tailwindcss-primeui": "^0.3.4"
+    "tailwindcss-primeui": "^0.6.1"
   },
   "scripts": {
     "dev": "node --watch app.js",
