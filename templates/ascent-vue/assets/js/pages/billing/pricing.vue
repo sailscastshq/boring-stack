@@ -67,7 +67,7 @@ const sliderPosition = computed(() => {
       <!-- Billing Toggle -->
       <div class="mb-16 flex flex-col items-center justify-center">
         <div
-          class="relative inline-flex items-center rounded-2xl border border-gray-200 bg-white p-2 shadow-lg"
+          class="relative inline-flex items-center rounded-2xl border border-gray-300 bg-white p-2 shadow-lg"
         >
           <!-- Sliding Background -->
           <div
@@ -127,7 +127,7 @@ const sliderPosition = computed(() => {
             class="bg-linear-to-r absolute -inset-0.5 rounded-3xl from-gray-600 to-gray-400 opacity-10 blur transition duration-300 group-hover:opacity-20"
           />
           <div
-            class="relative rounded-3xl border border-gray-200 bg-white p-10 shadow-xl"
+            class="relative rounded-3xl border border-gray-300 bg-white p-10 shadow-xl"
           >
             <div class="mb-8">
               <h3 class="text-2xl font-bold text-gray-900">Starter</h3>
@@ -306,7 +306,7 @@ const sliderPosition = computed(() => {
             class="bg-linear-to-r absolute -inset-0.5 rounded-3xl from-brand-600 to-accent-600 opacity-30 blur transition duration-300 group-hover:opacity-40"
           />
           <div
-            class="relative overflow-visible rounded-3xl border border-brand-200 bg-white p-10 shadow-2xl"
+            class="relative overflow-visible rounded-3xl border border-brand-300 bg-white p-10 shadow-2xl"
           >
             <div
               class="absolute -right-4 -top-4 size-44 overflow-hidden rounded-sm"
@@ -552,7 +552,7 @@ const sliderPosition = computed(() => {
       </div>
 
       <div
-        class="overflow-hidden rounded-2xl border border-gray-200 bg-white shadow-xl"
+        class="overflow-hidden rounded-2xl border border-gray-300 bg-white shadow-xl"
       >
         <div class="overflow-x-auto">
           <table
@@ -561,7 +561,7 @@ const sliderPosition = computed(() => {
             aria-label="Plan features comparison"
           >
             <thead>
-              <tr class="border-b border-gray-200 bg-gray-50">
+              <tr class="border-b border-gray-300 bg-gray-50">
                 <th class="px-6 py-4 text-left">
                   <span class="text-lg font-semibold text-gray-900">
                     Features
@@ -590,7 +590,7 @@ const sliderPosition = computed(() => {
                 </th>
               </tr>
             </thead>
-            <tbody class="divide-y divide-gray-200">
+            <tbody class="divide-y divide-gray-300">
               <tr class="bg-gray-50">
                 <td class="px-6 py-4 font-semibold text-gray-900">
                   Core Features
