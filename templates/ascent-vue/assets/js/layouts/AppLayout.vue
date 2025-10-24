@@ -13,7 +13,7 @@ useFlashToast()
 
 <template>
   <div
-    class="flex min-h-screen flex-col bg-gradient-to-b from-brand-50/10 to-[#F9FAFB] dark:from-gray-900 dark:to-gray-950"
+    class="bg-linear-to-b from-brand-50/10 flex min-h-screen flex-col to-[#F9FAFB] dark:from-gray-900 dark:to-gray-950"
   >
     <header
       class="sticky top-0 z-50 border-b border-gray-100/40 bg-white/90 backdrop-blur-md dark:border-gray-800/40 dark:bg-gray-900/90"
@@ -24,7 +24,7 @@ useFlashToast()
         <Link href="/" class="group flex items-center space-x-2">
           <div class="relative">
             <div
-              class="absolute inset-0 scale-110 rounded-xl bg-brand-200/20 opacity-0 blur-sm transition-opacity group-hover:opacity-100"
+              class="bg-brand-200/20 absolute inset-0 scale-110 rounded-xl opacity-0 blur-sm transition-opacity group-hover:opacity-100"
             ></div>
             <img
               src="/images/logo.svg"
@@ -44,7 +44,7 @@ useFlashToast()
               :class="`rounded-lg px-3 py-2 font-medium transition-all duration-200 ${
                 url === '/features'
                   ? 'bg-brand-100 text-brand-700'
-                  : 'text-gray-700 hover:bg-brand-50/80 hover:text-brand-600'
+                  : 'hover:bg-brand-50/80 hover:text-brand-600 text-gray-700'
               }`"
             >
               Features
@@ -54,7 +54,7 @@ useFlashToast()
               :class="`rounded-lg px-3 py-2 font-medium transition-all duration-200 ${
                 url === '/pricing'
                   ? 'bg-brand-100 text-brand-700'
-                  : 'text-gray-700 hover:bg-brand-50/80 hover:text-brand-600'
+                  : 'hover:bg-brand-50/80 hover:text-brand-600 text-gray-700'
               }`"
             >
               Pricing
@@ -64,7 +64,7 @@ useFlashToast()
               :class="`rounded-lg px-3 py-2 font-medium transition-all duration-200 ${
                 url.startsWith('/blog')
                   ? 'bg-brand-100 text-brand-700'
-                  : 'text-gray-700 hover:bg-brand-50/80 hover:text-brand-600'
+                  : 'hover:bg-brand-50/80 hover:text-brand-600 text-gray-700'
               }`"
             >
               Blog
@@ -73,7 +73,7 @@ useFlashToast()
               href="https://docs.sailscasts.com/boring-stack/ascent"
               target="_blank"
               rel="noopener noreferrer"
-              class="rounded-lg px-3 py-2 font-medium text-gray-700 transition-all duration-200 hover:bg-brand-50/80 hover:text-brand-600"
+              class="hover:bg-brand-50/80 hover:text-brand-600 rounded-lg px-3 py-2 font-medium text-gray-700 transition-all duration-200"
             >
               Docs
             </a>
@@ -82,17 +82,17 @@ useFlashToast()
           <div class="flex items-center space-x-3">
             <Link
               href="/login"
-              class="rounded-lg px-4 py-2 font-medium text-gray-700 transition-all duration-200 hover:bg-gray-50 hover:text-brand-600"
+              class="hover:text-brand-600 rounded-lg px-4 py-2 font-medium text-gray-700 transition-all duration-200 hover:bg-gray-50"
             >
               Login
             </Link>
             <Link
               href="/signup"
-              class="group relative rounded-lg bg-gradient-to-r from-brand-600 to-accent-600 px-6 py-2.5 font-semibold text-white shadow-lg transition-all duration-200 hover:shadow-xl"
+              class="bg-linear-to-r from-brand-600 to-accent-600 group relative rounded-lg px-6 py-2.5 font-semibold text-white shadow-lg transition-all duration-200 hover:shadow-xl"
             >
               <span class="relative z-10">Get Started</span>
               <div
-                class="absolute inset-0 rounded-lg bg-gradient-to-r from-brand-700 to-accent-700 opacity-0 transition-opacity group-hover:opacity-100"
+                class="bg-linear-to-r from-brand-700 to-accent-700 absolute inset-0 rounded-lg opacity-0 transition-opacity group-hover:opacity-100"
               ></div>
             </Link>
           </div>
@@ -102,7 +102,7 @@ useFlashToast()
           <nav class="hidden items-center space-x-4 md:flex">
             <Link
               href="/dashboard"
-              class="font-medium text-gray-600 transition-colors hover:text-brand"
+              class="hover:text-brand font-medium text-gray-600 transition-colors"
             >
               Dashboard
             </Link>
@@ -113,7 +113,7 @@ useFlashToast()
               :label="loggedInUser.initials"
               size="large"
               shape="circle"
-              class="border-2 border-gray-200 transition-colors hover:border-brand [&_img]:rounded-full"
+              class="hover:border-brand border-2 border-gray-200 transition-colors [&_img]:rounded-full"
               :style="{
                 backgroundColor: loggedInUser.currentAvatarUrl
                   ? undefined
@@ -133,13 +133,13 @@ useFlashToast()
     <Toast />
 
     <footer
-      class="relative overflow-hidden bg-gradient-to-br from-gray-900 via-gray-800 to-brand-900 text-white"
+      class="bg-linear-to-br to-brand-900 relative overflow-hidden from-gray-900 via-gray-800 text-white"
     >
       <div
-        class="absolute left-1/4 top-0 h-96 w-96 rounded-full bg-brand-500/10 blur-3xl"
+        class="bg-brand-500/10 absolute left-1/4 top-0 h-96 w-96 rounded-full blur-3xl"
       ></div>
       <div
-        class="absolute bottom-0 right-1/4 h-72 w-72 rounded-full bg-accent-500/10 blur-3xl"
+        class="bg-accent-500/10 absolute bottom-0 right-1/4 h-72 w-72 rounded-full blur-3xl"
       ></div>
 
       <div class="relative mx-auto max-w-7xl px-4 py-16 md:px-8">
@@ -148,7 +148,7 @@ useFlashToast()
             <Link href="/" class="group mb-6 flex items-center space-x-2">
               <div class="relative">
                 <div
-                  class="absolute inset-0 scale-110 rounded-xl bg-brand-300/20 opacity-0 blur-sm transition-opacity group-hover:opacity-100"
+                  class="bg-brand-300/20 absolute inset-0 scale-110 rounded-xl opacity-0 blur-sm transition-opacity group-hover:opacity-100"
                 ></div>
                 <img
                   src="/images/logo.svg"
@@ -164,7 +164,7 @@ useFlashToast()
             <div class="flex space-x-4">
               <a
                 href="https://x.com/Dominus_Kelvin"
-                class="group flex h-10 w-10 items-center justify-center rounded-lg bg-gray-800/50 text-gray-400 transition-all duration-200 hover:bg-brand-600 hover:text-white"
+                class="hover:bg-brand-600 group flex h-10 w-10 items-center justify-center rounded-lg bg-gray-800/50 text-gray-400 transition-all duration-200 hover:text-white"
               >
                 <svg class="h-5 w-5" fill="currentColor" viewBox="0 0 24 24">
                   <path
@@ -174,7 +174,7 @@ useFlashToast()
               </a>
               <a
                 href="https://github.com/sailscastshq/boring-stack"
-                class="group flex h-10 w-10 items-center justify-center rounded-lg bg-gray-800/50 text-gray-400 transition-all duration-200 hover:bg-brand-600 hover:text-white"
+                class="hover:bg-brand-600 group flex h-10 w-10 items-center justify-center rounded-lg bg-gray-800/50 text-gray-400 transition-all duration-200 hover:text-white"
               >
                 <svg class="h-5 w-5" fill="currentColor" viewBox="0 0 24 24">
                   <path
@@ -184,7 +184,7 @@ useFlashToast()
               </a>
               <a
                 href="https://sailsjs.com/chat"
-                class="group flex h-10 w-10 items-center justify-center rounded-lg bg-gray-800/50 text-gray-400 transition-all duration-200 hover:bg-brand-600 hover:text-white"
+                class="hover:bg-brand-600 group flex h-10 w-10 items-center justify-center rounded-lg bg-gray-800/50 text-gray-400 transition-all duration-200 hover:text-white"
               >
                 <svg class="h-5 w-5" fill="currentColor" viewBox="0 0 24 24">
                   <path
@@ -205,7 +205,7 @@ useFlashToast()
                     class="group flex items-center text-gray-300 transition-colors duration-200 hover:text-white"
                   >
                     <span
-                      class="mr-3 h-1.5 w-1.5 rounded-full bg-brand-500 opacity-0 transition-opacity group-hover:opacity-100"
+                      class="bg-brand-500 mr-3 h-1.5 w-1.5 rounded-full opacity-0 transition-opacity group-hover:opacity-100"
                     ></span>
                     Features
                   </Link>
@@ -216,7 +216,7 @@ useFlashToast()
                     class="group flex items-center text-gray-300 transition-colors duration-200 hover:text-white"
                   >
                     <span
-                      class="mr-3 h-1.5 w-1.5 rounded-full bg-brand-500 opacity-0 transition-opacity group-hover:opacity-100"
+                      class="bg-brand-500 mr-3 h-1.5 w-1.5 rounded-full opacity-0 transition-opacity group-hover:opacity-100"
                     ></span>
                     Pricing
                   </Link>
@@ -235,7 +235,7 @@ useFlashToast()
                     class="group flex items-center text-gray-300 transition-colors duration-200 hover:text-white"
                   >
                     <span
-                      class="mr-3 h-1.5 w-1.5 rounded-full bg-accent-500 opacity-0 transition-opacity group-hover:opacity-100"
+                      class="bg-accent-500 mr-3 h-1.5 w-1.5 rounded-full opacity-0 transition-opacity group-hover:opacity-100"
                     ></span>
                     Blog
                   </Link>
@@ -248,7 +248,7 @@ useFlashToast()
                     class="group flex items-center text-gray-300 transition-colors duration-200 hover:text-white"
                   >
                     <span
-                      class="mr-3 h-1.5 w-1.5 rounded-full bg-accent-500 opacity-0 transition-opacity group-hover:opacity-100"
+                      class="bg-accent-500 mr-3 h-1.5 w-1.5 rounded-full opacity-0 transition-opacity group-hover:opacity-100"
                     ></span>
                     Documentation
                   </a>
@@ -261,7 +261,7 @@ useFlashToast()
                     class="group flex items-center text-gray-300 transition-colors duration-200 hover:text-white"
                   >
                     <span
-                      class="mr-3 h-1.5 w-1.5 rounded-full bg-accent-500 opacity-0 transition-opacity group-hover:opacity-100"
+                      class="bg-accent-500 mr-3 h-1.5 w-1.5 rounded-full opacity-0 transition-opacity group-hover:opacity-100"
                     ></span>
                     Community
                   </a>
@@ -280,7 +280,7 @@ useFlashToast()
                     class="group flex items-center text-gray-300 transition-colors duration-200 hover:text-white"
                   >
                     <span
-                      class="mr-3 h-1.5 w-1.5 rounded-full bg-success-500 opacity-0 transition-opacity group-hover:opacity-100"
+                      class="bg-success-500 mr-3 h-1.5 w-1.5 rounded-full opacity-0 transition-opacity group-hover:opacity-100"
                     ></span>
                     Contact
                   </Link>
@@ -291,7 +291,7 @@ useFlashToast()
                     class="group flex items-center text-gray-300 transition-colors duration-200 hover:text-white"
                   >
                     <span
-                      class="mr-3 h-1.5 w-1.5 rounded-full bg-success-500 opacity-0 transition-opacity group-hover:opacity-100"
+                      class="bg-success-500 mr-3 h-1.5 w-1.5 rounded-full opacity-0 transition-opacity group-hover:opacity-100"
                     ></span>
                     Privacy Policy
                   </a>
@@ -302,7 +302,7 @@ useFlashToast()
                     class="group flex items-center text-gray-300 transition-colors duration-200 hover:text-white"
                   >
                     <span
-                      class="mr-3 h-1.5 w-1.5 rounded-full bg-success-500 opacity-0 transition-opacity group-hover:opacity-100"
+                      class="bg-success-500 mr-3 h-1.5 w-1.5 rounded-full opacity-0 transition-opacity group-hover:opacity-100"
                     ></span>
                     Terms of Service
                   </a>
@@ -337,14 +337,14 @@ useFlashToast()
                 <span>Built with </span>
                 <a
                   href="https://github.com/sailscastshq/boring-stack"
-                  class="font-semibold text-brand-400 transition-colors hover:text-brand-300"
+                  class="text-brand-400 hover:text-brand-300 font-semibold transition-colors"
                 >
                   The Boring Stack
                 </a>
                 <span> by </span>
                 <a
                   href="https://x.com/Dominus_Kelvin"
-                  class="font-semibold text-brand-400 transition-colors hover:text-brand-300"
+                  class="text-brand-400 hover:text-brand-300 font-semibold transition-colors"
                 >
                   Kelvin Omereshone
                 </a>
@@ -354,7 +354,7 @@ useFlashToast()
           </div>
 
           <div
-            class="mt-8 rounded-2xl border border-brand-500/20 bg-gradient-to-r from-brand-500/10 to-accent-500/10 p-6"
+            class="border-brand-500/20 bg-linear-to-r from-brand-500/10 to-accent-500/10 mt-8 rounded-2xl border p-6"
           >
             <div class="text-center">
               <h4 class="mb-2 font-bold text-white">Stay Updated</h4>
@@ -365,10 +365,10 @@ useFlashToast()
                 <input
                   type="email"
                   placeholder="Enter your email"
-                  class="flex-1 rounded-lg border border-white/20 bg-white/10 px-4 py-2 text-white placeholder-gray-400 transition-all focus:border-brand-400 focus:outline-none focus:ring-2 focus:ring-brand-400/50"
+                  class="focus:border-brand-400 focus:ring-brand-400/50 flex-1 rounded-lg border border-white/20 bg-white/10 px-4 py-2 text-white placeholder-gray-400 transition-all focus:outline-none focus:ring-2"
                 />
                 <button
-                  class="rounded-lg bg-gradient-to-r from-brand-600 to-accent-600 px-6 py-2 font-semibold text-white transition-all duration-200 hover:shadow-lg"
+                  class="bg-linear-to-r from-brand-600 to-accent-600 rounded-lg px-6 py-2 font-semibold text-white transition-all duration-200 hover:shadow-lg"
                 >
                   Subscribe
                 </button>
