@@ -1,13 +1,10 @@
 <script setup>
 import { Head, Link } from '@inertiajs/vue3'
-</script>
-
-<script>
 import AppLayout from '@/layouts/AppLayout.vue'
 
-export default {
+defineOptions({
   layout: AppLayout
-}
+})
 </script>
 
 <template>

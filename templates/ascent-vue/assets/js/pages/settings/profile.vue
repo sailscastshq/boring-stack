@@ -8,6 +8,11 @@ import Avatar from '@/volt/Avatar.vue'
 import Message from '@/volt/Message.vue'
 import ConfirmDialog from '@/volt/ConfirmDialog.vue'
 import ImageUpload from '@/components/ImageUpload.vue'
+import DashboardLayout from '@/layouts/DashboardLayout.vue'
+
+defineOptions({
+  layout: DashboardLayout
+})
 
 const page = usePage()
 const confirm = useConfirm()
@@ -50,14 +55,6 @@ function confirmDeleteAccount() {
 
 function signOutEverywhere() {
   router.delete('/logout')
-}
-</script>
-
-<script>
-import DashboardLayout from '@/layouts/DashboardLayout.vue'
-
-export default {
-  layout: DashboardLayout
 }
 </script>
 

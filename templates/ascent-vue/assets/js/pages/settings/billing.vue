@@ -5,6 +5,11 @@ import { useConfirm } from 'primevue/useconfirm'
 import Button from '@/volt/Button.vue'
 import Tag from '@/volt/Tag.vue'
 import ConfirmDialog from '@/volt/ConfirmDialog.vue'
+import DashboardLayout from '@/layouts/DashboardLayout.vue'
+
+defineOptions({
+  layout: DashboardLayout
+})
 
 const props = defineProps({
   subscription: {
@@ -43,14 +48,6 @@ const formattedNextBillingDate = computed(() => {
   if (!props.subscription) return ''
   return new Date(props.subscription.nextBillingDate).toLocaleDateString()
 })
-</script>
-
-<script>
-import DashboardLayout from '@/layouts/DashboardLayout.vue'
-
-export default {
-  layout: DashboardLayout
-}
 </script>
 
 <template>

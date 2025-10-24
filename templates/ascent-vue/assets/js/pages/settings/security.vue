@@ -7,6 +7,11 @@ import InputText from '@/volt/InputText.vue'
 import ToggleSwitch from '@/volt/ToggleSwitch.vue'
 import ConfirmDialog from '@/volt/ConfirmDialog.vue'
 import Message from '@/volt/Message.vue'
+import DashboardLayout from '@/layouts/DashboardLayout.vue'
+
+defineOptions({
+  layout: DashboardLayout
+})
 
 import TotpSetupModal from '@/components/TotpSetupModal.vue'
 import BackupCodesModal from '@/components/BackupCodesModal.vue'
@@ -286,14 +291,6 @@ function submitInitialPassword(e) {
       showInitialPasswordForm.value = false
     }
   })
-}
-</script>
-
-<script>
-import DashboardLayout from '@/layouts/DashboardLayout.vue'
-
-export default {
-  layout: DashboardLayout
 }
 </script>
 

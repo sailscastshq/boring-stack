@@ -8,6 +8,11 @@ import ToggleSwitch from '@/volt/ToggleSwitch.vue'
 import Avatar from '@/volt/Avatar.vue'
 import Tag from '@/volt/Tag.vue'
 import Message from '@/volt/Message.vue'
+import DashboardLayout from '@/layouts/DashboardLayout.vue'
+
+defineOptions({
+  layout: DashboardLayout
+})
 import ConfirmDialog from '@/volt/ConfirmDialog.vue'
 import Dialog from '@/volt/Dialog.vue'
 import Menu from '@/volt/Menu.vue'
@@ -263,14 +268,6 @@ function getActionItems(member) {
   }
 
   return actionItems
-}
-</script>
-
-<script>
-import DashboardLayout from '@/layouts/DashboardLayout.vue'
-
-export default {
-  layout: DashboardLayout
 }
 </script>
 

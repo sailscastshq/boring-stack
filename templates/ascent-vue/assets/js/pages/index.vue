@@ -2,6 +2,11 @@
 import { Head, useForm } from '@inertiajs/vue3'
 import { ref } from 'vue'
 import Message from '@/volt/Message.vue'
+import AppLayout from '@/layouts/AppLayout.vue'
+
+defineOptions({
+  layout: AppLayout
+})
 
 const isWaitlistActive = ref(true)
 const shouldShake = ref(false)
@@ -22,14 +27,6 @@ const handleWaitlistSubmit = (e) => {
   }
 
   form.post('/waitlist', { preserveScroll: true })
-}
-</script>
-
-<script>
-import AppLayout from '@/layouts/AppLayout.vue'
-
-export default {
-  layout: AppLayout
 }
 </script>
 
