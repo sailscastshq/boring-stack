@@ -306,17 +306,19 @@ const sliderPosition = computed(() => {
             class="bg-linear-to-r absolute -inset-0.5 rounded-3xl from-brand-600 to-accent-600 opacity-30 blur transition duration-300 group-hover:opacity-40"
           />
           <div
-            class="relative overflow-hidden rounded-3xl border border-brand-200 bg-white p-10 shadow-2xl"
+            class="relative overflow-visible rounded-3xl border border-brand-200 bg-white p-10 shadow-2xl"
           >
-            <!-- Ribbon Banner with 3D corners -->
-            <!-- Adjust the `w-*` class to fit the text size -->
             <div
-              class="absolute -right-2 -top-2 aspect-square w-32 overflow-hidden rounded-sm"
+              class="absolute -right-4 -top-4 size-44 overflow-hidden rounded-sm"
             >
-              <div class="absolute left-0 top-0 h-2 w-2 bg-brand-800"></div>
-              <div class="absolute bottom-0 right-0 h-2 w-2 bg-brand-800"></div>
+              <div
+                class="bg-linear-to-br absolute -left-1 -top-1 size-5 from-brand-700 to-accent-700"
+              ></div>
+              <div
+                class="bg-linear-to-br absolute -bottom-1 -right-1 size-5 from-brand-700 to-accent-700"
+              ></div>
               <span
-                class="bg-linear-to-r absolute bottom-0 right-0 block w-[141.42%] origin-bottom-right rotate-45 from-brand-500 to-brand-600 py-1.5 text-center text-xs font-semibold uppercase tracking-wider text-white shadow-sm"
+                class="bg-linear-to-r absolute bottom-0 right-0 block w-[141.42%] origin-bottom-right rotate-45 from-brand-600 to-accent-600 py-2.5 text-center text-sm font-semibold uppercase tracking-wider text-white shadow-md"
               >
                 Most Popular
               </span>
@@ -324,7 +326,7 @@ const sliderPosition = computed(() => {
 
             <div class="mb-8">
               <h3 class="text-2xl font-bold text-gray-900">Pro</h3>
-              <p class="mt-2 text-gray-600">
+              <p class="mt-2 max-w-md text-gray-600">
                 For growing businesses that need advanced features and priority
                 support
               </p>
