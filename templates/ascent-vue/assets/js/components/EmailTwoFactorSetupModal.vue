@@ -66,7 +66,7 @@ function handleClose() {
           Verify Your Email
         </h2>
         <p class="text-sm text-gray-600">
-          We've sent a 6-digit verification code to{' '}
+          We've sent a 6-digit verification code to
           <strong>{{ userEmail }}</strong
           >. Enter it below to enable email two-factor authentication.
         </p>

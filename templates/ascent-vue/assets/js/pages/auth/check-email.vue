@@ -67,14 +67,14 @@ const pageTitle = computed(() => {
   <Head :title="`${title} | Ascent`" />
 
   <div
-    class="flex min-h-screen flex-col justify-center bg-gradient-to-br from-brand-50/30 via-white to-accent-50/20 py-12 sm:px-6 lg:px-8"
+    class="from-brand-50/30 to-accent-50/20 flex min-h-screen flex-col justify-center bg-gradient-to-br via-white py-12 sm:px-6 lg:px-8"
   >
     <div class="pointer-events-none absolute inset-0 overflow-hidden">
       <div
-        class="absolute left-1/4 top-20 h-96 w-96 rounded-full bg-brand-200/20 blur-3xl"
+        class="bg-brand-200/20 absolute left-1/4 top-20 h-96 w-96 rounded-full blur-3xl"
       ></div>
       <div
-        class="absolute bottom-20 right-1/4 h-72 w-72 rounded-full bg-accent-200/20 blur-3xl"
+        class="bg-accent-200/20 absolute bottom-20 right-1/4 h-72 w-72 rounded-full blur-3xl"
       ></div>
     </div>
 
@@ -83,7 +83,7 @@ const pageTitle = computed(() => {
         <Link href="/" class="group">
           <div class="relative">
             <div
-              class="absolute inset-0 scale-110 rounded-2xl bg-brand-200/30 opacity-0 blur-xl transition-opacity group-hover:opacity-100"
+              class="bg-brand-200/30 absolute inset-0 scale-110 rounded-2xl opacity-0 blur-xl transition-opacity group-hover:opacity-100"
             ></div>
             <img
               src="/images/logo.svg"
@@ -96,7 +96,7 @@ const pageTitle = computed(() => {
 
       <div class="relative">
         <div
-          class="absolute inset-0 scale-105 rounded-2xl bg-gradient-to-r from-brand-600/10 to-accent-600/10 blur-xl"
+          class="from-brand-600/10 to-accent-600/10 absolute inset-0 scale-105 rounded-2xl bg-gradient-to-r blur-xl"
         ></div>
 
         <div
@@ -104,10 +104,10 @@ const pageTitle = computed(() => {
         >
           <div class="mb-6 flex justify-center">
             <div
-              class="flex h-16 w-16 items-center justify-center rounded-full bg-gradient-to-br from-brand-100 to-accent-100"
+              class="from-brand-100 to-accent-100 flex h-16 w-16 items-center justify-center rounded-full bg-gradient-to-br"
             >
               <svg
-                class="h-8 w-8 text-brand-600"
+                class="text-brand-600 h-8 w-8"
                 fill="none"
                 stroke="currentColor"
                 viewBox="0 0 24 24"
@@ -137,26 +137,26 @@ const pageTitle = computed(() => {
           <button
             type="button"
             @click="handleOpenEmailApp"
-            class="mb-6 w-full rounded-xl bg-gradient-to-r from-brand-600 to-accent-600 px-8 py-4 text-lg font-bold text-white shadow-lg transition-all duration-200 hover:scale-[1.02] hover:from-brand-700 hover:to-accent-700 hover:shadow-xl focus:outline-none focus:ring-2 focus:ring-brand-500 focus:ring-offset-2"
+            class="from-brand-600 to-accent-600 hover:from-brand-700 hover:to-accent-700 focus:ring-brand-500 mb-6 w-full rounded-xl bg-gradient-to-r px-8 py-4 text-lg font-bold text-white shadow-lg transition-all duration-200 hover:scale-[1.02] hover:shadow-xl focus:outline-none focus:ring-2 focus:ring-offset-2"
           >
             Open email app
           </button>
 
           <p v-if="type !== 'password-reset'" class="text-base text-gray-600">
-            Didn't receive the email?{' '}
+            Didn't receive the email?
             <Link
               href="/resend-link"
-              class="font-semibold text-brand-600 transition-colors hover:text-brand-500"
+              class="text-brand-600 hover:text-brand-500 font-semibold transition-colors"
             >
               Resend link
             </Link>
           </p>
 
           <p v-if="type === 'password-reset'" class="text-base text-gray-600">
-            Try a different email?{' '}
+            Try a different email?
             <Link
               href="/forgot-password"
-              class="font-semibold text-brand-600 transition-colors hover:text-brand-500"
+              class="text-brand-600 hover:text-brand-500 font-semibold transition-colors"
             >
               Back to forgot password
             </Link>
@@ -167,7 +167,7 @@ const pageTitle = computed(() => {
       <div class="mt-8 text-center">
         <Link
           :href="backUrl"
-          class="inline-flex items-center text-base text-gray-600 transition-colors hover:text-brand-600"
+          class="hover:text-brand-600 inline-flex items-center text-base text-gray-600 transition-colors"
         >
           <svg
             class="mr-2 h-4 w-4"
