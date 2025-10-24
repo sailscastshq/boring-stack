@@ -223,7 +223,7 @@ async function handleWebAuthnChallenge(challengeData) {
 
         <!-- Main card -->
         <div
-          class="relative rounded-2xl border border-gray-100 bg-white px-8 py-10 shadow-2xl"
+          class="relative rounded-2xl border border-gray-300 bg-white px-8 py-10 shadow-2xl"
         >
           <!-- Global error -->
           <div
