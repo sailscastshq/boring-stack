@@ -62,7 +62,7 @@ function openFileDialog() {
         v-if="previewUrl"
         :src="previewUrl"
         alt="Profile picture"
-        class="h-32 w-32 rounded-lg border border-gray-200 object-cover"
+        class="h-32 w-32 rounded-lg border border-gray-300 object-cover"
       />
       <div
         v-else

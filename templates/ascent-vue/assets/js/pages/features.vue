@@ -65,7 +65,7 @@ defineOptions({
           href="YOUTUBE_VIDEO_URL"
           target="_blank"
           rel="noopener noreferrer"
-          class="inline-block rounded-xl border-2 border-gray-200 bg-white px-8 py-4 font-bold text-gray-700 no-underline shadow-lg transition-all duration-200 hover:scale-[1.02] hover:border-brand-300 hover:shadow-xl"
+          class="inline-block rounded-xl border-2 border-gray-300 bg-white px-8 py-4 font-bold text-gray-700 no-underline shadow-lg transition-all duration-200 hover:scale-[1.02] hover:border-brand-300 hover:shadow-xl"
         >
           View Live Demo
         </a>
@@ -750,7 +750,7 @@ defineOptions({
       <div class="grid grid-cols-1 gap-8 md:grid-cols-2 lg:grid-cols-3">
         <!-- Content & Blog -->
         <div
-          class="group relative rounded-2xl border border-gray-200 bg-white p-8 shadow-sm transition-all duration-300 hover:-translate-y-1 hover:shadow-xl"
+          class="group relative rounded-2xl border border-gray-300 bg-white p-8 shadow-sm transition-all duration-300 hover:-translate-y-1 hover:shadow-xl"
         >
           <div
             class="bg-linear-to-br absolute inset-0 rounded-2xl from-orange-50/50 to-transparent opacity-0 transition-opacity group-hover:opacity-100"
@@ -800,7 +800,7 @@ defineOptions({
 
         <!-- Email System -->
         <div
-          class="group relative rounded-2xl border border-gray-200 bg-white p-8 shadow-sm transition-all duration-300 hover:-translate-y-1 hover:shadow-xl"
+          class="group relative rounded-2xl border border-gray-300 bg-white p-8 shadow-sm transition-all duration-300 hover:-translate-y-1 hover:shadow-xl"
         >
           <div
             class="bg-linear-to-br absolute inset-0 rounded-2xl from-red-50/50 to-transparent opacity-0 transition-opacity group-hover:opacity-100"
@@ -850,7 +850,7 @@ defineOptions({
 
         <!-- Modern Stack -->
         <div
-          class="group relative rounded-2xl border border-gray-200 bg-white p-8 shadow-sm transition-all duration-300 hover:-translate-y-1 hover:shadow-xl"
+          class="group relative rounded-2xl border border-gray-300 bg-white p-8 shadow-sm transition-all duration-300 hover:-translate-y-1 hover:shadow-xl"
         >
           <div
             class="bg-linear-to-br absolute inset-0 rounded-2xl from-blue-50/50 to-transparent opacity-0 transition-opacity group-hover:opacity-100"

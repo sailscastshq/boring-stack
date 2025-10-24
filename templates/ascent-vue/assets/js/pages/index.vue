@@ -85,7 +85,7 @@ const handleWaitlistSubmit = (e) => {
       <!-- Social Proof Badge -->
       <div class="mb-8 flex items-center justify-center">
         <div
-          class="inline-flex items-center space-x-2 rounded-full border border-gray-200 bg-white/80 px-4 py-2 shadow-sm backdrop-blur-sm"
+          class="inline-flex items-center space-x-2 rounded-full border border-gray-300 bg-white/80 px-4 py-2 shadow-sm backdrop-blur-sm"
         >
           <div class="flex -space-x-1">
             <div
@@ -149,7 +149,7 @@ const handleWaitlistSubmit = (e) => {
                     'w-full rounded-xl border px-4 py-4 text-lg font-medium transition-all duration-200',
                     shouldShake || form.errors.email
                       ? 'border-red-300 bg-red-50 ring-2 ring-red-100'
-                      : 'border-gray-200 bg-gray-50 focus:border-brand-300 focus:bg-white focus:ring-4 focus:ring-brand-100'
+                      : 'border-gray-300 bg-gray-50 focus:border-brand-300 focus:bg-white focus:ring-4 focus:ring-brand-100'
                   ]"
                   :disabled="form.processing"
                   :aria-describedby="
@@ -264,7 +264,7 @@ const handleWaitlistSubmit = (e) => {
               />
             </button>
             <button
-              class="rounded-xl border-2 border-gray-200 bg-white px-8 py-4 font-bold text-gray-700 shadow-lg transition-all duration-200 hover:scale-[1.02] hover:border-brand-300 hover:shadow-xl"
+              class="rounded-xl border-2 border-gray-300 bg-white px-8 py-4 font-bold text-gray-700 shadow-lg transition-all duration-200 hover:scale-[1.02] hover:border-brand-300 hover:shadow-xl"
             >
               Schedule Demo
             </button>

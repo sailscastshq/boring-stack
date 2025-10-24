@@ -211,7 +211,7 @@ function sendMagicLink(e) {
                     'w-full rounded-xl border px-4 py-4 text-lg font-medium transition-all duration-200',
                     form.errors.fullName
                       ? 'border-red-300 bg-red-50 ring-2 ring-red-100'
-                      : 'border-gray-200 bg-gray-50 focus:border-brand-300 focus:bg-white focus:ring-4 focus:ring-brand-100'
+                      : 'border-gray-300 bg-gray-50 focus:border-brand-300 focus:bg-white focus:ring-4 focus:ring-brand-100'
                   ]"
                   placeholder="Enter your full name"
                 />
@@ -244,7 +244,7 @@ function sendMagicLink(e) {
                     'w-full rounded-xl border px-4 py-4 text-lg font-medium transition-all duration-200',
                     form.errors.email
                       ? 'border-red-300 bg-red-50 ring-2 ring-red-100'
-                      : 'border-gray-200 bg-gray-50 focus:border-brand-300 focus:bg-white focus:ring-4 focus:ring-brand-100'
+                      : 'border-gray-300 bg-gray-50 focus:border-brand-300 focus:bg-white focus:ring-4 focus:ring-brand-100'
                   ]"
                   placeholder="Enter your email address"
                 />
@@ -372,7 +372,7 @@ function sendMagicLink(e) {
                       'w-full rounded-xl border px-4 py-4 text-lg font-medium transition-all duration-200',
                       form.errors.fullName
                         ? 'border-red-300 bg-red-50 ring-2 ring-red-100'
-                        : 'border-gray-200 bg-gray-50 focus:border-brand-300 focus:bg-white focus:ring-4 focus:ring-brand-100'
+                        : 'border-gray-300 bg-gray-50 focus:border-brand-300 focus:bg-white focus:ring-4 focus:ring-brand-100'
                     ]"
                     placeholder="Enter your full name"
                   />
@@ -405,7 +405,7 @@ function sendMagicLink(e) {
                       'w-full rounded-xl border px-4 py-4 text-lg font-medium transition-all duration-200',
                       form.errors.email
                         ? 'border-red-300 bg-red-50 ring-2 ring-red-100'
-                        : 'border-gray-200 bg-gray-50 focus:border-brand-300 focus:bg-white focus:ring-4 focus:ring-brand-100'
+                        : 'border-gray-300 bg-gray-50 focus:border-brand-300 focus:bg-white focus:ring-4 focus:ring-brand-100'
                     ]"
                     placeholder="Enter your email address"
                   />
@@ -438,7 +438,7 @@ function sendMagicLink(e) {
                       'w-full rounded-xl border px-4 py-4 text-lg font-medium transition-all duration-200',
                       form.errors.password
                         ? 'border-red-300 bg-red-50 ring-2 ring-red-100'
-                        : 'border-gray-200 bg-gray-50 focus:border-brand-300 focus:bg-white focus:ring-4 focus:ring-brand-100'
+                        : 'border-gray-300 bg-gray-50 focus:border-brand-300 focus:bg-white focus:ring-4 focus:ring-brand-100'
                     ]"
                     placeholder="Create a secure password"
                   />
@@ -575,7 +575,7 @@ function sendMagicLink(e) {
           <div v-if="showExpandedOptions" class="my-6">
             <div class="relative">
               <div class="absolute inset-0 flex items-center">
-                <div class="w-full border-t border-gray-200" />
+                <div class="w-full border-t border-gray-300" />
               </div>
               <div class="relative flex justify-center text-sm">
                 <span class="bg-white px-4 font-medium text-gray-500">
@@ -590,7 +590,7 @@ function sendMagicLink(e) {
             <!-- Google Button - Half width -->
             <a
               href="/auth/google/redirect"
-              class="flex items-center justify-center rounded-xl border border-gray-200 bg-gray-50 px-4 py-4 text-base font-medium text-gray-700 shadow-lg transition-all duration-200 hover:scale-[1.02] hover:border-gray-300 hover:bg-gray-100 hover:shadow-xl focus:outline-none focus:ring-2 focus:ring-brand-500 focus:ring-offset-2"
+              class="flex items-center justify-center rounded-xl border border-gray-300 bg-gray-50 px-4 py-4 text-base font-medium text-gray-700 shadow-lg transition-all duration-200 hover:scale-[1.02] hover:border-gray-300 hover:bg-gray-100 hover:shadow-xl focus:outline-none focus:ring-2 focus:ring-brand-500 focus:ring-offset-2"
             >
               <svg class="mr-2 h-5 w-5" viewBox="0 0 24 24">
                 <path
@@ -616,7 +616,7 @@ function sendMagicLink(e) {
             <!-- GitHub Button - Half width -->
             <a
               href="/auth/github/redirect"
-              class="flex items-center justify-center rounded-xl border border-gray-200 bg-gray-50 px-4 py-4 text-base font-medium text-gray-700 shadow-lg transition-all duration-200 hover:scale-[1.02] hover:border-gray-300 hover:bg-gray-100 hover:shadow-xl focus:outline-none focus:ring-2 focus:ring-brand-500 focus:ring-offset-2"
+              class="flex items-center justify-center rounded-xl border border-gray-300 bg-gray-50 px-4 py-4 text-base font-medium text-gray-700 shadow-lg transition-all duration-200 hover:scale-[1.02] hover:border-gray-300 hover:bg-gray-100 hover:shadow-xl focus:outline-none focus:ring-2 focus:ring-brand-500 focus:ring-offset-2"
             >
               <svg class="mr-2 h-5 w-5" fill="currentColor" viewBox="0 0 24 24">
                 <path

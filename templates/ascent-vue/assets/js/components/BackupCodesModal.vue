@@ -106,7 +106,7 @@ function handleSavedCodes() {
           <div
             v-for="(code, index) in backupCodes"
             :key="index"
-            class="rounded-lg border border-gray-200 bg-white px-4 py-3 font-mono text-sm font-medium text-gray-900 shadow-sm transition-shadow duration-150"
+            class="rounded-lg border border-gray-300 bg-white px-4 py-3 font-mono text-sm font-medium text-gray-900 shadow-sm transition-shadow duration-150"
           >
             {{ code }}
           </div>

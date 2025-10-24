@@ -17,7 +17,7 @@ defineProps({
 
   <section class="relative overflow-hidden px-4 pb-16 pt-20">
     <div
-      class="absolute inset-0 bg-gradient-to-br from-brand-50/30 via-white to-accent-50/20"
+      class="absolute inset-0 bg-linear-to-br from-brand-50/30 via-white to-accent-50/20"
     ></div>
     <div
       class="absolute left-1/2 top-20 h-96 w-96 -translate-x-1/2 transform rounded-full bg-brand-100/20 blur-3xl"
@@ -35,7 +35,7 @@ defineProps({
       <h1 class="mb-6 text-5xl font-extrabold tracking-tight md:text-6xl">
         <span class="block leading-tight text-gray-900">{{ appName }}</span>
         <span
-          class="block bg-gradient-to-r from-brand-600 to-accent-600 bg-clip-text leading-tight text-transparent"
+          class="block bg-linear-to-rrom-brand-600 to-accent-600 bg-clip-text leading-tight text-transparent"
         >
           Blog
         </span>
@@ -56,12 +56,12 @@ defineProps({
         <article
           v-for="(post, index) in blogPosts"
           :key="post.slug"
-          class="group relative rounded-2xl border border-gray-100 bg-white p-8 shadow-sm transition-all duration-300 hover:border-brand-200 hover:shadow-xl"
+          class="group relative rounded-2xl border border-gray-300 bg-white p-8 shadow-sm transition-all duration-300 hover:border-brand-300 hover:shadow-xl"
         >
           <div
             class="flex flex-col space-y-6 sm:flex-row sm:items-start sm:space-x-8 sm:space-y-0"
           >
-            <div class="flex-shrink-0">
+            <div class="shrink-0">
               <time
                 class="inline-flex items-center rounded-full bg-brand-50 px-4 py-2 text-sm font-medium text-brand-700"
               >
@@ -114,7 +114,7 @@ defineProps({
           </div>
 
           <div
-            class="absolute inset-0 -z-10 rounded-2xl bg-gradient-to-r from-brand-500/5 to-accent-500/5 opacity-0 transition-opacity group-hover:opacity-100"
+            class="absolute inset-0 -z-10 rounded-2xl bg-linear-to-r from-brand-500/5 to-accent-500/5 opacity-0 transition-opacity group-hover:opacity-100"
           ></div>
         </article>
       </div>
@@ -153,7 +153,7 @@ defineProps({
 
       <div
         v-if="blogPosts && blogPosts.length > 0"
-        class="relative mt-20 overflow-hidden rounded-3xl bg-gradient-to-br from-gray-900 via-gray-800 to-brand-900 px-8 py-12 text-center text-white"
+        class="relative mt-20 overflow-hidden rounded-3xl bg-linear-to-br from-gray-900 via-gray-800 to-brand-900 px-8 py-12 text-center text-white"
       >
         <div
           class="absolute left-1/4 top-0 h-32 w-32 rounded-full bg-brand-500/10 blur-3xl"
@@ -181,7 +181,7 @@ defineProps({
             />
             <button
               type="submit"
-              class="rounded-lg bg-gradient-to-r from-brand-600 to-accent-600 px-8 py-3 font-semibold text-white transition-all duration-200 hover:shadow-lg"
+              class="rounded-lg bg-linear-to-r from-brand-600 to-accent-600 px-8 py-3 font-semibold text-white transition-all duration-200 hover:shadow-lg"
             >
               Subscribe
             </button>

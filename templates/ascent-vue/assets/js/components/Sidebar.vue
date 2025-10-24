@@ -177,14 +177,14 @@ const avatarStyle = computed(() => ({
       </nav>
 
       <!-- User Section -->
-      <div class="border-t border-gray-200 p-4">
+      <div class="border-t border-gray-300 p-4">
         <div class="flex items-center space-x-3">
           <Avatar
             :image="loggedInUser?.avatarUrl"
             :label="loggedInUser?.initials"
             size="large"
             shape="circle"
-            class="border-2 border-gray-200 [&_img]:rounded-full"
+            class="border-2 border-gray-300 [&_img]:rounded-full"
             :style="avatarStyle"
           />
           <div class="min-w-0 flex-1">

@@ -313,7 +313,7 @@ function submitInitialPassword(e) {
       </header>
 
       <div
-        class="rounded-lg border border-gray-200 bg-white p-4 shadow-sm sm:p-6"
+        class="rounded-lg border border-gray-300 bg-white p-4 shadow-sm sm:p-6"
       >
         <!-- No Password State - Show Setup Option -->
         <div
@@ -641,7 +641,7 @@ function submitInitialPassword(e) {
         </p>
       </header>
 
-      <div class="rounded-lg border border-gray-200 bg-white p-6 shadow-sm">
+      <div class="rounded-lg border border-gray-300 bg-white p-6 shadow-sm">
         <div class="flex items-center justify-between">
           <div class="flex items-center space-x-4">
             <div
@@ -699,7 +699,7 @@ function submitInitialPassword(e) {
       <!-- Passkey Management - Show when passkeys are enabled -->
       <div
         v-if="passkeyEnabled"
-        class="rounded-lg border border-gray-200 bg-white p-4 shadow-sm"
+        class="rounded-lg border border-gray-300 bg-white p-4 shadow-sm"
       >
         <div class="flex items-center justify-between">
           <div class="flex items-center space-x-3">
@@ -739,7 +739,7 @@ function submitInitialPassword(e) {
           password.
         </p>
       </header>
-      <div class="rounded-lg border border-gray-200 bg-white p-6 shadow-sm">
+      <div class="rounded-lg border border-gray-300 bg-white p-6 shadow-sm">
         <div class="flex items-center justify-between">
           <div class="flex items-center space-x-4">
             <div
@@ -809,7 +809,7 @@ function submitInitialPassword(e) {
             'rounded-lg border p-4 shadow-sm',
             totpEnabled
               ? 'border-success-200 bg-success-50'
-              : 'border-gray-200 bg-white'
+              : 'border-gray-300 bg-white'
           ]"
         >
           <div class="flex items-center justify-between">
@@ -869,7 +869,7 @@ function submitInitialPassword(e) {
             'rounded-lg border p-4 shadow-sm',
             emailTwoFactorEnabled
               ? 'border-success-200 bg-success-50'
-              : 'border-gray-200 bg-white'
+              : 'border-gray-300 bg-white'
           ]"
         >
           <div class="flex items-center justify-between">
@@ -927,7 +927,7 @@ function submitInitialPassword(e) {
         <!-- Backup Codes Section - only show when 2FA is enabled -->
         <div
           v-if="twoFactorEnabled"
-          class="rounded-lg border border-gray-200 bg-white p-4 shadow-sm"
+          class="rounded-lg border border-gray-300 bg-white p-4 shadow-sm"
         >
           <div class="flex items-center justify-between">
             <div class="flex items-center space-x-3">

@@ -93,7 +93,7 @@ function handleClose() {
         </div>
 
         <!-- Help Text -->
-        <div class="rounded-lg border border-gray-200 bg-gray-50 p-4">
+        <div class="rounded-lg border border-gray-300 bg-gray-50 p-4">
           <div class="flex">
             <div class="shrink-0">
               <i class="pi pi-info-circle text-gray-400" />

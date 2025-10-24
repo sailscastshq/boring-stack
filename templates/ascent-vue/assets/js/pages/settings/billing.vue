@@ -93,7 +93,7 @@ const formattedNextBillingDate = computed(() => {
         </p>
       </header>
 
-      <div class="rounded-lg border border-gray-200 bg-white p-6 shadow-sm">
+      <div class="rounded-lg border border-gray-300 bg-white p-6 shadow-sm">
         <div
           class="flex flex-col space-y-4 sm:flex-row sm:items-center sm:justify-between sm:space-y-0"
         >
@@ -152,7 +152,7 @@ const formattedNextBillingDate = computed(() => {
         </p>
       </header>
 
-      <div class="rounded-lg border border-gray-200 bg-white p-4 shadow-sm">
+      <div class="rounded-lg border border-gray-300 bg-white p-4 shadow-sm">
         <div class="flex items-center justify-between">
           <div class="flex items-center space-x-3">
             <div
@@ -202,7 +202,7 @@ const formattedNextBillingDate = computed(() => {
         </p>
       </header>
 
-      <div class="rounded-lg border border-gray-200 bg-white p-6 shadow-sm">
+      <div class="rounded-lg border border-gray-300 bg-white p-6 shadow-sm">
         <div class="text-center">
           <div class="mb-4">
             <div

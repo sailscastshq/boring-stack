@@ -16,7 +16,7 @@ useFlashToast()
     class="bg-linear-to-b from-brand-50/10 flex min-h-screen flex-col to-[#F9FAFB] dark:from-gray-900 dark:to-gray-950"
   >
     <header
-      class="sticky top-0 z-50 border-b border-gray-100 border-opacity-10 bg-white/90 backdrop-blur-md dark:border-gray-800 dark:border-opacity-40 dark:bg-gray-900/90"
+      class="sticky top-0 z-50 border-b border-gray-100 bg-white/90 backdrop-blur-md dark:border-gray-800 dark:border-opacity-40 dark:bg-gray-900/90"
     >
       <nav
         class="mx-auto flex max-w-7xl items-center justify-between px-4 py-4 md:px-8"
@@ -113,7 +113,7 @@ useFlashToast()
               :label="loggedInUser.initials"
               size="large"
               shape="circle"
-              class="hover:border-brand border-2 border-gray-200 transition-colors [&_img]:rounded-full"
+              class="hover:border-brand border-2 border-gray-300 transition-colors [&_img]:rounded-full"
               :style="{
                 backgroundColor: loggedInUser.currentAvatarUrl
                   ? undefined
