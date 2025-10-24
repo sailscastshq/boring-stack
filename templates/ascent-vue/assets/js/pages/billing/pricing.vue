@@ -60,7 +60,7 @@ const sliderPosition = computed(() => {
       >
         Start free, scale when you're ready. No hidden fees, no surprises.
         <span class="font-semibold text-gray-900">
-          {' '} Just honest, transparent pricing that grows with your business.
+          Just honest, transparent pricing that grows with your business.
         </span>
       </p>
 
