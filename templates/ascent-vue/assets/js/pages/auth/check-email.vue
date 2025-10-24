@@ -67,7 +67,7 @@ const pageTitle = computed(() => {
   <Head :title="`${title} | Ascent`" />
 
   <div
-    class="from-brand-50/30 to-accent-50/20 flex min-h-screen flex-col justify-center bg-gradient-to-br via-white py-12 sm:px-6 lg:px-8"
+    class="from-brand-50/30 to-accent-50/20 flex min-h-screen flex-col justify-center bg-linear-to-br via-white py-12 sm:px-6 lg:px-8"
   >
     <div class="pointer-events-none absolute inset-0 overflow-hidden">
       <div
@@ -96,7 +96,7 @@ const pageTitle = computed(() => {
 
       <div class="relative">
         <div
-          class="from-brand-600/10 to-accent-600/10 absolute inset-0 scale-105 rounded-2xl bg-gradient-to-r blur-xl"
+          class="from-brand-600/10 to-accent-600/10 absolute inset-0 scale-105 rounded-2xl bg-linear-to-r blur-xl"
         ></div>
 
         <div
@@ -104,7 +104,7 @@ const pageTitle = computed(() => {
         >
           <div class="mb-6 flex justify-center">
             <div
-              class="from-brand-100 to-accent-100 flex h-16 w-16 items-center justify-center rounded-full bg-gradient-to-br"
+              class="from-brand-100 to-accent-100 flex h-16 w-16 items-center justify-center rounded-full bg-linear-to-br"
             >
               <svg
                 class="text-brand-600 h-8 w-8"
@@ -137,7 +137,7 @@ const pageTitle = computed(() => {
           <button
             type="button"
             @click="handleOpenEmailApp"
-            class="from-brand-600 to-accent-600 hover:from-brand-700 hover:to-accent-700 focus:ring-brand-500 mb-6 w-full rounded-xl bg-gradient-to-r px-8 py-4 text-lg font-bold text-white shadow-lg transition-all duration-200 hover:scale-[1.02] hover:shadow-xl focus:outline-none focus:ring-2 focus:ring-offset-2"
+            class="from-brand-600 to-accent-600 hover:from-brand-700 hover:to-accent-700 focus:ring-brand-500 mb-6 w-full rounded-xl bg-linear-to-r px-8 py-4 text-lg font-bold text-white shadow-lg transition-all duration-200 hover:scale-[1.02] hover:shadow-xl focus:outline-none focus:ring-2 focus:ring-offset-2"
           >
             Open email app
           </button>
