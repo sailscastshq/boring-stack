@@ -308,11 +308,18 @@ const sliderPosition = computed(() => {
           <div
             class="relative overflow-hidden rounded-3xl border border-brand-200 bg-white p-10 shadow-2xl"
           >
-            <!-- Ribbon Banner -->
+            <!-- Ribbon Banner with 3D corners -->
+            <!-- Adjust the `w-*` class to fit the text size -->
             <div
-              class="bg-linear-to-r absolute -right-12 top-6 z-10 w-48 rotate-45 transform from-brand-600 to-accent-600 py-2 text-center text-xs font-bold text-white shadow-lg"
+              class="absolute -right-2 -top-2 aspect-square w-32 overflow-hidden rounded-sm"
             >
-              MOST POPULAR
+              <div class="absolute left-0 top-0 h-2 w-2 bg-brand-800"></div>
+              <div class="absolute bottom-0 right-0 h-2 w-2 bg-brand-800"></div>
+              <span
+                class="bg-linear-to-r absolute bottom-0 right-0 block w-[141.42%] origin-bottom-right rotate-45 from-brand-500 to-brand-600 py-1.5 text-center text-xs font-semibold uppercase tracking-wider text-white shadow-sm"
+              >
+                Most Popular
+              </span>
             </div>
 
             <div class="mb-8">
