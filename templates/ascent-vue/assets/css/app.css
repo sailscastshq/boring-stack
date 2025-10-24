@@ -2,6 +2,8 @@
 @plugin '@tailwindcss/typography';
 @plugin 'tailwindcss-primeui';
 
+@variant dark (&:where(.dark, .dark *));
+
 @theme {
   /* Brand Colors */
   --color-brand-50: #f0f9ff;
