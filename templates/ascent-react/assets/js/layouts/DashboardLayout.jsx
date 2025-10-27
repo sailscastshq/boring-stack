@@ -77,17 +77,12 @@ function DashboardSidebar({
       {/* Sidebar */}
       <aside
         className={`
-        flex flex-col border-r border-gray-50 bg-white transition-all duration-300 ease-in-out
-        lg:relative lg:translate-x-0
+        fixed inset-y-0 left-0 z-50 flex flex-col border-r border-gray-100 bg-white transition-all duration-300 ease-in-out
+        ${isCollapsed ? 'lg:w-16' : 'lg:w-64'}
         ${
-          // Desktop behavior
-          isCollapsed ? 'lg:w-16' : 'lg:w-64'
-        }
-        ${
-          // Mobile behavior - fixed overlay
           isMobileOpen
-            ? 'fixed inset-y-0 left-0 z-50 w-64 translate-x-0'
-            : 'fixed inset-y-0 left-0 z-50 w-64 -translate-x-full lg:translate-x-0'
+            ? 'w-64 translate-x-0'
+            : 'w-64 -translate-x-full lg:translate-x-0'
         }
       `}
       >
@@ -301,7 +296,7 @@ function DashboardNavbar({
   const navbarUserMenuRef = useRef(null)
 
   return (
-    <header className="border-b border-gray-50 bg-white">
+    <header className="sticky top-0 z-30 border-b border-gray-100 bg-white">
       <div className="flex h-16 items-center justify-between px-4 sm:px-6 lg:px-8">
         <div className="flex items-center gap-4">
           {/* Mobile menu button */}
@@ -583,7 +578,11 @@ export default function DashboardLayout({
       />
 
       {/* Main content area */}
-      <div className="flex flex-1 flex-col">
+      <div
+        className={`flex flex-1 flex-col transition-all duration-300 ease-in-out ${
+          isCollapsed ? 'lg:pl-16' : 'lg:pl-64'
+        }`}
+      >
         {/* Navbar */}
         <DashboardNavbar
           onSidebarToggle={toggleSidebar}
