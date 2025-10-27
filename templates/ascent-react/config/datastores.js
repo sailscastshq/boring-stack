@@ -37,8 +37,7 @@ module.exports.datastores = {
      * https://docs.sailscasts.com/boring-stack/database                        *
      *                                                                          *
      ***************************************************************************/
-    adapter: 'sails-sqlite',
-    url: 'db/development.sqlite'
+    adapter: 'sails-sqlite'
   },
   content: {
     adapter: 'sails-content'
