@@ -11,7 +11,8 @@ import Message from '@/volt/Message.vue'
 import DashboardLayout from '@/layouts/DashboardLayout.vue'
 
 defineOptions({
-  layout: DashboardLayout
+  layout: (h, page) =>
+    h(DashboardLayout, { maxWidth: 'narrow', title: 'Team' }, () => page)
 })
 import ConfirmDialog from '@/volt/ConfirmDialog.vue'
 import Dialog from '@/volt/Dialog.vue'

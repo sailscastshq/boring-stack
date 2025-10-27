@@ -8,7 +8,8 @@ import ConfirmDialog from '@/volt/ConfirmDialog.vue'
 import DashboardLayout from '@/layouts/DashboardLayout.vue'
 
 defineOptions({
-  layout: DashboardLayout
+  layout: (h, page) =>
+    h(DashboardLayout, { maxWidth: 'narrow', title: 'Billing' }, () => page)
 })
 
 const props = defineProps({

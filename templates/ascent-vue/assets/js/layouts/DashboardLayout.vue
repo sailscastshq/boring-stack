@@ -16,7 +16,7 @@ const props = defineProps({
   },
   maxWidth: {
     type: String,
-    default: 'default'
+    default: 'wide'
   }
 })
 
@@ -400,15 +400,17 @@ const sharedUserMenuItems = computed(() => {
           <div class="flex items-center gap-3">
             <Button
               icon="pi pi-search"
-              text
-              class="text-gray-500 hover:text-gray-700"
+              aria-label="Search"
+              :text="true"
+              variant="text"
               size="small"
+              class="text-gray-500 hover:text-gray-700"
             />
             <Button
               icon="pi pi-bell"
-              text
+              aria-label="Notifications"
+              variant="text"
               class="text-gray-500 hover:text-gray-700"
-              size="small"
             />
 
             <!-- User Avatar Dropdown -->

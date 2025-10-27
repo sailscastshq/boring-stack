@@ -10,7 +10,8 @@ import Message from '@/volt/Message.vue'
 import DashboardLayout from '@/layouts/DashboardLayout.vue'
 
 defineOptions({
-  layout: DashboardLayout
+  layout: (h, page) =>
+    h(DashboardLayout, { maxWidth: 'narrow', title: 'Security' }, () => page)
 })
 
 import TotpSetupModal from '@/components/TotpSetupModal.vue'
