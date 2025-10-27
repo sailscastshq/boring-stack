@@ -37,7 +37,7 @@
     "sails-hook-uploads": "^0.4.3",
     "sails-hook-wish": "^0.0.9",
     "sails-pay": "^0.0.5",
-    "sails-sqlite": "^0.2.1",
+    "sails-sqlite": "^0.2.2",
     "skipper-s3": "^0.6.0",
     "speakeasy": "^2.0.0",
     "tailwind-merge": "^3.3.1",
