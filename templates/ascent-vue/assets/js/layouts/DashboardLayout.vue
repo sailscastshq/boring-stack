@@ -157,7 +157,7 @@ const sharedUserMenuItems = computed(() => {
     <!-- Sidebar -->
     <aside
       :class="[
-        'fixed inset-y-0 left-0 z-50 flex flex-col border-r border-gray-100 bg-white transition-all duration-300 ease-in-out',
+        'fixed inset-y-0 left-0 z-50 flex flex-col border-r border-gray-200 bg-white transition-all duration-300 ease-in-out',
         isCollapsed ? 'lg:w-16' : 'lg:w-64',
         isMobileOpen
           ? 'w-64 translate-x-0'
@@ -344,7 +344,7 @@ const sharedUserMenuItems = computed(() => {
       ]"
     >
       <!-- Navbar -->
-      <header class="sticky top-0 z-30 border-b border-gray-100 bg-white">
+      <header class="sticky top-0 z-30 border-b border-gray-200 bg-white">
         <div
           class="flex h-16 items-center justify-between px-4 sm:px-6 lg:px-8"
         >
