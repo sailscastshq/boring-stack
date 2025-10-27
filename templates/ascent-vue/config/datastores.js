@@ -38,7 +38,7 @@ module.exports.datastores = {
      *                                                                          *
      ***************************************************************************/
     adapter: 'sails-sqlite',
-    url: 'db/development.sqlite'
+    url: 'db/local.sqlite'
   },
   content: {
     adapter: 'sails-content'
