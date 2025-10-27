@@ -100,7 +100,7 @@ const pageTitle = computed(() => {
         ></div>
 
         <div
-          class="relative rounded-2xl border border-gray-100 bg-white px-8 py-10 text-center shadow-2xl"
+          class="relative rounded-2xl border border-gray-200 bg-white px-8 py-10 text-center shadow-2xl"
         >
           <div class="mb-6 flex justify-center">
             <div
