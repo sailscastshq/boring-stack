@@ -94,13 +94,33 @@ const sharedUserMenuItems = computed(() => {
     }
   ]
 
+  // Add teams section if teams exist
   if (teams.value && teams.value.length > 0) {
     items.push({
       separator: true
     })
+
+    // Add each team as a menu item
+    teams.value.forEach((team) => {
+      items.push({
+        label: team.name,
+        icon: currentTeam.value?.id === team.id ? 'pi pi-check' : 'pi pi-users',
+        command: () => router.post(`/teams/${team.id}/switch`)
+      })
+    })
+
+    // Add "Add new team" button
+    items.push({
+      label: 'Add new team',
+      icon: 'pi pi-plus',
+      command: () => router.visit('/team/create')
+    })
   }
 
   items.push(
+    {
+      separator: true
+    },
     {
       label: 'My profile',
       icon: 'pi pi-user',
@@ -137,7 +157,7 @@ const sharedUserMenuItems = computed(() => {
     <!-- Sidebar -->
     <aside
       :class="[
-        'flex flex-col border-r border-gray-50 bg-white transition-all duration-300 ease-in-out',
+        'flex flex-col border-r border-gray-100 bg-white transition-all duration-300 ease-in-out',
         'lg:relative lg:translate-x-0',
         isCollapsed ? 'lg:w-16' : 'lg:w-64',
         isMobileOpen
@@ -320,7 +340,7 @@ const sharedUserMenuItems = computed(() => {
     <!-- Main content area -->
     <div class="flex flex-1 flex-col">
       <!-- Navbar -->
-      <header class="border-b border-gray-50 bg-white">
+      <header class="border-b border-gray-100 bg-white">
         <div
           class="flex h-16 items-center justify-between px-4 sm:px-6 lg:px-8"
         >
