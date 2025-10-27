@@ -157,12 +157,11 @@ const sharedUserMenuItems = computed(() => {
     <!-- Sidebar -->
     <aside
       :class="[
-        'flex flex-col border-r border-gray-100 bg-white transition-all duration-300 ease-in-out',
-        'lg:relative lg:translate-x-0',
+        'fixed inset-y-0 left-0 z-50 flex flex-col border-r border-gray-100 bg-white transition-all duration-300 ease-in-out',
         isCollapsed ? 'lg:w-16' : 'lg:w-64',
         isMobileOpen
-          ? 'fixed inset-y-0 left-0 z-50 w-64 translate-x-0'
-          : 'fixed inset-y-0 left-0 z-50 w-64 -translate-x-full lg:translate-x-0'
+          ? 'w-64 translate-x-0'
+          : 'w-64 -translate-x-full lg:translate-x-0'
       ]"
     >
       <!-- Header -->
@@ -338,9 +337,14 @@ const sharedUserMenuItems = computed(() => {
     </aside>
 
     <!-- Main content area -->
-    <div class="flex flex-1 flex-col">
+    <div
+      :class="[
+        'flex flex-1 flex-col transition-all duration-300 ease-in-out',
+        isCollapsed ? 'lg:pl-16' : 'lg:pl-64'
+      ]"
+    >
       <!-- Navbar -->
-      <header class="border-b border-gray-100 bg-white">
+      <header class="sticky top-0 z-30 border-b border-gray-100 bg-white">
         <div
           class="flex h-16 items-center justify-between px-4 sm:px-6 lg:px-8"
         >
