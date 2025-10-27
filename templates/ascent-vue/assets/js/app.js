@@ -2,6 +2,7 @@ import { createApp, h } from 'vue'
 import { createInertiaApp } from '@inertiajs/vue3'
 import PrimeVue from 'primevue/config'
 import ToastService from 'primevue/toastservice'
+import ConfirmationService from 'primevue/confirmationservice'
 import '~/css/app.css'
 import 'primeicons/primeicons.css'
 
@@ -15,6 +16,7 @@ createInertiaApp({
       unstyled: true
     })
     app.use(ToastService)
+    app.use(ConfirmationService)
 
     app.mount(el)
   },
