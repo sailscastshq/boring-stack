@@ -547,14 +547,14 @@ export default function Signup() {
                       <p className="text-sm text-gray-600">
                         By creating an account, you agree to our{' '}
                         <a
-                          href="/terms"
+                          href="/legal/terms"
                           className="font-medium text-brand-600 underline underline-offset-2 hover:text-brand-500"
                         >
                           Terms of Service
                         </a>{' '}
                         and{' '}
                         <a
-                          href="/privacy-policy"
+                          href="/legal/privacy"
                           className="font-medium text-brand-600 underline underline-offset-2 hover:text-brand-500"
                         >
                           Privacy Policy
