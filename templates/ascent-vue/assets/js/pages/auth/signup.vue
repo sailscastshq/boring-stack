@@ -554,14 +554,14 @@ function sendMagicLink(e) {
                 <p class="text-sm text-gray-600">
                   By creating an account, you agree to our
                   <a
-                    href="/terms"
+                    href="/legal/terms"
                     class="font-medium text-brand-600 underline underline-offset-2 hover:text-brand-500"
                   >
                     Terms of Service
                   </a>
                   and
                   <a
-                    href="/privacy-policy"
+                    href="/legal/privacy"
                     class="font-medium text-brand-600 underline underline-offset-2 hover:text-brand-500"
                   >
                     Privacy Policy
