@@ -130,7 +130,7 @@ function handleTopicChange(e) {
                   <InputText
                     id="name"
                     v-model="form.name"
-                    class="w-full rounded-xl border border-gray-300 bg-gray-50 px-4 py-4 text-lg font-medium transition-all duration-200 focus:border-brand-300 focus:bg-white focus:ring-4 focus:ring-brand-100"
+                    class="w-full rounded-xl border border-gray-300 bg-gray-200 px-4 py-4 text-lg font-medium transition-all duration-200 focus:border-brand-300 focus:bg-white focus:ring-4 focus:ring-brand-100"
                     placeholder="Your name"
                     required
                   />
@@ -154,7 +154,7 @@ function handleTopicChange(e) {
                     id="email"
                     v-model="form.email"
                     type="email"
-                    class="w-full rounded-xl border border-gray-300 bg-gray-50 px-4 py-4 text-lg font-medium transition-all duration-200 focus:border-brand-300 focus:bg-white focus:ring-4 focus:ring-brand-100"
+                    class="w-full rounded-xl border border-gray-300 bg-gray-200 px-4 py-4 text-lg font-medium transition-all duration-200 focus:border-brand-300 focus:bg-white focus:ring-4 focus:ring-brand-100"
                     placeholder="your@email.com"
                     required
                   />
@@ -178,7 +178,7 @@ function handleTopicChange(e) {
                 <InputText
                   id="company"
                   v-model="form.company"
-                  class="w-full rounded-xl border border-gray-300 bg-gray-50 px-4 py-4 text-lg font-medium transition-all duration-200 focus:border-brand-300 focus:bg-white focus:ring-4 focus:ring-brand-100"
+                  class="w-full rounded-xl border border-gray-300 bg-gray-200 px-4 py-4 text-lg font-medium transition-all duration-200 focus:border-brand-300 focus:bg-white focus:ring-4 focus:ring-brand-100"
                   placeholder="Your company name"
                 />
               </fieldset>
@@ -217,7 +217,7 @@ function handleTopicChange(e) {
                 <Textarea
                   id="message"
                   v-model="form.message"
-                  class="w-full rounded-xl border border-gray-300 bg-gray-50 px-4 py-4 text-lg font-medium transition-all duration-200 focus:border-brand-300 focus:bg-white focus:ring-4 focus:ring-brand-100"
+                  class="w-full rounded-xl border border-gray-300 bg-gray-200 px-4 py-4 text-lg font-medium transition-all duration-200 focus:border-brand-300 focus:bg-white focus:ring-4 focus:ring-brand-100"
                   :rows="6"
                   placeholder="Tell us more about your inquiry..."
                   required

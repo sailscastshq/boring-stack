@@ -352,7 +352,7 @@ const sharedUserMenuItems = computed(() => {
             <!-- Mobile menu button -->
             <button
               @click="toggleMobileMenu"
-              class="rounded-md p-1.5 text-gray-500 transition-colors hover:bg-gray-50 hover:text-gray-700 lg:hidden"
+              class="rounded-md p-1.5 text-gray-500 transition-colors hover:bg-gray-200 hover:text-gray-700 lg:hidden"
               title="Open sidebar"
             >
               <svg

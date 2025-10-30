@@ -149,7 +149,7 @@ const handleWaitlistSubmit = (e) => {
                     'w-full rounded-xl border px-4 py-4 text-lg font-medium transition-all duration-200',
                     shouldShake || form.errors.email
                       ? 'border-red-300 bg-red-50 ring-2 ring-red-100'
-                      : 'border-gray-300 bg-gray-50 focus:border-brand-300 focus:bg-white focus:ring-4 focus:ring-brand-100'
+                      : 'border-gray-300 bg-gray-200 focus:border-brand-300 focus:bg-white focus:ring-4 focus:ring-brand-100'
                   ]"
                   :disabled="form.processing"
                   :aria-describedby="
