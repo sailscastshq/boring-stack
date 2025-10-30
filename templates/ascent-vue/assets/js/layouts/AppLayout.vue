@@ -1,12 +1,13 @@
 <script setup>
+import { computed } from 'vue'
 import { Link, usePage } from '@inertiajs/vue3'
 import Toast from '@/volt/Toast.vue'
 import Avatar from '@/volt/Avatar.vue'
 import { useFlashToast } from '@/composables/flashToast'
 
 const page = usePage()
-const loggedInUser = page.props.loggedInUser
-const url = page.url
+const loggedInUser = computed(() => page.props.loggedInUser)
+const url = computed(() => page.url)
 
 useFlashToast()
 </script>
