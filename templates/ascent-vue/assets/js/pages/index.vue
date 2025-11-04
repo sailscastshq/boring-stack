@@ -108,7 +108,7 @@ const handleWaitlistSubmit = (e) => {
       <div class="mx-auto mb-16 max-w-lg">
         <div v-if="isWaitlistActive" class="relative">
           <div
-            class="bg-linear-to-r absolute inset-0 scale-105 rounded-2xl from-brand-600 to-accent-600 opacity-20 blur-xl"
+            class="bg-linear-to-r absolute inset-0 scale-105 rounded-2xl from-brand-600 to-accent-600 opacity-20 blur-md"
           />
           <form
             @submit="handleWaitlistSubmit"
