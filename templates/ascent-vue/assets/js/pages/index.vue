@@ -280,7 +280,7 @@ const handleWaitlistSubmit = (e) => {
   <!-- Key Features Section -->
   <section class="relative bg-white px-4 py-20">
     <!-- Subtle background pattern -->
-    <div class="bg-linear-to-b absolute inset-0 from-gray-50/50 to-white" />
+    <div class="bg-linear-to-b absolute inset-0 from-gray-200 to-white" />
     <div
       class="absolute inset-0"
       style="
