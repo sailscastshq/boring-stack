@@ -113,7 +113,7 @@ const handleWaitlistSubmit = (e) => {
           <form
             @submit="handleWaitlistSubmit"
             :class="[
-              'relative rounded-2xl border border-gray-100 bg-white p-8 shadow-2xl transition-all duration-300',
+              'relative rounded-2xl border border-gray-300 bg-white p-8 shadow-2xl transition-all duration-300',
               shouldShake ? 'ring-4 ring-red-100' : 'hover:shadow-3xl'
             ]"
             :style="{
