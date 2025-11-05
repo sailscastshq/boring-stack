@@ -9,6 +9,7 @@ import Message from '@/volt/Message.vue'
 import ConfirmDialog from '@/volt/ConfirmDialog.vue'
 import ImageUpload from '@/components/ImageUpload.vue'
 import DashboardLayout from '@/layouts/DashboardLayout.vue'
+import DangerButton from '@/volt/DangerButton.vue'
 
 defineOptions({
   layout: (h, page) =>
@@ -178,11 +179,10 @@ function signOutEverywhere() {
               </div>
             </div>
             <div class="flex justify-end sm:ml-4 sm:shrink-0">
-              <Button
+              <DangerButton
                 label="Sign out"
                 @click="signOutEverywhere"
                 size="small"
-                class="w-full px-4 py-2 text-sm sm:w-auto"
                 variant="outlined"
                 severity="warning"
                 icon="pi pi-sign-out"
@@ -213,12 +213,11 @@ function signOutEverywhere() {
               </div>
             </div>
             <div class="flex justify-end sm:ml-4 sm:shrink-0">
-              <Button
+              <DangerButton
                 label="Delete"
                 @click="confirmDeleteAccount"
                 severity="danger"
                 size="small"
-                class="w-full px-4 py-2 text-sm sm:w-auto"
                 icon="pi pi-trash"
                 variant="outlined"
               />
