@@ -21,6 +21,8 @@ import Select from '@/volt/Select.vue'
 import { useCopyToClipboard } from '@/composables/copyToClipboard'
 import ImageUpload from '@/components/ImageUpload.vue'
 import Chips from '@/components/Chips.vue'
+import DangerButton from '@/volt/DangerButton.vue'
+import SecondaryButton from '@/volt/SecondaryButton.vue'
 
 const props = defineProps({
   team: {
@@ -459,12 +461,11 @@ function getActionItems(member) {
           </p>
         </div>
         <!-- Leave Team Button - only for non-owners -->
-        <Button
+        <DangerButton
           v-if="userRole !== 'owner'"
           label="Leave team"
           icon="pi pi-sign-out"
           size="small"
-          severity="danger"
           variant="outlined"
           @click="confirmLeaveTeam"
         />
@@ -723,10 +724,9 @@ function getActionItems(member) {
                 an admin.
               </p>
             </div>
-            <Button
+            <DangerButton
               label="Transfer ownership"
               size="small"
-              severity="danger"
               variant="outlined"
               @click="showTransferModal = true"
             />
@@ -743,10 +743,9 @@ function getActionItems(member) {
                 cannot be undone.
               </p>
             </div>
-            <Button
+            <DangerButton
               label="Delete team"
               size="small"
-              severity="danger"
               variant="outlined"
               @click="confirmDeleteTeam"
             />
@@ -834,7 +833,7 @@ function getActionItems(member) {
       </div>
 
       <div class="flex justify-end gap-3 pt-4">
-        <Button
+        <SecondaryButton
           type="button"
           variant="outlined"
           @click="
@@ -846,10 +845,9 @@ function getActionItems(member) {
           :disabled="transferForm.processing"
         >
           Cancel
-        </Button>
-        <Button
+        </SecondaryButton>
+        <DangerButton
           type="submit"
-          severity="danger"
           :loading="transferForm.processing"
           :disabled="
             transferForm.processing ||
@@ -859,7 +857,7 @@ function getActionItems(member) {
           "
         >
           Transfer Ownership
-        </Button>
+        </DangerButton>
       </div>
     </form>
   </Dialog>

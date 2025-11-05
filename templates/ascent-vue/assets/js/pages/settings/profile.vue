@@ -216,7 +216,6 @@ function signOutEverywhere() {
               <DangerButton
                 label="Delete"
                 @click="confirmDeleteAccount"
-                severity="danger"
                 size="small"
                 icon="pi pi-trash"
                 variant="outlined"
