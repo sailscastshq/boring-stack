@@ -263,7 +263,7 @@ function getDeviceIcon(transports) {
           icon="pi pi-plus"
           :loading="setupForm.processing"
           :disabled="setupForm.processing"
-          outlined
+          variant="outlined"
           size="small"
           @click="handleAddNewPasskey"
         />

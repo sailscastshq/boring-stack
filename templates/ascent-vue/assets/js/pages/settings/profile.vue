@@ -138,7 +138,7 @@ function signOutEverywhere() {
             :label="form.processing ? 'Saving changes...' : 'Save changes'"
             :loading="form.processing"
             size="small"
-            outlined
+            variant="outlined"
           />
         </div>
       </form>
@@ -183,7 +183,7 @@ function signOutEverywhere() {
                 @click="signOutEverywhere"
                 size="small"
                 class="w-full px-4 py-2 text-sm sm:w-auto"
-                outlined
+                variant="outlined"
                 severity="warning"
                 icon="pi pi-sign-out"
               />
@@ -220,7 +220,7 @@ function signOutEverywhere() {
                 size="small"
                 class="w-full px-4 py-2 text-sm sm:w-auto"
                 icon="pi pi-trash"
-                outlined
+                variant="outlined"
               />
             </div>
           </div>

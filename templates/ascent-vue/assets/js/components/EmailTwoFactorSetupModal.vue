@@ -114,7 +114,7 @@ function handleClose() {
             type="button"
             label="Cancel"
             severity="secondary"
-            outlined
+            variant="outlined"
             size="small"
             :disabled="form.processing"
             class="w-full sm:w-auto"

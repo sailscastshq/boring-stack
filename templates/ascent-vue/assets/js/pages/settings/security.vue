@@ -340,7 +340,7 @@ function submitInitialPassword(e) {
             <Button
               label="Set up"
               size="small"
-              outlined
+              variant="outlined"
               @click="handleSetupPassword"
             />
           </div>
@@ -429,7 +429,7 @@ function submitInitialPassword(e) {
               label="Cancel"
               size="small"
               class="w-full px-4 py-2 text-sm sm:w-auto"
-              outlined
+              variant="outlined"
               text
               severity="secondary"
               @click="
@@ -443,7 +443,7 @@ function submitInitialPassword(e) {
               type="submit"
               label="Set up password"
               size="small"
-              outlined
+              variant="outlined"
               class="w-full px-4 py-2 text-sm sm:w-auto"
               :disabled="initialPasswordForm.processing"
               :loading="initialPasswordForm.processing"
@@ -494,7 +494,7 @@ function submitInitialPassword(e) {
             <Button
               label="Edit"
               size="small"
-              outlined
+              variant="outlined"
               icon="pi pi-pencil"
               @click="showPasswordForm = true"
             />
@@ -608,7 +608,7 @@ function submitInitialPassword(e) {
                 label="Cancel"
                 size="small"
                 class="w-full px-4 py-2 text-sm sm:w-auto"
-                outlined
+                variant="outlined"
                 text
                 severity="secondary"
                 @click="
@@ -622,7 +622,7 @@ function submitInitialPassword(e) {
                 type="submit"
                 label="Save new password"
                 size="small"
-                outlined
+                variant="outlined"
                 class="w-full px-4 py-2 text-sm sm:w-auto"
                 :loading="form.processing"
               />
@@ -720,7 +720,7 @@ function submitInitialPassword(e) {
             <Button
               label="Manage"
               size="small"
-              outlined
+              variant="outlined"
               icon="pi pi-cog"
               @click="handleManagePasskeys"
             />
@@ -849,7 +849,7 @@ function submitInitialPassword(e) {
                 v-if="!totpEnabled"
                 :label="setupTotpForm.processing ? 'Setting up...' : 'Set up'"
                 size="small"
-                outlined
+                variant="outlined"
                 :loading="setupTotpForm.processing"
                 :disabled="!hasPassword || setupTotpForm.processing"
                 @click="setupTOTP"
@@ -910,7 +910,7 @@ function submitInitialPassword(e) {
                 v-if="!emailTwoFactorEnabled"
                 :label="setupEmailForm.processing ? 'Setting up...' : 'Set up'"
                 size="small"
-                outlined
+                variant="outlined"
                 :loading="setupEmailForm.processing"
                 :disabled="!hasPassword || setupEmailForm.processing"
                 @click="setupEmail2FA"
@@ -955,7 +955,7 @@ function submitInitialPassword(e) {
                     : 'Generate codes'
                 "
                 size="small"
-                outlined
+                variant="outlined"
                 :loading="generateBackupCodesForm.processing"
                 :disabled="generateBackupCodesForm.processing"
                 @click="handleGenerateBackupCodes"

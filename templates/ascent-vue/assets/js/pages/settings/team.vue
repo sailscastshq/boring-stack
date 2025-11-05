@@ -347,7 +347,7 @@ function getActionItems(member) {
             <Button
               type="submit"
               label="Set"
-              outlined
+              variant="outlined"
               :loading="domainForm.processing"
               :disabled="
                 domainForm.processing ||
@@ -430,7 +430,7 @@ function getActionItems(member) {
             <Button
               type="submit"
               label="Invite"
-              outlined
+              variant="outlined"
               :loading="emailForm.processing"
               :disabled="
                 emailForm.processing ||
@@ -465,7 +465,7 @@ function getActionItems(member) {
           icon="pi pi-sign-out"
           size="small"
           severity="danger"
-          outlined
+          variant="outlined"
           @click="confirmLeaveTeam"
         />
       </header>
@@ -727,7 +727,7 @@ function getActionItems(member) {
               label="Transfer ownership"
               size="small"
               severity="danger"
-              outlined
+              variant="outlined"
               @click="showTransferModal = true"
             />
           </div>
@@ -747,7 +747,7 @@ function getActionItems(member) {
               label="Delete team"
               size="small"
               severity="danger"
-              outlined
+              variant="outlined"
               @click="confirmDeleteTeam"
             />
           </div>
@@ -836,7 +836,7 @@ function getActionItems(member) {
       <div class="flex justify-end gap-3 pt-4">
         <Button
           type="button"
-          outlined
+          variant="outlined"
           @click="
             () => {
               showTransferModal = false

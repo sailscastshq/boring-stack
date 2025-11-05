@@ -59,7 +59,7 @@ function handleSubmit() {
         </Button>
         <Button
           type="button"
-          outlined
+          variant="outlined"
           @click="() => window.history.back()"
           :disabled="form.processing"
         >
