@@ -1,3 +1,59 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+@import 'tailwindcss';
+
+@theme {
+  /* Brand Colors */
+  --color-brand: #6C25C1;
+  --color-brand-50: #CCAEEF;
+  --color-brand-100: #C19DEC;
+  --color-brand-200: #AB7BE6;
+  --color-brand-300: #9659DF;
+  --color-brand-400: #8036D9;
+  --color-brand-500: #6C25C1;
+  --color-brand-600: #521C92;
+  --color-brand-700: #371363;
+  --color-brand-800: #1D0A34;
+  --color-brand-900: #030105;
+  --color-brand-950: #000000;
+
+  /* Green Colors */
+  --color-green: #49D489;
+  --color-green-50: #DEF7E9;
+  --color-green-100: #CDF3DF;
+  --color-green-200: #ACEBC9;
+  --color-green-300: #8BE4B4;
+  --color-green-400: #6ADC9E;
+  --color-green-500: #49D489;
+  --color-green-600: #2CB96D;
+  --color-green-700: #218C52;
+  --color-green-800: #165E37;
+  --color-green-900: #0C311D;
+  --color-green-950: #061A0F;
+
+  /* Gray Colors */
+  --color-gray: #878787;
+  --color-gray-50: #E3E3E3;
+  --color-gray-100: #D9D9D9;
+  --color-gray-200: #C4C4C4;
+  --color-gray-300: #B0B0B0;
+  --color-gray-400: #9B9B9B;
+  --color-gray-500: #878787;
+  --color-gray-600: #6B6B6B;
+  --color-gray-700: #4F4F4F;
+  --color-gray-800: #333333;
+  --color-gray-900: #171717;
+  --color-gray-950: #090909;
+
+  /* Black Colors */
+  --color-black: #333333;
+  --color-black-50: #8F8F8F;
+  --color-black-100: #858585;
+  --color-black-200: #707070;
+  --color-black-300: #5C5C5C;
+  --color-black-400: #474747;
+  --color-black-500: #333333;
+  --color-black-600: #171717;
+  --color-black-700: #000000;
+  --color-black-800: #000000;
+  --color-black-900: #000000;
+  --color-black-950: #000000;
+}
