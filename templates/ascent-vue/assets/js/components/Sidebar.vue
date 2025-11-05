@@ -3,6 +3,7 @@ import { Link, usePage } from '@inertiajs/vue3'
 import { computed } from 'vue'
 import Avatar from '@/volt/Avatar.vue'
 import Button from '@/volt/Button.vue'
+import SecondaryButton from '@/volt/SecondaryButton.vue'
 
 const props = defineProps({
   isOpen: {
@@ -99,11 +100,10 @@ const avatarStyle = computed(() => ({
         </Link>
 
         <!-- Close button for mobile -->
-        <Button
+        <SecondaryButton
           icon="pi pi-times"
           text
           class="lg:hidden"
-          severity="secondary"
           @click="emit('toggle')"
         />
       </div>
@@ -196,14 +196,12 @@ const avatarStyle = computed(() => ({
             </p>
           </div>
           <form action="/logout" method="POST">
-            <Button
+            <SecondaryButton
               type="submit"
               icon="pi pi-sign-out"
               text
-              severity="secondary"
               size="small"
               tooltip="Sign out"
-              class="text-gray-400 hover:text-gray-600"
             />
           </form>
         </div>

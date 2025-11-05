@@ -1,16 +1,15 @@
 <script setup>
-import Button from '@/volt/Button.vue'
 import { useDarkMode } from '@/composables/darkMode'
+import SecondaryButton from '@/volt/SecondaryButton.vue'
 
 const { isDark, toggleDarkMode } = useDarkMode()
 </script>
 
 <template>
-  <Button
+  <SecondaryButton
     :icon="isDark ? 'pi pi-sun' : 'pi pi-moon'"
     rounded
     text
-    severity="secondary"
     :aria-label="isDark ? 'Switch to light mode' : 'Switch to dark mode'"
     :tooltip="isDark ? 'Light mode' : 'Dark mode'"
     :tooltip-options="{ position: 'bottom' }"

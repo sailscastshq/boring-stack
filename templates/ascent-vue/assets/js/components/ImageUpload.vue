@@ -1,6 +1,7 @@
 <script setup>
 import { ref, watch } from 'vue'
 import Button from '@/volt/Button.vue'
+import SecondaryButton from '@/volt/SecondaryButton.vue'
 
 const props = defineProps({
   currentImageUrl: {
@@ -76,13 +77,12 @@ function openFileDialog() {
       <div
         class="absolute -right-4 -top-2 overflow-hidden rounded-full bg-white shadow-md"
       >
-        <Button
+        <SecondaryButton
           icon="pi pi-pencil"
           size="small"
           type="button"
           text
           rounded
-          severity="secondary"
           tooltip="Change image"
           @click="openFileDialog"
         />

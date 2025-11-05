@@ -4,6 +4,7 @@ import Dialog from '@/volt/Dialog.vue'
 import Button from '@/volt/Button.vue'
 import InputOtp from '@/volt/InputOtp.vue'
 import Message from '@/volt/Message.vue'
+import SecondaryButton from '@/volt/SecondaryButton.vue'
 
 const props = defineProps({
   visible: {
@@ -110,10 +111,9 @@ function handleClose() {
         <div
           class="flex flex-col justify-end space-y-3 sm:flex-row sm:space-x-3 sm:space-y-0"
         >
-          <Button
+          <SecondaryButton
             type="button"
             label="Cancel"
-            severity="secondary"
             variant="outlined"
             size="small"
             :disabled="form.processing"

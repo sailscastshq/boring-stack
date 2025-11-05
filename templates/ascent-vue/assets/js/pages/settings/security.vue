@@ -18,6 +18,7 @@ import TotpSetupModal from '@/components/TotpSetupModal.vue'
 import BackupCodesModal from '@/components/BackupCodesModal.vue'
 import EmailTwoFactorSetupModal from '@/components/EmailTwoFactorSetupModal.vue'
 import ManagePasskeysModal from '@/components/ManagePasskeysModal.vue'
+import SecondaryButton from '@/volt/SecondaryButton.vue'
 
 const props = defineProps({
   loggedInUser: {
@@ -424,14 +425,13 @@ function submitInitialPassword(e) {
           <div
             class="flex flex-col space-y-3 pt-4 sm:flex-row sm:items-center sm:justify-end sm:space-x-3 sm:space-y-0"
           >
-            <Button
+            <SecondaryButton
               type="button"
               label="Cancel"
               size="small"
               class="w-full px-4 py-2 text-sm sm:w-auto"
               variant="outlined"
               text
-              severity="secondary"
               @click="
                 () => {
                   showInitialPasswordForm = false
@@ -603,14 +603,13 @@ function submitInitialPassword(e) {
             <div
               class="flex flex-col space-y-2 sm:ml-auto sm:flex-row sm:items-center sm:space-x-3 sm:space-y-0"
             >
-              <Button
+              <SecondaryButton
                 type="button"
                 label="Cancel"
                 size="small"
                 class="w-full px-4 py-2 text-sm sm:w-auto"
                 variant="outlined"
                 text
-                severity="secondary"
                 @click="
                   () => {
                     showPasswordForm = false
@@ -966,12 +965,11 @@ function submitInitialPassword(e) {
 
         <!-- Cancel button - only show during setup flow when no 2FA is enabled -->
         <div v-if="!twoFactorEnabled && showSetupFlow" class="flex justify-end">
-          <Button
+          <SecondaryButton
             label="Cancel"
             size="small"
             text
-            severity="secondary"
-            class="p-button-outlined px-4 py-2 text-sm"
+            class="px-4 py-2 text-sm"
             @click="showSetupFlow = false"
           />
         </div>

@@ -7,6 +7,8 @@ import InputText from '@/volt/InputText.vue'
 import Message from '@/volt/Message.vue'
 import { useConfirm } from 'primevue/useconfirm'
 import Divider from '@/volt/Divider.vue'
+import DangerButton from '@/volt/DangerButton.vue'
+import SecondaryButton from '@/volt/SecondaryButton.vue'
 
 const props = defineProps({
   visible: {
@@ -190,10 +192,9 @@ function getDeviceIcon(transports) {
                       "
                       tooltip="Save"
                     />
-                    <Button
+                    <SecondaryButton
                       type="button"
                       icon="pi pi-times"
-                      severity="secondary"
                       text
                       rounded
                       :disabled="renameForm.processing"
@@ -224,9 +225,8 @@ function getDeviceIcon(transports) {
               v-if="editingPasskeyId !== passkey.credentialID"
               class="flex items-center space-x-1 opacity-100 transition-opacity sm:opacity-0 sm:group-hover:opacity-100"
             >
-              <Button
+              <SecondaryButton
                 icon="pi pi-pencil"
-                severity="secondary"
                 text
                 rounded
                 size="small"
@@ -234,14 +234,12 @@ function getDeviceIcon(transports) {
                 class="text-gray-400 hover:text-gray-600"
                 @click="handleEditClick(passkey)"
               />
-              <Button
+              <DangerButton
                 icon="pi pi-trash"
-                severity="danger"
                 text
                 rounded
                 size="small"
                 tooltip="Delete"
-                class="text-gray-400 hover:text-red-600"
                 @click="confirmDeletePasskey(passkey)"
               />
             </div>
