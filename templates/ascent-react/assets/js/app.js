@@ -2,7 +2,7 @@ import { createInertiaApp } from '@inertiajs/react'
 import { createRoot } from 'react-dom/client'
 import { PrimeReactProvider } from 'primereact/api'
 import Tailwind from 'primereact/passthrough/tailwind'
-import '~/css/main.css'
+import '~/css/app.css'
 import 'primeicons/primeicons.css'
 
 createInertiaApp({
