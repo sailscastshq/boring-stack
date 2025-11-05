@@ -317,12 +317,13 @@ function getActionItems(member) {
               text
             />
           </div>
-          <Button
-            label="Reset invite link"
+          <button
+            type="button"
             @click="resetInviteLink"
-            size="small"
-            link
-          />
+            class="text-brand-600 text-sm hover:underline cursor-pointer"
+          >
+            Reset invite link
+          </button>
         </div>
 
         <!-- Restrict by Domain -->
