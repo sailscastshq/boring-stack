@@ -1,11 +1,10 @@
 <script setup>
 import { ref, computed } from 'vue'
-import { Link, usePage, router } from '@inertiajs/vue3'
+import { Link, usePage } from '@inertiajs/vue3'
 import Toast from '@/volt/Toast.vue'
 import Avatar from '@/volt/Avatar.vue'
 import Button from '@/volt/Button.vue'
-import Menu from '@/volt/Menu.vue'
-import Popover from '@/volt/Popover.vue'
+import UserMenu from '@/components/UserMenu.vue'
 import { useFlashToast } from '@/composables/flashToast'
 import { useLocalStorage } from '@/composables/localStorage'
 
@@ -85,64 +84,6 @@ const isActiveRoute = (href) => {
 
 const userMenuRef = ref(null)
 const navbarUserMenuRef = ref(null)
-
-const sharedUserMenuItems = computed(() => {
-  const items = [
-    {
-      label: loggedInUser.value?.fullName,
-      items: []
-    }
-  ]
-
-  // Add teams section if teams exist
-  if (teams.value && teams.value.length > 0) {
-    items.push({
-      separator: true
-    })
-
-    // Add each team as a menu item
-    teams.value.forEach((team) => {
-      items.push({
-        label: team.name,
-        icon: currentTeam.value?.id === team.id ? 'pi pi-check' : 'pi pi-users',
-        command: () => router.post(`/teams/${team.id}/switch`)
-      })
-    })
-
-    // Add "Add new team" button
-    items.push({
-      label: 'Add new team',
-      icon: 'pi pi-plus',
-      command: () => router.visit('/team/create')
-    })
-  }
-
-  items.push(
-    {
-      separator: true
-    },
-    {
-      label: 'My profile',
-      icon: 'pi pi-user',
-      command: () => router.visit('/profile')
-    },
-    {
-      label: 'Help',
-      icon: 'pi pi-question-circle',
-      command: () => router.visit('/help')
-    },
-    {
-      separator: true
-    },
-    {
-      label: 'Sign out',
-      icon: 'pi pi-sign-out',
-      command: () => router.delete('/logout')
-    }
-  )
-
-  return items
-})
 </script>
 
 <template>
@@ -302,12 +243,7 @@ const sharedUserMenuItems = computed(() => {
             <i class="pi pi-ellipsis-v text-xs text-gray-400" />
           </div>
 
-          <Menu
-            ref="userMenuRef"
-            :model="sharedUserMenuItems"
-            :popup="true"
-            class="w-64"
-          />
+          <UserMenu ref="userMenuRef" />
         </template>
         <template v-else>
           <div class="flex justify-center">
@@ -325,12 +261,7 @@ const sharedUserMenuItems = computed(() => {
                 color: '#ffffff'
               }"
             />
-            <Menu
-              ref="userMenuRef"
-              :model="sharedUserMenuItems"
-              :popup="true"
-              class="w-64"
-            />
+            <UserMenu ref="userMenuRef" />
           </div>
         </template>
       </div>
@@ -430,12 +361,7 @@ const sharedUserMenuItems = computed(() => {
                 }"
               />
 
-              <Menu
-                ref="navbarUserMenuRef"
-                :model="sharedUserMenuItems"
-                :popup="true"
-                class="w-64"
-              />
+              <UserMenu ref="navbarUserMenuRef" />
             </div>
           </div>
         </div>
