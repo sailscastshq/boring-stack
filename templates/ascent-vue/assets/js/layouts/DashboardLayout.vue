@@ -7,6 +7,7 @@ import Button from '@/volt/Button.vue'
 import UserMenu from '@/components/UserMenu.vue'
 import { useFlashToast } from '@/composables/flashToast'
 import { useLocalStorage } from '@/composables/localStorage'
+import SecondaryButton from '@/volt/SecondaryButton.vue'
 
 const props = defineProps({
   title: {
@@ -329,7 +330,7 @@ const navbarUserMenuRef = ref(null)
           </div>
 
           <div class="flex items-center gap-3">
-            <Button
+            <SecondaryButton
               icon="pi pi-search"
               aria-label="Search"
               :text="true"
@@ -337,11 +338,11 @@ const navbarUserMenuRef = ref(null)
               size="small"
               class="text-gray-500 hover:text-gray-700"
             />
-            <Button
+            <SecondaryButton
               icon="pi pi-bell"
               aria-label="Notifications"
               variant="text"
-              class="text-gray-500 hover:text-gray-700"
+              size="small"
             />
 
             <!-- User Avatar Dropdown -->
