@@ -2,7 +2,7 @@
 import { ref, computed } from 'vue'
 import { Link, usePage } from '@inertiajs/vue3'
 import Toast from '@/volt/Toast.vue'
-import Avatar from '@/volt/Avatar.vue'
+import Avatar from '@/components/Avatar.vue'
 import Button from '@/volt/Button.vue'
 import UserMenu from '@/components/UserMenu.vue'
 import { useFlashToast } from '@/composables/flashToast'
@@ -249,8 +249,7 @@ const navbarUserMenuRef = ref(null)
         <template v-else>
           <div class="flex justify-center">
             <Avatar
-              :image="loggedInUser?.currentAvatarUrl"
-              :label="loggedInUser?.initials"
+              :user="loggedInUser"
               size="normal"
               shape="circle"
               class="cursor-pointer [&_img]:rounded-full"

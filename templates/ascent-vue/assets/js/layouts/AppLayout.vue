@@ -2,7 +2,7 @@
 import { computed } from 'vue'
 import { Link, usePage } from '@inertiajs/vue3'
 import Toast from '@/volt/Toast.vue'
-import Avatar from '@/volt/Avatar.vue'
+import Avatar from '@/components/Avatar.vue'
 import { useFlashToast } from '@/composables/flashToast'
 
 const page = usePage()
