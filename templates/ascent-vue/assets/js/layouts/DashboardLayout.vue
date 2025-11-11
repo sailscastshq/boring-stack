@@ -85,6 +85,14 @@ const isActiveRoute = (href) => {
 
 const userMenuRef = ref(null)
 const navbarUserMenuRef = ref(null)
+
+const toggleUserMenu = (event) => {
+  userMenuRef.value?.toggle(event)
+}
+
+const toggleNavbarUserMenu = (event) => {
+  navbarUserMenuRef.value?.toggle(event)
+}
 </script>
 
 <template>
@@ -218,7 +226,9 @@ const navbarUserMenuRef = ref(null)
         <template v-if="!isCollapsed || isMobileOpen">
           <div
             class="flex cursor-pointer items-center rounded-lg p-3 transition-colors hover:bg-gray-50"
-            @click="(e) => userMenuRef?.toggle(e)"
+            @click="toggleUserMenu"
+            aria-haspopup="true"
+            aria-controls="user_menu"
           >
             <Avatar
               :image="loggedInUser?.currentAvatarUrl"
@@ -253,7 +263,9 @@ const navbarUserMenuRef = ref(null)
               size="normal"
               shape="circle"
               class="cursor-pointer [&_img]:rounded-full"
-              @click="(e) => userMenuRef?.toggle(e)"
+              @click="toggleUserMenu"
+              aria-haspopup="true"
+              aria-controls="user_menu"
               :style="{
                 backgroundColor: loggedInUser?.currentAvatarUrl
                   ? undefined
@@ -352,7 +364,9 @@ const navbarUserMenuRef = ref(null)
                 size="normal"
                 shape="circle"
                 class="cursor-pointer transition-all hover:ring-2 hover:ring-brand-200 [&_img]:rounded-full"
-                @click="(e) => navbarUserMenuRef?.toggle(e)"
+                @click="toggleNavbarUserMenu"
+                aria-haspopup="true"
+                aria-controls="user_menu"
                 :style="{
                   backgroundColor: loggedInUser?.currentAvatarUrl
                     ? undefined
