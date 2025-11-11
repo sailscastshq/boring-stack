@@ -1,0 +1,60 @@
+<!-- Main content -->
+<div style="text-align: center;">
+  <h1 style="margin: 0 0 16px; font-size: 32px; font-weight: 800; color: #0f172a; line-height: 1.2; letter-spacing: -0.5px;">
+    Welcome to Ascent!
+  </h1>
+  
+  <p style="margin: 0 0 40px; font-size: 18px; color: #475569; line-height: 1.6; max-width: 480px; margin-left: auto; margin-right: auto;">
+    Hi <strong><%= fullName %></strong>, welcome to the team! You're just one click away from accessing your account. Please verify your email address to get started.
+  </p>
+
+  <!-- Verify Email Button -->
+  <table role="presentation" style="margin: 0 auto 40px; border-spacing: 0; border-collapse: collapse;">
+    <tr>
+      <td style="border-radius: 12px; background: linear-gradient(135deg, #16a34a 0%, #059669 100%); padding: 0; box-shadow: 0 8px 25px -5px rgba(22, 163, 74, 0.4);">
+        <a href="<%= url.resolve(sails.config.custom.baseUrl,'/verify-email')+'?token='+encodeURIComponent(token) %>" 
+           style="display: inline-block; padding: 18px 36px; color: white; text-decoration: none; font-weight: 700; font-size: 18px; border-radius: 12px; letter-spacing: -0.25px;">
+          Verify Email Address →
+        </a>
+      </td>
+    </tr>
+  </table>
+
+  <p style="margin: 0 0 32px; font-size: 14px; color: #64748b; line-height: 1.5;">
+    This verification link expires in <strong>24 hours</strong>.
+  </p>
+
+  <!-- Alternative link -->
+  <div style="padding: 24px; background-color: #f1f5f9; border-radius: 12px; border: 1px solid #cbd5e1; margin: 32px 0; text-align: left;">
+    <p style="margin: 0 0 8px; font-size: 13px; color: #475569; font-weight: 600; text-transform: uppercase; letter-spacing: 0.5px;">
+      Alternative Access
+    </p>
+    <p style="margin: 0 0 12px; font-size: 14px; color: #64748b;">
+      If the button doesn't work, copy and paste this link:
+    </p>
+    <p style="margin: 0; font-size: 13px; word-break: break-all; font-family: 'SF Mono', 'Monaco', 'Inconsolata', 'Roboto Mono', monospace; background-color: white; padding: 12px; border-radius: 6px; border: 1px solid #e2e8f0;">
+      <a href="<%= url.resolve(sails.config.custom.baseUrl,'/verify-email')+'?token='+encodeURIComponent(token) %>" style="color: #1e40af; text-decoration: none;">
+        <%= url.resolve(sails.config.custom.baseUrl,'/verify-email')+'?token='+encodeURIComponent(token) %>
+      </a>
+    </p>
+  </div>
+
+  <!-- Welcome message -->
+  <div style="margin-top: 40px; padding: 20px; background-color: #f0f9ff; border: 1px solid #0ea5e9; border-radius: 12px; text-align: left;">
+    <div style="display: flex; align-items: flex-start; gap: 12px;">
+      <div style="flex-shrink: 0; width: 20px; height: 20px; margin-top: 2px;">
+        <svg width="20" height="20" fill="#0ea5e9" viewBox="0 0 24 24">
+          <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/>
+        </svg>
+      </div>
+      <div>
+        <p style="margin: 0 0 8px; font-size: 14px; color: #0c4a6e; font-weight: 600;">
+          What's Next?
+        </p>
+        <p style="margin: 0; font-size: 14px; color: #0c4a6e; line-height: 1.5;">
+          Once verified, you'll have full access to your Ascent dashboard and can start building amazing things!
+        </p>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title><%= data.title %> | Ascent React</title>
+    <meta name="title" content="<%= data.title %>" />
+    <meta name="description" content="<%= data.description %>" />
+    
+    <%- shipwright.styles() %>
+  </head>
+  
+  <body class="bg-white">
+    <!-- Navigation -->
+    <header class="sticky top-0 z-50 border-b border-gray-100/40 bg-white/90 backdrop-blur-md">
+      <nav class="mx-auto flex max-w-7xl items-center justify-between px-4 py-4 md:px-8">
+        <a href="/" class="group flex items-center space-x-2">
+          <div class="relative">
+            <div class="absolute inset-0 scale-110 rounded-xl bg-brand-200/20 opacity-0 blur-sm transition-opacity group-hover:opacity-100"></div>
+            <img
+              src="/images/logo.svg"
+              alt="Ascent Logo"
+              class="relative h-10 w-auto transition-transform group-hover:scale-105"
+            />
+          </div>
+        </a>
+
+        <div class="flex items-center space-x-3">
+          <a
+            href="/"
+            class="rounded-lg px-4 py-2 font-medium text-gray-700 transition-all duration-200 hover:bg-gray-50 hover:text-brand-600"
+          >
+            Back to home
+          </a>
+        </div>
+      </nav>
+    </header>
+
+    <!-- Main Content -->
+    <main class="relative">
+      <!-- Hero Section -->
+      <div class="relative overflow-hidden bg-gradient-to-br from-brand-600 via-brand-700 to-accent-700 px-4 py-12 text-white">
+        <div class="absolute left-1/4 top-0 h-96 w-96 rounded-full bg-brand-300/10 blur-3xl"></div>
+        <div class="absolute bottom-0 right-1/4 h-72 w-72 rounded-full bg-accent-300/10 blur-3xl"></div>
+        
+        <div class="relative mx-auto max-w-4xl text-center">
+          <h1 class="mb-4 text-4xl font-extrabold tracking-tight md:text-5xl">
+            <%= data.title %>
+          </h1>
+          
+          <p class="text-lg text-brand-100">
+            Last updated: <%= data.lastUpdated %>
+          </p>
+        </div>
+      </div>
+
+      <!-- Legal Content -->
+      <div class="mx-auto max-w-4xl px-4 py-16 sm:px-6 lg:px-8">
+        <article class="prose prose-lg prose-gray max-w-none prose-headings:font-bold prose-headings:text-gray-900 prose-h2:mt-12 prose-h2:border-b prose-h2:border-gray-200 prose-h2:pb-3 prose-h3:mt-8 prose-p:text-gray-700 prose-p:leading-relaxed prose-a:font-semibold prose-a:text-brand-600 prose-a:no-underline hover:prose-a:underline prose-strong:text-gray-900 prose-ul:text-gray-700 prose-ol:text-gray-700 prose-li:text-gray-700 prose-li:my-2">
+          <%- content %>
+        </article>
+
+        <!-- Navigation to other legal pages -->
+        <div class="mt-16 border-t border-gray-200 pt-8">
+          <div class="flex flex-wrap gap-4 justify-center">
+            <a href="/legal/terms" class="text-brand-600 hover:text-brand-700 font-medium transition-colors">
+              Terms of Service
+            </a>
+            <span class="text-gray-300">•</span>
+            <a href="/legal/privacy" class="text-brand-600 hover:text-brand-700 font-medium transition-colors">
+              Privacy Policy
+            </a>
+            <span class="text-gray-300">•</span>
+            <a href="/contact" class="text-brand-600 hover:text-brand-700 font-medium transition-colors">
+              Contact Us
+            </a>
+          </div>
+        </div>
+      </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-gray-50 border-t border-gray-200 mt-16">
+      <div class="mx-auto max-w-7xl px-4 py-8 text-center">
+        <p class="text-sm text-gray-600">
+          © <%= new Date().getFullYear() %> Ascent. All rights reserved.
+        </p>
+      </div>
+    </footer>
+  </body>
+</html>

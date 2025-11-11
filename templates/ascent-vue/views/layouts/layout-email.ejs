@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Ascent</title>
+  <!--[if mso]>
+  <noscript>
+    <xml>
+      <o:OfficeDocumentSettings>
+        <o:PixelsPerInch>96</o:PixelsPerInch>
+      </o:OfficeDocumentSettings>
+    </xml>
+  </noscript>
+  <![endif]-->
+  <style>
+    /* Reset and base styles */
+    body, table, td, a { -webkit-text-size-adjust: 100%; -ms-text-size-adjust: 100%; }
+    table, td { mso-table-lspace: 0pt; mso-table-rspace: 0pt; }
+    img { -ms-interpolation-mode: bicubic; }
+    
+    /* Remove default styling */
+    img { border: 0; height: auto; line-height: 100%; outline: none; text-decoration: none; }
+    table { border-collapse: collapse !important; }
+    body { height: 100% !important; margin: 0 !important; padding: 0 !important; width: 100% !important; }
+    
+    /* Dark mode support */
+    @media (prefers-color-scheme: dark) {
+      .dark-mode { display: block !important; max-width: none !important; max-height: none !important; }
+      .light-mode { display: none !important; }
+    }
+    
+    /* Mobile responsive */
+    @media screen and (max-width: 600px) {
+      .mobile-padding { padding: 20px !important; }
+      .mobile-text { font-size: 16px !important; line-height: 1.5 !important; }
+      .mobile-button { padding: 16px 24px !important; font-size: 16px !important; }
+    }
+  </style>
+</head>
+<body style="margin: 0; padding: 0; background-color: #f8fafc; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Helvetica Neue', 'Ubuntu', sans-serif;">
+  <!-- Wrapper table for full email -->  
+  <table role="presentation" style="width: 100%; border-spacing: 0; border-collapse: collapse; background-color: #f8fafc;">
+    <tr>
+      <td align="center" style="padding: 40px 20px;">
+        
+        <!-- Main email container -->
+        <table role="presentation" style="width: 100%; max-width: 600px; border-spacing: 0; border-collapse: collapse; background-color: #ffffff; border-radius: 16px; box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);">
+          
+          <!-- Header with Ascent branding -->
+          <tr>
+            <td style="padding: 0;">
+              <table role="presentation" style="width: 100%; border-spacing: 0; border-collapse: collapse; background: linear-gradient(135deg, #1e40af 0%, #0891b2 100%); border-radius: 16px 16px 0 0;">
+                <tr>
+                  <td align="center" style="padding: 48px 32px;">
+                    <!-- Ascent Logo -->
+                    <div style="display: inline-flex; align-items: center; gap: 12px;">
+                      <svg width="48" height="48" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M8 32L20 8L32 32H28L20 16L12 32H8Z" fill="white"/>
+                        <path d="M16 32L20 24L24 32H16Z" fill="#0891b2" fill-opacity="0.8"/>
+                        <path d="M18 28L20 20L30 28H26L20 24L22 28H18Z" fill="white"/>
+                      </svg>
+                      <span style="color: white; font-size: 32px; font-weight: 800; letter-spacing: -1px; text-shadow: 0 2px 4px rgba(0,0,0,0.1);">ASCENT</span>
+                    </div>
+                  </td>
+                </tr>
+              </table>
+            </td>
+          </tr>
+          
+          <!-- Main content area -->
+          <tr>
+            <td style="padding: 0;">
+              <div style="padding: 48px 40px 32px 40px;" class="mobile-padding">
+                <%- body %>
+              </div>
+            </td>
+          </tr>
+          
+          <!-- Footer -->
+          <tr>
+            <td style="padding: 0;">
+              <div style="background-color: #f8fafc; padding: 32px 40px; border-radius: 0 0 16px 16px; border-top: 1px solid #e2e8f0;" class="mobile-padding">
+                <table role="presentation" style="width: 100%; border-spacing: 0; border-collapse: collapse;">
+                  <tr>
+                    <td align="center">
+                      <p style="margin: 0 0 16px 0; font-size: 14px; color: #64748b; line-height: 1.5;">
+                        <strong>Ascent</strong> - Launch your SaaS in days, not months
+                      </p>
+                      
+                      <!-- Social links -->
+                      <div style="margin-bottom: 24px;">
+                        <a href="https://x.com/Dominus_Kelvin" style="display: inline-block; margin: 0 8px; color: #64748b; text-decoration: none;">
+                          <svg width="20" height="20" fill="currentColor" viewBox="0 0 24 24">
+                            <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/>
+                          </svg>
+                        </a>
+                        <a href="#" style="display: inline-block; margin: 0 8px; color: #64748b; text-decoration: none;">
+                          <svg width="20" height="20" fill="currentColor" viewBox="0 0 24 24">
+                            <path d="M12.017 0C5.396 0 .029 5.367.029 11.987c0 5.079 3.158 9.417 7.618 11.174-.105-.949-.199-2.403.041-3.439.219-.937 1.219-5.175 1.219-5.175s-.312-.623-.312-1.543c0-1.446.839-2.524 1.895-2.524.893 0 1.325.669 1.325 1.47 0 .896-.219 2.237-.332 3.482-.094.796.399 1.444 1.184 1.444 1.42 0 2.516-1.496 2.516-3.66 0-1.915-1.377-3.254-3.342-3.254-2.276 0-3.612 1.707-3.612 3.471 0 .688.265 1.425.595 1.826a.24.24 0 01.056.23c-.061.252-.196.796-.222.907-.035.146-.11.177-.255.107-1.410-.657-2.293-2.714-2.293-4.369 0-3.565 2.592-6.84 7.458-6.84 3.918 0 6.965 2.792 6.965 6.519 0 3.893-2.454 7.019-5.86 7.019-1.144 0-2.223-.596-2.589-1.31 0 0-.567 2.165-.705 2.695-.255.984-.943 2.217-1.404 2.967.056 1.174 5.491 2.098 7.598 2.098C18.598 24.001 24 18.634 24 12.017 24 5.396 18.633.029 12.017.029z"/>
+                          </svg>
+                        </a>
+                      </div>
+                      
+                      <p style="margin: 0; font-size: 12px; color: #94a3b8; line-height: 1.4;">
+                        © <%= new Date().getFullYear() %> Ascent. All rights reserved.<br>
+                        Built with The Boring JavaScript Stack.
+                      </p>
+                    </td>
+                  </tr>
+                </table>
+              </div>
+            </td>
+          </tr>
+          
+        </table>
+        
+      </td>
+    </tr>
+  </table>
+</body>
+</html>

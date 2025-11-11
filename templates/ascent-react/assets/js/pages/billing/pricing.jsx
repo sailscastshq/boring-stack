@@ -266,15 +266,18 @@ export default function Pricing({ plans }) {
             {/* Pro Plan - Featured */}
             <div className="group relative">
               <div className="absolute -inset-0.5 rounded-3xl bg-gradient-to-r from-brand-600 to-accent-600 opacity-30 blur transition duration-300 group-hover:opacity-40"></div>
-              <div className="relative overflow-hidden rounded-3xl border border-brand-200 bg-white p-10 shadow-2xl">
-                {/* Ribbon Banner */}
-                <div className="absolute -right-12 top-6 z-10 w-48 rotate-45 transform bg-gradient-to-r from-brand-600 to-accent-600 py-2 text-center text-xs font-bold text-white shadow-lg">
-                  MOST POPULAR
+              <div className="relative overflow-visible rounded-3xl border border-brand-200 bg-white p-10 shadow-2xl">
+                <div className="absolute -right-4 -top-4 size-44 overflow-hidden rounded-sm">
+                  <div className="absolute -left-1 -top-1 size-5 bg-gradient-to-br from-brand-700 to-accent-700"></div>
+                  <div className="absolute -bottom-1 -right-1 size-5 bg-gradient-to-br from-brand-700 to-accent-700"></div>
+                  <span className="absolute bottom-0 right-0 block w-[141.42%] origin-bottom-right rotate-45 bg-gradient-to-r from-brand-600 to-accent-600 py-2.5 text-center text-sm font-semibold uppercase tracking-wider text-white shadow-md">
+                    Most Popular
+                  </span>
                 </div>
 
                 <div className="mb-8">
                   <h3 className="text-2xl font-bold text-gray-900">Pro</h3>
-                  <p className="mt-2 text-gray-600">
+                  <p className="mt-2 max-w-md text-gray-600">
                     For growing businesses that need advanced features and
                     priority support
                   </p>

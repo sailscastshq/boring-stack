@@ -27,13 +27,7 @@ export default function ProfileSettings() {
     avatar: null
   })
 
-  const {
-    data: deleteAccountData,
-    setData: setDeleteAccountData,
-    ...deleteAccountForm
-  } = useForm({
-    password: undefined
-  })
+  const deleteAccountForm = useForm({})
 
   function updateProfile(e) {
     e.preventDefault()
@@ -220,6 +214,13 @@ export default function ProfileSettings() {
                       Permanently delete your account and all associated data.
                       This action cannot be undone.
                     </p>
+                    {deleteAccountForm.errors.ownership && (
+                      <Message
+                        severity="error"
+                        text={deleteAccountForm.errors.ownership}
+                        className="mt-3"
+                      />
+                    )}
                   </div>
                 </div>
                 <div className="flex justify-end sm:ml-4 sm:flex-shrink-0">

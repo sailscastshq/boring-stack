@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <!-- Modern Mountain/Arrow Icon -->
+  <g>
+    <!-- Background mountain shape -->
+    <path d="M2 26L16 2L30 26H2Z" fill="#0EA5E9"/>
+    <!-- Subtle gradient overlay -->
+    <defs>
+      <linearGradient id="iconGradient" x1="0%" y1="0%" x2="0%" y2="100%">
+        <stop offset="0%" style="stop-color:#0EA5E9;stop-opacity:1" />
+        <stop offset="100%" style="stop-color:#0284C7;stop-opacity:1" />
+      </linearGradient>
+    </defs>
+    <path d="M2 26L16 2L30 26H2Z" fill="url(#iconGradient)"/>
+    <!-- White arrow for maximum visibility -->
+    <path d="M16 6L11 16H14V20H18V16H21L16 6Z" fill="white" fill-opacity="0.95"/>
+  </g>
+</svg>

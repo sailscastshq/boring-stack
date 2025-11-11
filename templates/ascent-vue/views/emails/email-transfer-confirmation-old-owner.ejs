@@ -1,0 +1,68 @@
+<!-- Main content -->
+<div style="text-align: center;">
+  <h1 style="margin: 0 0 16px; font-size: 32px; font-weight: 800; color: #0f172a; line-height: 1.2; letter-spacing: -0.5px;">
+    Team Ownership Transferred
+  </h1>
+  
+  <p style="margin: 0 0 40px; font-size: 18px; color: #475569; line-height: 1.6; max-width: 480px; margin-left: auto; margin-right: auto;">
+    You have successfully transferred ownership of <strong><%= teamName %></strong> to <strong><%= newOwnerName %></strong>.
+  </p>
+
+  <!-- View Team Button -->
+  <table role="presentation" style="margin: 0 auto 40px; border-spacing: 0; border-collapse: collapse;">
+    <tr>
+      <td style="border-radius: 12px; background: linear-gradient(135deg, #1e40af 0%, #0891b2 100%); padding: 0; box-shadow: 0 8px 25px -5px rgba(30, 64, 175, 0.4);">
+        <a href="<%= dashboardUrl %>" 
+           style="display: inline-block; padding: 18px 36px; color: white; text-decoration: none; font-weight: 700; font-size: 18px; border-radius: 12px; letter-spacing: -0.25px;">
+          View Dashboard →
+        </a>
+      </td>
+    </tr>
+  </table>
+
+  <!-- What changed -->
+  <div style="padding: 24px; background-color: #f1f5f9; border-radius: 12px; border: 1px solid #cbd5e1; margin: 32px 0; text-align: left;">
+    <p style="margin: 0 0 8px; font-size: 13px; color: #475569; font-weight: 600; text-transform: uppercase; letter-spacing: 0.5px;">
+      What changed?
+    </p>
+    <ul style="margin: 0; padding-left: 20px; font-size: 14px; color: #64748b; line-height: 1.6;">
+      <li style="margin-bottom: 8px;"><%= newOwnerName %> is now the team owner</li>
+      <li style="margin-bottom: 8px;">You are now a regular team member</li>
+      <li style="margin-bottom: 8px;">You can continue working on team projects</li>
+      <li style="margin-bottom: 0;">You remain part of the team as a member</li>
+    </ul>
+  </div>
+
+  <!-- Reassurance -->
+  <div style="padding: 24px; background-color: #ecfdf5; border-radius: 12px; border: 1px solid #22c55e; margin: 32px 0; text-align: left;">
+    <table role="presentation" style="width: 100%; border-spacing: 0; border-collapse: collapse;">
+      <tr>
+        <td style="width: 32px; vertical-align: top; padding-right: 12px;">
+          <div style="width: 20px; height: 20px; margin-top: 2px;">
+            <svg width="20" height="20" fill="#22c55e" viewBox="0 0 24 24">
+              <path d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/>
+            </svg>
+          </div>
+        </td>
+        <td style="vertical-align: top;">
+          <p style="margin: 0 0 8px; font-size: 14px; color: #15803d; font-weight: 600;">
+            You're Still Part of the Team
+          </p>
+          <p style="margin: 0; font-size: 14px; color: #15803d; line-height: 1.5;">
+            As a member, you can continue working on team projects and accessing team resources. <%= newOwnerName %> now has full control over team management and settings.
+          </p>
+        </td>
+      </tr>
+    </table>
+  </div>
+
+  <!-- Support -->
+  <div style="margin-top: 40px; padding: 20px; background-color: #f8fafc; border: 1px solid #e2e8f0; border-radius: 12px; text-align: left;">
+    <p style="margin: 0 0 8px; font-size: 14px; color: #475569; font-weight: 600;">
+      Need Help?
+    </p>
+    <p style="margin: 0; font-size: 14px; color: #64748b; line-height: 1.5;">
+      If you have questions about your new role or need assistance, our support team is here to help. Contact us anytime for guidance on team management features.
+    </p>
+  </div>
+</div>

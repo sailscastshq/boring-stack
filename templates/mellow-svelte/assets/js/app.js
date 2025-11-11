@@ -1,6 +1,6 @@
 import { createInertiaApp } from '@inertiajs/svelte'
 import { mount } from 'svelte'
-import '~/css/main.css'
+import '~/css/app.css'
 
 createInertiaApp({
   resolve: (name) => require(`./pages/${name}`),

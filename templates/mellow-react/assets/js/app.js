@@ -1,6 +1,6 @@
 import { createInertiaApp } from '@inertiajs/react'
 import { createRoot } from 'react-dom/client'
-import '~/css/main.css'
+import '~/css/app.css'
 
 createInertiaApp({
   resolve: (name) => require(`./pages/${name}`),
