@@ -450,7 +450,7 @@ export default function DashboardLayout({
     if (!teams || teams.length === 0) return null
 
     return (
-      <div className="border-b border-gray-200 px-4 py-3">
+      <div className="border-b border-gray-200 px-2 py-3">
         <div className="mb-2">
           <span className="text-xs font-medium uppercase tracking-wide text-gray-500">
             Teams
@@ -461,7 +461,7 @@ export default function DashboardLayout({
             <button
               key={team.id}
               onClick={() => router.post(`/teams/${team.id}/switch`)}
-              className={`flex w-full items-center rounded-md px-3 py-2 text-left text-sm transition-colors ${
+              className={`flex w-full items-center rounded-md px-2 py-2 text-left text-sm transition-colors ${
                 team.isCurrent
                   ? 'bg-brand-50 text-brand-700'
                   : 'text-gray-700 hover:bg-gray-50'
