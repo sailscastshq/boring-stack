@@ -148,8 +148,8 @@ function handleDomainRestrictionsSubmit(e) {
   e.preventDefault()
   if (props.team) {
     domainForm.patch(`/teams/${props.team.id}/domain-restrictions`, {
+      preserveScroll: true,
       onSuccess: () => {
-        // Clear the chips after successful submission
         domainForm.domainRestrictions = []
       }
     })
