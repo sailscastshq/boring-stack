@@ -232,7 +232,7 @@ async function handleWebAuthnChallenge(challengeData) {
               form.errors.magicLink ||
               verifyPasskeyForm.errors.passkey
             "
-            class="w-full"
+            class="w-full mb-3"
           >
             {{
               form.errors.login ||
