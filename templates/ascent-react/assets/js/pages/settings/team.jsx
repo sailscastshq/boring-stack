@@ -129,6 +129,7 @@ export default function TeamSettings({
     e.preventDefault()
     if (team) {
       postEmails(`/teams/${team.id}/send-email-invite`, {
+        preserveScroll: true,
         onSuccess: () => {
           resetEmails()
         }

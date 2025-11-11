@@ -124,6 +124,7 @@ function handleInvite(e) {
   e.preventDefault()
   if (props.team) {
     emailForm.post(`/teams/${props.team.id}/send-email-invite`, {
+      preserveScroll: true,
       onSuccess: () => {
         emailForm.reset()
       }
