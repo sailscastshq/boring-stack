@@ -1,0 +1,60 @@
+<!-- Main content -->
+<div style="text-align: center;">
+  <h1 style="margin: 0 0 16px; font-size: 32px; font-weight: 800; color: #0f172a; line-height: 1.2; letter-spacing: -0.5px;">
+    Confirm your new email
+  </h1>
+  
+  <p style="margin: 0 0 40px; font-size: 18px; color: #475569; line-height: 1.6; max-width: 480px; margin-left: auto; margin-right: auto;">
+    Hi <strong><%= fullName %></strong>, we received a request to change your email address. Click the button below to confirm your new email and complete the update.
+  </p>
+
+  <!-- Verify New Email Button -->
+  <table role="presentation" style="margin: 0 auto 40px; border-spacing: 0; border-collapse: collapse;">
+    <tr>
+      <td style="border-radius: 12px; background: linear-gradient(135deg, #7c3aed 0%, #a855f7 100%); padding: 0; box-shadow: 0 8px 25px -5px rgba(124, 58, 237, 0.4);">
+        <a href="<%= url.resolve(sails.config.custom.baseUrl,'/verify-email')+'?token='+encodeURIComponent(token) %>" 
+           style="display: inline-block; padding: 18px 36px; color: white; text-decoration: none; font-weight: 700; font-size: 18px; border-radius: 12px; letter-spacing: -0.25px;">
+          Confirm New Email →
+        </a>
+      </td>
+    </tr>
+  </table>
+
+  <p style="margin: 0 0 32px; font-size: 14px; color: #64748b; line-height: 1.5;">
+    This verification link expires in <strong>24 hours</strong>.
+  </p>
+
+  <!-- Alternative link -->
+  <div style="padding: 24px; background-color: #f1f5f9; border-radius: 12px; border: 1px solid #cbd5e1; margin: 32px 0; text-align: left;">
+    <p style="margin: 0 0 8px; font-size: 13px; color: #475569; font-weight: 600; text-transform: uppercase; letter-spacing: 0.5px;">
+      Alternative Access
+    </p>
+    <p style="margin: 0 0 12px; font-size: 14px; color: #64748b;">
+      If the button doesn't work, copy and paste this link:
+    </p>
+    <p style="margin: 0; font-size: 13px; word-break: break-all; font-family: 'SF Mono', 'Monaco', 'Inconsolata', 'Roboto Mono', monospace; background-color: white; padding: 12px; border-radius: 6px; border: 1px solid #e2e8f0;">
+      <a href="<%= url.resolve(sails.config.custom.baseUrl,'/verify-email')+'?token='+encodeURIComponent(token) %>" style="color: #1e40af; text-decoration: none;">
+        <%= url.resolve(sails.config.custom.baseUrl,'/verify-email')+'?token='+encodeURIComponent(token) %>
+      </a>
+    </p>
+  </div>
+
+  <!-- Security notice -->
+  <div style="margin-top: 40px; padding: 20px; background-color: #fef3cd; border: 1px solid #f59e0b; border-radius: 12px; text-align: left;">
+    <div style="display: flex; align-items: flex-start; gap: 12px;">
+      <div style="flex-shrink: 0; width: 20px; height: 20px; margin-top: 2px;">
+        <svg width="20" height="20" fill="#f59e0b" viewBox="0 0 24 24">
+          <path d="M11 15h2v2h-2zm0-8h2v6h-2zm.99-5C6.47 2 2 6.48 2 12s4.47 10 9.99 10C17.52 22 22 17.52 22 12S17.52 2 11.99 2zM12 20c-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8-3.58 8-8 8z"/>
+        </svg>
+      </div>
+      <div>
+        <p style="margin: 0 0 8px; font-size: 14px; color: #92400e; font-weight: 600;">
+          Security Notice
+        </p>
+        <p style="margin: 0; font-size: 14px; color: #92400e; line-height: 1.5;">
+          If you didn't request this email change, please ignore this email or contact our support team if you have concerns.
+        </p>
+      </div>
+    </div>
+  </div>
+</div>

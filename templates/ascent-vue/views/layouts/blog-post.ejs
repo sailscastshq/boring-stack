@@ -1,0 +1,295 @@
+<%
+const currentUrl = '/blog'
+const navLinks = {
+  auth: [
+    {
+      label: 'Login',
+      url: '/login'
+    },
+    {
+      label: 'Get started',
+      url: '/signup'
+    }
+  ],
+  marketing: [
+    {
+      label: 'Features',
+      url: '/features'
+    },
+    {
+      label: 'Blog',
+      url: '/blog'
+    },
+    {
+      label: 'Pricing',
+      url: '/billing/pricing'
+    }
+  ]
+}
+%>
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title><%= data.title %> | Ascent React</title>
+    <meta name="title" content="<%= data.title %>" />
+    <meta name="description" content="<%= data.description %>" />
+    
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="article" />
+    <meta property="og:title" content="<%= data.title %>" />
+    <meta property="og:description" content="<%= data.description %>" />
+    
+    <!-- X (formerly Twitter) -->
+    <meta property="twitter:card" content="summary" />
+    <meta property="twitter:title" content="<%= data.title %>" />
+    <meta property="twitter:description" content="<%= data.description %>" />
+    
+    <%- shipwright.styles() %>
+  </head>
+  
+  <body class="bg-white">
+    <!-- Navigation -->
+    <header class="sticky top-0 z-50 border-b border-gray-100/40 bg-white/90 backdrop-blur-md">
+      <nav class="mx-auto flex max-w-7xl items-center justify-between px-4 py-4 md:px-8">
+        <a href="/" class="group flex items-center space-x-2">
+          <div class="relative">
+            <div class="absolute inset-0 scale-110 rounded-xl bg-brand-200/20 opacity-0 blur-sm transition-opacity group-hover:opacity-100"></div>
+            <img
+              src="/images/logo.svg"
+              alt="Ascent Logo"
+              class="relative h-10 w-auto transition-transform group-hover:scale-105"
+            />
+          </div>
+        </a>
+
+        <div class="flex items-center space-x-8">
+          <!-- Navigation Links -->
+          <div class="hidden items-center space-x-1 md:flex">
+            <% for (let link of navLinks.marketing) { %>
+            <a
+              href="<%= link.url %>"
+              class="<%= link.url === currentUrl ? 'bg-brand-100 text-brand-700' : 'text-gray-700 hover:bg-brand-50/80 hover:text-brand-600' %> rounded-lg px-3 py-2 font-medium transition-all duration-200"
+            >
+              <%= link.label %>
+            </a>
+            <% } %>
+          </div>
+
+          <!-- Auth Buttons -->
+          <div class="flex items-center space-x-3">
+            <% for (let link of navLinks.auth) { %>
+            <a
+              href="<%= link.url %>"
+              class="<%= link.url === '/signup' ? 'group relative rounded-lg bg-gradient-to-r from-brand-600 to-accent-600 px-6 py-2.5 font-semibold text-white shadow-lg transition-all duration-200 hover:shadow-xl' : 'rounded-lg px-4 py-2 font-medium text-gray-700 transition-all duration-200 hover:bg-gray-50 hover:text-brand-600' %>"
+            >
+              <% if (link.url === '/signup') { %>
+              <span class="relative z-10"><%= link.label %></span>
+              <div class="absolute inset-0 rounded-lg bg-gradient-to-r from-brand-700 to-accent-700 opacity-0 transition-opacity group-hover:opacity-100"></div>
+              <% } else { %>
+              <%= link.label %>
+              <% } %>
+            </a>
+            <% } %>
+          </div>
+        </div>
+      </nav>
+    </header>
+
+    <!-- Main Content -->
+    <main class="relative">
+      <!-- Hero Section -->
+      <div class="relative overflow-hidden bg-gradient-to-br from-brand-600 via-brand-700 to-accent-700 px-4 py-16 text-white">
+        <div class="absolute left-1/4 top-0 h-96 w-96 rounded-full bg-brand-300/10 blur-3xl"></div>
+        <div class="absolute bottom-0 right-1/4 h-72 w-72 rounded-full bg-accent-300/10 blur-3xl"></div>
+        
+        <div class="relative mx-auto max-w-4xl">
+          <!-- Back to Blog -->
+          <div class="mb-6">
+            <a href="/blog" class="inline-flex items-center font-medium text-brand-100 hover:text-white transition-colors">
+              <svg class="mr-2 h-4 w-4" fill="none" viewBox="0 0 24 24" strokeWidth={2} stroke="currentColor">
+                <path strokeLinecap="round" strokeLinejoin="round" d="M10.5 19.5L3 12m0 0l7.5-7.5M3 12h18" />
+              </svg>
+              Back to Blog
+            </a>
+          </div>
+          
+          <!-- Article Meta -->
+          <div class="mb-6">
+            <time class="inline-flex items-center rounded-full bg-white/10 px-4 py-2 text-sm font-medium text-brand-100">
+              <%= data.publishedOn %>
+            </time>
+          </div>
+          
+          <!-- Article Title -->
+          <h1 class="mb-6 text-4xl font-extrabold tracking-tight md:text-5xl lg:text-6xl">
+            <%= data.title %>
+          </h1>
+          
+          <!-- Article Description -->
+          <p class="text-xl leading-relaxed text-brand-100">
+            <%= data.description %>
+          </p>
+        </div>
+      </div>
+
+      <!-- Article Content -->
+      <div class="mx-auto max-w-4xl px-4 py-16 sm:px-6 lg:px-8">
+        <article class="prose prose-xl prose-gray max-w-none prose-headings:font-bold prose-headings:text-gray-900 prose-p:text-gray-700 prose-p:leading-relaxed prose-a:font-semibold prose-a:text-brand-600 prose-a:no-underline hover:prose-a:underline prose-strong:text-gray-900 prose-code:rounded-md prose-code:bg-gray-100 prose-code:px-2 prose-code:py-1 prose-code:font-medium prose-code:text-gray-800 prose-pre:bg-gray-900 prose-pre:text-gray-100 prose-blockquote:border-brand-200 prose-blockquote:bg-brand-50/50 prose-blockquote:italic prose-blockquote:text-gray-700 prose-ul:text-gray-700 prose-ol:text-gray-700 prose-li:text-gray-700">
+          <%- content %>
+        </article>
+
+        <!-- Article Footer CTA -->
+        <div class="mt-16">
+          <div class="rounded-3xl bg-gradient-to-br from-gray-900 via-gray-800 to-brand-900 px-8 py-12 text-center text-white relative overflow-hidden">
+            <!-- Background decoration -->
+            <div class="absolute left-1/4 top-0 h-32 w-32 rounded-full bg-brand-500/10 blur-3xl"></div>
+            <div class="absolute bottom-0 right-1/4 h-24 w-24 rounded-full bg-accent-500/10 blur-3xl"></div>
+            
+            <div class="relative">
+              <h3 class="text-3xl font-bold mb-4">
+                Ready to build your SaaS?
+              </h3>
+              <p class="text-xl text-gray-300 mb-8">
+                Get started with Ascent React - the ultimate React SaaS template built on The Boring Stack.
+              </p>
+              <div class="flex flex-col sm:flex-row gap-4 justify-center">
+                <a href="/signup" class="rounded-lg bg-gradient-to-r from-brand-600 to-accent-600 px-8 py-4 font-bold text-white transition-all duration-200 hover:shadow-xl hover:scale-[1.02]">
+                  Get Started Free
+                </a>
+                <a href="/features" class="rounded-lg border border-white/30 px-8 py-4 font-semibold text-white transition-all duration-200 hover:bg-white/10">
+                  View Features
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="relative overflow-hidden bg-gradient-to-br from-gray-900 via-gray-800 to-brand-900 text-white mt-16">
+      <!-- Background Elements -->
+      <div class="absolute left-1/4 top-0 h-96 w-96 rounded-full bg-brand-500/10 blur-3xl"></div>
+      <div class="absolute bottom-0 right-1/4 h-72 w-72 rounded-full bg-accent-500/10 blur-3xl"></div>
+
+      <div class="relative mx-auto max-w-7xl px-4 py-16 md:px-8">
+        <div class="grid grid-cols-1 gap-12 md:grid-cols-4">
+          <!-- Company Info -->
+          <div class="md:col-span-1">
+            <a href="/" class="group mb-6 flex items-center space-x-2">
+              <div class="relative">
+                <div class="absolute inset-0 scale-110 rounded-xl bg-brand-300/20 opacity-0 blur-sm transition-opacity group-hover:opacity-10"></div>
+                <img
+                  src="/images/logo.svg"
+                  alt="Ascent Logo"
+                  class="relative h-10 w-auto brightness-0 drop-shadow-[0_0_8px_rgba(0,0,0,0.9)] invert filter transition-transform group-hover:scale-105"
+                />
+              </div>
+            </a>
+            <p class="mb-6 text-sm leading-relaxed text-gray-300">
+              The complete SaaS platform for modern teams. Scale your business with battle-tested technologies and launch faster than ever.
+            </p>
+            <div class="flex space-x-4">
+              <a href="https://x.com/Dominus_Kelvin" class="group flex h-10 w-10 items-center justify-center rounded-lg bg-gray-800/50 text-gray-400 transition-all duration-200 hover:bg-brand-600 hover:text-white">
+                <svg class="h-5 w-5" fill="currentColor" viewBox="0 0 24 24">
+                  <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z" />
+                </svg>
+              </a>
+              <a href="https://github.com/sailscastshq/boring-stack" class="group flex h-10 w-10 items-center justify-center rounded-lg bg-gray-800/50 text-gray-400 transition-all duration-200 hover:bg-brand-600 hover:text-white">
+                <svg class="h-5 w-5" fill="currentColor" viewBox="0 0 24 24">
+                  <path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z" />
+                </svg>
+              </a>
+            </div>
+          </div>
+
+          <!-- Product -->
+          <div>
+            <h3 class="mb-6 text-lg font-bold text-white">Product</h3>
+            <ul class="space-y-4">
+              <li>
+                <a href="/features" class="group flex items-center text-gray-300 transition-colors duration-200 hover:text-white">
+                  <span class="mr-3 h-1.5 w-1.5 rounded-full bg-brand-500 opacity-0 transition-opacity group-hover:opacity-100"></span>
+                  Features
+                </a>
+              </li>
+              <li>
+                <a href="/billing/pricing" class="group flex items-center text-gray-300 transition-colors duration-200 hover:text-white">
+                  <span class="mr-3 h-1.5 w-1.5 rounded-full bg-brand-500 opacity-0 transition-opacity group-hover:opacity-100"></span>
+                  Pricing
+                </a>
+              </li>
+              <li>
+                <a href="/blog" class="group flex items-center text-gray-300 transition-colors duration-200 hover:text-white">
+                  <span class="mr-3 h-1.5 w-1.5 rounded-full bg-brand-500 opacity-0 transition-opacity group-hover:opacity-100"></span>
+                  Blog
+                </a>
+              </li>
+            </ul>
+          </div>
+
+          <!-- Resources -->
+          <div>
+            <h3 class="mb-6 text-lg font-bold text-white">Resources</h3>
+            <ul class="space-y-4">
+              <li>
+                <a href="/docs" class="group flex items-center text-gray-300 transition-colors duration-200 hover:text-white">
+                  <span class="mr-3 h-1.5 w-1.5 rounded-full bg-accent-500 opacity-0 transition-opacity group-hover:opacity-100"></span>
+                  Documentation
+                </a>
+              </li>
+              <li>
+                <a href="/help" class="group flex items-center text-gray-300 transition-colors duration-200 hover:text-white">
+                  <span class="mr-3 h-1.5 w-1.5 rounded-full bg-accent-500 opacity-0 transition-opacity group-hover:opacity-100"></span>
+                  Help Center
+                </a>
+              </li>
+            </ul>
+          </div>
+
+          <!-- Company -->
+          <div>
+            <h3 class="mb-6 text-lg font-bold text-white">Company</h3>
+            <ul class="space-y-4">
+              <li>
+                <a href="/contact" class="group flex items-center text-gray-300 transition-colors duration-200 hover:text-white">
+                  <span class="mr-3 h-1.5 w-1.5 rounded-full bg-success-500 opacity-0 transition-opacity group-hover:opacity-100"></span>
+                  Contact
+                </a>
+              </li>
+              <li>
+                <a href="https://docs.sailscasts.com/boring-stack" target="_blank" class="group flex items-center text-gray-300 transition-colors duration-200 hover:text-white">
+                  <span class="mr-3 h-1.5 w-1.5 rounded-full bg-success-500 opacity-0 transition-opacity group-hover:opacity-100"></span>
+                  The Boring Stack
+                </a>
+              </li>
+            </ul>
+          </div>
+        </div>
+
+        <!-- Bottom Section -->
+        <div class="mt-16 border-t border-gray-700/50 pt-8">
+          <div class="flex flex-col items-center justify-between space-y-4 md:flex-row md:space-y-0">
+            <div class="flex items-center space-x-6">
+              <p class="text-sm text-gray-400">© <%= new Date().getFullYear() %> Ascent React. All rights reserved.</p>
+            </div>
+            <div class="flex items-center space-x-6">
+              <p class="text-sm text-gray-400">
+                <span>Built with </span>
+                <a href="https://github.com/sailscastshq/boring-stack" class="font-semibold text-brand-400 transition-colors hover:text-brand-300">
+                  The Boring Stack
+                </a>
+                <span> by </span>
+                <a href="https://x.com/Dominus_Kelvin" class="font-semibold text-brand-400 transition-colors hover:text-brand-300">
+                  Kelvin Omereshone
+                </a>
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </footer>
+  </body>
+</html>
