@@ -15,9 +15,9 @@ module.exports = {
       description: 'User is not logged in.'
     },
     hasTeamMembers: {
-      responseType: 'badRequest',
+      responseType: 'inertia',
       description:
-        'User owns teams with other members and cannot delete account.'
+        'User owns teams with other members and cannot delete accoun.'
     },
     serverError: {
       responseType: 'inertiaRedirect',
@@ -45,12 +45,14 @@ module.exports = {
       })
 
       if (otherMemberships.length > 0) {
-        throw {
+        const teamWithMembers = await Team.findOne({ id: membership.team })
+        return {
           hasTeamMembers: {
-            problems: [
+            teams: [
               {
-                ownership:
-                  'You cannot delete your account because you own teams with other members. Please transfer ownership or remove all members first.'
+                id: teamWithMembers.id,
+                name: teamWithMembers.name,
+                memberCount: otherMemberships.length
               }
             ]
           }
