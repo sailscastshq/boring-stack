@@ -53,7 +53,7 @@ module.exports = {
       const firstTeam = remainingMemberships[0].team
       await sails.helpers
         .setTeamSession(this.req, userId, firstTeam.id)
-        .tolerate()
+        .tolerate('notFound')
       this.req.flash(
         'success',
         `You have left ${membership.team.name} and switched to ${firstTeam.name}.`
@@ -76,7 +76,7 @@ module.exports = {
         await User.updateOne({ id: userId }).set({ team: result.team.id })
         await sails.helpers
           .setTeamSession(this.req, userId, result.team.id)
-          .tolerate()
+          .tolerate('notFound')
 
         this.req.flash(
           'success',
