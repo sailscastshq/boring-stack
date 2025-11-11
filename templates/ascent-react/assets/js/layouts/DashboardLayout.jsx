@@ -77,17 +77,12 @@ function DashboardSidebar({
       {/* Sidebar */}
       <aside
         className={`
-        flex flex-col border-r border-gray-50 bg-white transition-all duration-300 ease-in-out
-        lg:relative lg:translate-x-0
+        fixed inset-y-0 left-0 z-50 flex flex-col border-r border-gray-100 bg-white transition-all duration-300 ease-in-out
+        ${isCollapsed ? 'lg:w-16' : 'lg:w-64'}
         ${
-          // Desktop behavior
-          isCollapsed ? 'lg:w-16' : 'lg:w-64'
-        }
-        ${
-          // Mobile behavior - fixed overlay
           isMobileOpen
-            ? 'fixed inset-y-0 left-0 z-50 w-64 translate-x-0'
-            : 'fixed inset-y-0 left-0 z-50 w-64 -translate-x-full lg:translate-x-0'
+            ? 'w-64 translate-x-0'
+            : 'w-64 -translate-x-full lg:translate-x-0'
         }
       `}
       >
@@ -301,7 +296,7 @@ function DashboardNavbar({
   const navbarUserMenuRef = useRef(null)
 
   return (
-    <header className="border-b border-gray-50 bg-white">
+    <header className="sticky top-0 z-30 border-b border-gray-100 bg-white">
       <div className="flex h-16 items-center justify-between px-4 sm:px-6 lg:px-8">
         <div className="flex items-center gap-4">
           {/* Mobile menu button */}
@@ -455,7 +450,7 @@ export default function DashboardLayout({
     if (!teams || teams.length === 0) return null
 
     return (
-      <div className="border-b border-gray-200 px-4 py-3">
+      <div className="border-b border-gray-200 px-2 py-3">
         <div className="mb-2">
           <span className="text-xs font-medium uppercase tracking-wide text-gray-500">
             Teams
@@ -466,7 +461,7 @@ export default function DashboardLayout({
             <button
               key={team.id}
               onClick={() => router.post(`/teams/${team.id}/switch`)}
-              className={`flex w-full items-center rounded-md px-3 py-2 text-left text-sm transition-colors ${
+              className={`flex w-full items-center rounded-md px-2 py-2 text-left text-sm transition-colors ${
                 team.isCurrent
                   ? 'bg-brand-50 text-brand-700'
                   : 'text-gray-700 hover:bg-gray-50'
@@ -583,7 +578,11 @@ export default function DashboardLayout({
       />
 
       {/* Main content area */}
-      <div className="flex flex-1 flex-col">
+      <div
+        className={`flex flex-1 flex-col transition-all duration-300 ease-in-out ${
+          isCollapsed ? 'lg:pl-16' : 'lg:pl-64'
+        }`}
+      >
         {/* Navbar */}
         <DashboardNavbar
           onSidebarToggle={toggleSidebar}
