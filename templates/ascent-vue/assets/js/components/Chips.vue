@@ -91,7 +91,7 @@ function handleBlur() {
 <template>
   <div :class="['chips-container', props.class]">
     <div
-      class="flex flex-wrap items-center gap-2 rounded-md border border-surface-300 bg-surface-0 px-3 py-1 min-h-[2.5rem] focus-within:border-primary-500 focus-within:ring-1 focus-within:ring-primary-500 dark:border-surface-600 dark:bg-surface-900"
+      class="flex flex-wrap items-center gap-2 rounded-md border border-surface-300 bg-surface-0 px-3 py-1 min-h-10 focus-within:border-primary-500 focus-within:ring-1 focus-within:ring-primary-500 dark:border-surface-600 dark:bg-surface-900"
     >
       <!-- Render existing chips -->
       <Chip
