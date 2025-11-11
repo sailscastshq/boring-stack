@@ -1,58 +1,64 @@
 <script setup>
-import { ref } from 'vue'
+import { ref, computed } from 'vue'
 import { Link, router, usePage } from '@inertiajs/vue3'
 import Avatar from '@/components/Avatar.vue'
 import Menu from '@/volt/Menu.vue'
 
 const menuRef = ref()
 const page = usePage()
-const { loggedInUser, teams, currentTeam } = page.props
-console.log(loggedInUser)
-const items = ref([])
+const loggedInUser = computed(() => page.props.loggedInUser)
+const teams = computed(() => page.props.teams)
+const currentTeam = computed(() => page.props.currentTeam)
 
-if (teams && teams.length > 0) {
-  const teamItems = teams.map((team) => ({
-    label: team.name,
-    teamId: team.id,
-    logoUrl: team.logoUrl,
-    isCurrent: currentTeam?.id === team.id,
-    command: () => router.post(`/teams/${team.id}/switch`)
-  }))
+const items = computed(() => {
+  const menuItems = []
 
-  teamItems.push({
-    label: 'New team',
-    isNewTeam: true,
-    command: () => router.visit('/team/create')
-  })
+  if (teams.value && teams.value.length > 0) {
+    const teamItems = teams.value.map((team) => ({
+      label: team.name,
+      teamId: team.id,
+      logoUrl: team.logoUrl,
+      isCurrent: currentTeam.value?.id === team.id,
+      command: () => router.post(`/teams/${team.id}/switch`)
+    }))
 
-  items.value.push({
-    label: 'Teams',
-    items: teamItems
-  })
-  items.value.push({ separator: true })
-}
+    teamItems.push({
+      label: 'New team',
+      isNewTeam: true,
+      command: () => router.visit('/team/create')
+    })
 
-items.value.push(
-  {
-    label: 'My profile',
-    icon: 'pi pi-user',
-    command: () => router.visit('/profile')
-  },
-  {
-    label: 'Help',
-    icon: 'pi pi-question-circle',
-    command: () => router.visit('/help')
-  },
-  {
-    separator: true
-  },
-  {
-    label: 'Sign out',
-    icon: 'pi pi-sign-out',
-    isSignOut: true,
-    command: () => router.delete('/logout')
+    menuItems.push({
+      label: 'Teams',
+      items: teamItems
+    })
+    menuItems.push({ separator: true })
   }
-)
+
+  menuItems.push(
+    {
+      label: 'My profile',
+      icon: 'pi pi-user',
+      command: () => router.visit('/profile')
+    },
+    {
+      label: 'Help',
+      icon: 'pi pi-question-circle',
+      command: () => router.visit('/help')
+    },
+    {
+      separator: true
+    },
+    {
+      label: 'Sign out',
+      icon: 'pi pi-sign-out',
+      isSignOut: true,
+      command: () => router.delete('/logout')
+    }
+  )
+
+  return menuItems
+})
 
 defineExpose({
   toggle: (event) => menuRef.value?.toggle(event)
@@ -71,13 +77,13 @@ defineExpose({
       <div class="border-b border-surface-200 px-4 py-3">
         <div class="flex items-center">
           <Avatar
-            :image="loggedInUser.currentAvatarUrl"
-            :label="loggedInUser.initials"
+            :image="loggedInUser?.currentAvatarUrl"
+            :label="loggedInUser?.initials"
             class="mr-3"
             shape="circle"
             size="normal"
             :style="{
-              backgroundColor: loggedInUser.currentAvatarUrl
+              backgroundColor: loggedInUser?.currentAvatarUrl
                 ? undefined
                 : '#6366f1',
               color: '#ffffff'
@@ -87,10 +93,10 @@ defineExpose({
             <span
               class="truncate text-sm font-semibold text-gray-900 dark:text-white"
             >
-              {{ loggedInUser.fullName }}
+              {{ loggedInUser?.fullName }}
             </span>
             <span class="truncate text-xs text-gray-500">
-              {{ loggedInUser.email }}
+              {{ loggedInUser?.email }}
             </span>
           </div>
         </div>
