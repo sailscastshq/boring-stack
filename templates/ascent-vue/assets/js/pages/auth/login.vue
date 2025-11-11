@@ -225,26 +225,21 @@ async function handleWebAuthnChallenge(challengeData) {
         <div
           class="relative rounded-2xl border border-gray-300 bg-white px-8 py-10 shadow-2xl"
         >
-          <!-- Global error -->
-          <div
+          <Message
+            severity="error"
             v-if="
               form.errors.login ||
               form.errors.magicLink ||
               verifyPasskeyForm.errors.passkey
             "
-            class="mb-6"
-            role="alert"
+            class="w-full"
           >
-            <Message
-              severity="error"
-              :text="
-                form.errors.login ||
-                form.errors.magicLink ||
-                verifyPasskeyForm.errors.passkey
-              "
-              class="w-full"
-            />
-          </div>
+            {{
+              form.errors.login ||
+              form.errors.magicLink ||
+              verifyPasskeyForm.errors.passkey
+            }}
+          </Message>
 
           <!-- Magic Link Primary View -->
           <form
