@@ -102,12 +102,9 @@ function signOutEverywhere() {
             :current-image-url="loggedInUser.avatarUrl"
             @image-select="(file) => (form.avatar = file)"
           />
-          <Message
-            v-if="form.errors.avatar"
-            severity="error"
-            :text="form.errors.avatar"
-            class="mt-2"
-          />
+          <Message v-if="form.errors.avatar" severity="error" class="mt-2">
+            {{ form.errors.avatar }}
+          </Message>
         </div>
 
         <div class="grid grid-cols-1 gap-4 sm:grid-cols-2">

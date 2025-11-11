@@ -443,11 +443,9 @@ function getActionItems(member) {
               "
             />
           </div>
-          <Message
-            v-if="emailForm.errors.emails"
-            severity="error"
-            :text="emailForm.errors.emails"
-          />
+          <Message v-if="emailForm.errors.emails" severity="error">
+            {{ emailForm.errors.emails }}
+          </Message>
         </div>
       </form>
     </section>
@@ -670,12 +668,9 @@ function getActionItems(member) {
               @image-select="(file) => (teamForm.logo = file)"
               placeholder="Choose logo"
             />
-            <Message
-              v-if="teamForm.errors.logo"
-              severity="error"
-              :text="teamForm.errors.logo"
-              class="mt-2"
-            />
+            <Message v-if="teamForm.errors.logo" severity="error" class="mt-2">
+              {{ teamForm.errors.logo }}
+            </Message>
           </div>
 
           <div>
@@ -704,12 +699,9 @@ function getActionItems(member) {
                 "
               />
             </div>
-            <Message
-              v-if="teamForm.errors.name"
-              severity="error"
-              :text="teamForm.errors.name"
-              class="mt-2"
-            />
+            <Message v-if="teamForm.errors.name" severity="error" class="mt-2">
+              {{ teamForm.errors.name }}
+            </Message>
           </div>
         </form>
 
@@ -788,9 +780,10 @@ function getActionItems(member) {
         <Message
           v-if="transferForm.errors.newOwnerEmail"
           severity="error"
-          :text="transferForm.errors.newOwnerEmail"
           class="mt-2"
-        />
+        >
+          {{ transferForm.errors.newOwnerEmail }}
+        </Message>
       </div>
 
       <div>
@@ -811,9 +804,10 @@ function getActionItems(member) {
         <Message
           v-if="transferForm.errors.confirmationText"
           severity="error"
-          :text="transferForm.errors.confirmationText"
           class="mt-2"
-        />
+        >
+          {{ transferForm.errors.confirmationText }}
+        </Message>
       </div>
 
       <div class="rounded-lg border border-red-200 bg-red-50 p-4">

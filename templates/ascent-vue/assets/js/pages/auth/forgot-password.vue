@@ -77,11 +77,9 @@ function submit() {
           class="relative rounded-2xl border border-gray-100 bg-white px-8 py-10 shadow-2xl"
         >
           <div v-if="form.errors.email" class="mb-6" role="alert">
-            <Message
-              severity="error"
-              :text="form.errors.email"
-              class="w-full"
-            />
+            <Message severity="error" class="w-full">
+              {{ form.errors.email }}
+            </Message>
           </div>
 
           <form @submit.prevent="submit" class="space-y-5">

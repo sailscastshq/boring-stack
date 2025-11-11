@@ -40,12 +40,9 @@ function handleSubmit() {
           class="w-full"
           :invalid="!!form.errors.name"
         />
-        <Message
-          v-if="form.errors.name"
-          severity="error"
-          :text="form.errors.name"
-          class="mt-2"
-        />
+        <Message v-if="form.errors.name" severity="error" class="mt-2">
+          {{ form.errors.name }}
+        </Message>
       </div>
 
       <div class="flex gap-3">

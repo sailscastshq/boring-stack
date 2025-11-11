@@ -129,15 +129,14 @@ const handleWaitlistSubmit = (e) => {
               </p>
             </div>
 
-            <!-- Global error -->
-            <div v-if="form.errors.waitlist" class="mb-6" role="alert">
-              <Message
-                severity="error"
-                :text="form.errors.waitlist"
-                class="w-full"
-              />
-            </div>
-
+            <Message
+              severity="error"
+              class="w-full mb-6"
+              v-if="form.errors.waitlist"
+              role="alert"
+            >
+              {{ form.errors.waitlist }}
+            </Message>
             <div class="space-y-4">
               <div class="relative">
                 <input

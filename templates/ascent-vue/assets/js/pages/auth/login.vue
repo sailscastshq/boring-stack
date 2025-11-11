@@ -278,11 +278,9 @@ async function handleWebAuthnChallenge(challengeData) {
                   placeholder="Enter your email address"
                 />
               </div>
-              <Message
-                v-if="form.errors.email"
-                severity="error"
-                :text="form.errors.email"
-              />
+              <Message v-if="form.errors.email" severity="error">
+                {{ form.errors.email }}
+              </Message>
             </div>
 
             <!-- Magic Link Button -->
@@ -431,11 +429,9 @@ async function handleWebAuthnChallenge(challengeData) {
                     placeholder="Enter your email address"
                   />
                 </div>
-                <Message
-                  v-if="form.errors.email"
-                  severity="error"
-                  :text="form.errors.email"
-                />
+                <Message v-if="form.errors.email" severity="error">
+                  {{ form.errors.email }}
+                </Message>
               </div>
 
               <!-- Password -->
@@ -464,11 +460,9 @@ async function handleWebAuthnChallenge(challengeData) {
                     placeholder="Enter your password"
                   />
                 </div>
-                <Message
-                  v-if="form.errors.password"
-                  severity="error"
-                  :text="form.errors.password"
-                />
+                <Message v-if="form.errors.password" severity="error">
+                  {{ form.errors.password }}
+                </Message>
               </div>
 
               <!-- Remember me and Forgot password -->

@@ -137,10 +137,11 @@ function handleTopicChange(e) {
                   <Message
                     v-if="form.errors.name"
                     severity="error"
-                    :text="form.errors.name"
                     class="mt-2"
                     role="alert"
-                  />
+                  >
+                    {{ form.errors.name }}
+                  </Message>
                 </div>
 
                 <div>
@@ -161,10 +162,11 @@ function handleTopicChange(e) {
                   <Message
                     v-if="form.errors.email"
                     severity="error"
-                    :text="form.errors.email"
                     class="mt-2"
                     role="alert"
-                  />
+                  >
+                    {{ form.errors.email }}
+                  </Message>
                 </div>
               </fieldset>
 
@@ -201,10 +203,11 @@ function handleTopicChange(e) {
                 <Message
                   v-if="form.errors.topic"
                   severity="error"
-                  :text="form.errors.topic"
                   class="mt-2"
                   role="alert"
-                />
+                >
+                  {{ form.errors.topic }}
+                </Message>
               </fieldset>
 
               <fieldset>
@@ -225,10 +228,11 @@ function handleTopicChange(e) {
                 <Message
                   v-if="form.errors.message"
                   severity="error"
-                  :text="form.errors.message"
                   class="mt-2"
                   role="alert"
-                />
+                >
+                  {{ form.errors.message }}
+                </Message>
               </fieldset>
 
               <div class="pt-2">

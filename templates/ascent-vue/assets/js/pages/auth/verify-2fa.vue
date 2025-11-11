@@ -142,15 +142,13 @@ function handleSwitchMethod(method) {
             <Message
               v-if="form.errors.method"
               severity="error"
-              :text="form.errors.method"
               class="mb-3 w-full"
-            />
-            <Message
-              v-if="form.errors.code"
-              severity="error"
-              :text="form.errors.code"
-              class="w-full"
-            />
+            >
+              {{ form.errors.method }}
+            </Message>
+            <Message v-if="form.errors.code" severity="error" class="w-full">
+              {{ form.errors.code }}
+            </Message>
           </div>
 
           <form @submit="handleVerifyCode" class="space-y-5">

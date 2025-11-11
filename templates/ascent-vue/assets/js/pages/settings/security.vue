@@ -372,9 +372,10 @@ function submitInitialPassword(e) {
           <Message
             v-if="initialPasswordForm.errors.setupInitialPassword"
             severity="error"
-            :text="initialPasswordForm.errors.setupInitialPassword"
             class="mb-4"
-          />
+          >
+            {{ initialPasswordForm.errors.setupInitialPassword }}
+          </Message>
 
           <div class="grid gap-4">
             <div>
@@ -394,9 +395,10 @@ function submitInitialPassword(e) {
               <Message
                 v-if="initialPasswordForm.errors.password"
                 severity="error"
-                :text="initialPasswordForm.errors.password"
                 class="mt-2"
-              />
+              >
+                {{ initialPasswordForm.errors.password }}
+              </Message>
             </div>
 
             <div>
@@ -416,9 +418,10 @@ function submitInitialPassword(e) {
               <Message
                 v-if="initialPasswordForm.errors.confirmPassword"
                 severity="error"
-                :text="initialPasswordForm.errors.confirmPassword"
                 class="mt-2"
-              />
+              >
+                {{ initialPasswordForm.errors.confirmPassword }}
+              </Message>
             </div>
           </div>
 
@@ -541,9 +544,10 @@ function submitInitialPassword(e) {
               <Message
                 v-if="form.errors.currentPassword"
                 severity="error"
-                :text="form.errors.currentPassword"
                 class="mt-2"
-              />
+              >
+                {{ form.errors.currentPassword }}
+              </Message>
             </div>
 
             <div>
@@ -563,9 +567,10 @@ function submitInitialPassword(e) {
               <Message
                 v-if="form.errors.password"
                 severity="error"
-                :text="form.errors.password"
                 class="mt-2"
-              />
+              >
+                {{ form.errors.password }}
+              </Message>
             </div>
 
             <div>
@@ -585,9 +590,10 @@ function submitInitialPassword(e) {
               <Message
                 v-if="form.errors.confirmPassword"
                 severity="error"
-                :text="form.errors.confirmPassword"
                 class="mt-2"
-              />
+              >
+                {{ form.errors.confirmPassword }}
+              </Message>
             </div>
           </div>
 

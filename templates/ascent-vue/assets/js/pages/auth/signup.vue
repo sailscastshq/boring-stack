@@ -177,11 +177,9 @@ function sendMagicLink(e) {
         >
           <!-- Global error -->
           <div v-if="form.errors.signup" class="mb-6" role="alert">
-            <Message
-              severity="error"
-              :text="form.errors.signup"
-              class="w-full"
-            />
+            <Message severity="error" class="w-full">
+              {{ form.errors.signup }}
+            </Message>
           </div>
 
           <!-- Magic Link Primary View -->
@@ -216,11 +214,9 @@ function sendMagicLink(e) {
                   placeholder="Enter your full name"
                 />
               </div>
-              <Message
-                v-if="form.errors.fullName"
-                severity="error"
-                :text="form.errors.fullName"
-              />
+              <Message v-if="form.errors.fullName" severity="error">
+                {{ form.errors.fullName }}
+              </Message>
             </div>
 
             <!-- Email -->
@@ -249,11 +245,9 @@ function sendMagicLink(e) {
                   placeholder="Enter your email address"
                 />
               </div>
-              <Message
-                v-if="form.errors.email"
-                severity="error"
-                :text="form.errors.email"
-              />
+              <Message v-if="form.errors.email" severity="error">
+                {{ form.errors.email }}
+              </Message>
             </div>
 
             <!-- Magic Link Button -->
@@ -377,11 +371,9 @@ function sendMagicLink(e) {
                     placeholder="Enter your full name"
                   />
                 </div>
-                <Message
-                  v-if="form.errors.fullName"
-                  severity="error"
-                  :text="form.errors.fullName"
-                />
+                <Message v-if="form.errors.fullName" severity="error">
+                  {{ form.errors.fullName }}
+                </Message>
               </div>
 
               <!-- Email -->
@@ -410,11 +402,9 @@ function sendMagicLink(e) {
                     placeholder="Enter your email address"
                   />
                 </div>
-                <Message
-                  v-if="form.errors.email"
-                  severity="error"
-                  :text="form.errors.email"
-                />
+                <Message v-if="form.errors.email" severity="error">
+                  {{ form.errors.email }}
+                </Message>
               </div>
 
               <!-- Password -->
@@ -443,11 +433,9 @@ function sendMagicLink(e) {
                     placeholder="Create a secure password"
                   />
                 </div>
-                <Message
-                  v-if="form.errors.password"
-                  severity="error"
-                  :text="form.errors.password"
-                />
+                <Message v-if="form.errors.password" severity="error">
+                  {{ form.errors.password }}
+                </Message>
 
                 <!-- Password Requirements -->
                 <div class="mt-4 space-y-2">
