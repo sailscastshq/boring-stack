@@ -11,13 +11,17 @@ module.exports = {
   },
 
   exits: {
-    success: { responseType: 'inertiaRedirect' },
+    success: { responseType: 'redirect' },
     forbidden: { responseType: 'forbidden' },
     notFound: { responseType: 'notFound' }
   },
 
   fn: async function ({ teamId }) {
     const userId = this.req.session.userId
+
+    if (this.req.session.teamId === teamId) {
+      return '/settings/team'
+    }
 
     const membership = await Membership.findOne({
       member: userId,
