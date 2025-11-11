@@ -27,9 +27,7 @@ const form = useForm({
   avatar: null
 })
 
-const deleteAccountForm = useForm({
-  password: undefined
-})
+const deleteAccountForm = useForm({})
 
 function updateProfile(e) {
   e.preventDefault()
@@ -49,12 +47,16 @@ function confirmDeleteAccount() {
     header: 'Delete Account',
     icon: 'pi pi-exclamation-triangle',
     acceptClass: 'p-button-danger',
+    rejectProps: { label: 'Cancel' },
+    acceptProps: {
+      label: 'Delete Account',
+      severity: 'danger'
+    },
     accept: () => {
       deleteAccountForm.delete('/settings/profile')
     }
   })
 }
-
 function signOutEverywhere() {
   router.delete('/logout')
 }
@@ -62,7 +64,6 @@ function signOutEverywhere() {
 
 <template>
   <Head title="Profile Settings | Ascent Vue" />
-  <ConfirmDialog :style="{ width: '32rem' }" />
 
   <div class="max-w-2xl space-y-12">
     <!-- Profile Header -->
@@ -207,6 +208,13 @@ function signOutEverywhere() {
                   Permanently delete your account and all associated data. This
                   action cannot be undone.
                 </p>
+                <Message
+                  v-if="deleteAccountForm.errors.ownership"
+                  severity="error"
+                  class="mt-3"
+                >
+                  {{ deleteAccountForm.errors.ownership }}
+                </Message>
               </div>
             </div>
             <div class="flex justify-end sm:ml-4 sm:shrink-0">
