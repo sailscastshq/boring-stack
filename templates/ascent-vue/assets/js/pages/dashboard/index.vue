@@ -16,7 +16,7 @@ const loggedInUser = computed(() => page.props.loggedInUser)
 
   <header class="mb-8">
     <div
-      class="relative overflow-hidden rounded-2xl bg-gradient-to-br from-brand-600 via-brand-700 to-accent-700 p-8 text-white shadow-2xl"
+      class="relative overflow-hidden rounded-2xl bg-linear-to-br from-brand-600 via-brand-700 to-accent-700 p-8 text-white shadow-2xl"
     >
       <div
         class="absolute right-0 top-0 h-32 w-32 -translate-y-8 translate-x-8 rounded-full bg-white/10"

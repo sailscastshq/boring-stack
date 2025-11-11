@@ -41,7 +41,7 @@ function submit() {
   <Head title="Reset Password | Ascent" />
 
   <div
-    class="flex min-h-screen flex-col justify-center bg-gradient-to-br from-brand-50/30 via-white to-accent-50/20 py-12 sm:px-6 lg:px-8"
+    class="flex min-h-screen flex-col justify-center bg-linear-to-br from-brand-50/30 via-white to-accent-50/20 py-12 sm:px-6 lg:px-8"
   >
     <div class="pointer-events-none absolute inset-0 overflow-hidden">
       <div
@@ -81,7 +81,7 @@ function submit() {
     <div class="relative sm:mx-auto sm:w-full sm:max-w-lg">
       <div class="relative">
         <div
-          class="absolute inset-0 scale-105 rounded-2xl bg-gradient-to-r from-brand-600/10 to-accent-600/10 blur-xl"
+          class="absolute inset-0 scale-105 rounded-2xl bg-linear-to-r from-brand-600/10 to-accent-600/10 blur-xl"
         ></div>
 
         <div
@@ -163,7 +163,7 @@ function submit() {
                 >
                   <svg
                     :class="[
-                      'h-4 w-4 flex-shrink-0',
+                      'h-4 w-4 shrink-0',
                       passwordIsValid ? 'text-green-500' : 'text-gray-400'
                     ]"
                     fill="currentColor"
@@ -185,7 +185,7 @@ function submit() {
                 >
                   <svg
                     :class="[
-                      'h-4 w-4 flex-shrink-0',
+                      'h-4 w-4 shrink-0'
                       containsSpecialChars ? 'text-green-500' : 'text-gray-400'
                     ]"
                     fill="currentColor"
@@ -210,7 +210,7 @@ function submit() {
                   'flex w-full justify-center rounded-xl px-8 py-4 text-lg font-bold text-white shadow-lg transition-all duration-200 hover:scale-[1.02] hover:shadow-xl disabled:cursor-not-allowed disabled:opacity-50 disabled:hover:scale-100',
                   disableResetPasswordButton
                     ? 'bg-gray-300'
-                    : 'bg-gradient-to-r from-brand-600 to-accent-600 hover:from-brand-700 hover:to-accent-700 focus:outline-none focus:ring-2 focus:ring-brand-500 focus:ring-offset-2'
+                    : 'bg-linear-to-r from-brand-600 to-accent-600 hover:from-brand-700 hover:to-accent-700 focus:outline-none focus:ring-2 focus:ring-brand-500 focus:ring-offset-2'
                 ]"
               >
                 <div v-if="form.processing" class="flex items-center space-x-2">
