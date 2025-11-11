@@ -196,6 +196,11 @@ const toggleNavbarUserMenu = (event) => {
                 v-for="item in section.items"
                 :key="item.name"
                 :href="item.href"
+                v-tooltip="{
+                  content: item.name,
+                  disabled: !isCollapsed || isMobileOpen,
+                  placement: 'right'
+                }"
                 :class="[
                   'group flex items-center rounded-lg px-3 py-2.5 text-sm font-medium transition-colors',
                   isActiveRoute(item.href)
@@ -264,6 +269,10 @@ const toggleNavbarUserMenu = (event) => {
               size="normal"
               shape="circle"
               class="cursor-pointer [&_img]:rounded-full"
+              v-tooltip="{
+                content: loggedInUser?.fullName,
+                placement: 'right'
+              }"
               @click="toggleUserMenu"
               aria-haspopup="true"
               aria-controls="user_menu"
