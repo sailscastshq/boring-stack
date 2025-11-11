@@ -8,6 +8,7 @@ import UserMenu from '@/components/UserMenu.vue'
 import { useFlashToast } from '@/composables/flashToast'
 import { useLocalStorage } from '@/composables/localStorage'
 import SecondaryButton from '@/volt/SecondaryButton.vue'
+import ConfirmDialog from '@/volt/ConfirmDialog.vue'
 
 const props = defineProps({
   title: {
@@ -399,5 +400,6 @@ const toggleNavbarUserMenu = (event) => {
     </div>
 
     <Toast />
+    <ConfirmDialog :style="{ width: '32rem' }" />
   </div>
 </template>
