@@ -267,6 +267,8 @@ function handleDisablePasskeys() {
     header: 'Disable All Passkeys',
     icon: 'pi pi-exclamation-triangle',
     acceptClass: 'bg-red-600 hover:bg-red-700 text-white border-red-600',
+    acceptLabel: 'Disable All',
+    rejectLabel: 'Cancel',
     accept: () => {
       disablePasskeysForm.post('/security/disable-passkeys', {
         preserveScroll: true
@@ -298,7 +300,6 @@ function submitInitialPassword(e) {
 
 <template>
   <Head title="Security Settings | Ascent Vue" />
-  <ConfirmDialog :style="{ width: '32rem' }" />
 
   <div class="max-w-4xl space-y-8">
     <!-- Password Section -->

@@ -79,6 +79,8 @@ function confirmDeletePasskey(passkey) {
     header: 'Remove Passkey',
     icon: 'pi pi-exclamation-triangle',
     acceptClass: 'bg-red-600 hover:bg-red-700 text-white border-red-600',
+    acceptLabel: 'Remove',
+    rejectLabel: 'Cancel',
     accept: () => {
       router.delete(`/security/delete-passkey/${passkey.credentialID}`, {
         preserveScroll: true,
