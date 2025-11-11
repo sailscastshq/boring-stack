@@ -27,22 +27,18 @@ export default async function template(argv, frontend) {
     process.exit(0)
   }
 
-  if (templateChoice === 'ascent' && frontend !== 'react') {
+  if (templateChoice === 'ascent' && frontend === 'svelte') {
     console.log()
-    console.log(
-      color.yellow(
-        `🚧 Ascent ${
-          frontend.charAt(0).toUpperCase() + frontend.slice(1)
-        } template is not ready yet!`
-      )
-    )
+    console.log(color.yellow(`🚧 Ascent Svelte template is not ready yet!`))
     console.log()
     console.log(
       color.cyan('Want to help speed up development? Sponsor my work at:')
     )
     console.log(color.blue('https://github.com/sponsors/DominusKelvin'))
     console.log()
-    cancel('Template not available yet. Please try React with Ascent for now.')
+    cancel(
+      'Template not available yet. Please try React or Vue with Ascent for now.'
+    )
     process.exit(1)
   }
 
