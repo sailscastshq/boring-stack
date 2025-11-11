@@ -42,7 +42,7 @@ module.exports = {
       const firstTeam = remainingMemberships[0].team
       await sails.helpers
         .setTeamSession(this.req, userId, firstTeam.id)
-        .tolerate()
+        .tolerate('notFound')
       await User.updateOne({ id: userId }).set({ team: firstTeam.id })
 
       this.req.flash(
@@ -51,13 +51,15 @@ module.exports = {
       )
     } else {
       const user = await User.findOne({ id: userId })
-      const result = await sails.helpers.user.createTeam(user).tolerate()
+      const result = await sails.helpers.user
+        .createTeam(user)
+        .tolerate('notFound')
 
       if (result) {
         await User.updateOne({ id: userId }).set({ team: result.team.id })
         await sails.helpers
           .setTeamSession(this.req, userId, result.team.id)
-          .tolerate()
+          .tolerate('notFound')
 
         this.req.flash(
           'success',
