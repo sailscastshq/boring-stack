@@ -40,13 +40,13 @@
     "sails-sqlite": "^0.2.3",
     "skipper-s3": "^0.6.0",
     "speakeasy": "^2.0.0",
-    "tailwind-merge": "^3.3.1",
-    "vue": "^3.5.13"
+    "tailwind-merge": "^3.4.0",
+    "vue": "^3.5.24"
   },
   "devDependencies": {
     "@playwright/test": "^1.56.1",
     "@rsbuild/plugin-vue": "^1.2.0",
-    "@tailwindcss/postcss": "^4.1.16",
+    "@tailwindcss/postcss": "^4.1.17",
     "@tailwindcss/typography": "^0.5.19",
     "create-sails-generator": "^0.1.0",
     "playwright": "^1.55.0",
@@ -55,7 +55,7 @@
     "sails-hook-shipwright": "^0.3.8",
     "sails.io.js": "^1.2.1",
     "socket.io-client": "^4.8.1",
-    "tailwindcss": "^4.0.0",
+    "tailwindcss": "^4.1.17",
     "tailwindcss-primeui": "^0.6.1"
   },
   "scripts": {
