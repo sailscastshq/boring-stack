@@ -1,62 +1,58 @@
 <script setup>
-import { ref, computed } from 'vue'
-import { router, usePage } from '@inertiajs/vue3'
+import { ref } from 'vue'
+import { Link, router, usePage } from '@inertiajs/vue3'
 import Avatar from '@/components/Avatar.vue'
 import Menu from '@/volt/Menu.vue'
 
-const menuRef = ref(null)
-
+const menuRef = ref()
 const page = usePage()
-const loggedInUser = computed(() => page.props.loggedInUser)
-const teams = computed(() => page.props.teams)
-const currentTeam = computed(() => page.props.currentTeam)
-const sharedUserMenuItems = computed(() => {
-  const items = []
+const { loggedInUser, teams, currentTeam } = page.props
+console.log(loggedInUser)
+const items = ref([])
 
-  if (teams.value && teams.value.length > 0) {
-    items.push({
-      key: 'teams-section',
-      items: teams.value.map((team) => ({
-        label: team.name,
-        teamId: team.id,
-        logoUrl: team.logoUrl,
-        isCurrent: currentTeam.value?.id === team.id,
-        command: () => router.post(`/teams/${team.id}/switch`)
-      }))
-    })
-    items.push({
-      label: 'New team',
-      key: 'new-team',
-      isNewTeam: true,
-      command: () => router.visit('/team/create')
-    })
-    items.push({ separator: true })
+if (teams && teams.length > 0) {
+  const teamItems = teams.map((team) => ({
+    label: team.name,
+    teamId: team.id,
+    logoUrl: team.logoUrl,
+    isCurrent: currentTeam?.id === team.id,
+    command: () => router.post(`/teams/${team.id}/switch`)
+  }))
+
+  teamItems.push({
+    label: 'New team',
+    isNewTeam: true,
+    command: () => router.visit('/team/create')
+  })
+
+  items.value.push({
+    label: 'Teams',
+    items: teamItems
+  })
+  items.value.push({ separator: true })
+}
+
+items.value.push(
+  {
+    label: 'My profile',
+    icon: 'pi pi-user',
+    command: () => router.visit('/profile')
+  },
+  {
+    label: 'Help',
+    icon: 'pi pi-question-circle',
+    command: () => router.visit('/help')
+  },
+  {
+    separator: true
+  },
+  {
+    label: 'Sign out',
+    icon: 'pi pi-sign-out',
+    isSignOut: true,
+    command: () => router.delete('/logout')
   }
-
-  items.push(
-    {
-      label: 'My profile',
-      icon: 'pi pi-user',
-      command: () => router.visit('/profile')
-    },
-    {
-      label: 'Help',
-      icon: 'pi pi-question-circle',
-      command: () => router.visit('/help')
-    },
-    {
-      separator: true
-    },
-    {
-      label: 'Sign out',
-      icon: 'pi pi-sign-out',
-      isSignOut: true,
-      command: () => router.delete('/logout')
-    }
-  )
-
-  return items
-})
+)
 
 defineExpose({
   toggle: (event) => menuRef.value?.toggle(event)
@@ -64,104 +60,97 @@ defineExpose({
 </script>
 
 <template>
-  <Menu ref="menuRef" :model="sharedUserMenuItems" :popup="true" class="w-64">
+  <Menu
+    ref="menuRef"
+    id="user_menu"
+    :model="items"
+    :popup="true"
+    class="w-full md:w-64"
+  >
     <template #start>
-      <div class="border-b border-gray-200 px-4 py-3">
+      <div class="border-b border-surface-200 px-4 py-3">
         <div class="flex items-center">
-          <Avatar :user="loggedInUser" class="mr-3" shape="circle" />
+          <Avatar
+            :image="loggedInUser.currentAvatarUrl"
+            :label="loggedInUser.initials"
+            class="mr-3"
+            shape="circle"
+            size="normal"
+            :style="{
+              backgroundColor: loggedInUser.currentAvatarUrl
+                ? undefined
+                : '#6366f1',
+              color: '#ffffff'
+            }"
+          />
           <div class="flex min-w-0 flex-1 flex-col">
-            <span class="truncate text-sm font-semibold text-gray-900">
-              {{ loggedInUser?.fullName }}
+            <span
+              class="truncate text-sm font-semibold text-gray-900 dark:text-white"
+            >
+              {{ loggedInUser.fullName }}
             </span>
             <span class="truncate text-xs text-gray-500">
-              {{ loggedInUser?.email }}
+              {{ loggedInUser.email }}
             </span>
           </div>
         </div>
       </div>
     </template>
+
+    <template #submenulabel="{ item }">
+      <span class="text-xs font-bold uppercase text-surface-500">{{
+        item.label
+      }}</span>
+    </template>
+
     <template #item="{ item, props }">
-      <!-- Teams Section -->
-      <div v-if="item.key === 'teams-section'" class="px-4 py-3">
-        <div class="mb-3">
+      <button
+        v-if="item.teamId"
+        type="button"
+        class="flex w-full items-center gap-2 rounded-md px-3 py-2 text-left"
+        v-bind="props.action"
+        :class="
+          item.isCurrent
+            ? 'bg-brand-50 text-brand-700'
+            : 'text-gray-700 hover:bg-gray-50'
+        "
+      >
+        <Avatar
+          :image="item.logoUrl"
+          :label="item.label.charAt(0)"
+          shape="square"
+        />
+        <span class="text-sm font-medium">{{ item.label }}</span>
+        <span v-if="item.isCurrent" class="relative ml-auto flex size-3">
           <span
-            class="text-xs font-semibold uppercase tracking-wider text-gray-600"
-          >
-            Teams
-          </span>
-        </div>
-        <div class="space-y-1">
-          <button
-            v-for="team in item.items"
-            :key="team.teamId"
-            @click="team.command"
-            :class="[
-              'flex w-full items-center rounded-md px-3 py-2 text-left text-sm transition-colors',
-              team.isCurrent
-                ? 'bg-brand-50 text-brand-700'
-                : 'text-gray-700 hover:bg-gray-50'
-            ]"
-          >
-            <Avatar
-              :image="team.logoUrl"
-              :label="team.label.charAt(0).toUpperCase()"
-              size="normal"
-              class="mr-3 text-xs font-medium [&_img]:rounded-full"
-              :style="{
-                backgroundColor: team.logoUrl ? 'transparent' : '#6b7280',
-                color: '#ffffff',
-                width: '1.75rem',
-                height: '1.75rem'
-              }"
-            />
-            <div class="min-w-0 flex-1">
-              <div class="truncate font-medium">{{ team.label }}</div>
-            </div>
-            <span
-              v-if="team.isCurrent"
-              class="relative flex h-3 w-3 flex-shrink-0"
-            >
-              <span
-                class="absolute inline-flex h-full w-full animate-ping rounded-full bg-brand-400 opacity-75"
-              />
-              <span
-                class="relative inline-flex h-3 w-3 rounded-full bg-brand-500"
-              />
-            </span>
-          </button>
-        </div>
-      </div>
-      <!-- New Team -->
-      <a
+            class="absolute inline-flex h-full w-full animate-ping rounded-full bg-sky-400 opacity-75"
+          ></span>
+          <span
+            class="relative inline-flex size-3 rounded-full bg-sky-500"
+          ></span>
+        </span>
+      </button>
+      <Link
         v-else-if="item.isNewTeam"
-        class="flex items-center px-4 py-2.5 text-sm font-medium text-gray-700 hover:bg-gray-50 cursor-pointer"
+        href="/team/create"
+        class="flex items-center gap-2 px-3 py-2"
         v-bind="props.action"
       >
         <div
-          class="mr-3 flex h-7 w-7 items-center justify-center rounded border-2 border-dashed border-gray-300 text-xs font-medium text-gray-400"
+          class="flex items-center justify-center w-8 h-8 border-2 border-dashed border-surface-300 dark:border-surface-600 rounded-lg"
         >
-          +
+          <i class="pi pi-plus text-sm text-surface-400" />
         </div>
-        <span class="flex-1 font-medium">{{ item.label }}</span>
-      </a>
-      <!-- Regular Items with Icons -->
+        <span class="text-sm font-medium">{{ item.label }}</span>
+      </Link>
       <a
-        v-else-if="!item.separator"
-        class="flex items-center px-4 py-2.5 text-sm font-medium hover:bg-gray-50 cursor-pointer"
-        :class="
-          item.isSignOut ? 'text-red-600 hover:bg-red-50' : 'text-gray-700'
-        "
+        v-else
+        class="flex items-center gap-2"
         v-bind="props.action"
+        :class="{ 'text-red-500': item.isSignOut }"
       >
-        <span
-          v-if="item.icon"
-          :class="[
-            item.icon,
-            'mr-3 text-base',
-            item.isSignOut ? 'text-red-500' : 'text-gray-500'
-          ]"
-        />
-        <span class="flex-1">{{ item.label }}</span>
+        <i :class="item.icon" />
+        <span>{{ item.label }}</span>
       </a>
     </template>
   </Menu>
