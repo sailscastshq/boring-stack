@@ -6,7 +6,6 @@ import Button from '@/volt/Button.vue'
 import InputText from '@/volt/InputText.vue'
 import ToggleSwitch from '@/volt/ToggleSwitch.vue'
 import Avatar from '@/components/Avatar.vue'
-import Tag from '@/volt/Tag.vue'
 import Message from '@/volt/Message.vue'
 import DashboardLayout from '@/layouts/DashboardLayout.vue'
 
@@ -14,7 +13,6 @@ defineOptions({
   layout: (h, page) =>
     h(DashboardLayout, { maxWidth: 'narrow', title: 'Team' }, () => page)
 })
-import ConfirmDialog from '@/volt/ConfirmDialog.vue'
 import Dialog from '@/volt/Dialog.vue'
 import Menu from '@/volt/Menu.vue'
 import Select from '@/volt/Select.vue'
@@ -183,6 +181,8 @@ function confirmRemoveMember(member) {
     header: 'Remove Team Member',
     icon: 'pi pi-exclamation-triangle',
     acceptClass: 'p-button-danger',
+    rejectProps: { label: 'Cancel' },
+    acceptProps: { label: 'Remove' },
     accept: () => {
       memberActions.value.add(`remove-${member.id}`)
       router.delete(`/teams/${props.team.id}/members/${member.id}`)
@@ -197,6 +197,8 @@ function confirmLeaveTeam() {
     header: 'Leave Team',
     icon: 'pi pi-exclamation-triangle',
     acceptClass: 'bg-red-600 hover:bg-red-700 text-white border-red-600',
+    rejectProps: { label: 'Cancel' },
+    acceptProps: { label: 'Leave' },
     accept: () => {
       router.post(`/teams/${props.team.id}/leave`)
     }
@@ -226,6 +228,8 @@ function confirmDeleteTeam() {
     header: 'Delete Team',
     icon: 'pi pi-exclamation-triangle',
     acceptClass: 'bg-red-600 hover:bg-red-700 text-white border-red-600',
+    rejectProps: { label: 'Cancel' },
+    acceptProps: { label: 'Delete' },
     accept: () => {
       router.delete(`/teams/${props.team.id}`)
     }
@@ -277,7 +281,6 @@ function getActionItems(member) {
 
 <template>
   <Head title="Team Settings | Ascent Vue" />
-  <ConfirmDialog :style="{ width: '32rem' }" />
 
   <div class="max-w-4xl space-y-8">
     <!-- Invite by Link - Only for owners/admins -->
@@ -628,6 +631,8 @@ function getActionItems(member) {
                     icon: 'pi pi-exclamation-triangle',
                     acceptClass:
                       'bg-red-600 hover:bg-red-700 text-white border-red-600',
+                    rejectProps: { label: 'No' },
+                    acceptProps: { label: 'Yes, cancel' },
                     accept: () => {
                       inviteActions.add(`cancel-${invite.id}`)
                       router.delete(`/teams/${team.id}/invites/${invite.id}`, {
