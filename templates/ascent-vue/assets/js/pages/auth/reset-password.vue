@@ -185,7 +185,7 @@ function submit() {
                 >
                   <svg
                     :class="[
-                      'h-4 w-4 shrink-0'
+                      'h-4 w-4 shrink-0',
                       containsSpecialChars ? 'text-green-500' : 'text-gray-400'
                     ]"
                     fill="currentColor"
