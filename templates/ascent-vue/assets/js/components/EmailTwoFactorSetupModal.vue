@@ -51,8 +51,7 @@ function handleClose() {
     :visible="visible"
     :modal="true"
     :closable="!form.processing"
-    class="mx-4 w-full max-w-lg sm:mx-0"
-    :content-style="{ paddingRight: '2rem', paddingLeft: '2rem' }"
+    class="mx-4 max-w-2xl sm:mx-0 lg:w-4/12"
     @update:visible="handleClose"
   >
     <div class="space-y-8">

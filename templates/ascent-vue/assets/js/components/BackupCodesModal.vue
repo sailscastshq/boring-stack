@@ -47,8 +47,7 @@ function handleSavedCodes() {
     :visible="visible"
     :modal="true"
     :closable="false"
-    class="mx-4 w-full max-w-xl sm:mx-0"
-    :content-style="{ paddingRight: '2rem', paddingLeft: '2rem' }"
+    class="mx-4 max-w-2xl sm:mx-0 lg:w-5/12"
     @update:visible="handleSavedCodes"
   >
     <div class="space-y-6">

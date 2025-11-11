@@ -126,7 +126,7 @@ function getDeviceIcon(transports) {
     :visible="visible"
     header="Manage Passkeys"
     :modal="true"
-    class="mx-4 w-full max-w-2xl sm:mx-0"
+    class="mx-4 max-w-2xl sm:mx-0 lg:w-5/12"
     @update:visible="emit('hide')"
   >
     <div class="space-y-4">
