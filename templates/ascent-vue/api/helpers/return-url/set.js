@@ -23,10 +23,16 @@ module.exports = {
   },
 
   fn: async function ({ req, url }) {
-    // Use current request URL if no specific URL provided
     const urlToStore = url || req.url
     const SESSION_KEY = 'authReturnUrl'
     const DEFAULT_URL = '/dashboard'
+
+    if (!url && req.method !== 'GET') {
+      sails.log.verbose(
+        `Skipping non-GET request (${req.method}) as return URL: ${req.url}`
+      )
+      return DEFAULT_URL
+    }
 
     // Auth routes that should never be used as return URLs
     const FORBIDDEN_PATHS = [
