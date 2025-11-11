@@ -11,7 +11,6 @@ module.exports = {
 
   fn: async function () {
     const teamId = this.req.session.teamId
-
     const subscription = await Subscription.findOne({
       team: teamId,
       status: ['active', 'past_due']
@@ -46,7 +45,6 @@ module.exports = {
         subscriptionWithPortal = subscription
       }
     }
-
     return {
       page: 'settings/billing',
       props: {
