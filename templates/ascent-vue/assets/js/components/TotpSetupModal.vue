@@ -52,7 +52,7 @@ function handleClose() {
     :visible="visible"
     :modal="true"
     :closable="!form.processing"
-    class="mx-4 max-w-2xl sm:mx-0 sm:w-5/12"
+    class="mx-4 max-w-2xl sm:mx-0 lg:w-5/12"
     @update:visible="handleClose"
   >
     <div class="space-y-8">
