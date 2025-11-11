@@ -53,7 +53,6 @@ const formattedNextBillingDate = computed(() => {
 
 <template>
   <Head title="Billing Settings | Ascent Vue" />
-  <ConfirmDialog :style="{ width: '32rem' }" />
 
   <!-- No Active Subscription -->
   <div v-if="!isSubscribed" class="mx-auto max-w-2xl py-16 text-center">
