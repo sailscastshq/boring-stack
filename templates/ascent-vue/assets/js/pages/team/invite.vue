@@ -285,6 +285,5 @@ function handleInviteResponse(response) {
       </div>
     </div>
   </div>
-
   <Toast />
 </template>
