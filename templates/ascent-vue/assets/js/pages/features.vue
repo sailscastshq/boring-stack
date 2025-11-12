@@ -62,7 +62,7 @@ defineOptions({
           />
         </Link>
         <a
-          href="YOUTUBE_VIDEO_URL"
+          href="https://youtu.be/qp7YUtn_B7E"
           target="_blank"
           rel="noopener noreferrer"
           class="inline-block rounded-xl border-2 border-gray-300 bg-white px-8 py-4 font-bold text-gray-700 no-underline shadow-lg transition-all duration-200 hover:scale-[1.02] hover:border-brand-300 hover:shadow-xl"

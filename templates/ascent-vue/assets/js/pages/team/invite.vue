@@ -1,6 +1,5 @@
 <script setup>
 import { Link, Head, useForm } from '@inertiajs/vue3'
-import { ref } from 'vue'
 import Toast from '@/volt/Toast.vue'
 import { useFlashToast } from '@/composables/flashToast'
 
@@ -23,8 +22,7 @@ const props = defineProps({
   }
 })
 
-const toast = ref(null)
-useFlashToast(toast)
+useFlashToast()
 
 const form = useForm({
   inviteToken: props.inviteToken,
@@ -213,7 +211,7 @@ function handleInviteResponse(response) {
             <div class="flex flex-col gap-4 sm:flex-row">
               <!-- Decline Form -->
               <form
-                @submit="handleInviteResponse('decline')"
+                @submit.prevent="handleInviteResponse('decline')"
                 class="order-2 flex-1 sm:order-1"
               >
                 <button
@@ -240,7 +238,7 @@ function handleInviteResponse(response) {
 
               <!-- Accept Form -->
               <form
-                @submit="handleInviteResponse('accept')"
+                @submit.prevent="handleInviteResponse('accept')"
                 class="order-1 flex-1 sm:order-2"
               >
                 <button
@@ -287,6 +285,5 @@ function handleInviteResponse(response) {
       </div>
     </div>
   </div>
-
-  <Toast ref="toast" />
+  <Toast />
 </template>

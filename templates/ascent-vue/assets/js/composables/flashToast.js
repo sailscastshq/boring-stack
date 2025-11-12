@@ -11,49 +11,50 @@ export function useFlashToast() {
     (flash) => {
       if (!flash) return
 
-      if (flash.success && Array.isArray(flash.success)) {
-        flash.success.forEach((message) => {
-          toast.add({
-            severity: 'success',
-            summary: 'Success',
-            detail: message,
-            life: 4000
-          })
-        })
+      const types = {
+        success: {
+          severity: 'success',
+          summary: 'Success',
+          life: 4000
+        },
+        error: {
+          severity: 'error',
+          summary: 'Error',
+          life: 5000
+        },
+        message: {
+          severity: 'info',
+          summary: 'Info',
+          life: 4000
+        },
+        info: {
+          severity: 'info',
+          summary: 'Info',
+          life: 4000
+        },
+        warning: {
+          severity: 'warn',
+          summary: 'Warning',
+          life: 4000
+        }
       }
 
-      if (flash.error && Array.isArray(flash.error)) {
-        flash.error.forEach((message) => {
-          toast.add({
-            severity: 'error',
-            summary: 'Error',
-            detail: message,
-            life: 5000
-          })
-        })
-      }
+      Object.entries(types).forEach(([type, config]) => {
+        const messages = flash[type]
 
-      if (flash.message && Array.isArray(flash.message)) {
-        flash.message.forEach((message) => {
-          toast.add({
-            severity: 'info',
-            summary: 'Info',
-            detail: message,
-            life: 4000
-          })
-        })
-      }
+        if (messages) {
+          const messageArray = Array.isArray(messages) ? messages : [messages]
 
-      if (flash.warning && Array.isArray(flash.warning)) {
-        flash.warning.forEach((message) => {
-          toast.add({
-            severity: 'warn',
-            summary: 'Warning',
-            detail: message,
-            life: 4000
+          messageArray.forEach((message) => {
+            if (message) {
+              toast.add({
+                ...config,
+                detail: message
+              })
+            }
           })
-        })
-      }
+        }
+      })
     },
     {
       deep: true,

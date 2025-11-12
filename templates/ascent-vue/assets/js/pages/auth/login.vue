@@ -32,8 +32,7 @@ const showExpandedOptions = ref(false)
 const isSendingMagicLink = ref(false)
 const isSigningInWithPasskey = ref(false)
 
-const toast = ref(null)
-useFlashToast(toast)
+useFlashToast()
 
 onMounted(() => {
   if (props.passkeyChallenge) {
@@ -592,5 +591,5 @@ async function handleWebAuthnChallenge(challengeData) {
     </div>
   </div>
 
-  <Toast ref="toast" />
+  <Toast />
 </template>

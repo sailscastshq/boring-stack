@@ -15,8 +15,7 @@ const focusedField = ref('')
 const showExpandedOptions = ref(false)
 const isSendingMagicLink = ref(false)
 
-const toast = ref(null)
-useFlashToast(toast)
+useFlashToast()
 
 onMounted(() => {
   try {
@@ -621,6 +620,5 @@ function sendMagicLink(e) {
     </div>
   </div>
 
-  <!-- Toast notifications -->
-  <Toast ref="toast" />
+  <Toast />
 </template>

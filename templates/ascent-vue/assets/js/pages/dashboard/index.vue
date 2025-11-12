@@ -4,7 +4,7 @@ import DashboardLayout from '@/layouts/DashboardLayout.vue'
 import { computed } from 'vue'
 
 defineOptions({
-  layout: DashboardLayout
+  layout: (h, page) => h(DashboardLayout, {}, () => page)
 })
 
 const page = usePage()

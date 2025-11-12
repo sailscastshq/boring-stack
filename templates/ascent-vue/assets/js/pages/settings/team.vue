@@ -613,7 +613,7 @@ function getActionItems(member) {
                 }
               "
             />
-            <Button
+            <DangerButton
               label="Cancel"
               size="small"
               text
