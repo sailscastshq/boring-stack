@@ -25,8 +25,7 @@ const form = useForm({
   method: activeMethod.value
 })
 
-const toast = ref(null)
-useFlashToast(toast)
+useFlashToast()
 
 const isDisabled = computed(() => {
   if (form.processing) return true
@@ -294,5 +293,5 @@ function handleSwitchMethod(method) {
     </div>
   </div>
 
-  <Toast ref="toast" />
+  <Toast />
 </template>

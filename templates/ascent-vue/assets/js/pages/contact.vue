@@ -16,8 +16,7 @@ const props = defineProps({
   }
 })
 
-const toast = ref(null)
-useFlashToast(toast)
+useFlashToast()
 
 const selectedTopic = ref(null)
 
@@ -309,5 +308,5 @@ function handleTopicChange(e) {
     </div>
   </main>
 
-  <Toast ref="toast" />
+  <Toast />
 </template>
