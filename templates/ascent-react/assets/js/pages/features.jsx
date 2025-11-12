@@ -46,7 +46,7 @@ export default function Features() {
               <div className="absolute inset-0 rounded-xl bg-gradient-to-r from-brand-700 to-accent-700 opacity-0 transition-opacity group-hover:opacity-100"></div>
             </Link>
             <a
-              href="YOUTUBE_VIDEO_URL"
+              href="https://youtu.be/2Rd6NQV2jWg"
               target="_blank"
               rel="noopener noreferrer"
               className="inline-block rounded-xl border-2 border-gray-200 bg-white px-8 py-4 font-bold text-gray-700 no-underline shadow-lg transition-all duration-200 hover:scale-[1.02] hover:border-brand-300 hover:shadow-xl"
