@@ -21,7 +21,6 @@ import ImageUpload from '@/components/ImageUpload.vue'
 import Chips from '@/components/Chips.vue'
 import DangerButton from '@/volt/DangerButton.vue'
 import SecondaryButton from '@/volt/SecondaryButton.vue'
-import DangerButton from '@/volt/DangerButton.vue'
 
 const props = defineProps({
   team: {
