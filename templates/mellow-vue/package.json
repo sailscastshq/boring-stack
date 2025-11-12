@@ -35,7 +35,7 @@
     "tailwindcss": "^4.1.16"
   },
   "scripts": {
-    "dev": "node --watch app.js",
+    "dev": "node --watch-path=api --watch-path=config app.js",
     "start": "NODE_ENV=production node app.js",
     "lint": "prettier --check .",
     "lint:fix": "prettier --write .",
