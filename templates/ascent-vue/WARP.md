@@ -60,7 +60,7 @@ npx sails lift --drop
 ### Stack Components
 
 - **Backend**: Sails.js MVC framework with built-in ORM (Waterline)
-- **Frontend**: Vue 3 with PrimeVue UI components
+- **Frontend**: Vue 3 with Volt UI components
 - **Styling**: Tailwind CSS with custom design system
 - **Build Tool**: Sails Hook Shipwright (Rsbuild) with Vue plugin
 - **Data Flow**: Inertia.js eliminates the need for separate API routes
@@ -87,16 +87,16 @@ npx sails lift --drop
 
 ```
 assets/js/
-├── app.js              # Inertia.js setup with PrimeVue provider
+├── app.js              # Inertia.js setup with Volt UI provider
 ├── components/         # Reusable UI components
 ├── composables/        # Vue composables (e.g., useFlashToast)
 ├── layouts/           # App layouts (AppLayout.jsx)
 └── pages/             # Inertia pages matching controller responses
 ```
 
-**PrimeVue Component Patterns**
+**Volt UI Component Patterns**
 
-- **NEVER use PrimeVue CSS classes** (p-button, p-input, etc.) - the project uses PrimeVue in unstyled mode with Tailwind CSS
+- **NEVER use Volt CSS classes** (p-button, p-input, etc.) - the project uses Volt in unstyled mode with Tailwind CSS
 - Use **props** instead of CSS classes for component variants:
   - `<Button outlined />` instead of `className="p-button-outlined"`
   - `<Button text />` instead of `className="p-button-text"`
@@ -244,7 +244,7 @@ module.exports = {
 ### Styling Guidelines
 
 - Custom Tailwind config with brand colors (brand, accent, success)
-- PrimeVue components with unstyled mode + Tailwind passthrough
+- Volt components with unstyled mode + Tailwind passthrough
 - Design system uses consistent color palette and spacing
 - Responsive design patterns throughout
 
@@ -278,7 +278,7 @@ module.exports = {
 - `config/routes.js` - URL routing definitions
 - `config/inertia.js` - Inertia.js configuration
 - `config/shipwright.js` - Asset build configuration
-- `assets/js/app.js` - Frontend entry point with PrimeVue setup
+- `assets/js/app.js` - Frontend entry point with Volt setup
 - `api/models/User.js` - Comprehensive user model with auth features
 - `scripts/` - Maintenance scripts (token cleanup, etc.)
 
