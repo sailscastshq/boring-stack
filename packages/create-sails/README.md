@@ -32,13 +32,7 @@ npx create-sails@latest my-app --vue
 npx create-sails@latest my-app --svelte
 ```
 
-Now Run:
-
-```sh
-cd my-app
-npm install
-npm run dev
-```
+**Note:** Ascent template variants for Vue and Svelte are not yet available. Only `--react --ascent` is currently supported.
 
 ## What you will get with this scaffolding:
 
