@@ -4,7 +4,7 @@ This file provides guidance to WARP (warp.dev) when working with code in this re
 
 ## Project Overview
 
-Ascent React is a full-stack React SaaS template built on The Boring JavaScript Stack, combining Sails.js backend with React 19 frontend using Inertia.js for seamless server-side rendering without an API layer.
+Ascent Vue is a full-stack Vue SaaS template built on The Boring JavaScript Stack, combining Sails.js backend with Vue 3 frontend using Inertia.js for seamless server-side rendering without an API layer.
 
 ## Development Commands
 
@@ -60,9 +60,9 @@ npx sails lift --drop
 ### Stack Components
 
 - **Backend**: Sails.js MVC framework with built-in ORM (Waterline)
-- **Frontend**: React 19 with PrimeReact UI components
+- **Frontend**: Vue 3 with Volt UI components
 - **Styling**: Tailwind CSS with custom design system
-- **Build Tool**: Sails Hook Shipwright (Rsbuild) with React plugin
+- **Build Tool**: Sails Hook Shipwright (Rsbuild) with Vue plugin
 - **Data Flow**: Inertia.js eliminates the need for separate API routes
 
 ### Key Architecture Patterns
@@ -70,7 +70,7 @@ npx sails lift --drop
 **Modern Monolith with Inertia.js**
 
 - Controllers return `{ page: 'component-path' }` with `responseType: 'inertia'`
-- React components receive server data as props automatically
+- Vue components automatically receive all server-side data as props
 - No API routes needed - data flows directly from controllers to components
 - Page components located in `assets/js/pages/`
 
@@ -83,20 +83,20 @@ npx sails lift --drop
 - User model includes comprehensive auth fields and token management
 - Policies: `is-authenticated.js` and `is-guest.js` for route protection
 
-**React Component Structure**
+**Vue Component Structure**
 
 ```
 assets/js/
-├── app.js              # Inertia.js setup with PrimeReact provider
+├── app.js              # Inertia.js setup with Volt UI provider
 ├── components/         # Reusable UI components
-├── hooks/             # Custom React hooks (e.g., useFlashToast)
+├── composables/        # Vue composables (e.g., useFlashToast)
 ├── layouts/           # App layouts (AppLayout.jsx)
 └── pages/             # Inertia pages matching controller responses
 ```
 
-**PrimeReact Component Patterns**
+**Volt UI Component Patterns**
 
-- **NEVER use PrimeReact CSS classes** (p-button, p-input, etc.) - the project uses PrimeReact in unstyled mode with Tailwind CSS
+- **NEVER use Volt CSS classes** (p-button, p-input, etc.) - the project uses Volt in unstyled mode with Tailwind CSS
 - Use **props** instead of CSS classes for component variants:
   - `<Button outlined />` instead of `className="p-button-outlined"`
   - `<Button text />` instead of `className="p-button-text"`
@@ -121,7 +121,7 @@ assets/js/
 - Environment-specific configs in `config/env/`
 - Production config includes security, caching, and deployment settings
 - Custom configuration for Inertia.js integration
-- Shipwright build configuration with React plugin
+- Shipwright build configuration with Vue plugin
 
 ### Policy Configuration
 
@@ -136,7 +136,7 @@ assets/js/
 
 1. **Create route** in `config/routes.js`
 2. **Generate controller** action: `npx sails generate action feature/action-name`
-3. **Create React page** in `assets/js/pages/feature/`
+3. **Create Vue page** in `assets/js/pages/feature/`
 4. **Controller returns** `{ page: 'feature/page-name' }` with data as props
 
 ### Creating API Endpoints (when needed)
@@ -158,7 +158,7 @@ module.exports = {
 
 - Use `is-authenticated` policy for protected routes
 - Session data available via `req.session.userId`
-- User data automatically passed to React components via AppLayout
+- User data automatically passed to Vue components via AppLayout
 - Magic link tokens have cleanup script for maintenance
 
 ### Error Handling
@@ -244,7 +244,7 @@ module.exports = {
 ### Styling Guidelines
 
 - Custom Tailwind config with brand colors (brand, accent, success)
-- PrimeReact components with unstyled mode + Tailwind passthrough
+- Volt components with unstyled mode + Tailwind passthrough
 - Design system uses consistent color palette and spacing
 - Responsive design patterns throughout
 
@@ -253,13 +253,13 @@ module.exports = {
 - Unit tests for helpers using Node.js built-in test runner
 - Tests bootstrap Sails app with `environment: 'testing'`
 - Integration tests can be added for controllers and models
-- Frontend components can be tested with React Testing Library
+- Frontend components can be tested with Vue Testing Library
 
 ## Build and Deployment
 
 ### Asset Pipeline
 
-- Shipwright (Rsbuild) handles React compilation and bundling
+- Shipwright (Rsbuild) handles Vue compilation and bundling
 - PostCSS processes Tailwind styles
 - Hot reload in development via `node --watch app.js`
 - Production builds optimize for performance
@@ -278,7 +278,7 @@ module.exports = {
 - `config/routes.js` - URL routing definitions
 - `config/inertia.js` - Inertia.js configuration
 - `config/shipwright.js` - Asset build configuration
-- `assets/js/app.js` - Frontend entry point with PrimeReact setup
+- `assets/js/app.js` - Frontend entry point with Volt setup
 - `api/models/User.js` - Comprehensive user model with auth features
 - `scripts/` - Maintenance scripts (token cleanup, etc.)
 
@@ -314,10 +314,10 @@ module.exports = {
 - `DELETE` - Remove resources
 - Example: `PATCH /teams/:id/domain-restrictions` for adding domains, `DELETE /teams/:id/domain-restrictions/:domain` for removing
 
-### React Component Pattern
+### Vue Component Pattern
 
 ```javascript
-import { usePage } from '@inertiajs/react'
+import { usePage } from '@inertiajs/vue'
 
 export default function Component() {
   const { data } = usePage().props
