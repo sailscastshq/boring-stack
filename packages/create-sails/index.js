@@ -54,7 +54,7 @@ async function main() {
   }
   const packageManager = detectPackageManager()
   console.log(`  ${color.cyan(getCommand(packageManager, 'install'))}`)
-  console.log(`  ${color.cyan('npx sails lift')}`)
+  console.log(`  ${color.cyan('npm run dev')}`)
 
   outro(color.inverse('Enjoy your boring project.'))
   process.exit(0)
