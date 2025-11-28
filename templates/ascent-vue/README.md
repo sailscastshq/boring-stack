@@ -1,8 +1,8 @@
-# Ascent React - The Boring SaaS Stack 🚀
+# Ascent Vue - The Boring SaaS Stack 🚀
 
 **Ship products with battle-tested technologies. Say no to chasing JavaScript trends.**
 
-Ascent React is a production-ready React SaaS template built on The Boring JavaScript Stack. Focus on shipping to actual real users instead of wrestling with complex build tools and trendy frameworks.
+Ascent Vue is a production-ready React SaaS template built on The Boring JavaScript Stack. Focus on shipping to actual real users instead of wrestling with complex build tools and trendy frameworks.
 
 ## 🎁 The Boring Stack Philosophy
 
@@ -23,9 +23,9 @@ Ascent React is a production-ready React SaaS template built on The Boring JavaS
 
 ### Frontend
 
-- **[React 19](https://react.dev)** - Latest React with modern features and concurrent rendering
+- **[Vue 3](https://vuejs.org)** - Latest Vue with Composition API and reactivity system
 - **[Inertia.js](https://inertiajs.com)** - Modern monolith approach eliminating API complexity
-- **[PrimeReact](https://primereact.org)** - 80+ production-ready UI components
+- **[Volt UI](https://volt.primevue.org)** - Custom Vue component library styled with Tailwind CSS
 - **[Tailwind CSS](https://tailwindcss.com)** - Utility-first CSS framework for styling PrimeReact components
 - **[Rsbuild](https://rsbuild.dev)** - Fast build tool powered by Rspack (via Sails Shipwright)
 
@@ -90,7 +90,7 @@ Ascent React is a production-ready React SaaS template built on The Boring JavaS
 ### 🎨 UI/UX Features
 
 - **Responsive Design** - Mobile-first responsive layouts
-- **PrimeReact + Tailwind** - Rich components styled with utility classes
+- **Volt UI + Tailwind** - Rich, reusable components styled with utility classes
 - **Toast Notifications** - User feedback with PrimeReact Toast
 - **Loading States** - Comprehensive loading and error states
 - **Form Validation** - Client and server-side validation
@@ -152,7 +152,7 @@ Use this checklist to set up your SaaS application:
 
 ### Initial Setup
 
-- [ ] **Clone/download** the Ascent React template
+- [ ] **Clone/download** the Ascent Vue template
 - [ ] **Install dependencies** with `npm install`
 - [ ] **Copy configuration** with `cp config/local.js.example config/local.js`
 - [ ] **Configure local settings** in `config/local.js`
@@ -196,7 +196,7 @@ Use this checklist to set up your SaaS application:
 
 - [ ] **Update branding** (logo, colors, typography)
 - [ ] **Customize Tailwind config** in `tailwind.config.js`
-- [ ] **Modify PrimeReact themes** to match your design
+- [ ] **Modify PrimeVue themes** to match your design
 - [ ] **Update application metadata** (name, description, etc.)
 
 ### Production Deployment
@@ -222,121 +222,113 @@ Use this checklist to set up your SaaS application:
 - [ ] **Configure code formatting** with Prettier
 - [ ] **Set up pre-commit hooks** for code quality
 
-## 🎨 PrimeReact + Tailwind Usage
+## 🎨 Volt UI + Tailwind Usage
 
-Ascent React combines PrimeReact's rich components with Tailwind's utility classes:
+Ascent Vue combines PrimeVue's rich components with Tailwind's utility classes:
 
 ### Authentication Form Example
 
-```jsx
-import { useForm } from '@inertiajs/react'
-import { Button } from 'primereact/button'
-import { InputText } from 'primereact/inputtext'
-import { Password } from 'primereact/password'
-import { Card } from 'primereact/card'
+```
+<script setup>
+import { useForm } from '@inertiajs/vue3'
+import Button from '@/volt/Button.vue'
+import InputText from '@/volt/InputText.vue'
+import Password from '@/volt/Password.vue'
+import Card from '@/volt/Card.vue'
+import Toast from '@/volt/Toast.vue'
+import { useFlashToast } from '@/composables/flashToast'
 
-export default function LoginForm() {
-  const { data, setData, post, processing, errors } = useForm({
-    emailAddress: '',
-    password: ''
+const form = useForm({
+  emailAddress: '',
+  password: ''
+})
+
+function handleSubmit() {
+  form.post('/login', {
+    onSuccess: () => useFlashToast('Logged in successfully')
   })
+}
+</script>
 
-  function handleSubmit(e) {
-    e.preventDefault()
-    post('/login')
-  }
+<template>
+  <Card class="mx-auto mt-8 w-full max-w-md">
+    <Toast />
+    <form @submit.prevent="handleSubmit" class="space-y-6 p-6">
+      <h2 class="text-center text-2xl font-bold text-gray-900">Welcome Back</h2>
 
-  return (
-    <Card className="mx-auto mt-8 w-full max-w-md">
-      <form onSubmit={handleSubmit} className="space-y-6 p-6">
-        <h2 className="text-center text-2xl font-bold text-gray-900">
-          Welcome Back
-        </h2>
-
-        <div className="space-y-4">
-          <div>
-            <InputText
-              placeholder="Email address"
-              value={data.emailAddress}
-              onChange={(e) => setData('emailAddress', e.target.value)}
-              className={`w-full ${errors.emailAddress ? 'p-invalid' : ''}`}
-            />
-            {errors.emailAddress && (
-              <small className="p-error mt-1 block">
-                {errors.emailAddress}
-              </small>
-            )}
-          </div>
-
-          <div>
-            <Password
-              placeholder="Password"
-              value={data.password}
-              onChange={(e) => setData('password', e.target.value)}
-              feedback={false}
-              toggleMask
-              className="w-full"
-            />
-          </div>
+      <div class="space-y-4">
+        <div>
+          <InputText
+            placeholder="Email address"
+            v-model="form.emailAddress"
+            :error="form.errors.emailAddress"
+          />
         </div>
 
-        <Button
-          type="submit"
-          label="Sign In"
-          className="w-full"
-          loading={processing}
-          severity="info"
-        />
-      </form>
-    </Card>
-  )
-}
+        <div>
+          <Password
+            placeholder="Password"
+            v-model="form.password"
+            :error="form.errors.password"
+            toggleMask
+          />
+        </div>
+      </div>
+
+      <Button
+        type="submit"
+        label="Sign In"
+        class="w-full"
+        :loading="form.processing"
+        variant="info"
+      />
+    </form>
+  </Card>
+</template>
+
 ```
 
 ### Team Management Table
+```
+<script setup>
+import DataTable from '@/volt/DataTable.vue'
+import Column from '@/volt/Column.vue'
+import Button from '@/volt/Button.vue'
+import Tag from '@/volt/Tag.vue'
+import { router } from '@inertiajs/vue3'
 
-```jsx
-import { DataTable } from 'primereact/datatable'
-import { Column } from 'primereact/column'
-import { Button } from 'primereact/button'
-import { Tag } from 'primereact/tag'
+defineProps({
+  members: Array
+})
 
-export default function TeamMembers({ members }) {
-  const roleTemplate = (member) => (
-    <Tag
-      value={member.role}
-      severity={member.role === 'owner' ? 'success' : 'info'}
-      className="text-xs"
-    />
-  )
+function removeMember(id) {
+  router.delete(`/teams/members/${id}`)
+}
 
-  const actionTemplate = (member) => (
-    <Button
-      icon="pi pi-trash"
-      severity="danger"
-      text
-      size="small"
-      onClick={() => removeMember(member.id)}
-    />
-  )
+function roleTemplate(member) {
+  return <Tag value={member.role} severity={member.role === 'owner' ? 'success' : 'info'} />
+}
 
+function actionTemplate(member) {
   return (
-    <div className="rounded-lg border bg-white">
-      <DataTable
-        value={members}
-        className="text-sm"
-        stripedRows
-        responsiveLayout="scroll"
-      >
-        <Column field="user.fullName" header="Name" />
-        <Column field="user.emailAddress" header="Email" />
-        <Column body={roleTemplate} header="Role" />
-        <Column body={actionTemplate} header="Actions" />
-      </DataTable>
-    </div>
+    <Button icon="trash" severity="danger" text size="small" @click="removeMember(member.id)" />
   )
 }
+</script>
+
+<template>
+  <div class="rounded-lg border bg-white">
+    <DataTable :value="members" stripedRows responsiveLayout="scroll" class="text-sm">
+      <Column field="user.fullName" header="Name" />
+      <Column field="user.emailAddress" header="Email" />
+      <Column :body="roleTemplate" header="Role" />
+      <Column :body="actionTemplate" header="Actions" />
+    </DataTable>
+  </div>
+</template>
+
 ```
+
 
 ## 🛠️ Development with Warp
 
@@ -345,7 +337,7 @@ export default function TeamMembers({ members }) {
 This template ships with a comprehensive `WARP.md` file that provides Warp AI with detailed context about your project structure, patterns, and conventions. This enables intelligent code assistance, including:
 
 - **Smart Code Generation** - Generate components, controllers, and models following project patterns
-- **Context-Aware Suggestions** - Get suggestions that understand your Sails.js + React + PrimeReact architecture
+- **Context-Aware Suggestions** - Get suggestions that understand your Sails.js + Vue + PrimeVue architecture
 - **Debugging Assistance** - Get help troubleshooting issues specific to The Boring Stack
 - **Best Practices Guidance** - Ensure your code follows established project conventions
 
@@ -359,21 +351,22 @@ To get the best experience:
 ## 📁 Project Structure
 
 ```
-ascent-react/
-├── api/                    # Sails.js backend
-│   ├── controllers/        # Route handlers
-│   ├── models/             # Database models (User, Team, etc.)
-│   ├── helpers/            # Reusable business logic
-│   └── policies/           # Authorization middleware
-├── assets/js/              # React frontend
-│   ├── components/         # Reusable UI components
-│   ├── pages/              # Inertia.js pages
-│   ├── layouts/            # App layouts
-│   └── hooks/              # Custom React hooks
-├── config/                 # Sails.js configuration
-├── views/                  # Email templates
-├── content/                # Blog and static content
-└── tests/                  # Test files
+ascent-vue/
+├── api/                     # Sails.js backend
+│   ├── controllers/
+│   ├── models/
+│   ├── helpers/
+│   └── policies/
+├── assets/js/               # Vue frontend
+│   ├── components/          # Reusable Vue components
+│   ├── Pages/               # Inertia.js pages
+│   ├── layouts/             # Application layouts
+│   └── composables/         # Vue composables (like React hooks)
+├── config/
+├── views/                   # Email templates
+├── content/                 # Blog/static content
+└── tests/
+
 ```
 
 ## 📚 Learn More
@@ -383,8 +376,8 @@ ascent-react/
 - **[Database Guide](https://docs.sailscasts.com/boring-stack/database)** - Database setup and configuration
 - **[Sails.js Documentation](https://sailsjs.com/documentation)** - Backend framework guide
 - **[Inertia.js Guide](https://inertiajs.com)** - Modern monolith approach
-- **[PrimeReact Components](https://primereact.org)** - UI component library
-- **[React 19 Documentation](https://react.dev)** - Latest React features
+- **[Volt UI Components](https://volt.primevue.org)** - UI component library
+- **[Vue 3 Documentation](https://vuejs.org)** - Latest React features
 - **[Tailwind CSS](https://tailwindcss.com)** - Utility-first CSS
 
 ## 🤝 Contributing
