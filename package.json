@@ -1,6 +1,6 @@
 {
   "name": "boring-stack",
-  "version": "0.7.4",
+  "version": "0.7.5",
   "private": "true",
   "description": "The Boring JavaScript Stack 🥱 - an opinionated project starter for fullstack JavaScript",
   "scripts": {
