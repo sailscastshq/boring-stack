@@ -207,7 +207,23 @@ function confirmLeaveTeam() {
 
 function handleUpdateTeam(e) {
   e.preventDefault()
-  teamForm.patch(`/teams/${props.team.id}`, { preserveScroll: true })
+
+  const data = {
+    name: teamForm.name
+  }
+
+  if (teamForm.logo instanceof File) {
+    data.logo = teamForm.logo
+  }
+
+  teamForm
+    .transform(() => data)
+    .patch(`/teams/${props.team.id}`, {
+      preserveScroll: true,
+      onSuccess: () => {
+        teamForm.reset('logo')
+      }
+    })
 }
 
 function handleTransferOwnership(e) {

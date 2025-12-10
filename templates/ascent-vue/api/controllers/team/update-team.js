@@ -39,10 +39,10 @@ module.exports = {
       name: name.trim()
     }
 
-    // Handle logo upload if provided
     if (logo) {
       try {
         const uploadedFile = await sails.uploadOne(logo, {
+          dirname: 'team_logos',
           allowedTypes: [
             'image/jpeg',
             'image/jpg',
@@ -53,11 +53,17 @@ module.exports = {
         })
 
         if (uploadedFile) {
+          if (team.logoUrl) {
+            try {
+              const oldFilename = team.logoUrl.split('/').pop()
+              await sails.rm(`team_logos/${oldFilename}`)
+            } catch (err) {}
+          }
+
           const filename = uploadedFile.fd.split('/').pop()
-          updatedData.logoUrl = `${sails.config.custom.uploadBaseUrl}/${filename}`
+          updatedData.logoUrl = `${sails.config.custom.uploadBaseUrl}/team_logos/${filename}`
         }
       } catch (err) {
-        // Handle upload errors
         let errorMessage = 'Failed to upload logo'
         if (err.code === 'E_EXCEEDS_UPLOAD_LIMIT') {
           errorMessage = 'Logo file size must be less than 5MB'
