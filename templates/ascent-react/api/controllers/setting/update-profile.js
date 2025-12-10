@@ -45,10 +45,10 @@ module.exports = {
       fullName
     }
 
-    // Handle avatar upload if provided
     if (avatar) {
       try {
         const uploadedFile = await sails.uploadOne(avatar, {
+          dirname: 'avatars',
           allowedTypes: [
             'image/jpeg',
             'image/jpg',
@@ -59,11 +59,17 @@ module.exports = {
         })
 
         if (uploadedFile) {
+          if (user.avatarUrl) {
+            try {
+              const oldFilename = user.avatarUrl.split('/').pop()
+              await sails.rm(`avatars/${oldFilename}`)
+            } catch (err) {}
+          }
+
           const filename = uploadedFile.fd.split('/').pop()
-          updatedData.avatarUrl = `${sails.config.custom.uploadBaseUrl}/${filename}`
+          updatedData.avatarUrl = `${sails.config.custom.uploadBaseUrl}/avatars/${filename}`
         }
       } catch (err) {
-        // Handle upload errors
         let errorMessage = 'Failed to upload avatar'
         if (err.code === 'E_EXCEEDS_UPLOAD_LIMIT') {
           errorMessage = 'Avatar file size must be less than 5MB'

@@ -215,7 +215,22 @@ export default function TeamSettings({
 
   function handleUpdateTeam(e) {
     e.preventDefault()
-    patchTeam(`/teams/${team.id}`, { preserveScroll: true })
+
+    const data = {
+      name: teamData.name
+    }
+
+    if (teamData.logo instanceof File) {
+      data.logo = teamData.logo
+    }
+
+    patchTeam(`/teams/${team.id}`, {
+      preserveScroll: true,
+      data,
+      onSuccess: () => {
+        resetTeam('logo')
+      }
+    })
   }
 
   function handleTransferOwnership(e) {

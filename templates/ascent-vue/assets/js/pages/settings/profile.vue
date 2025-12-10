@@ -31,13 +31,28 @@ const deleteAccountForm = useForm({})
 
 function updateProfile(e) {
   e.preventDefault()
-  form.patch('/settings/profile', {
-    preserveScroll: true,
-    preserveState: true,
-    onError: (errors) => {
-      console.error('Update failed:', errors)
-    }
-  })
+
+  const data = {
+    email: form.email,
+    fullName: form.fullName
+  }
+
+  if (form.avatar instanceof File) {
+    data.avatar = form.avatar
+  }
+
+  form
+    .transform(() => data)
+    .patch('/settings/profile', {
+      preserveScroll: true,
+      preserveState: true,
+      onSuccess: () => {
+        form.reset('avatar')
+      },
+      onError: (errors) => {
+        console.error('Update failed:', errors)
+      }
+    })
 }
 
 function confirmDeleteAccount() {
