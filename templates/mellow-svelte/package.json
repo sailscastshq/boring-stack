@@ -6,7 +6,6 @@
   "keywords": [],
   "dependencies": {
     "@inertiajs/svelte": "^2.0.3",
-    "@sailscasts/sails-hook-node-fetch": "^0.0.3",
     "@sailshq/connect-redis": "^6.1.3",
     "@sailshq/lodash": "^3.10.6",
     "@sailshq/socket.io-redis": "^6.1.2",
