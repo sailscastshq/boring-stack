@@ -19,7 +19,7 @@
     "sails-hook-organics": "^3.0.0",
     "sails-hook-orm": "^4.0.3",
     "sails-hook-sockets": "^3.0.2",
-    "sails-hook-wish": "^0.0.9"
+    "sails-hook-wish": "^1.0.0"
   },
   "devDependencies": {
     "@rsbuild/plugin-react": "^1.1.0",
@@ -28,7 +28,7 @@
     "playwright": "^1.55.0",
     "prettier": "^2.8.8",
     "prettier-plugin-tailwindcss": "^0.4.1",
-    "sails-hook-shipwright": "^0.3.6",
+    "sails-hook-shipwright": "^0.3.8",
     "sails.io.js": "^1.2.1",
     "socket.io-client": "^4.7.5",
     "tailwindcss": "^4.1.16"

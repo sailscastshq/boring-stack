@@ -35,15 +35,19 @@ module.exports = {
   },
 
   // OAuth configuration for sails-hook-wish
-  github: {
-    clientId: 'your-github-client-id',
-    clientSecret: 'your-github-client-secret',
-    redirect: 'http://localhost:1337/auth/github/callback'
-  },
-  google: {
-    clientId: 'your-google-client-id.apps.googleusercontent.com',
-    clientSecret: 'your-google-client-secret',
-    redirect: 'http://localhost:1337/auth/google/callback'
+  wish: {
+    providers: {
+      github: {
+        clientId: 'your-github-client-id',
+        clientSecret: 'your-github-client-secret',
+        redirect: 'http://localhost:1337/auth/github/callback'
+      },
+      google: {
+        clientId: 'your-google-client-id.apps.googleusercontent.com',
+        clientSecret: 'your-google-client-secret',
+        redirect: 'http://localhost:1337/auth/google/callback'
+      }
+    }
   },
 
   // Payment configuration for development
