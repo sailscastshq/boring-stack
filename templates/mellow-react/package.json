@@ -19,7 +19,7 @@
     "sails-hook-organics": "^3.0.0",
     "sails-hook-orm": "^4.0.3",
     "sails-hook-sockets": "^3.0.2",
-    "sails-hook-wish": "^0.0.9"
+    "sails-hook-wish": "^1.0.0"
   },
   "devDependencies": {
     "@rsbuild/plugin-react": "^1.1.0",

@@ -18,7 +18,7 @@
     "sails-hook-organics": "^3.0.0",
     "sails-hook-orm": "^4.0.3",
     "sails-hook-sockets": "^3.0.1",
-    "sails-hook-wish": "^0.0.9",
+    "sails-hook-wish": "^1.0.0",
     "vue": "^3.5.8"
   },
   "devDependencies": {
