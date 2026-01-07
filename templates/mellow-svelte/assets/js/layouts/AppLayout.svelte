@@ -50,7 +50,7 @@
             {:else}
               <img
                 class="h-12 w-12 rounded-full border-2 border-gray-100"
-                src="{loggedInUser.googleAvatarUrl}s"
+                src={loggedInUser.googleAvatarUrl}
                 alt={loggedInUser.fullName}
               />
             {/if}
