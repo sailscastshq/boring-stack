@@ -21,6 +21,7 @@
     "sails-hook-wish": "^1.0.0"
   },
   "devDependencies": {
+    "@playwright/test": "^1.49.1",
     "@rsbuild/plugin-react": "^1.1.0",
     "@tailwindcss/postcss": "^4.1.16",
     "create-sails-generator": "^0.1.0",
@@ -37,8 +38,11 @@
     "start": "NODE_ENV=production node app.js",
     "lint": "prettier --check .",
     "lint:fix": "prettier --write .",
-    "test:unit": "node --test ./tests/unit/**/*.test.js",
-    "test": "npm run test:unit"
+    "test:unit": "node --test --test-concurrency=1 tests/unit/**/*.test.js",
+    "test:e2e": "playwright test",
+    "test:e2e:ui": "playwright test --ui",
+    "test:e2e:headed": "playwright test --headed",
+    "test": "npm run test:unit && npm run test:e2e"
   },
   "main": "app.js",
   "engines": {
