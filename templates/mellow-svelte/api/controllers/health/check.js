@@ -5,7 +5,6 @@ module.exports = {
 
   exits: {
     success: {
-      statusCode: 200,
       description: 'Service is healthy.'
     }
   },
