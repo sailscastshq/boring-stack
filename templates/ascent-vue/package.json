@@ -63,11 +63,11 @@
     "start": "NODE_ENV=production node app.js",
     "lint": "prettier --check .",
     "lint:fix": "prettier --write .",
-    "test:unit": "node --test ./tests/unit/**/*.test.js",
+    "test:unit": "node --test --test-concurrency=1 tests/unit/**/*.test.js",
     "test:e2e": "playwright test",
     "test:e2e:ui": "playwright test --ui",
     "test:e2e:headed": "playwright test --headed",
-    "test": "npm run test:unit"
+    "test": "npm run test:unit && npm run test:e2e"
   },
   "main": "app.js",
   "engines": {
