@@ -18,6 +18,7 @@ module.exports.routes = {
    * for configuration options and examples.                                  *
    *                                                                          *
    ***************************************************************************/
+  'GET /health': 'health/check',
   'GET /': 'home/view-home',
 
   'GET /signup': 'auth/view-signup',
