@@ -9,7 +9,7 @@ RUN rm -rf node_modules && npm ci && npm cache clean --force
 
 COPY . .
 
-HEALTHCHECK CMD curl -f http://localhost:${PORT:-3000}/health || exit 1
+HEALTHCHECK CMD curl -f http://localhost:${PORT:-1337}/health || exit 1
 
 ENTRYPOINT ["/usr/bin/tini", "--"]
 CMD ["npm", "start"]
