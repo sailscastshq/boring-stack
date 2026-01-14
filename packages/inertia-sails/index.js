@@ -12,6 +12,7 @@ const DeferProp = require('./lib/props/defer-prop')
 const OptionalProp = require('./lib/props/optional-prop')
 const MergeProp = require('./lib/props/merge-prop')
 const AlwaysProp = require('./lib/props/always-prop')
+const OnceProp = require('./lib/props/once-prop')
 const handleBadRequest = require('./lib/handle-bad-request')
 
 module.exports = function defineInertiaHook(sails) {

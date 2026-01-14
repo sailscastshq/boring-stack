@@ -6,5 +6,6 @@ module.exports = {
   ERROR_BAG: 'X-Inertia-Error-Bag',
   RESET: 'X-Inertia-Reset',
   PARTIAL_COMPONENT: 'X-Inertia-Partial-Component',
-  LOCATION: 'X-Inertia-Location'
+  LOCATION: 'X-Inertia-Location',
+  EXCEPT_ONCE_PROPS: 'X-Inertia-Except-Once-Props'
 }

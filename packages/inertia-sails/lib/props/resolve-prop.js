@@ -2,6 +2,7 @@ const OptionalProp = require('./optional-prop')
 const MergeProp = require('./merge-prop')
 const DeferProp = require('./defer-prop')
 const AlwaysProp = require('./always-prop')
+const OnceProp = require('./once-prop')
 /**
  * Resolve a single prop.
  *
@@ -18,7 +19,8 @@ module.exports = async function resolveProp(key, value) {
     value instanceof OptionalProp ||
     value instanceof MergeProp ||
     value instanceof DeferProp ||
-    value instanceof AlwaysProp
+    value instanceof AlwaysProp ||
+    value instanceof OnceProp
   ) {
     return [key, await value.callback()]
   }
