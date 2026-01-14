@@ -1,19 +1,55 @@
 /**
- * inertia hook
+ * Inertia.js Hook for Sails.js
  *
- * @description :: A hook definition.  Extends Sails by adding shadow routes, implicit actions, and/or initialization logic.
- * @docs        :: https://sailsjs.com/docs/concepts/extending-sails/hooks
+ * Provides server-side Inertia.js protocol support for The Boring JavaScript Stack.
+ *
+ * @module inertia-sails
+ * @description A hook definition that extends Sails by adding Inertia.js support.
+ * @docs https://docs.sailscasts.com/boring-stack/inertia
  */
+
+/**
+ * @typedef {import('express').Request} Request
+ * @typedef {import('express').Response} Response
+ */
+
+/**
+ * @typedef {Object} InertiaConfig
+ * @property {string} [rootView='app'] - The root view template to use
+ * @property {string|number|Function} [version=1] - Asset version for cache busting
+ * @property {Object} [history] - History encryption settings
+ * @property {boolean} [history.encrypt=false] - Whether to encrypt history state
+ */
+
+/**
+ * @typedef {Object} InertiaPageProps
+ * @property {Object.<string, *>} [props] - Page props to pass to the component
+ */
+
+/**
+ * @typedef {Object} InertiaRenderData
+ * @property {string} page - The component name to render
+ * @property {Object.<string, *>} [props] - Props to pass to the component
+ * @property {Object.<string, *>} [viewData] - Additional view data for the root template
+ */
+
+/**
+ * @typedef {<T>() => T | Promise<T>} PropCallback
+ */
+
 const inertia = require('./lib/middleware/inertia-middleware')
 const render = require('./lib/render')
 const location = require('./lib/location')
+const requestContext = require('./lib/helpers/request-context')
 
 const DeferProp = require('./lib/props/defer-prop')
 const OptionalProp = require('./lib/props/optional-prop')
 const MergeProp = require('./lib/props/merge-prop')
 const AlwaysProp = require('./lib/props/always-prop')
 const OnceProp = require('./lib/props/once-prop')
+const ScrollProp = require('./lib/props/scroll-prop')
 const handleBadRequest = require('./lib/handle-bad-request')
+const handleServerError = require('./lib/responses/server-error')
 
 module.exports = function defineInertiaHook(sails) {
   let hook
@@ -141,6 +177,124 @@ module.exports = function defineInertiaHook(sails) {
     },
 
     /**
+     * Create a once prop
+     * Once props are resolved only once and cached across navigations.
+     * The client tracks which props it has via X-Inertia-Except-Once-Props header.
+     * Useful for expensive computations that don't change often.
+     * @docs https://docs.sailscasts.com/boring-stack/once-props
+     * @param {Function} callback - The callback function to execute
+     * @returns {OnceProp} - The once prop
+     * @example
+     * // Basic usage
+     * permissions: sails.inertia.once(async () => {
+     *   return await Permission.find({ user: this.req.session.userId })
+     * })
+     * @example
+     * // With expiration (1 hour)
+     * permissions: sails.inertia.once(() => fetchPermissions()).until(3600)
+     * @example
+     * // Force refresh
+     * permissions: sails.inertia.once(() => fetchPermissions()).fresh()
+     */
+    once(callback) {
+      return new OnceProp(callback)
+    },
+
+    /**
+     * Share a once prop globally
+     * Combines share() and once() - the prop is shared across all responses
+     * and only resolved once per session.
+     * @docs https://docs.sailscasts.com/boring-stack/once-props#share-once
+     * @param {string} key - The key of the property
+     * @param {Function} callback - The callback function to execute
+     * @returns {OnceProp} - The once prop (for chaining)
+     * @example
+     * // In a hook or middleware
+     * sails.inertia.shareOnce('permissions', async () => {
+     *   return await Permission.find({ user: req.session.userId })
+     * })
+     */
+    shareOnce(key, callback) {
+      const onceProp = new OnceProp(callback)
+      sails.inertia.sharedProps[key] = onceProp
+      return onceProp
+    },
+
+    /**
+     * Flash data to the next Inertia response.
+     * Unlike regular props, flash data is NOT persisted in browser history.
+     * This prevents "phantom" toasts/notifications when users navigate back.
+     * Flash data is stored in the session so it persists across redirects.
+     * @docs https://docs.sailscasts.com/boring-stack/flash
+     * @param {string|Object} key - The key or an object of key-value pairs
+     * @param {*} [value] - The value (if key is a string)
+     * @returns {Object} - The hook instance for chaining
+     * @example
+     * // Single value
+     * sails.inertia.flash('success', 'Profile updated!')
+     * @example
+     * // Multiple values
+     * sails.inertia.flash({ success: 'Saved!', highlight: 'profile-section' })
+     */
+    flash(key, value = null) {
+      const req = requestContext.getRequest()
+      if (!req || !req.session) {
+        sails.log.warn(
+          'sails.inertia.flash() called outside of request context'
+        )
+        return this
+      }
+      if (!req.session._inertiaFlash) {
+        req.session._inertiaFlash = {}
+      }
+      if (typeof key === 'object' && key !== null) {
+        req.session._inertiaFlash = { ...req.session._inertiaFlash, ...key }
+      } else {
+        req.session._inertiaFlash[key] = value
+      }
+      return this
+    },
+
+    /**
+     * Get the current flash data from the session
+     * @returns {Object} - The flash data object
+     */
+    getFlash() {
+      const req = requestContext.getRequest()
+      return req?.session?._inertiaFlash || {}
+    },
+
+    /**
+     * Consume and clear flash data from the session.
+     * Called internally by build-page-object after adding to response.
+     * @param {Object} req - The request object
+     * @returns {Object} - The flash data that was consumed
+     */
+    consumeFlash(req) {
+      const flash = req?.session?._inertiaFlash || {}
+      if (req?.session) {
+        req.session._inertiaFlash = {}
+      }
+      return flash
+    },
+
+    /**
+     * Create a deep merge prop
+     * Like merge(), but recursively merges nested objects instead of replacing them.
+     * @docs https://docs.sailscasts.com/boring-stack/merging-props#deep-merge
+     * @param {Function} callback - The callback function to execute
+     * @returns {MergeProp} - The mergeable prop with deep merge enabled
+     * @example
+     * // Deep merge nested user preferences
+     * settings: sails.inertia.deepMerge(async () => {
+     *   return await Settings.findOne({ user: this.req.session.userId })
+     * })
+     */
+    deepMerge(callback) {
+      return new MergeProp(callback).deepMerge()
+    },
+
+    /**
      * Render the response
      * @param {Object} req - The request object
      * @param {Object} res - The response object
@@ -178,8 +332,65 @@ module.exports = function defineInertiaHook(sails) {
     clearHistory() {
       sails.inertia.shouldClearHistory = true
     },
-    handleBadRequest(req, res, optionaLData) {
-      return handleBadRequest(req, res, optionaLData)
+    /**
+     * Handle bad request responses for Inertia.js
+     * For Inertia requests with validation errors, redirects back with errors in session.
+     * @param {Object} req - The request object
+     * @param {Object} res - The response object
+     * @param {Object|Error} [optionalData] - Optional error data or Error object
+     * @returns {*} - Response (redirect for Inertia, status code for non-Inertia)
+     */
+    handleBadRequest(req, res, optionalData) {
+      return handleBadRequest(req, res, optionalData)
+    },
+
+    /**
+     * Handle server error responses for Inertia.js
+     * For Inertia requests in development, displays a styled error modal with stack trace.
+     * In production, redirects back with a flash error message.
+     * @docs https://docs.sailscasts.com/boring-stack/error-handling
+     * @param {Object} req - The request object
+     * @param {Object} res - The response object
+     * @param {Object|Error} [error] - Optional error data or Error object
+     * @returns {*} - Response (HTML modal for dev Inertia, redirect for prod)
+     */
+    handleServerError(req, res, error) {
+      return handleServerError(req, res, error)
+    },
+
+    /**
+     * Configure paginated data for infinite scrolling.
+     * Wraps Waterline paginated data with proper merge behavior and normalizes
+     * pagination metadata for Inertia's <InfiniteScroll> component.
+     *
+     * Note: Waterline uses 0-based page indexes, but the metadata is normalized
+     * to 1-based for the Inertia client.
+     *
+     * @docs https://docs.sailscasts.com/boring-stack/infinite-scroll
+     * @param {Function} callback - Callback returning the paginated data array
+     * @param {Object} [options] - Pagination options
+     * @param {number} [options.page=0] - Current page index (0-based)
+     * @param {number} [options.perPage=10] - Items per page
+     * @param {number} [options.total=0] - Total number of items
+     * @param {string} [options.pageName='page'] - Query parameter name for pagination
+     * @param {string} [options.wrapper='data'] - Key to wrap the data in
+     * @returns {ScrollProp} - The scroll prop
+     * @example
+     * // Basic usage
+     * const page = this.req.param('page', 0)
+     * const perPage = 20
+     * const users = await User.find().paginate(page, perPage)
+     * const total = await User.count()
+     *
+     * return {
+     *   page: 'users/index',
+     *   props: {
+     *     users: sails.inertia.scroll(() => users, { page, perPage, total })
+     *   }
+     * }
+     */
+    scroll(callback, options) {
+      return new ScrollProp(callback, options || {})
     }
   }
 }
