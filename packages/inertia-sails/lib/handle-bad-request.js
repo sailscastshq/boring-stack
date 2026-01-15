@@ -1,4 +1,21 @@
-// @ts-nocheck
+/**
+ * Handle bad request responses for Inertia.js
+ *
+ * For Inertia requests with validation errors, this redirects back to the
+ * previous page with errors stored in the session. For non-Inertia requests,
+ * it returns a standard 400 response.
+ *
+ * @param {Object} req - Express/Sails request object
+ * @param {Object} res - Express/Sails response object
+ * @param {Object|Error} [optionalData] - Optional error data or Error object
+ * @returns {*} - Response (redirect for Inertia, status code for non-Inertia)
+ *
+ * @example
+ * // In an action with validation errors
+ * return sails.inertia.handleBadRequest(req, res, {
+ *   problems: ['\"email\" is required', '\"password\" must be at least 8 characters']
+ * })
+ */
 module.exports = function handleBadRequest(req, res, optionalData) {
   const sails = req._sails
   // Define the status code to send in the response.
@@ -46,13 +63,13 @@ module.exports = function handleBadRequest(req, res, optionalData) {
   if (optionalData === undefined) {
     sails.log.info('Ran custom response: res.badRequest()')
     return res.sendStatus(statusCodeToSet)
-  } else if (_.isError(optionalData)) {
+  } else if (optionalData instanceof Error) {
     sails.log.info(
       'Custom response `res.badRequest()` called with an Error:',
       optionalData
     )
 
-    if (!_.isFunction(optionalData.toJSON)) {
+    if (typeof (/** @type {*} */ (optionalData).toJSON) !== 'function') {
       if (process.env.NODE_ENV === 'production') {
         return res.sendStatus(statusCodeToSet)
       } else {

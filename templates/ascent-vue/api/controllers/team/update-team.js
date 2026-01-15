@@ -85,7 +85,10 @@ module.exports = {
 
     await Team.updateOne({ id: teamId }).set(updatedData)
 
-    this.req.flash('success', 'Team settings updated successfully.')
+    // Refresh the cached team data so the UI shows updated info
+    sails.inertia.refreshOnce(['teams', 'currentTeam'])
+    sails.inertia.flash('success', 'Team settings updated successfully.')
+
     return '/settings/team'
   }
 }
