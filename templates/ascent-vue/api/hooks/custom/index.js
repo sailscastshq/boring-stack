@@ -19,54 +19,91 @@ module.exports = function defineCustomHook(sails) {
           skipAssets: true,
           fn: async function (req, res, next) {
             if (req.session.userId) {
-              const loggedInUser = await User.findOne({
-                id: req.session.userId
-              }).select([
-                'email',
-                'fullName',
-                'avatarUrl',
-                'googleAvatarUrl',
-                'githubAvatarUrl',
-                'initials',
-                'twoFactorEnabled',
-                'totpEnabled',
-                'emailTwoFactorEnabled',
-                'passkeyEnabled'
-              ])
-              if (!loggedInUser) {
-                sails.log.warn(
-                  'Somehow, the user record for the logged-in user (`' +
-                    req.session.userId +
-                    '`) has gone missing....'
-                )
-                delete req.session.userId
-                return res.redirect('/login')
-              }
-              // Add avatar URL using helper
-              loggedInUser.currentAvatarUrl =
-                await sails.helpers.user.getAvatarUrl(loggedInUser)
+              // Use once() to cache the logged-in user data on the client.
+              // This avoids fetching the same user data on every navigation.
+              // The data is cached until:
+              // - The user logs out (session cleared)
+              // - The user explicitly refreshes
+              // - The prop is marked as .fresh() after profile updates
+              sails.inertia.share(
+                'loggedInUser',
+                sails.inertia.once(async () => {
+                  const user = await User.findOne({
+                    id: req.session.userId
+                  }).select([
+                    'email',
+                    'fullName',
+                    'avatarUrl',
+                    'googleAvatarUrl',
+                    'githubAvatarUrl',
+                    'initials',
+                    'twoFactorEnabled',
+                    'totpEnabled',
+                    'emailTwoFactorEnabled',
+                    'passkeyEnabled'
+                  ])
 
-              // Get user's teams for team switcher
-              const userMemberships = await Membership.find({
-                member: req.session.userId,
-                status: 'active'
-              })
-                .populate('team')
-                .sort('createdAt ASC')
+                  if (!user) {
+                    sails.log.warn(
+                      'Somehow, the user record for the logged-in user (`' +
+                        req.session.userId +
+                        '`) has gone missing....'
+                    )
+                    delete req.session.userId
+                    return null
+                  }
 
-              const teams = userMemberships.map((m) => ({
-                id: m.team.id,
-                name: m.team.name,
-                logoUrl: m.team.logoUrl,
-                isCurrent: m.team.id === req.session.teamId
-              }))
+                  // Add avatar URL using helper
+                  user.currentAvatarUrl = await sails.helpers.user.getAvatarUrl(
+                    user
+                  )
 
-              const currentTeam =
-                teams.find((t) => t.isCurrent) || teams[0] || null
+                  return user
+                })
+              )
 
-              sails.inertia.share('loggedInUser', loggedInUser)
-              sails.inertia.share('teams', teams)
-              sails.inertia.share('currentTeam', currentTeam)
+              // Use once() for teams data - only refetch when team changes
+              sails.inertia.share(
+                'teams',
+                sails.inertia.once(async () => {
+                  const userMemberships = await Membership.find({
+                    member: req.session.userId,
+                    status: 'active'
+                  })
+                    .populate('team')
+                    .sort('createdAt ASC')
+
+                  return userMemberships.map((m) => ({
+                    id: m.team.id,
+                    name: m.team.name,
+                    logoUrl: m.team.logoUrl,
+                    isCurrent: m.team.id === req.session.teamId
+                  }))
+                })
+              )
+
+              // Current team changes when user switches teams, so use once()
+              sails.inertia.share(
+                'currentTeam',
+                sails.inertia.once(async () => {
+                  const userMemberships = await Membership.find({
+                    member: req.session.userId,
+                    status: 'active'
+                  })
+                    .populate('team')
+                    .sort('createdAt ASC')
+
+                  const teams = userMemberships.map((m) => ({
+                    id: m.team.id,
+                    name: m.team.name,
+                    logoUrl: m.team.logoUrl,
+                    isCurrent: m.team.id === req.session.teamId
+                  }))
+
+                  return teams.find((t) => t.isCurrent) || teams[0] || null
+                })
+              )
+
               res.setHeader('Cache-Control', 'no-cache, no-store')
               return next()
             } else {

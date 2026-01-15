@@ -1,71 +1,297 @@
-# Inertia.js Sails Adapter
+# inertia-sails
+
+The official Inertia.js adapter for Sails.js, powering [The Boring JavaScript Stack](https://sailscasts.com/boring).
 
 ## Installation
 
-## Backend
-
-The quickest way to get setup an Inertia powered Sails app is to use the [create-sails](https://github.com/sailscastshq/create-sails) scaffolding tool. Just run
-
-```sh
-  npx create-sails <project-name>
+```bash
+npm install inertia-sails
 ```
 
-> Do replace `<project-name>` with the name you want your project to be.
+Or use [create-sails](https://github.com/sailscastshq/create-sails) to scaffold a complete app:
 
-## Frontend
+```bash
+npx create-sails my-app
+```
 
-If you are using the [create-sails](https://github.com/sailscastshq/create-sails) scaffolding tool then the Frontend framework you choose from the CLI prompt should already be setup for you.
+## Quick Start
 
-## Usage
+### 1. Configure Inertia
+
+```js
+// config/inertia.js
+module.exports.inertia = {
+  rootView: 'app', // views/app.ejs
+  version: 1 // Asset version for cache busting
+}
+```
+
+### 2. Create a root view
+
+```ejs
+<!-- views/app.ejs -->
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <%- shipwright.styles() %>
+</head>
+<body>
+  <div id="app" data-page="<%- JSON.stringify(page) %>"></div>
+  <%- shipwright.scripts() %>
+</body>
+</html>
+```
+
+### 3. Create an action
+
+```js
+// api/controllers/dashboard/view-dashboard.js
+module.exports = {
+  exits: {
+    success: { responseType: 'inertia' }
+  },
+  fn: async function () {
+    return {
+      page: 'dashboard/index',
+      props: {
+        stats: await Stats.find()
+      }
+    }
+  }
+}
+```
+
+## API Reference
 
 ### Responses
 
-Sending back an Inertia responses is pretty simple, just use the `sails.inertia.render` method in your Sails actions(You can look at the example actions if you used create-sails). The `render` method accepts two arguments, the first is the name of the component you want to render from within your `pages` directory in `assets/js` (without the file extension).
+#### `responseType: 'inertia'`
 
-The second argument is the props object where you can provide props to your components.
-
-## Shared Data
-
-If you have data that you want to be provided as a prop to every component (a common use-case is informationa about the authenticated user) you can use the `sails.inertia.share` method.
-
-In Sails having a custom hook by running `sails generate hook custom` will scaffolding a project level hook in which you can share the loggedIn user information for example. Below is a real world use case:
+Return an Inertia page response:
 
 ```js
-/**
- * custom hook
- *
- * @description :: A hook definition.  Extends Sails by adding shadow routes, implicit actions, and/or initialization logic.
- * @docs        :: https://sailsjs.com/docs/concepts/extending-sails/hooks
- */
+return {
+  page: 'users/index',       // Component name
+  props: { users: [...] },   // Props passed to component
+  viewData: { title: '...' } // Data for root EJS template
+}
+```
 
+#### `responseType: 'inertiaRedirect'`
+
+Return a URL string to redirect:
+
+```js
+return '/dashboard'
+```
+
+### Sharing Data
+
+#### `share(key, value)`
+
+Share data with the current request (request-scoped):
+
+```js
+sails.inertia.share('flash', { success: 'Saved!' })
+```
+
+#### `shareGlobally(key, value)`
+
+Share data across all requests (app-wide):
+
+```js
+// In hook initialization
+sails.inertia.shareGlobally('appName', 'My App')
+```
+
+#### `viewData(key, value)`
+
+Share data with the root EJS template:
+
+```js
+sails.inertia.viewData('title', 'Dashboard')
+```
+
+### Once Props (Cached)
+
+Cache expensive props across navigations. The client tracks cached props and skips re-fetching.
+
+#### `once(callback)`
+
+```js
+// In custom hook
+sails.inertia.share(
+  'loggedInUser',
+  sails.inertia.once(async () => {
+    return await User.findOne({ id: req.session.userId })
+  })
+)
+```
+
+**Chainable methods:**
+
+- `.as(key)` - Custom cache key
+- `.until(seconds)` - TTL expiration
+- `.fresh(condition)` - Force refresh
+
+```js
+sails.inertia
+  .once(() => fetchPermissions())
+  .as('user-permissions')
+  .until(3600) // Cache for 1 hour
+  .fresh(req.query.refresh === 'true')
+```
+
+#### `shareOnce(key, callback)`
+
+Shorthand for `share()` + `once()`:
+
+```js
+sails.inertia.shareOnce('countries', () => Country.find())
+```
+
+#### `refreshOnce(keys)`
+
+Force refresh cached props from an action:
+
+```js
+// After updating user profile
+await User.updateOne({ id: userId }).set({ fullName })
+sails.inertia.refreshOnce('loggedInUser')
+```
+
+### Flash Messages
+
+One-time messages that don't persist in browser history:
+
+```js
+sails.inertia.flash('success', 'Profile updated!')
+sails.inertia.flash({ error: 'Failed', field: 'email' })
+```
+
+Access in your frontend via `page.props.flash`.
+
+### Deferred Props
+
+Load props after initial page render:
+
+```js
+return {
+  page: 'dashboard',
+  props: {
+    // Loads immediately
+    user: currentUser,
+    // Loads after render
+    analytics: sails.inertia.defer(async () => {
+      return await Analytics.getExpensiveReport()
+    })
+  }
+}
+```
+
+### Merge Props
+
+Merge with existing client-side data (useful for infinite scroll):
+
+```js
+// Shallow merge
+messages: sails.inertia.merge(() => newMessages)
+
+// Deep merge (nested objects)
+settings: sails.inertia.deepMerge(() => updatedSettings)
+```
+
+### Infinite Scroll
+
+Paginate data with automatic merge behavior:
+
+```js
+const page = this.req.param('page', 0)
+const perPage = 20
+const invoices = await Invoice.find().paginate(page, perPage)
+const total = await Invoice.count()
+
+return {
+  page: 'invoices/index',
+  props: {
+    invoices: sails.inertia.scroll(() => invoices, {
+      page,
+      perPage,
+      total,
+      wrapper: 'data' // Wraps in { data: [...], meta: {...} }
+    })
+  }
+}
+```
+
+### History Encryption
+
+Encrypt sensitive data in browser history:
+
+```js
+sails.inertia.encryptHistory() // Enable for current request
+sails.inertia.clearHistory() // Clear history state
+```
+
+### Root View
+
+Change the root template per-request:
+
+```js
+sails.inertia.setRootView('auth') // Use views/auth.ejs
+```
+
+### Back Navigation
+
+Get the referrer URL for redirects:
+
+```js
+return sails.inertia.back('/dashboard') // Fallback if no referrer
+```
+
+### Optional Props
+
+Props only included when explicitly requested via partial reload:
+
+```js
+categories: sails.inertia.optional(() => Category.find())
+```
+
+### Always Props
+
+Props included even in partial reloads:
+
+```js
+csrf: sails.inertia.always(() => this.req.csrfToken())
+```
+
+## Custom Hook Example
+
+Share user data across all authenticated pages using `once()` for caching:
+
+```js
+// api/hooks/custom/index.js
 module.exports = function defineCustomHook(sails) {
   return {
-    /**
-     * Runs when this Sails app loads/lifts.
-     */
-    initialize: async function () {
-      sails.log.info('Initializing custom hook (`custom`)')
-    },
     routes: {
       before: {
-        'GET /': {
+        'GET /*': {
           skipAssets: true,
           fn: async function (req, res, next) {
             if (req.session.userId) {
-              const loggedInUser = await User.findOne({
-                id: req.session.userId
-              })
-              if (!loggedInUser) {
-                sails.log.warn(
-                  'Somehow, the user record for the logged-in user (`' +
-                    req.session.userId +
-                    '`) has gone missing....'
-                )
-                delete req.session.userId
-                return res.redirect('/signin')
-              }
-              sails.inertia.share('loggedInUser', loggedInUser)
-              return next()
+              sails.inertia.share(
+                'loggedInUser',
+                sails.inertia.once(async () => {
+                  return await User.findOne({ id: req.session.userId }).select([
+                    'id',
+                    'email',
+                    'fullName',
+                    'avatarUrl'
+                  ])
+                })
+              )
             }
             return next()
           }
@@ -76,30 +302,56 @@ module.exports = function defineCustomHook(sails) {
 }
 ```
 
+## Custom Responses
+
+Copy these to `api/responses/`:
+
+- **inertia.js** - Handle Inertia page responses
+- **inertiaRedirect.js** - Handle Inertia redirects
+- **badRequest.js** - Validation errors with redirect back
+- **serverError.js** - Error modal in dev, graceful redirect in prod
+
+## Architecture
+
+inertia-sails uses **AsyncLocalStorage** for request-scoped state, preventing data leaks between concurrent requests. This is critical for `share()`, `flash()`, `setRootView()`, and other per-request APIs.
+
 ## Configuration
 
-If you used the `create-sails` scaffolding tool, you will find the configuration file for Inertia.js in `config/inertia.js`. You will mostly use this file for asset-versioning in Inertia by setting either a number or string that you can update when your assets changes. Below is an example of how this file looks like:
-
 ```js
-/**
- * Inertia configuration
- * (sails.config.inertia)
- *
- * Use the settings below to configure session integration in your app.
- *
- * For more information on Inertia configuration, visit:
- * https://inertia-sails.sailscasts.com
- */
-
+// config/inertia.js
 module.exports.inertia = {
-  /**
-   * https://inertiajs.com/asset-versioning
-   * You can pass a string, number that changes when your assets change
-   *  or a function that returns the said string, number.
-   * e.g 4 or () => 4
-   */
-  // version: 1,
+  // Root EJS template (default: 'app')
+  rootView: 'app',
+
+  // Asset version for cache busting (optional - auto-detected by default)
+  // version: 'custom-version',
+
+  // History encryption settings
+  history: {
+    encrypt: false
+  }
 }
 ```
 
-Visit [inertiajs.com](https://inertiajs.com/) to learn more.
+### Automatic Asset Versioning
+
+inertia-sails automatically handles asset versioning:
+
+1. **With Shipwright**: Reads `.tmp/public/manifest.json` and generates an MD5 hash. Version changes when any bundled asset changes.
+
+2. **Without Shipwright**: Falls back to server startup timestamp, ensuring fresh assets on each restart.
+
+You can override this with a custom version if needed:
+
+```js
+// config/inertia.js
+module.exports.inertia = {
+  version: 'v2.1.0' // Or a function: () => myCustomVersion()
+}
+```
+
+## References
+
+- [The Boring Stack Docs](https://docs.sailscasts.com/boring-stack)
+- [Inertia.js](https://inertiajs.com)
+- [Sails.js](https://sailsjs.com)

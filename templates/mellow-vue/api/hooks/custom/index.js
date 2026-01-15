@@ -19,19 +19,38 @@ module.exports = function defineCustomHook(sails) {
           skipAssets: true,
           fn: async function (req, res, next) {
             if (req.session.userId) {
-              const loggedInUser = await User.findOne({
-                id: req.session.userId
-              }).select(['email', 'fullName', 'googleAvatarUrl', 'initials'])
-              if (!loggedInUser) {
-                sails.log.warn(
-                  'Somehow, the user record for the logged-in user (`' +
-                    req.session.userId +
-                    '`) has gone missing....'
-                )
-                delete req.session.userId
-                return res.redirect('/login')
-              }
-              sails.inertia.share('loggedInUser', loggedInUser)
+              // Use once() to cache the logged-in user data on the client.
+              // This avoids fetching the same user data on every navigation.
+              // The data is cached until:
+              // - The user logs out (session cleared)
+              // - The user explicitly refreshes
+              // - The prop is marked as .fresh() after profile updates
+              sails.inertia.share(
+                'loggedInUser',
+                sails.inertia.once(async () => {
+                  const user = await User.findOne({
+                    id: req.session.userId
+                  }).select([
+                    'email',
+                    'fullName',
+                    'googleAvatarUrl',
+                    'initials'
+                  ])
+
+                  if (!user) {
+                    sails.log.warn(
+                      'Somehow, the user record for the logged-in user (`' +
+                        req.session.userId +
+                        '`) has gone missing....'
+                    )
+                    delete req.session.userId
+                    return null
+                  }
+
+                  return user
+                })
+              )
+
               res.setHeader('Cache-Control', 'no-cache, no-store')
               return next()
             } else {
