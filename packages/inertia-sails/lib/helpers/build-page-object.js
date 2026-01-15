@@ -3,6 +3,7 @@ const resolveDeferredProps = require('../props/resolve-deferred-props')
 const resolveMergeProps = require('../props/resolve-merge-props')
 const { resolveOncePropsMetadata } = require('../props/resolve-once-props')
 const resolvePageProps = require('../props/resolve-page-props')
+const resolveScrollProps = require('../props/resolve-scroll-props')
 
 /**
  * @typedef {Object} InertiaPageObject
@@ -16,6 +17,7 @@ const resolvePageProps = require('../props/resolve-page-props')
  * @property {string[]} [deepMergeProps] - Props that should be deep merged
  * @property {Object.<string, string[]>} [deferredProps] - Deferred props by group
  * @property {Object.<string, *>} [onceProps] - Once-prop metadata
+ * @property {Object.<string, *>} [scrollProps] - Scroll props for InfiniteScroll component
  * @property {Object.<string, *>} [flash] - Flash data (not persisted in history)
  */
 
@@ -60,7 +62,8 @@ module.exports = async function buildPageObject(req, component, pageProps) {
     encryptHistory: sails.inertia.shouldEncryptHistory(),
     ...resolveMergeProps(req, allProps),
     ...resolveDeferredProps(req, component, allProps),
-    ...resolveOncePropsMetadata(allProps)
+    ...resolveOncePropsMetadata(allProps),
+    ...resolveScrollProps(allProps)
   }
 
   // Consume flash data from session and add to props

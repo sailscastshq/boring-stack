@@ -205,9 +205,10 @@ settings: sails.inertia.deepMerge(() => updatedSettings)
 
 ### Infinite Scroll
 
-Paginate data with automatic merge behavior:
+Paginate data with automatic merge behavior. Works with Inertia.js v2's `<InfiniteScroll>` component:
 
 ```js
+// Controller
 const page = this.req.param('page', 0)
 const perPage = 20
 const invoices = await Invoice.find().paginate(page, perPage)
@@ -224,6 +225,23 @@ return {
     })
   }
 }
+```
+
+```vue
+<!-- Vue component -->
+<script setup>
+import { InfiniteScroll } from '@inertiajs/vue3'
+
+defineProps({ invoices: Object })
+</script>
+
+<template>
+  <InfiniteScroll data="invoices">
+    <div v-for="invoice in invoices.data" :key="invoice.id">
+      {{ invoice.invoiceNumber }}
+    </div>
+  </InfiniteScroll>
+</template>
 ```
 
 ### History Encryption
