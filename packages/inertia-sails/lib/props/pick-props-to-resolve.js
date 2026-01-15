@@ -1,12 +1,15 @@
 const isInertiaPartialRequest = require('../helpers/is-inertia-partial-request')
+const isInertiaRequest = require('../helpers/is-inertia-request')
 const ignoreFirstLoadSymbol = require('../helpers/ignore-first-load-symbol')
 const { PARTIAL_DATA, PARTIAL_EXCEPT } = require('../helpers/inertia-headers')
 const resolveOnlyProps = require('./resolve-only-props')
 const resolveExceptProps = require('./resolve-except-props')
+const { filterOnceProps } = require('./resolve-once-props')
 const AlwaysProp = require('./always-prop')
 
 module.exports = function pickPropsToResolve(req, component, props = {}) {
   const isPartial = isInertiaPartialRequest(req, component)
+  const isInertia = isInertiaRequest(req)
   let newProps = props
 
   if (!isPartial) {
@@ -24,6 +27,11 @@ module.exports = function pickPropsToResolve(req, component, props = {}) {
 
   if (isPartial && req.get(PARTIAL_EXCEPT)) {
     newProps = resolveExceptProps(req, newProps)
+  }
+
+  // Filter out once-props that the client already has (only for Inertia XHR requests, not partial)
+  if (isInertia && !isPartial) {
+    newProps = filterOnceProps(req, newProps)
   }
 
   for (const [key, value] of Object.entries(props)) {
