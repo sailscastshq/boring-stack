@@ -1,7 +1,7 @@
 <script setup>
 import { Link, Head, useForm } from '@inertiajs/vue3'
 import Toast from '@/volt/Toast.vue'
-import { useFlashToast } from '@/composables/flashToast'
+import { useFlashToast } from '@/composables/flash-toast'
 
 const props = defineProps({
   team: {

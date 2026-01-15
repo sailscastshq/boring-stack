@@ -7,7 +7,7 @@ import Textarea from '@/volt/Textarea.vue'
 import Select from '@/volt/Select.vue'
 import Message from '@/volt/Message.vue'
 import Toast from '@/volt/Toast.vue'
-import { useFlashToast } from '@/composables/flashToast'
+import { useFlashToast } from '@/composables/flash-toast'
 
 const props = defineProps({
   internalEmail: {

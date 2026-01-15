@@ -3,7 +3,7 @@ import { Head, Link, useForm } from '@inertiajs/vue3'
 import { ref, computed, watch, onMounted } from 'vue'
 import Toast from '@/volt/Toast.vue'
 import Message from '@/volt/Message.vue'
-import { useFlashToast } from '@/composables/flashToast'
+import { useFlashToast } from '@/composables/flash-toast'
 
 const props = defineProps({
   passkeyChallenge: {
