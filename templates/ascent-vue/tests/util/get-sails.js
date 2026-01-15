@@ -30,7 +30,8 @@ async function getSails() {
           session: false,
           grunt: false,
           i18n: false,
-          flash: false
+          flash: false,
+          content: false
         },
         log: { level: 'error' }
       },
