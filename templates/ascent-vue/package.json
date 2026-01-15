@@ -20,7 +20,7 @@
     "@simplewebauthn/browser": "^13.2.0",
     "@simplewebauthn/server": "^13.2.1",
     "floating-vue": "^5.2.2",
-    "inertia-sails": "^1.0.0",
+    "inertia-sails": "^1.0.1",
     "nodemailer": "^7.0.10",
     "primeicons": "^7.0.0",
     "primevue": "^4.4.1",
