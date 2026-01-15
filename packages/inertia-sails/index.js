@@ -127,6 +127,23 @@ module.exports = function defineInertiaHook(sails) {
     },
 
     /**
+     * Hook routes - sets up AsyncLocalStorage context early so other hooks
+     * can use sails.inertia.share() with proper request-scoped context.
+     */
+    routes: {
+      before: {
+        'GET /*': {
+          skipAssets: true,
+          fn: (req, res, next) => requestContext.run(req, res, next)
+        },
+        'POST /*': (req, res, next) => requestContext.run(req, res, next),
+        'PUT /*': (req, res, next) => requestContext.run(req, res, next),
+        'PATCH /*': (req, res, next) => requestContext.run(req, res, next),
+        'DELETE /*': (req, res, next) => requestContext.run(req, res, next)
+      }
+    },
+
+    /**
      * Share a property for the current request.
      * Uses AsyncLocalStorage to ensure data doesn't leak between concurrent requests.
      * For global shares (app name, etc), use shareGlobally() instead.
@@ -172,9 +189,11 @@ module.exports = function defineInertiaHook(sails) {
     },
 
     /**
-     * Flush shared properties
+     * Flush shared properties for the current request.
+     * Since context is set up early in routes.before, this always works
+     * in hooks and middleware.
      * @param {string|null} key - The key of the property to flush, or null to flush all
-     * @param {boolean} [global=false] - Whether to flush global props
+     * @param {boolean} [global=false] - Whether to also flush global props (rarely needed)
      */
     flushShared(key, global = false) {
       const context = requestContext.getContext()
