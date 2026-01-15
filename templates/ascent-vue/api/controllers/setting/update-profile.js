@@ -94,7 +94,7 @@ module.exports = {
       updatedData.emailChangeCandidate = email
       updatedData.emailStatus = 'change-requested'
       const emailProofToken = sails.helpers.strings.random('url-friendly')
-      this.req.flash(
+      sails.inertia.flash(
         'info',
         'Please check your email to confirm the new address.'
       )
@@ -111,7 +111,10 @@ module.exports = {
     }
 
     await User.updateOne({ id: userId }).set(updatedData)
-    this.req.flash('success', 'Profile updated successfully!')
+
+    // Refresh the cached loggedInUser data so the UI shows updated info
+    sails.inertia.refreshOnce('loggedInUser')
+    sails.inertia.flash('success', 'Profile updated successfully!')
 
     return '/settings/profile'
   }

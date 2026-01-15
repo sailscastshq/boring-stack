@@ -101,6 +101,8 @@ module.exports = {
 
     await User.updateOne({ id: userId }).set(updatedData)
 
+    // Refresh the cached loggedInUser data so the UI shows updated info
+    sails.inertia.refreshOnce('loggedInUser')
     return 'back'
   }
 }
