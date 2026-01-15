@@ -62,11 +62,49 @@ module.exports = function defineInertiaHook(sails) {
     'DELETE /*'
   ]
 
+  // Fallback version for when manifest isn't available (startup, no Shipwright)
+  // Using startup timestamp ensures fresh assets on each server restart
+  const startupVersion = Date.now().toString(36)
+
+  /**
+   * Get asset version from Shipwright manifest.
+   * Automatically hashes the manifest content for cache busting.
+   * Falls back to startup timestamp if manifest not found.
+   * @returns {string} - 8-character hash or startup timestamp
+   */
+  function getManifestVersion() {
+    try {
+      const fs = require('fs')
+      const path = require('path')
+      const crypto = require('crypto')
+      const appPath = sails.config?.appPath || process.cwd()
+      const manifestPath = path.join(appPath, '.tmp/public/manifest.json')
+      const manifest = fs.readFileSync(manifestPath, 'utf8')
+      return crypto
+        .createHash('md5')
+        .update(manifest)
+        .digest('hex')
+        .substring(0, 8)
+    } catch (err) {
+      // Only warn if it's not a simple "file not found" error
+      // ENOENT is expected during initial startup or without Shipwright
+      if (err.code !== 'ENOENT') {
+        sails.log?.warn?.(
+          'inertia-sails: Could not read manifest.json for asset versioning:',
+          err.message
+        )
+      }
+      return startupVersion
+    }
+  }
+
   return {
     defaults: {
       inertia: {
         rootView: 'app',
-        version: 1,
+        // Auto-version from Shipwright manifest for cache busting
+        // Override in config/inertia.js if needed
+        version: () => getManifestVersion(),
         history: {
           encrypt: false
         }
