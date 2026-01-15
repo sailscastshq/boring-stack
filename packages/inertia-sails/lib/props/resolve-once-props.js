@@ -1,5 +1,6 @@
 const OnceProp = require('./once-prop')
 const { EXCEPT_ONCE_PROPS } = require('../helpers/inertia-headers')
+const requestContext = require('../helpers/request-context')
 
 /**
  * Get the list of once-props that the client already has cached.
@@ -20,14 +21,22 @@ function getExceptOnceProps(req) {
 /**
  * Filter out once-props that the client already has cached.
  * This prevents re-sending data the client doesn't need.
+ *
+ * Props are kept (not filtered) if:
+ * - They are not a OnceProp
+ * - They have .fresh() called on them
+ * - They are marked for refresh via sails.inertia.refreshOnce()
+ * - The client doesn't have them cached
+ *
  * @param {Object} req - The request object
  * @param {Object} props - The props object
  * @returns {Object} - Filtered props with cached once-props removed
  */
 function filterOnceProps(req, props) {
   const exceptOnceProps = getExceptOnceProps(req)
+  const refreshOnceProps = requestContext.getRefreshOnceProps()
 
-  if (exceptOnceProps.length === 0) {
+  if (exceptOnceProps.length === 0 && refreshOnceProps.length === 0) {
     return props
   }
 
@@ -39,18 +48,25 @@ function filterOnceProps(req, props) {
       continue
     }
 
-    // Keep if it should be refreshed (force send)
+    const propKey = value.getKey() || key
+
+    // Keep if it should be refreshed via .fresh() on the prop itself
     if (value.shouldBeRefreshed()) {
       filtered[key] = value
       continue
     }
 
+    // Keep if marked for refresh via sails.inertia.refreshOnce()
+    if (refreshOnceProps.includes(propKey)) {
+      filtered[key] = value
+      continue
+    }
+
     // Keep if the client doesn't have it cached
-    const propKey = value.getKey() || key
     if (!exceptOnceProps.includes(propKey)) {
       filtered[key] = value
     }
-    // If client has it cached, we skip adding it to filtered
+    // If client has it cached and it's not marked for refresh, skip it
   }
 
   return filtered

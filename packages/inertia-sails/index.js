@@ -286,6 +286,37 @@ module.exports = function defineInertiaHook(sails) {
     },
 
     /**
+     * Mark a once-prop to be refreshed on the next response.
+     * Use this after updating data that's cached with once() (e.g., user profile).
+     * The prop will be force-sent to the client even if they have it cached.
+     * @docs https://docs.sailscasts.com/boring-stack/once-props#refreshing-once-props
+     * @param {string|string[]} keys - The prop key(s) to refresh
+     * @returns {Object} - The hook instance for chaining
+     * @example
+     * // After updating user profile
+     * await User.updateOne({ id: userId }).set({ fullName })
+     * sails.inertia.refreshOnce('loggedInUser')
+     * @example
+     * // Refresh multiple props
+     * sails.inertia.refreshOnce(['loggedInUser', 'teams', 'currentTeam'])
+     */
+    refreshOnce(keys) {
+      const keysArray = Array.isArray(keys) ? keys : [keys]
+      keysArray.forEach((key) => {
+        requestContext.addRefreshOnceProp(key)
+      })
+      return this
+    },
+
+    /**
+     * Get the list of once-props to force-refresh for this request.
+     * @returns {string[]} - Array of prop keys to refresh
+     */
+    getRefreshOnceProps() {
+      return requestContext.getRefreshOnceProps()
+    },
+
+    /**
      * Flash data to the next Inertia response.
      * Unlike regular props, flash data is NOT persisted in browser history.
      * This prevents "phantom" toasts/notifications when users navigate back.
@@ -490,6 +521,63 @@ module.exports = function defineInertiaHook(sails) {
      */
     scroll(callback, options) {
       return new ScrollProp(callback, options || {})
+    },
+
+    /**
+     * Set the root view template for the current request.
+     * Allows using different layouts for different pages (e.g., 'app' vs 'auth').
+     * @docs https://docs.sailscasts.com/boring-stack/root-template
+     * @param {string} view - The root view template name (without extension)
+     * @returns {Object} - The hook instance for chaining
+     * @example
+     * // In a policy for auth pages
+     * module.exports = async function(req, res, proceed) {
+     *   sails.inertia.setRootView('auth')
+     *   return proceed()
+     * }
+     * @example
+     * // In an action
+     * fn: async function() {
+     *   sails.inertia.setRootView('minimal')
+     *   return { page: 'embed/widget', props: { ... } }
+     * }
+     */
+    setRootView(view) {
+      requestContext.setRootView(view)
+      return this
+    },
+
+    /**
+     * Get the root view template for the current request.
+     * Returns request-scoped value if set, otherwise returns config default.
+     * @returns {string} - The root view template name
+     */
+    getRootView() {
+      return requestContext.getRootView() || sails.config.inertia.rootView
+    },
+
+    /**
+     * Get the URL to redirect back to.
+     * Uses the Referer header with a fallback URL.
+     *
+     * Note: The HTTP Referer header is unreliable (privacy extensions, cross-origin).
+     * For critical back navigation, consider session-based tracking.
+     *
+     * @param {string} [fallback='/'] - Fallback URL if Referer is not available
+     * @returns {string} - The URL to redirect back to
+     * @example
+     * // In an action
+     * return sails.inertia.back('/dashboard')
+     * @example
+     * // With inertiaRedirect response
+     * return { inertiaRedirect: sails.inertia.back() }
+     */
+    back(fallback = '/') {
+      const req = requestContext.getRequest()
+      if (!req) {
+        return fallback
+      }
+      return req.get('Referer') || fallback
     }
   }
 }

@@ -1,10 +1,12 @@
 const { encode } = require('querystring')
 const inertiaHeaders = require('./helpers/inertia-headers')
 const buildPageObject = require('./helpers/build-page-object')
+const requestContext = require('./helpers/request-context')
 
 module.exports = async function render(req, res, data) {
   const sails = req._sails
-  const rootView = sails.config.inertia.rootView
+  // Use request-scoped rootView if set, otherwise fall back to config
+  const rootView = requestContext.getRootView() || sails.config.inertia.rootView
 
   // Use request-scoped view data merged with global view data
   // This prevents view data from leaking between concurrent requests

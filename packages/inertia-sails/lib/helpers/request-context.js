@@ -13,7 +13,9 @@
  *   sharedProps: {},      // Request-scoped shared props
  *   sharedViewData: {},   // Request-scoped view data
  *   encryptHistory: null, // Request-scoped history encryption (null = use default)
- *   clearHistory: false   // Request-scoped clear history flag
+ *   clearHistory: false,  // Request-scoped clear history flag
+ *   refreshOnceProps: [], // Props to force-refresh for this request
+ *   rootView: null        // Request-scoped root view template (null = use default)
  * }
  */
 const { AsyncLocalStorage } = require('async_hooks')
@@ -40,7 +42,9 @@ module.exports = {
       sharedProps: {},
       sharedViewData: {},
       encryptHistory: null,
-      clearHistory: false
+      clearHistory: false,
+      refreshOnceProps: [], // Props to force-refresh for this request
+      rootView: null // Request-scoped root view template
     }
     return requestContext.run(context, callback)
   },
@@ -150,6 +154,46 @@ module.exports = {
     const context = requestContext.getStore()
     if (context) {
       context.clearHistory = clear
+    }
+  },
+
+  /**
+   * Get the list of once props to force-refresh
+   * @returns {string[]} - Array of prop keys to refresh
+   */
+  getRefreshOnceProps() {
+    const context = requestContext.getStore()
+    return context?.refreshOnceProps || []
+  },
+
+  /**
+   * Add a prop key to force-refresh
+   * @param {string} key - The prop key to refresh
+   */
+  addRefreshOnceProp(key) {
+    const context = requestContext.getStore()
+    if (context && !context.refreshOnceProps.includes(key)) {
+      context.refreshOnceProps.push(key)
+    }
+  },
+
+  /**
+   * Get request-scoped root view template
+   * @returns {string|null} - The root view template or null for default
+   */
+  getRootView() {
+    const context = requestContext.getStore()
+    return context?.rootView ?? null
+  },
+
+  /**
+   * Set request-scoped root view template
+   * @param {string} view - The root view template name
+   */
+  setRootView(view) {
+    const context = requestContext.getStore()
+    if (context) {
+      context.rootView = view
     }
   }
 }
