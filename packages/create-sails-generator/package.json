@@ -1,6 +1,6 @@
 {
   "name": "create-sails-generator",
-  "version": "0.1.0",
+  "version": "1.0.0",
   "description": "Sails generator for The Boring JavaScript Stack.",
   "scripts": {
     "test": "node --test"
