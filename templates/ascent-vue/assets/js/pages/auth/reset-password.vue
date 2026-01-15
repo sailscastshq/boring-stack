@@ -3,7 +3,7 @@ import { Link, Head, useForm } from '@inertiajs/vue3'
 import { computed } from 'vue'
 import Toast from '@/volt/Toast.vue'
 import Message from '@/volt/Message.vue'
-import { useFlashToast } from '@/composables/flashToast'
+import { useFlashToast } from '@/composables/flash-toast'
 
 const props = defineProps({
   token: String

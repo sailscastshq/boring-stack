@@ -3,7 +3,7 @@ import { computed } from 'vue'
 import { Link, usePage } from '@inertiajs/vue3'
 import Toast from '@/volt/Toast.vue'
 import Avatar from '@/components/Avatar.vue'
-import { useFlashToast } from '@/composables/flashToast'
+import { useFlashToast } from '@/composables/flash-toast'
 
 const page = usePage()
 const loggedInUser = computed(() => page.props.loggedInUser)

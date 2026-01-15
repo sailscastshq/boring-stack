@@ -4,7 +4,7 @@ import { Head, useForm, router, Link } from '@inertiajs/vue3'
 import InputOtp from '@/volt/InputOtp.vue'
 import Message from '@/volt/Message.vue'
 import Toast from '@/volt/Toast.vue'
-import { useFlashToast } from '@/composables/flashToast'
+import { useFlashToast } from '@/composables/flash-toast'
 
 const props = defineProps({
   twoFactorMethods: {
