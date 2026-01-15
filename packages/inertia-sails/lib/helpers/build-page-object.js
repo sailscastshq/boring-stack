@@ -25,6 +25,9 @@ const resolvePageProps = require('../props/resolve-page-props')
  * Combines shared props with page props, resolves special prop types,
  * and builds the complete page object sent to the client.
  *
+ * Uses request-scoped shared props (via AsyncLocalStorage) merged with
+ * global shared props to prevent data leaking between concurrent requests.
+ *
  * @param {Object} req - Express/Sails request object
  * @param {string} component - The component name to render
  * @param {Object.<string, *>} pageProps - Props specific to this page
@@ -37,21 +40,24 @@ module.exports = async function buildPageObject(req, component, pageProps) {
   const currentVersion =
     typeof assetVersion === 'function' ? assetVersion() : assetVersion
 
+  // Merge props: global shared → request-scoped shared → page-specific
+  // This ensures user-specific data (from share()) doesn't leak between requests
   const allProps = {
-    ...sails.inertia.sharedProps,
+    ...sails.inertia.getShared(), // Merges global + request-scoped
     ...pageProps
   }
 
   const propsToResolve = pickPropsToResolve(req, component, allProps)
 
   // Build the page object with all metadata
+  // Use request-scoped history settings (prevents race conditions)
   const page = {
     component,
     url,
     version: currentVersion,
     props: await resolvePageProps(propsToResolve),
-    clearHistory: sails.inertia.shouldClearHistory,
-    encryptHistory: sails.inertia.shouldEncryptHistory,
+    clearHistory: sails.inertia.shouldClearHistory(),
+    encryptHistory: sails.inertia.shouldEncryptHistory(),
     ...resolveMergeProps(req, allProps),
     ...resolveDeferredProps(req, component, allProps),
     ...resolveOncePropsMetadata(allProps)

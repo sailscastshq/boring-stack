@@ -75,10 +75,12 @@ module.exports = function defineInertiaHook(sails) {
     initialize: async function () {
       hook = this
       sails.inertia = hook
-      sails.inertia.sharedProps = {}
-      sails.inertia.sharedViewData = {}
-      sails.inertia.shouldEncryptHistory = sails.config.inertia.history.encrypt
-      sails.inertia.shouldClearHistory = false
+      // Global shared props (for app-wide data like app name, version)
+      // These are merged with request-scoped shares
+      sails.inertia.globalSharedProps = {}
+      sails.inertia.globalSharedViewData = {}
+      // Default history encryption from config
+      sails.inertia.defaultEncryptHistory = sails.config.inertia.history.encrypt
       sails.on('router:before', function () {
         routesToBindInertiaTo.forEach(function (routeAddress) {
           sails.router.bind(routeAddress, inertia(hook))
@@ -87,49 +89,113 @@ module.exports = function defineInertiaHook(sails) {
     },
 
     /**
-     * Share a property globally
+     * Share a property for the current request.
+     * Uses AsyncLocalStorage to ensure data doesn't leak between concurrent requests.
+     * For global shares (app name, etc), use shareGlobally() instead.
      * @param {string} key - The key of the property
      * @param {*} value - The value of the property
+     * @returns {*} - The value that was shared
      */
     share(key, value = null) {
-      return (sails.inertia.sharedProps[key] = value)
+      // If we're in a request context, share for this request only
+      const context = requestContext.getContext()
+      if (context) {
+        requestContext.setSharedProp(key, value)
+        return value
+      }
+      // Fallback to global share if called outside request (e.g., in hooks)
+      sails.inertia.globalSharedProps[key] = value
+      return value
     },
 
     /**
-     * Get shared properties
+     * Share a property globally across all requests.
+     * Use this for truly global data like app name, version, etc.
+     * For user-specific data, use share() instead.
+     * @param {string} key - The key of the property
+     * @param {*} value - The value of the property
+     * @returns {*} - The value that was shared
+     */
+    shareGlobally(key, value = null) {
+      sails.inertia.globalSharedProps[key] = value
+      return value
+    },
+
+    /**
+     * Get shared properties (merges global + request-scoped)
      * @param {string|null} key - The key of the property to get, or null to get all
      * @returns {*} - The shared property or all shared properties
      */
     getShared(key = null) {
-      return sails.inertia.sharedProps[key] ?? sails.inertia.sharedProps
+      const globalProps = sails.inertia.globalSharedProps
+      const requestProps = requestContext.getSharedProps()
+      const merged = { ...globalProps, ...requestProps }
+      return key ? merged[key] : merged
     },
 
     /**
      * Flush shared properties
      * @param {string|null} key - The key of the property to flush, or null to flush all
+     * @param {boolean} [global=false] - Whether to flush global props
      */
-    flushShared(key) {
-      return key
-        ? delete sails.inertia.sharedProps[key]
-        : (sails.inertia.sharedProps = {})
+    flushShared(key, global = false) {
+      const context = requestContext.getContext()
+      if (key) {
+        if (context) {
+          delete context.sharedProps[key]
+        }
+        if (global) {
+          delete sails.inertia.globalSharedProps[key]
+        }
+      } else {
+        if (context) {
+          context.sharedProps = {}
+        }
+        if (global) {
+          sails.inertia.globalSharedProps = {}
+        }
+      }
     },
 
     /**
-     * Add view data
+     * Add view data for the current request.
+     * Uses AsyncLocalStorage to ensure data doesn't leak between concurrent requests.
      * @param {string} key - The key of the view data
      * @param {*} value - The value of the view data
+     * @returns {*} - The value that was set
      */
     viewData(key, value) {
-      return (sails.inertia.sharedViewData[key] = value)
+      const context = requestContext.getContext()
+      if (context) {
+        requestContext.setSharedViewData(key, value)
+        return value
+      }
+      // Fallback to global if called outside request
+      sails.inertia.globalSharedViewData[key] = value
+      return value
     },
 
     /**
-     * Get view data
+     * Add view data globally across all requests.
+     * @param {string} key - The key of the view data
+     * @param {*} value - The value of the view data
+     * @returns {*} - The value that was set
+     */
+    viewDataGlobally(key, value) {
+      sails.inertia.globalSharedViewData[key] = value
+      return value
+    },
+
+    /**
+     * Get view data (merges global + request-scoped)
      * @param {string} key - The key of the view data to get
      * @returns {*} - The view data
      */
     getViewData(key) {
-      return sails.inertia.sharedViewData[key] ?? sails.inertia.sharedViewData
+      const globalData = sails.inertia.globalSharedViewData
+      const requestData = requestContext.getSharedViewData()
+      const merged = { ...globalData, ...requestData }
+      return key ? merged[key] : merged
     },
 
     /**
@@ -201,22 +267,21 @@ module.exports = function defineInertiaHook(sails) {
     },
 
     /**
-     * Share a once prop globally
-     * Combines share() and once() - the prop is shared across all responses
-     * and only resolved once per session.
+     * Share a once prop for the current request.
+     * Combines share() and once() - the prop is shared and only resolved once.
      * @docs https://docs.sailscasts.com/boring-stack/once-props#share-once
      * @param {string} key - The key of the property
      * @param {Function} callback - The callback function to execute
      * @returns {OnceProp} - The once prop (for chaining)
      * @example
-     * // In a hook or middleware
+     * // In a policy or middleware
      * sails.inertia.shareOnce('permissions', async () => {
      *   return await Permission.find({ user: req.session.userId })
      * })
      */
     shareOnce(key, callback) {
       const onceProp = new OnceProp(callback)
-      sails.inertia.sharedProps[key] = onceProp
+      this.share(key, onceProp)
       return onceProp
     },
 
@@ -305,7 +370,8 @@ module.exports = function defineInertiaHook(sails) {
       return render(req, res, data)
     },
     /**
-     * Handle Inertia redirects
+     * Handle Inertia redirects (external URLs or non-Inertia pages)
+     * Forces a full page visit instead of an Inertia XHR request.
      * See https://docs.sailscasts.com/boring-stack/redirects
      * @param {Object} req - The request object
      * @param {Object} res - The response object
@@ -317,21 +383,54 @@ module.exports = function defineInertiaHook(sails) {
     },
 
     /**
-     * Encrypt history
+     * Encrypt history for the current request.
+     * Uses AsyncLocalStorage to ensure setting doesn't affect other requests.
      * @docs https://docs.sailscasts.com/boring-stack/history-encryption
      * @param {boolean} encrypt - Whether to encrypt the history
      */
     encryptHistory(encrypt = true) {
-      sails.inertia.shouldEncryptHistory = encrypt
+      const context = requestContext.getContext()
+      if (context) {
+        requestContext.setEncryptHistory(encrypt)
+      } else {
+        // Fallback: set default if called outside request
+        sails.inertia.defaultEncryptHistory = encrypt
+      }
     },
 
     /**
-     * Clear history state.
+     * Get whether history should be encrypted for the current request.
+     * Returns request-scoped value if set, otherwise returns default.
+     * @returns {boolean} - Whether to encrypt history
+     */
+    shouldEncryptHistory() {
+      const requestSetting = requestContext.getEncryptHistory()
+      if (requestSetting !== null) {
+        return requestSetting
+      }
+      return sails.inertia.defaultEncryptHistory
+    },
+
+    /**
+     * Clear history state for the current request.
+     * Uses AsyncLocalStorage to ensure setting doesn't affect other requests.
      * @docs https://docs.sailscasts.com/boring-stack/history-encryption#clearing-history
      */
     clearHistory() {
-      sails.inertia.shouldClearHistory = true
+      const context = requestContext.getContext()
+      if (context) {
+        requestContext.setClearHistory(true)
+      }
     },
+
+    /**
+     * Get whether history should be cleared for the current request.
+     * @returns {boolean} - Whether to clear history
+     */
+    shouldClearHistory() {
+      return requestContext.getClearHistory()
+    },
+
     /**
      * Handle bad request responses for Inertia.js
      * For Inertia requests with validation errors, redirects back with errors in session.

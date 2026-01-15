@@ -7,9 +7,11 @@ const requestContext = require('../helpers/request-context')
  * Uses AsyncLocalStorage to make the request available throughout the
  * request lifecycle without explicitly passing it.
  *
- * For flash messages, users have two options:
- * - `sails.inertia.flash()` - Inertia flash (does NOT persist in browser history)
- * - `req.flash()` - Session flash via sails-flash (for non-Inertia or traditional use)
+ * This enables request-scoped features:
+ * - sails.inertia.share() - Per-request shared props (prevents data leaking between users)
+ * - sails.inertia.flash() - Per-request flash messages
+ * - sails.inertia.encryptHistory() - Per-request history encryption
+ * - sails.inertia.clearHistory() - Per-request history clearing
  *
  * @param {Object} hook - The inertia-sails hook instance
  * @returns {Function} Express/Sails middleware function
@@ -22,12 +24,14 @@ function inertia(hook) {
     }
 
     // Wrap the rest of the request in AsyncLocalStorage context
-    // This makes req available via requestContext.getRequest() anywhere
-    requestContext.run(req, () => {
-      // Handle validation errors
+    // This makes req/res and request-scoped data available anywhere
+    requestContext.run(req, res, () => {
+      // Handle validation errors - share them for this request only
       const validationErrors = resolveValidationErrors(req)
       req.flash('errors', validationErrors)
-      hook.share('errors', req.flash('errors')[0] || {})
+
+      // Share errors for this request (request-scoped, not global)
+      requestContext.setSharedProp('errors', req.flash('errors')[0] || {})
 
       return next()
     })

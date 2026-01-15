@@ -4,12 +4,12 @@ const buildPageObject = require('./helpers/build-page-object')
 
 module.exports = async function render(req, res, data) {
   const sails = req._sails
-
-  const sharedViewData = sails.inertia.sharedViewData
   const rootView = sails.config.inertia.rootView
 
+  // Use request-scoped view data merged with global view data
+  // This prevents view data from leaking between concurrent requests
   const allViewData = {
-    ...sharedViewData,
+    ...sails.inertia.getViewData(), // Merges global + request-scoped
     ...data.viewData
   }
 
