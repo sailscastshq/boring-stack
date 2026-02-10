@@ -1,0 +1,24 @@
+{
+  "name": "sails",
+  "version": "1.0.0",
+  "description": "Sails.js framework patterns for The Boring JavaScript Stack",
+  "author": "sailscastshq",
+  "organization": "Sailscasts",
+  "tags": [
+    "sails",
+    "sailsjs",
+    "backend",
+    "mvc",
+    "actions",
+    "helpers",
+    "routes",
+    "policies",
+    "hooks",
+    "boring-stack"
+  ],
+  "references": [
+    "https://sailsjs.com",
+    "https://docs.sailscasts.com",
+    "https://sailsjs.com/documentation/concepts"
+  ]
+}
