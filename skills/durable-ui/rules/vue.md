@@ -232,6 +232,200 @@ function submit() {
 </script>
 ```
 
+## useDurableUrl Composable (Server-Aware URL State)
+
+An enhanced version of `useQueryState` that supports server-aware mode (triggers Inertia visits), debouncing, typed parsers, and clean URL defaults. Use this when filters, search, or pagination need the server to return new data:
+
+```js
+// assets/js/composables/durableUrl.js
+import { ref, watch, onMounted, onBeforeUnmount } from 'vue'
+import { router } from '@inertiajs/vue3'
+
+export function useDurableUrl(key, options = {}) {
+  const {
+    default: defaultValue = '',
+    parse = (v) => v,
+    serialize = (v) => String(v),
+    history: historyMode = 'replace',
+    debounce: debounceMs = 0,
+    server = false,
+    preserveState = true,
+    preserveScroll = true
+  } = options
+
+  function readFromUrl() {
+    if (typeof window === 'undefined') return defaultValue
+    const params = new URLSearchParams(window.location.search)
+    const raw = params.get(key)
+    return raw !== null ? parse(raw) : defaultValue
+  }
+
+  const value = ref(readFromUrl())
+  let timer = null
+
+  function buildUrl(newVal) {
+    const params = new URLSearchParams(window.location.search)
+    const isDefault = Array.isArray(defaultValue)
+      ? newVal.length === 0
+      : newVal === defaultValue || newVal === '' || newVal === null
+
+    if (isDefault) {
+      params.delete(key)
+    } else {
+      params.set(key, serialize(newVal))
+    }
+
+    const query = params.toString()
+    return `${window.location.pathname}${query ? '?' + query : ''}`
+  }
+
+  watch(value, (newVal) => {
+    if (timer) clearTimeout(timer)
+
+    const update = () => {
+      const url = buildUrl(newVal)
+
+      if (server) {
+        router.get(
+          url,
+          {},
+          {
+            preserveState,
+            preserveScroll,
+            replace: historyMode === 'replace'
+          }
+        )
+      } else {
+        if (historyMode === 'push') {
+          window.history.pushState({}, '', url)
+        } else {
+          window.history.replaceState({}, '', url)
+        }
+      }
+    }
+
+    if (debounceMs > 0) {
+      timer = setTimeout(update, debounceMs)
+    } else {
+      update()
+    }
+  })
+
+  function onPopstate() {
+    value.value = readFromUrl()
+  }
+
+  onMounted(() => window.addEventListener('popstate', onPopstate))
+  onBeforeUnmount(() => {
+    window.removeEventListener('popstate', onPopstate)
+    if (timer) clearTimeout(timer)
+  })
+
+  return value
+}
+
+// Built-in parsers
+export const parsers = {
+  string: { parse: (v) => v, serialize: (v) => v },
+  number: { parse: (v) => Number(v), serialize: (v) => String(v) },
+  boolean: { parse: (v) => v === 'true', serialize: (v) => String(v) },
+  date: {
+    parse: (v) => new Date(v),
+    serialize: (v) => v.toISOString().split('T')[0]
+  },
+  json: { parse: (v) => JSON.parse(v), serialize: (v) => JSON.stringify(v) },
+  array: (separator = ',') => ({
+    parse: (v) => (v ? v.split(separator) : []),
+    serialize: (v) => v.join(separator)
+  })
+}
+```
+
+**API**:
+
+- `const search = useDurableUrl('q', { default: '', debounce: 300, server: true })` — debounced search that triggers Inertia visit
+- `const page = useDurableUrl('page', { default: 1, ...parsers.number, history: 'push', server: true })` — pagination with back-button support
+- `const view = useDurableUrl('view', { default: 'grid' })` — client-only, no server roundtrip
+- Default values are omitted from URL (clean URLs)
+
+## useDurableStorage Composable (Namespaced + Versioned localStorage)
+
+Enhanced version of `useLocalStorage` with namespace prefixes and version numbers. When you ship a breaking change, bump the version — old keys are ignored and fresh defaults kick in:
+
+```js
+// assets/js/composables/durableStorage.js
+import { ref, watch, onMounted, onBeforeUnmount } from 'vue'
+
+export function useDurableStorage(key, options = {}) {
+  const {
+    default: defaultValue = null,
+    namespace = 'app',
+    version = 1
+  } = options
+
+  const storageKey = `${namespace}.v${version}.${key}`
+
+  function read() {
+    if (typeof window === 'undefined') return defaultValue
+    try {
+      const raw = localStorage.getItem(storageKey)
+      return raw !== null ? JSON.parse(raw) : defaultValue
+    } catch {
+      return defaultValue
+    }
+  }
+
+  const value = ref(read())
+
+  watch(
+    value,
+    (newVal) => {
+      try {
+        if (newVal === null || newVal === defaultValue) {
+          localStorage.removeItem(storageKey)
+        } else {
+          localStorage.setItem(storageKey, JSON.stringify(newVal))
+        }
+      } catch (error) {
+        console.warn(`Failed to save to localStorage: ${error.message}`)
+      }
+    },
+    { deep: true }
+  )
+
+  // Cross-tab sync
+  function onStorage(event) {
+    if (event.key === storageKey) {
+      value.value = event.newValue ? JSON.parse(event.newValue) : defaultValue
+    }
+  }
+
+  onMounted(() => window.addEventListener('storage', onStorage))
+  onBeforeUnmount(() => window.removeEventListener('storage', onStorage))
+
+  return value
+}
+```
+
+**API**:
+
+```js
+// Sidebar state — remembered forever, synced across tabs
+const sidebarOpen = useDurableStorage('sidebar.open', {
+  default: true,
+  namespace: 'sailscasts'
+})
+// localStorage key: sailscasts.v1.sidebar.open
+
+// When you ship a breaking change, bump version:
+const sidebarOpen = useDurableStorage('sidebar.open', {
+  default: true,
+  namespace: 'sailscasts',
+  version: 2
+})
+// localStorage key: sailscasts.v2.sidebar.open (old v1 key ignored)
+```
+
 ## Complete Page Example: Settings with Tabs
 
 ```vue
