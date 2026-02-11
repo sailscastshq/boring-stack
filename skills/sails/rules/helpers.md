@@ -304,6 +304,117 @@ module.exports = {
 }
 ```
 
+## Advanced Helper Features
+
+### `sideEffects` Property
+
+Mark a helper as cacheable when it has no side effects (pure computation):
+
+```js
+module.exports = {
+  sideEffects: 'cacheable',
+  inputs: {
+    prompt: { type: 'string', required: true }
+  },
+  fn: async function ({ prompt }) {
+    // Result can be cached since this has no side effects
+    return await sails.helpers.ai.prompt.with({ prompt })
+  }
+}
+```
+
+### Strongly Typed Output
+
+Declare the shape and type of the return value:
+
+```js
+exits: {
+  success: {
+    outputType: {
+      salesforceAccountId: 'string',
+      salesforceContactId: 'string'
+    }
+  }
+}
+// Or for simple types:
+exits: {
+  success: {
+    outputType: 'string',        // Returns a string
+  }
+}
+// Or for any type:
+exits: {
+  success: {
+    outputExample: '*',          // Returns anything
+  }
+}
+```
+
+### Mutating Objects with `ref` + `readOnly: false`
+
+Pass objects by reference for in-place mutation:
+
+```js
+// api/helpers/redact-user.js
+module.exports = {
+  sync: true,
+  inputs: {
+    user: {
+      type: 'ref',
+      readOnly: false // Allow mutation of the passed object
+    }
+  },
+  fn: function ({ user }) {
+    for (let [attrName, attrDef] of Object.entries(User.attributes)) {
+      if (attrDef.protect) {
+        delete user[attrName]
+      }
+    }
+  }
+}
+```
+
+### Environment Gating
+
+Skip expensive integrations outside production:
+
+```js
+fn: async function ({ emailAddress, firstName }) {
+  if (sails.config.environment !== 'production') {
+    sails.log.verbose('Skipping Salesforce integration...')
+    return { salesforceAccountId: undefined, salesforceContactId: undefined }
+  }
+
+  require('assert')(sails.config.custom.salesforceIntegrationUsername)
+  require('assert')(sails.config.custom.salesforceIntegrationPasskey)
+  // ... actual Salesforce integration
+}
+```
+
+### Tolerating Specific Error Codes
+
+Handle specific error codes from external services:
+
+```js
+// Tolerate a duplicate record error from Salesforce
+let newRecord = await sails.helpers.flow
+  .build(async () => {
+    return await connection.sobject('Contact').create({ Email: email })
+  })
+  .tolerate({ errorCode: 'DUPLICATES_DETECTED' }, (err) => {
+    // Use the first duplicate found instead
+    return {
+      id: _.get(
+        err,
+        'duplicateResult.matchResults[0].matchRecords[0].record.Id'
+      )
+    }
+  })
+
+// Tolerate Waterline unique constraint violation
+await NewsletterSubscription.create({ emailAddress }).tolerate('E_UNIQUE')
+```
+
 ## Helpers Calling Other Helpers
 
 Helpers can call other helpers freely:

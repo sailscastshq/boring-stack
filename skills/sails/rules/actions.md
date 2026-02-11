@@ -116,6 +116,26 @@ inputs: {
   // JSON type (for arbitrary objects/arrays)
   metadata: {
     type: 'json'
+  },
+
+  // Nested object type (inline type definition)
+  paymentSource: {
+    required: true,
+    description: 'Payment card info from Stripe.',
+    type: {
+      stripeToken: 'string',
+      billingCardLast4: 'string',
+      billingCardBrand: 'string',
+      billingCardExpMonth: 'string',
+      billingCardExpYear: 'string',
+    },
+    example: {
+      stripeToken: 'tok_199k3qEXw14QdSnRwmsK99MH',
+      billingCardLast4: '4242',
+      billingCardBrand: 'visa',
+      billingCardExpMonth: '08',
+      billingCardExpYear: '2023',
+    }
   }
 }
 ```
@@ -315,6 +335,9 @@ Inside `fn`, access the request via `this.req` and response via `this.res`:
 
 ```js
 fn: async function (inputs) {
+  // The logged-in user (set by the custom hook)
+  const user = this.req.me
+
   // Session
   const userId = this.req.session.userId
 
@@ -406,6 +429,78 @@ module.exports = {
 
     return { received: true }
   }
+}
+```
+
+## Background Tasks (Fire-and-Forget)
+
+Use `sails.helpers.flow.build()` with `.exec()` to run work after the response without blocking:
+
+```js
+fn: async function ({ email, password, fullName }) {
+  const newUser = await User.create({
+    email: email.toLowerCase(),
+    password: await sails.helpers.passwords.hashPassword(password),
+    fullName
+  }).fetch()
+
+  this.req.session.userId = newUser.id
+
+  // Send welcome email and sync CRM in the background
+  sails.helpers.flow.build(async () => {
+    await sails.helpers.mail.sendTemplate.with({
+      to: newUser.email,
+      subject: 'Welcome!',
+      template: 'email-welcome',
+      templateData: { firstName: newUser.fullName.split(' ')[0] }
+    })
+    await sails.helpers.crm.updateOrCreateContact.with({
+      emailAddress: newUser.email,
+      contactSource: 'Website - Sign up',
+    })
+  }).exec((err) => {// Use .exec() to run in the background
+    if (err) {
+      sails.log.warn(`Background task failed for user ${newUser.email}:`, err)
+    }
+  })
+
+  sails.inertia.flash('success', 'Welcome aboard!')
+  return '/dashboard'
+}
+```
+
+### Intercepting Specific Error Types
+
+Use `.intercept()` to match specific error types from external services:
+
+```js
+// Map a Stripe error type to a named exit
+await sails.helpers.stripe.saveBillingInfo
+  .with({
+    stripeCustomerId: this.req.me.stripeCustomerId,
+    token: inputs.paymentSource.stripeToken
+  })
+  .intercept({ type: 'StripeCardError' }, 'couldNotSaveBillingInfo')
+```
+
+### Throwing a Redirect Exit
+
+For view actions that conditionally redirect:
+
+```js
+exits: {
+  success: { viewTemplatePath: 'pages/dashboard' },
+  redirect: {
+    description: 'No subscription found.',
+    responseType: 'redirect'
+  }
+},
+fn: async function () {
+  let subscription = await Subscription.findOne({ user: this.req.me.id })
+  if (!subscription) {
+    throw { redirect: '/subscribe' }
+  }
+  return { subscription }
 }
 ```
 

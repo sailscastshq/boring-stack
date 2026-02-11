@@ -1,0 +1,13 @@
+{
+  "version": "1.0.0",
+  "organization": "Sailscasts",
+  "date": "February 2026",
+  "abstract": "Comprehensive authentication skill for The Boring JavaScript Stack covering session-based auth architecture, password signup/login, magic link passwordless auth, passkey WebAuthn flows, two-factor authentication (TOTP, email, backup codes), password reset, and OAuth integration with Google and GitHub.",
+  "references": [
+    "https://docs.sailscasts.com/boring-stack",
+    "https://sailsjs.com/documentation/concepts/policies",
+    "https://simplewebauthn.dev",
+    "https://github.com/nicedoc/speakeasy",
+    "https://docs.sailscasts.com/wish"
+  ]
+}

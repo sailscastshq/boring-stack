@@ -145,6 +145,145 @@ sails.after(['hook:orm:loaded', 'hook:custom:loaded'], () => {
 })
 ```
 
+## Real-World Custom Hook Patterns
+
+### Config Validation on Initialize
+
+Check that required integrations are configured at startup:
+
+```js
+initialize: async function () {
+  var IMPORTANT_STRIPE_CONFIG = ['stripeSecret', 'stripePublishableKey']
+  var isMissingStripeConfig = _.difference(IMPORTANT_STRIPE_CONFIG, Object.keys(sails.config.custom)).length > 0
+
+  if (isMissingStripeConfig) {
+    sails.log.verbose('Missing Stripe config -- billing features will be disabled.')
+  }
+
+  // Compute a derived config flag from the check
+  sails.config.custom.enableBillingFeatures = !isMissingStripeConfig
+}
+```
+
+### Waiting for Another Hook Before Configuring
+
+Use `sails.after()` to wait for a dependency hook:
+
+```js
+initialize: async function () {
+  sails.after('hook:organics:loaded', () => {
+    sails.helpers.stripe.configure({
+      secret: sails.config.custom.stripeSecret
+    })
+    sails.helpers.sendgrid.configure({
+      secret: sails.config.custom.sendgridSecret,
+      from: sails.config.custom.fromEmailAddress,
+      fromName: sails.config.custom.fromName,
+    })
+  })
+}
+```
+
+### The `req.me` Pattern
+
+Attach the logged-in user to the request so actions and policies can use `this.req.me` / `req.me`:
+
+```js
+routes: {
+  before: {
+    '/*': {
+      skipAssets: true,
+      fn: async function (req, res, next) {
+        // Default to undefined so views don't need typeof checks
+        res.locals.me = undefined
+
+        if (!req.session || !req.session.userId) {
+          return next()
+        }
+
+        var loggedInUser = await User.findOne({ id: req.session.userId })
+        if (!loggedInUser) {
+          sails.log.warn('User record for session userId has gone missing...')
+          delete req.session.userId
+          return res.unauthorized()
+        }
+
+        // Expose on req for use in actions and policies
+        req.me = loggedInUser
+
+        // Expose sanitized version as a view local (strips protect: true fields)
+        var sanitizedUser = _.extend({}, loggedInUser)
+        sails.helpers.redactUser(sanitizedUser)
+        res.locals.me = sanitizedUser
+
+        return next()
+      }
+    }
+  }
+}
+```
+
+### Setting Security Headers in the Hook
+
+```js
+if (req.method === 'GET' || req.method === 'HEAD') {
+  res.setHeader('X-Content-Type-Options', 'nosniff')
+  res.setHeader('X-Frame-Options', 'SAMEORIGIN')
+  res.setHeader('Referrer-Policy', 'strict-origin-when-cross-origin')
+  res.setHeader(
+    'Strict-Transport-Security',
+    'max-age=31536000; includeSubDomains;'
+  )
+  res.setHeader('Permissions-Policy', 'camera=(), microphone=(), usb=()')
+}
+```
+
+### Background Task After Response
+
+Track page views or analytics without blocking the response using `res.once('finish')`:
+
+```js
+res.once('finish', function onceFinish() {
+  if (res.statusCode === 200) {
+    sails.helpers.flow
+      .build(async () => {
+        await sails.helpers.crm.trackPageView.with({
+          userId: sanitizedUser.id,
+          url: req.url
+        })
+      })
+      .exec((err) => {
+        // Use .exec() to run in the background
+        if (err) {
+          sails.log.warn('Background CRM tracking failed:', err)
+        }
+      })
+  }
+})
+```
+
+### Updating `lastSeenAt` Without Blocking
+
+A common optimization -- fire-and-forget the DB update:
+
+```js
+var MS_TO_BUFFER = 60 * 1000
+var now = Date.now()
+if (loggedInUser.lastSeenAt < now - MS_TO_BUFFER) {
+  User.updateOne({ id: loggedInUser.id })
+    .set({ lastSeenAt: now })
+    .exec((err) => {
+      // Meanwhile, the request continues...
+      if (err) {
+        sails.log.error(
+          'Could not update lastSeenAt for user ' + loggedInUser.id,
+          err
+        )
+      }
+    })
+}
+```
+
 ## Creating App-Level Hooks
 
 ### Directory Structure

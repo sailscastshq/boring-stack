@@ -139,6 +139,73 @@ npx sails generate inertia-redirect     # Creates api/responses/inertia-redirect
 npx sails generate bad-request          # Creates api/responses/badRequest.js
 ```
 
+## Content-Negotiating Custom Responses
+
+Custom responses can return different formats based on whether the request wants JSON (API/AJAX) or HTML (browser):
+
+### `unauthorized.js`
+
+```js
+// api/responses/unauthorized.js
+module.exports = function unauthorized() {
+  var req = this.req
+  var res = this.res
+
+  if (req.wantsJSON) {
+    return res.sendStatus(401)
+  }
+
+  // Clear the session and redirect to login
+  if (req.session.userId) {
+    delete req.session.userId
+  }
+  return res.redirect('/login')
+}
+```
+
+### `expired.js` (Token Expired)
+
+```js
+// api/responses/expired.js
+module.exports = function expired() {
+  var req = this.req
+  var res = this.res
+
+  if (req.wantsJSON) {
+    return res.status(498).send('Token Expired/Invalid')
+  }
+  return res.status(498).view('498')
+}
+```
+
+### `badConfig.js` (Missing Configuration)
+
+A response that provides helpful troubleshooting guidance:
+
+```js
+// api/responses/badConfig.js
+module.exports = function badConfig(configKeyPath) {
+  let res = this.res
+
+  let explanation = 'Missing, incomplete, or invalid configuration'
+  if (configKeyPath) {
+    explanation += ` (sails.config.${configKeyPath}).`
+    if (configKeyPath.match(/^builtStaticContent/)) {
+      explanation +=
+        ' Try running `sails run build-static-content`, then re-lift the server.'
+    } else {
+      explanation += ' Update this configuration, then re-lift the server.'
+    }
+  }
+
+  return res.serverError(explanation)
+}
+
+// Usage in an action:
+// exits: { badConfig: { responseType: 'badConfig' } }
+// throw { badConfig: 'builtStaticContent.queries' }
+```
+
 ## Built-in Sails Responses
 
 These are available without custom response files:

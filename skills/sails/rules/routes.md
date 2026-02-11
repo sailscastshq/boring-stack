@@ -223,6 +223,52 @@ module.exports.routes = {
 | `cors`       | Override CORS settings for this route                            |
 | `locals`     | Default view locals for this route                               |
 
+### Using `locals` for Page Metadata
+
+Set view locals directly in the route definition for SEO metadata and layout configuration:
+
+```js
+'GET /pricing': {
+  action: 'view-pricing',
+  locals: {
+    currentSection: 'pricing',
+    pageTitleForMeta: 'Pricing',
+    pageDescriptionForMeta: 'Plans and pricing for Fleet.'
+  }
+},
+
+'GET /': {
+  action: 'view-homepage',
+  locals: {
+    isHomepage: true,
+    showHeaderCTA: true,
+  }
+},
+
+'GET /contact': {
+  action: 'view-contact',
+  locals: {
+    pageTitleForMeta: 'Contact us',
+    pageDescriptionForMeta: 'Get in touch with our team.',
+    hideFooterLinks: true,
+  }
+}
+```
+
+These locals are available as `res.locals.*` in the action and view templates (or shared via Inertia props in the custom hook).
+
+### `skipAssets: false` for Wildcard Content Routes
+
+When wildcard routes handle dynamic content paths that might conflict with static asset detection:
+
+```js
+'GET /articles/*': {
+  skipAssets: false,   // Allow URLs like /articles/fleet-4.0-release
+  action: 'articles/view-basic-article',
+  locals: { currentSection: 'more' }
+}
+```
+
 ## Route Ordering
 
 Sails sorts routes by specificity:

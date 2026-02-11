@@ -1,0 +1,11 @@
+{
+  "version": "1.0.0",
+  "organization": "Sailscasts",
+  "date": "February 2026",
+  "abstract": "Background job scheduling skill covering job definition, scheduling formats, the sails.quest API, and common patterns for Sails.js applications using sails-hook-quest.",
+  "references": [
+    "https://github.com/sailscastshq/sails-hook-quest",
+    "https://docs.sailscasts.com/boring-stack",
+    "https://sailsjs.com/documentation/concepts/shell-scripts"
+  ]
+}

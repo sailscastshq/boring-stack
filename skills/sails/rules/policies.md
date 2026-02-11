@@ -134,6 +134,68 @@ module.exports = async function (req, res, proceed) {
 }
 ```
 
+### API Key Authentication
+
+For machine-to-machine endpoints (cloud customers, microservices):
+
+```js
+// api/policies/is-cloud-customer.js
+module.exports = async function (req, res, proceed) {
+  if (req.get('API-KEY') === sails.config.custom.sharedApiSecret) {
+    return proceed()
+  }
+  return res.unauthorized()
+}
+```
+
+### Feature-Flag Gated Policy
+
+Control access with a config-level feature flag that can be toggled without redeploying:
+
+```js
+// api/policies/has-feature-access.js
+module.exports = async function (req, res, proceed) {
+  // Check global feature flag first
+  if (sails.config.custom.enablePublicFeature) {
+    return proceed()
+  }
+
+  // Fall back to per-user flag
+  if (!req.me) {
+    return req.wantsJSON ? res.sendStatus(401) : res.redirect('/login')
+  }
+
+  if (!req.me.isSuperAdmin && !req.me.canUseFeature) {
+    return res.forbidden()
+  }
+
+  return proceed()
+}
+```
+
+### Content Negotiation in Policies
+
+Use `req.wantsJSON` to handle both browser and API requests:
+
+```js
+// api/policies/is-super-admin.js
+module.exports = async function (req, res, proceed) {
+  if (!req.me) {
+    if (req.wantsJSON) {
+      return res.sendStatus(401)
+    } else {
+      return res.redirect('/login?admin')
+    }
+  }
+
+  if (!req.me.isSuperAdmin) {
+    return res.forbidden()
+  }
+
+  return proceed()
+}
+```
+
 ### Team Membership Check
 
 ```js

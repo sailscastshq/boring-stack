@@ -49,11 +49,59 @@ module.exports.custom = {
   },
 
   // Feature flags
-  enableBetaFeatures: false
+  enableBetaFeatures: false,
+  verifyEmailAddresses: false,
+
+  // TTL constants (time-to-live in milliseconds)
+  passwordResetTokenTTL: 24 * 60 * 60 * 1000, // 24 hours
+  emailProofTokenTTL: 24 * 60 * 60 * 1000, // 24 hours
+  rememberMeCookieMaxAge: 30 * 24 * 60 * 60 * 1000, // 30 days
+
+  // Email from address
+  fromEmailAddress: 'noreply@example.com',
+  fromName: 'My App Team',
+  internalEmailAddress: 'support@example.com',
+
+  // Domain validation lists
+  bannedEmailDomainsForSubmissions: [
+    'example.com',
+    'gmail.com',
+    'hotmail.com',
+    'yahoo.com',
+    'outlook.com',
+    'icloud.com',
+    'mail.com',
+    'protonmail.com'
+  ],
+
+  // Regex for cleaning URLs
+  RX_PROTOCOL_AND_COMMON_SUBDOMAINS: /^(https?\:\/\/)?(www\.|about\.)*/
 }
 ```
 
 Access anywhere: `sails.config.custom.stripeSecretKey`
+
+### Production-Sensitive Config Pattern
+
+Use comments to document config values that should be set via environment variables in production, and only provide real values in `config/env/production.js` or `config/local.js`:
+
+```js
+// config/custom.js
+module.exports.custom = {
+  // openAiSecret: undefined,
+  // salesforceIntegrationUsername: undefined,
+  // slackWebhookUrl: undefined,
+}
+```
+
+### Computed Config in Hooks
+
+Config values can be computed at boot time in the custom hook's `initialize`:
+
+```js
+// api/hooks/custom/index.js
+sails.config.custom.enableBillingFeatures = !isMissingStripeConfig
+```
 
 ## Datastores
 

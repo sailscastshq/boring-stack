@@ -1,9 +1,11 @@
 {
   "name": "sails",
-  "version": "1.0.0",
-  "description": "Sails.js framework patterns for The Boring JavaScript Stack",
+  "version": "2.1.0",
+  "description": "Comprehensive Sails.js framework skill for The Boring JavaScript Stack covering app anatomy, actions, helpers, routes, policies, hooks, request lifecycle, middleware, configuration, responses, security, file uploads, deployment, shell scripts, blueprints, and generators.",
   "author": "sailscastshq",
   "organization": "Sailscasts",
+  "date": "February 2026",
+  "abstract": "Complete Sails.js 1.0 skill giving any AI agent a deep understanding of the framework as used in The Boring JavaScript Stack. Covers 17 topics from project structure and request lifecycle to production deployment, with real-world patterns from the ascent/mellow templates and the Fleet production codebase (hooks, policies, background tasks, content negotiation, error handling, and more).",
   "tags": [
     "sails",
     "sailsjs",
@@ -14,11 +16,20 @@
     "routes",
     "policies",
     "hooks",
+    "middleware",
+    "deployment",
+    "security",
+    "file-uploads",
+    "blueprints",
+    "generators",
     "boring-stack"
   ],
   "references": [
     "https://sailsjs.com",
+    "https://sailsjs.com/documentation/concepts",
+    "https://sailsjs.com/documentation/reference",
     "https://docs.sailscasts.com",
-    "https://sailsjs.com/documentation/concepts"
+    "https://docs.sailscasts.com/boring-stack",
+    "https://github.com/sailscastshq/boring-stack"
   ]
 }

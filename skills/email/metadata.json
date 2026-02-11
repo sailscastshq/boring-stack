@@ -1,0 +1,12 @@
+{
+  "version": "1.0.0",
+  "organization": "Sailscasts",
+  "date": "February 2026",
+  "abstract": "Email sending skill for The Boring JavaScript Stack covering sails-hook-mail configuration, EJS email templates with shared layouts, SMTP and Resend transport setup, and transactional email patterns for verification, password reset, magic links, 2FA codes, and team invitations.",
+  "references": [
+    "https://docs.sailscasts.com/mail",
+    "https://docs.sailscasts.com/boring-stack",
+    "https://resend.com/docs",
+    "https://nodemailer.com"
+  ]
+}
