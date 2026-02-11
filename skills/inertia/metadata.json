@@ -1,0 +1,12 @@
+{
+  "version": "1.0.0",
+  "organization": "Sailscasts",
+  "date": "February 2026",
+  "abstract": "Comprehensive Inertia.js skill for The Boring JavaScript Stack covering server-side rendering, redirects, shared data, flash messages, form handling, validation, the props system, client-side components, error handling, and advanced features like deferred props, partial reloads, and history encryption.",
+  "references": [
+    "https://inertiajs.com",
+    "https://docs.sailscasts.com/boring-stack",
+    "https://docs.sailscasts.com/inertia-sails",
+    "https://github.com/sailscastshq/boring-stack/tree/main/packages/inertia-sails"
+  ]
+}

@@ -1,0 +1,11 @@
+{
+  "version": "1.0.0",
+  "organization": "Sailscasts",
+  "date": "February 2026",
+  "abstract": "Payment and subscription billing skill for The Boring JavaScript Stack covering sails-pay hook configuration, Lemon Squeezy checkout flows, subscription model management, webhook handling with signature verification, and customer portal integration.",
+  "references": [
+    "https://docs.sailscasts.com/boring-stack",
+    "https://docs.lemonsqueezy.com",
+    "https://github.com/nicedoc/sails-pay"
+  ]
+}

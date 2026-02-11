@@ -1,0 +1,13 @@
+{
+  "version": "1.0.0",
+  "organization": "Sailscasts",
+  "date": "February 2026",
+  "abstract": "Realtime WebSocket skill covering sails.sockets room management, Resourceful PubSub model notifications, client-side integration, configuration, and common patterns for Sails.js applications using sails-hook-sockets.",
+  "references": [
+    "https://github.com/sailscastshq/sails-hook-sockets",
+    "https://sailsjs.com/documentation/reference/web-sockets",
+    "https://sailsjs.com/documentation/reference/web-sockets/resourceful-pub-sub",
+    "https://sailsjs.com/documentation/reference/web-sockets/sails-sockets",
+    "https://docs.sailscasts.com/boring-stack"
+  ]
+}

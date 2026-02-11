@@ -1,0 +1,12 @@
+{
+  "version": "1.0.0",
+  "organization": "Sailscasts",
+  "date": "February 2026",
+  "abstract": "Comprehensive testing skill for The Boring JavaScript Stack covering unit testing with Node.js built-in test runner, end-to-end testing with Playwright, integration testing with inertia-sails/test, test environment configuration, and GitHub Actions CI setup.",
+  "references": [
+    "https://docs.sailscasts.com/boring-stack",
+    "https://nodejs.org/api/test.html",
+    "https://playwright.dev/docs/intro",
+    "https://docs.sailscasts.com/inertia-sails"
+  ]
+}

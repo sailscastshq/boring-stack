@@ -1,0 +1,12 @@
+{
+  "version": "1.0.0",
+  "organization": "Sailscasts",
+  "date": "February 2026",
+  "abstract": "Shipwright build system skill for The Boring JavaScript Stack covering Rsbuild-based asset pipeline configuration, framework plugins for React/Vue/Svelte, Tailwind CSS integration, server-side rendering setup, and development server with HMR.",
+  "references": [
+    "https://docs.sailscasts.com/boring-stack",
+    "https://rsbuild.dev",
+    "https://tailwindcss.com/docs",
+    "https://github.com/sailscastshq/sails-hook-shipwright"
+  ]
+}

@@ -1,0 +1,13 @@
+{
+  "version": "1.0.0",
+  "organization": "Sailscasts",
+  "date": "February 2026",
+  "abstract": "Comprehensive Waterline ORM skill covering query language, model definitions, associations, validations, lifecycle callbacks, error handling, transactions, and advanced patterns for Sails.js applications.",
+  "references": [
+    "https://sailsjs.com/documentation/reference/waterline-orm",
+    "https://sailsjs.com/documentation/concepts/models-and-orm",
+    "https://sailsjs.com/documentation/concepts/models-and-orm/query-language",
+    "https://github.com/balderdashy/waterline",
+    "https://docs.sailscasts.com/boring-stack"
+  ]
+}
