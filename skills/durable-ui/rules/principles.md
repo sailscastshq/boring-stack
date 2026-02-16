@@ -1,22 +1,24 @@
 ---
 name: principles
-description: Decision framework for choosing the right persistence layer — localStorage vs URL params vs session vs database
+description: Decision framework for choosing the right persistence layer and interaction pattern — localStorage vs URL params vs session vs database, and when to use dismissal patterns
 metadata:
-  tags: principles, decision-framework, state-management, durability, architecture
+  tags: principles, decision-framework, state-management, durability, architecture, dismissal, interaction
 ---
 
 # Durable UI Principles
 
+Durable UI covers two complementary concerns: **state resilience** (making data survive reloads, navigation, and crashes) and **interaction resilience** (making UI elements behave predictably — closing when expected, preserving progress, recovering gracefully).
+
 ## The Durability Spectrum
 
-Not all state needs the same persistence strategy. The Boring JavaScript Stack provides four tiers, each with increasing durability:
+Not all state needs the same persistence strategy. There are four tiers, each with increasing durability:
 
-| Tier          | Storage                | Survives Reload? | Shareable?  | Cross-Device?  | Example                      |
-| ------------- | ---------------------- | ---------------- | ----------- | -------------- | ---------------------------- |
-| **Ephemeral** | React/Vue/Svelte state | No               | No          | No             | Dropdown open, hover state   |
-| **Browser**   | localStorage           | Yes              | No          | No             | Sidebar collapsed, dark mode |
-| **URL**       | Query parameters       | Yes              | Yes         | Yes (via link) | Active tab, filters, page    |
-| **Server**    | Session / Database     | Yes              | Via session | Yes (database) | Cart contents, user prefs    |
+| Tier          | Storage                | Survives Reload? | Shareable?  | Cross-Device?  | Example                          |
+| ------------- | ---------------------- | ---------------- | ----------- | -------------- | -------------------------------- |
+| **Ephemeral** | React/Vue/Svelte state | No               | No          | No             | Dropdown open, modal open, hover |
+| **Browser**   | localStorage           | Yes              | No          | No             | Sidebar collapsed, dark mode     |
+| **URL**       | Query parameters       | Yes              | Yes         | Yes (via link) | Active tab, filters, page        |
+| **Server**    | Session / Database     | Yes              | Via session | Yes (database) | Cart contents, user prefs        |
 
 ## Decision Matrix
 
@@ -143,6 +145,78 @@ try {
 ```
 
 For URL state, be mindful of URL length limits (~2,000 characters is safe across all browsers). Don't store large datasets in the URL.
+
+## Interaction Resilience
+
+Beyond persistence, durable UI means interactive elements behave the way users expect. Every overlay, form, and multi-step flow should handle these scenarios:
+
+### Dismissal Matrix
+
+| Element                  | Click outside | Backdrop click | Escape key | Required?              |
+| ------------------------ | :-----------: | :------------: | :--------: | ---------------------- |
+| Dropdown / popover       |      Yes      |       —        |    Yes     | Always                 |
+| Context menu             |      Yes      |       —        |    Yes     | Always                 |
+| Modal / dialog           |       —       |      Yes       |    Yes     | Always                 |
+| Confirm dialog           |       —       |      Yes       |    Yes     | Always                 |
+| Drawer / sidebar overlay |       —       |      Yes       |    Yes     | Always                 |
+| Toast / notification     |       —       |       —        |  Optional  | Auto-dismiss preferred |
+
+See [click-outside.md](click-outside.md) for implementations.
+
+### Focus & Feedback Matrix
+
+| Scenario                          | What should happen                                    | Rule                                             |
+| --------------------------------- | ----------------------------------------------------- | ------------------------------------------------ |
+| Modal closes                      | Focus returns to the element that triggered it        | [focus-management.md](focus-management.md)       |
+| Modal opens                       | Focus is trapped inside the modal (Tab cycles within) | [focus-management.md](focus-management.md)       |
+| List item deleted                 | Focus moves to next item (or previous if last)        | [focus-management.md](focus-management.md)       |
+| Optimistic action succeeds        | UI already reflects the change, no jank               | [optimistic-ui.md](optimistic-ui.md)             |
+| Optimistic action fails           | UI rolls back to previous state, error shown          | [optimistic-ui.md](optimistic-ui.md)             |
+| Back/forward navigation           | Scroll position restored to where user was            | [scroll-restoration.md](scroll-restoration.md)   |
+| Scrollable container re-rendered  | Scroll position preserved                             | [scroll-restoration.md](scroll-restoration.md)   |
+| Server action completes           | Toast notification shown, auto-dismissed              | [toast-notifications.md](toast-notifications.md) |
+| User hovers toast                 | Auto-dismiss pauses until hover ends                  | [toast-notifications.md](toast-notifications.md) |
+| Search input typing               | Debounced — no request until user pauses (300ms)      | [debounced-search.md](debounced-search.md)       |
+| New search while previous pending | Previous request cancelled via AbortController        | [debounced-search.md](debounced-search.md)       |
+
+### Form Resilience Matrix
+
+| Scenario                                   | What should happen                                       | Rule                                       |
+| ------------------------------------------ | -------------------------------------------------------- | ------------------------------------------ |
+| Single form + accidental refresh           | Auto-saved draft restored                                | [form-persistence.md](form-persistence.md) |
+| Multi-step wizard + accidental refresh     | Resume at last step with all data                        | [multi-step-forms.md](multi-step-forms.md) |
+| Navigate away with unsaved changes         | Warning before leaving                                   | [form-persistence.md](form-persistence.md) |
+| Multi-step wizard + navigate between steps | No warning (intentional navigation)                      | [multi-step-forms.md](multi-step-forms.md) |
+| Form submitted successfully                | Clear draft, no stale data next visit                    | Both                                       |
+| Edit form with no changes                  | Submit button disabled — UI reflects nothing has changed | UI Honesty                                 |
+| Edit form with changes                     | Submit button enabled — UI signals unsaved changes exist | UI Honesty                                 |
+
+### UI Honesty
+
+The interface must reflect the true state of user intent. Never assume — derive.
+
+The most common violation is an always-enabled "Update" button on edit forms. When the button is always clickable, the user can't tell if they've changed anything, the app can't warn about unsaved changes, and submitting without changes wastes a server round-trip.
+
+**Rule:** Disable submit buttons until the form is dirty. With Inertia.js, `useForm` tracks `isDirty` automatically:
+
+```html
+<!-- Vue -->
+<button :disabled="!form.isDirty || form.processing">Update</button>
+```
+
+```jsx
+{
+  /* React */
+}
+;<button disabled={!form.isDirty || form.processing}>Update</button>
+```
+
+This principle extends beyond buttons:
+
+- "Save" indicators should only appear when there's something to save
+- Badge counts should be computed from the actual list, not maintained separately
+- "Changes saved" toasts should only fire when changes were actually persisted
+- Any visual signal that communicates state should be derived from actual state, not assumed
 
 ## Anti-Patterns
 
