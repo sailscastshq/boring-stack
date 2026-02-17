@@ -1,12 +1,12 @@
 {
-  "version": "1.0.0",
+  "version": "1.1.0",
   "organization": "Sailscasts",
   "date": "February 2026",
-  "abstract": "Durable UI patterns for persisting client-side state in The Boring JavaScript Stack. Covers localStorage persistence, URL query parameter sync, form draft auto-save, and complete implementations for React hooks, Vue composables, and Svelte stores.",
+  "abstract": "Durable UI patterns for modern web development with React, Vue, and Svelte. Covers localStorage persistence, URL query parameter sync, form draft auto-save, multi-step wizard persistence, click-outside and backdrop dismissal, modal and dialog patterns, focus management and trapping, optimistic UI with rollback, scroll position restoration, toast notification queues, debounced search with cancellation, and complete implementations as reusable hooks, composables, and stores.",
   "references": [
-    "https://docs.sailscasts.com/boring-stack",
-    "https://inertiajs.com",
     "https://developer.mozilla.org/en-US/docs/Web/API/Window/localStorage",
-    "https://developer.mozilla.org/en-US/docs/Web/API/History/pushState"
+    "https://developer.mozilla.org/en-US/docs/Web/API/History/pushState",
+    "https://developer.mozilla.org/en-US/docs/Web/API/HTMLDialogElement",
+    "https://inertiajs.com"
   ]
 }
