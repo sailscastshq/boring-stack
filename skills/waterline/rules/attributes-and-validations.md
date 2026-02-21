@@ -240,9 +240,61 @@ module.exports = {
 }
 ```
 
-## Boring Stack Column Naming Convention
+## Boring Stack Model Naming Rules
 
-The Boring Stack convention maps camelCase JS attributes to snake_case DB columns:
+**These rules are mandatory for all models in a Boring Stack application.**
+
+### 1. `tableName` must be plural snake_case
+
+Every model MUST define an explicit `tableName` that is the pluralized, snake_case form of the model name:
+
+```js
+// api/models/DeployToken.js
+module.exports = {
+  tableName: 'deploy_tokens', // Required: plural snake_case
+  attributes: { ... }
+}
+```
+
+| Model Name        | `tableName`           |
+| ----------------- | --------------------- |
+| `User`            | `'users'`             |
+| `App`             | `'apps'`              |
+| `DeployToken`     | `'deploy_tokens'`     |
+| `GitProvider`     | `'git_providers'`     |
+| `GitRepository`   | `'git_repositories'`  |
+| `AuditLog`        | `'audit_logs'`        |
+| `ContainerMetric` | `'container_metrics'` |
+
+### 2. camelCase attributes MUST have `columnName` in snake_case
+
+Any attribute whose name is camelCase MUST include a `columnName` property mapping it to its snake_case equivalent. Attributes that are already single lowercase words (e.g. `name`, `slug`, `team`, `port`) do not need `columnName`.
+
+```js
+// CORRECT
+fullName: {
+  type: 'string',
+  columnName: 'full_name',
+  required: true
+},
+isActive: {
+  type: 'boolean',
+  columnName: 'is_active',
+  defaultsTo: true
+},
+createdBy: {
+  model: 'user',
+  columnName: 'created_by'
+}
+
+// WRONG — missing columnName
+fullName: {
+  type: 'string',
+  required: true
+}
+```
+
+This applies to all attribute types including associations (`model:` references):
 
 ```js
 fullName:                    { columnName: 'full_name' },
@@ -251,5 +303,8 @@ passwordResetToken:          { columnName: 'password_reset_token' },
 passwordResetTokenExpiresAt: { columnName: 'password_reset_token_expires_at' },
 emailProofToken:             { columnName: 'email_proof_token' },
 googleAccessToken:           { columnName: 'google_access_token' },
-tosAcceptedByIp:             { columnName: 'tos_accepted_by_ip' }
+tosAcceptedByIp:             { columnName: 'tos_accepted_by_ip' },
+lastUsedAt:                  { columnName: 'last_used_at' },
+createdBy:                   { columnName: 'created_by' },
+revokedBy:                   { columnName: 'revoked_by' }
 ```
