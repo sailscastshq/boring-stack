@@ -75,7 +75,7 @@ Return an Inertia page response:
 return {
   page: 'users/index',       // Component name
   props: { users: [...] },   // Props passed to component
-  viewData: { title: '...' } // Data for root EJS template
+  locals: { title: '...' }   // Locals for root EJS template
 }
 ```
 
@@ -106,12 +106,12 @@ Share data across all requests (app-wide):
 sails.inertia.shareGlobally('appName', 'My App')
 ```
 
-#### `viewData(key, value)`
+#### `local(key, value)`
 
-Share data with the root EJS template:
+Set a local variable for the root EJS template:
 
 ```js
-sails.inertia.viewData('title', 'Dashboard')
+sails.inertia.local('title', 'Dashboard')
 ```
 
 ### Once Props (Cached)

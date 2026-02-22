@@ -11,7 +11,7 @@
  *   req: Request,
  *   res: Response,
  *   sharedProps: {},      // Request-scoped shared props
- *   sharedViewData: {},   // Request-scoped view data
+ *   sharedLocals: {},     // Request-scoped locals for root EJS template
  *   encryptHistory: null, // Request-scoped history encryption (null = use default)
  *   clearHistory: false,  // Request-scoped clear history flag
  *   refreshOnceProps: [], // Props to force-refresh for this request
@@ -40,7 +40,7 @@ module.exports = {
       req,
       res,
       sharedProps: {},
-      sharedViewData: {},
+      sharedLocals: {},
       encryptHistory: null,
       clearHistory: false,
       refreshOnceProps: [], // Props to force-refresh for this request
@@ -97,23 +97,23 @@ module.exports = {
   },
 
   /**
-   * Get request-scoped shared view data
-   * @returns {Object} - The shared view data for this request
+   * Get request-scoped shared locals
+   * @returns {Object} - The shared locals for this request
    */
-  getSharedViewData() {
+  getSharedLocals() {
     const context = requestContext.getStore()
-    return context?.sharedViewData || {}
+    return context?.sharedLocals || {}
   },
 
   /**
-   * Set request-scoped shared view data
+   * Set a request-scoped shared local
    * @param {string} key - The key
    * @param {*} value - The value
    */
-  setSharedViewData(key, value) {
+  setSharedLocal(key, value) {
     const context = requestContext.getStore()
     if (context) {
-      context.sharedViewData[key] = value
+      context.sharedLocals[key] = value
     }
   },
 

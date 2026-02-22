@@ -30,7 +30,7 @@
  * @typedef {Object} InertiaRenderData
  * @property {string} page - The component name to render
  * @property {Object.<string, *>} [props] - Props to pass to the component
- * @property {Object.<string, *>} [viewData] - Additional view data for the root template
+ * @property {Object.<string, *>} [locals] - Additional locals for the root EJS template
  */
 
 /**
@@ -116,7 +116,7 @@ module.exports = function defineInertiaHook(sails) {
       // Global shared props (for app-wide data like app name, version)
       // These are merged with request-scoped shares
       sails.inertia.globalSharedProps = {}
-      sails.inertia.globalSharedViewData = {}
+      sails.inertia.globalSharedLocals = {}
       // Default history encryption from config
       sails.inertia.defaultEncryptHistory = sails.config.inertia.history.encrypt
       sails.on('router:before', function () {
@@ -215,42 +215,42 @@ module.exports = function defineInertiaHook(sails) {
     },
 
     /**
-     * Add view data for the current request.
+     * Set a local for the current request's root EJS template.
      * Uses AsyncLocalStorage to ensure data doesn't leak between concurrent requests.
-     * @param {string} key - The key of the view data
-     * @param {*} value - The value of the view data
+     * @param {string} key - The local variable name
+     * @param {*} value - The value
      * @returns {*} - The value that was set
      */
-    viewData(key, value) {
+    local(key, value) {
       const context = requestContext.getContext()
       if (context) {
-        requestContext.setSharedViewData(key, value)
+        requestContext.setSharedLocal(key, value)
         return value
       }
       // Fallback to global if called outside request
-      sails.inertia.globalSharedViewData[key] = value
+      sails.inertia.globalSharedLocals[key] = value
       return value
     },
 
     /**
-     * Add view data globally across all requests.
-     * @param {string} key - The key of the view data
-     * @param {*} value - The value of the view data
+     * Set a local globally across all requests.
+     * @param {string} key - The local variable name
+     * @param {*} value - The value
      * @returns {*} - The value that was set
      */
-    viewDataGlobally(key, value) {
-      sails.inertia.globalSharedViewData[key] = value
+    localGlobally(key, value) {
+      sails.inertia.globalSharedLocals[key] = value
       return value
     },
 
     /**
-     * Get view data (merges global + request-scoped)
-     * @param {string} key - The key of the view data to get
-     * @returns {*} - The view data
+     * Get locals (merges global + request-scoped)
+     * @param {string} key - The local variable name to get
+     * @returns {*} - The locals
      */
-    getViewData(key) {
-      const globalData = sails.inertia.globalSharedViewData
-      const requestData = requestContext.getSharedViewData()
+    getLocals(key) {
+      const globalData = sails.inertia.globalSharedLocals
+      const requestData = requestContext.getSharedLocals()
       const merged = { ...globalData, ...requestData }
       return key ? merged[key] : merged
     },
