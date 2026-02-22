@@ -137,6 +137,24 @@ sails.inertia.setRootView('auth') // Uses views/auth.ejs instead
 
 This is useful for having different HTML shells (e.g., a minimal layout for auth pages).
 
+## Locals (Root Template Data)
+
+Actions can return a `locals` object to pass data to the root EJS template (`views/app.ejs`). Locals are for the HTML shell -- `<title>`, `<meta>`, Open Graph tags -- not for your page components (use props for that).
+
+```js
+return {
+  page: 'courses/show',
+  props: { course },
+  locals: {
+    title: course.title,
+    description: course.description,
+    ogImage: course.thumbnailUrl
+  }
+}
+```
+
+See [locals.md](locals.md) for the full API, precedence rules, and real-world examples.
+
 ## Rendering on Non-GET Routes
 
 The `inertia` response type is almost always used with GET routes. For POST/PATCH/PUT/DELETE routes, you typically redirect after processing (see [redirects-and-responses.md](redirects-and-responses.md)).
