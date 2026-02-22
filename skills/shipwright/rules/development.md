@@ -160,22 +160,19 @@ Add meta tags, favicons, or external resources:
 </html>
 ```
 
-### Using View Data
+### Using Locals
 
-Inertia's `viewData` method passes data to the EJS template (not to page components):
+The `local()` method passes data to the EJS template (not to page components). Locals become top-level variables in the template:
 
 ```js
 // In a hook or middleware
-sails.inertia.viewData('title', 'My App - Dashboard')
+sails.inertia.local('title', 'My App - Dashboard')
 ```
 
 ```html
 <!-- views/app.ejs -->
 <head>
-  <title>
-    <%= typeof viewData !== 'undefined' && viewData.title ? viewData.title : 'My
-    App' %>
-  </title>
+  <title><%= locals.title || 'My App' %></title>
   <%- shipwright.styles() %>
 </head>
 ```

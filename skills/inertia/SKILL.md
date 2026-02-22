@@ -19,6 +19,7 @@ Inertia.js is the bridge between Sails.js and your frontend framework (React, Vu
 Use this skill when:
 
 - Rendering pages with Inertia (`responseType: 'inertia'`)
+- Setting page-specific meta tags, titles, and OG images with locals (`sails.inertia.local()`, `return { locals }`)
 - Handling form submissions and redirects (`responseType: 'redirect'` vs `'inertiaRedirect'`)
 - Sharing data globally across all pages (`sails.inertia.share()`, `once()`, `refreshOnce()`)
 - Working with flash messages (`sails.inertia.flash()`)
@@ -35,6 +36,7 @@ Read individual rule files for detailed explanations and code examples:
 
 - [rules/getting-started.md](rules/getting-started.md) - How Inertia works, the protocol, client and server setup
 - [rules/rendering-pages.md](rules/rendering-pages.md) - Server-side rendering, page objects, the `inertia` response type
+- [rules/locals.md](rules/locals.md) - Locals for the root EJS template -- SEO meta tags, Open Graph, page titles, structured data
 - [rules/actions-and-exits.md](rules/actions-and-exits.md) - Action2 patterns, exit response types, the four action patterns
 - [rules/redirects-and-responses.md](rules/redirects-and-responses.md) - redirect vs inertiaRedirect, when to use each, location visits
 - [rules/shared-data-and-flash.md](rules/shared-data-and-flash.md) - share(), once(), refreshOnce(), flushShared(), flash()
