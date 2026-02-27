@@ -46,7 +46,7 @@ module.exports = {
       refreshOnceProps: [], // Props to force-refresh for this request
       rootView: null // Request-scoped root view template
     }
-    return requestContext.run(context, callback)
+    return requestContext.run(context, () => callback())
   },
 
   /**
