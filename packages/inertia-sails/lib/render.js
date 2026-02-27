@@ -8,11 +8,11 @@ module.exports = async function render(req, res, data) {
   // Use request-scoped rootView if set, otherwise fall back to config
   const rootView = requestContext.getRootView() || sails.config.inertia.rootView
 
-  // Use request-scoped view data merged with global view data
-  // This prevents view data from leaking between concurrent requests
-  const allViewData = {
-    ...sails.inertia.getViewData(), // Merges global + request-scoped
-    ...data.viewData
+  // Use request-scoped locals merged with global locals
+  // This prevents locals from leaking between concurrent requests
+  const allLocals = {
+    ...sails.inertia.getLocals(), // Merges global + request-scoped
+    ...data.locals
   }
 
   let page = await buildPageObject(req, data.page, data.props)
@@ -32,9 +32,6 @@ module.exports = async function render(req, res, data) {
     return res.json(page)
   } else {
     // Implements full page reload
-    return res.view(rootView, {
-      page,
-      viewData: allViewData
-    })
+    return res.view(rootView, { page, ...allLocals })
   }
 }

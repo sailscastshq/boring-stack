@@ -30,7 +30,7 @@
  * @typedef {Object} InertiaRenderData
  * @property {string} page - The component name to render
  * @property {Object.<string, *>} [props] - Props to pass to the component
- * @property {Object.<string, *>} [viewData] - Additional view data for the root template
+ * @property {Object.<string, *>} [locals] - Additional locals for the root EJS template
  */
 
 /**
@@ -110,13 +110,45 @@ module.exports = function defineInertiaHook(sails) {
         }
       }
     },
+
+    /**
+     * Configure phase — runs after all hooks' defaults are merged but BEFORE
+     * any hook's initialize(). This is the right place to inject HTTP middleware
+     * because the HTTP hook hasn't read the middleware order yet.
+     */
+    configure: function () {
+      // Inject AsyncLocalStorage context middleware into the HTTP stack
+      // BEFORE the router. This guarantees context is available in ALL
+      // routes.before handlers from all hooks, regardless of hook load order.
+      //
+      // Lifecycle:
+      //   cookieParser → session → bodyParser → ... → inertiaContext → router
+      //
+      // By the time any routes.before handler calls sails.inertia.share(),
+      // the request is already wrapped in AsyncLocalStorage context.
+      if (sails.config.http && sails.config.http.middleware) {
+        const mw = sails.config.http.middleware
+        if (mw.order && mw.order.indexOf('inertiaContext') === -1) {
+          const routerIdx = mw.order.indexOf('router')
+          if (routerIdx !== -1) {
+            mw.order.splice(routerIdx, 0, 'inertiaContext')
+          }
+        }
+        if (!mw.inertiaContext) {
+          mw.inertiaContext = function inertiaContext(req, res, next) {
+            requestContext.run(req, res, next)
+          }
+        }
+      }
+    },
+
     initialize: async function () {
       hook = this
       sails.inertia = hook
       // Global shared props (for app-wide data like app name, version)
       // These are merged with request-scoped shares
       sails.inertia.globalSharedProps = {}
-      sails.inertia.globalSharedViewData = {}
+      sails.inertia.globalSharedLocals = {}
       // Default history encryption from config
       sails.inertia.defaultEncryptHistory = sails.config.inertia.history.encrypt
       sails.on('router:before', function () {
@@ -127,19 +159,36 @@ module.exports = function defineInertiaHook(sails) {
     },
 
     /**
-     * Hook routes - sets up AsyncLocalStorage context early so other hooks
-     * can use sails.inertia.share() with proper request-scoped context.
+     * Hook routes — fallback context setup for socket requests.
+     * HTTP requests already have context from the inertiaContext middleware.
+     * Socket requests bypass Express middleware, so they need this.
      */
     routes: {
       before: {
         'GET /*': {
           skipAssets: true,
-          fn: (req, res, next) => requestContext.run(req, res, next)
+          fn: (req, res, next) => {
+            // Skip if context already set up by HTTP middleware
+            if (requestContext.getContext()) return next()
+            requestContext.run(req, res, next)
+          }
         },
-        'POST /*': (req, res, next) => requestContext.run(req, res, next),
-        'PUT /*': (req, res, next) => requestContext.run(req, res, next),
-        'PATCH /*': (req, res, next) => requestContext.run(req, res, next),
-        'DELETE /*': (req, res, next) => requestContext.run(req, res, next)
+        'POST /*': (req, res, next) => {
+          if (requestContext.getContext()) return next()
+          requestContext.run(req, res, next)
+        },
+        'PUT /*': (req, res, next) => {
+          if (requestContext.getContext()) return next()
+          requestContext.run(req, res, next)
+        },
+        'PATCH /*': (req, res, next) => {
+          if (requestContext.getContext()) return next()
+          requestContext.run(req, res, next)
+        },
+        'DELETE /*': (req, res, next) => {
+          if (requestContext.getContext()) return next()
+          requestContext.run(req, res, next)
+        }
       }
     },
 
@@ -152,14 +201,17 @@ module.exports = function defineInertiaHook(sails) {
      * @returns {*} - The value that was shared
      */
     share(key, value = null) {
-      // If we're in a request context, share for this request only
       const context = requestContext.getContext()
       if (context) {
         requestContext.setSharedProp(key, value)
         return value
       }
-      // Fallback to global share if called outside request (e.g., in hooks)
-      sails.inertia.globalSharedProps[key] = value
+      // Never fall back to global — that causes data to leak across requests.
+      // Use shareGlobally() for truly global data like app name.
+      sails.log.warn(
+        `sails.inertia.share('${key}') called outside request context. ` +
+          'Value was not stored. Use shareGlobally() for global data.'
+      )
       return value
     },
 
@@ -190,67 +242,66 @@ module.exports = function defineInertiaHook(sails) {
 
     /**
      * Flush shared properties for the current request.
-     * Since context is set up early in routes.before, this always works
-     * in hooks and middleware.
+     * Always flushes from both request-scoped AND global storage to prevent
+     * stale data from leaking across requests.
      * @param {string|null} key - The key of the property to flush, or null to flush all
-     * @param {boolean} [global=false] - Whether to also flush global props (rarely needed)
      */
-    flushShared(key, global = false) {
+    flushShared(key) {
       const context = requestContext.getContext()
       if (key) {
         if (context) {
           delete context.sharedProps[key]
         }
-        if (global) {
-          delete sails.inertia.globalSharedProps[key]
-        }
+        // Always clean global too — prevents stale data from a previous
+        // request (or a share() that fell through before context was ready)
+        delete sails.inertia.globalSharedProps[key]
       } else {
         if (context) {
           context.sharedProps = {}
         }
-        if (global) {
-          sails.inertia.globalSharedProps = {}
-        }
+        sails.inertia.globalSharedProps = {}
       }
     },
 
     /**
-     * Add view data for the current request.
+     * Set a local for the current request's root EJS template.
      * Uses AsyncLocalStorage to ensure data doesn't leak between concurrent requests.
-     * @param {string} key - The key of the view data
-     * @param {*} value - The value of the view data
+     * @param {string} key - The local variable name
+     * @param {*} value - The value
      * @returns {*} - The value that was set
      */
-    viewData(key, value) {
+    local(key, value) {
       const context = requestContext.getContext()
       if (context) {
-        requestContext.setSharedViewData(key, value)
+        requestContext.setSharedLocal(key, value)
         return value
       }
-      // Fallback to global if called outside request
-      sails.inertia.globalSharedViewData[key] = value
+      sails.log.warn(
+        `sails.inertia.local('${key}') called outside request context. ` +
+          'Value was not stored. Use localGlobally() for global data.'
+      )
       return value
     },
 
     /**
-     * Add view data globally across all requests.
-     * @param {string} key - The key of the view data
-     * @param {*} value - The value of the view data
+     * Set a local globally across all requests.
+     * @param {string} key - The local variable name
+     * @param {*} value - The value
      * @returns {*} - The value that was set
      */
-    viewDataGlobally(key, value) {
-      sails.inertia.globalSharedViewData[key] = value
+    localGlobally(key, value) {
+      sails.inertia.globalSharedLocals[key] = value
       return value
     },
 
     /**
-     * Get view data (merges global + request-scoped)
-     * @param {string} key - The key of the view data to get
-     * @returns {*} - The view data
+     * Get locals (merges global + request-scoped)
+     * @param {string} key - The local variable name to get
+     * @returns {*} - The locals
      */
-    getViewData(key) {
-      const globalData = sails.inertia.globalSharedViewData
-      const requestData = requestContext.getSharedViewData()
+    getLocals(key) {
+      const globalData = sails.inertia.globalSharedLocals
+      const requestData = requestContext.getSharedLocals()
       const merged = { ...globalData, ...requestData }
       return key ? merged[key] : merged
     },
