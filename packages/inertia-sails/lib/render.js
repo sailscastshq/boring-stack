@@ -32,6 +32,15 @@ module.exports = async function render(req, res, data) {
     return res.json(page)
   } else {
     // Implements full page reload
-    return res.view(rootView, { page, ...allLocals })
+    //
+    // We pass locals both as top-level properties AND nested under a `locals`
+    // key. This is necessary because Sails's default EJS renderer creates an
+    // `options.locals` object (for blocks, layout, partial helpers). EJS wraps
+    // templates in `with(data) { ... }`, so inside the template `locals`
+    // resolves to `data.locals` (the nested object) rather than the `locals`
+    // function parameter. By pre-populating `data.locals` with our values,
+    // `<%= locals.title %>` in the EJS template correctly resolves to the
+    // dynamic value instead of undefined.
+    return res.view(rootView, { page, ...allLocals, locals: { ...allLocals } })
   }
 }
