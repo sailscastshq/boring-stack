@@ -1,0 +1,20 @@
+{
+  "version": "1.0.0",
+  "organization": "Sailscasts",
+  "date": "March 2026",
+  "abstract": "Beautiful UI patterns for modern web development with React, Vue, and Svelte using Tailwind CSS. Covers semantic HTML element selection, document landmarks, heading hierarchy, navigation patterns, form structure, data tables, interactive disclosure elements, media embedding, accessibility (ARIA roles, live regions, skip links, focus management, keyboard navigation, screen reader announcements, color contrast, reduced motion), responsive design (mobile-first breakpoints, container queries, responsive grids, navigation, tables, touch targets, viewport units), typography (type scale, font stacks, line height, line length, letter spacing, font weight hierarchy, text color, prose styling, truncation, tabular numbers, dark mode), and form UX (layout, labels, validation timing, error presentation, submit buttons, optional fields, destructive actions).",
+  "references": [
+    "https://developer.mozilla.org/en-US/docs/Web/HTML/Element",
+    "https://developer.mozilla.org/en-US/docs/Learn/Accessibility/HTML",
+    "https://www.w3.org/WAI/tutorials/page-structure/",
+    "https://html.spec.whatwg.org/multipage/sections.html",
+    "https://www.w3.org/WAI/ARIA/apg/",
+    "https://www.w3.org/WAI/WCAG21/Understanding/",
+    "https://tailwindcss.com/docs/responsive-design",
+    "https://tailwindcss.com/docs/font-size",
+    "https://github.com/tailwindlabs/tailwindcss-typography",
+    "https://www.nngroup.com/articles/web-form-design/",
+    "https://refactoringui.com/",
+    "https://inertiajs.com"
+  ]
+}
