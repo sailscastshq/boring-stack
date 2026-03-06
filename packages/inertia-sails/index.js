@@ -128,7 +128,22 @@ module.exports = function defineInertiaHook(sails) {
       // the request is already wrapped in AsyncLocalStorage context.
       if (sails.config.http && sails.config.http.middleware) {
         const mw = sails.config.http.middleware
-        if (mw.order && mw.order.indexOf('inertiaContext') === -1) {
+        // When order is not explicitly configured, Sails uses a default order
+        // internally. We need to set it here so we can inject inertiaContext
+        // before the router middleware.
+        if (!mw.order) {
+          mw.order = [
+            'cookieParser',
+            'session',
+            'bodyParser',
+            'compress',
+            'poweredBy',
+            'router',
+            'www',
+            'favicon'
+          ]
+        }
+        if (mw.order.indexOf('inertiaContext') === -1) {
           const routerIdx = mw.order.indexOf('router')
           if (routerIdx !== -1) {
             mw.order.splice(routerIdx, 0, 'inertiaContext')
