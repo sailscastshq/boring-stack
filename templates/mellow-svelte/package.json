@@ -34,7 +34,8 @@
     "sails-hook-shipwright": "^1.1.0",
     "sails.io.js": "^1.2.1",
     "socket.io-client": "^4.8.0",
-    "tailwindcss": "^4.1.16"
+    "tailwindcss": "^4.1.16",
+    "sounding": "^0.0.1"
   },
   "scripts": {
     "dev": "node --watch-path=api --watch-path=config app.js",
@@ -42,9 +43,7 @@
     "lint": "prettier --check .",
     "lint:fix": "prettier --write .",
     "test:unit": "node --test --test-concurrency=1 tests/unit/**/*.test.js",
-    "test:e2e": "playwright test",
-    "test:e2e:ui": "playwright test --ui",
-    "test:e2e:headed": "playwright test --headed",
+    "test:e2e": "node --test --test-concurrency=1 tests/e2e/pages/*.test.js tests/e2e/pages/**/*.test.js",
     "test": "npm run test:unit && npm run test:e2e"
   },
   "main": "app.js",
