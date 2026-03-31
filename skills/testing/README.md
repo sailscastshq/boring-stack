@@ -1,6 +1,6 @@
 # Testing Skills for Claude Code
 
-Write comprehensive tests for The Boring JavaScript Stack with Claude Code.
+Write Sounding-powered tests for The Boring JavaScript Stack with Claude Code.
 
 ## Installation
 
@@ -10,32 +10,36 @@ npx skills add sailscastshq/boring-stack/skills/testing
 
 ## Usage
 
-After installing, Claude will automatically apply testing best practices when you work on test files:
+After installing, Claude will automatically apply Sounding-first testing guidance when you work on test files:
 
-> "Write unit tests for the calculate-password-strength helper"
+> "Write a Sounding trial for the signupWithTeam helper"
 
-> "Add an e2e test for the signup flow"
+> "Add a request-level trial for guest protection on the dashboard"
 
-> "Write an integration test that verifies the dashboard returns the right props"
+> "Write an Inertia trial that verifies the pricing page props"
 
-> "Set up GitHub Actions CI for running tests"
+> "Add a browser-capable Sounding trial for the magic-link login flow"
+
+> "Set up config/sounding.js and a clean test environment"
 
 ## Skills Included
 
-- **getting-started** - Testing philosophy, project structure, npm scripts
-- **unit-testing** - Node.js test runner, getSails() pattern, helper testing
-- **e2e-testing** - Playwright setup, page testing, traces, CI modes
-- **integration-testing** - inertia-sails/test assertion library
-- **test-configuration** - Environment config, database strategy, GitHub Actions
+- **getting-started** - Sounding philosophy, suite structure, scripts, migration approach
+- **unit-testing** - helper trials, worlds, factories, scenarios, business logic
+- **integration-testing** - JSON endpoint and Inertia testing with `get()`, `post()`, and `visit()`
+- **e2e-testing** - browser-capable trials with `page`, `login`, and Playwright-backed assertions
+- **test-configuration** - Sounding config, test env config, datastores, mail capture, CI
 
 ## Testing Stack
 
-- **Unit tests**: Node.js built-in test runner (`node:test`) + `node:assert/strict`
-- **E2E tests**: [Playwright](https://playwright.dev) for browser automation
-- **Integration tests**: [inertia-sails/test](https://docs.sailscasts.com/inertia-sails) for Inertia response assertions
+- **Primary framework**: [Sounding](https://docs.sailscasts.com/sounding)
+- **Runner underneath**: Node.js built-in test runner (`node:test`)
+- **Browser engine**: Playwright, surfaced through Sounding browser-capable trials
+- **Mail capture**: Sounding mailbox through the real Sails mail path
 
 ## Links
 
+- [Sounding Documentation](https://docs.sailscasts.com/sounding)
 - [The Boring JavaScript Stack](https://docs.sailscasts.com/boring-stack)
 - [Node.js Test Runner](https://nodejs.org/api/test.html)
 - [Playwright Documentation](https://playwright.dev/docs/intro)

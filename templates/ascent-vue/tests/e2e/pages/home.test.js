@@ -1,13 +1,11 @@
-import { test, expect } from '@playwright/test'
+const { test } = require('sounding')
 
-test.describe('Home Page', () => {
-  test('homepage loads successfully', async ({ page }) => {
-    await page.goto('/')
-    await expect(page).toHaveTitle(/Ascent/)
-  })
+test('home page returns the expected Inertia payload', async ({
+  visit,
+  expect
+}) => {
+  const page = await visit('/')
 
-  test('homepage has main heading', async ({ page }) => {
-    await page.goto('/')
-    await expect(page.getByRole('heading', { level: 1 })).toBeVisible()
-  })
+  expect(page).toHaveStatus(200)
+  expect(page).toBeInertiaPage('index')
 })

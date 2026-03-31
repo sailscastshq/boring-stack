@@ -1,12 +1,12 @@
 {
-  "version": "1.0.0",
+  "version": "2.0.0",
   "organization": "Sailscasts",
-  "date": "February 2026",
-  "abstract": "Comprehensive testing skill for The Boring JavaScript Stack covering unit testing with Node.js built-in test runner, end-to-end testing with Playwright, integration testing with inertia-sails/test, test environment configuration, and GitHub Actions CI setup.",
+  "date": "March 2026",
+  "abstract": "Sounding-first testing skill for The Boring JavaScript Stack covering one test() API, Sails-centered trial context, worlds under tests/, request and Inertia trials, browser-capable flows, config/sounding.js, mail capture, datastore strategy, and CI setup.",
   "references": [
+    "https://docs.sailscasts.com/sounding",
     "https://docs.sailscasts.com/boring-stack",
     "https://nodejs.org/api/test.html",
-    "https://playwright.dev/docs/intro",
-    "https://docs.sailscasts.com/inertia-sails"
+    "https://playwright.dev/docs/intro"
   ]
 }

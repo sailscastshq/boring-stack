@@ -33,8 +33,8 @@ Ascent Vue is a production-ready React SaaS template built on The Boring JavaScr
 
 - **[Sails Hook Shipwright](https://github.com/sailscastshq/sails-hook-shipwright)** - Modern asset pipeline with hot reload
 - **[Prettier](https://prettier.io)** - Code formatting with Tailwind plugin
-- **Node.js Test Runner** - Built-in testing with no additional dependencies
-- **[Playwright](https://playwright.dev)** - End-to-end testing framework
+- **[Sounding](https://docs.sailscasts.com/sounding)** - Sails-native testing framework for helpers, requests, Inertia, mail, and browser-capable flows
+- **[Playwright](https://playwright.dev)** - Browser engine underneath Sounding browser-capable trials
 
 ## ✨ Features Included
 
@@ -134,10 +134,9 @@ npm run lint          # Check formatting
 npm run lint:fix      # Auto-fix formatting
 
 # Testing
-npm test              # Run all tests
-npm run test:unit     # Unit tests only
-npm run test:e2e      # E2E tests with Playwright
-npm run test:e2e:ui   # E2E tests in UI mode
+npm test              # Run the full Sounding suite
+npm run test:unit     # Helper and business-logic trials
+npm run test:e2e      # Request, Inertia, and browser-capable page trials
 
 # Sails.js generators
 npx sails generate controller auth/signup
@@ -218,7 +217,7 @@ Use this checklist to set up your SaaS application:
 ### Testing & Quality
 
 - [ ] **Write unit tests** for critical business logic
-- [ ] **Set up E2E tests** with Playwright
+- [ ] **Write Sounding trials** for your critical product flows
 - [ ] **Configure code formatting** with Prettier
 - [ ] **Set up pre-commit hooks** for code quality
 
@@ -289,6 +288,7 @@ function handleSubmit() {
 ```
 
 ### Team Management Table
+
 ```
 <script setup>
 import DataTable from '@/volt/DataTable.vue'
@@ -328,7 +328,6 @@ function actionTemplate(member) {
 </template>
 
 ```
-
 
 ## 🛠️ Development with Warp
 

@@ -1,21 +1,17 @@
-const { describe, it, before } = require('node:test')
-const assert = require('node:assert/strict')
-const { getSails } = require('../../util/get-sails')
+const { test } = require('sounding')
 
-describe('sails.helpers.capitalize()', () => {
-  let sails
+test('capitalize capitalizes a single word correctly', async ({
+  sails,
+  expect
+}) => {
+  const capitalized = await sails.helpers.capitalize('hello')
+  expect(capitalized).toBe('Hello')
+})
 
-  before(async () => {
-    sails = await getSails()
-  })
-
-  it('capitalizes single word correctly', async () => {
-    const capitalized = sails.helpers.capitalize('hello')
-    assert.equal(capitalized, 'Hello')
-  })
-
-  it('capitalizes multiple words correctly', async () => {
-    const capitalized = sails.helpers.capitalize('the quick brown fox')
-    assert.equal(capitalized, 'The quick brown fox')
-  })
+test('capitalize capitalizes multiple words correctly', async ({
+  sails,
+  expect
+}) => {
+  const capitalized = await sails.helpers.capitalize('the quick brown fox')
+  expect(capitalized).toBe('The quick brown fox')
 })
