@@ -1,0 +1,14 @@
+{
+  "version": "1.0.0",
+  "organization": "Sailscasts",
+  "date": "March 2026",
+  "abstract": "Product-building skill inspired by Elon Musk's five-step Algorithm and adapted for The Boring JavaScript Stack. Covers requirement scrutiny, deletion-first scope shaping, simplification of offers, products, architecture, and operations, faster feedback loops, and automation-last guidance for founders and builders using Sails.js, Inertia.js, Waterline, Tailwind CSS, Sounding, Quest, Realtime, and related stack capabilities.",
+  "references": [
+    "https://bookshop.org/p/books/the-algorithm-the-hypergrowth-formula-that-transformed-tesla-lululemon-general-motors-and-spacex-jonathan-mcneill/3aa79740e551c321",
+    "https://www.penguin.co.uk/books/475948/the-algorithm-by-mcneill-jon/9781529986617",
+    "https://www.businessinsider.com/elon-musk-tesla-manufacturing-algorithm-delete-automate-isaacson-biography-2023-9",
+    "https://www.wsj.com/business/autos/elon-musk-tesla-space-book-excerpt-654eda83",
+    "https://www.axios.com/2026/03/30/elon-musk-openai-altman-anthropic",
+    "https://docs.sailscasts.com/boring-stack"
+  ]
+}
