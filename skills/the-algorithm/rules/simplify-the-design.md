@@ -1,23 +1,23 @@
 ---
-name: boring-stack-decisions
-description: Using the Algorithm to choose the simplest fitting architecture in The Boring JavaScript Stack
+name: simplify-the-design
+description: Using the Algorithm to simplify the design before adding more layers
 metadata:
-  tags: boring-stack, sails, inertia, architecture, waterline, quest, realtime, payments
+  tags: simplification, design, layering, scope, systems
 ---
 
-# Boring Stack Decisions
+# Simplify the Design
 
-This stack already encodes several deletion-first opinions. Use them before inventing new layers.
+Deletion-first architecture starts with the path already available to you. Use that before inventing new layers.
 
 ## Default Architecture Bias
 
 Prefer this sequence:
 
-1. Sails action receives the request
-2. helper contains reusable business logic when needed
-3. Waterline persists the truth
-4. Inertia renders the page with server-provided props
-5. Tailwind styles the interface
+1. a request handler receives the request
+2. a reusable function or helper contains shared business logic when needed
+3. the primary datastore persists the truth
+4. the server returns the response or page with the needed data
+5. the interface stays close to the page or component that uses it
 
 Reach for extra infrastructure only when the product requirement clearly demands it.
 
@@ -28,7 +28,7 @@ When a plan feels heavy, try removing:
 - a separate API layer for page-first product work
 - duplicated validation split across many places
 - client-side state that mirrors server truth
-- custom data-fetching wrappers around straightforward Inertia flows
+- custom data-fetching wrappers around straightforward request-response flows
 - a background job for something that is fast enough inline
 - realtime updates for information users can refresh
 - a queue, cache, or search service added for anticipated scale
@@ -41,7 +41,7 @@ When a plan feels heavy, try removing:
 Ask:
 
 - Can this be one page and one action instead of a wizard or mini-app?
-- Can the server compute this and send it as props?
+- Can the server compute this and send it directly in the response?
 - Can the successful path be a redirect instead of local mutation choreography?
 
 ### Domain Logic
@@ -65,19 +65,19 @@ Ask:
 Ask:
 
 - Is this truly client-owned state, or should it come from the server?
-- Can `useForm` or page props replace a custom store?
+- Can a standard form flow or server-returned data replace a custom store?
 - Does this state need to survive reloads, or is it ephemeral UI?
 
 ## Add Complexity Only on Proof
 
-Use the existing skills when the answer is yes:
+Reach for richer capabilities only when the answer is yes:
 
-- `authentication` when the product truly needs richer auth flows
-- `payments` when billing becomes a real requirement
-- `email` when transactional email is part of the core product loop
-- `quest` when work is slow, retryable, or scheduled
-- `realtime` when live updates materially change value
-- `durable-ui` when state genuinely belongs in the browser or URL
-- `testing` when faster confidence requires stronger trials
+- stronger auth when the product truly needs richer auth flows
+- billing infrastructure when billing becomes a real requirement
+- transactional email when messaging is part of the core loop
+- jobs or scheduling when work is slow, retryable, or timed
+- realtime when live updates materially change value
+- durable browser state when state genuinely belongs in the browser or URL
+- deeper testing infrastructure when faster confidence requires stronger validation
 
 The burden of proof is on the new layer, not on the boring default.

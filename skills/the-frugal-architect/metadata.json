@@ -1,0 +1,21 @@
+{
+  "version": "1.0.0",
+  "organization": "Sailscasts",
+  "date": "March 2026",
+  "abstract": "Cost-aware architecture skill inspired by The Frugal Architect and adapted for The Boring JavaScript Stack. Covers cost as a non-functional requirement, alignment between system design and business economics, explicit architectural trade-offs, observability, cost controls, incremental optimization, and questioning stale assumptions when building with Sails.js, Inertia.js, Waterline, Shipwright, Quest, Realtime, and related stack capabilities.",
+  "references": [
+    "https://www.thefrugalarchitect.com/",
+    "https://thefrugalarchitect.com/categories/",
+    "https://thefrugalarchitect.com/laws/law1/",
+    "https://thefrugalarchitect.com/laws/law2/",
+    "https://thefrugalarchitect.com/laws/law3/",
+    "https://thefrugalarchitect.com/laws/law4/",
+    "https://thefrugalarchitect.com/laws/law5/",
+    "https://thefrugalarchitect.com/laws/law6/",
+    "https://thefrugalarchitect.com/laws/law7/",
+    "https://www.thefrugalarchitect.com/architects/john-mills-david-merritt-watch-duty.html",
+    "https://thefrugalarchitect.com/architects/mike-norton-pbs.html",
+    "https://thefrugalarchitect.com/architects/dan-conti-wetransfer.html",
+    "https://docs.sailscasts.com/boring-stack"
+  ]
+}

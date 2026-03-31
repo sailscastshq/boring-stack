@@ -4,12 +4,12 @@ description: >
   Product-building operating system inspired by Elon Musk's five-step "The Algorithm" —
   question every requirement, delete nonessential work, simplify what remains, accelerate feedback loops,
   and automate last. Use this skill when shaping offers, features, onboarding, pricing, architecture,
-  workflow, launch, or automation decisions in The Boring JavaScript Stack. Tailored for founders,
+  workflow, launch, or automation decisions. Tailored for founders,
   designers, operators, product engineers, and AI coding agents building real products.
 metadata:
   author: sailscastshq
   version: '1.0.0'
-  tags: the-algorithm, product-strategy, mvp, scope, architecture, simplification, delivery, automation, boring-stack
+  tags: the-algorithm, product-strategy, mvp, scope, architecture, simplification, delivery, automation
 ---
 
 # The Algorithm
@@ -22,10 +22,10 @@ The Algorithm is a subtraction-first way to build products. Its value for builde
 4. speed up learning and delivery
 5. automate only after the flow is stable
 
-In The Boring JavaScript Stack, this usually means resisting extra layers and extra surfaces:
+In product and application work, this usually means resisting extra layers and extra surfaces:
 
-- no extra API when a Sails action can render an Inertia page directly
-- no client state system when the database and page props are enough
+- no extra API when one server-driven flow can do the job
+- no client state system when the database and server-provided data are enough
 - no queue, socket, cache, search service, or microservice until the product truly needs it
 - no second or third pricing idea before the first one proves itself
 - no AI automation over a workflow humans do not yet understand
@@ -63,7 +63,7 @@ Read the rule files that match the decision you are making:
 
 - [rules/five-steps.md](rules/five-steps.md) - The five-step sequence translated from manufacturing into builder and product work
 - [rules/product-shaping.md](rules/product-shaping.md) - Applying the algorithm from problem selection through offer, MVP scope, UX, pricing, distribution, and launch
-- [rules/boring-stack-decisions.md](rules/boring-stack-decisions.md) - How to use the algorithm to choose the simplest fitting architecture in this stack
+- [rules/simplify-the-design.md](rules/simplify-the-design.md) - How to simplify the design before adding more layers
 - [rules/feedback-loops.md](rules/feedback-loops.md) - How to accelerate learning, validation, testing, and release without speeding up waste
 - [rules/automation-last.md](rules/automation-last.md) - What is actually ready for automation, and what should remain manual for now
 - [rules/review-prompts.md](rules/review-prompts.md) - Reusable questions for planning, code review, roadmap pruning, and agent prompts
