@@ -38,7 +38,10 @@ module.exports.inertia = {
   <%- shipwright.styles() %>
 </head>
 <body>
-  <div id="app" data-page="<%- JSON.stringify(page) %>"></div>
+  <div id="app"></div>
+  <script type="application/json" data-page="app">
+    <%- JSON.stringify(page).replace(/</g, '\\u003c') %>
+  </script>
   <%- shipwright.scripts() %>
 </body>
 </html>
@@ -199,13 +202,29 @@ Merge with existing client-side data (useful for infinite scroll):
 // Shallow merge
 messages: sails.inertia.merge(() => newMessages)
 
+// Prepend new items instead of appending
+notifications: sails.inertia.merge(() => newNotifications).prepend()
+
+// Merge a nested array inside a paginated object
+users: sails.inertia.merge(() => paginatedUsers).append('data')
+
+// Match existing items by ID when merging
+users: sails.inertia
+  .merge(() => paginatedUsers)
+  .append('data', {
+    matchOn: 'id'
+  })
+
 // Deep merge (nested objects)
 settings: sails.inertia.deepMerge(() => updatedSettings)
+
+// Deep merge with item matching
+chat: sails.inertia.deepMerge(() => chatState).matchOn('messages.id')
 ```
 
 ### Infinite Scroll
 
-Paginate data with automatic merge behavior. Works with Inertia.js v2's `<InfiniteScroll>` component:
+Paginate data with automatic merge behavior. Works with Inertia's `<InfiniteScroll>` component:
 
 ```js
 // Controller
@@ -243,6 +262,8 @@ defineProps({ invoices: Object })
   </InfiniteScroll>
 </template>
 ```
+
+`scroll()` targets the wrapped array for merging, such as `invoices.data`, and follows Inertia's infinite-scroll merge intent header so previous-page requests prepend while next-page requests append.
 
 ### History Encryption
 

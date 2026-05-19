@@ -12,6 +12,10 @@ module.exports = class MergeableProp {
     this.shouldMerge = false
     /** @type {boolean} - Whether to deep merge this prop */
     this.shouldDeepMerge = false
+    /** @type {{direction: string, path: string|null, matchOn: string|null, isDefault?: boolean}[]} */
+    this.mergeOperations = []
+    /** @type {string[]} - Paths to use when matching merge items */
+    this.matchOnPaths = []
   }
 
   /**
@@ -21,7 +25,36 @@ module.exports = class MergeableProp {
    */
   merge() {
     this.shouldMerge = true
+    this.shouldDeepMerge = false
+    if (this.mergeOperations.length === 0) {
+      this.mergeOperations.push({
+        direction: 'append',
+        path: null,
+        matchOn: null,
+        isDefault: true
+      })
+    }
     return this
+  }
+
+  /**
+   * Append this prop, or one or more nested paths, during partial reloads.
+   * @param {string|string[]|Object|null} [paths] - Path(s) to append, or a path-to-matchOn map
+   * @param {Object|string} [options] - Options, or a matchOn string
+   * @returns {MergeableProp} - Returns this for chaining
+   */
+  append(paths = null, options = {}) {
+    return this._addMergeOperations('append', paths, options)
+  }
+
+  /**
+   * Prepend this prop, or one or more nested paths, during partial reloads.
+   * @param {string|string[]|Object|null} [paths] - Path(s) to prepend, or a path-to-matchOn map
+   * @param {Object|string} [options] - Options, or a matchOn string
+   * @returns {MergeableProp} - Returns this for chaining
+   */
+  prepend(paths = null, options = {}) {
+    return this._addMergeOperations('prepend', paths, options)
   }
 
   /**
@@ -32,6 +65,91 @@ module.exports = class MergeableProp {
   deepMerge() {
     this.shouldMerge = true
     this.shouldDeepMerge = true
+    this.mergeOperations = []
     return this
+  }
+
+  /**
+   * Configure one or more match-on paths for merge operations.
+   * @param {string|string[]} paths - Path(s) ending with the field to match on
+   * @returns {MergeableProp} - Returns this for chaining
+   */
+  matchOn(paths) {
+    const normalizedPaths = Array.isArray(paths) ? paths : [paths]
+    normalizedPaths.filter(Boolean).forEach((path) => {
+      this.matchOnPaths.push(path)
+    })
+    return this
+  }
+
+  _addMergeOperations(direction, paths, options) {
+    const normalizedOptions =
+      typeof options === 'string' ? { matchOn: options } : options || {}
+
+    this.shouldMerge = true
+    this.shouldDeepMerge = false
+    this._clearDefaultMergeOperation()
+
+    this._normalizeMergeTargets(paths, normalizedOptions).forEach((target) => {
+      this.mergeOperations.push({
+        direction,
+        path: target.path,
+        matchOn: target.matchOn
+      })
+    })
+
+    return this
+  }
+
+  _clearDefaultMergeOperation() {
+    if (
+      this.mergeOperations.length === 1 &&
+      this.mergeOperations[0].isDefault
+    ) {
+      this.mergeOperations = []
+    }
+  }
+
+  _normalizeMergeTargets(paths, options) {
+    if (paths === null || paths === undefined) {
+      return [
+        {
+          path: null,
+          matchOn: options.matchOn || null
+        }
+      ]
+    }
+
+    if (Array.isArray(paths)) {
+      return paths.map((path) => ({
+        path: this._normalizePath(path),
+        matchOn: this._resolveMatchOn(path, options)
+      }))
+    }
+
+    if (typeof paths === 'object') {
+      return Object.entries(paths).map(([path, matchOn]) => ({
+        path: this._normalizePath(path),
+        matchOn
+      }))
+    }
+
+    return [
+      {
+        path: this._normalizePath(paths),
+        matchOn: this._resolveMatchOn(paths, options)
+      }
+    ]
+  }
+
+  _normalizePath(path) {
+    return path === '' ? null : path
+  }
+
+  _resolveMatchOn(path, options) {
+    if (!options.matchOn) return null
+    if (typeof options.matchOn === 'object')
+      return options.matchOn[path] || null
+    return options.matchOn
   }
 }

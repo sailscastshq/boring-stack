@@ -3,7 +3,7 @@ const ScrollProp = require('./scroll-prop')
 /**
  * Resolve scroll props metadata for the page response.
  * Extracts ScrollProp instances and builds the scrollProps object
- * expected by Inertia.js v2's <InfiniteScroll> component.
+ * expected by Inertia's <InfiniteScroll> component.
  *
  * @param {Object} pageProps - The page props
  * @returns {Object} - Object with scrollProps if any exist

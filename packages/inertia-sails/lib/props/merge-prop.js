@@ -29,7 +29,7 @@ module.exports = class MergeProp extends MergeableProp {
     /** @type {Function} */
     this.callback = callback
     /** @type {boolean} */
-    this.shouldMerge = true
+    this.merge()
   }
 
   /**

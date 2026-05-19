@@ -27,6 +27,7 @@ class ScrollProp extends MergeProp {
    * @param {number} [options.total=0] - Total number of items
    * @param {string} [options.pageName='page'] - Query parameter name for pagination
    * @param {string} [options.wrapper='data'] - Key to wrap the data in
+   * @param {string} [options.matchOn] - Optional field used to match items when merging
    */
   constructor(callback, options = {}) {
     const {
@@ -34,7 +35,8 @@ class ScrollProp extends MergeProp {
       perPage = 10,
       total = 0,
       pageName = 'page',
-      wrapper = 'data'
+      wrapper = 'data',
+      matchOn = null
     } = options
 
     // Calculate pagination metadata
@@ -66,12 +68,16 @@ class ScrollProp extends MergeProp {
 
     super(wrappedCallback)
 
+    // InfiniteScroll uses request headers to decide append vs prepend.
+    this.mergeOperations = []
+
     // Store metadata for potential access
     this.page = page
     this.perPage = perPage
     this.total = total
     this.pageName = pageName
     this.wrapper = wrapper
+    this.matchOn = matchOn
     this.totalPages = totalPages
     this.currentPage = currentPage
   }
