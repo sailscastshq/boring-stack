@@ -18,11 +18,7 @@ import { Dropdown } from 'primereact/dropdown'
 import { useCopyToClipboard } from '@/hooks/useCopyToClipboard'
 import ImageUpload from '@/components/ImageUpload'
 
-TeamSettings.layout = (page) => (
-  <DashboardLayout title="Team" maxWidth="narrow">
-    {page}
-  </DashboardLayout>
-)
+TeamSettings.layout = [DashboardLayout, { title: 'Team', maxWidth: 'narrow' }]
 
 export default function TeamSettings({
   team,

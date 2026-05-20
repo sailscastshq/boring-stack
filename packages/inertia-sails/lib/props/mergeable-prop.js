@@ -1,3 +1,9 @@
+const {
+  createDefaultMergeOperation,
+  normalizeMergeOptions,
+  normalizeMergeTargets
+} = require('./merge-targets')
+
 /**
  * MergeableProp - Base class for props that can be merged during partial reloads.
  *
@@ -27,12 +33,7 @@ module.exports = class MergeableProp {
     this.shouldMerge = true
     this.shouldDeepMerge = false
     if (this.mergeOperations.length === 0) {
-      this.mergeOperations.push({
-        direction: 'append',
-        path: null,
-        matchOn: null,
-        isDefault: true
-      })
+      this.mergeOperations.push(createDefaultMergeOperation())
     }
     return this
   }
@@ -83,14 +84,13 @@ module.exports = class MergeableProp {
   }
 
   _addMergeOperations(direction, paths, options) {
-    const normalizedOptions =
-      typeof options === 'string' ? { matchOn: options } : options || {}
+    const normalizedOptions = normalizeMergeOptions(options)
 
     this.shouldMerge = true
     this.shouldDeepMerge = false
     this._clearDefaultMergeOperation()
 
-    this._normalizeMergeTargets(paths, normalizedOptions).forEach((target) => {
+    normalizeMergeTargets(paths, normalizedOptions).forEach((target) => {
       this.mergeOperations.push({
         direction,
         path: target.path,
@@ -108,48 +108,5 @@ module.exports = class MergeableProp {
     ) {
       this.mergeOperations = []
     }
-  }
-
-  _normalizeMergeTargets(paths, options) {
-    if (paths === null || paths === undefined) {
-      return [
-        {
-          path: null,
-          matchOn: options.matchOn || null
-        }
-      ]
-    }
-
-    if (Array.isArray(paths)) {
-      return paths.map((path) => ({
-        path: this._normalizePath(path),
-        matchOn: this._resolveMatchOn(path, options)
-      }))
-    }
-
-    if (typeof paths === 'object') {
-      return Object.entries(paths).map(([path, matchOn]) => ({
-        path: this._normalizePath(path),
-        matchOn
-      }))
-    }
-
-    return [
-      {
-        path: this._normalizePath(paths),
-        matchOn: this._resolveMatchOn(paths, options)
-      }
-    ]
-  }
-
-  _normalizePath(path) {
-    return path === '' ? null : path
-  }
-
-  _resolveMatchOn(path, options) {
-    if (!options.matchOn) return null
-    if (typeof options.matchOn === 'object')
-      return options.matchOn[path] || null
-    return options.matchOn
   }
 }

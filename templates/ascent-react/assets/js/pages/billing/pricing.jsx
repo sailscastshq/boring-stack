@@ -2,7 +2,7 @@ import { Head, Link } from '@inertiajs/react'
 import AppLayout from '@/layouts/AppLayout.jsx'
 import { useState } from 'react'
 
-Pricing.layout = (page) => <AppLayout children={page} />
+Pricing.layout = AppLayout
 export default function Pricing({ plans }) {
   const [billingCycle, setBillingCycle] = useState('monthly')
 

@@ -15,11 +15,10 @@ import BackupCodesModal from '@/components/BackupCodesModal.jsx'
 import EmailTwoFactorSetupModal from '@/components/EmailTwoFactorSetupModal.jsx'
 import ManagePasskeysModal from '@/components/ManagePasskeysModal.jsx'
 
-SecuritySettings.layout = (page) => (
-  <DashboardLayout title="Security" maxWidth="narrow">
-    {page}
-  </DashboardLayout>
-)
+SecuritySettings.layout = [
+  DashboardLayout,
+  { title: 'Security', maxWidth: 'narrow' }
+]
 
 export default function SecuritySettings({
   loggedInUser,

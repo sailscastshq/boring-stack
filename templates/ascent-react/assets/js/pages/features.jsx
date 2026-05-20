@@ -1,7 +1,7 @@
 import { Head, Link } from '@inertiajs/react'
 import AppLayout from '@/layouts/AppLayout.jsx'
 
-Features.layout = (page) => <AppLayout children={page} />
+Features.layout = AppLayout
 export default function Features() {
   return (
     <>

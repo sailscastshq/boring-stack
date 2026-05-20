@@ -1,7 +1,7 @@
 import { Head, Link } from '@inertiajs/react'
 import AppLayout from '@/layouts/AppLayout.jsx'
 
-Blog.layout = (page) => <AppLayout children={page} />
+Blog.layout = AppLayout
 
 export default function Blog({ appName, blogPosts }) {
   return (

@@ -3,6 +3,7 @@ const {
   RESET
 } = require('../helpers/inertia-headers')
 const MergeableProp = require('./mergeable-prop')
+const { resolvePropPath, unique } = require('./merge-targets')
 const ScrollProp = require('./scroll-prop')
 
 /**
@@ -78,12 +79,4 @@ module.exports = function resolveMergeProps(req, pageProps) {
   if (matchPropsOn.length) result.matchPropsOn = unique(matchPropsOn)
 
   return result
-}
-
-function resolvePropPath(key, path) {
-  return path ? `${key}.${path}` : key
-}
-
-function unique(values) {
-  return [...new Set(values)]
 }

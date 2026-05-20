@@ -1,7 +1,7 @@
 import { Link, Head, usePage } from '@inertiajs/react'
 import AppLayout from '@/layouts/AppLayout.jsx'
 
-Dashboard.layout = (page) => <AppLayout children={page} />
+Dashboard.layout = AppLayout
 export default function Dashboard() {
   const page = usePage()
   const loggedInUser = page.props.loggedInUser

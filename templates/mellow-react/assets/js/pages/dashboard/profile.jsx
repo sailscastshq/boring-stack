@@ -7,7 +7,7 @@ import InputPassword from '@/components/InputPassword.jsx'
 import InputEmail from '@/components/InputEmail.jsx'
 import InputButton from '@/components/InputButton.jsx'
 
-Profile.layout = (page) => <AppLayout children={page} />
+Profile.layout = AppLayout
 export default function Profile() {
   const loggedInUser = usePage().props.loggedInUser
   const { data, setData, ...form } = useForm({

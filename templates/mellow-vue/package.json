@@ -5,11 +5,12 @@
   "description": "a Sails application",
   "keywords": [],
   "dependencies": {
-    "@inertiajs/vue3": "^2.0.3",
+    "@inertiajs/vue3": "^3.1.1",
     "@sailshq/connect-redis": "^6.1.3",
     "@sailshq/lodash": "^3.10.3",
     "@sailshq/socket.io-redis": "^6.1.2",
-    "inertia-sails": "^1.0.1",
+    "axios": "^1.16.1",
+    "inertia-sails": "^1.4.0",
     "nodemailer": "^6.9.15",
     "sails": "^1.5.14",
     "sails-flash": "^0.0.1",
@@ -32,8 +33,8 @@
     "sails-hook-shipwright": "^1.1.0",
     "sails.io.js": "^1.2.1",
     "socket.io-client": "^4.7.5",
-    "tailwindcss": "^4.1.16",
-    "sounding": "^0.0.1"
+    "sounding": "^0.0.1",
+    "tailwindcss": "^4.1.16"
   },
   "scripts": {
     "dev": "node --watch-path=api --watch-path=config app.js",
