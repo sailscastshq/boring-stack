@@ -11,18 +11,18 @@ defineOptions({
   <Head title="Features - Everything You Need to Scale Fast | Ascent" />
 
   <!-- Hero Section -->
-  <section class="relative overflow-hidden px-4 pb-16 pt-20">
+  <section class="relative overflow-hidden px-4 pt-20 pb-16">
     <div
-      class="bg-linear-to-br absolute inset-0 from-brand-50/30 via-white to-accent-50/20"
+      class="from-brand-50/30 to-accent-50/20 absolute inset-0 bg-linear-to-br via-white"
     />
     <div
-      class="absolute left-1/2 top-20 h-96 w-96 -translate-x-1/2 transform rounded-full bg-brand-100/20 blur-3xl"
+      class="bg-brand-100/20 absolute top-20 left-1/2 h-96 w-96 -translate-x-1/2 transform rounded-full blur-3xl"
     />
 
     <div class="relative mx-auto max-w-4xl text-center">
       <div class="mb-6">
         <span
-          class="inline-flex items-center rounded-full bg-brand-100 px-4 py-2 text-sm font-semibold text-brand-700"
+          class="bg-brand-100 text-brand-700 inline-flex items-center rounded-full px-4 py-2 text-sm font-semibold"
         >
           ⚡ Built for Speed
         </span>
@@ -35,14 +35,14 @@ defineOptions({
           Everything You Need
         </span>
         <span
-          class="bg-linear-to-r block from-brand-600 to-accent-600 bg-clip-text leading-tight text-transparent"
+          class="from-brand-600 to-accent-600 block bg-linear-to-r bg-clip-text leading-tight text-transparent"
         >
           to Scale Fast
         </span>
       </h1>
 
       <p
-        class="mx-auto mb-10 max-w-2xl text-xl font-medium leading-relaxed text-gray-600"
+        class="mx-auto mb-10 max-w-2xl text-xl leading-relaxed font-medium text-gray-600"
       >
         Stop rebuilding the same features over and over. Launch your SaaS with
         enterprise-grade infrastructure that actually works.
@@ -54,18 +54,18 @@ defineOptions({
       <div class="flex flex-col justify-center gap-4 sm:flex-row">
         <Link
           href="/signup"
-          class="hover:shadow-3xl bg-linear-to-r group relative inline-block rounded-xl from-brand-600 to-accent-600 px-8 py-4 font-bold text-white no-underline shadow-2xl transition-all duration-200 hover:scale-[1.02]"
+          class="hover:shadow-3xl group from-brand-600 to-accent-600 relative inline-block rounded-xl bg-linear-to-r px-8 py-4 font-bold text-white no-underline shadow-2xl transition-all duration-200 hover:scale-[1.02]"
         >
           <span class="relative z-10">Start Building Today</span>
           <div
-            class="bg-linear-to-r absolute inset-0 rounded-xl from-brand-700 to-accent-700 opacity-0 transition-opacity group-hover:opacity-100"
+            class="from-brand-700 to-accent-700 absolute inset-0 rounded-xl bg-linear-to-r opacity-0 transition-opacity group-hover:opacity-100"
           />
         </Link>
         <a
           href="https://youtu.be/qp7YUtn_B7E"
           target="_blank"
           rel="noopener noreferrer"
-          class="inline-block rounded-xl border-2 border-gray-300 bg-white px-8 py-4 font-bold text-gray-700 no-underline shadow-lg transition-all duration-200 hover:scale-[1.02] hover:border-brand-300 hover:shadow-xl"
+          class="hover:border-brand-300 inline-block rounded-xl border-2 border-gray-300 bg-white px-8 py-4 font-bold text-gray-700 no-underline shadow-lg transition-all duration-200 hover:scale-[1.02] hover:shadow-xl"
         >
           View Live Demo
         </a>
@@ -75,7 +75,7 @@ defineOptions({
 
   <!-- Detailed Features Grid -->
   <section class="relative bg-white px-4 py-20">
-    <div class="bg-linear-to-b absolute inset-0 from-gray-50/50 to-white" />
+    <div class="absolute inset-0 bg-linear-to-b from-gray-50/50 to-white" />
     <div
       class="absolute inset-0"
       style="
@@ -93,14 +93,14 @@ defineOptions({
         <!-- Secure Authentication -->
         <div class="group relative">
           <div
-            class="bg-linear-to-r absolute -inset-0.5 rounded-3xl from-brand-600 to-accent-600 opacity-20 blur transition duration-300 group-hover:opacity-30"
+            class="from-brand-600 to-accent-600 absolute -inset-0.5 rounded-3xl bg-linear-to-r opacity-20 blur transition duration-300 group-hover:opacity-30"
           />
           <div
             class="relative rounded-3xl border border-gray-100 bg-white p-10 shadow-xl"
           >
             <div class="mb-8 flex items-center space-x-4">
               <div
-                class="bg-linear-to-br flex h-16 w-16 items-center justify-center rounded-2xl from-brand-500 to-brand-600 shadow-lg"
+                class="from-brand-500 to-brand-600 flex h-16 w-16 items-center justify-center rounded-2xl bg-linear-to-br shadow-lg"
               >
                 <svg
                   class="h-8 w-8 text-white"
@@ -120,7 +120,7 @@ defineOptions({
                 <h3 class="text-2xl font-bold text-gray-900">
                   Enterprise Authentication
                 </h3>
-                <p class="font-medium text-brand-600">
+                <p class="text-brand-600 font-medium">
                   Security that scales with you
                 </p>
               </div>
@@ -135,10 +135,10 @@ defineOptions({
             <div class="space-y-4">
               <div class="flex items-center space-x-3">
                 <div
-                  class="flex h-6 w-6 items-center justify-center rounded-full bg-success-100"
+                  class="bg-success-100 flex h-6 w-6 items-center justify-center rounded-full"
                 >
                   <svg
-                    class="h-4 w-4 text-success-600"
+                    class="text-success-600 h-4 w-4"
                     fill="currentColor"
                     viewBox="0 0 20 20"
                   >
@@ -155,10 +155,10 @@ defineOptions({
               </div>
               <div class="flex items-center space-x-3">
                 <div
-                  class="flex h-6 w-6 items-center justify-center rounded-full bg-success-100"
+                  class="bg-success-100 flex h-6 w-6 items-center justify-center rounded-full"
                 >
                   <svg
-                    class="h-4 w-4 text-success-600"
+                    class="text-success-600 h-4 w-4"
                     fill="currentColor"
                     viewBox="0 0 20 20"
                   >
@@ -175,10 +175,10 @@ defineOptions({
               </div>
               <div class="flex items-center space-x-3">
                 <div
-                  class="flex h-6 w-6 items-center justify-center rounded-full bg-success-100"
+                  class="bg-success-100 flex h-6 w-6 items-center justify-center rounded-full"
                 >
                   <svg
-                    class="h-4 w-4 text-success-600"
+                    class="text-success-600 h-4 w-4"
                     fill="currentColor"
                     viewBox="0 0 20 20"
                   >
@@ -195,10 +195,10 @@ defineOptions({
               </div>
               <div class="flex items-center space-x-3">
                 <div
-                  class="flex h-6 w-6 items-center justify-center rounded-full bg-success-100"
+                  class="bg-success-100 flex h-6 w-6 items-center justify-center rounded-full"
                 >
                   <svg
-                    class="h-4 w-4 text-success-600"
+                    class="text-success-600 h-4 w-4"
                     fill="currentColor"
                     viewBox="0 0 20 20"
                   >
@@ -215,13 +215,13 @@ defineOptions({
               </div>
             </div>
 
-            <div class="mt-8 rounded-2xl bg-brand-50 p-6">
+            <div class="bg-brand-50 mt-8 rounded-2xl p-6">
               <div class="flex items-start space-x-3">
                 <div
-                  class="flex h-8 w-8 items-center justify-center rounded-full bg-brand-100"
+                  class="bg-brand-100 flex h-8 w-8 items-center justify-center rounded-full"
                 >
                   <svg
-                    class="h-5 w-5 text-brand-600"
+                    class="text-brand-600 h-5 w-5"
                     fill="none"
                     stroke="currentColor"
                     viewBox="0 0 24 24"
@@ -235,8 +235,8 @@ defineOptions({
                   </svg>
                 </div>
                 <div>
-                  <h4 class="font-semibold text-brand-900">Enterprise Ready</h4>
-                  <p class="text-sm leading-relaxed text-brand-700">
+                  <h4 class="text-brand-900 font-semibold">Enterprise Ready</h4>
+                  <p class="text-brand-700 text-sm leading-relaxed">
                     Built with OWASP security standards, rate limiting, and
                     audit logging. Your users' data is protected from day one.
                   </p>
@@ -249,14 +249,14 @@ defineOptions({
         <!-- Subscription Billing -->
         <div class="group relative">
           <div
-            class="bg-linear-to-r absolute -inset-0.5 rounded-3xl from-accent-600 to-purple-600 opacity-20 blur transition duration-300 group-hover:opacity-30"
+            class="from-accent-600 absolute -inset-0.5 rounded-3xl bg-linear-to-r to-purple-600 opacity-20 blur transition duration-300 group-hover:opacity-30"
           />
           <div
             class="relative rounded-3xl border border-gray-100 bg-white p-10 shadow-xl"
           >
             <div class="mb-8 flex items-center space-x-4">
               <div
-                class="bg-linear-to-br flex h-16 w-16 items-center justify-center rounded-2xl from-accent-500 to-accent-600 shadow-lg"
+                class="from-accent-500 to-accent-600 flex h-16 w-16 items-center justify-center rounded-2xl bg-linear-to-br shadow-lg"
               >
                 <svg
                   class="h-8 w-8 text-white"
@@ -276,7 +276,7 @@ defineOptions({
                 <h3 class="text-2xl font-bold text-gray-900">
                   Revenue-Ready Billing
                 </h3>
-                <p class="font-medium text-accent-600">
+                <p class="text-accent-600 font-medium">
                   Start earning from day one
                 </p>
               </div>
@@ -291,10 +291,10 @@ defineOptions({
             <div class="space-y-4">
               <div class="flex items-center space-x-3">
                 <div
-                  class="flex h-6 w-6 items-center justify-center rounded-full bg-success-100"
+                  class="bg-success-100 flex h-6 w-6 items-center justify-center rounded-full"
                 >
                   <svg
-                    class="h-4 w-4 text-success-600"
+                    class="text-success-600 h-4 w-4"
                     fill="currentColor"
                     viewBox="0 0 20 20"
                   >
@@ -311,10 +311,10 @@ defineOptions({
               </div>
               <div class="flex items-center space-x-3">
                 <div
-                  class="flex h-6 w-6 items-center justify-center rounded-full bg-success-100"
+                  class="bg-success-100 flex h-6 w-6 items-center justify-center rounded-full"
                 >
                   <svg
-                    class="h-4 w-4 text-success-600"
+                    class="text-success-600 h-4 w-4"
                     fill="currentColor"
                     viewBox="0 0 20 20"
                   >
@@ -331,10 +331,10 @@ defineOptions({
               </div>
               <div class="flex items-center space-x-3">
                 <div
-                  class="flex h-6 w-6 items-center justify-center rounded-full bg-success-100"
+                  class="bg-success-100 flex h-6 w-6 items-center justify-center rounded-full"
                 >
                   <svg
-                    class="h-4 w-4 text-success-600"
+                    class="text-success-600 h-4 w-4"
                     fill="currentColor"
                     viewBox="0 0 20 20"
                   >
@@ -351,10 +351,10 @@ defineOptions({
               </div>
               <div class="flex items-center space-x-3">
                 <div
-                  class="flex h-6 w-6 items-center justify-center rounded-full bg-success-100"
+                  class="bg-success-100 flex h-6 w-6 items-center justify-center rounded-full"
                 >
                   <svg
-                    class="h-4 w-4 text-success-600"
+                    class="text-success-600 h-4 w-4"
                     fill="currentColor"
                     viewBox="0 0 20 20"
                   >
@@ -371,13 +371,13 @@ defineOptions({
               </div>
             </div>
 
-            <div class="mt-8 rounded-2xl bg-accent-50 p-6">
+            <div class="bg-accent-50 mt-8 rounded-2xl p-6">
               <div class="flex items-start space-x-3">
                 <div
-                  class="flex h-8 w-8 items-center justify-center rounded-full bg-accent-100"
+                  class="bg-accent-100 flex h-8 w-8 items-center justify-center rounded-full"
                 >
                   <svg
-                    class="h-5 w-5 text-accent-600"
+                    class="text-accent-600 h-5 w-5"
                     fill="none"
                     stroke="currentColor"
                     viewBox="0 0 24 24"
@@ -391,10 +391,10 @@ defineOptions({
                   </svg>
                 </div>
                 <div>
-                  <h4 class="font-semibold text-accent-900">
+                  <h4 class="text-accent-900 font-semibold">
                     Revenue Analytics
                   </h4>
-                  <p class="text-sm leading-relaxed text-accent-700">
+                  <p class="text-accent-700 text-sm leading-relaxed">
                     Track MRR, churn, LTV, and other key metrics with built-in
                     analytics dashboard. Make data-driven decisions from day
                     one.
@@ -408,14 +408,14 @@ defineOptions({
         <!-- Team Management -->
         <div class="group relative">
           <div
-            class="bg-linear-to-r absolute -inset-0.5 rounded-3xl from-success-600 to-emerald-600 opacity-20 blur transition duration-300 group-hover:opacity-30"
+            class="from-success-600 absolute -inset-0.5 rounded-3xl bg-linear-to-r to-emerald-600 opacity-20 blur transition duration-300 group-hover:opacity-30"
           />
           <div
             class="relative rounded-3xl border border-gray-100 bg-white p-10 shadow-xl"
           >
             <div class="mb-8 flex items-center space-x-4">
               <div
-                class="bg-linear-to-br flex h-16 w-16 items-center justify-center rounded-2xl from-success-500 to-success-600 shadow-lg"
+                class="from-success-500 to-success-600 flex h-16 w-16 items-center justify-center rounded-2xl bg-linear-to-br shadow-lg"
               >
                 <svg
                   class="h-8 w-8 text-white"
@@ -435,7 +435,7 @@ defineOptions({
                 <h3 class="text-2xl font-bold text-gray-900">
                   Multi-Tenant Teams
                 </h3>
-                <p class="font-medium text-success-600">
+                <p class="text-success-600 font-medium">
                   Scale to enterprise customers
                 </p>
               </div>
@@ -451,10 +451,10 @@ defineOptions({
             <div class="space-y-4">
               <div class="flex items-center space-x-3">
                 <div
-                  class="flex h-6 w-6 items-center justify-center rounded-full bg-success-100"
+                  class="bg-success-100 flex h-6 w-6 items-center justify-center rounded-full"
                 >
                   <svg
-                    class="h-4 w-4 text-success-600"
+                    class="text-success-600 h-4 w-4"
                     fill="currentColor"
                     viewBox="0 0 20 20"
                   >
@@ -471,10 +471,10 @@ defineOptions({
               </div>
               <div class="flex items-center space-x-3">
                 <div
-                  class="flex h-6 w-6 items-center justify-center rounded-full bg-success-100"
+                  class="bg-success-100 flex h-6 w-6 items-center justify-center rounded-full"
                 >
                   <svg
-                    class="h-4 w-4 text-success-600"
+                    class="text-success-600 h-4 w-4"
                     fill="currentColor"
                     viewBox="0 0 20 20"
                   >
@@ -491,10 +491,10 @@ defineOptions({
               </div>
               <div class="flex items-center space-x-3">
                 <div
-                  class="flex h-6 w-6 items-center justify-center rounded-full bg-success-100"
+                  class="bg-success-100 flex h-6 w-6 items-center justify-center rounded-full"
                 >
                   <svg
-                    class="h-4 w-4 text-success-600"
+                    class="text-success-600 h-4 w-4"
                     fill="currentColor"
                     viewBox="0 0 20 20"
                   >
@@ -511,10 +511,10 @@ defineOptions({
               </div>
               <div class="flex items-center space-x-3">
                 <div
-                  class="flex h-6 w-6 items-center justify-center rounded-full bg-success-100"
+                  class="bg-success-100 flex h-6 w-6 items-center justify-center rounded-full"
                 >
                   <svg
-                    class="h-4 w-4 text-success-600"
+                    class="text-success-600 h-4 w-4"
                     fill="currentColor"
                     viewBox="0 0 20 20"
                   >
@@ -531,13 +531,13 @@ defineOptions({
               </div>
             </div>
 
-            <div class="mt-8 rounded-2xl bg-success-50 p-6">
+            <div class="bg-success-50 mt-8 rounded-2xl p-6">
               <div class="flex items-start space-x-3">
                 <div
-                  class="flex h-8 w-8 items-center justify-center rounded-full bg-success-100"
+                  class="bg-success-100 flex h-8 w-8 items-center justify-center rounded-full"
                 >
                   <svg
-                    class="h-5 w-5 text-success-600"
+                    class="text-success-600 h-5 w-5"
                     fill="none"
                     stroke="currentColor"
                     viewBox="0 0 24 24"
@@ -551,10 +551,10 @@ defineOptions({
                   </svg>
                 </div>
                 <div>
-                  <h4 class="font-semibold text-success-900">
+                  <h4 class="text-success-900 font-semibold">
                     Enterprise Security
                   </h4>
-                  <p class="text-sm leading-relaxed text-success-700">
+                  <p class="text-success-700 text-sm leading-relaxed">
                     Every team action is logged and auditable. Perfect for
                     compliance requirements and enterprise security standards.
                   </p>
@@ -567,14 +567,14 @@ defineOptions({
         <!-- Admin Dashboard -->
         <div class="group relative">
           <div
-            class="bg-linear-to-r absolute -inset-0.5 rounded-3xl from-purple-600 to-pink-600 opacity-20 blur transition duration-300 group-hover:opacity-30"
+            class="absolute -inset-0.5 rounded-3xl bg-linear-to-r from-purple-600 to-pink-600 opacity-20 blur transition duration-300 group-hover:opacity-30"
           />
           <div
             class="relative rounded-3xl border border-gray-100 bg-white p-10 shadow-xl"
           >
             <div class="mb-8 flex items-center space-x-4">
               <div
-                class="bg-linear-to-br flex h-16 w-16 items-center justify-center rounded-2xl from-purple-500 to-purple-600 shadow-lg"
+                class="flex h-16 w-16 items-center justify-center rounded-2xl bg-linear-to-br from-purple-500 to-purple-600 shadow-lg"
               >
                 <svg
                   class="h-8 w-8 text-white"
@@ -609,10 +609,10 @@ defineOptions({
             <div class="space-y-4">
               <div class="flex items-center space-x-3">
                 <div
-                  class="flex h-6 w-6 items-center justify-center rounded-full bg-success-100"
+                  class="bg-success-100 flex h-6 w-6 items-center justify-center rounded-full"
                 >
                   <svg
-                    class="h-4 w-4 text-success-600"
+                    class="text-success-600 h-4 w-4"
                     fill="currentColor"
                     viewBox="0 0 20 20"
                   >
@@ -629,10 +629,10 @@ defineOptions({
               </div>
               <div class="flex items-center space-x-3">
                 <div
-                  class="flex h-6 w-6 items-center justify-center rounded-full bg-success-100"
+                  class="bg-success-100 flex h-6 w-6 items-center justify-center rounded-full"
                 >
                   <svg
-                    class="h-4 w-4 text-success-600"
+                    class="text-success-600 h-4 w-4"
                     fill="currentColor"
                     viewBox="0 0 20 20"
                   >
@@ -649,10 +649,10 @@ defineOptions({
               </div>
               <div class="flex items-center space-x-3">
                 <div
-                  class="flex h-6 w-6 items-center justify-center rounded-full bg-success-100"
+                  class="bg-success-100 flex h-6 w-6 items-center justify-center rounded-full"
                 >
                   <svg
-                    class="h-4 w-4 text-success-600"
+                    class="text-success-600 h-4 w-4"
                     fill="currentColor"
                     viewBox="0 0 20 20"
                   >
@@ -669,10 +669,10 @@ defineOptions({
               </div>
               <div class="flex items-center space-x-3">
                 <div
-                  class="flex h-6 w-6 items-center justify-center rounded-full bg-success-100"
+                  class="bg-success-100 flex h-6 w-6 items-center justify-center rounded-full"
                 >
                   <svg
-                    class="h-4 w-4 text-success-600"
+                    class="text-success-600 h-4 w-4"
                     fill="currentColor"
                     viewBox="0 0 20 20"
                   >
@@ -734,13 +734,13 @@ defineOptions({
         >
           And That's Not All
           <span
-            class="bg-linear-to-r block from-brand-600 to-accent-600 bg-clip-text text-transparent"
+            class="from-brand-600 to-accent-600 block bg-linear-to-r bg-clip-text text-transparent"
           >
             We've Thought of Everything
           </span>
         </h2>
         <p
-          class="mx-auto max-w-3xl text-xl font-medium leading-relaxed text-gray-600"
+          class="mx-auto max-w-3xl text-xl leading-relaxed font-medium text-gray-600"
         >
           Every feature you need to launch and scale your SaaS, built with
           modern technologies and best practices.
@@ -753,11 +753,11 @@ defineOptions({
           class="group relative rounded-2xl border border-gray-300 bg-white p-8 shadow-sm transition-all duration-300 hover:-translate-y-1 hover:shadow-xl"
         >
           <div
-            class="bg-linear-to-br absolute inset-0 rounded-2xl from-orange-50/50 to-transparent opacity-0 transition-opacity group-hover:opacity-100"
+            class="absolute inset-0 rounded-2xl bg-linear-to-br from-orange-50/50 to-transparent opacity-0 transition-opacity group-hover:opacity-100"
           />
           <div class="relative">
             <div
-              class="bg-linear-to-br mb-6 flex h-14 w-14 items-center justify-center rounded-2xl from-orange-500 to-orange-600 shadow-lg"
+              class="mb-6 flex h-14 w-14 items-center justify-center rounded-2xl bg-linear-to-br from-orange-500 to-orange-600 shadow-lg"
             >
               <svg
                 class="h-7 w-7 text-white"
@@ -803,11 +803,11 @@ defineOptions({
           class="group relative rounded-2xl border border-gray-300 bg-white p-8 shadow-sm transition-all duration-300 hover:-translate-y-1 hover:shadow-xl"
         >
           <div
-            class="bg-linear-to-br absolute inset-0 rounded-2xl from-red-50/50 to-transparent opacity-0 transition-opacity group-hover:opacity-100"
+            class="absolute inset-0 rounded-2xl bg-linear-to-br from-red-50/50 to-transparent opacity-0 transition-opacity group-hover:opacity-100"
           />
           <div class="relative">
             <div
-              class="bg-linear-to-br mb-6 flex h-14 w-14 items-center justify-center rounded-2xl from-red-500 to-red-600 shadow-lg"
+              class="mb-6 flex h-14 w-14 items-center justify-center rounded-2xl bg-linear-to-br from-red-500 to-red-600 shadow-lg"
             >
               <svg
                 class="h-7 w-7 text-white"
@@ -853,11 +853,11 @@ defineOptions({
           class="group relative rounded-2xl border border-gray-300 bg-white p-8 shadow-sm transition-all duration-300 hover:-translate-y-1 hover:shadow-xl"
         >
           <div
-            class="bg-linear-to-br absolute inset-0 rounded-2xl from-blue-50/50 to-transparent opacity-0 transition-opacity group-hover:opacity-100"
+            class="absolute inset-0 rounded-2xl bg-linear-to-br from-blue-50/50 to-transparent opacity-0 transition-opacity group-hover:opacity-100"
           />
           <div class="relative">
             <div
-              class="bg-linear-to-br mb-6 flex h-14 w-14 items-center justify-center rounded-2xl from-blue-500 to-blue-600 shadow-lg"
+              class="mb-6 flex h-14 w-14 items-center justify-center rounded-2xl bg-linear-to-br from-blue-500 to-blue-600 shadow-lg"
             >
               <svg
                 class="h-7 w-7 text-white"
@@ -904,10 +904,10 @@ defineOptions({
   <!-- CTA Section -->
   <section class="relative overflow-hidden bg-gray-900 px-4 py-20">
     <div
-      class="bg-linear-to-br absolute inset-0 from-gray-900 via-gray-800 to-brand-900"
+      class="to-brand-900 absolute inset-0 bg-linear-to-br from-gray-900 via-gray-800"
     />
     <div
-      class="absolute left-1/2 top-0 h-96 w-96 -translate-x-1/2 transform rounded-full bg-brand-500/10 blur-3xl"
+      class="bg-brand-500/10 absolute top-0 left-1/2 h-96 w-96 -translate-x-1/2 transform rounded-full blur-3xl"
     />
 
     <div class="relative mx-auto max-w-4xl text-center">
@@ -916,14 +916,14 @@ defineOptions({
       >
         Ready to Ship Your
         <span
-          class="bg-linear-to-r block from-brand-400 to-accent-400 bg-clip-text text-transparent"
+          class="from-brand-400 to-accent-400 block bg-linear-to-r bg-clip-text text-transparent"
         >
           Next Big Idea?
         </span>
       </h2>
 
       <p
-        class="mx-auto mb-10 max-w-2xl text-xl font-medium leading-relaxed text-gray-300"
+        class="mx-auto mb-10 max-w-2xl text-xl leading-relaxed font-medium text-gray-300"
       >
         Stop wasting months on infrastructure. Start with a production-ready
         foundation and focus on what makes your SaaS unique.
@@ -932,18 +932,18 @@ defineOptions({
       <div class="mb-8 flex flex-col justify-center gap-4 sm:flex-row">
         <a
           href="/signup"
-          class="hover:shadow-3xl bg-linear-to-r group relative inline-block rounded-xl from-brand-600 to-accent-600 px-10 py-5 text-lg font-bold text-white no-underline shadow-2xl transition-all duration-200 hover:scale-[1.02]"
+          class="hover:shadow-3xl group from-brand-600 to-accent-600 relative inline-block rounded-xl bg-linear-to-r px-10 py-5 text-lg font-bold text-white no-underline shadow-2xl transition-all duration-200 hover:scale-[1.02]"
         >
           <span class="relative z-10">Get Started Today</span>
           <div
-            class="bg-linear-to-r absolute inset-0 rounded-xl from-brand-700 to-accent-700 opacity-0 transition-opacity group-hover:opacity-100"
+            class="from-brand-700 to-accent-700 absolute inset-0 rounded-xl bg-linear-to-r opacity-0 transition-opacity group-hover:opacity-100"
           />
         </a>
         <a
           href="YOUTUBE_VIDEO_URL"
           target="_blank"
           rel="noopener noreferrer"
-          class="inline-block rounded-xl border-2 border-gray-600 bg-transparent px-10 py-5 text-lg font-bold text-white no-underline shadow-lg transition-all duration-200 hover:scale-[1.02] hover:border-brand-400 hover:bg-brand-500/10"
+          class="hover:border-brand-400 hover:bg-brand-500/10 inline-block rounded-xl border-2 border-gray-600 bg-transparent px-10 py-5 text-lg font-bold text-white no-underline shadow-lg transition-all duration-200 hover:scale-[1.02]"
         >
           View Live Demo
         </a>
@@ -954,7 +954,7 @@ defineOptions({
       >
         <div class="flex items-center space-x-2">
           <svg
-            class="h-5 w-5 text-success-500"
+            class="text-success-500 h-5 w-5"
             fill="currentColor"
             viewBox="0 0 20 20"
           >
@@ -968,7 +968,7 @@ defineOptions({
         </div>
         <div class="flex items-center space-x-2">
           <svg
-            class="h-5 w-5 text-success-500"
+            class="text-success-500 h-5 w-5"
             fill="currentColor"
             viewBox="0 0 20 20"
           >
@@ -982,7 +982,7 @@ defineOptions({
         </div>
         <div class="flex items-center space-x-2">
           <svg
-            class="h-5 w-5 text-success-500"
+            class="text-success-500 h-5 w-5"
             fill="currentColor"
             viewBox="0 0 20 20"
           >

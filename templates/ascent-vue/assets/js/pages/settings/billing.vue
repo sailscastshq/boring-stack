@@ -75,7 +75,7 @@ const formattedNextBillingDate = computed(() => {
 
     <Link
       href="/pricing"
-      class="inline-flex items-center rounded-lg border border-transparent bg-brand-600 px-6 py-3 text-base font-medium text-white no-underline transition-colors duration-200 hover:bg-brand-700"
+      class="bg-brand-600 hover:bg-brand-700 inline-flex items-center rounded-lg border border-transparent px-6 py-3 text-base font-medium text-white no-underline transition-colors duration-200"
     >
       <i class="pi pi-arrow-right mr-2" />
       View Pricing Plans
@@ -99,7 +99,7 @@ const formattedNextBillingDate = computed(() => {
         >
           <div class="flex items-center space-x-4">
             <div
-              class="flex h-12 w-12 items-center justify-center rounded-lg bg-brand-50"
+              class="bg-brand-50 flex h-12 w-12 items-center justify-center rounded-lg"
             >
               <i class="pi pi-star text-brand-600" />
             </div>
@@ -130,7 +130,7 @@ const formattedNextBillingDate = computed(() => {
               v-if="subscription.customerPortalUpdateSubscriptionUrl"
               :href="subscription.customerPortalUpdateSubscriptionUrl"
               target="_blank"
-              class="inline-flex items-center rounded-lg border border-brand-600 bg-brand-600 px-4 py-2 text-sm font-medium text-white no-underline transition-colors duration-200 hover:bg-brand-700"
+              class="border-brand-600 bg-brand-600 hover:bg-brand-700 inline-flex items-center rounded-lg border px-4 py-2 text-sm font-medium text-white no-underline transition-colors duration-200"
             >
               <i class="pi pi-external-link mr-2" />
               Manage Subscription
@@ -162,7 +162,7 @@ const formattedNextBillingDate = computed(() => {
             </div>
             <div>
               <div class="flex items-center space-x-2">
-                <span class="text-sm font-medium capitalize text-gray-900">
+                <span class="text-sm font-medium text-gray-900 capitalize">
                   {{ subscription.cardBrand }} ••••
                   {{ subscription.cardLastFour }}
                 </span>
@@ -206,7 +206,7 @@ const formattedNextBillingDate = computed(() => {
         <div class="text-center">
           <div class="mb-4">
             <div
-              class="mx-auto flex h-12 w-12 items-center justify-center rounded-lg bg-brand-50"
+              class="bg-brand-50 mx-auto flex h-12 w-12 items-center justify-center rounded-lg"
             >
               <i class="pi pi-receipt text-brand-600" />
             </div>
@@ -222,7 +222,7 @@ const formattedNextBillingDate = computed(() => {
             v-if="subscription.customerPortalUrl"
             :href="subscription.customerPortalUrl"
             target="_blank"
-            class="inline-flex items-center rounded-lg border border-brand-600 bg-brand-600 px-4 py-2 text-sm font-medium text-white no-underline transition-colors duration-200 hover:bg-brand-700"
+            class="border-brand-600 bg-brand-600 hover:bg-brand-700 inline-flex items-center rounded-lg border px-4 py-2 text-sm font-medium text-white no-underline transition-colors duration-200"
           >
             <i class="pi pi-external-link mr-2" />
             Open Customer Portal

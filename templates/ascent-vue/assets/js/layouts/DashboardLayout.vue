@@ -184,7 +184,7 @@ const toggleNavbarUserMenu = (event) => {
               class="px-3 pb-2"
             >
               <h3
-                class="text-xs font-semibold uppercase tracking-wider text-gray-500"
+                class="text-xs font-semibold tracking-wider text-gray-500 uppercase"
               >
                 {{ section.label }}
               </h3>
@@ -373,7 +373,7 @@ const toggleNavbarUserMenu = (event) => {
                 :label="loggedInUser?.initials"
                 size="normal"
                 shape="circle"
-                class="cursor-pointer transition-all hover:ring-2 hover:ring-brand-200 [&_img]:rounded-full"
+                class="hover:ring-brand-200 cursor-pointer transition-all hover:ring-2 [&_img]:rounded-full"
                 @click="toggleNavbarUserMenu"
                 aria-haspopup="true"
                 aria-controls="user_menu"
@@ -399,8 +399,8 @@ const toggleNavbarUserMenu = (event) => {
             maxWidth === 'narrow'
               ? 'max-w-3xl'
               : maxWidth === 'wide'
-              ? 'max-w-7xl'
-              : 'sm:w-10/12'
+                ? 'max-w-7xl'
+                : 'sm:w-10/12'
           ]"
         >
           <slot />

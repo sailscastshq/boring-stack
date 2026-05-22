@@ -15,18 +15,18 @@ defineProps({
 <template>
   <Head title="Blog - Latest Updates & Insights | Ascent React" />
 
-  <section class="relative overflow-hidden px-4 pb-16 pt-20">
+  <section class="relative overflow-hidden px-4 pt-20 pb-16">
     <div
-      class="absolute inset-0 bg-linear-to-br from-brand-50/30 via-white to-accent-50/20"
+      class="from-brand-50/30 to-accent-50/20 absolute inset-0 bg-linear-to-br via-white"
     ></div>
     <div
-      class="absolute left-1/2 top-20 h-96 w-96 -translate-x-1/2 transform rounded-full bg-brand-100/20 blur-3xl"
+      class="bg-brand-100/20 absolute top-20 left-1/2 h-96 w-96 -translate-x-1/2 transform rounded-full blur-3xl"
     ></div>
 
     <div class="relative mx-auto max-w-4xl text-center">
       <div class="mb-6">
         <span
-          class="inline-flex items-center rounded-full bg-brand-100 px-4 py-2 text-sm font-semibold text-brand-700"
+          class="bg-brand-100 text-brand-700 inline-flex items-center rounded-full px-4 py-2 text-sm font-semibold"
         >
           📚 Latest Insights
         </span>
@@ -35,14 +35,14 @@ defineProps({
       <h1 class="mb-6 text-5xl font-extrabold tracking-tight md:text-6xl">
         <span class="block leading-tight text-gray-900">{{ appName }}</span>
         <span
-          class="block bg-linear-to-rrom-brand-600 to-accent-600 bg-clip-text leading-tight text-transparent"
+          class="bg-linear-to-rrom-brand-600 to-accent-600 block bg-clip-text leading-tight text-transparent"
         >
           Blog
         </span>
       </h1>
 
       <p
-        class="mx-auto mb-10 max-w-2xl text-xl font-medium leading-relaxed text-gray-600"
+        class="mx-auto mb-10 max-w-2xl text-xl leading-relaxed font-medium text-gray-600"
       >
         Stay up to date with the latest news, updates, and insights about
         building modern SaaS applications with The Boring Stack.
@@ -56,14 +56,14 @@ defineProps({
         <article
           v-for="(post, index) in blogPosts"
           :key="post.slug"
-          class="group relative rounded-2xl border border-gray-300 bg-white p-8 shadow-sm transition-all duration-300 hover:border-brand-300 hover:shadow-xl"
+          class="group hover:border-brand-300 relative rounded-2xl border border-gray-300 bg-white p-8 shadow-sm transition-all duration-300 hover:shadow-xl"
         >
           <div
-            class="flex flex-col space-y-6 sm:flex-row sm:items-start sm:space-x-8 sm:space-y-0"
+            class="flex flex-col space-y-6 sm:flex-row sm:items-start sm:space-y-0 sm:space-x-8"
           >
             <div class="shrink-0">
               <time
-                class="inline-flex items-center rounded-full bg-brand-50 px-4 py-2 text-sm font-medium text-brand-700"
+                class="bg-brand-50 text-brand-700 inline-flex items-center rounded-full px-4 py-2 text-sm font-medium"
               >
                 {{ post.publishedOn }}
               </time>
@@ -71,7 +71,7 @@ defineProps({
 
             <div class="flex-1 space-y-4">
               <h2
-                class="text-2xl font-bold text-gray-900 transition-colors group-hover:text-brand-600"
+                class="group-hover:text-brand-600 text-2xl font-bold text-gray-900 transition-colors"
               >
                 <a :href="`/blog/${post.slug}`" class="hover:underline">
                   {{ post.title }}
@@ -85,7 +85,7 @@ defineProps({
               <div class="flex items-center justify-between">
                 <a
                   :href="`/blog/${post.slug}`"
-                  class="group/link inline-flex items-center font-semibold text-brand-600 transition-colors hover:text-brand-700"
+                  class="group/link text-brand-600 hover:text-brand-700 inline-flex items-center font-semibold transition-colors"
                 >
                   Read full article
                   <svg
@@ -105,7 +105,7 @@ defineProps({
 
                 <span
                   v-if="index === 0"
-                  class="inline-flex items-center rounded-full bg-accent-100 px-3 py-1 text-xs font-semibold text-accent-800"
+                  class="bg-accent-100 text-accent-800 inline-flex items-center rounded-full px-3 py-1 text-xs font-semibold"
                 >
                   Latest
                 </span>
@@ -114,7 +114,7 @@ defineProps({
           </div>
 
           <div
-            class="absolute inset-0 -z-10 rounded-2xl bg-linear-to-r from-brand-500/5 to-accent-500/5 opacity-0 transition-opacity group-hover:opacity-100"
+            class="from-brand-500/5 to-accent-500/5 absolute inset-0 -z-10 rounded-2xl bg-linear-to-r opacity-0 transition-opacity group-hover:opacity-100"
           ></div>
         </article>
       </div>
@@ -145,7 +145,7 @@ defineProps({
         </p>
         <Link
           href="/features"
-          class="inline-flex items-center rounded-lg bg-brand-600 px-6 py-3 font-semibold text-white transition-all duration-200 hover:bg-brand-700"
+          class="bg-brand-600 hover:bg-brand-700 inline-flex items-center rounded-lg px-6 py-3 font-semibold text-white transition-all duration-200"
         >
           Explore Features
         </Link>
@@ -153,13 +153,13 @@ defineProps({
 
       <div
         v-if="blogPosts && blogPosts.length > 0"
-        class="relative mt-20 overflow-hidden rounded-3xl bg-linear-to-br from-gray-900 via-gray-800 to-brand-900 px-8 py-12 text-center text-white"
+        class="to-brand-900 relative mt-20 overflow-hidden rounded-3xl bg-linear-to-br from-gray-900 via-gray-800 px-8 py-12 text-center text-white"
       >
         <div
-          class="absolute left-1/4 top-0 h-32 w-32 rounded-full bg-brand-500/10 blur-3xl"
+          class="bg-brand-500/10 absolute top-0 left-1/4 h-32 w-32 rounded-full blur-3xl"
         ></div>
         <div
-          class="absolute bottom-0 right-1/4 h-24 w-24 rounded-full bg-accent-500/10 blur-3xl"
+          class="bg-accent-500/10 absolute right-1/4 bottom-0 h-24 w-24 rounded-full blur-3xl"
         ></div>
 
         <div class="relative mx-auto max-w-2xl">
@@ -176,12 +176,12 @@ defineProps({
               id="newsletter-email"
               placeholder="Enter your email"
               aria-label="Email address for newsletter subscription"
-              class="flex-1 rounded-lg border border-white/20 bg-white/10 px-4 py-3 text-white placeholder-gray-400 transition-all focus:border-brand-400 focus:outline-none focus:ring-2 focus:ring-brand-400/50"
+              class="focus:border-brand-400 focus:ring-brand-400/50 flex-1 rounded-lg border border-white/20 bg-white/10 px-4 py-3 text-white placeholder-gray-400 transition-all focus:ring-2 focus:outline-none"
               required
             />
             <button
               type="submit"
-              class="rounded-lg bg-linear-to-r from-brand-600 to-accent-600 px-8 py-3 font-semibold text-white transition-all duration-200 hover:shadow-lg"
+              class="from-brand-600 to-accent-600 rounded-lg bg-linear-to-r px-8 py-3 font-semibold text-white transition-all duration-200 hover:shadow-lg"
             >
               Subscribe
             </button>

@@ -8,7 +8,7 @@
   >
     <template #removeicon="{ removeCallback, keydownCallback }">
       <TimesCircleIcon
-        class="cursor-pointer text-base w-4 h-4 rounded-full text-surface-800 dark:text-surface-0 focus-visible:outline focus-visible:outline-offset-2 focus-visible:outline-primary"
+        class="text-surface-800 dark:text-surface-0 focus-visible:outline-primary h-4 w-4 cursor-pointer rounded-full text-base focus-visible:outline focus-visible:outline-offset-2"
         @click="removeCallback"
         @keydown="keydownCallback"
       />

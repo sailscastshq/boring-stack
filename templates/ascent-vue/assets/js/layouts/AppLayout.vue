@@ -14,10 +14,10 @@ useFlashToast()
 
 <template>
   <div
-    class="bg-linear-to-b from-brand-50/10 flex min-h-screen flex-col to-[#F9FAFB] dark:from-gray-900 dark:to-gray-950"
+    class="from-brand-50/10 flex min-h-screen flex-col bg-linear-to-b to-[#F9FAFB] dark:from-gray-900 dark:to-gray-950"
   >
     <header
-      class="sticky top-0 z-50 border-b border-gray-100 bg-white/90 backdrop-blur-md dark:border-gray-800 dark:border-opacity-40 dark:bg-gray-900/90"
+      class="dark:border-opacity-40 sticky top-0 z-50 border-b border-gray-100 bg-white/90 backdrop-blur-md dark:border-gray-800 dark:bg-gray-900/90"
     >
       <nav
         class="mx-auto flex max-w-7xl items-center justify-between px-4 py-4 md:px-8"
@@ -89,11 +89,11 @@ useFlashToast()
             </Link>
             <Link
               href="/signup"
-              class="bg-linear-to-r from-brand-600 to-accent-600 group relative rounded-lg px-6 py-2.5 font-semibold text-white shadow-lg transition-all duration-200 hover:shadow-xl"
+              class="from-brand-600 to-accent-600 group relative rounded-lg bg-linear-to-r px-6 py-2.5 font-semibold text-white shadow-lg transition-all duration-200 hover:shadow-xl"
             >
               <span class="relative z-10">Get Started</span>
               <div
-                class="bg-linear-to-r from-brand-700 to-accent-700 absolute inset-0 rounded-lg opacity-0 transition-opacity group-hover:opacity-100"
+                class="from-brand-700 to-accent-700 absolute inset-0 rounded-lg bg-linear-to-r opacity-0 transition-opacity group-hover:opacity-100"
               ></div>
             </Link>
           </div>
@@ -134,13 +134,13 @@ useFlashToast()
     <Toast />
 
     <footer
-      class="bg-linear-to-br to-brand-900 relative overflow-hidden from-gray-900 via-gray-800 text-white"
+      class="to-brand-900 relative overflow-hidden bg-linear-to-br from-gray-900 via-gray-800 text-white"
     >
       <div
-        class="bg-brand-500/10 absolute left-1/4 top-0 h-96 w-96 rounded-full blur-3xl"
+        class="bg-brand-500/10 absolute top-0 left-1/4 h-96 w-96 rounded-full blur-3xl"
       ></div>
       <div
-        class="bg-accent-500/10 absolute bottom-0 right-1/4 h-72 w-72 rounded-full blur-3xl"
+        class="bg-accent-500/10 absolute right-1/4 bottom-0 h-72 w-72 rounded-full blur-3xl"
       ></div>
 
       <div class="relative mx-auto max-w-7xl px-4 py-16 md:px-8">
@@ -355,7 +355,7 @@ useFlashToast()
           </div>
 
           <div
-            class="border-brand-500/20 bg-linear-to-r from-brand-500/10 to-accent-500/10 mt-8 rounded-2xl border p-6"
+            class="border-brand-500/20 from-brand-500/10 to-accent-500/10 mt-8 rounded-2xl border bg-linear-to-r p-6"
           >
             <div class="text-center">
               <h4 class="mb-2 font-bold text-white">Stay Updated</h4>
@@ -366,10 +366,10 @@ useFlashToast()
                 <input
                   type="email"
                   placeholder="Enter your email"
-                  class="focus:border-brand-400 focus:ring-brand-400/50 flex-1 rounded-lg border border-white/20 bg-white/10 px-4 py-2 text-white placeholder-gray-400 transition-all focus:outline-none focus:ring-2"
+                  class="focus:border-brand-400 focus:ring-brand-400/50 flex-1 rounded-lg border border-white/20 bg-white/10 px-4 py-2 text-white placeholder-gray-400 transition-all focus:ring-2 focus:outline-none"
                 />
                 <button
-                  class="bg-linear-to-r from-brand-600 to-accent-600 rounded-lg px-6 py-2 font-semibold text-white transition-all duration-200 hover:shadow-lg"
+                  class="from-brand-600 to-accent-600 rounded-lg bg-linear-to-r px-6 py-2 font-semibold text-white transition-all duration-200 hover:shadow-lg"
                 >
                   Subscribe
                 </button>

@@ -73,7 +73,7 @@ const avatarStyle = computed(() => ({
     <!-- Mobile overlay -->
     <div
       v-if="isOpen"
-      class="fixed inset-0 z-40 bg-gray-600 bg-opacity-50 lg:hidden"
+      class="bg-opacity-50 fixed inset-0 z-40 bg-gray-600 lg:hidden"
       @click="emit('toggle')"
     />
 
@@ -89,7 +89,7 @@ const avatarStyle = computed(() => ({
         <Link href="/" class="group flex items-center space-x-2">
           <div class="relative">
             <div
-              class="absolute inset-0 scale-110 rounded-xl bg-brand-200/20 opacity-0 blur-sm transition-opacity group-hover:opacity-100"
+              class="bg-brand-200/20 absolute inset-0 scale-110 rounded-xl opacity-0 blur-sm transition-opacity group-hover:opacity-100"
             />
             <img
               src="/images/logo.svg"
@@ -120,7 +120,7 @@ const avatarStyle = computed(() => ({
               'group flex items-center rounded-lg px-3 py-2 text-sm font-medium transition-all duration-200',
               isActiveRoute(item.href)
                 ? 'bg-brand-100 text-brand-700 shadow-sm'
-                : 'text-gray-700 hover:bg-gray-50 hover:text-brand-600'
+                : 'hover:text-brand-600 text-gray-700 hover:bg-gray-50'
             ]"
             :prefetch="item.prefetch"
             :cache-for="item.cacheFor"
@@ -131,7 +131,7 @@ const avatarStyle = computed(() => ({
                 'mr-3 text-lg transition-colors',
                 isActiveRoute(item.href)
                   ? 'text-brand-600'
-                  : 'text-gray-400 group-hover:text-brand-500'
+                  : 'group-hover:text-brand-500 text-gray-400'
               ]"
             />
             {{ item.name }}
@@ -142,7 +142,7 @@ const avatarStyle = computed(() => ({
         <div class="pt-6">
           <div class="mb-3 px-3">
             <h3
-              class="text-xs font-semibold uppercase tracking-wider text-gray-500"
+              class="text-xs font-semibold tracking-wider text-gray-500 uppercase"
             >
               Settings
             </h3>
@@ -156,7 +156,7 @@ const avatarStyle = computed(() => ({
                 'group flex items-center rounded-lg px-3 py-2 text-sm font-medium transition-all duration-200',
                 isActiveRoute(item.href)
                   ? 'bg-brand-100 text-brand-700 shadow-sm'
-                  : 'text-gray-700 hover:bg-gray-50 hover:text-brand-600'
+                  : 'hover:text-brand-600 text-gray-700 hover:bg-gray-50'
               ]"
               :prefetch="item.prefetch"
               :cache-for="item.cacheFor"
@@ -167,7 +167,7 @@ const avatarStyle = computed(() => ({
                   'mr-3 text-lg transition-colors',
                   isActiveRoute(item.href)
                     ? 'text-brand-600'
-                    : 'text-gray-400 group-hover:text-brand-500'
+                    : 'group-hover:text-brand-500 text-gray-400'
                 ]"
               />
               {{ item.name }}

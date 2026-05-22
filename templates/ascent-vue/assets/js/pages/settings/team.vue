@@ -318,7 +318,7 @@ function getActionItems(member) {
       <div v-if="team.inviteLinkEnabled" class="space-y-6">
         <!-- Invite Link -->
         <div>
-          <div class="flex items-center space-x-3 space-y-1">
+          <div class="flex items-center space-y-1 space-x-3">
             <InputText
               :model-value="team?.inviteLink || ''"
               readonly
@@ -340,7 +340,7 @@ function getActionItems(member) {
           <button
             type="button"
             @click="resetInviteLink"
-            class="text-brand-600 text-sm hover:underline cursor-pointer"
+            class="text-brand-600 cursor-pointer text-sm hover:underline"
           >
             Reset invite link
           </button>
@@ -524,8 +524,8 @@ function getActionItems(member) {
                 member.role.toLowerCase() === 'owner'
                   ? 'bg-green-100 text-green-800'
                   : member.role.toLowerCase() === 'admin'
-                  ? 'bg-blue-100 text-blue-800'
-                  : 'bg-gray-100 text-gray-700'
+                    ? 'bg-blue-100 text-blue-800'
+                    : 'bg-gray-100 text-gray-700'
               ]"
             >
               {{ member.role }}

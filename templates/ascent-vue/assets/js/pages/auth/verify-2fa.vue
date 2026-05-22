@@ -81,15 +81,15 @@ function handleSwitchMethod(method) {
   <Head title="Two-Factor Authentication | Ascent" />
 
   <div
-    class="bg-linear-to-br flex min-h-screen flex-col justify-center from-brand-50/30 via-white to-accent-50/20 py-12 sm:px-6 lg:px-8"
+    class="from-brand-50/30 to-accent-50/20 flex min-h-screen flex-col justify-center bg-linear-to-br via-white py-12 sm:px-6 lg:px-8"
   >
     <!-- Background Elements -->
     <div class="pointer-events-none absolute inset-0 overflow-hidden">
       <div
-        class="absolute left-1/4 top-20 h-96 w-96 rounded-full bg-brand-200/20 blur-3xl"
+        class="bg-brand-200/20 absolute top-20 left-1/4 h-96 w-96 rounded-full blur-3xl"
       />
       <div
-        class="absolute bottom-20 right-1/4 h-72 w-72 rounded-full bg-accent-200/20 blur-3xl"
+        class="bg-accent-200/20 absolute right-1/4 bottom-20 h-72 w-72 rounded-full blur-3xl"
       />
     </div>
 
@@ -99,7 +99,7 @@ function handleSwitchMethod(method) {
         <Link href="/" class="group">
           <div class="relative">
             <div
-              class="absolute inset-0 scale-110 rounded-2xl bg-brand-200/30 opacity-0 blur-xl transition-opacity group-hover:opacity-100"
+              class="bg-brand-200/30 absolute inset-0 scale-110 rounded-2xl opacity-0 blur-xl transition-opacity group-hover:opacity-100"
             />
             <img
               src="/images/logo.svg"
@@ -125,7 +125,7 @@ function handleSwitchMethod(method) {
       <div class="relative">
         <!-- Background blur effect -->
         <div
-          class="bg-linear-to-r absolute inset-0 scale-105 rounded-2xl from-brand-600/10 to-accent-600/10 blur-xl"
+          class="from-brand-600/10 to-accent-600/10 absolute inset-0 scale-105 rounded-2xl bg-linear-to-r blur-xl"
         />
 
         <!-- Main card -->
@@ -201,7 +201,7 @@ function handleSwitchMethod(method) {
                   'flex w-full justify-center rounded-xl px-8 py-4 text-lg font-bold text-white shadow-lg transition-all duration-200 hover:scale-[1.02] hover:shadow-xl disabled:cursor-not-allowed disabled:opacity-50 disabled:hover:scale-100',
                   isDisabled
                     ? 'bg-gray-300'
-                    : 'bg-linear-to-r from-brand-600 to-accent-600 hover:from-brand-700 hover:to-accent-700 focus:outline-none focus:ring-2 focus:ring-brand-500 focus:ring-offset-2'
+                    : 'from-brand-600 to-accent-600 hover:from-brand-700 hover:to-accent-700 focus:ring-brand-500 bg-linear-to-r focus:ring-2 focus:ring-offset-2 focus:outline-none'
                 ]"
               >
                 <div v-if="form.processing" class="flex items-center space-x-2">
@@ -244,7 +244,7 @@ function handleSwitchMethod(method) {
                     v-if="activeMethod === 'totp' && twoFactorMethods.email"
                     type="button"
                     @click="handleSwitchMethod('email')"
-                    class="text-sm font-medium text-gray-600 underline underline-offset-2 transition-colors hover:text-brand-600"
+                    class="hover:text-brand-600 text-sm font-medium text-gray-600 underline underline-offset-2 transition-colors"
                   >
                     Get the code via email instead
                   </button>
@@ -253,7 +253,7 @@ function handleSwitchMethod(method) {
                     v-if="activeMethod === 'email' && twoFactorMethods.totp"
                     type="button"
                     @click="handleSwitchMethod('totp')"
-                    class="text-sm font-medium text-gray-600 underline underline-offset-2 transition-colors hover:text-brand-600"
+                    class="hover:text-brand-600 text-sm font-medium text-gray-600 underline underline-offset-2 transition-colors"
                   >
                     Use authenticator app instead
                   </button>
@@ -264,7 +264,7 @@ function handleSwitchMethod(method) {
                   <button
                     type="button"
                     @click="handleSwitchMethod('backup')"
-                    class="text-sm font-medium text-gray-600 underline underline-offset-2 transition-colors hover:text-brand-600"
+                    class="hover:text-brand-600 text-sm font-medium text-gray-600 underline underline-offset-2 transition-colors"
                   >
                     Use backup code
                   </button>
@@ -276,7 +276,7 @@ function handleSwitchMethod(method) {
                 v-if="activeMethod === 'backup'"
                 type="button"
                 @click="handleSwitchMethod(twoFactorMethods.defaultMethod)"
-                class="text-sm font-medium text-gray-600 underline underline-offset-2 transition-colors hover:text-brand-600"
+                class="hover:text-brand-600 text-sm font-medium text-gray-600 underline underline-offset-2 transition-colors"
               >
                 Use
                 {{

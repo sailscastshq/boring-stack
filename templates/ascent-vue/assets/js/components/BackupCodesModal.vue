@@ -54,9 +54,9 @@ function handleSavedCodes() {
       <!-- Header -->
       <div class="text-center">
         <div
-          class="mx-auto mb-4 flex h-12 w-12 items-center justify-center rounded-full bg-success-100"
+          class="bg-success-100 mx-auto mb-4 flex h-12 w-12 items-center justify-center rounded-full"
         >
-          <i class="pi pi-key text-xl text-success-600" />
+          <i class="pi pi-key text-success-600 text-xl" />
         </div>
         <h2 class="mb-2 text-xl font-semibold text-gray-900">
           {{

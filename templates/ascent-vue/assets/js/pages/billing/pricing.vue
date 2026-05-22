@@ -27,16 +27,16 @@ const sliderPosition = computed(() => {
   <!-- Hero Section -->
   <section class="relative overflow-hidden px-4 pt-20">
     <div
-      class="bg-linear-to-br absolute inset-0 from-brand-50/30 via-white to-accent-50/20"
+      class="from-brand-50/30 to-accent-50/20 absolute inset-0 bg-linear-to-br via-white"
     />
     <div
-      class="absolute left-1/2 top-20 h-96 w-96 -translate-x-1/2 transform rounded-full bg-brand-100/20 blur-3xl"
+      class="bg-brand-100/20 absolute top-20 left-1/2 h-96 w-96 -translate-x-1/2 transform rounded-full blur-3xl"
     />
 
     <div class="relative mx-auto max-w-4xl text-center">
       <div class="mb-6">
         <span
-          class="inline-flex items-center rounded-full bg-success-100 px-4 py-2 text-sm font-semibold text-success-700"
+          class="bg-success-100 text-success-700 inline-flex items-center rounded-full px-4 py-2 text-sm font-semibold"
         >
           💰 Simple Pricing
         </span>
@@ -49,14 +49,14 @@ const sliderPosition = computed(() => {
           Pricing That Makes
         </span>
         <span
-          class="bg-linear-to-r block from-brand-600 to-accent-600 bg-clip-text leading-tight text-transparent"
+          class="from-brand-600 to-accent-600 block bg-linear-to-r bg-clip-text leading-tight text-transparent"
         >
           Perfect Sense
         </span>
       </h1>
 
       <p
-        class="mx-auto mb-10 max-w-2xl text-xl font-medium leading-relaxed text-gray-600"
+        class="mx-auto mb-10 max-w-2xl text-xl leading-relaxed font-medium text-gray-600"
       >
         Start free, scale when you're ready. No hidden fees, no surprises.
         <span class="font-semibold text-gray-900">
@@ -72,7 +72,7 @@ const sliderPosition = computed(() => {
           <!-- Sliding Background -->
           <div
             :class="[
-              'bg-linear-to-r absolute bottom-2 top-2 rounded-xl from-brand-600 to-accent-600 shadow-md transition-all duration-500 ease-in-out',
+              'from-brand-600 to-accent-600 absolute top-2 bottom-2 rounded-xl bg-linear-to-r shadow-md transition-all duration-500 ease-in-out',
               sliderPosition
             ]"
           />
@@ -108,7 +108,7 @@ const sliderPosition = computed(() => {
         <div class="mt-3 flex h-6 items-center justify-center">
           <div
             v-if="billingCycle === 'yearly'"
-            class="inline-flex items-center rounded-full bg-success-100 px-3 py-1 text-xs font-bold text-success-700 transition-all duration-300"
+            class="bg-success-100 text-success-700 inline-flex items-center rounded-full px-3 py-1 text-xs font-bold transition-all duration-300"
           >
             Save 20%
           </div>
@@ -124,7 +124,7 @@ const sliderPosition = computed(() => {
         <!-- Starter Plan -->
         <div class="group relative">
           <div
-            class="bg-linear-to-r absolute -inset-0.5 rounded-3xl from-gray-600 to-gray-400 opacity-10 blur transition duration-300 group-hover:opacity-20"
+            class="absolute -inset-0.5 rounded-3xl bg-linear-to-r from-gray-600 to-gray-400 opacity-10 blur transition duration-300 group-hover:opacity-20"
           />
           <div
             class="relative rounded-3xl border border-gray-300 bg-white p-10 shadow-xl"
@@ -152,7 +152,7 @@ const sliderPosition = computed(() => {
               </div>
               <p
                 v-if="billingCycle === 'yearly'"
-                class="mt-1 text-sm font-medium text-success-600"
+                class="text-success-600 mt-1 text-sm font-medium"
               >
                 Save ${{
                   plans.starter.variants.monthly.amount * 12 -
@@ -167,10 +167,10 @@ const sliderPosition = computed(() => {
 
               <div class="flex items-start space-x-3">
                 <div
-                  class="mt-0.5 flex h-5 w-5 shrink-0 items-center justify-center rounded-full bg-success-100"
+                  class="bg-success-100 mt-0.5 flex h-5 w-5 shrink-0 items-center justify-center rounded-full"
                 >
                   <svg
-                    class="h-3 w-3 text-success-600"
+                    class="text-success-600 h-3 w-3"
                     fill="currentColor"
                     viewBox="0 0 20 20"
                   >
@@ -191,10 +191,10 @@ const sliderPosition = computed(() => {
 
               <div class="flex items-start space-x-3">
                 <div
-                  class="mt-0.5 flex h-5 w-5 shrink-0 items-center justify-center rounded-full bg-success-100"
+                  class="bg-success-100 mt-0.5 flex h-5 w-5 shrink-0 items-center justify-center rounded-full"
                 >
                   <svg
-                    class="h-3 w-3 text-success-600"
+                    class="text-success-600 h-3 w-3"
                     fill="currentColor"
                     viewBox="0 0 20 20"
                   >
@@ -217,10 +217,10 @@ const sliderPosition = computed(() => {
 
               <div class="flex items-start space-x-3">
                 <div
-                  class="mt-0.5 flex h-5 w-5 shrink-0 items-center justify-center rounded-full bg-success-100"
+                  class="bg-success-100 mt-0.5 flex h-5 w-5 shrink-0 items-center justify-center rounded-full"
                 >
                   <svg
-                    class="h-3 w-3 text-success-600"
+                    class="text-success-600 h-3 w-3"
                     fill="currentColor"
                     viewBox="0 0 20 20"
                   >
@@ -241,10 +241,10 @@ const sliderPosition = computed(() => {
 
               <div class="flex items-start space-x-3">
                 <div
-                  class="mt-0.5 flex h-5 w-5 shrink-0 items-center justify-center rounded-full bg-success-100"
+                  class="bg-success-100 mt-0.5 flex h-5 w-5 shrink-0 items-center justify-center rounded-full"
                 >
                   <svg
-                    class="h-3 w-3 text-success-600"
+                    class="text-success-600 h-3 w-3"
                     fill="currentColor"
                     viewBox="0 0 20 20"
                   >
@@ -263,10 +263,10 @@ const sliderPosition = computed(() => {
 
               <div class="flex items-start space-x-3">
                 <div
-                  class="mt-0.5 flex h-5 w-5 shrink-0 items-center justify-center rounded-full bg-success-100"
+                  class="bg-success-100 mt-0.5 flex h-5 w-5 shrink-0 items-center justify-center rounded-full"
                 >
                   <svg
-                    class="h-3 w-3 text-success-600"
+                    class="text-success-600 h-3 w-3"
                     fill="currentColor"
                     viewBox="0 0 20 20"
                   >
@@ -303,22 +303,22 @@ const sliderPosition = computed(() => {
         <!-- Pro Plan - Featured -->
         <div class="group relative">
           <div
-            class="bg-linear-to-r absolute -inset-0.5 rounded-3xl from-brand-600 to-accent-600 opacity-30 blur transition duration-300 group-hover:opacity-40"
+            class="from-brand-600 to-accent-600 absolute -inset-0.5 rounded-3xl bg-linear-to-r opacity-30 blur transition duration-300 group-hover:opacity-40"
           />
           <div
-            class="relative overflow-visible rounded-3xl border border-brand-300 bg-white p-10 shadow-2xl"
+            class="border-brand-300 relative overflow-visible rounded-3xl border bg-white p-10 shadow-2xl"
           >
             <div
-              class="absolute -right-4 -top-4 size-44 overflow-hidden rounded-sm"
+              class="absolute -top-4 -right-4 size-44 overflow-hidden rounded-sm"
             >
               <div
-                class="bg-linear-to-br absolute -left-1 -top-1 size-5 from-brand-700 to-accent-700"
+                class="from-brand-700 to-accent-700 absolute -top-1 -left-1 size-5 bg-linear-to-br"
               ></div>
               <div
-                class="bg-linear-to-br absolute -bottom-1 -right-1 size-5 from-brand-700 to-accent-700"
+                class="from-brand-700 to-accent-700 absolute -right-1 -bottom-1 size-5 bg-linear-to-br"
               ></div>
               <span
-                class="bg-linear-to-r absolute bottom-0 right-0 block w-[141.42%] origin-bottom-right rotate-45 from-brand-600 to-accent-600 py-2.5 text-center text-sm font-semibold uppercase tracking-wider text-white shadow-md"
+                class="from-brand-600 to-accent-600 absolute right-0 bottom-0 block w-[141.42%] origin-bottom-right rotate-45 bg-linear-to-r py-2.5 text-center text-sm font-semibold tracking-wider text-white uppercase shadow-md"
               >
                 Most Popular
               </span>
@@ -348,7 +348,7 @@ const sliderPosition = computed(() => {
               </div>
               <p
                 v-if="billingCycle === 'yearly'"
-                class="mt-1 text-sm font-medium text-success-600"
+                class="text-success-600 mt-1 text-sm font-medium"
               >
                 Save ${{
                   plans.pro.variants.monthly.amount * 12 -
@@ -365,10 +365,10 @@ const sliderPosition = computed(() => {
 
               <div class="flex items-start space-x-3">
                 <div
-                  class="mt-0.5 flex h-5 w-5 shrink-0 items-center justify-center rounded-full bg-success-100"
+                  class="bg-success-100 mt-0.5 flex h-5 w-5 shrink-0 items-center justify-center rounded-full"
                 >
                   <svg
-                    class="h-3 w-3 text-success-600"
+                    class="text-success-600 h-3 w-3"
                     fill="currentColor"
                     viewBox="0 0 20 20"
                   >
@@ -391,10 +391,10 @@ const sliderPosition = computed(() => {
 
               <div class="flex items-start space-x-3">
                 <div
-                  class="mt-0.5 flex h-5 w-5 shrink-0 items-center justify-center rounded-full bg-success-100"
+                  class="bg-success-100 mt-0.5 flex h-5 w-5 shrink-0 items-center justify-center rounded-full"
                 >
                   <svg
-                    class="h-3 w-3 text-success-600"
+                    class="text-success-600 h-3 w-3"
                     fill="currentColor"
                     viewBox="0 0 20 20"
                   >
@@ -417,10 +417,10 @@ const sliderPosition = computed(() => {
 
               <div class="flex items-start space-x-3">
                 <div
-                  class="mt-0.5 flex h-5 w-5 shrink-0 items-center justify-center rounded-full bg-success-100"
+                  class="bg-success-100 mt-0.5 flex h-5 w-5 shrink-0 items-center justify-center rounded-full"
                 >
                   <svg
-                    class="h-3 w-3 text-success-600"
+                    class="text-success-600 h-3 w-3"
                     fill="currentColor"
                     viewBox="0 0 20 20"
                   >
@@ -439,10 +439,10 @@ const sliderPosition = computed(() => {
 
               <div class="flex items-start space-x-3">
                 <div
-                  class="mt-0.5 flex h-5 w-5 shrink-0 items-center justify-center rounded-full bg-success-100"
+                  class="bg-success-100 mt-0.5 flex h-5 w-5 shrink-0 items-center justify-center rounded-full"
                 >
                   <svg
-                    class="h-3 w-3 text-success-600"
+                    class="text-success-600 h-3 w-3"
                     fill="currentColor"
                     viewBox="0 0 20 20"
                   >
@@ -465,10 +465,10 @@ const sliderPosition = computed(() => {
 
               <div class="flex items-start space-x-3">
                 <div
-                  class="mt-0.5 flex h-5 w-5 shrink-0 items-center justify-center rounded-full bg-success-100"
+                  class="bg-success-100 mt-0.5 flex h-5 w-5 shrink-0 items-center justify-center rounded-full"
                 >
                   <svg
-                    class="h-3 w-3 text-success-600"
+                    class="text-success-600 h-3 w-3"
                     fill="currentColor"
                     viewBox="0 0 20 20"
                   >
@@ -489,10 +489,10 @@ const sliderPosition = computed(() => {
 
               <div class="flex items-start space-x-3">
                 <div
-                  class="mt-0.5 flex h-5 w-5 shrink-0 items-center justify-center rounded-full bg-success-100"
+                  class="bg-success-100 mt-0.5 flex h-5 w-5 shrink-0 items-center justify-center rounded-full"
                 >
                   <svg
-                    class="h-3 w-3 text-success-600"
+                    class="text-success-600 h-3 w-3"
                     fill="currentColor"
                     viewBox="0 0 20 20"
                   >
@@ -515,7 +515,7 @@ const sliderPosition = computed(() => {
             <div class="mt-8">
               <Link
                 :href="`/checkout?plan=pro&billingCycle=${billingCycle}`"
-                class="bg-linear-to-r block w-full rounded-xl from-brand-600 to-accent-600 px-6 py-4 text-center text-lg font-bold text-white shadow-xl transition-all duration-200 hover:scale-[1.02] hover:shadow-2xl"
+                class="from-brand-600 to-accent-600 block w-full rounded-xl bg-linear-to-r px-6 py-4 text-center text-lg font-bold text-white shadow-xl transition-all duration-200 hover:scale-[1.02] hover:shadow-2xl"
               >
                 Get Started
               </Link>
@@ -538,13 +538,13 @@ const sliderPosition = computed(() => {
         >
           Compare Plans
           <span
-            class="bg-linear-to-r block from-brand-600 to-accent-600 bg-clip-text text-transparent"
+            class="from-brand-600 to-accent-600 block bg-linear-to-r bg-clip-text text-transparent"
           >
             Choose What's Right for You
           </span>
         </h2>
         <p
-          class="mx-auto max-w-3xl text-xl font-medium leading-relaxed text-gray-600"
+          class="mx-auto max-w-3xl text-xl leading-relaxed font-medium text-gray-600"
         >
           Every plan includes our core features. Upgrade for advanced
           functionality and priority support.
@@ -577,12 +577,12 @@ const sliderPosition = computed(() => {
                 </th>
                 <th class="bg-brand-50 px-6 py-4 text-center">
                   <div>
-                    <div class="text-lg font-bold text-brand-700">Pro</div>
-                    <div class="text-sm text-brand-600">
+                    <div class="text-brand-700 text-lg font-bold">Pro</div>
+                    <div class="text-brand-600 text-sm">
                       ${{ plans.pro.variants[billingCycle].amount }}/month
                     </div>
                     <div
-                      class="mt-1 inline-flex items-center rounded-full bg-brand-100 px-2 py-0.5 text-xs font-medium text-brand-700"
+                      class="bg-brand-100 text-brand-700 mt-1 inline-flex items-center rounded-full px-2 py-0.5 text-xs font-medium"
                     >
                       Most Popular
                     </div>
@@ -609,7 +609,7 @@ const sliderPosition = computed(() => {
                 <td class="px-6 py-4 text-gray-700">Authentication System</td>
                 <td class="px-6 py-4 text-center">
                   <svg
-                    class="mx-auto h-5 w-5 text-success-600"
+                    class="text-success-600 mx-auto h-5 w-5"
                     fill="currentColor"
                     viewBox="0 0 20 20"
                   >
@@ -622,7 +622,7 @@ const sliderPosition = computed(() => {
                 </td>
                 <td class="bg-brand-50/30 px-6 py-4 text-center">
                   <svg
-                    class="mx-auto h-5 w-5 text-success-600"
+                    class="text-success-600 mx-auto h-5 w-5"
                     fill="currentColor"
                     viewBox="0 0 20 20"
                   >
@@ -638,7 +638,7 @@ const sliderPosition = computed(() => {
                 <td class="px-6 py-4 text-gray-700">Subscription Billing</td>
                 <td class="px-6 py-4 text-center">
                   <svg
-                    class="mx-auto h-5 w-5 text-success-600"
+                    class="text-success-600 mx-auto h-5 w-5"
                     fill="currentColor"
                     viewBox="0 0 20 20"
                   >
@@ -651,7 +651,7 @@ const sliderPosition = computed(() => {
                 </td>
                 <td class="bg-brand-50/30 px-6 py-4 text-center">
                   <svg
-                    class="mx-auto h-5 w-5 text-success-600"
+                    class="text-success-600 mx-auto h-5 w-5"
                     fill="currentColor"
                     viewBox="0 0 20 20"
                   >
@@ -667,7 +667,7 @@ const sliderPosition = computed(() => {
                 <td class="px-6 py-4 text-gray-700">Basic Analytics</td>
                 <td class="px-6 py-4 text-center">
                   <svg
-                    class="mx-auto h-5 w-5 text-success-600"
+                    class="text-success-600 mx-auto h-5 w-5"
                     fill="currentColor"
                     viewBox="0 0 20 20"
                   >
@@ -680,7 +680,7 @@ const sliderPosition = computed(() => {
                 </td>
                 <td class="bg-brand-50/30 px-6 py-4 text-center">
                   <svg
-                    class="mx-auto h-5 w-5 text-success-600"
+                    class="text-success-600 mx-auto h-5 w-5"
                     fill="currentColor"
                     viewBox="0 0 20 20"
                   >
@@ -709,7 +709,7 @@ const sliderPosition = computed(() => {
                 </td>
                 <td class="bg-brand-50/30 px-6 py-4 text-center">
                   <svg
-                    class="mx-auto h-5 w-5 text-success-600"
+                    class="text-success-600 mx-auto h-5 w-5"
                     fill="currentColor"
                     viewBox="0 0 20 20"
                   >
@@ -730,7 +730,7 @@ const sliderPosition = computed(() => {
                 </td>
                 <td class="bg-brand-50/30 px-6 py-4 text-center">
                   <svg
-                    class="mx-auto h-5 w-5 text-success-600"
+                    class="text-success-600 mx-auto h-5 w-5"
                     fill="currentColor"
                     viewBox="0 0 20 20"
                   >
@@ -749,7 +749,7 @@ const sliderPosition = computed(() => {
                 </td>
                 <td class="bg-brand-50/30 px-6 py-4 text-center">
                   <svg
-                    class="mx-auto h-5 w-5 text-success-600"
+                    class="text-success-600 mx-auto h-5 w-5"
                     fill="currentColor"
                     viewBox="0 0 20 20"
                   >
@@ -768,7 +768,7 @@ const sliderPosition = computed(() => {
                 </td>
                 <td class="bg-brand-50/30 px-6 py-4 text-center">
                   <svg
-                    class="mx-auto h-5 w-5 text-success-600"
+                    class="text-success-600 mx-auto h-5 w-5"
                     fill="currentColor"
                     viewBox="0 0 20 20"
                   >
@@ -800,7 +800,7 @@ const sliderPosition = computed(() => {
                 </td>
                 <td class="bg-brand-50/30 px-6 py-4 text-center">
                   <svg
-                    class="mx-auto h-5 w-5 text-success-600"
+                    class="text-success-600 mx-auto h-5 w-5"
                     fill="currentColor"
                     viewBox="0 0 20 20"
                   >
@@ -821,7 +821,7 @@ const sliderPosition = computed(() => {
                 </td>
                 <td class="bg-brand-50/30 px-6 py-4 text-center">
                   <svg
-                    class="mx-auto h-5 w-5 text-success-600"
+                    class="text-success-600 mx-auto h-5 w-5"
                     fill="currentColor"
                     viewBox="0 0 20 20"
                   >
@@ -849,7 +849,7 @@ const sliderPosition = computed(() => {
         >
           Frequently Asked
           <span
-            class="bg-linear-to-r block from-brand-600 to-accent-600 bg-clip-text text-transparent"
+            class="from-brand-600 to-accent-600 block bg-linear-to-r bg-clip-text text-transparent"
           >
             Questions
           </span>
@@ -864,16 +864,16 @@ const sliderPosition = computed(() => {
             class="flex cursor-pointer list-none items-center justify-between p-6 [&::-webkit-details-marker]:hidden"
           >
             <h3
-              class="text-lg font-bold text-gray-900 transition-colors group-hover:text-brand-600"
+              class="group-hover:text-brand-600 text-lg font-bold text-gray-900 transition-colors"
             >
               What's included in the free trial?
             </h3>
             <div class="ml-4 shrink-0">
               <div
-                class="flex h-8 w-8 items-center justify-center rounded-full bg-brand-50 transition-colors group-hover:bg-brand-100"
+                class="bg-brand-50 group-hover:bg-brand-100 flex h-8 w-8 items-center justify-center rounded-full transition-colors"
               >
                 <svg
-                  class="h-4 w-4 text-brand-600 transition-transform group-open:rotate-180"
+                  class="text-brand-600 h-4 w-4 transition-transform group-open:rotate-180"
                   fill="none"
                   stroke="currentColor"
                   viewBox="0 0 24 24"
@@ -906,16 +906,16 @@ const sliderPosition = computed(() => {
             class="flex cursor-pointer list-none items-center justify-between p-6 [&::-webkit-details-marker]:hidden"
           >
             <h3
-              class="text-lg font-bold text-gray-900 transition-colors group-hover:text-brand-600"
+              class="group-hover:text-brand-600 text-lg font-bold text-gray-900 transition-colors"
             >
               Can I change plans later?
             </h3>
             <div class="ml-4 shrink-0">
               <div
-                class="flex h-8 w-8 items-center justify-center rounded-full bg-brand-50 transition-colors group-hover:bg-brand-100"
+                class="bg-brand-50 group-hover:bg-brand-100 flex h-8 w-8 items-center justify-center rounded-full transition-colors"
               >
                 <svg
-                  class="h-4 w-4 text-brand-600 transition-transform group-open:rotate-180"
+                  class="text-brand-600 h-4 w-4 transition-transform group-open:rotate-180"
                   fill="none"
                   stroke="currentColor"
                   viewBox="0 0 24 24"
@@ -948,16 +948,16 @@ const sliderPosition = computed(() => {
             class="flex cursor-pointer list-none items-center justify-between p-6 [&::-webkit-details-marker]:hidden"
           >
             <h3
-              class="text-lg font-bold text-gray-900 transition-colors group-hover:text-brand-600"
+              class="group-hover:text-brand-600 text-lg font-bold text-gray-900 transition-colors"
             >
               Is there a setup fee or hidden costs?
             </h3>
             <div class="ml-4 shrink-0">
               <div
-                class="flex h-8 w-8 items-center justify-center rounded-full bg-brand-50 transition-colors group-hover:bg-brand-100"
+                class="bg-brand-50 group-hover:bg-brand-100 flex h-8 w-8 items-center justify-center rounded-full transition-colors"
               >
                 <svg
-                  class="h-4 w-4 text-brand-600 transition-transform group-open:rotate-180"
+                  class="text-brand-600 h-4 w-4 transition-transform group-open:rotate-180"
                   fill="none"
                   stroke="currentColor"
                   viewBox="0 0 24 24"
@@ -990,16 +990,16 @@ const sliderPosition = computed(() => {
             class="flex cursor-pointer list-none items-center justify-between p-6 [&::-webkit-details-marker]:hidden"
           >
             <h3
-              class="text-lg font-bold text-gray-900 transition-colors group-hover:text-brand-600"
+              class="group-hover:text-brand-600 text-lg font-bold text-gray-900 transition-colors"
             >
               What payment methods do you accept?
             </h3>
             <div class="ml-4 shrink-0">
               <div
-                class="flex h-8 w-8 items-center justify-center rounded-full bg-brand-50 transition-colors group-hover:bg-brand-100"
+                class="bg-brand-50 group-hover:bg-brand-100 flex h-8 w-8 items-center justify-center rounded-full transition-colors"
               >
                 <svg
-                  class="h-4 w-4 text-brand-600 transition-transform group-open:rotate-180"
+                  class="text-brand-600 h-4 w-4 transition-transform group-open:rotate-180"
                   fill="none"
                   stroke="currentColor"
                   viewBox="0 0 24 24"
@@ -1031,10 +1031,10 @@ const sliderPosition = computed(() => {
   <!-- CTA Section -->
   <section class="relative overflow-hidden bg-gray-900 px-4 py-20">
     <div
-      class="bg-linear-to-br absolute inset-0 from-gray-900 via-gray-800 to-brand-900"
+      class="to-brand-900 absolute inset-0 bg-linear-to-br from-gray-900 via-gray-800"
     />
     <div
-      class="absolute left-1/2 top-0 h-96 w-96 -translate-x-1/2 transform rounded-full bg-brand-500/10 blur-3xl"
+      class="bg-brand-500/10 absolute top-0 left-1/2 h-96 w-96 -translate-x-1/2 transform rounded-full blur-3xl"
     />
 
     <div class="relative mx-auto max-w-4xl text-center">
@@ -1043,14 +1043,14 @@ const sliderPosition = computed(() => {
       >
         Ready to Get
         <span
-          class="bg-linear-to-r block from-brand-400 to-accent-400 bg-clip-text text-transparent"
+          class="from-brand-400 to-accent-400 block bg-linear-to-r bg-clip-text text-transparent"
         >
           Started?
         </span>
       </h2>
 
       <p
-        class="mx-auto mb-10 max-w-2xl text-xl font-medium leading-relaxed text-gray-300"
+        class="mx-auto mb-10 max-w-2xl text-xl leading-relaxed font-medium text-gray-300"
       >
         Join thousands of developers who are already building amazing SaaS
         products with our platform.
@@ -1059,18 +1059,18 @@ const sliderPosition = computed(() => {
       <div class="mb-8 flex flex-col justify-center gap-4 sm:flex-row">
         <Link
           href="/signup"
-          class="hover:shadow-3xl bg-linear-to-r group relative inline-block rounded-xl from-brand-600 to-accent-600 px-10 py-5 text-lg font-bold text-white no-underline shadow-2xl transition-all duration-200 hover:scale-[1.02]"
+          class="hover:shadow-3xl group from-brand-600 to-accent-600 relative inline-block rounded-xl bg-linear-to-r px-10 py-5 text-lg font-bold text-white no-underline shadow-2xl transition-all duration-200 hover:scale-[1.02]"
         >
           <span class="relative z-10">Start Free Trial</span>
           <div
-            class="bg-linear-to-r absolute inset-0 rounded-xl from-brand-700 to-accent-700 opacity-0 transition-opacity group-hover:opacity-100"
+            class="from-brand-700 to-accent-700 absolute inset-0 rounded-xl bg-linear-to-r opacity-0 transition-opacity group-hover:opacity-100"
           />
         </Link>
         <a
           href="YOUTUBE_VIDEO_URL"
           target="_blank"
           rel="noopener noreferrer"
-          class="inline-block rounded-xl border-2 border-gray-600 bg-transparent px-10 py-5 text-lg font-bold text-white no-underline shadow-lg transition-all duration-200 hover:scale-[1.02] hover:border-brand-400 hover:bg-brand-500/10"
+          class="hover:border-brand-400 hover:bg-brand-500/10 inline-block rounded-xl border-2 border-gray-600 bg-transparent px-10 py-5 text-lg font-bold text-white no-underline shadow-lg transition-all duration-200 hover:scale-[1.02]"
         >
           See It in Action
         </a>
@@ -1081,7 +1081,7 @@ const sliderPosition = computed(() => {
       >
         <div class="flex items-center space-x-2">
           <svg
-            class="h-5 w-5 text-success-500"
+            class="text-success-500 h-5 w-5"
             fill="currentColor"
             viewBox="0 0 20 20"
           >
@@ -1095,7 +1095,7 @@ const sliderPosition = computed(() => {
         </div>
         <div class="flex items-center space-x-2">
           <svg
-            class="h-5 w-5 text-success-500"
+            class="text-success-500 h-5 w-5"
             fill="currentColor"
             viewBox="0 0 20 20"
           >
@@ -1109,7 +1109,7 @@ const sliderPosition = computed(() => {
         </div>
         <div class="flex items-center space-x-2">
           <svg
-            class="h-5 w-5 text-success-500"
+            class="text-success-500 h-5 w-5"
             fill="currentColor"
             viewBox="0 0 20 20"
           >

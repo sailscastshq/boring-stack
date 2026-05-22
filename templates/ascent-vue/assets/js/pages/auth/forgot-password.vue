@@ -29,14 +29,14 @@ function submit() {
   <Head title="Reset Password | Ascent" />
 
   <div
-    class="flex min-h-screen flex-col justify-center bg-linear-to-br from-brand-50/30 via-white to-accent-50/20 py-12 sm:px-6 lg:px-8"
+    class="from-brand-50/30 to-accent-50/20 flex min-h-screen flex-col justify-center bg-linear-to-br via-white py-12 sm:px-6 lg:px-8"
   >
     <div class="pointer-events-none absolute inset-0 overflow-hidden">
       <div
-        class="absolute left-1/4 top-20 h-96 w-96 rounded-full bg-brand-200/20 blur-3xl"
+        class="bg-brand-200/20 absolute top-20 left-1/4 h-96 w-96 rounded-full blur-3xl"
       ></div>
       <div
-        class="absolute bottom-20 right-1/4 h-72 w-72 rounded-full bg-accent-200/20 blur-3xl"
+        class="bg-accent-200/20 absolute right-1/4 bottom-20 h-72 w-72 rounded-full blur-3xl"
       ></div>
     </div>
 
@@ -45,7 +45,7 @@ function submit() {
         <Link href="/" class="group">
           <div class="relative">
             <div
-              class="absolute inset-0 scale-110 rounded-2xl bg-brand-200/30 opacity-0 blur-xl transition-opacity group-hover:opacity-100"
+              class="bg-brand-200/30 absolute inset-0 scale-110 rounded-2xl opacity-0 blur-xl transition-opacity group-hover:opacity-100"
             ></div>
             <img
               src="/images/logo.svg"
@@ -70,7 +70,7 @@ function submit() {
     <div class="relative sm:mx-auto sm:w-full sm:max-w-lg">
       <div class="relative">
         <div
-          class="absolute inset-0 scale-105 rounded-2xl bg-linear-to-r from-brand-600/10 to-accent-600/10 blur-xl"
+          class="from-brand-600/10 to-accent-600/10 absolute inset-0 scale-105 rounded-2xl bg-linear-to-r blur-xl"
         ></div>
 
         <div
@@ -101,7 +101,7 @@ function submit() {
                     'w-full rounded-xl border px-4 py-4 text-lg font-medium transition-all duration-200',
                     form.errors.email
                       ? 'border-red-300 bg-red-50 ring-2 ring-red-100'
-                      : 'border-gray-300 bg-gray-200 focus:border-brand-300 focus:bg-white focus:ring-4 focus:ring-brand-100'
+                      : 'focus:border-brand-300 focus:ring-brand-100 border-gray-300 bg-gray-200 focus:bg-white focus:ring-4'
                   ]"
                   placeholder="Enter your email address"
                 />
@@ -116,7 +116,7 @@ function submit() {
                   'flex w-full justify-center rounded-xl px-8 py-4 text-lg font-bold text-white shadow-lg transition-all duration-200 hover:scale-[1.02] hover:shadow-xl disabled:cursor-not-allowed disabled:opacity-50 disabled:hover:scale-100',
                   disableForgotPasswordButton
                     ? 'bg-gray-300'
-                    : 'bg-linear-to-r from-brand-600 to-accent-600 hover:from-brand-700 hover:to-accent-700 focus:outline-none focus:ring-2 focus:ring-brand-500 focus:ring-offset-2'
+                    : 'from-brand-600 to-accent-600 hover:from-brand-700 hover:to-accent-700 focus:ring-brand-500 bg-linear-to-r focus:ring-2 focus:ring-offset-2 focus:outline-none'
                 ]"
               >
                 <div v-if="form.processing" class="flex items-center space-x-2">
@@ -149,7 +149,7 @@ function submit() {
           <div class="mt-6 text-center">
             <Link
               href="/login?mode=password"
-              class="flex items-center justify-center text-sm font-medium text-gray-600 transition-colors hover:text-brand-600"
+              class="hover:text-brand-600 flex items-center justify-center text-sm font-medium text-gray-600 transition-colors"
             >
               <svg
                 class="mr-1 h-4 w-4"

@@ -65,8 +65,8 @@ module.exports = {
       method === 'all'
         ? 'All two-factor authentication methods'
         : method === 'totp'
-        ? 'Authenticator app (TOTP)'
-        : 'Email verification (2FA)'
+          ? 'Authenticator app (TOTP)'
+          : 'Email verification (2FA)'
 
     this.req.flash('success', `${methodDisplayName} disabled successfully`)
     return '/settings/security'

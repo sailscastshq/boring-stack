@@ -71,10 +71,10 @@ const pageTitle = computed(() => {
   >
     <div class="pointer-events-none absolute inset-0 overflow-hidden">
       <div
-        class="bg-brand-200/20 absolute left-1/4 top-20 h-96 w-96 rounded-full blur-3xl"
+        class="bg-brand-200/20 absolute top-20 left-1/4 h-96 w-96 rounded-full blur-3xl"
       ></div>
       <div
-        class="bg-accent-200/20 absolute bottom-20 right-1/4 h-72 w-72 rounded-full blur-3xl"
+        class="bg-accent-200/20 absolute right-1/4 bottom-20 h-72 w-72 rounded-full blur-3xl"
       ></div>
     </div>
 
@@ -137,7 +137,7 @@ const pageTitle = computed(() => {
           <button
             type="button"
             @click="handleOpenEmailApp"
-            class="from-brand-600 to-accent-600 hover:from-brand-700 hover:to-accent-700 focus:ring-brand-500 mb-6 w-full rounded-xl bg-linear-to-r px-8 py-4 text-lg font-bold text-white shadow-lg transition-all duration-200 hover:scale-[1.02] hover:shadow-xl focus:outline-none focus:ring-2 focus:ring-offset-2"
+            class="from-brand-600 to-accent-600 hover:from-brand-700 hover:to-accent-700 focus:ring-brand-500 mb-6 w-full rounded-xl bg-linear-to-r px-8 py-4 text-lg font-bold text-white shadow-lg transition-all duration-200 hover:scale-[1.02] hover:shadow-xl focus:ring-2 focus:ring-offset-2 focus:outline-none"
           >
             Open email app
           </button>

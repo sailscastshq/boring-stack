@@ -39,15 +39,15 @@ function handleInviteResponse(response) {
   <Head :title="`Join ${team.name} | Ascent`" />
 
   <div
-    class="bg-linear-to-br flex min-h-screen flex-col justify-center from-brand-50/30 via-white to-accent-50/20 py-12 sm:px-6 lg:px-8"
+    class="from-brand-50/30 to-accent-50/20 flex min-h-screen flex-col justify-center bg-linear-to-br via-white py-12 sm:px-6 lg:px-8"
   >
     <!-- Background Elements -->
     <div class="pointer-events-none absolute inset-0 overflow-hidden">
       <div
-        class="absolute left-1/4 top-20 h-96 w-96 rounded-full bg-brand-200/20 blur-3xl"
+        class="bg-brand-200/20 absolute top-20 left-1/4 h-96 w-96 rounded-full blur-3xl"
       />
       <div
-        class="absolute bottom-20 right-1/4 h-72 w-72 rounded-full bg-accent-200/20 blur-3xl"
+        class="bg-accent-200/20 absolute right-1/4 bottom-20 h-72 w-72 rounded-full blur-3xl"
       />
     </div>
 
@@ -57,7 +57,7 @@ function handleInviteResponse(response) {
         <Link href="/" class="group">
           <div class="relative">
             <div
-              class="absolute inset-0 scale-110 rounded-2xl bg-brand-200/30 opacity-0 blur-xl transition-opacity group-hover:opacity-100"
+              class="bg-brand-200/30 absolute inset-0 scale-110 rounded-2xl opacity-0 blur-xl transition-opacity group-hover:opacity-100"
             />
             <img
               src="/images/logo.svg"
@@ -73,7 +73,7 @@ function handleInviteResponse(response) {
         <div class="mb-6 flex items-center justify-center">
           <div class="relative">
             <div
-              class="bg-linear-to-r flex h-16 w-16 items-center justify-center rounded-2xl from-brand-600 to-accent-600 shadow-lg"
+              class="from-brand-600 to-accent-600 flex h-16 w-16 items-center justify-center rounded-2xl bg-linear-to-r shadow-lg"
             >
               <svg
                 class="h-8 w-8 text-white"
@@ -91,7 +91,7 @@ function handleInviteResponse(response) {
               </svg>
             </div>
             <div
-              class="absolute inset-0 scale-110 rounded-2xl bg-brand-200/40 opacity-70 blur-xl"
+              class="bg-brand-200/40 absolute inset-0 scale-110 rounded-2xl opacity-70 blur-xl"
             />
           </div>
         </div>
@@ -117,7 +117,7 @@ function handleInviteResponse(response) {
       <div class="relative">
         <!-- Background blur effect -->
         <div
-          class="bg-linear-to-r absolute inset-0 scale-105 rounded-2xl from-brand-600/10 to-accent-600/10 blur-xl"
+          class="from-brand-600/10 to-accent-600/10 absolute inset-0 scale-105 rounded-2xl bg-linear-to-r blur-xl"
         />
 
         <!-- Main card -->
@@ -131,7 +131,7 @@ function handleInviteResponse(response) {
             >
               <div class="mb-4 flex items-center justify-center">
                 <div
-                  class="flex h-12 w-12 items-center justify-center rounded-xl bg-brand-100 text-brand-600"
+                  class="bg-brand-100 text-brand-600 flex h-12 w-12 items-center justify-center rounded-xl"
                 >
                   <svg
                     class="h-6 w-6"
@@ -217,7 +217,7 @@ function handleInviteResponse(response) {
                 <button
                   type="submit"
                   :disabled="form.processing"
-                  class="flex w-full items-center justify-center rounded-xl border border-red-200 bg-white px-6 py-4 text-lg font-medium text-red-600 shadow-lg transition-all duration-200 hover:scale-[1.02] hover:border-red-300 hover:bg-red-50 hover:shadow-xl focus:outline-none focus:ring-2 focus:ring-red-500 focus:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50 disabled:hover:scale-100"
+                  class="flex w-full items-center justify-center rounded-xl border border-red-200 bg-white px-6 py-4 text-lg font-medium text-red-600 shadow-lg transition-all duration-200 hover:scale-[1.02] hover:border-red-300 hover:bg-red-50 hover:shadow-xl focus:ring-2 focus:ring-red-500 focus:ring-offset-2 focus:outline-none disabled:cursor-not-allowed disabled:opacity-50 disabled:hover:scale-100"
                 >
                   <svg
                     class="mr-2 h-5 w-5"
@@ -244,7 +244,7 @@ function handleInviteResponse(response) {
                 <button
                   type="submit"
                   :disabled="form.processing"
-                  class="bg-linear-to-r flex w-full items-center justify-center rounded-xl from-brand-600 to-accent-600 px-6 py-4 text-lg font-bold text-white shadow-lg transition-all duration-200 hover:scale-[1.02] hover:from-brand-700 hover:to-accent-700 hover:shadow-xl focus:outline-none focus:ring-2 focus:ring-brand-500 focus:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50 disabled:hover:scale-100"
+                  class="from-brand-600 to-accent-600 hover:from-brand-700 hover:to-accent-700 focus:ring-brand-500 flex w-full items-center justify-center rounded-xl bg-linear-to-r px-6 py-4 text-lg font-bold text-white shadow-lg transition-all duration-200 hover:scale-[1.02] hover:shadow-xl focus:ring-2 focus:ring-offset-2 focus:outline-none disabled:cursor-not-allowed disabled:opacity-50 disabled:hover:scale-100"
                 >
                   <svg
                     class="mr-2 h-5 w-5"
