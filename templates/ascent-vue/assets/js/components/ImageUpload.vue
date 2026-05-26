@@ -75,7 +75,7 @@ function openFileDialog() {
 
       <!-- Edit button overlay -->
       <div
-        class="absolute -right-4 -top-2 overflow-hidden rounded-full bg-white shadow-md"
+        class="absolute -top-2 -right-4 overflow-hidden rounded-full bg-white shadow-md"
       >
         <SecondaryButton
           icon="pi pi-pencil"

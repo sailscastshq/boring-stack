@@ -1,13 +1,19 @@
 /**
+ * @typedef {import('./types').InertiaRequest} InertiaRequest
+ * @typedef {import('./types').InertiaResponse} InertiaResponse
+ * @typedef {import('./types').BadRequestData} BadRequestData
+ */
+
+/**
  * Handle bad request responses for Inertia.js
  *
  * For Inertia requests with validation errors, this redirects back to the
  * previous page with errors stored in the session. For non-Inertia requests,
  * it returns a standard 400 response.
  *
- * @param {Object} req - Express/Sails request object
- * @param {Object} res - Express/Sails response object
- * @param {Object|Error} [optionalData] - Optional error data or Error object
+ * @param {InertiaRequest} req - Express/Sails request object
+ * @param {InertiaResponse} res - Express/Sails response object
+ * @param {BadRequestData|Error|Record<string, any>} [optionalData] - Optional error data or Error object
  * @returns {*} - Response (redirect for Inertia, status code for non-Inertia)
  *
  * @example
@@ -22,13 +28,21 @@ module.exports = function handleBadRequest(req, res, optionalData) {
   const statusCodeToSet = 400
 
   // Check if it's an Inertia request
-  if (req.header('X-Inertia')) {
-    if (optionalData && optionalData.problems) {
+  if (req.header?.('X-Inertia')) {
+    if (
+      optionalData &&
+      !(optionalData instanceof Error) &&
+      Array.isArray(optionalData.problems)
+    ) {
+      /** @type {Record<string, string[]>} */
       const errors = {}
       optionalData.problems.forEach((problem) => {
         if (typeof problem === 'object') {
           Object.keys(problem).forEach((propertyName) => {
-            const sanitizedProblem = problem[propertyName].replace(/\.$/, '') // Trim trailing dot
+            const sanitizedProblem = String(problem[propertyName]).replace(
+              /\.$/,
+              ''
+            ) // Trim trailing dot
             if (!errors[propertyName]) {
               errors[propertyName] = [sanitizedProblem]
             } else {

@@ -2,7 +2,7 @@ import { Head } from '@inertiajs/react'
 import AppLayout from '@/layouts/AppLayout.jsx'
 import '~/css/homepage.css'
 
-Index.layout = (page) => <AppLayout children={page} />
+Index.layout = AppLayout
 export default function Index() {
   return (
     <>

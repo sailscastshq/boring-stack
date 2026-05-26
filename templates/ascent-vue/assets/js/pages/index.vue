@@ -33,13 +33,13 @@ const handleWaitlistSubmit = (e) => {
 <template>
   <Head title="Ascent - The Complete SaaS Platform for Modern Teams" />
 
-  <section class="relative overflow-hidden px-4 pb-16 pt-20">
+  <section class="relative overflow-hidden px-4 pt-20 pb-16">
     <!-- Background Elements -->
     <div
-      class="bg-linear-to-br absolute inset-0 from-brand-50/30 via-white to-accent-50/20"
+      class="from-brand-50/30 to-accent-50/20 absolute inset-0 bg-linear-to-br via-white"
     />
     <div
-      class="absolute left-1/2 top-20 h-96 w-96 -translate-x-1/2 transform rounded-full bg-brand-100/20 blur-3xl"
+      class="bg-brand-100/20 absolute top-20 left-1/2 h-96 w-96 -translate-x-1/2 transform rounded-full blur-3xl"
     />
 
     <div class="relative mx-auto max-w-4xl text-center">
@@ -47,7 +47,7 @@ const handleWaitlistSubmit = (e) => {
       <div class="mb-8 flex items-center justify-center">
         <div class="relative">
           <div
-            class="absolute inset-0 scale-110 rounded-2xl bg-brand-200/20 blur-xl"
+            class="bg-brand-200/20 absolute inset-0 scale-110 rounded-2xl blur-xl"
           />
           <img
             src="/images/logo.svg"
@@ -65,7 +65,7 @@ const handleWaitlistSubmit = (e) => {
           Scale Your Team,
         </span>
         <span
-          class="bg-linear-to-r block from-brand-600 to-accent-600 bg-clip-text leading-tight text-transparent"
+          class="from-brand-600 to-accent-600 block bg-linear-to-r bg-clip-text leading-tight text-transparent"
         >
           Streamline Success
         </span>
@@ -73,7 +73,7 @@ const handleWaitlistSubmit = (e) => {
 
       <!-- Improved subheading -->
       <p
-        class="mx-auto mb-10 max-w-2xl text-xl font-medium leading-relaxed text-gray-600"
+        class="mx-auto mb-10 max-w-2xl text-xl leading-relaxed font-medium text-gray-600"
       >
         Stop building the same authentication, billing, and team features over
         and over.
@@ -89,13 +89,13 @@ const handleWaitlistSubmit = (e) => {
         >
           <div class="flex -space-x-1">
             <div
-              class="bg-linear-to-br h-6 w-6 rounded-full border-2 border-white from-blue-400 to-blue-600"
+              class="h-6 w-6 rounded-full border-2 border-white bg-linear-to-br from-blue-400 to-blue-600"
             />
             <div
-              class="bg-linear-to-br h-6 w-6 rounded-full border-2 border-white from-green-400 to-green-600"
+              class="h-6 w-6 rounded-full border-2 border-white bg-linear-to-br from-green-400 to-green-600"
             />
             <div
-              class="bg-linear-to-br h-6 w-6 rounded-full border-2 border-white from-purple-400 to-purple-600"
+              class="h-6 w-6 rounded-full border-2 border-white bg-linear-to-br from-purple-400 to-purple-600"
             />
           </div>
           <span class="text-sm font-medium text-gray-700">
@@ -108,7 +108,7 @@ const handleWaitlistSubmit = (e) => {
       <div class="mx-auto mb-16 max-w-lg">
         <div v-if="isWaitlistActive" class="relative">
           <div
-            class="bg-linear-to-r absolute inset-0 scale-105 rounded-2xl from-brand-600 to-accent-600 opacity-20 blur-md"
+            class="from-brand-600 to-accent-600 absolute inset-0 scale-105 rounded-2xl bg-linear-to-r opacity-20 blur-md"
           />
           <form
             @submit="handleWaitlistSubmit"
@@ -131,7 +131,7 @@ const handleWaitlistSubmit = (e) => {
 
             <Message
               severity="error"
-              class="w-full mb-6"
+              class="mb-6 w-full"
               v-if="form.errors.waitlist"
               role="alert"
             >
@@ -148,7 +148,7 @@ const handleWaitlistSubmit = (e) => {
                     'w-full rounded-xl border px-4 py-4 text-lg font-medium transition-all duration-200',
                     shouldShake || form.errors.email
                       ? 'border-red-300 bg-red-50 ring-2 ring-red-100'
-                      : 'border-gray-300 bg-gray-200 focus:border-brand-300 focus:bg-white focus:ring-4 focus:ring-brand-100'
+                      : 'focus:border-brand-300 focus:ring-brand-100 border-gray-300 bg-gray-200 focus:bg-white focus:ring-4'
                   ]"
                   :disabled="form.processing"
                   :aria-describedby="
@@ -170,7 +170,7 @@ const handleWaitlistSubmit = (e) => {
               <button
                 type="submit"
                 :disabled="form.processing"
-                class="bg-linear-to-r w-full rounded-xl from-brand-600 to-accent-600 px-8 py-4 text-lg font-bold text-white shadow-lg transition-all duration-200 hover:shadow-xl disabled:opacity-75"
+                class="from-brand-600 to-accent-600 w-full rounded-xl bg-linear-to-r px-8 py-4 text-lg font-bold text-white shadow-lg transition-all duration-200 hover:shadow-xl disabled:opacity-75"
                 aria-describedby="email-input"
               >
                 <span
@@ -255,15 +255,15 @@ const handleWaitlistSubmit = (e) => {
         <div v-else class="text-center">
           <div class="flex flex-col justify-center gap-4 sm:flex-row">
             <button
-              class="hover:shadow-3xl bg-linear-to-r group relative rounded-xl from-brand-600 to-accent-600 px-8 py-4 font-bold text-white shadow-2xl transition-all duration-200 hover:scale-[1.02]"
+              class="hover:shadow-3xl group from-brand-600 to-accent-600 relative rounded-xl bg-linear-to-r px-8 py-4 font-bold text-white shadow-2xl transition-all duration-200 hover:scale-[1.02]"
             >
               <span class="relative z-10">Start Free Trial</span>
               <div
-                class="bg-linear-to-r absolute inset-0 rounded-xl from-brand-700 to-accent-700 opacity-0 transition-opacity group-hover:opacity-100"
+                class="from-brand-700 to-accent-700 absolute inset-0 rounded-xl bg-linear-to-r opacity-0 transition-opacity group-hover:opacity-100"
               />
             </button>
             <button
-              class="rounded-xl border-2 border-gray-300 bg-white px-8 py-4 font-bold text-gray-700 shadow-lg transition-all duration-200 hover:scale-[1.02] hover:border-brand-300 hover:shadow-xl"
+              class="hover:border-brand-300 rounded-xl border-2 border-gray-300 bg-white px-8 py-4 font-bold text-gray-700 shadow-lg transition-all duration-200 hover:scale-[1.02] hover:shadow-xl"
             >
               Schedule Demo
             </button>
@@ -279,7 +279,7 @@ const handleWaitlistSubmit = (e) => {
   <!-- Key Features Section -->
   <section class="relative bg-white px-4 py-20">
     <!-- Subtle background pattern -->
-    <div class="bg-linear-to-b absolute inset-0 from-gray-200 to-white" />
+    <div class="absolute inset-0 bg-linear-to-b from-gray-200 to-white" />
     <div
       class="absolute inset-0"
       style="
@@ -296,7 +296,7 @@ const handleWaitlistSubmit = (e) => {
       <div class="mb-16 text-center">
         <div class="mb-4">
           <span
-            class="inline-flex items-center rounded-full bg-brand-100 px-3 py-1 text-sm font-semibold text-brand-700"
+            class="bg-brand-100 text-brand-700 inline-flex items-center rounded-full px-3 py-1 text-sm font-semibold"
           >
             ✨ Features
           </span>
@@ -306,13 +306,13 @@ const handleWaitlistSubmit = (e) => {
         >
           Everything You Need to
           <span
-            class="bg-linear-to-r block from-brand-600 to-accent-600 bg-clip-text text-transparent"
+            class="from-brand-600 to-accent-600 block bg-linear-to-r bg-clip-text text-transparent"
           >
             Scale Fast
           </span>
         </h2>
         <p
-          class="mx-auto max-w-3xl text-xl font-medium leading-relaxed text-gray-600"
+          class="mx-auto max-w-3xl text-xl leading-relaxed font-medium text-gray-600"
         >
           From authentication to payments, we've built all the infrastructure
           your growing business needs.
@@ -328,11 +328,11 @@ const handleWaitlistSubmit = (e) => {
           class="group relative rounded-2xl border border-gray-100 bg-white p-8 shadow-sm transition-all duration-300 hover:-translate-y-1 hover:shadow-xl dark:border-gray-800 dark:bg-gray-900"
         >
           <div
-            class="bg-linear-to-br absolute inset-0 rounded-2xl from-brand-50/50 to-transparent opacity-0 transition-opacity group-hover:opacity-100"
+            class="from-brand-50/50 absolute inset-0 rounded-2xl bg-linear-to-br to-transparent opacity-0 transition-opacity group-hover:opacity-100"
           />
           <div class="relative">
             <div
-              class="bg-linear-to-br mb-6 flex h-14 w-14 items-center justify-center rounded-2xl from-brand-500 to-brand-600 shadow-lg"
+              class="from-brand-500 to-brand-600 mb-6 flex h-14 w-14 items-center justify-center rounded-2xl bg-linear-to-br shadow-lg"
             >
               <svg
                 class="h-7 w-7 text-white"
@@ -355,7 +355,7 @@ const handleWaitlistSubmit = (e) => {
               OAuth, magic links, 2FA, and session management. Enterprise-grade
               security that scales.
             </p>
-            <div class="flex items-center text-sm font-medium text-brand-600">
+            <div class="text-brand-600 flex items-center text-sm font-medium">
               <span>OAuth • 2FA • Magic Links</span>
             </div>
           </div>
@@ -366,11 +366,11 @@ const handleWaitlistSubmit = (e) => {
           class="group relative rounded-2xl border border-gray-100 bg-white p-8 shadow-sm transition-all duration-300 hover:-translate-y-1 hover:shadow-xl"
         >
           <div
-            class="bg-linear-to-br absolute inset-0 rounded-2xl from-accent-50/50 to-transparent opacity-0 transition-opacity group-hover:opacity-100"
+            class="from-accent-50/50 absolute inset-0 rounded-2xl bg-linear-to-br to-transparent opacity-0 transition-opacity group-hover:opacity-100"
           />
           <div class="relative">
             <div
-              class="bg-linear-to-br mb-6 flex h-14 w-14 items-center justify-center rounded-2xl from-accent-500 to-accent-600 shadow-lg"
+              class="from-accent-500 to-accent-600 mb-6 flex h-14 w-14 items-center justify-center rounded-2xl bg-linear-to-br shadow-lg"
             >
               <svg
                 class="h-7 w-7 text-white"
@@ -393,7 +393,7 @@ const handleWaitlistSubmit = (e) => {
               Lemon Squeezy integration for seamless recurring payments and
               subscription management.
             </p>
-            <div class="flex items-center text-sm font-medium text-accent-600">
+            <div class="text-accent-600 flex items-center text-sm font-medium">
               <span>Recurring • One-time • Trials</span>
             </div>
           </div>
@@ -404,11 +404,11 @@ const handleWaitlistSubmit = (e) => {
           class="group relative rounded-2xl border border-gray-100 bg-white p-8 shadow-sm transition-all duration-300 hover:-translate-y-1 hover:shadow-xl"
         >
           <div
-            class="bg-linear-to-br absolute inset-0 rounded-2xl from-success-50/50 to-transparent opacity-0 transition-opacity group-hover:opacity-100"
+            class="from-success-50/50 absolute inset-0 rounded-2xl bg-linear-to-br to-transparent opacity-0 transition-opacity group-hover:opacity-100"
           />
           <div class="relative">
             <div
-              class="bg-linear-to-br mb-6 flex h-14 w-14 items-center justify-center rounded-2xl from-success-500 to-success-600 shadow-lg"
+              class="from-success-500 to-success-600 mb-6 flex h-14 w-14 items-center justify-center rounded-2xl bg-linear-to-br shadow-lg"
             >
               <svg
                 class="h-7 w-7 text-white"
@@ -431,7 +431,7 @@ const handleWaitlistSubmit = (e) => {
               Multi-tenancy with team invites, role-based permissions, and
               complete workspace isolation.
             </p>
-            <div class="flex items-center text-sm font-medium text-success-600">
+            <div class="text-success-600 flex items-center text-sm font-medium">
               <span>Roles • Invites • Workspaces</span>
             </div>
           </div>
@@ -442,11 +442,11 @@ const handleWaitlistSubmit = (e) => {
           class="group relative rounded-2xl border border-gray-100 bg-white p-8 shadow-sm transition-all duration-300 hover:-translate-y-1 hover:shadow-xl"
         >
           <div
-            class="bg-linear-to-br absolute inset-0 rounded-2xl from-purple-50/50 to-transparent opacity-0 transition-opacity group-hover:opacity-100"
+            class="absolute inset-0 rounded-2xl bg-linear-to-br from-purple-50/50 to-transparent opacity-0 transition-opacity group-hover:opacity-100"
           />
           <div class="relative">
             <div
-              class="bg-linear-to-br mb-6 flex h-14 w-14 items-center justify-center rounded-2xl from-purple-500 to-purple-600 shadow-lg"
+              class="mb-6 flex h-14 w-14 items-center justify-center rounded-2xl bg-linear-to-br from-purple-500 to-purple-600 shadow-lg"
             >
               <svg
                 class="h-7 w-7 text-white"
@@ -480,11 +480,11 @@ const handleWaitlistSubmit = (e) => {
           class="group relative rounded-2xl border border-gray-100 bg-white p-8 shadow-sm transition-all duration-300 hover:-translate-y-1 hover:shadow-xl"
         >
           <div
-            class="bg-linear-to-br absolute inset-0 rounded-2xl from-orange-50/50 to-transparent opacity-0 transition-opacity group-hover:opacity-100"
+            class="absolute inset-0 rounded-2xl bg-linear-to-br from-orange-50/50 to-transparent opacity-0 transition-opacity group-hover:opacity-100"
           />
           <div class="relative">
             <div
-              class="bg-linear-to-br mb-6 flex h-14 w-14 items-center justify-center rounded-2xl from-orange-500 to-orange-600 shadow-lg"
+              class="mb-6 flex h-14 w-14 items-center justify-center rounded-2xl bg-linear-to-br from-orange-500 to-orange-600 shadow-lg"
             >
               <svg
                 class="h-7 w-7 text-white"
@@ -516,11 +516,11 @@ const handleWaitlistSubmit = (e) => {
           class="group relative rounded-2xl border border-gray-100 bg-white p-8 shadow-sm transition-all duration-300 hover:-translate-y-1 hover:shadow-xl"
         >
           <div
-            class="bg-linear-to-br absolute inset-0 rounded-2xl from-red-50/50 to-transparent opacity-0 transition-opacity group-hover:opacity-100"
+            class="absolute inset-0 rounded-2xl bg-linear-to-br from-red-50/50 to-transparent opacity-0 transition-opacity group-hover:opacity-100"
           />
           <div class="relative">
             <div
-              class="bg-linear-to-br mb-6 flex h-14 w-14 items-center justify-center rounded-2xl from-red-500 to-red-600 shadow-lg"
+              class="mb-6 flex h-14 w-14 items-center justify-center rounded-2xl bg-linear-to-br from-red-500 to-red-600 shadow-lg"
             >
               <svg
                 class="h-7 w-7 text-white"
@@ -556,10 +556,10 @@ const handleWaitlistSubmit = (e) => {
   <section class="relative overflow-hidden bg-gray-900 px-4 py-24">
     <!-- Background Elements -->
     <div
-      class="bg-linear-to-br absolute inset-0 from-gray-900 via-gray-800 to-brand-900"
+      class="to-brand-900 absolute inset-0 bg-linear-to-br from-gray-900 via-gray-800"
     />
     <div
-      class="absolute left-1/2 top-0 h-96 w-96 -translate-x-1/2 transform rounded-full bg-brand-500/10 blur-3xl"
+      class="bg-brand-500/10 absolute top-0 left-1/2 h-96 w-96 -translate-x-1/2 transform rounded-full blur-3xl"
     />
 
     <div class="relative mx-auto max-w-6xl">
@@ -569,13 +569,13 @@ const handleWaitlistSubmit = (e) => {
         >
           Why Choose
           <span
-            class="bg-linear-to-r block from-brand-400 to-accent-400 bg-clip-text text-transparent"
+            class="from-brand-400 to-accent-400 block bg-linear-to-r bg-clip-text text-transparent"
           >
             The Boring Stack?
           </span>
         </h2>
         <p
-          class="mx-auto max-w-3xl text-xl font-medium leading-relaxed text-gray-300"
+          class="mx-auto max-w-3xl text-xl leading-relaxed font-medium text-gray-300"
         >
           Because it works. No drama, no complexity, just results.
         </p>
@@ -586,10 +586,10 @@ const handleWaitlistSubmit = (e) => {
           <div class="mb-6 flex justify-center">
             <div class="relative">
               <div
-                class="absolute inset-0 scale-110 rounded-2xl bg-brand-500/20 blur-xl"
+                class="bg-brand-500/20 absolute inset-0 scale-110 rounded-2xl blur-xl"
               />
               <div
-                class="bg-linear-to-br relative rounded-2xl from-brand-500 to-brand-600 p-4 shadow-2xl"
+                class="from-brand-500 to-brand-600 relative rounded-2xl bg-linear-to-br p-4 shadow-2xl"
               >
                 <svg
                   class="h-8 w-8 text-white"
@@ -613,7 +613,7 @@ const handleWaitlistSubmit = (e) => {
             complex build tools or chasing JavaScript trends.
           </p>
           <div
-            class="mt-4 inline-flex items-center text-sm font-medium text-brand-400"
+            class="text-brand-400 mt-4 inline-flex items-center text-sm font-medium"
           >
             <span>React • Node.js • PostgreSQL</span>
           </div>
@@ -623,10 +623,10 @@ const handleWaitlistSubmit = (e) => {
           <div class="mb-6 flex justify-center">
             <div class="relative">
               <div
-                class="absolute inset-0 scale-110 rounded-2xl bg-accent-500/20 blur-xl"
+                class="bg-accent-500/20 absolute inset-0 scale-110 rounded-2xl blur-xl"
               />
               <div
-                class="bg-linear-to-br relative rounded-2xl from-accent-500 to-accent-600 p-4 shadow-2xl"
+                class="from-accent-500 to-accent-600 relative rounded-2xl bg-linear-to-br p-4 shadow-2xl"
               >
                 <svg
                   class="h-8 w-8 text-white"
@@ -650,7 +650,7 @@ const handleWaitlistSubmit = (e) => {
             Everything you need to launch your SaaS.
           </p>
           <div
-            class="mt-4 inline-flex items-center text-sm font-medium text-accent-400"
+            class="text-accent-400 mt-4 inline-flex items-center text-sm font-medium"
           >
             <span>Auth • Billing • Multi-tenancy</span>
           </div>
@@ -660,10 +660,10 @@ const handleWaitlistSubmit = (e) => {
           <div class="mb-6 flex justify-center">
             <div class="relative">
               <div
-                class="absolute inset-0 scale-110 rounded-2xl bg-success-500/20 blur-xl"
+                class="bg-success-500/20 absolute inset-0 scale-110 rounded-2xl blur-xl"
               />
               <div
-                class="bg-linear-to-br relative rounded-2xl from-success-500 to-success-600 p-4 shadow-2xl"
+                class="from-success-500 to-success-600 relative rounded-2xl bg-linear-to-br p-4 shadow-2xl"
               >
                 <svg
                   class="h-8 w-8 text-white"
@@ -687,7 +687,7 @@ const handleWaitlistSubmit = (e) => {
             works together seamlessly.
           </p>
           <div
-            class="mt-4 inline-flex items-center text-sm font-medium text-success-400"
+            class="text-success-400 mt-4 inline-flex items-center text-sm font-medium"
           >
             <span>PrimeReact • Tailwind • TypeScript</span>
           </div>
@@ -699,19 +699,19 @@ const handleWaitlistSubmit = (e) => {
   <!-- FAQ Section -->
   <section class="relative overflow-hidden bg-white px-4 py-20">
     <!-- Subtle background pattern -->
-    <div class="bg-linear-to-b absolute inset-0 from-gray-50/30 to-white" />
+    <div class="absolute inset-0 bg-linear-to-b from-gray-50/30 to-white" />
     <div
-      class="absolute right-1/4 top-0 h-72 w-72 rounded-full bg-brand-100/20 blur-3xl"
+      class="bg-brand-100/20 absolute top-0 right-1/4 h-72 w-72 rounded-full blur-3xl"
     />
     <div
-      class="absolute bottom-0 left-1/4 h-96 w-96 rounded-full bg-accent-100/20 blur-3xl"
+      class="bg-accent-100/20 absolute bottom-0 left-1/4 h-96 w-96 rounded-full blur-3xl"
     />
 
     <div class="relative mx-auto max-w-4xl">
       <div class="mb-16 text-center">
         <div class="mb-4">
           <span
-            class="inline-flex items-center rounded-full bg-brand-100 px-4 py-2 text-sm font-semibold text-brand-700"
+            class="bg-brand-100 text-brand-700 inline-flex items-center rounded-full px-4 py-2 text-sm font-semibold"
           >
             ❓ FAQ
           </span>
@@ -721,13 +721,13 @@ const handleWaitlistSubmit = (e) => {
         >
           Got Questions?
           <span
-            class="bg-linear-to-r block from-brand-600 to-accent-600 bg-clip-text text-transparent"
+            class="from-brand-600 to-accent-600 block bg-linear-to-r bg-clip-text text-transparent"
           >
             We've Got Answers
           </span>
         </h2>
         <p
-          class="mx-auto max-w-2xl text-xl font-medium leading-relaxed text-gray-600"
+          class="mx-auto max-w-2xl text-xl leading-relaxed font-medium text-gray-600"
         >
           Everything you need to know about launching your SaaS with Ascent.
         </p>
@@ -741,16 +741,16 @@ const handleWaitlistSubmit = (e) => {
             class="flex cursor-pointer list-none items-center justify-between p-6 [&::-webkit-details-marker]:hidden"
           >
             <h3
-              class="text-lg font-bold text-gray-900 transition-colors group-hover:text-brand-600"
+              class="group-hover:text-brand-600 text-lg font-bold text-gray-900 transition-colors"
             >
               Why should I choose Ascent over building from scratch?
             </h3>
             <div class="ml-4 shrink-0">
               <div
-                class="flex h-8 w-8 items-center justify-center rounded-full bg-brand-50 transition-colors group-hover:bg-brand-100"
+                class="bg-brand-50 group-hover:bg-brand-100 flex h-8 w-8 items-center justify-center rounded-full transition-colors"
               >
                 <svg
-                  class="h-4 w-4 text-brand-600 transition-transform group-open:rotate-180"
+                  class="text-brand-600 h-4 w-4 transition-transform group-open:rotate-180"
                   fill="none"
                   stroke="currentColor"
                   viewBox="0 0 24 24"
@@ -773,7 +773,7 @@ const handleWaitlistSubmit = (e) => {
                 billing, teams, admin dashboard—in minutes, not months.
               </p>
               <div
-                class="inline-flex items-center space-x-2 rounded-lg bg-brand-50 px-3 py-2 text-sm font-semibold text-brand-700"
+                class="bg-brand-50 text-brand-700 inline-flex items-center space-x-2 rounded-lg px-3 py-2 text-sm font-semibold"
               >
                 <svg
                   class="h-4 w-4"
@@ -801,16 +801,16 @@ const handleWaitlistSubmit = (e) => {
             class="flex cursor-pointer list-none items-center justify-between p-6 [&::-webkit-details-marker]:hidden"
           >
             <h3
-              class="text-lg font-bold text-gray-900 transition-colors group-hover:text-brand-600"
+              class="group-hover:text-brand-600 text-lg font-bold text-gray-900 transition-colors"
             >
               How much money could this save my startup?
             </h3>
             <div class="ml-4 shrink-0">
               <div
-                class="flex h-8 w-8 items-center justify-center rounded-full bg-success-50 transition-colors group-hover:bg-success-100"
+                class="bg-success-50 group-hover:bg-success-100 flex h-8 w-8 items-center justify-center rounded-full transition-colors"
               >
                 <svg
-                  class="h-4 w-4 text-success-600 transition-transform group-open:rotate-180"
+                  class="text-success-600 h-4 w-4 transition-transform group-open:rotate-180"
                   fill="none"
                   stroke="currentColor"
                   viewBox="0 0 24 24"
@@ -834,7 +834,7 @@ const handleWaitlistSubmit = (e) => {
                 infrastructure immediately.
               </p>
               <div
-                class="inline-flex items-center space-x-2 rounded-lg bg-success-50 px-3 py-2 text-sm font-semibold text-success-700"
+                class="bg-success-50 text-success-700 inline-flex items-center space-x-2 rounded-lg px-3 py-2 text-sm font-semibold"
               >
                 <svg
                   class="h-4 w-4"
@@ -862,16 +862,16 @@ const handleWaitlistSubmit = (e) => {
             class="flex cursor-pointer list-none items-center justify-between p-6 [&::-webkit-details-marker]:hidden"
           >
             <h3
-              class="text-lg font-bold text-gray-900 transition-colors group-hover:text-brand-600"
+              class="group-hover:text-brand-600 text-lg font-bold text-gray-900 transition-colors"
             >
               Is this actually production-ready or just a demo?
             </h3>
             <div class="ml-4 shrink-0">
               <div
-                class="flex h-8 w-8 items-center justify-center rounded-full bg-accent-50 transition-colors group-hover:bg-accent-100"
+                class="bg-accent-50 group-hover:bg-accent-100 flex h-8 w-8 items-center justify-center rounded-full transition-colors"
               >
                 <svg
-                  class="h-4 w-4 text-accent-600 transition-transform group-open:rotate-180"
+                  class="text-accent-600 h-4 w-4 transition-transform group-open:rotate-180"
                   fill="none"
                   stroke="currentColor"
                   viewBox="0 0 24 24"
@@ -894,7 +894,7 @@ const handleWaitlistSubmit = (e) => {
                 scripts—everything you need to launch and scale.
               </p>
               <div
-                class="inline-flex items-center space-x-2 rounded-lg bg-accent-50 px-3 py-2 text-sm font-semibold text-accent-700"
+                class="bg-accent-50 text-accent-700 inline-flex items-center space-x-2 rounded-lg px-3 py-2 text-sm font-semibold"
               >
                 <svg
                   class="h-4 w-4"
@@ -922,7 +922,7 @@ const handleWaitlistSubmit = (e) => {
             class="flex cursor-pointer list-none items-center justify-between p-6 [&::-webkit-details-marker]:hidden"
           >
             <h3
-              class="text-lg font-bold text-gray-900 transition-colors group-hover:text-brand-600"
+              class="group-hover:text-brand-600 text-lg font-bold text-gray-900 transition-colors"
             >
               What if I need to customize or add features?
             </h3>
@@ -982,7 +982,7 @@ const handleWaitlistSubmit = (e) => {
             class="flex cursor-pointer list-none items-center justify-between p-6 [&::-webkit-details-marker]:hidden"
           >
             <h3
-              class="text-lg font-bold text-gray-900 transition-colors group-hover:text-brand-600"
+              class="group-hover:text-brand-600 text-lg font-bold text-gray-900 transition-colors"
             >
               How do I know this won't become technical debt?
             </h3>

@@ -1,12 +1,25 @@
 const ScrollProp = require('./scroll-prop')
 
 /**
+ * @typedef {import('../types').InertiaProps} InertiaProps
+ *
+ * @typedef {Object} ScrollPropsMetadata
+ * @property {Record<string, {
+ *   pageName: string,
+ *   currentPage: number,
+ *   previousPage: number|null,
+ *   nextPage: number|null,
+ *   reset: boolean
+ * }>} [scrollProps]
+ */
+
+/**
  * Resolve scroll props metadata for the page response.
  * Extracts ScrollProp instances and builds the scrollProps object
- * expected by Inertia.js v2's <InfiniteScroll> component.
+ * expected by Inertia's <InfiniteScroll> component.
  *
- * @param {Object} pageProps - The page props
- * @returns {Object} - Object with scrollProps if any exist
+ * @param {InertiaProps} pageProps - The page props
+ * @returns {ScrollPropsMetadata} - Object with scrollProps if any exist
  *
  * @example
  * // Input props with ScrollProp instance:
@@ -26,6 +39,7 @@ const ScrollProp = require('./scroll-prop')
  * }
  */
 module.exports = function resolveScrollProps(pageProps) {
+  /** @type {NonNullable<ScrollPropsMetadata['scrollProps']>} */
   const scrollProps = {}
 
   for (const [key, value] of Object.entries(pageProps || {})) {

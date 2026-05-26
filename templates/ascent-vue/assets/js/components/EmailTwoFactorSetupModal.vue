@@ -108,7 +108,7 @@ function handleClose() {
         </div>
 
         <div
-          class="flex flex-col justify-end space-y-3 sm:flex-row sm:space-x-3 sm:space-y-0"
+          class="flex flex-col justify-end space-y-3 sm:flex-row sm:space-y-0 sm:space-x-3"
         >
           <SecondaryButton
             type="button"

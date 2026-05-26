@@ -74,7 +74,7 @@ defineExpose({
     class="w-full md:w-64"
   >
     <template #start>
-      <div class="border-b border-surface-200 px-4 py-3">
+      <div class="border-surface-200 border-b px-4 py-3">
         <div class="flex items-center">
           <Avatar
             :image="loggedInUser?.currentAvatarUrl"
@@ -104,7 +104,7 @@ defineExpose({
     </template>
 
     <template #submenulabel="{ item }">
-      <span class="text-xs font-bold uppercase text-surface-500">{{
+      <span class="text-surface-500 text-xs font-bold uppercase">{{
         item.label
       }}</span>
     </template>
@@ -143,9 +143,9 @@ defineExpose({
         v-bind="props.action"
       >
         <div
-          class="flex items-center justify-center w-8 h-8 border-2 border-dashed border-surface-300 dark:border-surface-600 rounded-lg"
+          class="border-surface-300 dark:border-surface-600 flex h-8 w-8 items-center justify-center rounded-lg border-2 border-dashed"
         >
-          <i class="pi pi-plus text-sm text-surface-400" />
+          <i class="pi pi-plus text-surface-400 text-sm" />
         </div>
         <span class="text-sm font-medium">{{ item.label }}</span>
       </Link>

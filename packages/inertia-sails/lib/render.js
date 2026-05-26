@@ -2,7 +2,60 @@ const { encode } = require('querystring')
 const inertiaHeaders = require('./helpers/inertia-headers')
 const buildPageObject = require('./helpers/build-page-object')
 const requestContext = require('./helpers/request-context')
+const resolveAssetVersion = require('./helpers/resolve-asset-version')
 
+/**
+ * @typedef {import('./types').InertiaRequest} InertiaRequest
+ * @typedef {import('./types').InertiaResponse} InertiaResponse
+ * @typedef {import('./types').InertiaProps} InertiaProps
+ *
+ * @typedef {Object} RenderData
+ * @property {string} page
+ * @property {InertiaProps} [props]
+ * @property {InertiaProps} [locals]
+ */
+
+/**
+ * @param {InertiaRequest} req
+ * @returns {string}
+ */
+function getRequestUrl(req) {
+  let url = req.url || req.originalUrl || '/'
+  const queryParams = req.query || {}
+
+  if (req.method === 'GET' && Object.keys(queryParams).length) {
+    // Only append query params if the URL doesn't already contain them
+    // This prevents duplication when redirecting with query parameters
+    if (!url.includes('?')) {
+      url += `?${encode(queryParams)}`
+    }
+  }
+
+  return url
+}
+
+/**
+ * @param {InertiaRequest} req
+ * @param {any} currentVersion
+ * @returns {boolean}
+ */
+function hasAssetVersionMismatch(req, currentVersion) {
+  const requestVersion = req.get(inertiaHeaders.VERSION)
+
+  if (req.method !== 'GET') return false
+  if (!req.get(inertiaHeaders.INERTIA)) return false
+  if (requestVersion === undefined || requestVersion === null) return false
+  if (currentVersion === undefined || currentVersion === null) return false
+
+  return String(requestVersion) !== String(currentVersion)
+}
+
+/**
+ * @param {InertiaRequest} req
+ * @param {InertiaResponse} res
+ * @param {RenderData} data
+ * @returns {Promise<any>}
+ */
 module.exports = async function render(req, res, data) {
   const sails = req._sails
   // Use request-scoped rootView if set, otherwise fall back to config
@@ -15,20 +68,26 @@ module.exports = async function render(req, res, data) {
     ...data.locals
   }
 
-  let page = await buildPageObject(req, data.page, data.props)
+  const currentVersion = resolveAssetVersion(sails)
+  const requestUrl = getRequestUrl(req)
 
-  const queryParams = req.query
-  if (req.method === 'GET' && Object.keys(queryParams).length) {
-    // Only append query params if the URL doesn't already contain them
-    // This prevents duplication when redirecting with query parameters
-    if (!page.url.includes('?')) {
-      page.url += `?${encode(queryParams)}`
-    }
+  if (hasAssetVersionMismatch(req, currentVersion)) {
+    res.set('Vary', 'X-Inertia')
+    res.set(inertiaHeaders.LOCATION, requestUrl)
+    return res.status(409).end()
   }
+
+  let page = await buildPageObject(
+    /** @type {any} */ (req),
+    data.page,
+    data.props
+  )
+
+  page.url = requestUrl
 
   if (req.get(inertiaHeaders.INERTIA)) {
     res.set(inertiaHeaders.INERTIA, true)
-    res.set('Vary', 'Accept')
+    res.set('Vary', 'X-Inertia')
     return res.json(page)
   } else {
     // Implements full page reload

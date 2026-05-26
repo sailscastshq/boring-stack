@@ -25,7 +25,8 @@
     "@commitlint/config-conventional": "^17.6.6",
     "husky": "^8.0.3",
     "lint-staged": "^13.2.2",
-    "prettier": "2.8.8"
+    "prettier": "2.8.8",
+    "typescript": "^5.7.3"
   },
   "workspaces": [
     "packages/*"

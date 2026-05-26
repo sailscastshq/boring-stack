@@ -88,7 +88,7 @@ function handleClose() {
         </p>
 
         <div
-          class="flex flex-col space-y-6 py-4 sm:flex-row sm:items-start sm:space-x-8 sm:space-y-0"
+          class="flex flex-col space-y-6 py-4 sm:flex-row sm:items-start sm:space-y-0 sm:space-x-8"
         >
           <!-- QR Code -->
           <div class="flex justify-center sm:justify-start">
@@ -111,7 +111,7 @@ function handleClose() {
             </div>
             <div class="flex items-center space-x-2">
               <div
-                class="min-w-0 flex-1 break-all rounded border border-gray-300 bg-white px-3 py-2 font-mono text-sm text-gray-900"
+                class="min-w-0 flex-1 rounded border border-gray-300 bg-white px-3 py-2 font-mono text-sm break-all text-gray-900"
               >
                 {{ setupData.manualEntryKey }}
               </div>
@@ -161,7 +161,7 @@ function handleClose() {
           </div>
 
           <div
-            class="flex flex-col justify-end space-y-3 sm:flex-row sm:space-x-3 sm:space-y-0"
+            class="flex flex-col justify-end space-y-3 sm:flex-row sm:space-y-0 sm:space-x-3"
           >
             <SecondaryButton
               type="button"

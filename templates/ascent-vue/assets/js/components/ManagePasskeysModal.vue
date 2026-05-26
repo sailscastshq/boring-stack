@@ -157,7 +157,7 @@ function getDeviceIcon(transports) {
             <div class="flex min-w-0 flex-1 items-center space-x-4">
               <div class="shrink-0">
                 <div
-                  class="flex h-10 w-10 items-center justify-center rounded-lg bg-brand-50"
+                  class="bg-brand-50 flex h-10 w-10 items-center justify-center rounded-lg"
                 >
                   <i
                     :class="[

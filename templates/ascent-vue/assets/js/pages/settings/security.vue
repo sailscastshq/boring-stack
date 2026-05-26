@@ -356,7 +356,7 @@ function submitInitialPassword(e) {
         >
           <div class="mb-4 flex items-center space-x-3">
             <div
-              class="flex h-10 w-10 items-center justify-center rounded-lg bg-brand-50"
+              class="bg-brand-50 flex h-10 w-10 items-center justify-center rounded-lg"
             >
               <i class="pi pi-lock text-brand-600" />
             </div>
@@ -427,7 +427,7 @@ function submitInitialPassword(e) {
           </div>
 
           <div
-            class="flex flex-col space-y-3 pt-4 sm:flex-row sm:items-center sm:justify-end sm:space-x-3 sm:space-y-0"
+            class="flex flex-col space-y-3 pt-4 sm:flex-row sm:items-center sm:justify-end sm:space-y-0 sm:space-x-3"
           >
             <SecondaryButton
               type="button"
@@ -462,13 +462,13 @@ function submitInitialPassword(e) {
         >
           <div class="flex items-center space-x-3 sm:space-x-4">
             <div
-              class="flex h-10 w-10 shrink-0 items-center justify-center rounded-lg bg-brand-50"
+              class="bg-brand-50 flex h-10 w-10 shrink-0 items-center justify-center rounded-lg"
             >
               <i class="pi pi-lock text-brand-600" />
             </div>
             <div class="min-w-0 flex-1">
               <div
-                class="flex flex-col space-y-2 sm:flex-row sm:items-center sm:space-x-3 sm:space-y-0"
+                class="flex flex-col space-y-2 sm:flex-row sm:items-center sm:space-y-0 sm:space-x-3"
               >
                 <span class="font-mono text-sm text-gray-400">
                   ••••••••••••••
@@ -479,10 +479,10 @@ function submitInitialPassword(e) {
                     passwordStrength.color === 'success'
                       ? 'bg-success-100 text-success-800'
                       : passwordStrength.color === 'warning'
-                      ? 'bg-warning-100 text-warning-800'
-                      : passwordStrength.color === 'danger'
-                      ? 'bg-red-100 text-red-800'
-                      : 'bg-gray-100 text-gray-800'
+                        ? 'bg-warning-100 text-warning-800'
+                        : passwordStrength.color === 'danger'
+                          ? 'bg-red-100 text-red-800'
+                          : 'bg-gray-100 text-gray-800'
                   ]"
                 >
                   <i class="pi pi-shield mr-1" />
@@ -513,7 +513,7 @@ function submitInitialPassword(e) {
         >
           <div class="mb-4 flex items-center space-x-3">
             <div
-              class="flex h-10 w-10 items-center justify-center rounded-lg bg-brand-50"
+              class="bg-brand-50 flex h-10 w-10 items-center justify-center rounded-lg"
             >
               <i class="pi pi-lock text-brand-600" />
             </div>
@@ -603,12 +603,12 @@ function submitInitialPassword(e) {
           >
             <span
               v-if="form.recentlySuccessful"
-              class="text-sm text-success-600"
+              class="text-success-600 text-sm"
             >
               Password updated successfully
             </span>
             <div
-              class="flex flex-col space-y-2 sm:ml-auto sm:flex-row sm:items-center sm:space-x-3 sm:space-y-0"
+              class="flex flex-col space-y-2 sm:ml-auto sm:flex-row sm:items-center sm:space-y-0 sm:space-x-3"
             >
               <SecondaryButton
                 type="button"
@@ -711,7 +711,7 @@ function submitInitialPassword(e) {
         <div class="flex items-center justify-between">
           <div class="flex items-center space-x-3">
             <div
-              class="flex h-10 w-10 items-center justify-center rounded-lg bg-brand-50"
+              class="bg-brand-50 flex h-10 w-10 items-center justify-center rounded-lg"
             >
               <i class="pi pi-cog text-brand-600" />
             </div>
@@ -847,7 +847,7 @@ function submitInitialPassword(e) {
             <div class="flex items-center space-x-3">
               <span
                 v-if="totpEnabled"
-                class="inline-flex items-center rounded-full bg-success-100 px-2.5 py-0.5 text-xs font-medium text-success-800"
+                class="bg-success-100 text-success-800 inline-flex items-center rounded-full px-2.5 py-0.5 text-xs font-medium"
               >
                 Active
               </span>
@@ -908,7 +908,7 @@ function submitInitialPassword(e) {
             <div class="flex items-center space-x-3">
               <span
                 v-if="emailTwoFactorEnabled"
-                class="inline-flex items-center rounded-full bg-success-100 px-2.5 py-0.5 text-xs font-medium text-success-800"
+                class="bg-success-100 text-success-800 inline-flex items-center rounded-full px-2.5 py-0.5 text-xs font-medium"
               >
                 Active
               </span>

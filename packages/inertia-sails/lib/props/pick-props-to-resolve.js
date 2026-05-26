@@ -7,6 +7,17 @@ const resolveExceptProps = require('./resolve-except-props')
 const { filterOnceProps } = require('./resolve-once-props')
 const AlwaysProp = require('./always-prop')
 
+/**
+ * @typedef {import('../types').InertiaRequest} InertiaRequest
+ * @typedef {import('../types').InertiaProps} InertiaProps
+ */
+
+/**
+ * @param {InertiaRequest} req
+ * @param {string} component
+ * @param {InertiaProps} [props]
+ * @returns {InertiaProps}
+ */
 module.exports = function pickPropsToResolve(req, component, props = {}) {
   const isPartial = isInertiaPartialRequest(req, component)
   const isInertia = isInertiaRequest(req)
@@ -15,7 +26,9 @@ module.exports = function pickPropsToResolve(req, component, props = {}) {
   if (!isPartial) {
     newProps = Object.fromEntries(
       Object.entries(props).filter(([_, value]) => {
-        if (value && value[ignoreFirstLoadSymbol]) return false
+        if (value && /** @type {any} */ (value)[ignoreFirstLoadSymbol]) {
+          return false
+        }
         return true
       })
     )

@@ -164,15 +164,15 @@ async function handleWebAuthnChallenge(challengeData) {
   <Head title="Sign In | Ascent" />
 
   <div
-    class="bg-linear-to-br flex min-h-screen flex-col justify-center from-brand-50/30 via-white to-accent-50/20 py-12 sm:px-6 lg:px-8"
+    class="from-brand-50/30 to-accent-50/20 flex min-h-screen flex-col justify-center bg-linear-to-br via-white py-12 sm:px-6 lg:px-8"
   >
     <!-- Background Elements -->
     <div class="pointer-events-none absolute inset-0 overflow-hidden">
       <div
-        class="absolute left-1/4 top-20 h-96 w-96 rounded-full bg-brand-200/20 blur-3xl"
+        class="bg-brand-200/20 absolute top-20 left-1/4 h-96 w-96 rounded-full blur-3xl"
       />
       <div
-        class="absolute bottom-20 right-1/4 h-72 w-72 rounded-full bg-accent-200/20 blur-3xl"
+        class="bg-accent-200/20 absolute right-1/4 bottom-20 h-72 w-72 rounded-full blur-3xl"
       />
     </div>
 
@@ -182,7 +182,7 @@ async function handleWebAuthnChallenge(challengeData) {
         <Link href="/" class="group">
           <div class="relative">
             <div
-              class="absolute inset-0 scale-110 rounded-2xl bg-brand-200/30 opacity-0 blur-xl transition-opacity group-hover:opacity-100"
+              class="bg-brand-200/30 absolute inset-0 scale-110 rounded-2xl opacity-0 blur-xl transition-opacity group-hover:opacity-100"
             />
             <img
               src="/images/logo.svg"
@@ -205,7 +205,7 @@ async function handleWebAuthnChallenge(challengeData) {
           Or
           <Link
             href="/signup"
-            class="font-semibold text-brand-600 transition-colors hover:text-brand-500"
+            class="text-brand-600 hover:text-brand-500 font-semibold transition-colors"
           >
             create a new account
           </Link>
@@ -217,7 +217,7 @@ async function handleWebAuthnChallenge(challengeData) {
       <div class="relative">
         <!-- Background blur effect -->
         <div
-          class="bg-linear-to-r absolute inset-0 scale-105 rounded-2xl from-brand-600/10 to-accent-600/10 blur-xl"
+          class="from-brand-600/10 to-accent-600/10 absolute inset-0 scale-105 rounded-2xl bg-linear-to-r blur-xl"
         />
 
         <!-- Main card -->
@@ -231,7 +231,7 @@ async function handleWebAuthnChallenge(challengeData) {
               form.errors.magicLink ||
               verifyPasskeyForm.errors.passkey
             "
-            class="w-full mb-3"
+            class="mb-3 w-full"
           >
             {{
               form.errors.login ||
@@ -267,7 +267,7 @@ async function handleWebAuthnChallenge(challengeData) {
                     'w-full rounded-xl border px-4 py-4 text-lg font-medium transition-all duration-200',
                     form.errors.email
                       ? 'border-red-300 bg-red-50 ring-2 ring-red-100'
-                      : 'border-gray-300 bg-gray-200 focus:border-brand-300 focus:bg-white focus:ring-4 focus:ring-brand-100'
+                      : 'focus:border-brand-300 focus:ring-brand-100 border-gray-300 bg-gray-200 focus:bg-white focus:ring-4'
                   ]"
                   placeholder="Enter your email address"
                 />
@@ -286,7 +286,7 @@ async function handleWebAuthnChallenge(challengeData) {
                   'flex w-full justify-center rounded-xl px-8 py-4 text-lg font-bold text-white shadow-lg transition-all duration-200 hover:scale-[1.02] hover:shadow-xl disabled:cursor-not-allowed disabled:opacity-50 disabled:hover:scale-100',
                   disableMagicLinkButton
                     ? 'bg-gray-300'
-                    : 'bg-linear-to-r from-brand-600 to-accent-600 hover:from-brand-700 hover:to-accent-700 focus:outline-none focus:ring-2 focus:ring-brand-500 focus:ring-offset-2'
+                    : 'from-brand-600 to-accent-600 hover:from-brand-700 hover:to-accent-700 focus:ring-brand-500 bg-linear-to-r focus:ring-2 focus:ring-offset-2 focus:outline-none'
                 ]"
               >
                 <div
@@ -341,7 +341,7 @@ async function handleWebAuthnChallenge(challengeData) {
                 type="button"
                 @click="handlePasskeySignin"
                 :disabled="isSigningInWithPasskey"
-                class="inline-flex items-center text-sm font-medium text-brand-600 transition-colors hover:text-brand-500 disabled:cursor-not-allowed disabled:opacity-50"
+                class="text-brand-600 hover:text-brand-500 inline-flex items-center text-sm font-medium transition-colors disabled:cursor-not-allowed disabled:opacity-50"
               >
                 <template v-if="isSigningInWithPasskey">
                   Signing in...
@@ -363,7 +363,7 @@ async function handleWebAuthnChallenge(challengeData) {
               <button
                 type="button"
                 @click="toggleToPasswordMode"
-                class="text-sm font-medium text-gray-600 underline underline-offset-2 transition-colors hover:text-brand-600"
+                class="hover:text-brand-600 text-sm font-medium text-gray-600 underline underline-offset-2 transition-colors"
               >
                 Other sign-in options
               </button>
@@ -377,7 +377,7 @@ async function handleWebAuthnChallenge(challengeData) {
               <button
                 type="button"
                 @click="toggleToMagicMode"
-                class="flex items-center text-sm font-medium text-gray-600 transition-colors hover:text-brand-600"
+                class="hover:text-brand-600 flex items-center text-sm font-medium text-gray-600 transition-colors"
               >
                 <svg
                   class="mr-1 h-4 w-4"
@@ -418,7 +418,7 @@ async function handleWebAuthnChallenge(challengeData) {
                       'w-full rounded-xl border px-4 py-4 text-lg font-medium transition-all duration-200',
                       form.errors.email
                         ? 'border-red-300 bg-red-50 ring-2 ring-red-100'
-                        : 'border-gray-300 bg-gray-200 focus:border-brand-300 focus:bg-white focus:ring-4 focus:ring-brand-100'
+                        : 'focus:border-brand-300 focus:ring-brand-100 border-gray-300 bg-gray-200 focus:bg-white focus:ring-4'
                     ]"
                     placeholder="Enter your email address"
                   />
@@ -449,7 +449,7 @@ async function handleWebAuthnChallenge(challengeData) {
                       'w-full rounded-xl border px-4 py-4 text-lg font-medium transition-all duration-200',
                       form.errors.password
                         ? 'border-red-300 bg-red-50 ring-2 ring-red-100'
-                        : 'border-gray-300 bg-gray-200 focus:border-brand-300 focus:bg-white focus:ring-4 focus:ring-brand-100'
+                        : 'focus:border-brand-300 focus:ring-brand-100 border-gray-300 bg-gray-200 focus:bg-white focus:ring-4'
                     ]"
                     placeholder="Enter your password"
                   />
@@ -466,7 +466,7 @@ async function handleWebAuthnChallenge(challengeData) {
                     id="rememberMe"
                     v-model="form.rememberMe"
                     type="checkbox"
-                    class="h-4 w-4 rounded border-gray-300 text-brand-600 focus:ring-brand-500"
+                    class="text-brand-600 focus:ring-brand-500 h-4 w-4 rounded border-gray-300"
                   />
                   <label
                     for="rememberMe"
@@ -479,7 +479,7 @@ async function handleWebAuthnChallenge(challengeData) {
                 <div>
                   <Link
                     href="/forgot-password"
-                    class="text-sm font-medium text-brand-600 transition-colors hover:text-brand-500"
+                    class="text-brand-600 hover:text-brand-500 text-sm font-medium transition-colors"
                   >
                     Forgot password?
                   </Link>
@@ -495,7 +495,7 @@ async function handleWebAuthnChallenge(challengeData) {
                     'flex w-full justify-center rounded-xl px-8 py-4 text-lg font-bold text-white shadow-lg transition-all duration-200 hover:scale-[1.02] hover:shadow-xl disabled:cursor-not-allowed disabled:opacity-50 disabled:hover:scale-100',
                     disableLoginButton
                       ? 'bg-gray-300'
-                      : 'bg-linear-to-r from-brand-600 to-accent-600 hover:from-brand-700 hover:to-accent-700 focus:outline-none focus:ring-2 focus:ring-brand-500 focus:ring-offset-2'
+                      : 'from-brand-600 to-accent-600 hover:from-brand-700 hover:to-accent-700 focus:ring-brand-500 bg-linear-to-r focus:ring-2 focus:ring-offset-2 focus:outline-none'
                   ]"
                 >
                   <div
@@ -548,7 +548,7 @@ async function handleWebAuthnChallenge(challengeData) {
             <!-- Google Button - Half width -->
             <a
               href="/auth/google/redirect"
-              class="flex items-center justify-center rounded-xl border border-gray-300 bg-gray-200 px-4 py-4 text-base font-medium text-gray-700 shadow-lg transition-all duration-200 hover:scale-[1.02] hover:border-gray-300 hover:bg-gray-100 hover:shadow-xl focus:outline-none focus:ring-2 focus:ring-brand-500 focus:ring-offset-2"
+              class="focus:ring-brand-500 flex items-center justify-center rounded-xl border border-gray-300 bg-gray-200 px-4 py-4 text-base font-medium text-gray-700 shadow-lg transition-all duration-200 hover:scale-[1.02] hover:border-gray-300 hover:bg-gray-100 hover:shadow-xl focus:ring-2 focus:ring-offset-2 focus:outline-none"
             >
               <svg class="mr-2 h-5 w-5" viewBox="0 0 24 24">
                 <path
@@ -574,7 +574,7 @@ async function handleWebAuthnChallenge(challengeData) {
             <!-- GitHub Button - Half width -->
             <a
               href="/auth/github/redirect"
-              class="flex items-center justify-center rounded-xl border border-gray-300 bg-gray-200 px-4 py-4 text-base font-medium text-gray-700 shadow-lg transition-all duration-200 hover:scale-[1.02] hover:border-gray-300 hover:bg-gray-100 hover:shadow-xl focus:outline-none focus:ring-2 focus:ring-brand-500 focus:ring-offset-2"
+              class="focus:ring-brand-500 flex items-center justify-center rounded-xl border border-gray-300 bg-gray-200 px-4 py-4 text-base font-medium text-gray-700 shadow-lg transition-all duration-200 hover:scale-[1.02] hover:border-gray-300 hover:bg-gray-100 hover:shadow-xl focus:ring-2 focus:ring-offset-2 focus:outline-none"
             >
               <svg class="mr-2 h-5 w-5" fill="currentColor" viewBox="0 0 24 24">
                 <path

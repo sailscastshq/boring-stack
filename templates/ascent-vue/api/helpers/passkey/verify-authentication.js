@@ -100,9 +100,8 @@ module.exports = {
         requireUserVerification: true
       }
 
-      const verification = await verifyAuthenticationResponse(
-        verificationOptions
-      )
+      const verification =
+        await verifyAuthenticationResponse(verificationOptions)
 
       if (!verification.verified) {
         return exits.verificationFailed()

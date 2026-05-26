@@ -18,7 +18,7 @@
     <template #clearicon="{ clearCallback }">
       <TimesIcon
         @click="clearCallback"
-        class="text-surface-400 absolute top-1/2 -mt-2 end-10"
+        class="text-surface-400 absolute end-10 top-1/2 -mt-2"
       />
     </template>
     <template v-for="(_, slotName) in $slots" #[slotName]="slotProps">

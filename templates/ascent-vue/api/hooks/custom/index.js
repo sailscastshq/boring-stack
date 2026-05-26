@@ -54,9 +54,8 @@ module.exports = function defineCustomHook(sails) {
                   }
 
                   // Add avatar URL using helper
-                  user.currentAvatarUrl = await sails.helpers.user.getAvatarUrl(
-                    user
-                  )
+                  user.currentAvatarUrl =
+                    await sails.helpers.user.getAvatarUrl(user)
 
                   return user
                 })

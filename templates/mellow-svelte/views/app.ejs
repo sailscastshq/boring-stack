@@ -7,7 +7,10 @@
     <%- shipwright.styles() %>
   </head>
   <body>
-    <div id="app" data-page="<%= JSON.stringify(page) %>"></div>
+    <div id="app"></div>
+    <script type="application/json" data-page="app">
+      <%- JSON.stringify(page).replace(/</g, '\\u003c') %>
+    </script>
     <%- shipwright.scripts() %>
   </body>
 </html>

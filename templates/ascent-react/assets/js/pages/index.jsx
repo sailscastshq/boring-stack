@@ -4,7 +4,7 @@ import { useState } from 'react'
 import { Message } from 'primereact/message'
 import '~/css/homepage.css'
 
-Index.layout = (page) => <AppLayout children={page} />
+Index.layout = AppLayout
 export default function Index() {
   const [isWaitlistActive] = useState(true)
   const [shouldShake, setShouldShake] = useState(false)

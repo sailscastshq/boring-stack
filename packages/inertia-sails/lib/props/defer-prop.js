@@ -2,6 +2,13 @@ const ignoreFirstLoadSymbol = require('../helpers/ignore-first-load-symbol')
 const MergeableProp = require('./mergeable-prop')
 
 /**
+ * @typedef {import('../types').PropCallback} PropCallback
+ *
+ * @typedef {Object} DeferPropOptions
+ * @property {boolean} [rescue=false] - Whether callback failures should be rescued
+ */
+
+/**
  * DeferProp - A prop that loads after the initial page render.
  *
  * Deferred props are not included in the initial page response. Instead, they are
@@ -30,17 +37,30 @@ const MergeableProp = require('./mergeable-prop')
 module.exports = class DeferProp extends MergeableProp {
   /**
    * Create a new DeferProp instance
-   * @param {Function} callback - The callback function to resolve the prop value
-   * @param {string} [group='default'] - The group name for loading props together
+   * @param {PropCallback} callback - The callback function to resolve the prop value
+   * @param {string|DeferPropOptions} [group='default'] - The group name for loading props together, or options
+   * @param {DeferPropOptions} [options] - Deferred prop options
    */
-  constructor(callback, group) {
+  constructor(callback, group = 'default', options = {}) {
     super()
-    /** @type {Function} */
+    if (typeof group === 'object' && group !== null) {
+      options = group
+      group = 'default'
+    }
+    const groupName = typeof group === 'string' ? group : 'default'
+
+    /** @type {PropCallback} */
     this.callback = callback
     /** @type {string} */
-    this.group = group
+    this.group = groupName
     /** @type {boolean} */
-    this[ignoreFirstLoadSymbol] = true
+    this.shouldRescue = options.rescue === true
+    Object.defineProperty(this, ignoreFirstLoadSymbol, {
+      value: true,
+      enumerable: true,
+      configurable: true,
+      writable: true
+    })
   }
 
   /**
@@ -49,5 +69,25 @@ module.exports = class DeferProp extends MergeableProp {
    */
   getGroup() {
     return this.group
+  }
+
+  /**
+   * Rescue callback failures instead of failing the whole deferred response.
+   * The failed prop is omitted from props and reported in rescuedProps.
+   *
+   * @param {boolean} rescue - Whether callback failures should be rescued
+   * @returns {DeferProp} - Returns this for chaining
+   */
+  rescue(rescue = true) {
+    this.shouldRescue = rescue
+    return this
+  }
+
+  /**
+   * Get whether this deferred prop should rescue callback failures.
+   * @returns {boolean} - Whether callback failures should be rescued
+   */
+  shouldRescueProp() {
+    return this.shouldRescue
   }
 }

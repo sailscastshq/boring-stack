@@ -9,11 +9,10 @@ import { ProgressBar } from 'primereact/progressbar'
 import DashboardLayout from '@/layouts/DashboardLayout'
 import SettingsLayout from '@/layouts/SettingsLayout.jsx'
 
-BillingSettings.layout = (page) => (
-  <DashboardLayout title="Billing" maxWidth="narrow">
-    {page}
-  </DashboardLayout>
-)
+BillingSettings.layout = [
+  DashboardLayout,
+  { title: 'Billing', maxWidth: 'narrow' }
+]
 
 export default function BillingSettings({ subscription, plans }) {
   const isSubscribed = !!subscription

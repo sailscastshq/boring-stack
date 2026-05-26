@@ -1,5 +1,16 @@
 const { INERTIA, LOCATION } = require('./helpers/inertia-headers')
 
+/**
+ * @typedef {import('./types').InertiaRequest} InertiaRequest
+ * @typedef {import('./types').InertiaResponse} InertiaResponse
+ */
+
+/**
+ * @param {InertiaRequest} req
+ * @param {InertiaResponse} res
+ * @param {string} url
+ * @returns {any}
+ */
 module.exports = function (req, res, url) {
   if (req.get(INERTIA)) {
     // If the method is PUT, PATCH, or DELETE, force a 303 redirect (so the next request is a GET)

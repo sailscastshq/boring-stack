@@ -38,7 +38,10 @@ module.exports.inertia = {
   <%- shipwright.styles() %>
 </head>
 <body>
-  <div id="app" data-page="<%- JSON.stringify(page) %>"></div>
+  <div id="app"></div>
+  <script type="application/json" data-page="app">
+    <%- JSON.stringify(page).replace(/</g, '\\u003c') %>
+  </script>
   <%- shipwright.scripts() %>
 </body>
 </html>
@@ -86,6 +89,19 @@ Return a URL string to redirect:
 ```js
 return '/dashboard'
 ```
+
+#### Preserving URL fragments
+
+When a standard Inertia redirect should carry the current hash to the next
+page, mark the redirect before returning the URL:
+
+```js
+sails.inertia.preserveFragment()
+return '/articles/new-slug'
+```
+
+If the user started from `/articles/old-slug#comments`, the Inertia client can
+carry `#comments` to the redirected page.
 
 ### Sharing Data
 
@@ -191,6 +207,25 @@ return {
 }
 ```
 
+Deferred props can also be rescued when a non-critical callback fails:
+
+```js
+return {
+  page: 'dashboard',
+  props: {
+    analytics: sails.inertia
+      .defer(async () => {
+        return await Analytics.getExpensiveReport()
+      })
+      .rescue()
+  }
+}
+```
+
+When a rescued deferred prop throws, it is omitted from `props` and its key is
+reported in `rescuedProps`, allowing the client `<Deferred>` component to show
+its rescue slot instead of failing the whole deferred response.
+
 ### Merge Props
 
 Merge with existing client-side data (useful for infinite scroll):
@@ -199,13 +234,29 @@ Merge with existing client-side data (useful for infinite scroll):
 // Shallow merge
 messages: sails.inertia.merge(() => newMessages)
 
+// Prepend new items instead of appending
+notifications: sails.inertia.merge(() => newNotifications).prepend()
+
+// Merge a nested array inside a paginated object
+users: sails.inertia.merge(() => paginatedUsers).append('data')
+
+// Match existing items by ID when merging
+users: sails.inertia
+  .merge(() => paginatedUsers)
+  .append('data', {
+    matchOn: 'id'
+  })
+
 // Deep merge (nested objects)
 settings: sails.inertia.deepMerge(() => updatedSettings)
+
+// Deep merge with item matching
+chat: sails.inertia.deepMerge(() => chatState).matchOn('messages.id')
 ```
 
 ### Infinite Scroll
 
-Paginate data with automatic merge behavior. Works with Inertia.js v2's `<InfiniteScroll>` component:
+Paginate data with automatic merge behavior. Works with Inertia's `<InfiniteScroll>` component:
 
 ```js
 // Controller
@@ -243,6 +294,8 @@ defineProps({ invoices: Object })
   </InfiniteScroll>
 </template>
 ```
+
+`scroll()` targets the wrapped array for merging, such as `invoices.data`, and follows Inertia's infinite-scroll merge intent header so previous-page requests prepend while next-page requests append.
 
 ### History Encryption
 

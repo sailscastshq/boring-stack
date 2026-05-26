@@ -1,4 +1,11 @@
 /**
+ * @typedef {import('../types').InertiaRequest} InertiaRequest
+ * @typedef {import('../types').InertiaResponse} InertiaResponse
+ * @typedef {import('../types').ErrorHtmlData} ErrorHtmlData
+ * @typedef {{ message?: string, stack?: string, name?: string }} ErrorLike
+ */
+
+/**
  * Server Error Response for Inertia.js
  *
  * For Inertia requests, this sends a properly formatted error response that
@@ -9,9 +16,9 @@
  * in a modal overlay during development, allowing developers to see stack traces
  * without losing their page state.
  *
- * @param {Object} req - Express/Sails request object
- * @param {Object} res - Express/Sails response object
- * @param {Object|Error} [error] - Optional error data or Error object
+ * @param {InertiaRequest} req - Express/Sails request object
+ * @param {InertiaResponse} res - Express/Sails response object
+ * @param {ErrorLike} [error] - Optional error data or Error object
  * @returns {*} - Response
  *
  * @example
@@ -29,7 +36,7 @@
 module.exports = function handleServerError(req, res, error) {
   const sails = req._sails
   const statusCode = 500
-  const isInertiaRequest = req.header('X-Inertia')
+  const isInertiaRequest = req.header?.('X-Inertia')
   const isDevelopment = process.env.NODE_ENV !== 'production'
 
   // Log the error
@@ -49,8 +56,8 @@ module.exports = function handleServerError(req, res, error) {
       errorName,
       errorMessage,
       errorStack,
-      url: req.url,
-      method: req.method
+      url: req.url || '/',
+      method: req.method || 'GET'
     })
 
     res.status(statusCode)
@@ -76,6 +83,10 @@ module.exports = function handleServerError(req, res, error) {
     {
       error: isDevelopment ? error : null
     },
+    /**
+     * @param {Error|null} err
+     * @param {string} html
+     */
     (err, html) => {
       if (err) {
         // If view doesn't exist, send a basic response
@@ -91,6 +102,8 @@ module.exports = function handleServerError(req, res, error) {
 
 /**
  * Build an HTML error page for the Inertia modal
+ * @param {ErrorHtmlData} data
+ * @returns {string}
  */
 function buildErrorHtml({
   statusCode,
@@ -270,6 +283,8 @@ function buildErrorHtml({
 
 /**
  * Format stack trace with syntax highlighting
+ * @param {string} stack
+ * @returns {string}
  */
 function formatStackTrace(stack) {
   return stack
@@ -294,6 +309,8 @@ function formatStackTrace(stack) {
 
 /**
  * Escape HTML special characters
+ * @param {any} str
+ * @returns {string}
  */
 function escapeHtml(str) {
   if (!str) return ''

@@ -1,6 +1,6 @@
 {
   "name": "inertia-sails",
-  "version": "1.3.3",
+  "version": "1.4.0",
   "description": "The Sails adapter for Inertia.",
   "main": "index.js",
   "sails": {
@@ -8,7 +8,8 @@
     "hookName": "inertia"
   },
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "check:js": "tsc --allowJs --checkJs --noEmit --skipLibCheck --target ES2022 --module commonjs --noImplicitAny index.js test.js lib/**/*.js tests/**/*.js",
+    "test": "npm run check:js && node --test tests/*.test.js tests/**/*.test.js"
   },
   "repository": {
     "type": "git",

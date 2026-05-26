@@ -68,9 +68,8 @@ module.exports = {
   beforeCreate: async function (valuesToSet, proceed) {
     // Generate invite token if not provided
     if (!valuesToSet.inviteToken) {
-      valuesToSet.inviteToken = await sails.helpers.strings.random(
-        'url-friendly'
-      )
+      valuesToSet.inviteToken =
+        await sails.helpers.strings.random('url-friendly')
     }
     return proceed()
   }

@@ -9,13 +9,13 @@
     <template #maskicon="{ toggleCallback }">
       <EyeSlashIcon
         @click="toggleCallback"
-        class="end-3 text-surface-500 dark:text-surface-400 absolute top-1/2 -mt-2 w-4 h-4"
+        class="text-surface-500 dark:text-surface-400 absolute end-3 top-1/2 -mt-2 h-4 w-4"
       />
     </template>
     <template #unmaskicon="{ toggleCallback }">
       <EyeIcon
         @click="toggleCallback"
-        class="end-3 text-surface-500 dark:text-surface-400 absolute top-1/2 -mt-2 w-4 h-4"
+        class="text-surface-500 dark:text-surface-400 absolute end-3 top-1/2 -mt-2 h-4 w-4"
       />
     </template>
     <template v-for="(_, slotName) in $slots" #[slotName]="slotProps">

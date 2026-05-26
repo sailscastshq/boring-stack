@@ -1,11 +1,7 @@
 import { Link, Head, usePage } from '@inertiajs/react'
 import DashboardLayout from '@/layouts/DashboardLayout.jsx'
 
-Dashboard.layout = (page) => (
-  <DashboardLayout title="Dashboard" maxWidth="wide">
-    {page}
-  </DashboardLayout>
-)
+Dashboard.layout = [DashboardLayout, { title: 'Dashboard', maxWidth: 'wide' }]
 export default function Dashboard() {
   const page = usePage()
   const loggedInUser = page.props.loggedInUser

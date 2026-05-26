@@ -12,11 +12,10 @@ import { ConfirmDialog } from 'primereact/confirmdialog'
 import { confirmDialog } from 'primereact/confirmdialog'
 import ImageUpload from '@/components/ImageUpload'
 
-ProfileSettings.layout = (page) => (
-  <DashboardLayout title="Profile" maxWidth="narrow">
-    {page}
-  </DashboardLayout>
-)
+ProfileSettings.layout = [
+  DashboardLayout,
+  { title: 'Profile', maxWidth: 'narrow' }
+]
 
 export default function ProfileSettings() {
   const loggedInUser = usePage().props.loggedInUser

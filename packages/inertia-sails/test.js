@@ -24,17 +24,32 @@ const { INERTIA, VERSION } = require('./lib/helpers/inertia-headers')
  * @typedef {Object} InertiaPage
  * @property {string} component - The component name
  * @property {string} url - The current URL
- * @property {Object} props - The page props
- * @property {Object} [flash] - Flash data
+ * @property {Record<string, any>} props - The page props
+ * @property {Record<string, any>} [flash] - Flash data
+ * @property {boolean} [preserveFragment] - Whether URL fragments are preserved after redirects
  * @property {string[]} [mergeProps] - Props to merge
  * @property {string[]} [deepMergeProps] - Props to deep merge
- * @property {Object} [deferredProps] - Deferred props by group
+ * @property {Record<string, string[]>} [deferredProps] - Deferred props by group
+ * @property {string[]} [rescuedProps] - Deferred props rescued after callback failures
  */
 
 /**
  * @typedef {Object} SailsResponse
  * @property {InertiaPage} body - The response body
  * @property {number} statusCode - HTTP status code
+ */
+
+/**
+ * @typedef {Object} SailsRequestOptions
+ * @property {string} url - Request URL or verb/path pair
+ * @property {Record<string, any>} [data] - Request data
+ * @property {Record<string, any>} [headers] - Request headers
+ */
+
+/**
+ * @typedef {Object} SailsTestApp
+ * @property {{ inertia?: { version?: any } }} config
+ * @property {(options: SailsRequestOptions, callback: (err: Error|null, response: SailsResponse, body: InertiaPage) => void) => void} request
  */
 
 /**
@@ -115,7 +130,7 @@ class InertiaTestResponse {
 
   /**
    * Assert props match expected values
-   * @param {Object} expected - Object with expected key-value pairs
+   * @param {Record<string, any>} expected - Object with expected key-value pairs
    * @returns {InertiaTestResponse} - For chaining
    */
   assertProps(expected) {
@@ -135,7 +150,7 @@ class InertiaTestResponse {
   /**
    * Assert a prop value using a callback
    * @param {string} key - Prop key
-   * @param {Function} callback - Callback receiving the value, should throw if invalid
+   * @param {(value: any) => void} callback - Callback receiving the value, should throw if invalid
    * @returns {InertiaTestResponse} - For chaining
    */
   assertProp(key, callback) {
@@ -234,8 +249,34 @@ class InertiaTestResponse {
   }
 
   /**
+   * Assert rescuedProps contains specific keys
+   * @param {string[]} keys - Expected rescued prop keys
+   * @returns {InertiaTestResponse} - For chaining
+   */
+  assertRescuedProps(keys) {
+    const rescuedProps = this.page.rescuedProps || []
+    for (const key of keys) {
+      if (!rescuedProps.includes(key)) {
+        throw new Error(`Expected "${key}" in rescuedProps`)
+      }
+    }
+    return this
+  }
+
+  /**
+   * Assert preserveFragment metadata is enabled
+   * @returns {InertiaTestResponse} - For chaining
+   */
+  assertPreserveFragment() {
+    if (this.page.preserveFragment !== true) {
+      throw new Error('Expected preserveFragment to be true')
+    }
+    return this
+  }
+
+  /**
    * Get the raw page object for custom assertions
-   * @returns {Object} - The Inertia page object
+   * @returns {InertiaPage} - The Inertia page object
    */
   getPage() {
     return this.page
@@ -243,7 +284,7 @@ class InertiaTestResponse {
 
   /**
    * Get the raw props for custom assertions
-   * @returns {Object} - The props object
+   * @returns {Record<string, any>} - The props object
    */
   getProps() {
     return this.page.props
@@ -252,14 +293,14 @@ class InertiaTestResponse {
   /**
    * Helper to get nested values using dot notation
    * @private
-   * @param {Object} obj - The object to search
+   * @param {Record<string, any>} obj - The object to search
    * @param {string} path - Dot-notation path
    * @returns {*} - The value at the path
    */
   _getNestedValue(obj, path) {
     return path.split('.').reduce(
       /**
-       * @param {Object} current
+       * @param {any} current
        * @param {string} key
        */
       (current, key) => {
@@ -289,14 +330,14 @@ class InertiaTestResponse {
 
 /**
  * Create Inertia testing utilities for a Sails instance
- * @param {Object} sails - The Sails application instance
- * @returns {Object} - Testing utilities
+ * @param {SailsTestApp} sails - The Sails application instance
+ * @returns {Record<string, any>} - Testing utilities
  */
 module.exports = function createInertiaTestUtils(sails) {
   return {
     /**
      * Make an Inertia request and return a test response
-     * @param {string|Object} urlOrOptions - URL string or request options
+     * @param {string|SailsRequestOptions} urlOrOptions - URL string or request options
      * @returns {Promise<InertiaTestResponse>} - Test response with assertions
      * @example
      * // Simple GET

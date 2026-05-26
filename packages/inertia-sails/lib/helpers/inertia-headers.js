@@ -23,6 +23,8 @@ const PARTIAL_COMPONENT = 'X-Inertia-Partial-Component'
 const LOCATION = 'X-Inertia-Location'
 /** @type {string} - Comma-separated list of once-props client already has */
 const EXCEPT_ONCE_PROPS = 'X-Inertia-Except-Once-Props'
+/** @type {string} - InfiniteScroll merge direction */
+const INFINITE_SCROLL_MERGE_INTENT = 'X-Inertia-Infinite-Scroll-Merge-Intent'
 
 module.exports = {
   INERTIA,
@@ -33,5 +35,6 @@ module.exports = {
   RESET,
   PARTIAL_COMPONENT,
   LOCATION,
-  EXCEPT_ONCE_PROPS
+  EXCEPT_ONCE_PROPS,
+  INFINITE_SCROLL_MERGE_INTENT
 }
