@@ -8,7 +8,8 @@
     "hookName": "inertia"
   },
   "scripts": {
-    "test": "node --test tests/*.test.js tests/**/*.test.js"
+    "check:js": "tsc --allowJs --checkJs --noEmit --skipLibCheck --target ES2022 --module commonjs --noImplicitAny index.js test.js lib/**/*.js tests/**/*.js",
+    "test": "npm run check:js && node --test tests/*.test.js tests/**/*.test.js"
   },
   "repository": {
     "type": "git",
