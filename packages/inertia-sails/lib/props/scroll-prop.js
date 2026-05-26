@@ -1,6 +1,18 @@
 const MergeProp = require('./merge-prop')
 
 /**
+ * @typedef {import('../types').PropCallback} PropCallback
+ *
+ * @typedef {Object} ScrollPropOptions
+ * @property {number} [page=0] - Current page index (0-based for Waterline)
+ * @property {number} [perPage=10] - Items per page
+ * @property {number} [total=0] - Total number of items
+ * @property {string} [pageName='page'] - Query parameter name for pagination
+ * @property {string} [wrapper='data'] - Key to wrap the data in
+ * @property {string|null} [matchOn] - Optional field used to match items when merging
+ */
+
+/**
  * ScrollProp - Configures paginated data for infinite scrolling.
  *
  * Wraps paginated data with proper merge behavior and normalizes
@@ -20,14 +32,8 @@ const MergeProp = require('./merge-prop')
  */
 class ScrollProp extends MergeProp {
   /**
-   * @param {Function} callback - Callback returning the paginated data array
-   * @param {Object} [options] - Pagination options
-   * @param {number} [options.page=0] - Current page index (0-based for Waterline)
-   * @param {number} [options.perPage=10] - Items per page
-   * @param {number} [options.total=0] - Total number of items
-   * @param {string} [options.pageName='page'] - Query parameter name for pagination
-   * @param {string} [options.wrapper='data'] - Key to wrap the data in
-   * @param {string} [options.matchOn] - Optional field used to match items when merging
+   * @param {PropCallback} callback - Callback returning the paginated data array
+   * @param {ScrollPropOptions} [options] - Pagination options
    */
   constructor(callback, options = {}) {
     const {
@@ -47,6 +53,7 @@ class ScrollProp extends MergeProp {
     const hasPreviousPage = currentPage > 1
 
     // Wrap the callback to return structured data with metadata
+    /** @type {() => Promise<any>} */
     const wrappedCallback = async () => {
       const data = typeof callback === 'function' ? await callback() : callback
 
@@ -69,16 +76,25 @@ class ScrollProp extends MergeProp {
     super(wrappedCallback)
 
     // InfiniteScroll uses request headers to decide append vs prepend.
+    /** @type {import('../types').MergeOperation[]} */
     this.mergeOperations = []
 
     // Store metadata for potential access
+    /** @type {number} */
     this.page = page
+    /** @type {number} */
     this.perPage = perPage
+    /** @type {number} */
     this.total = total
+    /** @type {string} */
     this.pageName = pageName
+    /** @type {string} */
     this.wrapper = wrapper
-    this.matchOn = matchOn
+    /** @type {string|null} */
+    this.matchOnPath = matchOn
+    /** @type {number} */
     this.totalPages = totalPages
+    /** @type {number} */
     this.currentPage = currentPage
   }
 }

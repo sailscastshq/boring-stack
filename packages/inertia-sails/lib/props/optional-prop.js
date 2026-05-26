@@ -1,6 +1,10 @@
 const ignoreFirstLoadSymbol = require('../helpers/ignore-first-load-symbol')
 
 /**
+ * @typedef {import('../types').PropCallback} PropCallback
+ */
+
+/**
  * OptionalProp - A prop that is only evaluated when explicitly requested.
  *
  * Optional props are excluded from the initial page load and only resolved
@@ -20,12 +24,16 @@ const ignoreFirstLoadSymbol = require('../helpers/ignore-first-load-symbol')
 module.exports = class OptionalProp {
   /**
    * Create a new OptionalProp instance
-   * @param {Function} callback - The callback function to resolve the prop value
+   * @param {PropCallback} callback - The callback function to resolve the prop value
    */
   constructor(callback) {
-    /** @type {Function} */
+    /** @type {PropCallback} */
     this.callback = callback
-    /** @type {boolean} */
-    this[ignoreFirstLoadSymbol] = true
+    Object.defineProperty(this, ignoreFirstLoadSymbol, {
+      value: true,
+      enumerable: true,
+      configurable: true,
+      writable: true
+    })
   }
 }

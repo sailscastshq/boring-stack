@@ -4,8 +4,23 @@ const buildPageObject = require('./helpers/build-page-object')
 const requestContext = require('./helpers/request-context')
 const resolveAssetVersion = require('./helpers/resolve-asset-version')
 
+/**
+ * @typedef {import('./types').InertiaRequest} InertiaRequest
+ * @typedef {import('./types').InertiaResponse} InertiaResponse
+ * @typedef {import('./types').InertiaProps} InertiaProps
+ *
+ * @typedef {Object} RenderData
+ * @property {string} page
+ * @property {InertiaProps} [props]
+ * @property {InertiaProps} [locals]
+ */
+
+/**
+ * @param {InertiaRequest} req
+ * @returns {string}
+ */
 function getRequestUrl(req) {
-  let url = req.url || req.originalUrl
+  let url = req.url || req.originalUrl || '/'
   const queryParams = req.query || {}
 
   if (req.method === 'GET' && Object.keys(queryParams).length) {
@@ -19,6 +34,11 @@ function getRequestUrl(req) {
   return url
 }
 
+/**
+ * @param {InertiaRequest} req
+ * @param {any} currentVersion
+ * @returns {boolean}
+ */
 function hasAssetVersionMismatch(req, currentVersion) {
   const requestVersion = req.get(inertiaHeaders.VERSION)
 
@@ -30,6 +50,12 @@ function hasAssetVersionMismatch(req, currentVersion) {
   return String(requestVersion) !== String(currentVersion)
 }
 
+/**
+ * @param {InertiaRequest} req
+ * @param {InertiaResponse} res
+ * @param {RenderData} data
+ * @returns {Promise<any>}
+ */
 module.exports = async function render(req, res, data) {
   const sails = req._sails
   // Use request-scoped rootView if set, otherwise fall back to config
@@ -51,7 +77,11 @@ module.exports = async function render(req, res, data) {
     return res.status(409).end()
   }
 
-  let page = await buildPageObject(req, data.page, data.props)
+  let page = await buildPageObject(
+    /** @type {any} */ (req),
+    data.page,
+    data.props
+  )
 
   page.url = requestUrl
 

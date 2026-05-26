@@ -1,4 +1,8 @@
 /**
+ * @typedef {import('../types').PropCallback} PropCallback
+ */
+
+/**
  * OnceProp - A prop that is resolved only once and cached across navigations.
  *
  * The client tracks which once-props it has received via the X-Inertia-Except-Once-Props
@@ -33,12 +37,16 @@
 module.exports = class OnceProp {
   /**
    * Create a new OnceProp instance
-   * @param {Function} callback - The callback function to resolve the prop value
+   * @param {PropCallback} callback - The callback function to resolve the prop value
    */
   constructor(callback) {
+    /** @type {PropCallback} */
     this.callback = callback
+    /** @type {string|null} */
     this._key = null
+    /** @type {number|null} */
     this._ttl = null
+    /** @type {boolean} */
     this._refresh = false
   }
 

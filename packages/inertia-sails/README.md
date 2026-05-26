@@ -90,6 +90,19 @@ Return a URL string to redirect:
 return '/dashboard'
 ```
 
+#### Preserving URL fragments
+
+When a standard Inertia redirect should carry the current hash to the next
+page, mark the redirect before returning the URL:
+
+```js
+sails.inertia.preserveFragment()
+return '/articles/new-slug'
+```
+
+If the user started from `/articles/old-slug#comments`, the Inertia client can
+carry `#comments` to the redirected page.
+
 ### Sharing Data
 
 #### `share(key, value)`
@@ -193,6 +206,25 @@ return {
   }
 }
 ```
+
+Deferred props can also be rescued when a non-critical callback fails:
+
+```js
+return {
+  page: 'dashboard',
+  props: {
+    analytics: sails.inertia
+      .defer(async () => {
+        return await Analytics.getExpensiveReport()
+      })
+      .rescue()
+  }
+}
+```
+
+When a rescued deferred prop throws, it is omitted from `props` and its key is
+reported in `rescuedProps`, allowing the client `<Deferred>` component to show
+its rescue slot instead of failing the whole deferred response.
 
 ### Merge Props
 

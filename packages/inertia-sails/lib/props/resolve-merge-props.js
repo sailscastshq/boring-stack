@@ -7,20 +7,35 @@ const { resolvePropPath, unique } = require('./merge-targets')
 const ScrollProp = require('./scroll-prop')
 
 /**
+ * @typedef {import('../types').InertiaProps} InertiaProps
+ * @typedef {{ get: (header: string) => any }} HeaderRequest
+ *
+ * @typedef {Object} MergePropsMetadata
+ * @property {string[]} [mergeProps]
+ * @property {string[]} [prependProps]
+ * @property {string[]} [deepMergeProps]
+ * @property {string[]} [matchPropsOn]
+ */
+
+/**
  * Resolve merge props metadata for the page response.
  * Returns mergeProps and deepMergeProps arrays for the client.
- * @param {Object} req - The request object
- * @param {Object} pageProps - The page props
- * @returns {Object} - Object with mergeProps and/or deepMergeProps arrays
+ * @param {HeaderRequest} req - The request object
+ * @param {InertiaProps} pageProps - The page props
+ * @returns {MergePropsMetadata} - Object with mergeProps and/or deepMergeProps arrays
  */
 module.exports = function resolveMergeProps(req, pageProps) {
   const inertiaResetHeader = req.get(RESET)
   const resetProps = new Set(inertiaResetHeader?.split(',').filter(Boolean))
   const infiniteScrollMergeIntent = req.get(INFINITE_SCROLL_MERGE_INTENT)
 
+  /** @type {string[]} */
   const mergeProps = []
+  /** @type {string[]} */
   const prependProps = []
+  /** @type {string[]} */
   const deepMergeProps = []
+  /** @type {string[]} */
   const matchPropsOn = []
 
   Object.entries(pageProps || {}).forEach(([key, value]) => {
@@ -37,8 +52,8 @@ module.exports = function resolveMergeProps(req, pageProps) {
         mergeProps.push(propPath)
       }
 
-      if (value.matchOn) {
-        matchPropsOn.push(resolvePropPath(propPath, value.matchOn))
+      if (value.matchOnPath) {
+        matchPropsOn.push(resolvePropPath(propPath, value.matchOnPath))
       }
 
       return
@@ -72,6 +87,7 @@ module.exports = function resolveMergeProps(req, pageProps) {
     })
   })
 
+  /** @type {MergePropsMetadata} */
   const result = {}
   if (mergeProps.length) result.mergeProps = unique(mergeProps)
   if (prependProps.length) result.prependProps = unique(prependProps)

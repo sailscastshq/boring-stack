@@ -5,6 +5,12 @@ const {
 } = require('./merge-targets')
 
 /**
+ * @typedef {import('../types').MergeOperation} MergeOperation
+ * @typedef {import('../types').MergeOptions} MergeOptions
+ * @typedef {string|string[]|Record<string, string|null>|null} MergeTargetInput
+ */
+
+/**
  * MergeableProp - Base class for props that can be merged during partial reloads.
  *
  * Provides merge() and deepMerge() methods for controlling how props are
@@ -18,7 +24,7 @@ module.exports = class MergeableProp {
     this.shouldMerge = false
     /** @type {boolean} - Whether to deep merge this prop */
     this.shouldDeepMerge = false
-    /** @type {{direction: string, path: string|null, matchOn: string|null, isDefault?: boolean}[]} */
+    /** @type {MergeOperation[]} */
     this.mergeOperations = []
     /** @type {string[]} - Paths to use when matching merge items */
     this.matchOnPaths = []
@@ -40,8 +46,8 @@ module.exports = class MergeableProp {
 
   /**
    * Append this prop, or one or more nested paths, during partial reloads.
-   * @param {string|string[]|Object|null} [paths] - Path(s) to append, or a path-to-matchOn map
-   * @param {Object|string} [options] - Options, or a matchOn string
+   * @param {MergeTargetInput} [paths] - Path(s) to append, or a path-to-matchOn map
+   * @param {MergeOptions|string} [options] - Options, or a matchOn string
    * @returns {MergeableProp} - Returns this for chaining
    */
   append(paths = null, options = {}) {
@@ -50,8 +56,8 @@ module.exports = class MergeableProp {
 
   /**
    * Prepend this prop, or one or more nested paths, during partial reloads.
-   * @param {string|string[]|Object|null} [paths] - Path(s) to prepend, or a path-to-matchOn map
-   * @param {Object|string} [options] - Options, or a matchOn string
+   * @param {MergeTargetInput} [paths] - Path(s) to prepend, or a path-to-matchOn map
+   * @param {MergeOptions|string} [options] - Options, or a matchOn string
    * @returns {MergeableProp} - Returns this for chaining
    */
   prepend(paths = null, options = {}) {
@@ -83,6 +89,12 @@ module.exports = class MergeableProp {
     return this
   }
 
+  /**
+   * @param {'append'|'prepend'} direction
+   * @param {MergeTargetInput} paths
+   * @param {MergeOptions|string} options
+   * @returns {MergeableProp}
+   */
   _addMergeOperations(direction, paths, options) {
     const normalizedOptions = normalizeMergeOptions(options)
 

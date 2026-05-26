@@ -14,12 +14,31 @@
  *   sharedLocals: {},     // Request-scoped locals for root EJS template
  *   encryptHistory: null, // Request-scoped history encryption (null = use default)
  *   clearHistory: false,  // Request-scoped clear history flag
+ *   preserveFragment: false, // Request-scoped fragment preservation flag
  *   refreshOnceProps: [], // Props to force-refresh for this request
  *   rootView: null        // Request-scoped root view template (null = use default)
  * }
  */
 const { AsyncLocalStorage } = require('async_hooks')
 
+/**
+ * @typedef {import('../types').InertiaRequest} InertiaRequest
+ * @typedef {import('../types').InertiaResponse} InertiaResponse
+ * @typedef {import('../types').InertiaProps} InertiaProps
+ *
+ * @typedef {Object} RequestContext
+ * @property {InertiaRequest} req
+ * @property {InertiaResponse} res
+ * @property {InertiaProps} sharedProps
+ * @property {InertiaProps} sharedLocals
+ * @property {boolean|null} encryptHistory
+ * @property {boolean} clearHistory
+ * @property {boolean} preserveFragment
+ * @property {string[]} refreshOnceProps
+ * @property {string|null} rootView
+ */
+
+/** @type {AsyncLocalStorage<RequestContext>} */
 const requestContext = new AsyncLocalStorage()
 
 module.exports = {
@@ -30,12 +49,13 @@ module.exports = {
 
   /**
    * Run a callback with request context stored
-   * @param {Object} req - The request object
-   * @param {Object} res - The response object
-   * @param {Function} callback - The callback to run
+   * @param {InertiaRequest} req - The request object
+   * @param {InertiaResponse} res - The response object
+   * @param {() => any} callback - The callback to run
    * @returns {*} - The result of the callback
    */
   run(req, res, callback) {
+    /** @type {RequestContext} */
     const context = {
       req,
       res,
@@ -43,6 +63,7 @@ module.exports = {
       sharedLocals: {},
       encryptHistory: null,
       clearHistory: false,
+      preserveFragment: false,
       refreshOnceProps: [], // Props to force-refresh for this request
       rootView: null // Request-scoped root view template
     }
@@ -51,7 +72,7 @@ module.exports = {
 
   /**
    * Get the full context object
-   * @returns {Object|undefined} - The current context or undefined if not in context
+   * @returns {RequestContext|undefined} - The current context or undefined if not in context
    */
   getContext() {
     return requestContext.getStore()
@@ -59,7 +80,7 @@ module.exports = {
 
   /**
    * Get the current request from context
-   * @returns {Object|undefined} - The current request or undefined if not in context
+   * @returns {InertiaRequest|undefined} - The current request or undefined if not in context
    */
   getRequest() {
     const context = requestContext.getStore()
@@ -68,7 +89,7 @@ module.exports = {
 
   /**
    * Get the current response from context
-   * @returns {Object|undefined} - The current response or undefined if not in context
+   * @returns {InertiaResponse|undefined} - The current response or undefined if not in context
    */
   getResponse() {
     const context = requestContext.getStore()
@@ -77,7 +98,7 @@ module.exports = {
 
   /**
    * Get request-scoped shared props
-   * @returns {Object} - The shared props for this request
+   * @returns {InertiaProps} - The shared props for this request
    */
   getSharedProps() {
     const context = requestContext.getStore()
@@ -98,7 +119,7 @@ module.exports = {
 
   /**
    * Get request-scoped shared locals
-   * @returns {Object} - The shared locals for this request
+   * @returns {InertiaProps} - The shared locals for this request
    */
   getSharedLocals() {
     const context = requestContext.getStore()
@@ -154,6 +175,26 @@ module.exports = {
     const context = requestContext.getStore()
     if (context) {
       context.clearHistory = clear
+    }
+  },
+
+  /**
+   * Get request-scoped preserve fragment flag
+   * @returns {boolean} - Whether to preserve the URL fragment
+   */
+  getPreserveFragment() {
+    const context = requestContext.getStore()
+    return context?.preserveFragment || false
+  },
+
+  /**
+   * Set request-scoped preserve fragment flag
+   * @param {boolean} preserve - Whether to preserve the URL fragment
+   */
+  setPreserveFragment(preserve) {
+    const context = requestContext.getStore()
+    if (context) {
+      context.preserveFragment = preserve
     }
   },
 

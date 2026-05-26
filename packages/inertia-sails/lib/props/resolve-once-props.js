@@ -3,13 +3,21 @@ const { EXCEPT_ONCE_PROPS } = require('../helpers/inertia-headers')
 const requestContext = require('../helpers/request-context')
 
 /**
+ * @typedef {import('../types').InertiaRequest} InertiaRequest
+ * @typedef {import('../types').InertiaProps} InertiaProps
+ *
+ * @typedef {Object} OncePropsMetadata
+ * @property {Record<string, { prop: string, expiresAt: number|null }>} [onceProps]
+ */
+
+/**
  * Get the list of once-props that the client already has cached.
  * These are sent via the X-Inertia-Except-Once-Props header.
- * @param {Object} req - The request object
+ * @param {InertiaRequest} req - The request object
  * @returns {string[]} - Array of prop keys the client already has
  */
 function getExceptOnceProps(req) {
-  const header = req.get(EXCEPT_ONCE_PROPS) || ''
+  const header = String(req.get(EXCEPT_ONCE_PROPS) || '')
   return header
     ? header
         .split(',')
@@ -28,9 +36,9 @@ function getExceptOnceProps(req) {
  * - They are marked for refresh via sails.inertia.refreshOnce()
  * - The client doesn't have them cached
  *
- * @param {Object} req - The request object
- * @param {Object} props - The props object
- * @returns {Object} - Filtered props with cached once-props removed
+ * @param {InertiaRequest} req - The request object
+ * @param {InertiaProps} props - The props object
+ * @returns {InertiaProps} - Filtered props with cached once-props removed
  */
 function filterOnceProps(req, props) {
   const exceptOnceProps = getExceptOnceProps(req)
@@ -40,6 +48,7 @@ function filterOnceProps(req, props) {
     return props
   }
 
+  /** @type {InertiaProps} */
   const filtered = {}
   for (const [key, value] of Object.entries(props)) {
     // Keep the prop if it's not a OnceProp
@@ -75,10 +84,11 @@ function filterOnceProps(req, props) {
 /**
  * Build the onceProps metadata for the page response.
  * This tells the client which props are "once" props and their expiration.
- * @param {Object} props - The props object
- * @returns {Object} - Object with onceProps key if any exist, empty object otherwise
+ * @param {InertiaProps} props - The props object
+ * @returns {OncePropsMetadata} - Object with onceProps key if any exist, empty object otherwise
  */
 function resolveOncePropsMetadata(props) {
+  /** @type {Record<string, { prop: string, expiresAt: number|null }>} */
   const onceProps = {}
 
   for (const [key, value] of Object.entries(props)) {

@@ -2,6 +2,11 @@ const resolveValidationErrors = require('../helpers/resolve-validation-errors')
 const requestContext = require('../helpers/request-context')
 
 /**
+ * @typedef {import('../types').InertiaRequest} InertiaRequest
+ * @typedef {import('../types').InertiaResponse} InertiaResponse
+ */
+
+/**
  * Inertia middleware that handles validation errors.
  *
  * Note: AsyncLocalStorage context is set up earlier in routes.before
@@ -11,8 +16,8 @@ const requestContext = require('../helpers/request-context')
  * This middleware handles:
  * - Validation errors from redirects (shared as 'errors' prop)
  *
- * @param {Object} hook - The inertia-sails hook instance
- * @returns {Function} Express/Sails middleware function
+ * @param {Record<string, any>} hook - The inertia-sails hook instance
+ * @returns {(req: InertiaRequest, res: InertiaResponse, next: () => any) => any} Express/Sails middleware function
  */
 function inertia(hook) {
   return function inertiaMiddleware(req, res, next) {

@@ -9,6 +9,10 @@ const {
   RESET
 } = require('../../lib/helpers/inertia-headers')
 
+/**
+ * @param {Record<string, any>} [headers]
+ * @returns {{ get: (header: string) => any }}
+ */
 function createRequest(headers = {}) {
   const normalizedHeaders = Object.fromEntries(
     Object.entries(headers).map(([key, value]) => [key.toLowerCase(), value])

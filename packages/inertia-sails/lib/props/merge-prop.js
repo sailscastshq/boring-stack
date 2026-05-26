@@ -1,6 +1,10 @@
 const MergeableProp = require('./mergeable-prop')
 
 /**
+ * @typedef {import('../types').PropCallback} PropCallback
+ */
+
+/**
  * MergeProp - A prop that merges with existing data during partial reloads.
  *
  * When the client requests a partial reload, merge props are combined with
@@ -22,13 +26,12 @@ const MergeableProp = require('./mergeable-prop')
 module.exports = class MergeProp extends MergeableProp {
   /**
    * Create a new MergeProp instance
-   * @param {Function} callback - The callback function to resolve the prop value
+   * @param {PropCallback} callback - The callback function to resolve the prop value
    */
   constructor(callback) {
     super()
-    /** @type {Function} */
+    /** @type {PropCallback} */
     this.callback = callback
-    /** @type {boolean} */
     this.merge()
   }
 

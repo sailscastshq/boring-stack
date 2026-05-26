@@ -1,6 +1,10 @@
 const MergeableProp = require('./mergeable-prop')
 
 /**
+ * @typedef {import('../types').PropCallback} PropCallback
+ */
+
+/**
  * AlwaysProp - A prop that is always resolved, even during partial reloads.
  *
  * By default, props are only re-evaluated when explicitly requested in a partial reload.
@@ -22,11 +26,11 @@ const MergeableProp = require('./mergeable-prop')
 module.exports = class AlwaysProp extends MergeableProp {
   /**
    * Create a new AlwaysProp instance
-   * @param {Function} callback - The callback function to resolve the prop value
+   * @param {PropCallback} callback - The callback function to resolve the prop value
    */
   constructor(callback) {
     super()
-    /** @type {Function} */
+    /** @type {PropCallback} */
     this.callback = callback
   }
 }
