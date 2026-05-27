@@ -3,6 +3,7 @@ const inertiaHeaders = require('./helpers/inertia-headers')
 const buildPageObject = require('./helpers/build-page-object')
 const requestContext = require('./helpers/request-context')
 const resolveAssetVersion = require('./helpers/resolve-asset-version')
+const { normalizeSsrConfig, renderSsrPage, shouldRenderSsr } = require('./ssr')
 
 /**
  * @typedef {import('./types').InertiaRequest} InertiaRequest
@@ -13,6 +14,7 @@ const resolveAssetVersion = require('./helpers/resolve-asset-version')
  * @property {string} page
  * @property {InertiaProps} [props]
  * @property {InertiaProps} [locals]
+ * @property {boolean} [ssr]
  */
 
 /**
@@ -90,6 +92,11 @@ module.exports = async function render(req, res, data) {
     res.set('Vary', 'X-Inertia')
     return res.json(page)
   } else {
+    const ssrConfig = normalizeSsrConfig(sails)
+    const ssr = shouldRenderSsr(data, page, ssrConfig)
+      ? await renderSsrPage(sails, page, ssrConfig)
+      : null
+
     // Implements full page reload
     //
     // We pass locals both as top-level properties AND nested under a `locals`
@@ -100,6 +107,11 @@ module.exports = async function render(req, res, data) {
     // function parameter. By pre-populating `data.locals` with our values,
     // `<%= locals.title %>` in the EJS template correctly resolves to the
     // dynamic value instead of undefined.
-    return res.view(rootView, { page, ...allLocals, locals: { ...allLocals } })
+    return res.view(rootView, {
+      page,
+      ssr,
+      ...allLocals,
+      locals: { ...allLocals }
+    })
   }
 }

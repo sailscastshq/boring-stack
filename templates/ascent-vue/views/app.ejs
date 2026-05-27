@@ -1,16 +1,18 @@
 <!DOCTYPE html>
+<% const inertiaSsr = typeof ssr !== 'undefined' ? ssr : null %>
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <%- shipwright.styles() %>
+    <%- inertiaSsr && inertiaSsr.head ? inertiaSsr.head.join('\n') : '' %>
   </head>
   <body>
+    <% if (inertiaSsr && inertiaSsr.body) { %> <%- inertiaSsr.body %> <% } else { %>
     <div id="app"></div>
-    <script type="application/json" data-page="app">
-      <%- JSON.stringify(page).replace(/</g, '\\u003c') %>
-    </script>
+    <script type="application/json" data-page="app"><%- JSON.stringify(page).replace(/</g, '\\u003c') %></script>
+    <% } %>
     <%- shipwright.scripts() %>
   </body>
 </html>

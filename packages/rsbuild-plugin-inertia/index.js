@@ -1,3 +1,4 @@
+const fs = require('fs')
 const path = require('path')
 const {
   transformPageResolution,
@@ -6,22 +7,30 @@ const {
 
 const PLUGIN_NAME = 'rsbuild-plugin-inertia'
 const EXPOSED_API_ID = 'rsbuild-plugin-inertia'
+const DEFAULT_SSR_ENTRY = 'assets/js/ssr.js'
 
 /**
  * @typedef {Object} InertiaSsrOptions
  * @property {string} [entry]
  * @property {string} [name]
  * @property {string} [outDir]
+ * @property {string} [filename]
  * @property {boolean} [autoExternal]
  *
  * @typedef {Object} InertiaPluginOptions
  * @property {boolean} [axios]
  * @property {boolean} [pages]
- * @property {false|string|InertiaSsrOptions} [ssr]
+ * @property {boolean|string|InertiaSsrOptions} [ssr]
+ *
+ * @typedef {Object} NormalizedInertiaPluginOptions
+ * @property {boolean} stubAxios
+ * @property {boolean} pages
+ * @property {'auto'|false|Required<InertiaSsrOptions>} ssr
  */
 
 /**
  * @param {InertiaPluginOptions} [options]
+ * @returns {NormalizedInertiaPluginOptions}
  */
 function normalizeOptions(options) {
   const input = options || {}
@@ -32,7 +41,7 @@ function normalizeOptions(options) {
     // template to carry an app-level axios dependency.
     stubAxios: input.axios !== true,
     pages: input.pages !== false,
-    ssr: normalizeSsrOptions(input.ssr)
+    ssr: input.ssr === undefined ? 'auto' : normalizeSsrOptions(input.ssr)
   }
 }
 
@@ -43,13 +52,66 @@ function normalizeOptions(options) {
 function normalizeSsrOptions(ssr) {
   if (!ssr) return false
 
-  const input = typeof ssr === 'string' ? { entry: ssr } : ssr
+  const input =
+    ssr === true ? {} : typeof ssr === 'string' ? { entry: ssr } : ssr
 
   return {
-    entry: input.entry || 'assets/js/ssr.js',
+    entry: input.entry || DEFAULT_SSR_ENTRY,
     name: input.name || 'inertia',
     outDir: input.outDir || '.tmp/ssr',
+    filename: input.filename || '[name].mjs',
     autoExternal: input.autoExternal !== false
+  }
+}
+
+/**
+ * @param {'auto'|false|Required<InertiaSsrOptions>} ssr
+ * @param {string} rootPath
+ * @param {(file: string) => boolean} fileExists
+ * @returns {false|Required<InertiaSsrOptions>}
+ */
+function resolveSsrOptions(ssr, rootPath, fileExists) {
+  if (ssr !== 'auto') return ssr
+
+  const defaultSsr = /** @type {Required<InertiaSsrOptions>} */ (
+    normalizeSsrOptions(true)
+  )
+  const defaultEntry = path.resolve(rootPath, defaultSsr.entry)
+
+  return fileExists(defaultEntry) ? defaultSsr : false
+}
+
+/**
+ * @param {any} currentWriteToDisk
+ * @param {Required<InertiaSsrOptions>} ssr
+ * @param {string} rootPath
+ */
+function withSsrWriteToDisk(currentWriteToDisk, ssr, rootPath) {
+  const ssrOutDir = path.resolve(rootPath, ssr.outDir)
+  const ssrOutDirWithSeparator = `${ssrOutDir}${path.sep}`
+
+  /**
+   * @param {string} file
+   */
+  return function writeInertiaSsrToDisk(file) {
+    const absoluteFile = path.resolve(file)
+
+    if (
+      absoluteFile === ssrOutDir ||
+      absoluteFile.startsWith(ssrOutDirWithSeparator)
+    ) {
+      return true
+    }
+
+    if (typeof currentWriteToDisk === 'function') {
+      return currentWriteToDisk(file)
+    }
+
+    if (typeof currentWriteToDisk === 'boolean') {
+      return currentWriteToDisk
+    }
+
+    return false
   }
 }
 
@@ -91,35 +153,115 @@ function withAxiosStub(alias) {
 }
 
 /**
- * @param {Record<string, any>} config
- * @param {ReturnType<typeof normalizeOptions>} options
+ * @param {string} packageName
  * @param {string} rootPath
+ * @param {(id: string, options?: { paths?: string[] }) => string} resolvePackage
+ * @returns {boolean}
  */
-function applyInertiaConfig(config, options, rootPath) {
-  if (options.stubAxios) {
+function canResolvePackage(packageName, rootPath, resolvePackage) {
+  try {
+    resolvePackage(packageName, { paths: [rootPath] })
+    return true
+  } catch {
+    return false
+  }
+}
+
+/**
+ * Keep browser entries in the web environment so the SSR environment does not
+ * inherit and compile the client bundle as a private Node entry too.
+ *
+ * @param {Record<string, any>} config
+ */
+function moveBrowserEntryToWebEnvironment(config) {
+  if (!config.source?.entry) return
+
+  config.environments.web = config.environments.web || {}
+  config.environments.web.source = config.environments.web.source || {}
+  config.environments.web.source.entry =
+    config.environments.web.source.entry || config.source.entry
+
+  delete config.source.entry
+
+  if (!Object.keys(config.source).length) {
+    delete config.source
+  }
+}
+
+/**
+ * Output copy patterns are browser assets. Move them into the web environment
+ * so Rsbuild does not also copy public files during the private Node build.
+ *
+ * @param {Record<string, any>} config
+ */
+function moveBrowserOutputToWebEnvironment(config) {
+  if (!config.output?.copy) return
+
+  config.environments.web = config.environments.web || {}
+  config.environments.web.output = config.environments.web.output || {}
+  config.environments.web.output.copy =
+    config.environments.web.output.copy || config.output.copy
+
+  delete config.output.copy
+
+  if (!Object.keys(config.output).length) {
+    delete config.output
+  }
+}
+
+/**
+ * @param {Record<string, any>} config
+ * @param {NormalizedInertiaPluginOptions} options
+ * @param {string} rootPath
+ * @param {(id: string, options?: { paths?: string[] }) => string} [resolvePackage]
+ * @param {(file: string) => boolean} [fileExists]
+ */
+function applyInertiaConfig(
+  config,
+  options,
+  rootPath,
+  resolvePackage,
+  fileExists
+) {
+  const resolveFromRoot = resolvePackage || require.resolve
+  const ssr = resolveSsrOptions(
+    options.ssr,
+    rootPath,
+    fileExists || fs.existsSync
+  )
+
+  if (
+    options.stubAxios &&
+    !canResolvePackage('axios', rootPath, resolveFromRoot)
+  ) {
     config.resolve = config.resolve || {}
     config.resolve.alias = withAxiosStub(config.resolve.alias)
   }
 
-  if (options.ssr) {
+  if (ssr) {
     config.environments = config.environments || {}
     config.environments.web = config.environments.web || {}
+    moveBrowserEntryToWebEnvironment(config)
+    moveBrowserOutputToWebEnvironment(config)
 
     const nodeEnvironment = {
       source: {
         entry: {
-          [options.ssr.name]: path.resolve(rootPath, options.ssr.entry)
+          [ssr.name]: path.resolve(rootPath, ssr.entry)
         }
       },
       output: {
+        manifest: false,
         target: 'node',
-        autoExternal: options.ssr.autoExternal,
+        autoExternal: ssr.autoExternal,
+        emitAssets: false,
+        copy: /** @type {any[]} */ ([]),
         distPath: {
-          root: options.ssr.outDir,
+          root: ssr.outDir,
           js: ''
         },
         filename: {
-          js: '[name].js'
+          js: ssr.filename
         }
       },
       tools: {
@@ -130,6 +272,13 @@ function applyInertiaConfig(config, options, rootPath) {
     config.environments.node = mergePlainObject(
       config.environments.node || {},
       nodeEnvironment
+    )
+
+    config.dev = config.dev || {}
+    config.dev.writeToDisk = withSsrWriteToDisk(
+      config.dev.writeToDisk,
+      ssr,
+      rootPath
     )
   }
 
@@ -188,4 +337,7 @@ module.exports = pluginInertia
 module.exports.default = pluginInertia
 module.exports.pluginInertia = pluginInertia
 module.exports.normalizeOptions = normalizeOptions
+module.exports.resolveSsrOptions = resolveSsrOptions
 module.exports.applyInertiaConfig = applyInertiaConfig
+module.exports.canResolvePackage = canResolvePackage
+module.exports.withSsrWriteToDisk = withSsrWriteToDisk

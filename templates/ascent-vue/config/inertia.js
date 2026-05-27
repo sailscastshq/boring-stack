@@ -6,4 +6,6 @@
  * https://docs.sailscasts.com/inertia-sails/
  */
 
-module.exports.inertia = {}
+module.exports.inertia = {
+  ssr: true
+}

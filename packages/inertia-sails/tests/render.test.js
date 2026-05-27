@@ -1,5 +1,8 @@
 const { describe, it } = require('node:test')
 const assert = require('node:assert/strict')
+const fs = require('fs')
+const os = require('os')
+const path = require('path')
 const render = require('../lib/render')
 const { INERTIA, VERSION, LOCATION } = require('../lib/helpers/inertia-headers')
 
@@ -12,6 +15,7 @@ const { INERTIA, VERSION, LOCATION } = require('../lib/helpers/inertia-headers')
  * @param {string} [options.version]
  * @param {Record<string, any>} [options.sharedProps]
  * @param {Record<string, any>} [options.locals]
+ * @param {Record<string, any>} [options.ssr]
  * @returns {any}
  */
 function createRequest({
@@ -21,7 +25,8 @@ function createRequest({
   headers = {},
   version = 'current-version',
   sharedProps = {},
-  locals = {}
+  locals = {},
+  ssr
 } = {}) {
   const normalizedHeaders = Object.fromEntries(
     Object.entries(headers).map(([key, value]) => [key.toLowerCase(), value])
@@ -42,7 +47,8 @@ function createRequest({
       config: {
         inertia: {
           rootView: 'app',
-          version
+          version,
+          ssr
         }
       },
       inertia: {
@@ -67,6 +73,18 @@ function createRequest({
       }
     }
   }
+}
+
+/**
+ * @param {string} source
+ */
+function createSsrBundle(source) {
+  const directory = fs.mkdtempSync(path.join(os.tmpdir(), 'inertia-sails-ssr-'))
+  const bundle = path.join(directory, 'inertia.js')
+
+  fs.writeFileSync(bundle, source)
+
+  return bundle
 }
 
 function createResponse() {
@@ -193,5 +211,106 @@ describe('render', function () {
     assert.equal(res.headers[INERTIA], true)
     assert.equal(res.headers.Vary, 'X-Inertia')
     assert.deepEqual(res.body.props.stats, { users: 10 })
+  })
+
+  it('passes SSR output to the root view when a page opts in', async function () {
+    const bundle = createSsrBundle(`
+      export default async function render(page) {
+        return {
+          head: ['<title>' + page.component + '</title>'],
+          body: '<script type="application/json" data-page="app">' + JSON.stringify(page) + '</script><div id="app" data-server-rendered="true">' + page.props.message + '</div>'
+        }
+      }
+    `)
+    const req = createRequest({
+      ssr: {
+        enabled: true,
+        bundle,
+        pages: false
+      }
+    })
+    const res = createResponse()
+
+    await render(req, res, {
+      page: 'dashboard/index',
+      props: {
+        message: 'Rendered on the server'
+      },
+      ssr: true
+    })
+
+    assert.equal(res.viewName, 'app')
+    assert.deepEqual(res.viewData.ssr.head, ['<title>dashboard/index</title>'])
+    assert.match(res.viewData.ssr.body, /data-server-rendered="true"/)
+    assert.match(res.viewData.ssr.body, /Rendered on the server/)
+  })
+
+  it('supports page selectors for SSR', async function () {
+    const bundle = createSsrBundle(`
+      export default function render(page) {
+        return { head: [], body: '<div id="app">' + page.component + '</div>' }
+      }
+    `)
+    const req = createRequest({
+      ssr: {
+        enabled: true,
+        bundle,
+        pages: ['dashboard/index']
+      }
+    })
+    const res = createResponse()
+
+    await render(req, res, {
+      page: 'dashboard/index',
+      props: {}
+    })
+
+    assert.match(res.viewData.ssr.body, /dashboard\/index/)
+  })
+
+  it('renders all pages when SSR is enabled without a page selector', async function () {
+    const bundle = createSsrBundle(`
+      export default function render(page) {
+        return { head: [], body: '<div id="app">' + page.component + '</div>' }
+      }
+    `)
+    const req = createRequest({
+      ssr: {
+        enabled: true,
+        bundle
+      }
+    })
+    const res = createResponse()
+
+    await render(req, res, {
+      page: 'dashboard/index',
+      props: {}
+    })
+
+    assert.match(res.viewData.ssr.body, /dashboard\/index/)
+  })
+
+  it('allows a response to opt out of configured SSR', async function () {
+    const bundle = createSsrBundle(`
+      export default function render() {
+        return { head: [], body: '<div id="app">SSR</div>' }
+      }
+    `)
+    const req = createRequest({
+      ssr: {
+        enabled: true,
+        bundle,
+        pages: true
+      }
+    })
+    const res = createResponse()
+
+    await render(req, res, {
+      page: 'dashboard/index',
+      props: {},
+      ssr: false
+    })
+
+    assert.equal(res.viewData.ssr, null)
   })
 })

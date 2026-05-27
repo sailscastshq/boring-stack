@@ -1,6 +1,6 @@
 const { describe, it } = require('node:test')
 const assert = require('node:assert/strict')
-const { applyInertiaConfig, pluginInertia } = require('..')
+const { applyInertiaConfig, normalizeOptions, pluginInertia } = require('..')
 const { transformPageResolution } = require('../lib/page-resolution')
 
 describe('transformPageResolution', function () {
@@ -159,14 +159,34 @@ describe('transformPageResolution', function () {
 })
 
 describe('pluginInertia', function () {
+  it('auto-detects the SSR entry by default', function () {
+    const options = normalizeOptions()
+
+    assert.equal(options.ssr, 'auto')
+  })
+
   it('stubs the optional axios adapter by default', function () {
     const config = applyInertiaConfig(
       {},
       { stubAxios: true, pages: true, ssr: false },
-      '/app'
+      '/app',
+      () => {
+        throw new Error('missing')
+      }
     )
 
     assert.equal(config.resolve.alias.axios, false)
+  })
+
+  it('does not stub axios when the app has installed it', function () {
+    const config = applyInertiaConfig(
+      {},
+      { stubAxios: true, pages: true, ssr: false },
+      '/app',
+      () => '/app/node_modules/axios/index.js'
+    )
+
+    assert.equal(config.resolve, undefined)
   })
 
   it('keeps axios resolvable when requested', function () {
@@ -181,7 +201,17 @@ describe('pluginInertia', function () {
 
   it('adds a node environment when SSR is configured', function () {
     const config = applyInertiaConfig(
-      {},
+      {
+        source: {
+          entry: {
+            app: '/app/assets/js/app.js'
+          }
+        },
+        output: {
+          manifest: true,
+          copy: [{ from: '/app/assets' }]
+        }
+      },
       {
         stubAxios: false,
         pages: true,
@@ -189,6 +219,7 @@ describe('pluginInertia', function () {
           entry: 'assets/js/ssr.js',
           name: 'inertia',
           outDir: '.tmp/ssr',
+          filename: '[name].mjs',
           autoExternal: true
         }
       },
@@ -197,10 +228,119 @@ describe('pluginInertia', function () {
 
     assert.equal(config.environments.node.output.target, 'node')
     assert.equal(config.environments.node.output.autoExternal, true)
+    assert.equal(config.environments.node.output.manifest, false)
+    assert.equal(config.environments.node.output.emitAssets, false)
+    assert.deepEqual(config.environments.node.output.copy, [])
     assert.equal(
       config.environments.node.source.entry.inertia,
       '/app/assets/js/ssr.js'
     )
+    assert.deepEqual(config.environments.node.source.entry, {
+      inertia: '/app/assets/js/ssr.js'
+    })
+    assert.deepEqual(config.environments.web.source.entry, {
+      app: '/app/assets/js/app.js'
+    })
+    assert.deepEqual(config.environments.web.output.copy, [
+      { from: '/app/assets' }
+    ])
+    assert.equal(config.source, undefined)
+    assert.equal(config.output.copy, undefined)
+  })
+
+  it('adds a node environment when the conventional SSR entry exists', function () {
+    const config = applyInertiaConfig(
+      {
+        source: {
+          entry: {
+            app: '/app/assets/js/app.js'
+          }
+        }
+      },
+      {
+        stubAxios: false,
+        pages: true,
+        ssr: 'auto'
+      },
+      '/app',
+      undefined,
+      (file) => file === '/app/assets/js/ssr.js'
+    )
+
+    assert.equal(
+      config.environments.node.source.entry.inertia,
+      '/app/assets/js/ssr.js'
+    )
+    assert.equal(config.environments.node.output.filename.js, '[name].mjs')
+    assert.equal(config.dev.writeToDisk('/app/.tmp/ssr/inertia.mjs'), true)
+  })
+
+  it('skips the node environment when auto SSR has no entry', function () {
+    const config = applyInertiaConfig(
+      {
+        source: {
+          entry: {
+            app: '/app/assets/js/app.js'
+          }
+        }
+      },
+      {
+        stubAxios: false,
+        pages: true,
+        ssr: 'auto'
+      },
+      '/app',
+      undefined,
+      () => false
+    )
+
+    assert.equal(config.environments, undefined)
+    assert.deepEqual(config.source.entry, {
+      app: '/app/assets/js/app.js'
+    })
+  })
+
+  it('supports true as the default SSR build configuration', function () {
+    const options = normalizeOptions({ ssr: true })
+
+    assert.deepEqual(options.ssr, {
+      entry: 'assets/js/ssr.js',
+      name: 'inertia',
+      outDir: '.tmp/ssr',
+      filename: '[name].mjs',
+      autoExternal: true
+    })
+  })
+
+  it('writes SSR output to disk while preserving existing write rules', function () {
+    const config = applyInertiaConfig(
+      {
+        dev: {
+          /**
+           * @param {string} file
+           */
+          writeToDisk(file) {
+            return file.endsWith('manifest.json')
+          }
+        }
+      },
+      {
+        stubAxios: false,
+        pages: true,
+        ssr: {
+          entry: 'assets/js/ssr.js',
+          name: 'inertia',
+          outDir: '.tmp/ssr',
+          filename: '[name].mjs',
+          autoExternal: true
+        }
+      },
+      '/app'
+    )
+
+    assert.equal(config.dev.writeToDisk('/app/.tmp/ssr/inertia.mjs'), true)
+    assert.equal(config.dev.writeToDisk('/app/.tmp/public/manifest.json'), true)
+    assert.equal(config.dev.writeToDisk('/app/.tmp/public/js/app.js'), false)
   })
 
   it('registers Rsbuild hooks', function () {

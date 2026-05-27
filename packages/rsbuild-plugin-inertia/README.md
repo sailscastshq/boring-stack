@@ -16,8 +16,8 @@ module.exports.shipwright = {
 ## What it handles
 
 - Centralizes Inertia-specific Rsbuild configuration.
-- Stubs Inertia v3's optional Axios adapter import so templates do not need to
-  ship Axios just to satisfy the bundler.
+- Stubs Inertia v3's optional Axios adapter import when Axios is not installed,
+  so templates do not need to ship Axios just to satisfy the bundler.
 - Injects a Boring Stack default page resolver for `./pages`.
 - Supports an Inertia/Vite-style `pages` shorthand when apps need to override
   the default.
@@ -38,6 +38,7 @@ now, using Rspack primitives:
 - `lazy: false` for single-bundle apps
 - framework-aware default export handling for Vue, React, and Svelte
 - automatic resolver injection when no `pages` or `resolve` is configured
+- automatic SSR entry detection when `assets/js/ssr.js` exists
 
 SSR is split deliberately. The plugin can prepare a Node build environment, but
 Sails should decide which requests render through SSR. That keeps hybrid EJS and
@@ -99,15 +100,37 @@ Apps using `./Pages` can opt in explicitly with `pages: './Pages'`.
 
 ## SSR Build Environment
 
-Runtime SSR remains controlled by the server adapter, but the plugin can prepare
-the Rsbuild `node` environment:
+Runtime SSR remains controlled by the server adapter, but the plugin prepares
+the Rsbuild `node` environment automatically when `assets/js/ssr.js` exists:
+
+```js
+pluginInertia()
+```
+
+Only configure `ssr` when an app uses a non-standard SSR entry point:
 
 ```js
 pluginInertia({
   ssr: {
-    entry: 'assets/js/ssr.js'
+    entry: 'assets/js/server.js'
   }
 })
 ```
 
-Then `config/inertia.js` can decide which requests actually render through SSR.
+Set `ssr: false` to disable auto-detection.
+
+Then `config/inertia.js` can decide which requests actually render through SSR:
+
+```js
+module.exports.inertia = {
+  ssr: {
+    enabled: true
+  }
+}
+```
+
+When `enabled` is true and `pages` is omitted, every Inertia page can SSR. Use
+`pages: ['index', 'pricing']` to make SSR selective.
+
+The Boring JavaScript Stack does not need a separate SSR server process; Sails
+imports the private `.tmp/ssr/inertia.mjs` bundle in-process.

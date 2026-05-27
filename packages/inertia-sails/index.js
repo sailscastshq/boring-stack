@@ -23,6 +23,7 @@
  * @property {string} page - The component name to render
  * @property {InertiaProps} [props] - Props to pass to the component
  * @property {InertiaProps} [locals] - Additional locals for the root EJS template
+ * @property {boolean} [ssr] - Whether to server-render this response when SSR is enabled
  *
  * @typedef {Object} DeferOptions
  * @property {boolean} [rescue=false] - Rescue callback failures
@@ -117,6 +118,12 @@ module.exports = function defineInertiaHook(sails) {
         version: () => getManifestVersion(),
         history: {
           encrypt: false
+        },
+        ssr: {
+          enabled: false,
+          bundle: '.tmp/ssr/inertia.mjs',
+          pages: false,
+          fallback: true
         }
       }
     },
