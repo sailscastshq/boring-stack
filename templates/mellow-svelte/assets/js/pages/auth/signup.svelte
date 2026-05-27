@@ -17,9 +17,9 @@
     return specialChars.test(password)
   }
 
-  $: containsSpecialChars = passwordContainsSpecialChars($form.password)
+  $: containsSpecialChars = passwordContainsSpecialChars(form.password)
 
-  $: passwordIsValid = $form.password?.length >= 8
+  $: passwordIsValid = form.password?.length >= 8
 
   function shouldDisableSignupButton(processing) {
     if (!passwordIsValid) return true
@@ -28,7 +28,11 @@
     return false
   }
 
-  $: disableSignupButton = shouldDisableSignupButton($form.processing)
+  $: disableSignupButton = shouldDisableSignupButton(form.processing)
+
+  function submit() {
+    form.post('/signup')
+  }
 </script>
 
 <svelte:head>
@@ -68,35 +72,37 @@
         Welcome! Please enter your details to sign up
       </p>
     </section>
-    {#if $form.errors.signup}
+    {#if form.errors.signup}
       <p
         class="my-4 w-full rounded-sm border-red-400 bg-red-100 p-4 text-red-500"
       >
-        {$form.errors.signup}
+        {form.errors.signup}
       </p>
     {/if}
     <form
-      on:submit|preventDefault={$form.post('/signup')}
+      on:submit|preventDefault={submit}
       class="mb-4 flex flex-col space-y-6"
     >
-      <InputText bind:value={$form.fullName}>
-        {#if $form.errors.fullName}
+      <InputText bind:value={form.fullName}>
+        {#if form.errors.fullName}
           <p class="absolute text-red-500">
-            {$form.errors.fullName}
+            {form.errors.fullName}
           </p>
         {/if}
       </InputText>
-      <InputEmail bind:value={$form.email}>
-        {#if $form.errors.email}
+      <InputEmail bind:value={form.email}>
+        {#if form.errors.email}
           <p class="absolute text-red-500">
-            {$form.errors.email}
+            {form.errors.email}
           </p>
         {/if}
       </InputEmail>
-      <InputPassword bind:value={$form.password}>
-        <p class="absolute text-red-500" v-if="form.errors.password">
-          {$form.errors.password}
-        </p>
+      <InputPassword bind:value={form.password}>
+        {#if form.errors.password}
+          <p class="absolute text-red-500">
+            {form.errors.password}
+          </p>
+        {/if}
       </InputPassword>
       <ul class="flex justify-between text-sm">
         <li

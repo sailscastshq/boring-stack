@@ -6,7 +6,7 @@ const loggedInUser = usePage().props.loggedInUser
 
 <template>
   <div
-    class="flex min-h-screen flex-col bg-gradient-to-b from-brand-50/10 to-[#F9FAFB]"
+    class="from-brand-50/10 flex min-h-screen flex-col bg-gradient-to-b to-[#F9FAFB]"
   >
     <header>
       <nav class="flex items-center justify-between px-4 py-6 md:px-8">
@@ -37,7 +37,7 @@ const loggedInUser = usePage().props.loggedInUser
           <li>
             <Link
               href="/signup"
-              class="rounded-lg bg-brand px-8 py-4 text-white md:py-3"
+              class="bg-brand rounded-lg px-8 py-4 text-white md:py-3"
               >Sign up</Link
             >
           </li>
@@ -46,7 +46,7 @@ const loggedInUser = usePage().props.loggedInUser
           <Link href="/dashboard" class="text-brand md:text-lg">Dashboard</Link>
           <Link href="/profile">
             <p
-              class="rounded-full bg-green p-2 text-white"
+              class="bg-green rounded-full p-2 text-white"
               v-if="!loggedInUser.googleAvatarUrl"
             >
               {{ loggedInUser.initials }}
@@ -90,7 +90,7 @@ const loggedInUser = usePage().props.loggedInUser
         />
       </svg>
 
-      <p class="text-sm text-gray">
+      <p class="text-gray text-sm">
         Made with love 💚 by
         <a href="https://twitter.com/Dominus_Kelvin" class="underline"
           >Kelvin Omereshone</a

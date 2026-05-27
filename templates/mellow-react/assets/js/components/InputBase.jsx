@@ -16,7 +16,7 @@ export default function InputBase({
       <span className="absolute left-2 top-[55%]">{icon}</span>
       <input
         id={id}
-        className="block w-full rounded-lg border border-gray/50 bg-white py-3 pl-10 pr-3 shadow-sm placeholder:text-lg placeholder:text-gray focus:outline-none focus:ring-1 focus:ring-gray-100"
+        className="border-gray/50 placeholder:text-gray block w-full rounded-lg border bg-white py-3 pl-10 pr-3 shadow-sm placeholder:text-lg focus:outline-none focus:ring-1 focus:ring-gray-100"
         type={type}
         placeholder={placeholder}
         {...props}

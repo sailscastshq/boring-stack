@@ -1,7 +1,9 @@
 <script>
-  import { Link, page } from '@inertiajs/svelte'
+  import { Link, usePage } from '@inertiajs/svelte'
 
-  const loggedInUser = $page.props.loggedInUser
+  const page = usePage()
+
+  $: loggedInUser = page.props.loggedInUser
 </script>
 
 <div

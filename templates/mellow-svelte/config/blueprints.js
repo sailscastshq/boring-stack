@@ -28,5 +28,5 @@ module.exports.blueprints = {
    * (These are enabled by default in development only.)                      *
    *                                                                          *
    ***************************************************************************/
-  shortcuts: false,
+  shortcuts: false
 }

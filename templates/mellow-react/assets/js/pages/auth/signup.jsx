@@ -37,7 +37,7 @@ export default function Signup() {
   return (
     <>
       <Head title="Sign up | Mellow"></Head>
-      <section className="flex min-h-screen flex-col justify-center bg-gradient-to-b from-brand-50/10 to-[#F9FAFB] text-black sm:items-center">
+      <section className="from-brand-50/10 flex min-h-screen flex-col justify-center bg-gradient-to-b to-[#F9FAFB] text-black sm:items-center">
         <main className="mt-10 bg-white px-4 py-10 text-black sm:w-7/12 sm:rounded-lg sm:px-8 sm:shadow-lg md:w-6/12 lg:w-5/12 xl:w-4/12">
           <section className="mb-6 flex flex-col items-center justify-center space-y-2 text-center">
             <Link href="/">
@@ -61,7 +61,7 @@ export default function Signup() {
             </Link>
 
             <h1 className="text-2xl">Create your account</h1>
-            <p className="text-lg text-gray">
+            <p className="text-gray text-lg">
               Welcome! Please enter your details to sign up
             </p>
           </section>
@@ -164,7 +164,7 @@ export default function Signup() {
           </form>
           <GoogleButton />
         </main>
-        <footer className="my-8 text-center text-gray">
+        <footer className="text-gray my-8 text-center">
           <p>
             <span>Already have an account? </span>
             <Link href="/login" className="text-brand hover:underline">

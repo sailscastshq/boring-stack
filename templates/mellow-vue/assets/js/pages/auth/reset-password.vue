@@ -33,7 +33,7 @@ const disableResetPasswordButton = computed(() => {
 <template>
   <Head title="Reset password | Mellow"></Head>
   <section
-    class="flex min-h-screen flex-col justify-center bg-gradient-to-b from-brand-50/10 to-[#F9FAFB] text-black sm:items-center"
+    class="from-brand-50/10 flex min-h-screen flex-col justify-center bg-gradient-to-b to-[#F9FAFB] text-black sm:items-center"
   >
     <main
       class="mt-10 bg-white px-4 py-10 text-black sm:w-7/12 sm:rounded-lg sm:px-8 sm:shadow-lg md:w-6/12 lg:w-5/12 xl:w-4/12"
@@ -72,7 +72,7 @@ const disableResetPasswordButton = computed(() => {
         </svg>
 
         <h1 class="text-2xl">Create a new password</h1>
-        <p class="text-lg text-gray">Set a new password</p>
+        <p class="text-gray text-lg">Set a new password</p>
       </section>
       <form
         @submit.prevent="form.post('/reset-password')"
@@ -156,7 +156,7 @@ const disableResetPasswordButton = computed(() => {
         </InputButton>
       </form>
     </main>
-    <footer class="my-8 text-center text-gray">
+    <footer class="text-gray my-8 text-center">
       <Link href="/login" class="flex items-center justify-center">
         <svg
           width="16"

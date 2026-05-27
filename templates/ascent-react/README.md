@@ -136,7 +136,8 @@ npm run lint:fix      # Auto-fix formatting
 # Testing
 npm test              # Run the full Sounding suite
 npm run test:unit     # Helper and business-logic trials
-npm run test:e2e      # Request, Inertia, and browser-capable page trials
+npm run test:functional # Request and Inertia visit trials
+npm run test:e2e      # Browser-capable page trials
 
 # Sails.js generators
 npx sails generate controller auth/signup

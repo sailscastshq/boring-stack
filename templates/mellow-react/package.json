@@ -30,6 +30,7 @@
     "prettier": "^2.8.8",
     "prettier-plugin-tailwindcss": "^0.4.1",
     "sails-hook-shipwright": "^1.1.0",
+    "sails-sqlite": "^0.2.5",
     "sails.io.js": "^1.2.1",
     "socket.io-client": "^4.7.5",
     "sounding": "^0.0.1",
@@ -41,8 +42,9 @@
     "lint": "prettier --check .",
     "lint:fix": "prettier --write .",
     "test:unit": "node --test --test-concurrency=1 tests/unit/**/*.test.js",
-    "test:e2e": "node --test --test-concurrency=1 tests/e2e/pages/*.test.js tests/e2e/pages/**/*.test.js",
-    "test": "npm run test:unit && npm run test:e2e"
+    "test:functional": "node --test --test-concurrency=1 tests/functional/**/*.test.js",
+    "test:e2e": "node --test --test-concurrency=1 tests/e2e/**/*.test.js",
+    "test": "npm run test:unit && npm run test:functional && npm run test:e2e"
   },
   "main": "app.js",
   "engines": {

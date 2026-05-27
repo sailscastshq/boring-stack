@@ -6,7 +6,7 @@ import InputBase from '@/components/InputBase.vue'
   <InputBase label="Name" id="name" type="text" placeholder="Your name">
     <template #icon>
       <svg
-        class="h-5 w-5 fill-gray"
+        class="fill-gray h-5 w-5"
         viewBox="0 0 16 16"
         fill="none"
         xmlns="http://www.w3.org/2000/svg"

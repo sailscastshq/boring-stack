@@ -18,7 +18,7 @@ function toggleShowPassword() {
   >
     <template #icon>
       <svg
-        class="h-5 w-5 fill-gray"
+        class="fill-gray h-5 w-5"
         viewBox="0 0 16 16"
         fill="none"
         xmlns="http://www.w3.org/2000/svg"
@@ -49,7 +49,7 @@ function toggleShowPassword() {
         >
           <svg
             v-if="!showPassword"
-            class="h-5 w-5 fill-gray"
+            class="fill-gray h-5 w-5"
             viewBox="0 0 16 16"
             role="img"
             aria-label="Password is not visible"
@@ -75,7 +75,7 @@ function toggleShowPassword() {
           </svg>
           <svg
             v-else
-            class="h-5 w-5 fill-gray"
+            class="fill-gray h-5 w-5"
             viewBox="0 0 16 16"
             role="img"
             aria-label="Password is visible"
