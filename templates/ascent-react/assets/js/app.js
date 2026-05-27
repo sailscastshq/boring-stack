@@ -6,7 +6,6 @@ import '~/css/app.css'
 import 'primeicons/primeicons.css'
 
 createInertiaApp({
-  resolve: (name) => require(`./pages/${name}`),
   setup({ el, App, props }) {
     createRoot(el).render(
       <PrimeReactProvider

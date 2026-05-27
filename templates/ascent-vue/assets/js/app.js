@@ -9,7 +9,6 @@ import '~/css/app.css'
 import 'primeicons/primeicons.css'
 
 createInertiaApp({
-  resolve: (name) => require(`./pages/${name}`),
   setup({ el, App, props, plugin }) {
     const app = createApp({ render: () => h(App, props) })
 

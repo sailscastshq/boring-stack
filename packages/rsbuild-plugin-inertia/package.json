@@ -1,0 +1,35 @@
+{
+  "name": "rsbuild-plugin-inertia",
+  "version": "0.0.1",
+  "description": "Rsbuild plugin for Inertia.js page resolution and SSR build support.",
+  "main": "index.js",
+  "files": [
+    "index.js",
+    "lib",
+    "README.md"
+  ],
+  "scripts": {
+    "check:js": "tsc --allowJs --checkJs --noEmit --skipLibCheck --target ES2022 --module commonjs --noImplicitAny index.js lib/*.js tests/*.js",
+    "test": "npm run check:js && node --test tests/*.test.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/sailscastshq/boring-stack.git",
+    "directory": "packages/rsbuild-plugin-inertia"
+  },
+  "keywords": [
+    "inertia",
+    "inertiajs",
+    "rsbuild",
+    "rspack",
+    "sails",
+    "shipwright"
+  ],
+  "author": "Kelvin Omereshone Oghenerhoro <kelvin@sailscasts.com>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/sailscastshq/boring-stack/issues"
+  },
+  "homepage": "https://github.com/sailscastshq/boring-stack/tree/main/packages/rsbuild-plugin-inertia#readme",
+  "devDependencies": {}
+}
