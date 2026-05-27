@@ -80,7 +80,7 @@ function createRequest({
  */
 function createSsrBundle(source) {
   const directory = fs.mkdtempSync(path.join(os.tmpdir(), 'inertia-sails-ssr-'))
-  const bundle = path.join(directory, 'inertia.js')
+  const bundle = path.join(directory, 'inertia.mjs')
 
   fs.writeFileSync(bundle, source)
 
