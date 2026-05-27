@@ -2,7 +2,6 @@ import { useState } from 'react'
 import { Head, usePage, useForm, router } from '@inertiajs/react'
 
 import DashboardLayout from '@/layouts/DashboardLayout'
-import SettingsLayout from '@/layouts/SettingsLayout.jsx'
 
 import { InputText } from 'primereact/inputtext'
 import { Button } from 'primereact/button'
