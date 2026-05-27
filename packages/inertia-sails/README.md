@@ -90,6 +90,11 @@ Return a URL string to redirect:
 return '/dashboard'
 ```
 
+`inertiaRedirect` performs an Inertia location visit. It does not return a
+page object, so `sails.inertia.preserveFragment()` does not apply to this
+response type. If you already know the fragment you want, include it in the
+returned URL.
+
 #### Preserving URL fragments
 
 When a standard Inertia redirect should carry the current hash to the next
@@ -218,6 +223,22 @@ return {
         return await Analytics.getExpensiveReport()
       })
       .rescue()
+  }
+}
+```
+
+Or pass the rescue option inline:
+
+```js
+return {
+  page: 'dashboard',
+  props: {
+    analytics: sails.inertia.defer(
+      async () => {
+        return await Analytics.getExpensiveReport()
+      },
+      { rescue: true }
+    )
   }
 }
 ```

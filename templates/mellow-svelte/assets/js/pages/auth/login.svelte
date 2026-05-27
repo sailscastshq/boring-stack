@@ -19,7 +19,11 @@
     return false
   }
 
-  $: disableLoginButton = isLoginButtonDisabled($form)
+  $: disableLoginButton = isLoginButtonDisabled(form)
+
+  function submit() {
+    form.post('/login')
+  }
 </script>
 
 <svelte:head>
@@ -55,26 +59,26 @@
       </Link>
       <h1 class="text-2xl">Log into your account</h1>
       <p class="text-lg text-gray">Welcome back, please enter your details</p>
-      {#if $form.errors.email || $form.errors.login}
+      {#if form.errors.email || form.errors.login}
         <p
           class="my-4 w-full rounded-sm border-red-400 bg-red-100 p-4 text-red-500"
         >
-          {$form.errors.login || $form.errors.email}
+          {form.errors.login || form.errors.email}
         </p>
       {/if}
     </section>
     <form
-      on:submit|preventDefault={$form.post('/login')}
+      on:submit|preventDefault={submit}
       class="mb-4 flex flex-col space-y-6"
     >
-      <InputEmail bind:value={$form.email} />
-      <InputPassword bind:value={$form.password} />
+      <InputEmail bind:value={form.email} />
+      <InputPassword bind:value={form.password} />
       <section class="flex justify-between text-sm accent-brand">
         <label for="rememberMe" class="flex items-center space-x-2 text-gray">
           <input
             id="rememberMe"
             type="checkbox"
-            bind:checked={$form.rememberMe}
+            bind:checked={form.rememberMe}
           />
           <span>Remember me</span>
         </label>
@@ -83,7 +87,7 @@
           >Forgot Password</Link
         >
       </section>
-      <InputButton processing={$form.processing} disabled={disableLoginButton}
+      <InputButton processing={form.processing} disabled={disableLoginButton}
         >Login</InputButton
       >
     </form>

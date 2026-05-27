@@ -31,6 +31,21 @@ The name "Mellow" reflects this template's philosophy:
 
 Documentation for Mellow can be found on [The Boring JavaScript Stack docs](https://docs.sailscasts.com/boring-stack/templates#mellow).
 
+## Testing
+
+Mellow ships with Sounding trials for helpers, HTTP endpoints, Inertia visits, and browser-capable page behavior.
+
+```bash
+npm test
+npm run test:unit
+npm run test:functional
+npm run test:e2e
+```
+
+- `tests/unit/` covers helpers and small business logic.
+- `tests/functional/` covers request behavior and Inertia `visit()` contracts.
+- `tests/e2e/` is reserved for browser-capable trials that opt into `{ browser: true }`.
+
 ## Community and Support
 
 Join our community of developers using The Boring JavaScript Stack:

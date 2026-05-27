@@ -35,7 +35,7 @@ export default function ResetPassword({ token }) {
   return (
     <>
       <Head title="Reset password | Mellow"></Head>
-      <section className="flex min-h-screen flex-col justify-center bg-gradient-to-b from-brand-50/10 to-[#F9FAFB] text-black sm:items-center">
+      <section className="from-brand-50/10 flex min-h-screen flex-col justify-center bg-gradient-to-b to-[#F9FAFB] text-black sm:items-center">
         <main className="mt-10 bg-white px-4 py-10 text-black sm:w-7/12 sm:rounded-lg sm:px-8 sm:shadow-lg md:w-6/12 lg:w-5/12 xl:w-4/12">
           <section className="mb-6 flex flex-col items-center justify-center space-y-2 text-center">
             <svg
@@ -69,7 +69,7 @@ export default function ResetPassword({ token }) {
             </svg>
 
             <h1 class="text-2xl">Create a new password</h1>
-            <p class="text-lg text-gray">Set a new password</p>
+            <p class="text-gray text-lg">Set a new password</p>
           </section>
           <form onSubmit={submit} className="mb-4 flex flex-col space-y-6">
             <InputPassword
@@ -148,7 +148,7 @@ export default function ResetPassword({ token }) {
             />
           </form>
         </main>
-        <footer className="my-8 text-center text-gray">
+        <footer className="text-gray my-8 text-center">
           <Link href="/login" className="flex items-center justify-center">
             <svg
               width="16"

@@ -4,7 +4,7 @@ import { Link, Head } from '@inertiajs/vue3'
 <template>
   <Head title="Verification expired | Mellow"></Head>
   <section
-    class="flex min-h-screen flex-col justify-center bg-gradient-to-b from-brand-50/10 to-[#F9FAFB] text-black sm:items-center"
+    class="from-brand-50/10 flex min-h-screen flex-col justify-center bg-gradient-to-b to-[#F9FAFB] text-black sm:items-center"
   >
     <main
       class="mt-10 bg-white px-4 py-10 text-black sm:w-7/12 sm:rounded-lg sm:px-8 sm:shadow-lg md:w-6/12 lg:w-5/12 xl:w-4/12"
@@ -39,12 +39,12 @@ import { Link, Head } from '@inertiajs/vue3'
         </svg>
 
         <h1 class="text-2xl">Token expired</h1>
-        <p class="text-lg text-gray">
+        <p class="text-gray text-lg">
           The token sent to your email has expired or been used.
         </p>
         <a
           href="/resend-link"
-          class="w-full rounded-md border border-brand bg-brand px-4 py-3 text-white disabled:bg-gray-200/40 disabled:text-gray"
+          class="border-brand bg-brand disabled:text-gray w-full rounded-md border px-4 py-3 text-white disabled:bg-gray-200/40"
         >
           Resend link
         </a>

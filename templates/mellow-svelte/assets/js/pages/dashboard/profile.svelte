@@ -4,18 +4,20 @@
 </script>
 
 <script>
-  import { Link, page, useForm, router } from '@inertiajs/svelte'
+  import { Link, useForm, router, usePage } from '@inertiajs/svelte'
 
   import InputText from '@/components/InputText.svelte'
   import InputPassword from '@/components/InputPassword.svelte'
   import InputEmail from '@/components/InputEmail.svelte'
   import InputButton from '@/components/InputButton.svelte'
 
-  const loggedInUser = $page.props.loggedInUser
+  const page = usePage()
+
+  $: loggedInUser = page.props.loggedInUser
 
   const form = useForm({
-    email: loggedInUser.email,
-    fullName: loggedInUser.fullName,
+    email: page.props.loggedInUser.email,
+    fullName: page.props.loggedInUser.fullName,
     currentPassword: null,
     password: null,
     confirmPassword: null
@@ -26,7 +28,7 @@
   })
 
   function updateProfile() {
-    $form.patch(`/profile`, {
+    form.patch(`/profile`, {
       preserveScroll: true,
       preserveState: true,
       onError: (errors) => {
@@ -41,7 +43,7 @@
         'Are you sure you want to delete your account? This action cannot be undone.'
       )
     ) {
-      $deleteAccountForm.delete('/profile')
+      deleteAccountForm.delete('/profile')
     }
   }
 </script>
@@ -61,14 +63,14 @@
     </header>
 
     <form on:submit|preventDefault={updateProfile} class="space-y-4">
-      <InputText bind:value={$form.fullName} />
-      <InputEmail bind:value={$form.email} />
+      <InputText bind:value={form.fullName} />
+      <InputEmail bind:value={form.email} />
       <div class="flex items-center justify-end">
-        <InputButton processing={$form.processing} disabled={$form.processing}>
+        <InputButton processing={form.processing} disabled={form.processing}>
           Save changes
         </InputButton>
       </div>
-      {#if $form.recentlySuccessful}
+      {#if form.recentlySuccessful}
         <p class="text-right text-green-700">Profile updated successfully!</p>
       {/if}
     </form>
@@ -88,34 +90,34 @@
       <InputPassword
         label="Current Password"
         id="currentPassword"
-        bind:value={$form.currentPassword}
+        bind:value={form.currentPassword}
         placeholder="Current Password"
       />
       <InputPassword
         label="New Password"
         id="password"
-        bind:value={$form.password}
+        bind:value={form.password}
         placeholder="New Password"
       />
       <InputPassword
         label="Confirm Password"
         placeholder="Confirm Password"
         id="confirmPassword"
-        bind:value={$form.confirmPassword}
+        bind:value={form.confirmPassword}
       >
-        {#if $form.errors.password}
+        {#if form.errors.password}
           <p class="text-red-500">
-            {$form.errors.password}
+            {form.errors.password}
           </p>
         {/if}
       </InputPassword>
 
       <div class="flex items-center justify-end">
-        <InputButton processing={$form.processing} disabled={$form.processing}>
+        <InputButton processing={form.processing} disabled={form.processing}>
           Update Password
         </InputButton>
       </div>
-      {#if $form.recentlySuccessful}
+      {#if form.recentlySuccessful}
         <p class="text-right text-green-700">Profile updated successfully!</p>
       {/if}
     </form>
@@ -134,11 +136,11 @@
     </header>
 
     <form on:submit|preventDefault={deleteAccount} class="space-y-4">
-      <InputPassword required bind:value={$deleteAccountForm.password} />
+      <InputPassword required bind:value={deleteAccountForm.password} />
       <div class="flex items-center justify-end">
         <InputButton
-          processing={$deleteAccountForm.processing}
-          disabled={$deleteAccountForm.processing}
+          processing={deleteAccountForm.processing}
+          disabled={deleteAccountForm.processing}
           class="border-red-600 bg-red-600"
         >
           Delete Account

@@ -1,0 +1,8 @@
+node_modules
+.tmp
+playwright-report
+test-results
+playwright/.cache
+*.sqlite
+*.sqlite-wal
+*.sqlite-shm

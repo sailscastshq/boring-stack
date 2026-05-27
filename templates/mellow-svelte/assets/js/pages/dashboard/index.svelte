@@ -4,8 +4,11 @@
 </script>
 
 <script>
-  import { page, Link } from '@inertiajs/svelte'
-  const loggedInUser = $page.props.loggedInUser
+  import { Link, usePage } from '@inertiajs/svelte'
+
+  const page = usePage()
+
+  $: loggedInUser = page.props.loggedInUser
 </script>
 
 <svelte:head>

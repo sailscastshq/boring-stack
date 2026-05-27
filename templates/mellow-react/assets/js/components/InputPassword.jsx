@@ -16,7 +16,7 @@ export default function InputPassword(props) {
       placeholder="Your password"
       icon={
         <svg
-          className="h-5 w-5 fill-gray"
+          className="fill-gray h-5 w-5"
           viewBox="0 0 16 16"
           fill="none"
           xmlns="http://www.w3.org/2000/svg"
@@ -47,7 +47,7 @@ export default function InputPassword(props) {
           >
             {showPassword ? (
               <svg
-                className="h-5 w-5 fill-gray"
+                className="fill-gray h-5 w-5"
                 viewBox="0 0 16 16"
                 role="img"
                 aria-label="Password is not visible"
@@ -73,7 +73,7 @@ export default function InputPassword(props) {
               </svg>
             ) : (
               <svg
-                className="h-5 w-5 fill-gray"
+                className="fill-gray h-5 w-5"
                 viewBox="0 0 16 16"
                 role="img"
                 aria-label="Password is visible"

@@ -15,7 +15,11 @@
     return false
   }
 
-  $: disableForgetPasswordButton = shouldDisableForgetPasswordButton($form)
+  $: disableForgetPasswordButton = shouldDisableForgetPasswordButton(form)
+
+  function submit() {
+    form.post('/forgot-password')
+  }
 </script>
 
 <svelte:head>
@@ -62,18 +66,18 @@
       </p>
     </section>
     <form
-      on:submit|preventDefault={$form.post('/forgot-password')}
+      on:submit|preventDefault={submit}
       class="mb-4 flex flex-col space-y-6"
     >
-      <InputEmail bind:value={$form.email}>
-        {#if $form.email}
+      <InputEmail bind:value={form.email}>
+        {#if form.email}
           <p class="absolute text-red-500">
-            {$form.errors.email}
+            {form.errors.email}
           </p>
         {/if}
       </InputEmail>
       <InputButton
-        processing={$form.processing}
+        processing={form.processing}
         disabled={disableForgetPasswordButton}>Forgot password</InputButton
       >
     </form>

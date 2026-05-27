@@ -29,11 +29,13 @@ npm run lint          # Check code formatting
 npm run lint:fix      # Auto-fix formatting issues
 
 # Run tests
-npm test              # Run all unit tests
-npm run test:unit     # Run unit tests specifically
+npm test              # Run the full Sounding suite
+npm run test:unit     # Run helper and business-logic trials
+npm run test:functional # Run request and Inertia visit trials
+npm run test:e2e      # Run browser-capable trials
 
 # Run single test file
-node --test ./tests/unit/helpers.test.js
+node --test ./tests/functional/pages/home.test.js
 ```
 
 ### Sails.js Specific Commands
@@ -250,10 +252,10 @@ module.exports = {
 
 ## Testing Strategy
 
-- Unit tests for helpers using Node.js built-in test runner
-- Tests bootstrap Sails app with `environment: 'testing'`
-- Integration tests can be added for controllers and models
-- Frontend components can be tested with Vue Testing Library
+- Sounding unit trials cover helpers and business logic.
+- Sounding functional trials cover request behavior and Inertia `visit()` contracts.
+- Sounding browser-capable trials live under `tests/e2e/` and opt into `{ browser: true }`.
+- Test environment settings stay in `config/env/test.js`; add `config/sounding.js` only for real Sounding overrides.
 
 ## Build and Deployment
 

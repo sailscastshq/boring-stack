@@ -8,7 +8,7 @@ export default function Index() {
     <>
       <Head title="Simplify Authentication, Focus on Shipping | Mellow" />
       <section className="mx-4 mt-20">
-        <h1 className="mb-4 text-center text-4xl font-bold text-brand md:text-5xl">
+        <h1 className="text-brand mb-4 text-center text-4xl font-bold md:text-5xl">
           Simplify Authentication, Focus on Shipping 🚀
         </h1>
         <p className="mx-auto max-w-3xl text-center text-xl text-gray-600">
@@ -21,16 +21,16 @@ export default function Index() {
             href="https://marketplace.visualstudio.com/items?itemName=Sails.sails-vscode"
             target="_blank"
             rel="noopener noreferrer"
-            className="group block rounded-lg bg-gradient-to-b from-brand-50/10 to-white p-6 shadow-md transition-all duration-300 hover:shadow-lg"
+            className="from-brand-50/10 group block rounded-lg bg-gradient-to-b to-white p-6 shadow-md transition-all duration-300 hover:shadow-lg"
           >
-            <h3 className="mb-2 text-xl font-semibold text-brand">
+            <h3 className="text-brand mb-2 text-xl font-semibold">
               Official VS Code extension
             </h3>
             <p className="mb-4 text-gray-600">
               Install the official Sails VS Code extension to supercharge your
               development experience.
             </p>
-            <button className="mt-2 rounded-lg border border-brand px-4 py-2 text-brand transition-colors duration-300 group-hover:bg-brand group-hover:text-white">
+            <button className="border-brand text-brand group-hover:bg-brand mt-2 rounded-lg border px-4 py-2 transition-colors duration-300 group-hover:text-white">
               Install Extension
             </button>
           </a>
@@ -39,15 +39,15 @@ export default function Index() {
             href="https://sailsjs.com/documentation"
             target="_blank"
             rel="noopener noreferrer"
-            className="group block rounded-lg bg-gradient-to-b from-brand-50/10 to-white p-6 shadow-md transition-all duration-300 hover:shadow-lg"
+            className="from-brand-50/10 group block rounded-lg bg-gradient-to-b to-white p-6 shadow-md transition-all duration-300 hover:shadow-lg"
           >
-            <h3 className="mb-2 text-xl font-semibold text-brand">
+            <h3 className="text-brand mb-2 text-xl font-semibold">
               The Boring JavaScript Stack Docs
             </h3>
             <p className="mb-4 text-gray-600">
               Official documentation for The Boring JavaScript Stack.
             </p>
-            <button className="mt-2 rounded-lg border border-brand px-4 py-2 text-brand transition-colors duration-300 group-hover:bg-brand group-hover:text-white">
+            <button className="border-brand text-brand group-hover:bg-brand mt-2 rounded-lg border px-4 py-2 transition-colors duration-300 group-hover:text-white">
               Read Docs
             </button>
           </a>
@@ -55,16 +55,16 @@ export default function Index() {
             href="https://sailscasts.com/chat"
             target="_blank"
             rel="noopener noreferrer"
-            className="group block rounded-lg bg-gradient-to-b from-brand-50/10 to-white p-6 shadow-md transition-all duration-300 hover:shadow-lg"
+            className="from-brand-50/10 group block rounded-lg bg-gradient-to-b to-white p-6 shadow-md transition-all duration-300 hover:shadow-lg"
           >
-            <h3 className="mb-2 text-xl font-semibold text-brand">
+            <h3 className="text-brand mb-2 text-xl font-semibold">
               Sailscasts Discord
             </h3>
             <p className="mb-4 text-gray-600">
               Join the community to discuss Sails.js and get help. Connect with
               fellow developers and stay updated.
             </p>
-            <button className="mt-2 rounded-lg border border-brand px-4 py-2 text-brand transition-colors duration-300 group-hover:bg-brand group-hover:text-white">
+            <button className="border-brand text-brand group-hover:bg-brand mt-2 rounded-lg border px-4 py-2 transition-colors duration-300 group-hover:text-white">
               Join Community
             </button>
           </a>
@@ -73,15 +73,15 @@ export default function Index() {
             href="https://github.com/sailscastshq/boring-stack"
             target="_blank"
             rel="noopener noreferrer"
-            className="group block rounded-lg bg-gradient-to-b from-brand-50/10 to-white p-6 shadow-md transition-all duration-300 hover:shadow-lg"
+            className="from-brand-50/10 group block rounded-lg bg-gradient-to-b to-white p-6 shadow-md transition-all duration-300 hover:shadow-lg"
           >
-            <h3 className="mb-2 text-xl font-semibold text-brand">
+            <h3 className="text-brand mb-2 text-xl font-semibold">
               Star on GitHub ⭐️
             </h3>
             <p className="mb-4 text-gray-600">
               Give The Boring JavaScript Stack a star on GitHub.
             </p>
-            <button className="mt-2 rounded-lg border border-brand px-4 py-2 text-brand transition-colors duration-300 group-hover:bg-brand group-hover:text-white">
+            <button className="border-brand text-brand group-hover:bg-brand mt-2 rounded-lg border px-4 py-2 transition-colors duration-300 group-hover:text-white">
               Star Project
             </button>
           </a>
@@ -89,16 +89,16 @@ export default function Index() {
             href="https://sailscasts.com"
             target="_blank"
             rel="noopener noreferrer"
-            className="group block rounded-lg bg-gradient-to-b from-brand-50/10 to-white p-6 shadow-md transition-all duration-300 hover:shadow-lg"
+            className="from-brand-50/10 group block rounded-lg bg-gradient-to-b to-white p-6 shadow-md transition-all duration-300 hover:shadow-lg"
           >
-            <h3 className="mb-2 text-xl font-semibold text-brand">
+            <h3 className="text-brand mb-2 text-xl font-semibold">
               Sailscasts
             </h3>
             <p className="mb-4 text-gray-600">
               Learn Sails.js and The Boring JavaScript Stack through video
               tutorials and courses.
             </p>
-            <button className="mt-2 rounded-lg border border-brand px-4 py-2 text-brand transition-colors duration-300 group-hover:bg-brand group-hover:text-white">
+            <button className="border-brand text-brand group-hover:bg-brand mt-2 rounded-lg border px-4 py-2 transition-colors duration-300 group-hover:text-white">
               Start Learning
             </button>
           </a>
@@ -106,30 +106,30 @@ export default function Index() {
       </section>
       <section className="space-y-8 px-4 py-8 md:grid md:grid-cols-2 md:gap-12 md:space-y-0 md:p-12">
         <article>
-          <h3 className="text-xl text-brand md:mb-2 md:text-2xl">
+          <h3 className="text-brand text-xl md:mb-2 md:text-2xl">
             Productivity
           </h3>
-          <p className="font-light text-gray md:text-lg">
+          <p className="text-gray font-light md:text-lg">
             Let Mellow be the starting point of your next SPA. With
             authentication and profile management taken care of, you can focus
             on your core business logic
           </p>
         </article>
         <article>
-          <h3 className="text-xl text-brand md:mb-2 md:text-2xl">
+          <h3 className="text-brand text-xl md:mb-2 md:text-2xl">
             Seamless authentication
           </h3>
-          <p className="font-light text-gray md:text-lg">
+          <p className="text-gray font-light md:text-lg">
             Experience effortless user authentication and simplified profile
             management with Mellow, creating a seamless user journey for
             developers and users.
           </p>
         </article>
         <article>
-          <h3 className="text-xl text-brand md:mb-2 md:text-2xl">
+          <h3 className="text-brand text-xl md:mb-2 md:text-2xl">
             Profile management
           </h3>
-          <p className="font-light text-gray md:text-lg">
+          <p className="text-gray font-light md:text-lg">
             Let users manage their profiles with ease using Mellow. It offers a
             simple and secure way to update their name, email address, and
             password.

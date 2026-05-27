@@ -32,7 +32,7 @@ const disableSignupButton = computed(() => {
 <template>
   <Head title="Sign up | Mellow"></Head>
   <section
-    class="flex min-h-screen flex-col justify-center bg-gradient-to-b from-brand-50/10 to-[#F9FAFB] text-black sm:items-center"
+    class="from-brand-50/10 flex min-h-screen flex-col justify-center bg-gradient-to-b to-[#F9FAFB] text-black sm:items-center"
   >
     <main
       class="mt-10 bg-white px-4 py-10 text-black sm:w-7/12 sm:rounded-lg sm:px-8 sm:shadow-lg md:w-6/12 lg:w-5/12 xl:w-4/12"
@@ -61,7 +61,7 @@ const disableSignupButton = computed(() => {
         </Link>
 
         <h1 class="text-2xl">Create your account</h1>
-        <p class="text-lg text-gray">
+        <p class="text-gray text-lg">
           Welcome! Please enter your details to sign up
         </p>
       </section>
@@ -158,7 +158,7 @@ const disableSignupButton = computed(() => {
       </form>
       <GoogleButton />
     </main>
-    <footer class="my-8 text-center text-gray">
+    <footer class="text-gray my-8 text-center">
       <p>
         Already have an account?
         <Link href="/login" class="text-brand hover:underline">Login</Link>

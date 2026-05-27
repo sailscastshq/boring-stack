@@ -53,6 +53,17 @@ function runWithContext(req, callback) {
 }
 
 describe('preserveFragment', function () {
+  it('does not preserve fragments unless explicitly requested', async function () {
+    const hook = createHook()
+    const req = { session: {} }
+
+    await runWithContext(req, async () => {
+      assert.equal(requestContext.getPreserveFragment(), false)
+      assert.equal(hook.consumePreserveFragment(req), false)
+      assert.equal(hasOwn(req.session, '_inertiaPreserveFragment'), false)
+    })
+  })
+
   it('stores preserveFragment in request context and session', async function () {
     const hook = createHook()
     /** @type {{ session: Record<string, any> }} */
@@ -63,6 +74,16 @@ describe('preserveFragment', function () {
 
       assert.equal(requestContext.getPreserveFragment(), true)
       assert.equal(req.session._inertiaPreserveFragment, true)
+    })
+  })
+
+  it('keeps the chainable helper shape when passed a boolean', async function () {
+    const hook = createHook()
+    /** @type {{ session: Record<string, any> }} */
+    const req = { session: {} }
+
+    await runWithContext(req, async () => {
+      assert.equal(hook.preserveFragment(true), hook)
     })
   })
 

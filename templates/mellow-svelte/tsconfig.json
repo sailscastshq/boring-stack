@@ -1,0 +1,9 @@
+{
+  "extends": "./jsconfig.json",
+  "compilerOptions": {
+    "target": "ESNext",
+    "module": "ESNext",
+    "moduleResolution": "Bundler",
+    "verbatimModuleSyntax": true
+  }
+}

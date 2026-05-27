@@ -15,9 +15,9 @@
     return specialChars.test(password)
   }
 
-  $: containsSpecialChars = passwordContainsSpecialChars($form.password)
+  $: containsSpecialChars = passwordContainsSpecialChars(form.password)
 
-  $: passwordIsValid = $form.password?.length >= 8
+  $: passwordIsValid = form.password?.length >= 8
 
   function shouldDisableResetPasswordButton(form) {
     if (!passwordIsValid) return true
@@ -27,7 +27,11 @@
     return false
   }
 
-  $: disableResetPasswordButton = shouldDisableResetPasswordButton($form)
+  $: disableResetPasswordButton = shouldDisableResetPasswordButton(form)
+
+  function submit() {
+    form.post('/reset-password')
+  }
 </script>
 
 <svelte:head>
@@ -76,29 +80,29 @@
       <p class="text-lg text-gray">Set a new password</p>
     </section>
     <form
-      on:submit|preventDefault={$form.post('/reset-password')}
+      on:submit|preventDefault={submit}
       class="mb-4 flex flex-col space-y-6"
     >
       <InputPassword
-        bind:value={$form.password}
+        bind:value={form.password}
         label="New password"
         id="newPassword"
       >
-        {#if $form.errors.password}
+        {#if form.errors.password}
           <p class="absolute text-red-500">
-            {$form.errors.password}
+            {form.errors.password}
           </p>
         {/if}
       </InputPassword>
       <InputPassword
-        bind:value={$form.confirmPassword}
+        bind:value={form.confirmPassword}
         label="Confirm Password"
         placeholder="Confirm Password"
         id="confirmPassword"
       >
-        {#if $form.errors.confirmPassword}
+        {#if form.errors.confirmPassword}
           <p class="absolute text-red-500">
-            {$form.errors.confirmPassword}
+            {form.errors.confirmPassword}
           </p>
         {/if}
       </InputPassword>
@@ -155,7 +159,7 @@
         </li>
       </ul>
       <InputButton
-        processing={$form.processing}
+        processing={form.processing}
         disabled={disableResetPasswordButton}
         >Reset password
       </InputButton>

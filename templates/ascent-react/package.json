@@ -63,8 +63,9 @@
     "lint": "prettier --check .",
     "lint:fix": "prettier --write .",
     "test:unit": "node --test --test-concurrency=1 tests/unit/**/*.test.js",
-    "test:e2e": "node --test --test-concurrency=1 tests/e2e/pages/*.test.js tests/e2e/pages/**/*.test.js",
-    "test": "npm run test:unit && npm run test:e2e"
+    "test:functional": "node --test --test-concurrency=1 tests/functional/**/*.test.js",
+    "test:e2e": "node --test --test-concurrency=1 tests/e2e/**/*.test.js",
+    "test": "npm run test:unit && npm run test:functional && npm run test:e2e"
   },
   "main": "app.js",
   "engines": {

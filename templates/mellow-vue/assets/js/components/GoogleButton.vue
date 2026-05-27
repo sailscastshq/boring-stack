@@ -1,7 +1,7 @@
 <template>
   <a
     href="/auth/google/redirect"
-    class="flex w-full justify-center space-x-3 rounded-md border border-gray-200 px-4 py-3 text-center text-lg text-gray"
+    class="text-gray flex w-full justify-center space-x-3 rounded-md border border-gray-200 px-4 py-3 text-center text-lg"
   >
     <svg
       class="h-6 w-6"
