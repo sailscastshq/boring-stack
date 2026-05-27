@@ -8,7 +8,6 @@ import { ConfirmDialog, confirmDialog } from 'primereact/confirmdialog'
 import { Message } from 'primereact/message'
 
 import DashboardLayout from '@/layouts/DashboardLayout'
-import SettingsLayout from '@/layouts/SettingsLayout.jsx'
 
 import TotpSetupModal from '@/components/TotpSetupModal.jsx'
 import BackupCodesModal from '@/components/BackupCodesModal.jsx'

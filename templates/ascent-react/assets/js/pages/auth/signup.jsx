@@ -5,12 +5,6 @@ import { useFlashToast } from '@/hooks/useFlashToast'
 
 import { Message } from 'primereact/message'
 
-import InputText from '@/components/InputText.jsx'
-import InputEmail from '@/components/InputEmail.jsx'
-import InputPassword from '@/components/InputPassword.jsx'
-import InputButton from '@/components/InputButton.jsx'
-import GoogleButton from '@/components/GoogleButton.jsx'
-
 export default function Signup() {
   const { data, setData, ...form } = useForm({
     fullName: '',

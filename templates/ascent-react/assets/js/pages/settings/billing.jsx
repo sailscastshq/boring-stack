@@ -7,7 +7,6 @@ import { confirmDialog } from 'primereact/confirmdialog'
 import { ProgressBar } from 'primereact/progressbar'
 
 import DashboardLayout from '@/layouts/DashboardLayout'
-import SettingsLayout from '@/layouts/SettingsLayout.jsx'
 
 BillingSettings.layout = [
   DashboardLayout,
