@@ -16,13 +16,18 @@ See [forms-and-validation.md](forms-and-validation.md) for the complete validati
 3. Inertia middleware shares errors as `errors` prop on next page load
 4. `useForm` makes them available as `form.errors.fieldName`
 
-## Server Errors (500)
+## Status And Server Errors
 
-The `inertia-sails` package includes a `serverError` response handler that behaves differently based on the environment and request type.
+The `inertia-sails` package includes `handleErrorPage()` and
+`handleServerError()` helpers that behave differently based on the environment,
+request type, and app configuration.
 
-### Development + Inertia Request
+### Development
 
-In development mode, server errors are displayed in the **Inertia error modal** -- a styled HTML overlay that shows the error name, message, stack trace, and request details. This lets you debug without losing your page state.
+In development mode, 500-level HTML errors are rendered with **Youch**. For
+Inertia visits, the client displays that HTML in the Inertia error modal, so the
+developer gets source frames, stack traces, and sanitized request metadata
+without losing the current page.
 
 ```
 ┌─────────────────────────────────────┐
@@ -41,31 +46,82 @@ In development mode, server errors are displayed in the **Inertia error modal** 
 └─────────────────────────────────────┘
 ```
 
-### Production + Inertia Request
+### Production
 
-In production, server errors:
-
-1. Flash a generic error message
-2. Redirect back to the Referrer URL with 303
+In production, `inertia-sails` renders the configured Inertia status page for
+`403`, `404`, `500`, and `503` responses by default:
 
 ```js
-// What happens internally:
-sails.inertia.flash('error', 'An unexpected error occurred. Please try again.')
-res.redirect(303, req.get('Referrer') || '/')
+// config/inertia.js
+module.exports.inertia = {
+  errorPage: 'error',
+  errorStatuses: [403, 404, 500, 503]
+}
 ```
 
-### Non-Inertia Requests
+The client must ship the page component:
 
-For non-Inertia requests (direct browser visits, API calls), the standard Sails error view (`views/500.ejs`) is rendered.
+```vue
+<!-- assets/js/pages/error.vue -->
+<script setup>
+import { Head, Link } from '@inertiajs/vue3'
 
-## Using `responseType: 'serverError'`
+defineProps({
+  status: Number,
+  title: String,
+  message: String
+})
+</script>
 
-Set up the server error response in your custom response file:
+<template>
+  <Head :title="`${status} ${title}`" />
+  <main>
+    <p>Status {{ status }}</p>
+    <h1>{{ title }}</h1>
+    <p>{{ message }}</p>
+    <Link href="/">Go home</Link>
+  </main>
+</template>
+```
+
+Hybrid apps that still want Sails' EJS `views/404.ejs` and `views/500.ejs`
+can opt out:
+
+```js
+module.exports.inertia = {
+  errorPage: false
+}
+```
+
+### JSON Requests
+
+JSON requests receive JSON status payloads instead of HTML or Inertia pages.
+
+## Response Files
+
+Wire Sails' built-in response names into `inertia-sails` so framework-level
+403/404/500 responses all use the same policy:
 
 ```js
 // api/responses/serverError.js
 module.exports = function serverError(data) {
   return this.req._sails.inertia.handleServerError(this.req, this.res, data)
+}
+
+// api/responses/notFound.js
+module.exports = function notFound(error) {
+  return this.req._sails.inertia.handleErrorPage(this.req, this.res, {
+    statusCode: 404,
+    error
+  })
+}
+
+// api/responses/forbidden.js
+module.exports = function forbidden(error) {
+  return this.req._sails.inertia.handleErrorPage(this.req, this.res, {
+    statusCode: 403,
+    error
+  })
 }
 ```
 
@@ -95,20 +151,13 @@ fn: async function ({ teamId }) {
 }
 ```
 
-### Custom Error Pages
+### Custom Error Page Names
 
-For 404 errors, create a dedicated page:
+If an app wants a different component name, configure it:
 
 ```js
-// api/controllers/not-found.js (catch-all route)
-module.exports = {
-  exits: {
-    success: { responseType: 'inertia' }
-  },
-  fn: async function () {
-    this.res.status(404)
-    return { page: 'errors/404' }
-  }
+module.exports.inertia = {
+  errorPage: 'errors/status'
 }
 ```
 

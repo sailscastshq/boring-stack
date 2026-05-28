@@ -7,7 +7,7 @@ metadata:
 
 # Responses
 
-Custom responses in `api/responses/` define how actions communicate results to the client. The Boring Stack uses four main response types for Inertia.js integration.
+Custom responses in `api/responses/` define how actions communicate results to the client. The Boring Stack uses Inertia-aware response types for pages, validation, redirects, and status pages.
 
 ## Response Files
 
@@ -16,7 +16,9 @@ api/responses/
 ├── inertia.js          ← Renders an Inertia page
 ├── inertia-redirect.js ← 409 full page reload (for stale once() data)
 ├── badRequest.js       ← Validation errors → session → redirect back
-└── serverError.js      ← Error handling (dev modal or production flash)
+├── serverError.js      ← 500 handling with Youch in dev, status page in prod
+├── notFound.js         ← 404 status page
+└── forbidden.js        ← 403 status page
 ```
 
 ## `inertia.js` -- Render a Page
@@ -111,25 +113,45 @@ problems: [{ login: 'Wrong email/password combination.' }]
 // → form.errors.login = 'Wrong email/password combination.'
 ```
 
-## `serverError.js` -- Error Handling
+## `serverError.js`, `notFound.js`, `forbidden.js` -- Error Handling
 
 ```js
 // api/responses/serverError.js
 module.exports = function serverError(data) {
   return this.req._sails.inertia.handleServerError(this.req, this.res, data)
 }
+
+// api/responses/notFound.js
+module.exports = function notFound(error) {
+  return this.req._sails.inertia.handleErrorPage(this.req, this.res, {
+    statusCode: 404,
+    error
+  })
+}
+
+// api/responses/forbidden.js
+module.exports = function forbidden(error) {
+  return this.req._sails.inertia.handleErrorPage(this.req, this.res, {
+    statusCode: 403,
+    error
+  })
+}
 ```
 
-**In development** (Inertia request): Shows a styled error modal with the error name, message, stack trace, and request details.
+**In development**: 500-level HTML responses render a Youch error page. Inertia visits show that page in the Inertia development modal.
 
-**In production** (Inertia request): Flashes a generic error message and redirects back:
+**In production**: `403`, `404`, `500`, and `503` render the configured Inertia status page by default:
 
 ```js
-sails.inertia.flash('error', 'An unexpected error occurred. Please try again.')
-res.redirect(303, req.get('Referrer') || '/')
+// config/inertia.js
+module.exports.inertia = {
+  errorPage: 'error',
+  errorStatuses: [403, 404, 500, 503]
+}
 ```
 
-**Non-Inertia requests**: Renders the standard `views/500.ejs` view.
+Ship `assets/js/pages/error.{vue,jsx,svelte}` in the client. Hybrid apps that
+prefer `views/404.ejs` and `views/500.ejs` can set `errorPage: false`.
 
 ## Generating Response Files
 
