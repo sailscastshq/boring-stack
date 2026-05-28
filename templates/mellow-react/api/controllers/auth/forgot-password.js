@@ -29,7 +29,7 @@ module.exports = {
   },
 
   fn: async function ({ email }, exits) {
-    if (sails.inertia.isPrecognitive?.(this.req)) {
+    if (sails.inertia.isPrecognitive(this.req)) {
       return exits.precognitionSuccess()
     }
 
