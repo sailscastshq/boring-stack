@@ -5,9 +5,10 @@ import { Message } from 'primereact/message'
 import { useFlashToast } from '@/hooks/useFlashToast'
 
 export default function ForgotPassword() {
-  const { data, setData, ...form } = useForm({
+  const form = useForm({
     email: ''
-  })
+  }).withPrecognition('post', '/forgot-password')
+  const { data, setData } = form
 
   const toast = useRef(null)
   useFlashToast(toast)
@@ -97,6 +98,7 @@ export default function ForgotPassword() {
                       required
                       value={data.email}
                       onChange={(e) => setData('email', e.target.value)}
+                      onBlur={() => form.validate('email')}
                       className={`w-full rounded-xl border px-4 py-4 text-lg font-medium transition-all duration-200 ${
                         form.errors.email
                           ? 'border-red-300 bg-red-50 ring-2 ring-red-100'

@@ -5,7 +5,7 @@
 
   const form = useForm({
     email: null
-  })
+  }).withPrecognition('post', '/forgot-password')
 
   function shouldDisableForgetPasswordButton(form) {
     const emailRegex = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/
@@ -69,13 +69,11 @@
       on:submit|preventDefault={submit}
       class="mb-4 flex flex-col space-y-6"
     >
-      <InputEmail bind:value={form.email}>
-        {#if form.email}
-          <p class="absolute text-red-500">
-            {form.errors.email}
-          </p>
-        {/if}
-      </InputEmail>
+      <InputEmail
+        bind:value={form.email}
+        error={form.errors.email}
+        on:blur={() => form.validate('email')}
+      />
       <InputButton
         processing={form.processing}
         disabled={disableForgetPasswordButton}>Forgot password</InputButton

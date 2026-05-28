@@ -1,6 +1,7 @@
 <script>
   import InputBase from '@/components/InputBase.svelte'
   export let value = ''
+  export let error = ''
 </script>
 
 <InputBase
@@ -8,7 +9,10 @@
   id="email"
   type="email"
   placeholder="Your email"
+  {error}
   bind:value
+  {...$$restProps}
+  on:blur
 >
   <svg
     slot="icon"
