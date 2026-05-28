@@ -32,8 +32,9 @@ try {
   sails = require('sails')
   rc = require('sails/accessible/rc')
 } catch (err) {
+  const error = /** @type {Error} */ (err)
   console.error("Encountered an error when attempting to require('sails'):")
-  console.error(err.stack)
+  console.error(error.stack)
   console.error('--')
   console.error(
     'To run an app using `node app.js`, you need to have Sails installed'
@@ -55,7 +56,7 @@ try {
   console.error(
     "(It even uses your app directory's local Sails install, if possible.)"
   )
-  return
+  process.exit(1)
 } //-•
 
 // Start server

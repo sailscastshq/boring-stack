@@ -64,10 +64,12 @@ export default function Profile() {
             <InputText
               value={data.fullName}
               onChange={(e) => setData('fullName', e.target.value)}
+              error={form.errors.fullName}
             />
             <InputEmail
               value={data.email}
               onChange={(e) => setData('email', e.target.value)}
+              error={form.errors.email}
             />
             <div className="flex items-center justify-end">
               <InputButton
@@ -100,6 +102,7 @@ export default function Profile() {
               value={data.currentPassword}
               onChange={(e) => setData('currentPassword', e.target.value)}
               placeholder="Current Password"
+              error={form.errors.currentPassword}
             />
             <InputPassword
               label="New Password"
@@ -107,6 +110,7 @@ export default function Profile() {
               value={data.password}
               onChange={(e) => setData('password', e.target.value)}
               placeholder="New Password"
+              error={form.errors.password}
             />
             <InputPassword
               label="Confirm Password"
@@ -114,12 +118,8 @@ export default function Profile() {
               id="confirmPassword"
               value={data.confirmPassword}
               onChange={(e) => setData('confirmPassword', e.target.value)}
+              error={form.errors.confirmPassword}
             />
-            {form.errors.password && (
-              <p className="text-red-500" v-if="form.errors.password">
-                {form.errors.password}
-              </p>
-            )}
             <div className="flex items-center justify-end">
               <InputButton
                 processing={form.processing}
@@ -150,6 +150,7 @@ export default function Profile() {
               required
               value={deleteAccountData.password}
               onChange={(e) => setDeleteAccountData('password', e.target.value)}
+              error={deleteAccountForm.errors.password}
             />
             <div className="flex items-center justify-end">
               <InputButton

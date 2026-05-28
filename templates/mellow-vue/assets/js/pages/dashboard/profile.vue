@@ -106,11 +106,8 @@ function deleteAccount() {
           placeholder="Confirm Password"
           id="confirmPassword"
           v-model="form.confirmPassword"
-        >
-          <p class="text-red-500" v-if="form.errors.password">
-            {{ form.errors.password }}
-          </p>
-        </InputPassword>
+          :error="form.errors.password"
+        />
 
         <div class="flex items-center justify-end">
           <InputButton

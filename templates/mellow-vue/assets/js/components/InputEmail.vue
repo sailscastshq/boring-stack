@@ -1,9 +1,34 @@
 <script setup>
 import InputBase from '@/components/InputBase.vue'
+
+defineProps({
+  label: {
+    type: String,
+    default: 'Email'
+  },
+  id: {
+    type: String,
+    default: 'email'
+  },
+  placeholder: {
+    type: String,
+    default: 'Your email'
+  },
+  error: {
+    type: String,
+    default: ''
+  }
+})
 </script>
 
 <template>
-  <InputBase label="Email" id="email" type="email" placeholder="Your email">
+  <InputBase
+    :label="label"
+    :id="id"
+    type="email"
+    :placeholder="placeholder"
+    :error="error"
+  >
     <template #icon>
       <svg
         class="fill-gray h-5 w-5"
@@ -17,5 +42,6 @@ import InputBase from '@/components/InputBase.vue'
         />
       </svg>
     </template>
+    <slot></slot>
   </InputBase>
 </template>

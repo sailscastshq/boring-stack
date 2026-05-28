@@ -4,9 +4,10 @@ import InputButton from '@/components/InputButton.jsx'
 import { useMemo } from 'react'
 
 export default function ForgotPassword() {
-  const { data, setData, ...form } = useForm({
+  const form = useForm({
     email: ''
-  })
+  }).withPrecognition('post', '/forgot-password')
+  const { data, setData } = form
 
   const disableForgetPasswordButton = useMemo(() => {
     const emailRegex = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/
@@ -14,7 +15,7 @@ export default function ForgotPassword() {
     if (!isEmailValid) return true
     if (form.processing) return true
     return false
-  })
+  }, [data.email, form.processing])
 
   function submit(e) {
     e.preventDefault()
@@ -62,10 +63,9 @@ export default function ForgotPassword() {
             <InputEmail
               value={data.email}
               onChange={(e) => setData('email', e.target.value)}
+              onBlur={() => form.validate('email')}
+              error={form.errors.email}
             />
-            {form.errors.email && (
-              <p className="text-red-500">{form.errors.email}</p>
-            )}
             <InputButton
               processing={form.processing}
               disabled={disableForgetPasswordButton}

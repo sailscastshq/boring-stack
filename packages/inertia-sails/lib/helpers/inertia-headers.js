@@ -25,6 +25,12 @@ const LOCATION = 'X-Inertia-Location'
 const EXCEPT_ONCE_PROPS = 'X-Inertia-Except-Once-Props'
 /** @type {string} - InfiniteScroll merge direction */
 const INFINITE_SCROLL_MERGE_INTENT = 'X-Inertia-Infinite-Scroll-Merge-Intent'
+/** @type {string} - Marks a Precognition validation request or response */
+const PRECOGNITION = 'Precognition'
+/** @type {string} - Comma-separated list of fields to validate */
+const PRECOGNITION_VALIDATE_ONLY = 'Precognition-Validate-Only'
+/** @type {string} - Marks a successful Precognition validation response */
+const PRECOGNITION_SUCCESS = 'Precognition-Success'
 
 module.exports = {
   INERTIA,
@@ -36,5 +42,8 @@ module.exports = {
   PARTIAL_COMPONENT,
   LOCATION,
   EXCEPT_ONCE_PROPS,
-  INFINITE_SCROLL_MERGE_INTENT
+  INFINITE_SCROLL_MERGE_INTENT,
+  PRECOGNITION,
+  PRECOGNITION_VALIDATE_ONLY,
+  PRECOGNITION_SUCCESS
 }

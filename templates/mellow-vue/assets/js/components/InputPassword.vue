@@ -4,6 +4,25 @@ import InputBase from '@/components/InputBase.vue'
 
 const showPassword = ref(false)
 
+defineProps({
+  label: {
+    type: String,
+    default: 'Password'
+  },
+  id: {
+    type: String,
+    default: 'password'
+  },
+  placeholder: {
+    type: String,
+    default: 'Your password'
+  },
+  error: {
+    type: String,
+    default: ''
+  }
+})
+
 function toggleShowPassword() {
   showPassword.value = !showPassword.value
 }
@@ -11,10 +30,11 @@ function toggleShowPassword() {
 
 <template>
   <InputBase
-    label="Password"
-    id="password"
+    :label="label"
+    :id="id"
     :type="showPassword ? 'text' : 'password'"
-    placeholder="Your password"
+    :placeholder="placeholder"
+    :error="error"
   >
     <template #icon>
       <svg
@@ -41,7 +61,7 @@ function toggleShowPassword() {
       </svg>
     </template>
     <template #suffix>
-      <span class="absolute right-2 top-[57%]">
+      <span class="absolute right-3 top-1/2 -translate-y-1/2">
         <button
           type="button"
           @click="toggleShowPassword"
@@ -98,5 +118,6 @@ function toggleShowPassword() {
         </button>
       </span>
     </template>
+    <slot></slot>
   </InputBase>
 </template>

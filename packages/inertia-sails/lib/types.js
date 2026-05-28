@@ -28,6 +28,7 @@
  * @property {(key: string, value?: any) => any[]} [flash]
  *
  * @typedef {Object} InertiaResponse
+ * @property {Record<string, any>} [headers]
  * @property {(name: string, value: any) => InertiaResponse} [set]
  * @property {(code: number) => InertiaResponse} [status]
  * @property {(code: number) => any} [sendStatus]
@@ -54,7 +55,8 @@
  * @property {string[]} rescuedProps
  *
  * @typedef {Object} BadRequestData
- * @property {Array<string|Record<string, string>>} [problems]
+ * @property {Array<string|Record<string, any>>} [problems]
+ * @property {Record<string, string|string[]>|Array<Record<string, any>>} [errors]
  *
  * @typedef {Object} ErrorHtmlData
  * @property {number} statusCode

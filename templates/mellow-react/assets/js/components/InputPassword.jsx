@@ -39,7 +39,7 @@ export default function InputPassword(props) {
         </svg>
       }
       suffix={
-        <span className="absolute right-2 top-[57%]">
+        <span className="absolute right-3 top-1/2 -translate-y-1/2">
           <button
             type="button"
             onClick={toggleShowPassword}

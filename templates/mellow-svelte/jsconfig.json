@@ -15,10 +15,9 @@
     "noEmitOnError": true,
     "noErrorTruncation": true,
     "verbatimModuleSyntax": true,
-    "baseUrl": ".",
     "paths": {
-      "@/*": ["assets/js/*"],
-      "~/*": ["assets/*"]
+      "@/*": ["./assets/js/*"],
+      "~/*": ["./assets/*"]
     }
   }
 }
