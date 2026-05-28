@@ -1,323 +1,457 @@
+const render = require('../render')
+const { INERTIA } = require('../helpers/inertia-headers')
+
 /**
  * @typedef {import('../types').InertiaRequest} InertiaRequest
  * @typedef {import('../types').InertiaResponse} InertiaResponse
- * @typedef {import('../types').ErrorHtmlData} ErrorHtmlData
- * @typedef {{ message?: string, stack?: string, name?: string }} ErrorLike
+ * @typedef {{ message?: string, stack?: string, name?: string, status?: number, statusCode?: number }} ErrorLike
+ * @typedef {{ statusCode?: number, error?: ErrorLike|string|Record<string, any>|null, page?: string }} ErrorPageOptions
  */
+
+const DEFAULT_ERROR_STATUSES = [403, 404, 500, 503]
+
+/** @type {Record<number, { title: string, message: string }>} */
+const STATUS_TEXT = {
+  403: {
+    title: 'Forbidden',
+    message: 'You do not have permission to access this page.'
+  },
+  404: {
+    title: 'Page not found',
+    message: 'The page you are looking for could not be found.'
+  },
+  500: {
+    title: 'Server error',
+    message: 'Something went wrong on our end.'
+  },
+  503: {
+    title: 'Service unavailable',
+    message: 'The service is temporarily unavailable.'
+  }
+}
+
+const SECRET_PATTERN =
+  /authorization|cookie|csrf|xsrf|token|secret|password|passwd|session/i
 
 /**
- * Server Error Response for Inertia.js
- *
- * For Inertia requests, this sends a properly formatted error response that
- * triggers the Inertia error modal in development mode. In production, it
- * returns a generic error page.
- *
- * The error modal is a built-in Inertia.js feature that displays server errors
- * in a modal overlay during development, allowing developers to see stack traces
- * without losing their page state.
- *
- * @param {InertiaRequest} req - Express/Sails request object
- * @param {InertiaResponse} res - Express/Sails response object
- * @param {ErrorLike} [error] - Optional error data or Error object
- * @returns {*} - Response
- *
- * @example
- * // In an action
- * return sails.inertia.handleServerError(req, res, new Error('Something went wrong'))
- *
- * @example
- * // Using as a response type
- * exits: {
- *   serverError: {
- *     responseType: 'serverError'
- *   }
- * }
+ * @param {ErrorLike|string|Record<string, any>|null|undefined} error
+ * @param {number} fallbackStatusCode
+ * @returns {number}
  */
-module.exports = function handleServerError(req, res, error) {
-  const sails = req._sails
-  const statusCode = 500
-  const isInertiaRequest = req.header?.('X-Inertia')
-  const isDevelopment = process.env.NODE_ENV !== 'production'
+function resolveStatusCode(error, fallbackStatusCode) {
+  const statusCode =
+    typeof error === 'object' && error
+      ? Number(error.statusCode || error.status)
+      : Number.NaN
 
-  // Log the error
-  if (error) {
-    sails.log.error('Server error:', error)
-  }
+  return Number.isInteger(statusCode) && statusCode >= 400 && statusCode <= 599
+    ? statusCode
+    : fallbackStatusCode
+}
 
-  // For Inertia requests in development, send HTML that Inertia displays in a modal
-  if (isInertiaRequest && isDevelopment) {
-    const errorMessage = error?.message || 'Internal Server Error'
-    const errorStack = error?.stack || ''
-    const errorName = error?.name || 'Error'
-
-    // Build an HTML error page that Inertia will display in a modal
-    const html = buildErrorHtml({
-      statusCode,
-      errorName,
-      errorMessage,
-      errorStack,
-      url: req.url || '/',
-      method: req.method || 'GET'
-    })
-
-    res.status(statusCode)
-    res.type('text/html')
-    return res.send(html)
-  }
-
-  // For Inertia requests in production, redirect to error page with flash
-  if (isInertiaRequest) {
-    sails.inertia.flash(
-      'error',
-      'An unexpected error occurred. Please try again.'
-    )
-    return res.redirect(303, req.get('Referrer') || '/')
-  }
-
-  // For non-Inertia requests, use the standard Sails error view
-  res.status(statusCode)
-
-  // If there's a 500 view, render it
-  return res.view(
-    '500',
-    {
-      error: isDevelopment ? error : null
-    },
-    /**
-     * @param {Error|null} err
-     * @param {string} html
-     */
-    (err, html) => {
-      if (err) {
-        // If view doesn't exist, send a basic response
-        if (isDevelopment && error) {
-          return res.send(`<pre>${error.stack || error.message}</pre>`)
-        }
-        return res.send('Internal Server Error')
-      }
-      return res.send(html)
+/**
+ * @param {number} statusCode
+ * @returns {{ title: string, message: string }}
+ */
+function getStatusText(statusCode) {
+  return (
+    STATUS_TEXT[statusCode] || {
+      title: 'Error',
+      message: 'Something went wrong.'
     }
   )
 }
 
 /**
- * Build an HTML error page for the Inertia modal
- * @param {ErrorHtmlData} data
- * @returns {string}
+ * @param {InertiaRequest} req
+ * @returns {boolean}
  */
-function buildErrorHtml({
-  statusCode,
-  errorName,
-  errorMessage,
-  errorStack,
-  url,
-  method
-}) {
-  const escapedMessage = escapeHtml(errorMessage)
-  const escapedStack = escapeHtml(errorStack)
-  const escapedUrl = escapeHtml(url)
-  const escapedMethod = escapeHtml(method)
-
-  return `<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>${statusCode} - ${escapedMessage}</title>
-  <style>
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-    }
-    body {
-      font-family: ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
-      background: #1a1a2e;
-      color: #e0e0e0;
-      padding: 2rem;
-      min-height: 100vh;
-    }
-    .container {
-      max-width: 900px;
-      margin: 0 auto;
-    }
-    .header {
-      display: flex;
-      align-items: center;
-      gap: 1rem;
-      margin-bottom: 2rem;
-      padding-bottom: 1rem;
-      border-bottom: 1px solid #333;
-    }
-    .status-code {
-      font-size: 3rem;
-      font-weight: 700;
-      color: #ef4444;
-    }
-    .error-type {
-      font-size: 0.875rem;
-      color: #9ca3af;
-      text-transform: uppercase;
-      letter-spacing: 0.05em;
-    }
-    .error-name {
-      font-size: 1.5rem;
-      font-weight: 600;
-      color: #f87171;
-    }
-    .request-info {
-      background: #16213e;
-      padding: 1rem;
-      border-radius: 0.5rem;
-      margin-bottom: 1.5rem;
-      font-family: ui-monospace, SFMono-Regular, "SF Mono", Menlo, Consolas, monospace;
-      font-size: 0.875rem;
-    }
-    .request-method {
-      color: #60a5fa;
-      font-weight: 600;
-    }
-    .request-url {
-      color: #a5b4fc;
-    }
-    .message {
-      background: #1e1e3f;
-      padding: 1.5rem;
-      border-radius: 0.5rem;
-      margin-bottom: 1.5rem;
-      border-left: 4px solid #ef4444;
-    }
-    .message-title {
-      font-size: 0.75rem;
-      color: #9ca3af;
-      text-transform: uppercase;
-      letter-spacing: 0.05em;
-      margin-bottom: 0.5rem;
-    }
-    .message-text {
-      font-size: 1.125rem;
-      color: #fca5a5;
-      word-break: break-word;
-    }
-    .stack-trace {
-      background: #0f0f1a;
-      padding: 1.5rem;
-      border-radius: 0.5rem;
-      overflow-x: auto;
-    }
-    .stack-title {
-      font-size: 0.75rem;
-      color: #9ca3af;
-      text-transform: uppercase;
-      letter-spacing: 0.05em;
-      margin-bottom: 1rem;
-    }
-    .stack-content {
-      font-family: ui-monospace, SFMono-Regular, "SF Mono", Menlo, Consolas, monospace;
-      font-size: 0.8125rem;
-      line-height: 1.6;
-      white-space: pre-wrap;
-      color: #a1a1aa;
-    }
-    .stack-content .at-line {
-      color: #6b7280;
-    }
-    .stack-content .file-path {
-      color: #60a5fa;
-    }
-    .footer {
-      margin-top: 2rem;
-      padding-top: 1rem;
-      border-top: 1px solid #333;
-      font-size: 0.75rem;
-      color: #6b7280;
-    }
-    .footer a {
-      color: #60a5fa;
-      text-decoration: none;
-    }
-    .footer a:hover {
-      text-decoration: underline;
-    }
-  </style>
-</head>
-<body>
-  <div class="container">
-    <div class="header">
-      <span class="status-code">${statusCode}</span>
-      <div>
-        <div class="error-type">Server Error</div>
-        <div class="error-name">${errorName}</div>
-      </div>
-    </div>
-
-    <div class="request-info">
-      <span class="request-method">${escapedMethod}</span>
-      <span class="request-url">${escapedUrl}</span>
-    </div>
-
-    <div class="message">
-      <div class="message-title">Error Message</div>
-      <div class="message-text">${escapedMessage}</div>
-    </div>
-
-    ${
-      escapedStack
-        ? `
-    <div class="stack-trace">
-      <div class="stack-title">Stack Trace</div>
-      <div class="stack-content">${formatStackTrace(escapedStack)}</div>
-    </div>
-    `
-        : ''
-    }
-
-    <div class="footer">
-      <p>This error page is only shown in development mode.</p>
-      <p>Powered by <a href="https://docs.sailscasts.com/boring-stack">The Boring JavaScript Stack</a></p>
-    </div>
-  </div>
-</body>
-</html>`
+function isInertiaRequest(req) {
+  return Boolean(req.get?.(INERTIA) || req.header?.(INERTIA))
 }
 
 /**
- * Format stack trace with syntax highlighting
- * @param {string} stack
+ * @param {InertiaRequest} req
+ * @returns {boolean}
+ */
+function wantsJson(req) {
+  if (isInertiaRequest(req)) {
+    return false
+  }
+
+  const request = /** @type {any} */ (req)
+  if (request.wantsJSON) {
+    return true
+  }
+
+  const accept = String(
+    req.get?.('Accept') || req.header?.('Accept') || req.headers?.accept || ''
+  ).toLowerCase()
+
+  return accept.includes('application/json') && !accept.includes('text/html')
+}
+
+/**
+ * @param {any} value
+ * @param {number} [depth]
+ * @returns {any}
+ */
+function sanitizeValue(value, depth = 0) {
+  if (value === null || value === undefined) {
+    return value
+  }
+
+  if (typeof value === 'string') {
+    return value.length > 500 ? `${value.slice(0, 500)}...` : value
+  }
+
+  if (typeof value !== 'object') {
+    return value
+  }
+
+  if (depth >= 3) {
+    return '[object]'
+  }
+
+  if (Array.isArray(value)) {
+    return value.slice(0, 20).map((entry) => sanitizeValue(entry, depth + 1))
+  }
+
+  return Object.fromEntries(
+    Object.entries(value).map(([key, entry]) => [
+      key,
+      SECRET_PATTERN.test(key) ? '[redacted]' : sanitizeValue(entry, depth + 1)
+    ])
+  )
+}
+
+/**
+ * @param {Record<string, any>|undefined} record
+ * @returns {Record<string, any>}
+ */
+function sanitizeRecord(record) {
+  return sanitizeValue(record || {})
+}
+
+/**
+ * @param {Record<string, any>|undefined} record
+ * @returns {{ key: string, value: any }[]}
+ */
+function toMetadataRows(record) {
+  return Object.entries(sanitizeRecord(record)).map(([key, value]) => ({
+    key,
+    value
+  }))
+}
+
+/**
+ * @param {InertiaRequest} req
+ * @param {any} youch
+ * @returns {void}
+ */
+function addRequestMetadata(req, youch) {
+  const request = /** @type {any} */ (req)
+
+  youch.metadata.group('Sails request', {
+    request: [
+      { key: 'Method', value: req.method || 'GET' },
+      { key: 'URL', value: req.originalUrl || req.url || '/' }
+    ],
+    headers: toMetadataRows(req.headers),
+    params: toMetadataRows(request.params),
+    query: toMetadataRows(req.query),
+    body: toMetadataRows(request.body),
+    session: toMetadataRows(req.session)
+  })
+}
+
+/**
+ * @param {ErrorLike|string|Record<string, any>|null|undefined} error
+ * @param {number} statusCode
+ * @returns {Error}
+ */
+function normalizeError(error, statusCode) {
+  if (error instanceof Error) {
+    return error
+  }
+
+  const statusText = getStatusText(statusCode)
+  const message =
+    typeof error === 'string'
+      ? error
+      : typeof error === 'object' && error && typeof error.message === 'string'
+      ? error.message
+      : statusText.message
+
+  const normalizedError = new Error(message)
+  normalizedError.name =
+    typeof error === 'object' && error && typeof error.name === 'string'
+      ? error.name
+      : statusText.title
+
+  return normalizedError
+}
+
+/**
+ * Youch's theme switcher reads and writes localStorage. Inertia renders
+ * development error HTML inside a sandboxed iframe, where localStorage can
+ * throw a SecurityError. Swap Youch's direct localStorage calls for a small
+ * storage shim so the theme toggle still works in the Inertia error modal.
+ *
+ * @param {string} html
  * @returns {string}
  */
-function formatStackTrace(stack) {
-  return stack
-    .split('\n')
-    .map((line) => {
-      if (line.trim().startsWith('at ')) {
-        // Highlight file paths
-        return line
-          .replace(
-            /(\s+at\s+)([^\s]+)\s+\(([^)]+)\)/,
-            '<span class="at-line">$1</span>$2 (<span class="file-path">$3</span>)'
-          )
-          .replace(
-            /(\s+at\s+)([^\s(]+)$/,
-            '<span class="at-line">$1</span><span class="file-path">$2</span>'
-          )
+function makeYouchHtmlInertiaModalSafe(html) {
+  const storageShim = `<script id="inertia-sails-youch-storage">
+(function () {
+  var fallback = {}
+  window.__youchStorage = {
+    getItem: function (key) {
+      try {
+        return window.localStorage.getItem(key)
+      } catch (error) {
+        return Object.prototype.hasOwnProperty.call(fallback, key) ? fallback[key] : null
       }
-      return line
-    })
-    .join('\n')
+    },
+    setItem: function (key, value) {
+      try {
+        window.localStorage.setItem(key, value)
+      } catch (error) {
+        fallback[key] = String(value)
+      }
+    },
+    removeItem: function (key) {
+      try {
+        window.localStorage.removeItem(key)
+      } catch (error) {
+        delete fallback[key]
+      }
+    }
+  }
+})()
+</script>`
+
+  return html
+    .replaceAll('localStorage.', 'window.__youchStorage.')
+    .replace('</head>', `${storageShim}</head>`)
 }
 
 /**
- * Escape HTML special characters
- * @param {any} str
- * @returns {string}
+ * @param {InertiaRequest} req
+ * @param {Error} error
+ * @param {number} statusCode
+ * @returns {Promise<string>}
  */
-function escapeHtml(str) {
-  if (!str) return ''
-  return String(str)
-    .replace(/&/g, '&amp;')
-    .replace(/</g, '&lt;')
-    .replace(/>/g, '&gt;')
-    .replace(/"/g, '&quot;')
-    .replace(/'/g, '&#039;')
+async function renderYouchHtml(req, error, statusCode) {
+  const { Youch } = await import('youch')
+  const youch = new Youch()
+
+  addRequestMetadata(req, youch)
+
+  const html = await youch.toHTML(error, {
+    title: `${statusCode} - ${getStatusText(statusCode).title}`,
+    request: {
+      url: req.originalUrl || req.url || '/',
+      method: req.method || 'GET',
+      headers: sanitizeRecord(req.headers)
+    }
+  })
+
+  return makeYouchHtmlInertiaModalSafe(html)
 }
+
+/**
+ * @param {InertiaRequest} req
+ * @param {InertiaResponse} res
+ * @param {number} statusCode
+ * @param {Error} error
+ * @returns {Promise<any>}
+ */
+async function sendDevelopmentHtml(req, res, statusCode, error) {
+  const html = await renderYouchHtml(req, error, statusCode)
+
+  res.status(statusCode)
+  res.type?.('text/html')
+  return res.send?.(html)
+}
+
+/**
+ * @param {InertiaResponse} res
+ * @param {number} statusCode
+ * @param {Error} error
+ * @param {boolean} isDevelopment
+ * @returns {*}
+ */
+function sendJsonError(res, statusCode, error, isDevelopment) {
+  const statusText = getStatusText(statusCode)
+  /** @type {{ error: { status: number, title: string, message: string, name?: string, stack?: string } }} */
+  const payload = {
+    error: {
+      status: statusCode,
+      title: statusText.title,
+      message: isDevelopment ? error.message : statusText.message
+    }
+  }
+
+  if (isDevelopment) {
+    payload.error.name = error.name
+    payload.error.stack = error.stack
+  }
+
+  return res.status?.(statusCode).json?.(payload)
+}
+
+/**
+ * @param {any} sails
+ * @returns {string|null}
+ */
+function getConfiguredErrorPage(sails) {
+  const configured = sails.config?.inertia?.errorPage
+
+  if (typeof configured === 'string') {
+    return configured
+  }
+
+  if (configured && typeof configured.page === 'string') {
+    return configured.page
+  }
+
+  return null
+}
+
+/**
+ * @param {any} sails
+ * @returns {number[]}
+ */
+function getConfiguredErrorStatuses(sails) {
+  const configured = sails.config?.inertia?.errorStatuses
+
+  if (!Array.isArray(configured)) {
+    return DEFAULT_ERROR_STATUSES
+  }
+
+  return configured
+    .map(Number)
+    .filter((statusCode) => Number.isInteger(statusCode))
+}
+
+/**
+ * @param {InertiaRequest} req
+ * @param {InertiaResponse} res
+ * @param {number} statusCode
+ * @param {string} page
+ * @returns {Promise<any>}
+ */
+function renderInertiaErrorPage(req, res, statusCode, page) {
+  const statusText = getStatusText(statusCode)
+
+  res.status?.(statusCode)
+  return render(req, res, {
+    page,
+    props: {
+      status: statusCode,
+      title: statusText.title,
+      message: statusText.message
+    }
+  })
+}
+
+/**
+ * @param {InertiaRequest} req
+ * @param {InertiaResponse} res
+ * @param {number} statusCode
+ * @param {Error} error
+ * @param {boolean} isDevelopment
+ * @returns {*}
+ */
+function renderSailsErrorView(req, res, statusCode, error, isDevelopment) {
+  const viewName = String(statusCode)
+
+  res.status?.(statusCode)
+  return res.view?.(
+    viewName,
+    {
+      error: isDevelopment && statusCode >= 500 ? error : null
+    },
+    /**
+     * @param {Error|null} viewError
+     * @param {string} html
+     * @returns {*}
+     */
+    (viewError, html) => {
+      if (viewError) {
+        return res.send?.(getStatusText(statusCode).message)
+      }
+
+      return res.send?.(html)
+    }
+  )
+}
+
+/**
+ * Render an application error response.
+ *
+ * In development, 500-level HTML responses use Youch. In production, apps can
+ * opt into Inertia status pages with `sails.config.inertia.errorPage`.
+ *
+ * @param {InertiaRequest} req
+ * @param {InertiaResponse} res
+ * @param {ErrorPageOptions} options
+ * @returns {Promise<any>|*}
+ */
+function handleErrorPage(req, res, options = {}) {
+  const sails = req._sails
+  const isDevelopment = process.env.NODE_ENV !== 'production'
+  const statusCode = resolveStatusCode(
+    options.error,
+    Number(options.statusCode || 500)
+  )
+  const error = normalizeError(options.error, statusCode)
+  const hasExplicitErrorPage = typeof options.page === 'string'
+
+  if (statusCode >= 500) {
+    sails.log?.error?.('Server error:', options.error || error)
+  }
+
+  if (wantsJson(req)) {
+    return sendJsonError(res, statusCode, error, isDevelopment)
+  }
+
+  if (isDevelopment && statusCode >= 500 && !hasExplicitErrorPage) {
+    return sendDevelopmentHtml(req, res, statusCode, error)
+  }
+
+  const errorPage = options.page || getConfiguredErrorPage(sails)
+  const errorStatuses = getConfiguredErrorStatuses(sails)
+
+  if (errorPage && errorStatuses.includes(statusCode)) {
+    return renderInertiaErrorPage(req, res, statusCode, errorPage)
+  }
+
+  if (isInertiaRequest(req)) {
+    sails.inertia.flash?.(
+      'error',
+      'An unexpected error occurred. Please try again.'
+    )
+    return res.redirect?.(303, req.get?.('Referrer') || '/')
+  }
+
+  return renderSailsErrorView(req, res, statusCode, error, isDevelopment)
+}
+
+/**
+ * Server Error Response for Inertia.js.
+ *
+ * @param {InertiaRequest} req - Express/Sails request object
+ * @param {InertiaResponse} res - Express/Sails response object
+ * @param {ErrorLike|string|Record<string, any>|null} [error] - Optional error data or Error object
+ * @returns {Promise<any>|*} - Response
+ */
+function handleServerError(req, res, error) {
+  return handleErrorPage(req, res, {
+    statusCode: 500,
+    error
+  })
+}
+
+module.exports = Object.assign(handleServerError, { handleErrorPage })

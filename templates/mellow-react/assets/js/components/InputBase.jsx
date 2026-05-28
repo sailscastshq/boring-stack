@@ -21,7 +21,7 @@ export default function InputBase({
         </span>
         <input
           id={id}
-          className={`placeholder:text-gray block min-h-12 w-full rounded-lg border bg-white py-3 pl-11 pr-10 text-base shadow-sm transition-colors placeholder:text-base focus:outline-none focus:ring-2 ${
+          className={`placeholder:text-gray min-h-12 block w-full rounded-lg border bg-white py-3 pl-11 pr-10 text-base shadow-sm transition-colors placeholder:text-base focus:outline-none focus:ring-2 ${
             error
               ? 'border-red-300 bg-red-50/40 text-red-950 focus:border-red-500 focus:ring-red-100'
               : 'border-gray/50 focus:ring-gray-100'

@@ -194,6 +194,76 @@ sails.inertia.flash({ error: 'Failed', field: 'email' })
 
 Access in your frontend via `page.props.flash`.
 
+### Error Pages
+
+In development, 500-level HTML responses render a rich Youch error page with
+the stack trace and sanitized request metadata. For Inertia visits, the client
+will show that HTML in its development error modal.
+
+In production, `inertia-sails` renders the configured Inertia error page for
+`403`, `404`, `500`, and `503` responses by default. The page receives
+`status`, `title`, and `message` props:
+
+```vue
+<!-- assets/js/pages/error.vue -->
+<script setup>
+import { Head, Link } from '@inertiajs/vue3'
+
+defineProps({
+  status: Number,
+  title: String,
+  message: String
+})
+</script>
+
+<template>
+  <Head :title="`${status} ${title}`" />
+
+  <main>
+    <p>Status {{ status }}</p>
+    <h1>{{ title }}</h1>
+    <p>{{ message }}</p>
+    <Link href="/">Go home</Link>
+  </main>
+</template>
+```
+
+Wire Sails' standard responses through the hook so framework-level 403/404/500
+responses use the same policy:
+
+```js
+// api/responses/serverError.js
+module.exports = function serverError(error) {
+  return this.req._sails.inertia.handleServerError(this.req, this.res, error)
+}
+
+// api/responses/notFound.js
+module.exports = function notFound(error) {
+  return this.req._sails.inertia.handleErrorPage(this.req, this.res, {
+    statusCode: 404,
+    error
+  })
+}
+
+// api/responses/forbidden.js
+module.exports = function forbidden(error) {
+  return this.req._sails.inertia.handleErrorPage(this.req, this.res, {
+    statusCode: 403,
+    error
+  })
+}
+```
+
+Hybrid apps can keep classic Sails EJS error views by disabling the Inertia
+error page:
+
+```js
+// config/inertia.js
+module.exports.inertia = {
+  errorPage: false
+}
+```
+
 ### Precognition
 
 Inertia v3 forms can validate against server-owned Sails rules before the real
@@ -480,6 +550,8 @@ Copy these to `api/responses/`:
 - **inertiaRedirect.js** - Handle Inertia redirects
 - **badRequest.js** - Validation errors with redirect back
 - **serverError.js** - Error modal in dev, graceful redirect in prod
+- **notFound.js** - 404 status pages
+- **forbidden.js** - 403 status pages
 
 ## Architecture
 
@@ -499,7 +571,12 @@ module.exports.inertia = {
   // History encryption settings
   history: {
     encrypt: false
-  }
+  },
+
+  // Production status page component.
+  // Set to false to keep classic Sails EJS error views.
+  errorPage: 'error',
+  errorStatuses: [403, 404, 500, 503]
 }
 ```
 

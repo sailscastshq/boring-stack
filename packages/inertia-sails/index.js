@@ -119,6 +119,8 @@ module.exports = function defineInertiaHook(sails) {
     defaults: {
       inertia: {
         rootView: 'app',
+        errorPage: 'error',
+        errorStatuses: [403, 404, 500, 503],
         // Auto-version from Shipwright manifest for cache busting
         // Override in config/inertia.js if needed
         version: () => getManifestVersion(),
@@ -716,17 +718,31 @@ module.exports = function defineInertiaHook(sails) {
     },
 
     /**
-     * Handle server error responses for Inertia.js
-     * For Inertia requests in development, displays a styled error modal with stack trace.
-     * In production, redirects back with a flash error message.
+     * Handle 500-level server errors for Inertia.js.
+     * In development, HTML responses render Youch. In production, configured
+     * Inertia apps can render the shared error page.
      * @docs https://docs.sailscasts.com/boring-stack/error-handling
      * @param {Request} req - The request object
      * @param {Response} res - The response object
      * @param {ErrorLike} [error] - Optional error data or Error object
-     * @returns {*} - Response (HTML modal for dev Inertia, redirect for prod)
+     * @returns {*} - Response
      */
     handleServerError(req, res, error) {
       return handleServerError(req, res, error)
+    },
+
+    /**
+     * Handle application status/error pages for Inertia.js.
+     * In development, 500-level HTML responses use Youch. In production,
+     * configured Inertia apps can render an Inertia status page.
+     * @docs https://docs.sailscasts.com/boring-stack/error-handling
+     * @param {Request} req - The request object
+     * @param {Response} res - The response object
+     * @param {{ statusCode?: number, error?: ErrorLike|string|Record<string, any>|null, page?: string }} [options] - Error page options
+     * @returns {*} - Response
+     */
+    handleErrorPage(req, res, options) {
+      return handleServerError.handleErrorPage(req, res, options)
     },
 
     /**
