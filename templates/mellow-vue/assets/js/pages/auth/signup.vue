@@ -75,21 +75,9 @@ const disableSignupButton = computed(() => {
         @submit.prevent="form.post('/signup')"
         class="mb-4 flex flex-col space-y-6"
       >
-        <InputText v-model="form.fullName">
-          <p class="absolute text-red-500" v-if="form.errors.fullName">
-            {{ form.errors.fullName }}
-          </p>
-        </InputText>
-        <InputEmail v-model="form.email">
-          <p class="absolute text-red-500" v-if="form.errors.email">
-            {{ form.errors.email }}
-          </p>
-        </InputEmail>
-        <InputPassword v-model="form.password">
-          <p class="absolute text-red-500" v-if="form.errors.password">
-            {{ form.errors.password }}
-          </p>
-        </InputPassword>
+        <InputText v-model="form.fullName" :error="form.errors.fullName" />
+        <InputEmail v-model="form.email" :error="form.errors.email" />
+        <InputPassword v-model="form.password" :error="form.errors.password" />
         <ul class="flex justify-between text-sm">
           <li
             class="flex items-center space-x-1 text-gray-500"

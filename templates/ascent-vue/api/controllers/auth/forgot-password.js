@@ -20,10 +20,19 @@ module.exports = {
       description:
         'The email address might have matched a user in the database.  (If so, a recovery email was sent.)',
       responseType: 'redirect'
+    },
+    precognitionSuccess: {
+      description:
+        'The submitted email passed Precognition validation without running side effects.',
+      responseType: 'precognitionSuccess'
     }
   },
 
-  fn: async function ({ email }) {
+  fn: async function ({ email }, exits) {
+    if (sails.inertia.isPrecognitive?.(this.req)) {
+      return exits.precognitionSuccess()
+    }
+
     const user = await User.findOne({ email })
 
     if (user) {

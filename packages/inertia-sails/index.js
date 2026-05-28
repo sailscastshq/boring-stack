@@ -41,6 +41,12 @@ const inertia = require('./lib/middleware/inertia-middleware')
 const render = require('./lib/render')
 const location = require('./lib/location')
 const requestContext = require('./lib/helpers/request-context')
+const {
+  getValidateOnlyFields,
+  isPrecognitiveRequest,
+  sendPrecognitionSuccess,
+  shouldValidateField
+} = require('./lib/helpers/precognition')
 
 const DeferProp = require('./lib/props/defer-prop')
 const OptionalProp = require('./lib/props/optional-prop')
@@ -644,6 +650,69 @@ module.exports = function defineInertiaHook(sails) {
      */
     handleBadRequest(req, res, optionalData) {
       return handleBadRequest(req, res, optionalData)
+    },
+
+    /**
+     * Determine if the current request is a Precognition validation request.
+     * @param {Request} [req] - The request object. Defaults to request context.
+     * @returns {boolean} - Whether this is a Precognition request.
+     */
+    isPrecognitive(req) {
+      return isPrecognitiveRequest(req || requestContext.getRequest())
+    },
+
+    /**
+     * Get the fields requested by Precognition-Validate-Only.
+     * @param {Request} [req] - The request object. Defaults to request context.
+     * @returns {string[]} - Fields requested for validation.
+     */
+    validateOnly(req) {
+      return getValidateOnlyFields(req || requestContext.getRequest())
+    },
+
+    /**
+     * Determine if a field should run validation for the current request.
+     * For non-Precognition requests, all fields should validate.
+     * @param {string} field - Field name, with dot notation and * wildcards supported.
+     * @param {Request} [req] - The request object. Defaults to request context.
+     * @returns {boolean} - Whether to validate this field.
+     */
+    shouldValidate(field, req) {
+      return shouldValidateField(req || requestContext.getRequest(), field)
+    },
+
+    /**
+     * Handle a successful Precognition validation response.
+     * This is intended for app-level custom responses such as
+     * `api/responses/precognitionSuccess.js`.
+     * @param {Request} req - The request object
+     * @param {Response} res - The response object
+     * @returns {*} - A 204 Precognition response.
+     */
+    handlePrecognitionSuccess(req, res) {
+      if (!res) {
+        throw new Error(
+          'sails.inertia.handlePrecognitionSuccess() called without a response object'
+        )
+      }
+
+      return sendPrecognitionSuccess(res)
+    },
+
+    /**
+     * Send a successful Precognition validation response.
+     * Low-level alias for custom responses and non-action callers.
+     * In actions with a responseType, prefer a named exit using a
+     * `precognitionSuccess` response file.
+     * @param {Request} [req] - The request object. Defaults to request context.
+     * @param {Response} [res] - The response object. Defaults to request context.
+     * @returns {*} - A 204 Precognition response.
+     */
+    precognitionSuccess(req, res) {
+      return this.handlePrecognitionSuccess(
+        req || requestContext.getRequest(),
+        res || requestContext.getResponse()
+      )
     },
 
     /**

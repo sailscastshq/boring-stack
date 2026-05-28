@@ -77,19 +77,15 @@ export default function ResetPassword({ token }) {
               id="newPassword"
               value={data.password}
               onChange={(e) => setData('password', e.target.value)}
+              error={form.errors.password}
             />
-            {form.errors.password && (
-              <p className="text-red-500">{form.errors.password}</p>
-            )}
             <InputPassword
               label="Confirm Password"
               id="confirmPassword"
               value={data.confirmPassword}
               onChange={(e) => setData('confirmPassword', e.target.value)}
+              error={form.errors.confirmPassword}
             />
-            {form.errors.password && (
-              <p className="text-red-500">{form.errors.password}</p>
-            )}
             <ul className="flex justify-between text-sm">
               <li
                 className={`flex items-center space-x-1 text-gray-500 ${

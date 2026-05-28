@@ -5,7 +5,7 @@ import InputEmail from '@/components/InputEmail.vue'
 import InputButton from '@/components/InputButton.vue'
 const form = useForm({
   email: null
-})
+}).withPrecognition('post', '/forgot-password')
 const disableForgetPasswordButton = computed(() => {
   const emailRegex = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/
   const isEmailValid = emailRegex.test(form.email)
@@ -18,7 +18,7 @@ const disableForgetPasswordButton = computed(() => {
 <template>
   <Head title="Forgot password | Mellow"></Head>
   <section
-    class="from-brand-50/10 flex min-h-screen flex-col justify-center bg-gradient-to-b to-[#F9FAFB] text-black sm:items-center"
+    class="from-brand-50/10 bg-linear-to-b flex min-h-screen flex-col justify-center to-[#F9FAFB] text-black sm:items-center"
   >
     <main
       class="mt-10 bg-white px-4 py-10 text-black sm:w-7/12 sm:rounded-lg sm:px-8 sm:shadow-lg md:w-6/12 lg:w-5/12 xl:w-4/12"
@@ -61,11 +61,11 @@ const disableForgetPasswordButton = computed(() => {
         @submit.prevent="form.post('/forgot-password')"
         class="mb-4 flex flex-col space-y-6"
       >
-        <InputEmail v-model="form.email">
-          <p class="absolute text-red-500" v-if="form.errors.email">
-            {{ form.errors.email }}
-          </p>
-        </InputEmail>
+        <InputEmail
+          v-model="form.email"
+          :error="form.errors.email"
+          @blur="form.validate('email')"
+        />
         <InputButton
           :processing="form.processing"
           :disabled="disableForgetPasswordButton"

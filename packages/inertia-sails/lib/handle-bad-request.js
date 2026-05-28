@@ -3,6 +3,33 @@
  * @typedef {import('./types').InertiaResponse} InertiaResponse
  * @typedef {import('./types').BadRequestData} BadRequestData
  */
+const { INERTIA } = require('./helpers/inertia-headers')
+const humanizeValidationErrors = require('./helpers/humanize-validation-errors')
+const {
+  getValidateOnlyFields,
+  isPrecognitiveRequest,
+  sendPrecognitionErrors,
+  sendPrecognitionSuccess
+} = require('./helpers/precognition')
+
+/**
+ * @param {Record<string, string[]>} errors
+ * @param {string[]} fields
+ * @returns {Record<string, string[]>}
+ */
+function filterErrors(errors, fields) {
+  if (fields.length === 0) {
+    return errors
+  }
+
+  return fields.reduce((result, field) => {
+    if (errors[field]) {
+      result[field] = errors[field]
+    }
+
+    return result
+  }, /** @type {Record<string, string[]>} */ ({}))
+}
 
 /**
  * Handle bad request responses for Inertia.js
@@ -24,73 +51,52 @@
  */
 module.exports = function handleBadRequest(req, res, optionalData) {
   const sails = req._sails
+  const log = sails.log || {}
+  const response = /** @type {any} */ (res)
   // Define the status code to send in the response.
   const statusCodeToSet = 400
+  const errors = humanizeValidationErrors(optionalData)
+
+  if (isPrecognitiveRequest(req)) {
+    const filteredErrors = filterErrors(errors, getValidateOnlyFields(req))
+
+    if (
+      Object.keys(errors).length > 0 &&
+      Object.keys(filteredErrors).length === 0
+    ) {
+      return sendPrecognitionSuccess(res)
+    }
+
+    return sendPrecognitionErrors(res, filteredErrors)
+  }
 
   // Check if it's an Inertia request
-  if (req.header?.('X-Inertia')) {
-    if (
-      optionalData &&
-      !(optionalData instanceof Error) &&
-      Array.isArray(optionalData.problems)
-    ) {
-      /** @type {Record<string, string[]>} */
-      const errors = {}
-      optionalData.problems.forEach((problem) => {
-        if (typeof problem === 'object') {
-          Object.keys(problem).forEach((propertyName) => {
-            const sanitizedProblem = String(problem[propertyName]).replace(
-              /\.$/,
-              ''
-            ) // Trim trailing dot
-            if (!errors[propertyName]) {
-              errors[propertyName] = [sanitizedProblem]
-            } else {
-              errors[propertyName].push(sanitizedProblem)
-            }
-          })
-        } else {
-          const regex = /"(.*?)"/
-          const matches = problem.match(regex)
-
-          if (matches && matches.length > 1) {
-            const propertyName = matches[1]
-            const sanitizedProblem = problem
-              .replace(/"([^"]+)"/, '$1')
-              .replace('\n', '')
-              .replace('·', '')
-              .trim()
-            if (!errors[propertyName]) {
-              errors[propertyName] = [sanitizedProblem]
-            } else {
-              errors[propertyName].push(sanitizedProblem)
-            }
-          }
-        }
-      })
+  if (req.header?.(INERTIA)) {
+    if (Object.keys(errors).length > 0) {
+      req.session = req.session || {}
       req.session.errors = errors
-      return res.redirect(303, req.get('Referrer') || '/')
+      return response.redirect(303, req.get('Referrer') || '/')
     }
   }
 
   // If not an Inertia request, perform the normal badRequest response
   if (optionalData === undefined) {
-    sails.log.info('Ran custom response: res.badRequest()')
-    return res.sendStatus(statusCodeToSet)
+    log.info?.('Ran custom response: res.badRequest()')
+    return response.sendStatus(statusCodeToSet)
   } else if (optionalData instanceof Error) {
-    sails.log.info(
+    log.info?.(
       'Custom response `res.badRequest()` called with an Error:',
       optionalData
     )
 
     if (typeof (/** @type {*} */ (optionalData).toJSON) !== 'function') {
       if (process.env.NODE_ENV === 'production') {
-        return res.sendStatus(statusCodeToSet)
+        return response.sendStatus(statusCodeToSet)
       } else {
-        return res.status(statusCodeToSet).send(optionalData.stack)
+        return response.status(statusCodeToSet).send(optionalData.stack)
       }
     }
   } else {
-    return res.status(statusCodeToSet).send(optionalData)
+    return response.status(statusCodeToSet).send(optionalData)
   }
 }

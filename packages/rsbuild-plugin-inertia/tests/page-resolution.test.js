@@ -1,6 +1,7 @@
 const { describe, it } = require('node:test')
 const assert = require('node:assert/strict')
-const { applyInertiaConfig, normalizeOptions, pluginInertia } = require('..')
+const inertiaPlugin = /** @type {any} */ (require('..'))
+const { applyInertiaConfig, normalizeOptions, pluginInertia } = inertiaPlugin
 const { transformPageResolution } = require('../lib/page-resolution')
 
 describe('transformPageResolution', function () {
@@ -264,6 +265,9 @@ describe('pluginInertia', function () {
       },
       '/app',
       undefined,
+      /**
+       * @param {string} file
+       */
       (file) => file === '/app/assets/js/ssr.js'
     )
 
@@ -291,6 +295,9 @@ describe('pluginInertia', function () {
       },
       '/app',
       undefined,
+      /**
+       * @returns {boolean}
+       */
       () => false
     )
 

@@ -75,27 +75,18 @@ export default function Signup() {
             <InputText
               value={data.fullName}
               onChange={(e) => setData('fullName', e.target.value)}
+              error={form.errors.fullName}
             />
-
-            {form.errors.fullName && (
-              <p className="text-red-500" v-if="form.errors.fullName">
-                {form.errors.fullName}
-              </p>
-            )}
             <InputEmail
               value={data.email}
               onChange={(e) => setData('email', e.target.value)}
+              error={form.errors.email}
             />
-            {form.errors.email && (
-              <p className="text-red-500">{form.errors.email}</p>
-            )}
             <InputPassword
               value={data.password}
               onChange={(e) => setData('password', e.target.value)}
+              error={form.errors.password}
             />
-            {form.errors.password && (
-              <p className="text-red-500">{form.errors.password}</p>
-            )}
             <ul className="flex justify-between text-sm">
               <li
                 className={`flex items-center space-x-1 text-gray-500 ${

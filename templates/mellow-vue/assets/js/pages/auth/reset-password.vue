@@ -82,21 +82,15 @@ const disableResetPasswordButton = computed(() => {
           v-model="form.password"
           label="New password"
           id="newPassword"
-        >
-          <p class="absolute text-red-500" v-if="form.errors.password">
-            {{ form.errors.password }}
-          </p>
-        </InputPassword>
+          :error="form.errors.password"
+        />
         <InputPassword
           v-model="form.confirmPassword"
           label="Confirm Password"
           placeholder="Confirm Password"
           id="confirmPassword"
-        >
-          <p class="absolute text-red-500" v-if="form.errors.confirmPassword">
-            {{ form.errors.confirmPassword }}
-          </p>
-        </InputPassword>
+          :error="form.errors.confirmPassword"
+        />
         <ul class="flex justify-between text-sm">
           <li
             class="flex items-center space-x-1 text-gray-500"

@@ -194,6 +194,84 @@ sails.inertia.flash({ error: 'Failed', field: 'email' })
 
 Access in your frontend via `page.props.flash`.
 
+### Precognition
+
+Inertia v3 forms can validate against server-owned Sails rules before the real
+submit runs. `inertia-sails` handles the Precognition response headers and
+returns validation failures as `422` JSON instead of redirecting through the
+normal session-backed Inertia error flow.
+
+Use `withPrecognition()` on the client:
+
+```js
+const form = useForm({
+  email: null
+}).withPrecognition('post', '/forgot-password')
+```
+
+Then validate a field when the user leaves it:
+
+```vue
+<InputEmail v-model="form.email" @blur="form.validate('email')" />
+```
+
+On the server, add a small custom response so successful Precognition checks
+can exit before side effects without going through the action's normal
+`success` response type:
+
+```js
+// api/responses/precognitionSuccess.js
+module.exports = function precognitionSuccess() {
+  return this.req._sails.inertia.handlePrecognitionSuccess(this.req, this.res)
+}
+```
+
+Then use a named exit in the action:
+
+```js
+exits: {
+  success: {
+    responseType: 'redirect'
+  },
+  precognitionSuccess: {
+    responseType: 'precognitionSuccess'
+  }
+},
+
+fn: async function ({ email }, exits) {
+  if (sails.inertia.isPrecognitive(this.req)) {
+    return exits.precognitionSuccess()
+  }
+
+  await sendPasswordResetEmail(email)
+  return '/check-email'
+}
+```
+
+For custom database-backed checks, use `shouldValidate()` so expensive rules
+only run when the client asked for that field:
+
+```js
+if (sails.inertia.shouldValidate('email', this.req)) {
+  const existingUser = await User.findOne({ email })
+
+  if (existingUser) {
+    throw {
+      badSignupRequest: {
+        problems: [{ email: 'An account with this email already exists.' }]
+      }
+    }
+  }
+}
+```
+
+Available helpers:
+
+- `sails.inertia.isPrecognitive(req?)`
+- `sails.inertia.validateOnly(req?)`
+- `sails.inertia.shouldValidate(field, req?)`
+- `sails.inertia.handlePrecognitionSuccess(req, res)` for custom responses
+
 ### Deferred Props
 
 Load props after initial page render:
