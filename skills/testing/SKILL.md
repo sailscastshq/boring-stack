@@ -34,6 +34,7 @@ Use this skill when:
 - Writing trials around `sails.helpers`, `get()` / `post()`, `visit()`, `auth`, `login`, `mailbox`, or `page`
 - Choosing between virtual transport and real HTTP transport
 - Keeping mail capture, datastore isolation, and browser setup calm and predictable
+- Debugging failed browser trials with Sounding's default URL/screenshot artifacts and opt-in traces/videos
 - Setting up CI around a Sounding-powered suite
 
 ## Sounding Mental Model

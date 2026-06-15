@@ -70,6 +70,54 @@ Modes:
 
 Managed SQLite artifacts already default to `.tmp/db`, so most apps never need a `config/sounding.js` file at all.
 
+## Browser artifacts
+
+Browser failure artifacts default to:
+
+```js
+browser: {
+  artifacts: {
+    outputDir: '.tmp/sounding/artifacts',
+    screenshot: true,
+    currentUrl: true,
+    trace: false,
+    video: false,
+  },
+}
+```
+
+Use booleans for the common path:
+
+- `true` keeps the artifact when the trial fails
+- `false` disables it
+
+Use explicit modes only when needed:
+
+- `off`
+- `on-failure`
+- `on`
+
+Prefer turning trace or video on for one browser trial first:
+
+```js
+test(
+  'editor keeps draft state',
+  {
+    browser: {
+      artifacts: {
+        trace: true,
+        video: true
+      }
+    }
+  },
+  async ({ page }) => {
+    await page.goto('/dashboard/editor')
+  }
+)
+```
+
+For CI, upload `.tmp/sounding/artifacts` after failed browser runs when the app needs browser evidence.
+
 ## Request transport defaults
 
 For non-browser trials, the calm default is:
