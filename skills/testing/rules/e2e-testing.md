@@ -38,6 +38,33 @@ When `{ browser: true }` is enabled, the trial context can include:
 - `browser`
 - Playwright-backed `expect()` behavior
 
+Failed browser-capable trials also keep useful evidence by default:
+
+- the current URL
+- `.tmp/sounding/artifacts/<trial-name>/<browser-project>/current-url.txt`
+- `.tmp/sounding/artifacts/<trial-name>/<browser-project>/screenshot.png`
+
+When a failure is flaky or timing-sensitive, scope heavier capture to that trial:
+
+```js
+test(
+  'checkout keeps the cart after refresh',
+  {
+    browser: {
+      artifacts: {
+        trace: true,
+        video: true
+      }
+    }
+  },
+  async ({ page }) => {
+    await page.goto('/checkout')
+  }
+)
+```
+
+Keep trace and video opt-in unless the app has a deliberate CI artifact policy.
+
 ## Use browser-capable trials for the right things
 
 Good uses:
