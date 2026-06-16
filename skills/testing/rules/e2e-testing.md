@@ -38,6 +38,30 @@ When `{ browser: true }` is enabled, the trial context can include:
 - `browser`
 - Playwright-backed `expect()` behavior
 
+Use named projects when the trial needs mobile or a specific browser engine:
+
+```js
+test(
+  'mobile nav opens the account menu',
+  { browser: 'mobile' },
+  async ({ page }) => {
+    await page.goto('/dashboard')
+  }
+)
+```
+
+Use the object form when the trial also needs artifacts or overrides:
+
+```js
+test(
+  'checkout works in WebKit',
+  { browser: { project: 'safari' } },
+  async ({ page }) => {
+    await page.goto('/checkout')
+  }
+)
+```
+
 Failed browser-capable trials also keep useful evidence by default:
 
 - the current URL

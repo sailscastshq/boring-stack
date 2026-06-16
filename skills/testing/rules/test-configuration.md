@@ -70,6 +70,28 @@ Modes:
 
 Managed SQLite artifacts already default to `.tmp/db`, so most apps never need a `config/sounding.js` file at all.
 
+## Browser projects
+
+Browser trials default to the `desktop` project. Add named project objects when an app needs mobile or cross-browser coverage:
+
+```js
+browser: {
+  projects: {
+    desktop: {},
+    mobile: {
+      device: 'iPhone 13',
+    },
+    safari: {
+      type: 'webkit',
+    },
+  },
+  defaultProject: 'desktop',
+}
+```
+
+Prefer `browser: 'mobile'` in trials when selecting a project by name.
+Use `browser: { project: 'safari' }` when the same trial also needs artifacts, context options, or launch options.
+
 ## Browser artifacts
 
 Browser failure artifacts default to:
