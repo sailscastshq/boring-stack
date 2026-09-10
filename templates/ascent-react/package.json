@@ -20,7 +20,7 @@
     "@sailshq/socket.io-redis": "^6.1.2",
     "@simplewebauthn/browser": "^13.3.0",
     "@simplewebauthn/server": "^13.3.3",
-    "inertia-sails": "^1.5.0",
+    "inertia-sails": "^1.6.0",
     "nodemailer": "^10.0.3",
     "qrcode": "^1.5.4",
     "react": "^19.3.0",
