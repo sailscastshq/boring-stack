@@ -12,7 +12,11 @@ let failed = false
 for (const stream of [process.stdout, process.stderr]) {
   const write = stream.write.bind(stream)
   stream.write = (chunk, ...args) => {
-    if (String(chunk).includes('Build failed')) failed = true
+    if (
+      String(chunk).includes('Build failed') ||
+      String(chunk).includes('SSR failed; falling back')
+    )
+      failed = true
     return write(chunk, ...args)
   }
 }
@@ -46,6 +50,13 @@ app.lift(
         const html = await response.text()
         if (response.status !== 200 || !html.includes('<html'))
           throw Error(route + ' did not render HTML: ' + response.status)
+        const ssr = app.config.inertia.ssr
+        if (
+          route === '/login' &&
+          (ssr === true || ssr?.enabled) &&
+          !html.includes('<form')
+        )
+          throw Error('SSR login response did not contain the rendered form')
         const assets = [
           ...html.matchAll(/(?:src|href)="([^\"]+\.(?:js|css)(?:\?[^\"]*)?)"/g)
         ]
