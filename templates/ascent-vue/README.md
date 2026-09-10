@@ -160,3 +160,13 @@ See [UI.md](UI.md) for the installed inventory, artwork exceptions, and safe upd
 Ascent uses clean neutral surfaces and a teal action color, cool neutral application surfaces, and restrained typography. Public pages use sections and rows; cards are reserved for meaningful groups such as plan selection and security actions. Account screens share the same light/dark treatment as menus and dialogs. See [UI.md](UI.md) for the palette, application recipes, page inventory, and screenshot workflow.
 
 ![Template preview](https://raw.githubusercontent.com/sailscastshq/boring-stack/main/.github/previews/ascent-vue-home.png)
+
+## Dependency maintenance
+
+The September 2026 dependency refresh updates Sails, Nodemailer, and the framework/build dependencies. Nodemailer 10 requires Node 20 or newer, which is covered by this template's `engines` requirement. Commit `package-lock.json` with dependency changes and verify with `npm ci`, `npm run lint`, `npm test`, and a production build.
+
+The `package.json` overrides keep `qs` on the patched 6.x line and `body-parser` on the patched 1.x line while upstream packages still pin older releases. The scoped `skipper-s3` override updates its AWS SDK within v2, preserving the adapter API.
+
+As of September 10, 2026, `npm audit` still reports findings inherited from `sails-hook-uploads` (`b64`/`hoek`), `sails-hook-content` (`showdown`), and `skipper-s3` (AWS SDK v2/`uuid`). Resolving these requires upstream fixes or tested replacements; npm's proposed downgrades do not establish compatibility. Track the remaining work in [#112](https://github.com/sailscastshq/boring-stack/issues/112).
+
+Revisit overrides when the upstream constraints include patched versions. Do not remove them based only on a successful install.
