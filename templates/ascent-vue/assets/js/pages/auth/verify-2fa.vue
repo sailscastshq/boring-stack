@@ -1,10 +1,9 @@
 <script setup>
+import Spinner from '@/components/ui/spinner/Spinner.vue'
 import { ref, computed } from 'vue'
 import { Head, useForm, router, Link } from '@inertiajs/vue3'
-import InputOtp from '@/volt/InputOtp.vue'
-import Message from '@/volt/Message.vue'
-import Toast from '@/volt/Toast.vue'
-import { useFlashToast } from '@/composables/flash-toast'
+import InputOtp from '@/components/ui/input/Input.vue'
+import Message from '@/components/ui/alert/Alert.vue'
 
 const props = defineProps({
   twoFactorMethods: {
@@ -24,8 +23,6 @@ const form = useForm({
   code: '',
   method: activeMethod.value
 })
-
-useFlashToast()
 
 const isDisabled = computed(() => {
   if (form.processing) return true
@@ -139,13 +136,17 @@ function handleSwitchMethod(method) {
             role="alert"
           >
             <Message
+              role="alert"
               v-if="form.errors.method"
-              severity="error"
-              class="mb-3 w-full"
+              class="border border-red-200 bg-red-50 text-red-700 dark:border-red-800 dark:bg-red-950 dark:text-red-300 mb-3 w-full"
             >
               {{ form.errors.method }}
             </Message>
-            <Message v-if="form.errors.code" severity="error" class="w-full">
+            <Message
+              role="alert"
+              v-if="form.errors.code"
+              class="border border-red-200 bg-red-50 text-red-700 dark:border-red-800 dark:bg-red-950 dark:text-red-300 w-full"
+            >
               {{ form.errors.code }}
             </Message>
           </div>
@@ -158,7 +159,14 @@ function handleSwitchMethod(method) {
                 Enter code from your authenticator app
               </label>
               <div class="flex justify-center">
-                <InputOtp v-model="form.code" :length="6" integerOnly mask />
+                <InputOtp
+                  class="mx-auto max-w-64 text-center text-2xl tracking-[0.5em]"
+                  autocomplete="one-time-code"
+                  inputmode="numeric"
+                  aria-label="Verification code"
+                  :maxlength="6"
+                  v-model="form.code"
+                />
               </div>
             </div>
 
@@ -169,7 +177,14 @@ function handleSwitchMethod(method) {
                 Enter code sent to {{ userEmail }}
               </label>
               <div class="flex justify-center">
-                <InputOtp v-model="form.code" :length="6" integerOnly mask />
+                <InputOtp
+                  class="mx-auto max-w-64 text-center text-2xl tracking-[0.5em]"
+                  autocomplete="one-time-code"
+                  inputmode="numeric"
+                  aria-label="Verification code"
+                  :maxlength="6"
+                  v-model="form.code"
+                />
               </div>
             </div>
 
@@ -181,9 +196,12 @@ function handleSwitchMethod(method) {
               </label>
               <div class="flex justify-center">
                 <InputOtp
+                  class="mx-auto max-w-64 text-center text-2xl tracking-[0.5em]"
+                  autocomplete="one-time-code"
+                  inputmode="text"
+                  aria-label="Backup recovery code"
+                  :maxlength="8"
                   v-model="form.code"
-                  :length="8"
-                  mask
                   @update:modelValue="form.code = $event.toUpperCase()"
                 />
               </div>
@@ -205,25 +223,7 @@ function handleSwitchMethod(method) {
                 ]"
               >
                 <div v-if="form.processing" class="flex items-center space-x-2">
-                  <svg
-                    class="h-5 w-5 animate-spin"
-                    fill="none"
-                    viewBox="0 0 24 24"
-                  >
-                    <circle
-                      class="opacity-25"
-                      cx="12"
-                      cy="12"
-                      r="10"
-                      stroke="currentColor"
-                      stroke-width="4"
-                    />
-                    <path
-                      class="opacity-75"
-                      fill="currentColor"
-                      d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"
-                    />
-                  </svg>
+                  <Spinner class="h-5 w-5" />
                   <span>Verifying...</span>
                 </div>
                 <span v-else>Verify & Continue</span>
@@ -292,6 +292,4 @@ function handleSwitchMethod(method) {
       </div>
     </div>
   </div>
-
-  <Toast />
 </template>

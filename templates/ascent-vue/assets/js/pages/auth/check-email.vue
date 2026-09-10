@@ -1,4 +1,6 @@
 <script setup>
+import Envelope from '@/components/ui/icons/Envelope.vue'
+import ChevronLeft from '@/components/ui/icons/ChevronLeft.vue'
 import { Link, Head } from '@inertiajs/vue3'
 import { computed } from 'vue'
 
@@ -106,19 +108,7 @@ const pageTitle = computed(() => {
             <div
               class="from-brand-100 to-accent-100 flex h-16 w-16 items-center justify-center rounded-full bg-linear-to-br"
             >
-              <svg
-                class="text-brand-600 h-8 w-8"
-                fill="none"
-                stroke="currentColor"
-                viewBox="0 0 24 24"
-              >
-                <path
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                  stroke-width="2"
-                  d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"
-                />
-              </svg>
+              <Envelope class="text-brand-600 h-8 w-8" />
             </div>
           </div>
 
@@ -169,19 +159,7 @@ const pageTitle = computed(() => {
           :href="backUrl"
           class="hover:text-brand-600 inline-flex items-center text-base text-gray-600 transition-colors"
         >
-          <svg
-            class="mr-2 h-4 w-4"
-            fill="none"
-            stroke="currentColor"
-            viewBox="0 0 24 24"
-          >
-            <path
-              stroke-linecap="round"
-              stroke-linejoin="round"
-              stroke-width="2"
-              d="M15 19l-7-7 7-7"
-            />
-          </svg>
+          <ChevronLeft class="mr-2 h-4 w-4" />
           {{ backText }}
         </Link>
       </div>

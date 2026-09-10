@@ -1,11 +1,14 @@
 <script setup>
+import Copy from '@/components/ui/icons/Copy.vue'
+import Check from '@/components/ui/icons/Check.vue'
+import Spinner from '@/components/ui/spinner/Spinner.vue'
 import { useForm } from '@inertiajs/vue3'
-import Dialog from '@/volt/Dialog.vue'
-import Button from '@/volt/Button.vue'
-import InputOtp from '@/volt/InputOtp.vue'
-import Message from '@/volt/Message.vue'
+import Dialog from '@/components/Modal.vue'
+import Button from '@/components/ui/button/Button.vue'
+import InputOtp from '@/components/ui/input/Input.vue'
+import Message from '@/components/ui/alert/Alert.vue'
 import { useCopyToClipboard } from '@/composables/copyToClipboard'
-import SecondaryButton from '@/volt/SecondaryButton.vue'
+import SecondaryButton from '@/components/ui/button/Button.vue'
 
 const props = defineProps({
   visible: {
@@ -48,12 +51,12 @@ function handleClose() {
 <template>
   <!-- Don't render modal if no setup data -->
   <Dialog
+    title="Authenticator setup"
     v-if="setupData"
-    :visible="visible"
-    :modal="true"
+    :open="visible"
     :closable="!form.processing"
-    class="mx-4 max-w-2xl sm:mx-0 lg:w-5/12"
-    @update:visible="handleClose"
+    class="max-w-2xl lg:w-5/12"
+    @update:open="handleClose"
   >
     <div class="space-y-8">
       <!-- Header -->
@@ -68,7 +71,11 @@ function handleClose() {
       </div>
 
       <!-- Error Message -->
-      <Message v-if="form.errors.twoFactorSetup" severity="error">
+      <Message
+        role="alert"
+        class="border border-red-200 bg-red-50 text-red-700 dark:border-red-800 dark:bg-red-950 dark:text-red-300"
+        v-if="form.errors.twoFactorSetup"
+      >
         {{ form.errors.twoFactorSetup }}
       </Message>
 
@@ -116,16 +123,17 @@ function handleClose() {
                 {{ setupData.manualEntryKey }}
               </div>
               <Button
-                :icon="copied ? 'pi pi-check' : 'pi pi-copy'"
-                text
-                :tooltip="copied ? 'Copied!' : 'Copy code'"
+                class="min-h-10 border border-transparent bg-transparent px-3 py-2 text-brand hover:bg-brand-50 dark:bg-transparent dark:text-brand-400 dark:hover:bg-brand-950"
+                :aria-label="copied ? 'Copied!' : 'Copy code'"
+                :title="copied ? 'Copied!' : 'Copy code'"
                 :class="
                   copied
                     ? 'text-success-600 hover:text-success-700'
                     : 'text-gray-500 hover:text-gray-700'
                 "
                 @click="copyToClipboard(setupData.manualEntryKey)"
-              />
+                ><component :is="copied ? Check : Copy" class="h-4 w-4"
+              /></Button>
             </div>
           </div>
         </div>
@@ -153,9 +161,20 @@ function handleClose() {
               Enter verification code
             </label>
             <div class="flex justify-start">
-              <InputOtp v-model="form.token" :length="6" integer-only mask />
+              <InputOtp
+                class="mx-auto max-w-64 text-center text-2xl tracking-[0.5em]"
+                autocomplete="one-time-code"
+                inputmode="numeric"
+                aria-label="Verification code"
+                :maxlength="6"
+                v-model="form.token"
+              />
             </div>
-            <Message v-if="form.errors.token" severity="error" class="mt-3">
+            <Message
+              role="alert"
+              v-if="form.errors.token"
+              class="border border-red-200 bg-red-50 text-red-700 dark:border-red-800 dark:bg-red-950 dark:text-red-300 mt-3"
+            >
               {{ form.errors.token }}
             </Message>
           </div>
@@ -165,20 +184,21 @@ function handleClose() {
           >
             <SecondaryButton
               type="button"
-              label="Cancel"
-              size="small"
               :disabled="form.processing"
-              class="w-full sm:w-auto"
+              class="min-h-10 border border-gray-300 bg-white px-3 py-2 text-base text-gray-700 hover:bg-gray-100 dark:border-gray-600 dark:bg-gray-900 dark:text-white dark:hover:bg-gray-800 min-h-8 px-2.5 py-1.5 text-sm w-full sm:w-auto"
               @click="handleClose"
-            />
+              >Cancel</SecondaryButton
+            >
             <Button
+              :disabled="
+                !form.token || form.token.length !== 6 || form.processing
+              "
+              :aria-busy="form.processing"
               type="submit"
-              label="Verify & Enable"
-              size="small"
-              :loading="form.processing"
-              :disabled="!form.token || form.token.length !== 6"
-              class="w-full sm:w-auto"
-            />
+              class="min-h-10 border border-brand bg-brand px-3 py-2 text-base text-white hover:bg-brand-600 active:bg-brand-700 dark:bg-brand dark:text-white dark:hover:bg-brand-600 dark:active:bg-brand-700 min-h-8 px-2.5 py-1.5 text-sm w-full sm:w-auto"
+              ><Spinner v-if="form.processing" class="h-4 w-4" />Verify &
+              Enable</Button
+            >
           </div>
         </form>
       </div>

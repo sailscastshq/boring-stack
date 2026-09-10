@@ -18,7 +18,8 @@
     "sails-hook-organics": "^3.0.0",
     "sails-hook-orm": "^4.0.3",
     "sails-hook-sockets": "^3.0.2",
-    "sails-hook-wish": "^1.0.0"
+    "sails-hook-wish": "^1.0.0",
+    "tailwind-merge": "^3.6.0"
   },
   "devDependencies": {
     "@playwright/test": "^1.49.1",

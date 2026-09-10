@@ -1,6 +1,6 @@
 <script setup>
 import { computed } from 'vue'
-import VoltAvatar from '@/volt/Avatar.vue'
+import Avatar from '@/components/ui/avatar/Avatar.vue'
 
 const props = defineProps({
   user: {
@@ -44,5 +44,18 @@ const avatarProps = computed(() => {
 </script>
 
 <template>
-  <VoltAvatar v-bind="{ ...avatarProps, size, shape, ...$attrs }" />
+  <Avatar
+    :src="avatarProps.image"
+    alt=""
+    v-bind="$attrs"
+    :class="[
+      shape === 'square' ? 'rounded-lg' : 'rounded-full',
+      size === 'large'
+        ? 'size-12 text-2xl'
+        : size === 'xlarge'
+          ? 'size-16 text-3xl'
+          : 'size-8'
+    ]"
+    >{{ avatarProps.label }}</Avatar
+  >
 </template>

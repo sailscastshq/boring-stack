@@ -1,0 +1,24 @@
+{
+  "assets/js/layouts/AppLayout.vue": {
+    "reason": "Owned OAuth/social brand marks and template product artwork; not reusable interface glyphs.",
+    "sha256": [
+      "927eafec606cbbc2e1d5c304bad47e4b3e44178fb9fc171c1c8c6575d4f3f1e7",
+      "378e0ec7e426ceb7d612bc326680b8871e1485ede1bd58aed71235ee414c1efc",
+      "e713a53b535341f7c9b0badec5b33c156ba411867d7834446241677594e1c448"
+    ]
+  },
+  "assets/js/pages/auth/login.vue": {
+    "reason": "Owned OAuth/social brand marks and template product artwork; not reusable interface glyphs.",
+    "sha256": [
+      "a193b9d593e04f5950a7e337080f676657d64fff76ae4bafe04d238231871486",
+      "dd999b206f25cc83c2ee301fa8a8a0e42f6b707367578bf1233fd8c04e6a0893"
+    ]
+  },
+  "assets/js/pages/auth/signup.vue": {
+    "reason": "Owned OAuth/social brand marks and template product artwork; not reusable interface glyphs.",
+    "sha256": [
+      "a193b9d593e04f5950a7e337080f676657d64fff76ae4bafe04d238231871486",
+      "dd999b206f25cc83c2ee301fa8a8a0e42f6b707367578bf1233fd8c04e6a0893"
+    ]
+  }
+}

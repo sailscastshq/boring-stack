@@ -1,4 +1,6 @@
 <script>
+  import CheckCircle from '@/components/ui/icons/CheckCircle.svelte'
+
   import { Link, useForm } from '@inertiajs/svelte'
   import InputText from '@/components/InputText.svelte'
   import InputEmail from '@/components/InputEmail.svelte'
@@ -39,7 +41,7 @@
   <title>Sign up | Mellow</title>
 </svelte:head>
 <section
-  class="flex min-h-screen flex-col justify-center bg-gradient-to-b from-brand-50/10 to-[#F9FAFB] text-black sm:items-center"
+  class="from-brand-50/10 flex min-h-screen flex-col justify-center bg-gradient-to-b to-[#F9FAFB] text-black sm:items-center"
 >
   <main
     class="mt-10 bg-white px-4 py-10 text-black sm:w-7/12 sm:rounded-lg sm:px-8 sm:shadow-lg md:w-6/12 lg:w-5/12 xl:w-4/12"
@@ -68,7 +70,7 @@
       </Link>
 
       <h1 class="text-2xl">Create your account</h1>
-      <p class="text-lg text-gray">
+      <p class="text-gray text-lg">
         Welcome! Please enter your details to sign up
       </p>
     </section>
@@ -109,50 +111,14 @@
           class="flex items-center space-x-1 text-gray-500"
           class:text-green={passwordIsValid}
         >
-          <svg
-            width="16"
-            height="16"
-            viewBox="0 0 16 16"
-            fill="none"
-            class="fill-current"
-            xmlns="http://www.w3.org/2000/svg"
-          >
-            <g clip-path="url(#clip0_74_1911)">
-              <path
-                d="M8 0C3.58867 0 0 3.58867 0 8C0 12.4113 3.58867 16 8 16C12.4113 16 16 12.4113 16 8C16 3.58867 12.4113 0 8 0ZM12.1333 7.008L9.18267 9.90467C8.66067 10.4167 7.98867 10.672 7.316 10.672C6.65067 10.672 5.98533 10.4213 5.46533 9.91933L4.19933 8.67467C3.93667 8.41667 3.93333 7.99467 4.19133 7.732C4.44867 7.46867 4.872 7.46533 5.134 7.724L6.396 8.96467C6.91333 9.46467 7.73 9.462 8.25 8.95267L11.2 6.05667C11.462 5.798 11.8827 5.80267 12.1427 6.06533C12.4007 6.328 12.3967 6.75 12.1333 7.008Z"
-              />
-            </g>
-            <defs>
-              <clipPath id="clip0_74_1911">
-                <rect width="16" height="16" fill="white" />
-              </clipPath>
-            </defs>
-          </svg>
+          <CheckCircle class="h-4 w-4" />
           <span>At least 8 characters</span>
         </li>
         <li
           class="flex items-center space-x-1 text-gray-500"
           class:text-green={containsSpecialChars}
         >
-          <svg
-            width="16"
-            height="16"
-            viewBox="0 0 16 16"
-            fill="none"
-            class="fill-current"
-            xmlns="http://www.w3.org/2000/svg"
-          >
-            <g clip-path="url(#clip0_74_1911)">
-              <path
-                d="M8 0C3.58867 0 0 3.58867 0 8C0 12.4113 3.58867 16 8 16C12.4113 16 16 12.4113 16 8C16 3.58867 12.4113 0 8 0ZM12.1333 7.008L9.18267 9.90467C8.66067 10.4167 7.98867 10.672 7.316 10.672C6.65067 10.672 5.98533 10.4213 5.46533 9.91933L4.19933 8.67467C3.93667 8.41667 3.93333 7.99467 4.19133 7.732C4.44867 7.46867 4.872 7.46533 5.134 7.724L6.396 8.96467C6.91333 9.46467 7.73 9.462 8.25 8.95267L11.2 6.05667C11.462 5.798 11.8827 5.80267 12.1427 6.06533C12.4007 6.328 12.3967 6.75 12.1333 7.008Z"
-              />
-            </g>
-            <defs>
-              <clipPath id="clip0_74_1911">
-                <rect width="16" height="16" fill="white" />
-              </clipPath>
-            </defs>
-          </svg>
+          <CheckCircle class="h-4 w-4" />
           <span>At least 1 special characters</span>
         </li>
       </ul>
@@ -170,7 +136,7 @@
     </form>
     <GoogleButton />
   </main>
-  <footer class="my-8 text-center text-gray">
+  <footer class="text-gray my-8 text-center">
     <p>
       Already have an account?
       <Link href="/login" class="text-brand hover:underline">Login</Link>

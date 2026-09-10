@@ -1,8 +1,11 @@
+import Spinner from '@/components/ui/spinner/Spinner.jsx'
+import InfoCircle from '@/components/ui/icons/InfoCircle.jsx'
+import Envelope from '@/components/ui/icons/Envelope.jsx'
 import { useForm } from '@inertiajs/react'
-import { Dialog } from 'primereact/dialog'
-import { Button } from 'primereact/button'
-import { InputOtp } from 'primereact/inputotp'
-import { Message } from 'primereact/message'
+import Dialog from '@/components/Modal.jsx'
+import Button from '@/components/ui/button/Button.jsx'
+import InputOtp from '@/components/ui/input/Input.jsx'
+import Message from '@/components/ui/alert/Alert.jsx'
 
 export default function EmailTwoFactorSetupModal({
   visible,
@@ -41,19 +44,19 @@ export default function EmailTwoFactorSetupModal({
 
   return (
     <Dialog
-      visible={visible}
-      onHide={handleClose}
-      header={null}
-      modal
-      closable={!processing}
-      className="mx-4 w-full max-w-lg sm:mx-0"
-      contentStyle={{ paddingRight: '2rem', paddingLeft: '2rem' }}
+      className="max-w-lg"
+      open={visible}
+      title={'Email Two Factor Setup'}
+      onClose={handleClose}
+      dismissible={!processing}
     >
       <div className="space-y-8">
         {/* Header */}
         <div className="text-center">
           <div className="mx-auto mb-4 flex h-16 w-16 items-center justify-center rounded-full bg-blue-50">
-            <i className="pi pi-envelope text-2xl text-blue-600"></i>
+            <Envelope
+              className={'h-[1em] w-[1em] shrink-0 text-2xl text-blue-600'}
+            ></Envelope>
           </div>
           <h2 className="mb-2 text-xl font-semibold text-gray-900">
             Verify Your Email
@@ -68,13 +71,15 @@ export default function EmailTwoFactorSetupModal({
         {/* Error Message */}
         {errors.code && (
           <Message
-            severity="error"
-            text={
-              typeof errors.code === 'string'
-                ? errors.code
-                : 'Invalid verification code'
+            role={'alert'}
+            className={
+              'border border-red-200 bg-red-50 text-red-700 dark:border-red-800 dark:bg-red-950 dark:text-red-300'
             }
-          />
+          >
+            {typeof errors.code === 'string'
+              ? errors.code
+              : 'Invalid verification code'}
+          </Message>
         )}
 
         {/* Verification Form */}
@@ -86,10 +91,14 @@ export default function EmailTwoFactorSetupModal({
             <div className="flex justify-start">
               <InputOtp
                 value={data.code}
-                onChange={(e) => setData('code', e.value)}
-                length={6}
-                integerOnly
-                mask
+                maxLength={6}
+                autoComplete={'one-time-code'}
+                inputMode={'numeric'}
+                aria-label={'Verification code'}
+                onChange={(e) => setData('code', e.target.value)}
+                className={
+                  'max-w-64 mx-auto text-center text-2xl tracking-[0.5em]'
+                }
               />
             </div>
           </div>
@@ -98,7 +107,9 @@ export default function EmailTwoFactorSetupModal({
           <div className="rounded-lg border border-gray-200 bg-gray-50 p-4">
             <div className="flex">
               <div className="flex-shrink-0">
-                <i className="pi pi-info-circle text-gray-400"></i>
+                <InfoCircle
+                  className={'h-[1em] w-[1em] shrink-0 text-gray-400'}
+                ></InfoCircle>
               </div>
               <div className="ml-3">
                 <p className="text-sm text-gray-600">
@@ -112,22 +123,31 @@ export default function EmailTwoFactorSetupModal({
           <div className="flex flex-col justify-end space-y-3 sm:flex-row sm:space-x-3 sm:space-y-0">
             <Button
               type="button"
-              label="Cancel"
-              severity="secondary"
-              outlined
               onClick={handleClose}
-              size="small"
               disabled={processing}
-              className="w-full sm:w-auto"
-            />
+              className={[
+                'min-h-10 min-h-8 border border-brand-200 bg-transparent px-2.5 px-3 py-1.5 py-2 text-sm text-brand hover:bg-brand-50 dark:border-brand-700 dark:bg-transparent dark:text-brand-400 dark:hover:bg-brand-950',
+                'w-full sm:w-auto'
+              ]
+                .filter(Boolean)
+                .join(' ')}
+            >
+              {'Cancel'}
+            </Button>
             <Button
               type="submit"
-              label="Verify & Enable Email 2FA"
-              size="small"
-              loading={processing}
-              disabled={!data.code || data.code.length !== 6}
-              className="w-full sm:w-auto"
-            />
+              disabled={!data.code || data.code.length !== 6 || processing}
+              aria-busy={processing}
+              className={[
+                'min-h-10 min-h-8 border border-brand bg-brand px-2.5 px-3 py-1.5 py-2 text-base text-sm text-white hover:bg-brand-600 active:bg-brand-700 dark:bg-brand dark:text-white dark:hover:bg-brand-600 dark:active:bg-brand-700',
+                'w-full sm:w-auto'
+              ]
+                .filter(Boolean)
+                .join(' ')}
+            >
+              {processing && <Spinner className="h-4 w-4" />}
+              {'Verify & Enable Email 2FA'}
+            </Button>
           </div>
         </form>
       </div>

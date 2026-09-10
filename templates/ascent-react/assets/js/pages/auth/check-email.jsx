@@ -1,3 +1,5 @@
+import ChevronLeft from '@/components/ui/icons/ChevronLeft.jsx'
+import Envelope from '@/components/ui/icons/Envelope.jsx'
 import { Link, Head } from '@inertiajs/react'
 
 export default function CheckEmail({
@@ -78,19 +80,7 @@ export default function CheckEmail({
               {/* Email Icon */}
               <div className="mb-6 flex justify-center">
                 <div className="flex h-16 w-16 items-center justify-center rounded-full bg-gradient-to-br from-brand-100 to-accent-100">
-                  <svg
-                    className="h-8 w-8 text-brand-600"
-                    fill="none"
-                    stroke="currentColor"
-                    viewBox="0 0 24 24"
-                  >
-                    <path
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      strokeWidth={2}
-                      d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"
-                    />
-                  </svg>
+                  <Envelope className="h-8 w-8 text-brand-600" />
                 </div>
               </div>
 
@@ -149,19 +139,7 @@ export default function CheckEmail({
               href={backUrl}
               className="inline-flex items-center text-base text-gray-600 transition-colors hover:text-brand-600"
             >
-              <svg
-                className="mr-2 h-4 w-4"
-                fill="none"
-                stroke="currentColor"
-                viewBox="0 0 24 24"
-              >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth={2}
-                  d="M15 19l-7-7 7-7"
-                />
-              </svg>
+              <ChevronLeft className="mr-2 h-4 w-4" />
               {backText}
             </Link>
           </div>

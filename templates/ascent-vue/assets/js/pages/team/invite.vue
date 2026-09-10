@@ -1,7 +1,11 @@
 <script setup>
-import { Link, Head, useForm } from '@inertiajs/vue3'
-import Toast from '@/volt/Toast.vue'
-import { useFlashToast } from '@/composables/flash-toast'
+import X from '@/components/ui/icons/X.vue'
+import Users from '@/components/ui/icons/Users.vue'
+import Link from '@/components/ui/icons/Link.vue'
+import Clock from '@/components/ui/icons/Clock.vue'
+import Check from '@/components/ui/icons/Check.vue'
+import Building from '@/components/ui/icons/Building.vue'
+import { Link as InertiaLink, Head, useForm } from '@inertiajs/vue3'
 
 const props = defineProps({
   team: {
@@ -21,8 +25,6 @@ const props = defineProps({
     default: null
   }
 })
-
-useFlashToast()
 
 const form = useForm({
   inviteToken: props.inviteToken,
@@ -54,7 +56,7 @@ function handleInviteResponse(response) {
     <div class="relative sm:mx-auto sm:w-full sm:max-w-lg">
       <!-- Logo -->
       <div class="mb-8 flex items-center justify-center">
-        <Link href="/" class="group">
+        <InertiaLink href="/" class="group">
           <div class="relative">
             <div
               class="bg-brand-200/30 absolute inset-0 scale-110 rounded-2xl opacity-0 blur-xl transition-opacity group-hover:opacity-100"
@@ -65,7 +67,7 @@ function handleInviteResponse(response) {
               class="relative h-12 w-auto"
             />
           </div>
-        </Link>
+        </InertiaLink>
       </div>
 
       <!-- Header -->
@@ -75,20 +77,7 @@ function handleInviteResponse(response) {
             <div
               class="from-brand-600 to-accent-600 flex h-16 w-16 items-center justify-center rounded-2xl bg-linear-to-r shadow-lg"
             >
-              <svg
-                class="h-8 w-8 text-white"
-                fill="none"
-                stroke="currentColor"
-                viewBox="0 0 24 24"
-                aria-hidden="true"
-              >
-                <path
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                  stroke-width="2"
-                  d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z"
-                />
-              </svg>
+              <Users class="h-8 w-8 text-white" />
             </div>
             <div
               class="bg-brand-200/40 absolute inset-0 scale-110 rounded-2xl opacity-70 blur-xl"
@@ -133,19 +122,7 @@ function handleInviteResponse(response) {
                 <div
                   class="bg-brand-100 text-brand-600 flex h-12 w-12 items-center justify-center rounded-xl"
                 >
-                  <svg
-                    class="h-6 w-6"
-                    fill="none"
-                    stroke="currentColor"
-                    viewBox="0 0 24 24"
-                  >
-                    <path
-                      stroke-linecap="round"
-                      stroke-linejoin="round"
-                      stroke-width="2"
-                      d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4"
-                    />
-                  </svg>
+                  <Building class="h-6 w-6" />
                 </div>
               </div>
               <h3 class="text-lg font-semibold text-gray-900">
@@ -165,19 +142,7 @@ function handleInviteResponse(response) {
                   v-if="invite.expiresAt"
                   class="flex items-center justify-center space-x-2"
                 >
-                  <svg
-                    class="h-4 w-4"
-                    fill="none"
-                    stroke="currentColor"
-                    viewBox="0 0 24 24"
-                  >
-                    <path
-                      stroke-linecap="round"
-                      stroke-linejoin="round"
-                      stroke-width="2"
-                      d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"
-                    />
-                  </svg>
+                  <Clock class="h-4 w-4" />
                   <span>
                     Expires
                     {{ new Date(invite.expiresAt).toLocaleDateString() }}
@@ -189,19 +154,7 @@ function handleInviteResponse(response) {
                 <div
                   class="flex items-center justify-center space-x-2 text-sm text-gray-600"
                 >
-                  <svg
-                    class="h-4 w-4"
-                    fill="none"
-                    stroke="currentColor"
-                    viewBox="0 0 24 24"
-                  >
-                    <path
-                      stroke-linecap="round"
-                      stroke-linejoin="round"
-                      stroke-width="2"
-                      d="M13.828 10.172a4 4 0 00-5.656 0l-4 4a4 4 0 105.656 5.656l1.102-1.101m-.758-4.899a4 4 0 005.656 0l4-4a4 4 0 00-5.656-5.656l-1.1 1.1"
-                    />
-                  </svg>
+                  <Link class="h-4 w-4" />
                   <span>Shareable team invitation</span>
                 </div>
               </div>
@@ -219,19 +172,7 @@ function handleInviteResponse(response) {
                   :disabled="form.processing"
                   class="flex w-full items-center justify-center rounded-xl border border-red-200 bg-white px-6 py-4 text-lg font-medium text-red-600 shadow-lg transition-all duration-200 hover:scale-[1.02] hover:border-red-300 hover:bg-red-50 hover:shadow-xl focus:ring-2 focus:ring-red-500 focus:ring-offset-2 focus:outline-none disabled:cursor-not-allowed disabled:opacity-50 disabled:hover:scale-100"
                 >
-                  <svg
-                    class="mr-2 h-5 w-5"
-                    fill="none"
-                    stroke="currentColor"
-                    viewBox="0 0 24 24"
-                  >
-                    <path
-                      stroke-linecap="round"
-                      stroke-linejoin="round"
-                      stroke-width="2"
-                      d="M6 18L18 6M6 6l12 12"
-                    />
-                  </svg>
+                  <X class="mr-2 h-5 w-5" />
                   {{ form.processing ? 'Processing...' : 'Decline' }}
                 </button>
               </form>
@@ -246,19 +187,7 @@ function handleInviteResponse(response) {
                   :disabled="form.processing"
                   class="from-brand-600 to-accent-600 hover:from-brand-700 hover:to-accent-700 focus:ring-brand-500 flex w-full items-center justify-center rounded-xl bg-linear-to-r px-6 py-4 text-lg font-bold text-white shadow-lg transition-all duration-200 hover:scale-[1.02] hover:shadow-xl focus:ring-2 focus:ring-offset-2 focus:outline-none disabled:cursor-not-allowed disabled:opacity-50 disabled:hover:scale-100"
                 >
-                  <svg
-                    class="mr-2 h-5 w-5"
-                    fill="none"
-                    stroke="currentColor"
-                    viewBox="0 0 24 24"
-                  >
-                    <path
-                      stroke-linecap="round"
-                      stroke-linejoin="round"
-                      stroke-width="2"
-                      d="M5 13l4 4L19 7"
-                    />
-                  </svg>
+                  <Check class="mr-2 h-5 w-5" />
                   {{ form.processing ? 'Processing...' : 'Accept' }}
                 </button>
               </form>
@@ -272,12 +201,12 @@ function handleInviteResponse(response) {
               </p>
               <p class="mt-2 text-xs text-gray-400">
                 Need help?
-                <Link
+                <InertiaLink
                   href="/contact"
                   class="text-brand-600 hover:text-brand-500"
                 >
                   Contact support
-                </Link>
+                </InertiaLink>
               </p>
             </footer>
           </div>
@@ -285,5 +214,4 @@ function handleInviteResponse(response) {
       </div>
     </div>
   </div>
-  <Toast />
 </template>

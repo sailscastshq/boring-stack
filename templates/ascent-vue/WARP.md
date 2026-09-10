@@ -62,7 +62,7 @@ npx sails lift --drop
 ### Stack Components
 
 - **Backend**: Sails.js MVC framework with built-in ORM (Waterline)
-- **Frontend**: Vue 3 with Volt UI components
+- **Frontend**: Vue 3 with Klean UI components
 - **Styling**: Tailwind CSS with custom design system
 - **Build Tool**: Sails Hook Shipwright (Rsbuild) with Vue plugin
 - **Data Flow**: Inertia.js eliminates the need for separate API routes
@@ -89,27 +89,21 @@ npx sails lift --drop
 
 ```
 assets/js/
-├── app.js              # Inertia.js setup with Volt UI provider
+├── app.js              # Inertia.js setup and source-owned UI
 ├── components/         # Reusable UI components
 ├── composables/        # Vue composables (e.g., useFlashToast)
 ├── layouts/           # App layouts (AppLayout.jsx)
 └── pages/             # Inertia pages matching controller responses
 ```
 
-**Volt UI Component Patterns**
+**Klean UI component patterns**
 
-- **NEVER use Volt CSS classes** (p-button, p-input, etc.) - the project uses Volt in unstyled mode with Tailwind CSS
-- Use **props** instead of CSS classes for component variants:
-  - `<Button outlined />` instead of `className="p-button-outlined"`
-  - `<Button text />` instead of `className="p-button-text"`
-  - `<Button severity="danger" />` instead of `className="p-button-danger"`
-  - `<Button size="small" />` instead of `className="p-button-sm"`
-- Use Tailwind classes for custom styling: `className="bg-blue-500 hover:bg-blue-600"`
-- Button labels use sentence case: "Set up", "Save changes", "Sign out"
-- Use `InputOtp` component for all OTP/verification code inputs
-- Page components receive props directly: `function Page({ loggedInUser, otherProps })`
-- Non-page components use `usePage()` to access props
-- Controllers should return `{ page: 'path', props: { data } }` structure
+- UI source lives in `assets/js/components/ui/` and belongs to the application.
+- Use native buttons for actions, Inertia links for navigation, and visible labels for fields.
+- Style with caller-owned Tailwind classes; do not add visual variant props or a global provider.
+- Use Klean Icons for interface glyphs. Keep only the artwork recorded in `ui-artwork.json` as inline SVG.
+- OTP uses one labeled input with `autocomplete="one-time-code"`; recovery codes accept letters and digits.
+- Read `UI.md` before adding or updating source.
 
 ### Database and Models
 
@@ -246,7 +240,7 @@ module.exports = {
 ### Styling Guidelines
 
 - Custom Tailwind config with brand colors (brand, accent, success)
-- Volt components with unstyled mode + Tailwind passthrough
+- Klean UI components with caller-owned Tailwind classes
 - Design system uses consistent color palette and spacing
 - Responsive design patterns throughout
 
@@ -280,7 +274,7 @@ module.exports = {
 - `config/routes.js` - URL routing definitions
 - `config/inertia.js` - Inertia.js configuration
 - `config/shipwright.js` - Asset build configuration
-- `assets/js/app.js` - Frontend entry point with Volt setup
+- `assets/js/app.js` - Frontend entry point with Inertia setup
 - `api/models/User.js` - Comprehensive user model with auth features
 - `scripts/` - Maintenance scripts (token cleanup, etc.)
 

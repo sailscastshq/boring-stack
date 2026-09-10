@@ -1,13 +1,12 @@
 <script setup>
-import { ref, computed } from 'vue'
+import Spinner from '@/components/ui/spinner/Spinner.vue'
+import { onMounted, watch } from 'vue'
+import { readContactDraft, saveContactDraft } from '@/lib/contact-draft'
 import { Head, useForm, Link } from '@inertiajs/vue3'
-import Button from '@/volt/Button.vue'
-import InputText from '@/volt/InputText.vue'
-import Textarea from '@/volt/Textarea.vue'
-import Select from '@/volt/Select.vue'
-import Message from '@/volt/Message.vue'
-import Toast from '@/volt/Toast.vue'
-import { useFlashToast } from '@/composables/flash-toast'
+import InputText from '@/components/ui/input/Input.vue'
+import Textarea from '@/components/ui/textarea/Textarea.vue'
+import Select from '@/components/ui/select/Select.vue'
+import Message from '@/components/ui/alert/Alert.vue'
 
 const props = defineProps({
   internalEmail: {
@@ -16,10 +15,6 @@ const props = defineProps({
   }
 })
 
-useFlashToast()
-
-const selectedTopic = ref(null)
-
 const form = useForm({
   name: '',
   email: '',
@@ -27,6 +22,16 @@ const form = useForm({
   topic: '',
   message: ''
 })
+
+onMounted(() => {
+  const draft = readContactDraft()
+  if (draft) Object.assign(form, draft)
+})
+watch(
+  () => [form.message, form.topic],
+  () => saveContactDraft(form),
+  { flush: 'sync' }
+)
 
 const topicOptions = [
   { label: 'General Inquiry', value: 'general' },
@@ -44,14 +49,12 @@ function handleSubmit(e) {
   form.post('/contact', {
     onSuccess: () => {
       form.reset()
-      selectedTopic.value = null
     }
   })
 }
 
-function handleTopicChange(e) {
-  selectedTopic.value = e.value
-  form.topic = e.value
+function handleTopicChange(value) {
+  form.topic = value
 }
 </script>
 
@@ -129,14 +132,13 @@ function handleTopicChange(e) {
                   <InputText
                     id="name"
                     v-model="form.name"
-                    class="focus:border-brand-300 focus:ring-brand-100 w-full rounded-xl border border-gray-300 bg-gray-200 px-4 py-4 text-lg font-medium transition-all duration-200 focus:bg-white focus:ring-4"
+                    class="min-h-10 focus-visible:border-brand focus-visible:outline-brand dark:focus-visible:border-brand dark:focus-visible:outline-brand focus:border-brand-300 focus:ring-brand-100 w-full rounded-xl border border-gray-300 bg-gray-200 px-4 py-4 text-lg font-medium transition-all duration-200 focus:bg-white focus:ring-4"
                     placeholder="Your name"
                     required
                   />
                   <Message
                     v-if="form.errors.name"
-                    severity="error"
-                    class="mt-2"
+                    class="border border-red-200 bg-red-50 text-red-700 dark:border-red-800 dark:bg-red-950 dark:text-red-300 mt-2"
                     role="alert"
                   >
                     {{ form.errors.name }}
@@ -154,14 +156,13 @@ function handleTopicChange(e) {
                     id="email"
                     v-model="form.email"
                     type="email"
-                    class="focus:border-brand-300 focus:ring-brand-100 w-full rounded-xl border border-gray-300 bg-gray-200 px-4 py-4 text-lg font-medium transition-all duration-200 focus:bg-white focus:ring-4"
+                    class="min-h-10 focus-visible:border-brand focus-visible:outline-brand dark:focus-visible:border-brand dark:focus-visible:outline-brand focus:border-brand-300 focus:ring-brand-100 w-full rounded-xl border border-gray-300 bg-gray-200 px-4 py-4 text-lg font-medium transition-all duration-200 focus:bg-white focus:ring-4"
                     placeholder="your@email.com"
                     required
                   />
                   <Message
                     v-if="form.errors.email"
-                    severity="error"
-                    class="mt-2"
+                    class="border border-red-200 bg-red-50 text-red-700 dark:border-red-800 dark:bg-red-950 dark:text-red-300 mt-2"
                     role="alert"
                   >
                     {{ form.errors.email }}
@@ -179,7 +180,7 @@ function handleTopicChange(e) {
                 <InputText
                   id="company"
                   v-model="form.company"
-                  class="focus:border-brand-300 focus:ring-brand-100 w-full rounded-xl border border-gray-300 bg-gray-200 px-4 py-4 text-lg font-medium transition-all duration-200 focus:bg-white focus:ring-4"
+                  class="min-h-10 focus-visible:border-brand focus-visible:outline-brand dark:focus-visible:border-brand dark:focus-visible:outline-brand focus:border-brand-300 focus:ring-brand-100 w-full rounded-xl border border-gray-300 bg-gray-200 px-4 py-4 text-lg font-medium transition-all duration-200 focus:bg-white focus:ring-4"
                   placeholder="Your company name"
                 />
               </fieldset>
@@ -192,17 +193,16 @@ function handleTopicChange(e) {
                   Topic
                 </label>
                 <Select
-                  :model-value="selectedTopic"
+                  id="topic"
+                  :model-value="form.topic"
                   @update:model-value="handleTopicChange"
                   :options="topicOptions"
                   placeholder="What can we help you with?"
                   class="w-full"
-                  panel-class="mt-1"
                 />
                 <Message
                   v-if="form.errors.topic"
-                  severity="error"
-                  class="mt-2"
+                  class="border border-red-200 bg-red-50 text-red-700 dark:border-red-800 dark:bg-red-950 dark:text-red-300 mt-2"
                   role="alert"
                 >
                   {{ form.errors.topic }}
@@ -219,15 +219,14 @@ function handleTopicChange(e) {
                 <Textarea
                   id="message"
                   v-model="form.message"
-                  class="focus:border-brand-300 focus:ring-brand-100 w-full rounded-xl border border-gray-300 bg-gray-200 px-4 py-4 text-lg font-medium transition-all duration-200 focus:bg-white focus:ring-4"
+                  class="min-h-10 focus-visible:border-brand focus-visible:outline-brand dark:focus-visible:border-brand dark:focus-visible:outline-brand focus:border-brand-300 focus:ring-brand-100 w-full rounded-xl border border-gray-300 bg-gray-200 px-4 py-4 text-lg font-medium transition-all duration-200 focus:bg-white focus:ring-4"
                   :rows="6"
                   placeholder="Tell us more about your inquiry..."
                   required
                 />
                 <Message
                   v-if="form.errors.message"
-                  severity="error"
-                  class="mt-2"
+                  class="border border-red-200 bg-red-50 text-red-700 dark:border-red-800 dark:bg-red-950 dark:text-red-300 mt-2"
                   role="alert"
                 >
                   {{ form.errors.message }}
@@ -253,26 +252,7 @@ function handleTopicChange(e) {
                     class="flex items-center space-x-2"
                     id="submit-status"
                   >
-                    <svg
-                      class="h-5 w-5 animate-spin"
-                      fill="none"
-                      viewBox="0 0 24 24"
-                      aria-hidden="true"
-                    >
-                      <circle
-                        class="opacity-25"
-                        cx="12"
-                        cy="12"
-                        r="10"
-                        stroke="currentColor"
-                        stroke-width="4"
-                      />
-                      <path
-                        class="opacity-75"
-                        fill="currentColor"
-                        d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"
-                      />
-                    </svg>
+                    <Spinner class="h-5 w-5" />
                     <span>Sending...</span>
                   </div>
                   <span v-else>Send Message</span>
@@ -307,6 +287,4 @@ function handleTopicChange(e) {
       </section>
     </div>
   </main>
-
-  <Toast />
 </template>

@@ -1,3 +1,5 @@
+import ChevronDown from '@/components/ui/icons/ChevronDown.jsx'
+import Check from '@/components/ui/icons/Check.jsx'
 import { Head, Link } from '@inertiajs/react'
 import AppLayout from '@/layouts/AppLayout.jsx'
 import { useState } from 'react'
@@ -132,17 +134,7 @@ export default function Pricing({ plans }) {
 
                   <div className="flex items-start space-x-3">
                     <div className="mt-0.5 flex h-5 w-5 items-center justify-center rounded-full bg-success-100">
-                      <svg
-                        className="h-3 w-3 text-success-600"
-                        fill="currentColor"
-                        viewBox="0 0 20 20"
-                      >
-                        <path
-                          fillRule="evenodd"
-                          d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
-                          clipRule="evenodd"
-                        />
-                      </svg>
+                      <Check className="h-3 w-3 text-success-600" />
                     </div>
                     <div>
                       <p className="font-medium text-gray-900">
@@ -156,17 +148,7 @@ export default function Pricing({ plans }) {
 
                   <div className="flex items-start space-x-3">
                     <div className="mt-0.5 flex h-5 w-5 items-center justify-center rounded-full bg-success-100">
-                      <svg
-                        className="h-3 w-3 text-success-600"
-                        fill="currentColor"
-                        viewBox="0 0 20 20"
-                      >
-                        <path
-                          fillRule="evenodd"
-                          d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
-                          clipRule="evenodd"
-                        />
-                      </svg>
+                      <Check className="h-3 w-3 text-success-600" />
                     </div>
                     <div>
                       <p className="font-medium text-gray-900">
@@ -180,17 +162,7 @@ export default function Pricing({ plans }) {
 
                   <div className="flex items-start space-x-3">
                     <div className="mt-0.5 flex h-5 w-5 items-center justify-center rounded-full bg-success-100">
-                      <svg
-                        className="h-3 w-3 text-success-600"
-                        fill="currentColor"
-                        viewBox="0 0 20 20"
-                      >
-                        <path
-                          fillRule="evenodd"
-                          d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
-                          clipRule="evenodd"
-                        />
-                      </svg>
+                      <Check className="h-3 w-3 text-success-600" />
                     </div>
                     <div>
                       <p className="font-medium text-gray-900">
@@ -204,17 +176,7 @@ export default function Pricing({ plans }) {
 
                   <div className="flex items-start space-x-3">
                     <div className="mt-0.5 flex h-5 w-5 items-center justify-center rounded-full bg-success-100">
-                      <svg
-                        className="h-3 w-3 text-success-600"
-                        fill="currentColor"
-                        viewBox="0 0 20 20"
-                      >
-                        <path
-                          fillRule="evenodd"
-                          d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
-                          clipRule="evenodd"
-                        />
-                      </svg>
+                      <Check className="h-3 w-3 text-success-600" />
                     </div>
                     <div>
                       <p className="font-medium text-gray-900">Email support</p>
@@ -226,17 +188,7 @@ export default function Pricing({ plans }) {
 
                   <div className="flex items-start space-x-3">
                     <div className="mt-0.5 flex h-5 w-5 items-center justify-center rounded-full bg-success-100">
-                      <svg
-                        className="h-3 w-3 text-success-600"
-                        fill="currentColor"
-                        viewBox="0 0 20 20"
-                      >
-                        <path
-                          fillRule="evenodd"
-                          d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
-                          clipRule="evenodd"
-                        />
-                      </svg>
+                      <Check className="h-3 w-3 text-success-600" />
                     </div>
                     <div>
                       <p className="font-medium text-gray-900">
@@ -267,9 +219,9 @@ export default function Pricing({ plans }) {
             <div className="group relative">
               <div className="absolute -inset-0.5 rounded-3xl bg-gradient-to-r from-brand-600 to-accent-600 opacity-30 blur transition duration-300 group-hover:opacity-40"></div>
               <div className="relative overflow-visible rounded-3xl border border-brand-200 bg-white p-10 shadow-2xl">
-                <div className="absolute -right-4 -top-4 size-44 overflow-hidden rounded-sm">
-                  <div className="absolute -left-1 -top-1 size-5 bg-gradient-to-br from-brand-700 to-accent-700"></div>
-                  <div className="absolute -bottom-1 -right-1 size-5 bg-gradient-to-br from-brand-700 to-accent-700"></div>
+                <div className="size-44 absolute -right-4 -top-4 overflow-hidden rounded-sm">
+                  <div className="size-5 absolute -left-1 -top-1 bg-gradient-to-br from-brand-700 to-accent-700"></div>
+                  <div className="size-5 absolute -bottom-1 -right-1 bg-gradient-to-br from-brand-700 to-accent-700"></div>
                   <span className="absolute bottom-0 right-0 block w-[141.42%] origin-bottom-right rotate-45 bg-gradient-to-r from-brand-600 to-accent-600 py-2.5 text-center text-sm font-semibold uppercase tracking-wider text-white shadow-md">
                     Most Popular
                   </span>
@@ -312,17 +264,7 @@ export default function Pricing({ plans }) {
 
                   <div className="flex items-start space-x-3">
                     <div className="mt-0.5 flex h-5 w-5 items-center justify-center rounded-full bg-success-100">
-                      <svg
-                        className="h-3 w-3 text-success-600"
-                        fill="currentColor"
-                        viewBox="0 0 20 20"
-                      >
-                        <path
-                          fillRule="evenodd"
-                          d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
-                          clipRule="evenodd"
-                        />
-                      </svg>
+                      <Check className="h-3 w-3 text-success-600" />
                     </div>
                     <div>
                       <p className="font-medium text-gray-900">
@@ -336,17 +278,7 @@ export default function Pricing({ plans }) {
 
                   <div className="flex items-start space-x-3">
                     <div className="mt-0.5 flex h-5 w-5 items-center justify-center rounded-full bg-success-100">
-                      <svg
-                        className="h-3 w-3 text-success-600"
-                        fill="currentColor"
-                        viewBox="0 0 20 20"
-                      >
-                        <path
-                          fillRule="evenodd"
-                          d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
-                          clipRule="evenodd"
-                        />
-                      </svg>
+                      <Check className="h-3 w-3 text-success-600" />
                     </div>
                     <div>
                       <p className="font-medium text-gray-900">
@@ -360,17 +292,7 @@ export default function Pricing({ plans }) {
 
                   <div className="flex items-start space-x-3">
                     <div className="mt-0.5 flex h-5 w-5 items-center justify-center rounded-full bg-success-100">
-                      <svg
-                        className="h-3 w-3 text-success-600"
-                        fill="currentColor"
-                        viewBox="0 0 20 20"
-                      >
-                        <path
-                          fillRule="evenodd"
-                          d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
-                          clipRule="evenodd"
-                        />
-                      </svg>
+                      <Check className="h-3 w-3 text-success-600" />
                     </div>
                     <div>
                       <p className="font-medium text-gray-900">
@@ -384,17 +306,7 @@ export default function Pricing({ plans }) {
 
                   <div className="flex items-start space-x-3">
                     <div className="mt-0.5 flex h-5 w-5 items-center justify-center rounded-full bg-success-100">
-                      <svg
-                        className="h-3 w-3 text-success-600"
-                        fill="currentColor"
-                        viewBox="0 0 20 20"
-                      >
-                        <path
-                          fillRule="evenodd"
-                          d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
-                          clipRule="evenodd"
-                        />
-                      </svg>
+                      <Check className="h-3 w-3 text-success-600" />
                     </div>
                     <div>
                       <p className="font-medium text-gray-900">
@@ -408,17 +320,7 @@ export default function Pricing({ plans }) {
 
                   <div className="flex items-start space-x-3">
                     <div className="mt-0.5 flex h-5 w-5 items-center justify-center rounded-full bg-success-100">
-                      <svg
-                        className="h-3 w-3 text-success-600"
-                        fill="currentColor"
-                        viewBox="0 0 20 20"
-                      >
-                        <path
-                          fillRule="evenodd"
-                          d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
-                          clipRule="evenodd"
-                        />
-                      </svg>
+                      <Check className="h-3 w-3 text-success-600" />
                     </div>
                     <div>
                       <p className="font-medium text-gray-900">
@@ -432,17 +334,7 @@ export default function Pricing({ plans }) {
 
                   <div className="flex items-start space-x-3">
                     <div className="mt-0.5 flex h-5 w-5 items-center justify-center rounded-full bg-success-100">
-                      <svg
-                        className="h-3 w-3 text-success-600"
-                        fill="currentColor"
-                        viewBox="0 0 20 20"
-                      >
-                        <path
-                          fillRule="evenodd"
-                          d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
-                          clipRule="evenodd"
-                        />
-                      </svg>
+                      <Check className="h-3 w-3 text-success-600" />
                     </div>
                     <div>
                       <p className="font-medium text-gray-900">
@@ -549,30 +441,10 @@ export default function Pricing({ plans }) {
                       Authentication System
                     </td>
                     <td className="px-6 py-4 text-center">
-                      <svg
-                        className="mx-auto h-5 w-5 text-success-600"
-                        fill="currentColor"
-                        viewBox="0 0 20 20"
-                      >
-                        <path
-                          fillRule="evenodd"
-                          d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
-                          clipRule="evenodd"
-                        />
-                      </svg>
+                      <Check className="mx-auto h-5 w-5 text-success-600" />
                     </td>
                     <td className="bg-brand-50/30 px-6 py-4 text-center">
-                      <svg
-                        className="mx-auto h-5 w-5 text-success-600"
-                        fill="currentColor"
-                        viewBox="0 0 20 20"
-                      >
-                        <path
-                          fillRule="evenodd"
-                          d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
-                          clipRule="evenodd"
-                        />
-                      </svg>
+                      <Check className="mx-auto h-5 w-5 text-success-600" />
                     </td>
                   </tr>
                   <tr>
@@ -580,59 +452,19 @@ export default function Pricing({ plans }) {
                       Subscription Billing
                     </td>
                     <td className="px-6 py-4 text-center">
-                      <svg
-                        className="mx-auto h-5 w-5 text-success-600"
-                        fill="currentColor"
-                        viewBox="0 0 20 20"
-                      >
-                        <path
-                          fillRule="evenodd"
-                          d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
-                          clipRule="evenodd"
-                        />
-                      </svg>
+                      <Check className="mx-auto h-5 w-5 text-success-600" />
                     </td>
                     <td className="bg-brand-50/30 px-6 py-4 text-center">
-                      <svg
-                        className="mx-auto h-5 w-5 text-success-600"
-                        fill="currentColor"
-                        viewBox="0 0 20 20"
-                      >
-                        <path
-                          fillRule="evenodd"
-                          d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
-                          clipRule="evenodd"
-                        />
-                      </svg>
+                      <Check className="mx-auto h-5 w-5 text-success-600" />
                     </td>
                   </tr>
                   <tr>
                     <td className="px-6 py-4 text-gray-700">Basic Analytics</td>
                     <td className="px-6 py-4 text-center">
-                      <svg
-                        className="mx-auto h-5 w-5 text-success-600"
-                        fill="currentColor"
-                        viewBox="0 0 20 20"
-                      >
-                        <path
-                          fillRule="evenodd"
-                          d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
-                          clipRule="evenodd"
-                        />
-                      </svg>
+                      <Check className="mx-auto h-5 w-5 text-success-600" />
                     </td>
                     <td className="bg-brand-50/30 px-6 py-4 text-center">
-                      <svg
-                        className="mx-auto h-5 w-5 text-success-600"
-                        fill="currentColor"
-                        viewBox="0 0 20 20"
-                      >
-                        <path
-                          fillRule="evenodd"
-                          d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
-                          clipRule="evenodd"
-                        />
-                      </svg>
+                      <Check className="mx-auto h-5 w-5 text-success-600" />
                     </td>
                   </tr>
 
@@ -651,17 +483,7 @@ export default function Pricing({ plans }) {
                       <span className="text-gray-400">–</span>
                     </td>
                     <td className="bg-brand-50/30 px-6 py-4 text-center">
-                      <svg
-                        className="mx-auto h-5 w-5 text-success-600"
-                        fill="currentColor"
-                        viewBox="0 0 20 20"
-                      >
-                        <path
-                          fillRule="evenodd"
-                          d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
-                          clipRule="evenodd"
-                        />
-                      </svg>
+                      <Check className="mx-auto h-5 w-5 text-success-600" />
                     </td>
                   </tr>
                   <tr>
@@ -672,17 +494,7 @@ export default function Pricing({ plans }) {
                       <span className="text-gray-400">–</span>
                     </td>
                     <td className="bg-brand-50/30 px-6 py-4 text-center">
-                      <svg
-                        className="mx-auto h-5 w-5 text-success-600"
-                        fill="currentColor"
-                        viewBox="0 0 20 20"
-                      >
-                        <path
-                          fillRule="evenodd"
-                          d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
-                          clipRule="evenodd"
-                        />
-                      </svg>
+                      <Check className="mx-auto h-5 w-5 text-success-600" />
                     </td>
                   </tr>
                   <tr>
@@ -693,17 +505,7 @@ export default function Pricing({ plans }) {
                       <span className="text-gray-400">–</span>
                     </td>
                     <td className="bg-brand-50/30 px-6 py-4 text-center">
-                      <svg
-                        className="mx-auto h-5 w-5 text-success-600"
-                        fill="currentColor"
-                        viewBox="0 0 20 20"
-                      >
-                        <path
-                          fillRule="evenodd"
-                          d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
-                          clipRule="evenodd"
-                        />
-                      </svg>
+                      <Check className="mx-auto h-5 w-5 text-success-600" />
                     </td>
                   </tr>
                   <tr>
@@ -714,17 +516,7 @@ export default function Pricing({ plans }) {
                       <span className="text-gray-400">–</span>
                     </td>
                     <td className="bg-brand-50/30 px-6 py-4 text-center">
-                      <svg
-                        className="mx-auto h-5 w-5 text-success-600"
-                        fill="currentColor"
-                        viewBox="0 0 20 20"
-                      >
-                        <path
-                          fillRule="evenodd"
-                          d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
-                          clipRule="evenodd"
-                        />
-                      </svg>
+                      <Check className="mx-auto h-5 w-5 text-success-600" />
                     </td>
                   </tr>
 
@@ -750,17 +542,7 @@ export default function Pricing({ plans }) {
                       <span className="text-gray-400">–</span>
                     </td>
                     <td className="bg-brand-50/30 px-6 py-4 text-center">
-                      <svg
-                        className="mx-auto h-5 w-5 text-success-600"
-                        fill="currentColor"
-                        viewBox="0 0 20 20"
-                      >
-                        <path
-                          fillRule="evenodd"
-                          d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
-                          clipRule="evenodd"
-                        />
-                      </svg>
+                      <Check className="mx-auto h-5 w-5 text-success-600" />
                     </td>
                   </tr>
                   <tr>
@@ -771,17 +553,7 @@ export default function Pricing({ plans }) {
                       <span className="text-gray-400">–</span>
                     </td>
                     <td className="bg-brand-50/30 px-6 py-4 text-center">
-                      <svg
-                        className="mx-auto h-5 w-5 text-success-600"
-                        fill="currentColor"
-                        viewBox="0 0 20 20"
-                      >
-                        <path
-                          fillRule="evenodd"
-                          d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
-                          clipRule="evenodd"
-                        />
-                      </svg>
+                      <Check className="mx-auto h-5 w-5 text-success-600" />
                     </td>
                   </tr>
                 </tbody>
@@ -811,19 +583,7 @@ export default function Pricing({ plans }) {
                 </h3>
                 <div className="ml-4 flex-shrink-0">
                   <div className="flex h-8 w-8 items-center justify-center rounded-full bg-brand-50 transition-colors group-hover:bg-brand-100">
-                    <svg
-                      className="h-4 w-4 text-brand-600 transition-transform group-open:rotate-180"
-                      fill="none"
-                      stroke="currentColor"
-                      viewBox="0 0 24 24"
-                    >
-                      <path
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                        strokeWidth={2}
-                        d="M19 9l-7 7-7-7"
-                      />
-                    </svg>
+                    <ChevronDown className="h-4 w-4 text-brand-600 transition-transform group-open:rotate-180" />
                   </div>
                 </div>
               </summary>
@@ -845,19 +605,7 @@ export default function Pricing({ plans }) {
                 </h3>
                 <div className="ml-4 flex-shrink-0">
                   <div className="flex h-8 w-8 items-center justify-center rounded-full bg-brand-50 transition-colors group-hover:bg-brand-100">
-                    <svg
-                      className="h-4 w-4 text-brand-600 transition-transform group-open:rotate-180"
-                      fill="none"
-                      stroke="currentColor"
-                      viewBox="0 0 24 24"
-                    >
-                      <path
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                        strokeWidth={2}
-                        d="M19 9l-7 7-7-7"
-                      />
-                    </svg>
+                    <ChevronDown className="h-4 w-4 text-brand-600 transition-transform group-open:rotate-180" />
                   </div>
                 </div>
               </summary>
@@ -879,19 +627,7 @@ export default function Pricing({ plans }) {
                 </h3>
                 <div className="ml-4 flex-shrink-0">
                   <div className="flex h-8 w-8 items-center justify-center rounded-full bg-brand-50 transition-colors group-hover:bg-brand-100">
-                    <svg
-                      className="h-4 w-4 text-brand-600 transition-transform group-open:rotate-180"
-                      fill="none"
-                      stroke="currentColor"
-                      viewBox="0 0 24 24"
-                    >
-                      <path
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                        strokeWidth={2}
-                        d="M19 9l-7 7-7-7"
-                      />
-                    </svg>
+                    <ChevronDown className="h-4 w-4 text-brand-600 transition-transform group-open:rotate-180" />
                   </div>
                 </div>
               </summary>
@@ -913,19 +649,7 @@ export default function Pricing({ plans }) {
                 </h3>
                 <div className="ml-4 flex-shrink-0">
                   <div className="flex h-8 w-8 items-center justify-center rounded-full bg-brand-50 transition-colors group-hover:bg-brand-100">
-                    <svg
-                      className="h-4 w-4 text-brand-600 transition-transform group-open:rotate-180"
-                      fill="none"
-                      stroke="currentColor"
-                      viewBox="0 0 24 24"
-                    >
-                      <path
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                        strokeWidth={2}
-                        d="M19 9l-7 7-7-7"
-                      />
-                    </svg>
+                    <ChevronDown className="h-4 w-4 text-brand-600 transition-transform group-open:rotate-180" />
                   </div>
                 </div>
               </summary>
@@ -981,45 +705,15 @@ export default function Pricing({ plans }) {
 
           <div className="flex flex-wrap items-center justify-center gap-8 text-sm text-gray-400">
             <div className="flex items-center space-x-2">
-              <svg
-                className="h-5 w-5 text-success-500"
-                fill="currentColor"
-                viewBox="0 0 20 20"
-              >
-                <path
-                  fillRule="evenodd"
-                  d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
-                  clipRule="evenodd"
-                />
-              </svg>
+              <Check className="h-5 w-5 text-success-500" />
               <span>14-day free trial</span>
             </div>
             <div className="flex items-center space-x-2">
-              <svg
-                className="h-5 w-5 text-success-500"
-                fill="currentColor"
-                viewBox="0 0 20 20"
-              >
-                <path
-                  fillRule="evenodd"
-                  d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
-                  clipRule="evenodd"
-                />
-              </svg>
+              <Check className="h-5 w-5 text-success-500" />
               <span>No credit card required</span>
             </div>
             <div className="flex items-center space-x-2">
-              <svg
-                className="h-5 w-5 text-success-500"
-                fill="currentColor"
-                viewBox="0 0 20 20"
-              >
-                <path
-                  fillRule="evenodd"
-                  d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
-                  clipRule="evenodd"
-                />
-              </svg>
+              <Check className="h-5 w-5 text-success-500" />
               <span>Cancel anytime</span>
             </div>
           </div>

@@ -59,3 +59,9 @@ Join our community of developers using The Boring JavaScript Stack:
 Mellow is open-sourced software licensed under the MIT license. This means you're free to use, modify, and distribute the software, subject to the conditions of the MIT license. We encourage contributions from the community to help improve and evolve Mellow for everyone's benefit.
 
 For full license details, please see the [LICENSE](LICENSE.md) file in the project repository.
+
+## Application-owned UI
+
+This template ships editable [Klean UI and Klean Icons](https://docs.sailscasts.com/klean-ui/) source, installed with `klean-ui@0.0.4` under `assets/js/components/ui/`. Ordinary Tailwind classes at the call site control its appearance. There is no Klean runtime or provider.
+
+See [UI.md](UI.md) for the installed inventory, artwork exceptions, and safe update workflow.

@@ -1,15 +1,19 @@
 <script setup>
+import WarningTriangle from '@/components/ui/icons/WarningTriangle.vue'
+import SignOut from '@/components/ui/icons/SignOut.vue'
+import Trash from '@/components/ui/icons/Trash.vue'
+import Spinner from '@/components/ui/spinner/Spinner.vue'
 import { computed } from 'vue'
 import { Head, usePage, useForm, router } from '@inertiajs/vue3'
-import { useConfirm } from 'primevue/useconfirm'
-import InputText from '@/volt/InputText.vue'
-import Button from '@/volt/Button.vue'
+import { useConfirmation } from '@/composables/confirmation'
+import ConfirmationDialog from '@/components/ConfirmationDialog.vue'
+import InputText from '@/components/ui/input/Input.vue'
+import Button from '@/components/ui/button/Button.vue'
 import Avatar from '@/components/Avatar.vue'
-import Message from '@/volt/Message.vue'
-import ConfirmDialog from '@/volt/ConfirmDialog.vue'
+import Message from '@/components/ui/alert/Alert.vue'
 import ImageUpload from '@/components/ImageUpload.vue'
 import DashboardLayout from '@/layouts/DashboardLayout.vue'
-import DangerButton from '@/volt/DangerButton.vue'
+import DangerButton from '@/components/ui/button/Button.vue'
 
 defineOptions({
   layout: (h, page) =>
@@ -17,7 +21,7 @@ defineOptions({
 })
 
 const page = usePage()
-const confirm = useConfirm()
+const confirmation = useConfirmation()
 
 const loggedInUser = computed(() => page.props.loggedInUser)
 
@@ -56,12 +60,13 @@ function updateProfile(e) {
 }
 
 function confirmDeleteAccount() {
-  confirm.require({
+  confirmation.request({
     message:
       'Are you sure you want to delete your account? This action cannot be undone and all your data will be permanently removed.',
     header: 'Delete Account',
-    icon: 'pi pi-exclamation-triangle',
-    acceptClass: 'p-button-danger',
+    icon: WarningTriangle,
+    acceptClass:
+      'bg-red-600 hover:bg-red-700 text-white dark:bg-red-600 dark:hover:bg-red-700 dark:text-white',
     rejectProps: { label: 'Cancel' },
     acceptProps: {
       label: 'Delete Account',
@@ -78,6 +83,7 @@ function signOutEverywhere() {
 </script>
 
 <template>
+  <ConfirmationDialog :state="confirmation" />
   <Head title="Profile Settings | Ascent Vue" />
 
   <div class="max-w-2xl space-y-12">
@@ -118,7 +124,11 @@ function signOutEverywhere() {
             :current-image-url="loggedInUser.avatarUrl"
             @image-select="(file) => (form.avatar = file)"
           />
-          <Message v-if="form.errors.avatar" severity="error" class="mt-2">
+          <Message
+            role="alert"
+            v-if="form.errors.avatar"
+            class="border border-red-200 bg-red-50 text-red-700 dark:border-red-800 dark:bg-red-950 dark:text-red-300 mt-2"
+          >
             {{ form.errors.avatar }}
           </Message>
         </div>
@@ -128,7 +138,11 @@ function signOutEverywhere() {
             <label for="fullName" class="mb-1 block text-sm text-gray-700">
               Full Name
             </label>
-            <InputText id="fullName" v-model="form.fullName" class="w-full" />
+            <InputText
+              id="fullName"
+              v-model="form.fullName"
+              class="min-h-10 focus-visible:border-brand focus-visible:outline-brand dark:focus-visible:border-brand dark:focus-visible:outline-brand w-full"
+            />
           </div>
 
           <div>
@@ -139,7 +153,7 @@ function signOutEverywhere() {
               id="email"
               v-model="form.email"
               type="email"
-              class="w-full"
+              class="min-h-10 focus-visible:border-brand focus-visible:outline-brand dark:focus-visible:border-brand dark:focus-visible:outline-brand w-full"
             />
           </div>
         </div>
@@ -148,12 +162,14 @@ function signOutEverywhere() {
             Saved
           </span>
           <Button
+            class="min-h-10 border border-brand bg-brand px-3 py-2 text-base text-white hover:bg-brand-600 active:bg-brand-700 dark:bg-brand dark:text-white dark:hover:bg-brand-600 dark:active:bg-brand-700 min-h-8 px-2.5 py-1.5 text-sm bg-transparent text-brand dark:bg-transparent dark:text-brand-400"
+            :disabled="false || form.processing"
+            :aria-busy="form.processing"
             type="submit"
-            :label="form.processing ? 'Saving changes...' : 'Save changes'"
-            :loading="form.processing"
-            size="small"
-            variant="outlined"
-          />
+            ><Spinner v-if="form.processing" class="h-4 w-4" />{{
+              form.processing ? 'Saving changes...' : 'Save changes'
+            }}</Button
+          >
         </div>
       </form>
     </section>
@@ -179,7 +195,7 @@ function signOutEverywhere() {
               <div
                 class="flex h-10 w-10 shrink-0 items-center justify-center rounded-lg bg-orange-50"
               >
-                <i class="pi pi-sign-out text-orange-600" />
+                <SignOut class="h-[1em] w-[1em] shrink-0 text-orange-600" />
               </div>
               <div class="min-w-0 flex-1">
                 <h4 class="text-sm font-medium text-orange-900">
@@ -193,13 +209,10 @@ function signOutEverywhere() {
             </div>
             <div class="flex justify-end sm:ml-4 sm:shrink-0">
               <DangerButton
-                label="Sign out"
+                class="min-h-10 border border-red-600 bg-red-600 px-3 py-2 text-base text-white hover:bg-red-700 dark:bg-red-600 dark:text-white dark:hover:bg-red-700 min-h-8 px-2.5 py-1.5 text-sm bg-transparent text-red-600 hover:bg-red-50 dark:bg-transparent dark:text-red-400 dark:hover:bg-red-950"
                 @click="signOutEverywhere"
-                size="small"
-                variant="outlined"
-                severity="warning"
-                icon="pi pi-sign-out"
-              />
+                ><SignOut class="h-4 w-4" />Sign out</DangerButton
+              >
             </div>
           </div>
         </div>
@@ -215,7 +228,7 @@ function signOutEverywhere() {
               <div
                 class="flex h-10 w-10 shrink-0 items-center justify-center rounded-lg bg-red-100"
               >
-                <i class="pi pi-trash text-red-600" />
+                <Trash class="h-[1em] w-[1em] shrink-0 text-red-600" />
               </div>
               <div class="min-w-0 flex-1">
                 <h4 class="text-sm font-medium text-red-900">Delete account</h4>
@@ -224,9 +237,9 @@ function signOutEverywhere() {
                   action cannot be undone.
                 </p>
                 <Message
+                  role="alert"
                   v-if="deleteAccountForm.errors.ownership"
-                  severity="error"
-                  class="mt-3"
+                  class="border border-red-200 bg-red-50 text-red-700 dark:border-red-800 dark:bg-red-950 dark:text-red-300 mt-3"
                 >
                   {{ deleteAccountForm.errors.ownership }}
                 </Message>
@@ -234,12 +247,10 @@ function signOutEverywhere() {
             </div>
             <div class="flex justify-end sm:ml-4 sm:shrink-0">
               <DangerButton
-                label="Delete"
+                class="min-h-10 border border-red-600 bg-red-600 px-3 py-2 text-base text-white hover:bg-red-700 dark:bg-red-600 dark:text-white dark:hover:bg-red-700 min-h-8 px-2.5 py-1.5 text-sm bg-transparent text-red-600 hover:bg-red-50 dark:bg-transparent dark:text-red-400 dark:hover:bg-red-950"
                 @click="confirmDeleteAccount"
-                size="small"
-                icon="pi pi-trash"
-                variant="outlined"
-              />
+                ><Trash class="h-4 w-4" />Delete</DangerButton
+              >
             </div>
           </div>
         </div>

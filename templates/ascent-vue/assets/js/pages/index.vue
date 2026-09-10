@@ -1,7 +1,24 @@
 <script setup>
+import Input from '@/components/ui/input/Input.vue'
+
+import Users from '@/components/ui/icons/Users.vue'
+import Spinner from '@/components/ui/spinner/Spinner.vue'
+import ShieldCheck from '@/components/ui/icons/ShieldCheck.vue'
+import Lock from '@/components/ui/icons/Lock.vue'
+import Heart from '@/components/ui/icons/Heart.vue'
+import Envelope from '@/components/ui/icons/Envelope.vue'
+import CurrencyDollar from '@/components/ui/icons/CurrencyDollar.vue'
+import CreditCard from '@/components/ui/icons/CreditCard.vue'
+import Code from '@/components/ui/icons/Code.vue'
+import ChevronDown from '@/components/ui/icons/ChevronDown.vue'
+import CheckCircle from '@/components/ui/icons/CheckCircle.vue'
+import Check from '@/components/ui/icons/Check.vue'
+import Chat from '@/components/ui/icons/Chat.vue'
+import ChartBar from '@/components/ui/icons/ChartBar.vue'
+import Bolt from '@/components/ui/icons/Bolt.vue'
 import { Head, useForm } from '@inertiajs/vue3'
 import { ref } from 'vue'
-import Message from '@/volt/Message.vue'
+import Message from '@/components/ui/alert/Alert.vue'
 import AppLayout from '@/layouts/AppLayout.vue'
 
 defineOptions({
@@ -130,8 +147,7 @@ const handleWaitlistSubmit = (e) => {
             </div>
 
             <Message
-              severity="error"
-              class="mb-6 w-full"
+              class="border border-red-200 bg-red-50 text-red-700 dark:border-red-800 dark:bg-red-950 dark:text-red-300 mb-6 w-full"
               v-if="form.errors.waitlist"
               role="alert"
             >
@@ -139,7 +155,7 @@ const handleWaitlistSubmit = (e) => {
             </Message>
             <div class="space-y-4">
               <div class="relative">
-                <input
+                <Input
                   id="email-input"
                   v-model="form.email"
                   type="email"
@@ -177,25 +193,7 @@ const handleWaitlistSubmit = (e) => {
                   v-if="form.processing"
                   class="flex items-center justify-center space-x-2"
                 >
-                  <svg
-                    class="h-5 w-5 animate-spin"
-                    fill="none"
-                    viewBox="0 0 24 24"
-                  >
-                    <circle
-                      class="opacity-25"
-                      cx="12"
-                      cy="12"
-                      r="10"
-                      stroke="currentColor"
-                      stroke-width="4"
-                    />
-                    <path
-                      class="opacity-75"
-                      fill="currentColor"
-                      d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"
-                    />
-                  </svg>
+                  <Spinner class="h-5 w-5" />
                   <span>Joining...</span>
                 </span>
                 <span v-else>Join the Waitlist →</span>
@@ -206,45 +204,15 @@ const handleWaitlistSubmit = (e) => {
               class="mt-6 flex items-center justify-center space-x-6 text-xs text-gray-500 dark:text-gray-400"
             >
               <div class="flex items-center space-x-1">
-                <svg
-                  class="h-4 w-4 text-green-500"
-                  fill="currentColor"
-                  viewBox="0 0 20 20"
-                >
-                  <path
-                    fill-rule="evenodd"
-                    d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
-                    clip-rule="evenodd"
-                  />
-                </svg>
+                <Check class="h-4 w-4 text-green-500" />
                 <span>Early access</span>
               </div>
               <div class="flex items-center space-x-1">
-                <svg
-                  class="h-4 w-4 text-green-500"
-                  fill="currentColor"
-                  viewBox="0 0 20 20"
-                >
-                  <path
-                    fill-rule="evenodd"
-                    d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
-                    clip-rule="evenodd"
-                  />
-                </svg>
+                <Check class="h-4 w-4 text-green-500" />
                 <span>No spam</span>
               </div>
               <div class="flex items-center space-x-1">
-                <svg
-                  class="h-4 w-4 text-green-500"
-                  fill="currentColor"
-                  viewBox="0 0 20 20"
-                >
-                  <path
-                    fill-rule="evenodd"
-                    d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
-                    clip-rule="evenodd"
-                  />
-                </svg>
+                <Check class="h-4 w-4 text-green-500" />
                 <span>Unsubscribe anytime</span>
               </div>
             </div>
@@ -334,19 +302,7 @@ const handleWaitlistSubmit = (e) => {
             <div
               class="from-brand-500 to-brand-600 mb-6 flex h-14 w-14 items-center justify-center rounded-2xl bg-linear-to-br shadow-lg"
             >
-              <svg
-                class="h-7 w-7 text-white"
-                fill="none"
-                stroke="currentColor"
-                viewBox="0 0 24 24"
-              >
-                <path
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                  stroke-width="2"
-                  d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"
-                />
-              </svg>
+              <Lock class="h-7 w-7 text-white" />
             </div>
             <h3 class="mb-3 text-xl font-bold text-gray-900">
               Secure Authentication
@@ -372,19 +328,7 @@ const handleWaitlistSubmit = (e) => {
             <div
               class="from-accent-500 to-accent-600 mb-6 flex h-14 w-14 items-center justify-center rounded-2xl bg-linear-to-br shadow-lg"
             >
-              <svg
-                class="h-7 w-7 text-white"
-                fill="none"
-                stroke="currentColor"
-                viewBox="0 0 24 24"
-              >
-                <path
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                  stroke-width="2"
-                  d="M3 10h18M7 15h1m4 0h1m-7 4h12a3 3 0 003-3V8a3 3 0 00-3-3H6a3 3 0 00-3 3v8a3 3 0 003 3z"
-                />
-              </svg>
+              <CreditCard class="h-7 w-7 text-white" />
             </div>
             <h3 class="mb-3 text-xl font-bold text-gray-900">
               Subscription Billing
@@ -410,19 +354,7 @@ const handleWaitlistSubmit = (e) => {
             <div
               class="from-success-500 to-success-600 mb-6 flex h-14 w-14 items-center justify-center rounded-2xl bg-linear-to-br shadow-lg"
             >
-              <svg
-                class="h-7 w-7 text-white"
-                fill="none"
-                stroke="currentColor"
-                viewBox="0 0 24 24"
-              >
-                <path
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                  stroke-width="2"
-                  d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z"
-                />
-              </svg>
+              <Users class="h-7 w-7 text-white" />
             </div>
             <h3 class="mb-3 text-xl font-bold text-gray-900">
               Team Management
@@ -448,19 +380,7 @@ const handleWaitlistSubmit = (e) => {
             <div
               class="mb-6 flex h-14 w-14 items-center justify-center rounded-2xl bg-linear-to-br from-purple-500 to-purple-600 shadow-lg"
             >
-              <svg
-                class="h-7 w-7 text-white"
-                fill="none"
-                stroke="currentColor"
-                viewBox="0 0 24 24"
-              >
-                <path
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                  stroke-width="2"
-                  d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"
-                />
-              </svg>
+              <ChartBar class="h-7 w-7 text-white" />
             </div>
             <h3 class="mb-3 text-xl font-bold text-gray-900">
               Admin Dashboard
@@ -486,19 +406,7 @@ const handleWaitlistSubmit = (e) => {
             <div
               class="mb-6 flex h-14 w-14 items-center justify-center rounded-2xl bg-linear-to-br from-orange-500 to-orange-600 shadow-lg"
             >
-              <svg
-                class="h-7 w-7 text-white"
-                fill="none"
-                stroke="currentColor"
-                viewBox="0 0 24 24"
-              >
-                <path
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                  stroke-width="2"
-                  d="M7 8h10M7 12h4m1 8l-4-4H5a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v8a2 2 0 01-2 2h-3l-4 4z"
-                />
-              </svg>
+              <Chat class="h-7 w-7 text-white" />
             </div>
             <h3 class="mb-3 text-xl font-bold text-gray-900">Content & Blog</h3>
             <p class="mb-4 leading-relaxed text-gray-600">
@@ -522,19 +430,7 @@ const handleWaitlistSubmit = (e) => {
             <div
               class="mb-6 flex h-14 w-14 items-center justify-center rounded-2xl bg-linear-to-br from-red-500 to-red-600 shadow-lg"
             >
-              <svg
-                class="h-7 w-7 text-white"
-                fill="none"
-                stroke="currentColor"
-                viewBox="0 0 24 24"
-              >
-                <path
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                  stroke-width="2"
-                  d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"
-                />
-              </svg>
+              <Envelope class="h-7 w-7 text-white" />
             </div>
             <h3 class="mb-3 text-xl font-bold text-gray-900">
               Transactional Email
@@ -591,19 +487,7 @@ const handleWaitlistSubmit = (e) => {
               <div
                 class="from-brand-500 to-brand-600 relative rounded-2xl bg-linear-to-br p-4 shadow-2xl"
               >
-                <svg
-                  class="h-8 w-8 text-white"
-                  fill="none"
-                  stroke="currentColor"
-                  viewBox="0 0 24 24"
-                >
-                  <path
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
-                    stroke-width="2"
-                    d="M13 10V3L4 14h7v7l9-11h-7z"
-                  />
-                </svg>
+                <Bolt class="h-8 w-8 text-white" />
               </div>
             </div>
           </div>
@@ -628,19 +512,7 @@ const handleWaitlistSubmit = (e) => {
               <div
                 class="from-accent-500 to-accent-600 relative rounded-2xl bg-linear-to-br p-4 shadow-2xl"
               >
-                <svg
-                  class="h-8 w-8 text-white"
-                  fill="none"
-                  stroke="currentColor"
-                  viewBox="0 0 24 24"
-                >
-                  <path
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
-                    stroke-width="2"
-                    d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"
-                  />
-                </svg>
+                <CheckCircle class="h-8 w-8 text-white" />
               </div>
             </div>
           </div>
@@ -665,19 +537,7 @@ const handleWaitlistSubmit = (e) => {
               <div
                 class="from-success-500 to-success-600 relative rounded-2xl bg-linear-to-br p-4 shadow-2xl"
               >
-                <svg
-                  class="h-8 w-8 text-white"
-                  fill="none"
-                  stroke="currentColor"
-                  viewBox="0 0 24 24"
-                >
-                  <path
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
-                    stroke-width="2"
-                    d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"
-                  />
-                </svg>
+                <Heart class="h-8 w-8 text-white" />
               </div>
             </div>
           </div>
@@ -749,19 +609,9 @@ const handleWaitlistSubmit = (e) => {
               <div
                 class="bg-brand-50 group-hover:bg-brand-100 flex h-8 w-8 items-center justify-center rounded-full transition-colors"
               >
-                <svg
+                <ChevronDown
                   class="text-brand-600 h-4 w-4 transition-transform group-open:rotate-180"
-                  fill="none"
-                  stroke="currentColor"
-                  viewBox="0 0 24 24"
-                >
-                  <path
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
-                    stroke-width="2"
-                    d="M19 9l-7 7-7-7"
-                  />
-                </svg>
+                />
               </div>
             </div>
           </summary>
@@ -775,19 +625,7 @@ const handleWaitlistSubmit = (e) => {
               <div
                 class="bg-brand-50 text-brand-700 inline-flex items-center space-x-2 rounded-lg px-3 py-2 text-sm font-semibold"
               >
-                <svg
-                  class="h-4 w-4"
-                  fill="none"
-                  stroke="currentColor"
-                  viewBox="0 0 24 24"
-                >
-                  <path
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
-                    stroke-width="2"
-                    d="M13 10V3L4 14h7v7l9-11h-7z"
-                  />
-                </svg>
+                <Bolt class="h-4 w-4" />
                 <span>Save 6+ months of development time</span>
               </div>
             </div>
@@ -809,19 +647,9 @@ const handleWaitlistSubmit = (e) => {
               <div
                 class="bg-success-50 group-hover:bg-success-100 flex h-8 w-8 items-center justify-center rounded-full transition-colors"
               >
-                <svg
+                <ChevronDown
                   class="text-success-600 h-4 w-4 transition-transform group-open:rotate-180"
-                  fill="none"
-                  stroke="currentColor"
-                  viewBox="0 0 24 24"
-                >
-                  <path
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
-                    stroke-width="2"
-                    d="M19 9l-7 7-7-7"
-                  />
-                </svg>
+                />
               </div>
             </div>
           </summary>
@@ -836,19 +664,7 @@ const handleWaitlistSubmit = (e) => {
               <div
                 class="bg-success-50 text-success-700 inline-flex items-center space-x-2 rounded-lg px-3 py-2 text-sm font-semibold"
               >
-                <svg
-                  class="h-4 w-4"
-                  fill="none"
-                  stroke="currentColor"
-                  viewBox="0 0 24 24"
-                >
-                  <path
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
-                    stroke-width="2"
-                    d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1"
-                  />
-                </svg>
+                <CurrencyDollar class="h-4 w-4" />
                 <span>ROI from day one instead of month six</span>
               </div>
             </div>
@@ -870,19 +686,9 @@ const handleWaitlistSubmit = (e) => {
               <div
                 class="bg-accent-50 group-hover:bg-accent-100 flex h-8 w-8 items-center justify-center rounded-full transition-colors"
               >
-                <svg
+                <ChevronDown
                   class="text-accent-600 h-4 w-4 transition-transform group-open:rotate-180"
-                  fill="none"
-                  stroke="currentColor"
-                  viewBox="0 0 24 24"
-                >
-                  <path
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
-                    stroke-width="2"
-                    d="M19 9l-7 7-7-7"
-                  />
-                </svg>
+                />
               </div>
             </div>
           </summary>
@@ -896,19 +702,7 @@ const handleWaitlistSubmit = (e) => {
               <div
                 class="bg-accent-50 text-accent-700 inline-flex items-center space-x-2 rounded-lg px-3 py-2 text-sm font-semibold"
               >
-                <svg
-                  class="h-4 w-4"
-                  fill="none"
-                  stroke="currentColor"
-                  viewBox="0 0 24 24"
-                >
-                  <path
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
-                    stroke-width="2"
-                    d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"
-                  />
-                </svg>
+                <CheckCircle class="h-4 w-4" />
                 <span>Deploy to production in hours, not months</span>
               </div>
             </div>
@@ -930,19 +724,9 @@ const handleWaitlistSubmit = (e) => {
               <div
                 class="flex h-8 w-8 items-center justify-center rounded-full bg-purple-50 transition-colors group-hover:bg-purple-100"
               >
-                <svg
+                <ChevronDown
                   class="h-4 w-4 text-purple-600 transition-transform group-open:rotate-180"
-                  fill="none"
-                  stroke="currentColor"
-                  viewBox="0 0 24 24"
-                >
-                  <path
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
-                    stroke-width="2"
-                    d="M19 9l-7 7-7-7"
-                  />
-                </svg>
+                />
               </div>
             </div>
           </summary>
@@ -956,19 +740,7 @@ const handleWaitlistSubmit = (e) => {
               <div
                 class="inline-flex items-center space-x-2 rounded-lg bg-purple-50 px-3 py-2 text-sm font-semibold text-purple-700"
               >
-                <svg
-                  class="h-4 w-4"
-                  fill="none"
-                  stroke="currentColor"
-                  viewBox="0 0 24 24"
-                >
-                  <path
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
-                    stroke-width="2"
-                    d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4"
-                  />
-                </svg>
+                <Code class="h-4 w-4" />
                 <span>Your code, your control, your IP</span>
               </div>
             </div>
@@ -990,19 +762,9 @@ const handleWaitlistSubmit = (e) => {
               <div
                 class="flex h-8 w-8 items-center justify-center rounded-full bg-orange-50 transition-colors group-hover:bg-orange-100"
               >
-                <svg
+                <ChevronDown
                   class="h-4 w-4 text-orange-600 transition-transform group-open:rotate-180"
-                  fill="none"
-                  stroke="currentColor"
-                  viewBox="0 0 24 24"
-                >
-                  <path
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
-                    stroke-width="2"
-                    d="M19 9l-7 7-7-7"
-                  />
-                </svg>
+                />
               </div>
             </div>
           </summary>
@@ -1017,19 +779,7 @@ const handleWaitlistSubmit = (e) => {
               <div
                 class="inline-flex items-center space-x-2 rounded-lg bg-orange-50 px-3 py-2 text-sm font-semibold text-orange-700"
               >
-                <svg
-                  class="h-4 w-4"
-                  fill="none"
-                  stroke="currentColor"
-                  viewBox="0 0 24 24"
-                >
-                  <path
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
-                    stroke-width="2"
-                    d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"
-                  />
-                </svg>
+                <ShieldCheck class="h-4 w-4" />
                 <span>
                   Battle-tested foundation, future-proof architecture
                 </span>

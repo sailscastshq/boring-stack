@@ -1,8 +1,11 @@
+import Check from '@/components/ui/icons/Check.jsx'
+import Copy from '@/components/ui/icons/Copy.jsx'
+import Spinner from '@/components/ui/spinner/Spinner.jsx'
 import { useForm } from '@inertiajs/react'
-import { Dialog } from 'primereact/dialog'
-import { Button } from 'primereact/button'
-import { InputOtp } from 'primereact/inputotp'
-import { Message } from 'primereact/message'
+import Dialog from '@/components/Modal.jsx'
+import Button from '@/components/ui/button/Button.jsx'
+import InputOtp from '@/components/ui/input/Input.jsx'
+import Message from '@/components/ui/alert/Alert.jsx'
 import { useCopyToClipboard } from '@/hooks/useCopyToClipboard'
 
 export default function TotpSetupModal({ visible, onHide, setupData }) {
@@ -38,13 +41,11 @@ export default function TotpSetupModal({ visible, onHide, setupData }) {
 
   return (
     <Dialog
-      visible={visible}
-      onHide={handleClose}
-      header={null}
-      modal
-      closable={!processing}
-      className="mx-4 w-full max-w-2xl sm:mx-0"
-      contentStyle={{ paddingRight: '2rem', paddingLeft: '2rem' }}
+      className="max-w-2xl"
+      open={visible}
+      title="Authenticator setup"
+      onClose={handleClose}
+      dismissible={!processing}
     >
       <div className="space-y-8">
         {/* Header */}
@@ -60,7 +61,14 @@ export default function TotpSetupModal({ visible, onHide, setupData }) {
 
         {/* Error Message */}
         {errors.twoFactorSetup && (
-          <Message severity="error" text={errors.twoFactorSetup} />
+          <Message
+            role={'alert'}
+            className={
+              'border border-red-200 bg-red-50 text-red-700 dark:border-red-800 dark:bg-red-950 dark:text-red-300'
+            }
+          >
+            {errors.twoFactorSetup}
+          </Message>
         )}
 
         {/* Step 1: Scan QR Code */}
@@ -103,16 +111,24 @@ export default function TotpSetupModal({ visible, onHide, setupData }) {
                   {setupData.manualEntryKey}
                 </div>
                 <Button
-                  icon={copied ? 'pi pi-check' : 'pi pi-copy'}
-                  text
                   onClick={() => copyToClipboard(setupData.manualEntryKey)}
-                  tooltip={copied ? 'Copied!' : 'Copy code'}
-                  className={
+                  aria-label={copied ? 'Copied!' : 'Copy code'}
+                  title={copied ? 'Copied!' : 'Copy code'}
+                  className={[
+                    'min-h-10 border border-transparent bg-transparent px-3 py-2 text-brand hover:bg-brand-50 dark:bg-transparent dark:text-brand-400 dark:hover:bg-brand-950',
                     copied
                       ? 'text-success-600 hover:text-success-700'
                       : 'text-gray-500 hover:text-gray-700'
-                  }
-                />
+                  ]
+                    .filter(Boolean)
+                    .join(' ')}
+                >
+                  {copied ? (
+                    <Check className="h-4 w-4" />
+                  ) : (
+                    <Copy className="h-4 w-4" />
+                  )}
+                </Button>
               </div>
             </div>
           </div>
@@ -140,39 +156,59 @@ export default function TotpSetupModal({ visible, onHide, setupData }) {
               <div className="flex justify-start">
                 <InputOtp
                   value={data.token}
-                  onChange={(e) => setData('token', e.value)}
-                  length={6}
-                  integerOnly
-                  mask
+                  maxLength={6}
+                  autoComplete={'one-time-code'}
+                  inputMode={'numeric'}
+                  aria-label={'Verification code'}
+                  onChange={(e) => setData('token', e.target.value)}
+                  className={
+                    'max-w-64 mx-auto text-center text-2xl tracking-[0.5em]'
+                  }
                 />
               </div>
               {errors.token && (
                 <Message
-                  severity="error"
-                  text={errors.token}
-                  className="mt-3"
-                />
+                  role={'alert'}
+                  className={[
+                    'border border-red-200 bg-red-50 text-red-700 dark:border-red-800 dark:bg-red-950 dark:text-red-300',
+                    'mt-3'
+                  ]
+                    .filter(Boolean)
+                    .join(' ')}
+                >
+                  {errors.token}
+                </Message>
               )}
             </div>
 
             <div className="flex flex-col justify-end space-y-3 sm:flex-row sm:space-x-3 sm:space-y-0">
               <Button
                 type="button"
-                label="Cancel"
-                severity="secondary"
                 onClick={handleClose}
-                size="small"
                 disabled={processing}
-                className="w-full sm:w-auto"
-              />
+                className={[
+                  'min-h-10 min-h-8 border border-gray-300 bg-white px-2.5 px-3 py-1.5 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:border-gray-600 dark:bg-gray-900 dark:text-white dark:hover:bg-gray-800',
+                  'w-full sm:w-auto'
+                ]
+                  .filter(Boolean)
+                  .join(' ')}
+              >
+                {'Cancel'}
+              </Button>
               <Button
                 type="submit"
-                label="Verify & Enable"
-                size="small"
-                loading={processing}
-                disabled={!data.token || data.token.length !== 6}
-                className="w-full sm:w-auto"
-              />
+                disabled={!data.token || data.token.length !== 6 || processing}
+                aria-busy={processing}
+                className={[
+                  'min-h-10 min-h-8 border border-brand bg-brand px-2.5 px-3 py-1.5 py-2 text-base text-sm text-white hover:bg-brand-600 active:bg-brand-700 dark:bg-brand dark:text-white dark:hover:bg-brand-600 dark:active:bg-brand-700',
+                  'w-full sm:w-auto'
+                ]
+                  .filter(Boolean)
+                  .join(' ')}
+              >
+                {processing && <Spinner className="h-4 w-4" />}
+                {'Verify & Enable'}
+              </Button>
             </div>
           </form>
         </div>

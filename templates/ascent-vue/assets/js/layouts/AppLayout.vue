@@ -1,15 +1,13 @@
 <script setup>
+import Input from '@/components/ui/input/Input.vue'
+
 import { computed } from 'vue'
 import { Link, usePage } from '@inertiajs/vue3'
-import Toast from '@/volt/Toast.vue'
 import Avatar from '@/components/Avatar.vue'
-import { useFlashToast } from '@/composables/flash-toast'
 
 const page = usePage()
 const loggedInUser = computed(() => page.props.loggedInUser)
 const url = computed(() => page.url)
-
-useFlashToast()
 </script>
 
 <template>
@@ -130,8 +128,6 @@ useFlashToast()
     <main class="flex-1">
       <slot />
     </main>
-
-    <Toast />
 
     <footer
       class="to-brand-900 relative overflow-hidden bg-linear-to-br from-gray-900 via-gray-800 text-white"
@@ -363,7 +359,7 @@ useFlashToast()
                 Get the latest updates on new features and product launches.
               </p>
               <div class="mx-auto flex max-w-md flex-col gap-3 sm:flex-row">
-                <input
+                <Input
                   type="email"
                   placeholder="Enter your email"
                   class="focus:border-brand-400 focus:ring-brand-400/50 flex-1 rounded-lg border border-white/20 bg-white/10 px-4 py-2 text-white placeholder-gray-400 transition-all focus:ring-2 focus:outline-none"

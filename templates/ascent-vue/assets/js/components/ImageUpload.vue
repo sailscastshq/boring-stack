@@ -1,67 +1,24 @@
 <script setup>
-import { ref, watch } from 'vue'
-import Button from '@/volt/Button.vue'
-import SecondaryButton from '@/volt/SecondaryButton.vue'
-
-const props = defineProps({
-  currentImageUrl: {
-    type: String,
-    default: ''
-  },
-  accept: {
-    type: String,
-    default: 'image/*'
-  },
-  class: {
-    type: String,
-    default: ''
-  }
+import FileUpload from '@/components/ui/file-upload/FileUpload.vue'
+import Button from '@/components/ui/button/Button.vue'
+import Camera from '@/components/ui/icons/Camera.vue'
+import Edit from '@/components/ui/icons/Edit.vue'
+defineProps({
+  currentImageUrl: { type: String, default: '' },
+  accept: { type: String, default: 'image/*' }
 })
-
 const emit = defineEmits(['image-select'])
-
-const previewUrl = ref(props.currentImageUrl)
-const fileInputRef = ref(null)
-
-// Watch for changes to currentImageUrl prop
-watch(
-  () => props.currentImageUrl,
-  (newUrl) => {
-    previewUrl.value = newUrl
-  }
-)
-
-function handleFileSelect(event) {
-  const file = event.target.files[0]
-  if (file) {
-    // Create preview URL
-    const url = URL.createObjectURL(file)
-    previewUrl.value = url
-
-    // Pass file to parent component
-    emit('image-select', file)
-  }
-}
-
-function openFileDialog() {
-  fileInputRef.value?.click()
-}
 </script>
-
 <template>
-  <div :class="['image-upload-container', props.class]">
-    <input
-      ref="fileInputRef"
-      type="file"
-      :accept="accept"
-      class="hidden"
-      @change="handleFileSelect"
-    />
-
+  <FileUpload
+    :accept="accept"
+    @update:model-value="(file) => emit('image-select', file)"
+    v-slot="{ previewUrl, choose }"
+  >
     <div class="relative inline-block">
       <img
-        v-if="previewUrl"
-        :src="previewUrl"
+        v-if="previewUrl || currentImageUrl"
+        :src="previewUrl || currentImageUrl"
         alt="Profile picture"
         class="h-32 w-32 rounded-lg border border-gray-300 object-cover"
       />
@@ -69,24 +26,21 @@ function openFileDialog() {
         v-else
         class="flex h-32 w-32 flex-col items-center justify-center rounded-lg border-2 border-dashed border-gray-300 bg-gray-50"
       >
-        <i class="pi pi-camera text-2xl text-gray-400" />
-        <span class="mt-1 text-xs text-gray-500">No image</span>
+        <Camera class="h-6 w-6 text-gray-400" /><span
+          class="mt-1 text-xs text-gray-500"
+          >No image</span
+        >
       </div>
-
-      <!-- Edit button overlay -->
       <div
         class="absolute -top-2 -right-4 overflow-hidden rounded-full bg-white shadow-md"
       >
-        <SecondaryButton
-          icon="pi pi-pencil"
-          size="small"
-          type="button"
-          text
-          rounded
-          tooltip="Change image"
-          @click="openFileDialog"
-        />
+        <Button
+          class="min-h-8 min-w-8 rounded-full bg-transparent p-2 text-gray-600 hover:bg-gray-100 dark:bg-transparent dark:text-gray-400 dark:hover:bg-gray-800"
+          aria-label="Change image"
+          @click="choose"
+          ><Edit class="h-4 w-4"
+        /></Button>
       </div>
     </div>
-  </div>
+  </FileUpload>
 </template>

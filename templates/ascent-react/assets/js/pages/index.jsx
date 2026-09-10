@@ -1,7 +1,23 @@
+import Input from '@/components/ui/input/Input.jsx'
+import ShieldCheck from '@/components/ui/icons/ShieldCheck.jsx'
+import Code from '@/components/ui/icons/Code.jsx'
+import CurrencyDollar from '@/components/ui/icons/CurrencyDollar.jsx'
+import ChevronDown from '@/components/ui/icons/ChevronDown.jsx'
+import Heart from '@/components/ui/icons/Heart.jsx'
+import CheckCircle from '@/components/ui/icons/CheckCircle.jsx'
+import Bolt from '@/components/ui/icons/Bolt.jsx'
+import Envelope from '@/components/ui/icons/Envelope.jsx'
+import Chat from '@/components/ui/icons/Chat.jsx'
+import ChartBar from '@/components/ui/icons/ChartBar.jsx'
+import Users from '@/components/ui/icons/Users.jsx'
+import CreditCard from '@/components/ui/icons/CreditCard.jsx'
+import Lock from '@/components/ui/icons/Lock.jsx'
+import Check from '@/components/ui/icons/Check.jsx'
+import Spinner from '@/components/ui/spinner/Spinner.jsx'
 import { Head, useForm } from '@inertiajs/react'
 import AppLayout from '@/layouts/AppLayout.jsx'
 import { useState } from 'react'
-import { Message } from 'primereact/message'
+import Message from '@/components/ui/alert/Alert.jsx'
 import '~/css/homepage.css'
 
 Index.layout = AppLayout
@@ -106,16 +122,22 @@ export default function Index() {
                   {errors.waitlist && (
                     <div className="mb-6" role="alert">
                       <Message
-                        severity="error"
-                        text={errors.waitlist}
-                        className="w-full"
-                      />
+                        role={'alert'}
+                        className={[
+                          'border border-red-200 bg-red-50 text-red-700 dark:border-red-800 dark:bg-red-950 dark:text-red-300',
+                          'w-full'
+                        ]
+                          .filter(Boolean)
+                          .join(' ')}
+                      >
+                        {errors.waitlist}
+                      </Message>
                     </div>
                   )}
 
                   <div className="space-y-4">
                     <div className="relative">
-                      <input
+                      <Input
                         id="email-input"
                         type="email"
                         value={data.email}
@@ -152,25 +174,7 @@ export default function Index() {
                     >
                       {processing ? (
                         <span className="flex items-center justify-center space-x-2">
-                          <svg
-                            className="h-5 w-5 animate-spin"
-                            fill="none"
-                            viewBox="0 0 24 24"
-                          >
-                            <circle
-                              className="opacity-25"
-                              cx="12"
-                              cy="12"
-                              r="10"
-                              stroke="currentColor"
-                              strokeWidth="4"
-                            ></circle>
-                            <path
-                              className="opacity-75"
-                              fill="currentColor"
-                              d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"
-                            ></path>
-                          </svg>
+                          <Spinner className="h-5 w-5 " />
                           <span>Joining...</span>
                         </span>
                       ) : (
@@ -181,45 +185,15 @@ export default function Index() {
 
                   <div className="mt-6 flex items-center justify-center space-x-6 text-xs text-gray-500 dark:text-gray-400">
                     <div className="flex items-center space-x-1">
-                      <svg
-                        className="h-4 w-4 text-green-500"
-                        fill="currentColor"
-                        viewBox="0 0 20 20"
-                      >
-                        <path
-                          fillRule="evenodd"
-                          d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
-                          clipRule="evenodd"
-                        />
-                      </svg>
+                      <Check className="h-4 w-4 text-green-500" />
                       <span>Early access</span>
                     </div>
                     <div className="flex items-center space-x-1">
-                      <svg
-                        className="h-4 w-4 text-green-500"
-                        fill="currentColor"
-                        viewBox="0 0 20 20"
-                      >
-                        <path
-                          fillRule="evenodd"
-                          d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
-                          clipRule="evenodd"
-                        />
-                      </svg>
+                      <Check className="h-4 w-4 text-green-500" />
                       <span>No spam</span>
                     </div>
                     <div className="flex items-center space-x-1">
-                      <svg
-                        className="h-4 w-4 text-green-500"
-                        fill="currentColor"
-                        viewBox="0 0 20 20"
-                      >
-                        <path
-                          fillRule="evenodd"
-                          d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
-                          clipRule="evenodd"
-                        />
-                      </svg>
+                      <Check className="h-4 w-4 text-green-500" />
                       <span>Unsubscribe anytime</span>
                     </div>
                   </div>
@@ -286,19 +260,7 @@ export default function Index() {
               <div className="absolute inset-0 rounded-2xl bg-gradient-to-br from-brand-50/50 to-transparent opacity-0 transition-opacity group-hover:opacity-100"></div>
               <div className="relative">
                 <div className="mb-6 flex h-14 w-14 items-center justify-center rounded-2xl bg-gradient-to-br from-brand-500 to-brand-600 shadow-lg">
-                  <svg
-                    className="h-7 w-7 text-white"
-                    fill="none"
-                    stroke="currentColor"
-                    viewBox="0 0 24 24"
-                  >
-                    <path
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      strokeWidth={2}
-                      d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"
-                    />
-                  </svg>
+                  <Lock className="h-7 w-7 text-white" />
                 </div>
                 <h3 className="mb-3 text-xl font-bold text-gray-900">
                   Secure Authentication
@@ -318,19 +280,7 @@ export default function Index() {
               <div className="absolute inset-0 rounded-2xl bg-gradient-to-br from-accent-50/50 to-transparent opacity-0 transition-opacity group-hover:opacity-100"></div>
               <div className="relative">
                 <div className="mb-6 flex h-14 w-14 items-center justify-center rounded-2xl bg-gradient-to-br from-accent-500 to-accent-600 shadow-lg">
-                  <svg
-                    className="h-7 w-7 text-white"
-                    fill="none"
-                    stroke="currentColor"
-                    viewBox="0 0 24 24"
-                  >
-                    <path
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      strokeWidth={2}
-                      d="M3 10h18M7 15h1m4 0h1m-7 4h12a3 3 0 003-3V8a3 3 0 00-3-3H6a3 3 0 00-3 3v8a3 3 0 003 3z"
-                    />
-                  </svg>
+                  <CreditCard className="h-7 w-7 text-white" />
                 </div>
                 <h3 className="mb-3 text-xl font-bold text-gray-900">
                   Subscription Billing
@@ -350,19 +300,7 @@ export default function Index() {
               <div className="absolute inset-0 rounded-2xl bg-gradient-to-br from-success-50/50 to-transparent opacity-0 transition-opacity group-hover:opacity-100"></div>
               <div className="relative">
                 <div className="mb-6 flex h-14 w-14 items-center justify-center rounded-2xl bg-gradient-to-br from-success-500 to-success-600 shadow-lg">
-                  <svg
-                    className="h-7 w-7 text-white"
-                    fill="none"
-                    stroke="currentColor"
-                    viewBox="0 0 24 24"
-                  >
-                    <path
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      strokeWidth={2}
-                      d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z"
-                    />
-                  </svg>
+                  <Users className="h-7 w-7 text-white" />
                 </div>
                 <h3 className="mb-3 text-xl font-bold text-gray-900">
                   Team Management
@@ -382,19 +320,7 @@ export default function Index() {
               <div className="absolute inset-0 rounded-2xl bg-gradient-to-br from-purple-50/50 to-transparent opacity-0 transition-opacity group-hover:opacity-100"></div>
               <div className="relative">
                 <div className="mb-6 flex h-14 w-14 items-center justify-center rounded-2xl bg-gradient-to-br from-purple-500 to-purple-600 shadow-lg">
-                  <svg
-                    className="h-7 w-7 text-white"
-                    fill="none"
-                    stroke="currentColor"
-                    viewBox="0 0 24 24"
-                  >
-                    <path
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      strokeWidth={2}
-                      d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"
-                    />
-                  </svg>
+                  <ChartBar className="h-7 w-7 text-white" />
                 </div>
                 <h3 className="mb-3 text-xl font-bold text-gray-900">
                   Admin Dashboard
@@ -414,19 +340,7 @@ export default function Index() {
               <div className="absolute inset-0 rounded-2xl bg-gradient-to-br from-orange-50/50 to-transparent opacity-0 transition-opacity group-hover:opacity-100"></div>
               <div className="relative">
                 <div className="mb-6 flex h-14 w-14 items-center justify-center rounded-2xl bg-gradient-to-br from-orange-500 to-orange-600 shadow-lg">
-                  <svg
-                    className="h-7 w-7 text-white"
-                    fill="none"
-                    stroke="currentColor"
-                    viewBox="0 0 24 24"
-                  >
-                    <path
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      strokeWidth={2}
-                      d="M7 8h10M7 12h4m1 8l-4-4H5a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v8a2 2 0 01-2 2h-3l-4 4z"
-                    />
-                  </svg>
+                  <Chat className="h-7 w-7 text-white" />
                 </div>
                 <h3 className="mb-3 text-xl font-bold text-gray-900">
                   Content & Blog
@@ -446,19 +360,7 @@ export default function Index() {
               <div className="absolute inset-0 rounded-2xl bg-gradient-to-br from-red-50/50 to-transparent opacity-0 transition-opacity group-hover:opacity-100"></div>
               <div className="relative">
                 <div className="mb-6 flex h-14 w-14 items-center justify-center rounded-2xl bg-gradient-to-br from-red-500 to-red-600 shadow-lg">
-                  <svg
-                    className="h-7 w-7 text-white"
-                    fill="none"
-                    stroke="currentColor"
-                    viewBox="0 0 24 24"
-                  >
-                    <path
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      strokeWidth={2}
-                      d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"
-                    />
-                  </svg>
+                  <Envelope className="h-7 w-7 text-white" />
                 </div>
                 <h3 className="mb-3 text-xl font-bold text-gray-900">
                   Transactional Email
@@ -500,19 +402,7 @@ export default function Index() {
                 <div className="relative">
                   <div className="absolute inset-0 scale-110 rounded-2xl bg-brand-500/20 blur-xl"></div>
                   <div className="relative rounded-2xl bg-gradient-to-br from-brand-500 to-brand-600 p-4 shadow-2xl">
-                    <svg
-                      className="h-8 w-8 text-white"
-                      fill="none"
-                      stroke="currentColor"
-                      viewBox="0 0 24 24"
-                    >
-                      <path
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                        strokeWidth={2}
-                        d="M13 10V3L4 14h7v7l9-11h-7z"
-                      />
-                    </svg>
+                    <Bolt className="h-8 w-8 text-white" />
                   </div>
                 </div>
               </div>
@@ -531,19 +421,7 @@ export default function Index() {
                 <div className="relative">
                   <div className="absolute inset-0 scale-110 rounded-2xl bg-accent-500/20 blur-xl"></div>
                   <div className="relative rounded-2xl bg-gradient-to-br from-accent-500 to-accent-600 p-4 shadow-2xl">
-                    <svg
-                      className="h-8 w-8 text-white"
-                      fill="none"
-                      stroke="currentColor"
-                      viewBox="0 0 24 24"
-                    >
-                      <path
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                        strokeWidth={2}
-                        d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"
-                      />
-                    </svg>
+                    <CheckCircle className="h-8 w-8 text-white" />
                   </div>
                 </div>
               </div>
@@ -562,19 +440,7 @@ export default function Index() {
                 <div className="relative">
                   <div className="absolute inset-0 scale-110 rounded-2xl bg-success-500/20 blur-xl"></div>
                   <div className="relative rounded-2xl bg-gradient-to-br from-success-500 to-success-600 p-4 shadow-2xl">
-                    <svg
-                      className="h-8 w-8 text-white"
-                      fill="none"
-                      stroke="currentColor"
-                      viewBox="0 0 24 24"
-                    >
-                      <path
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                        strokeWidth={2}
-                        d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"
-                      />
-                    </svg>
+                    <Heart className="h-8 w-8 text-white" />
                   </div>
                 </div>
               </div>
@@ -625,19 +491,7 @@ export default function Index() {
                 </h3>
                 <div className="ml-4 flex-shrink-0">
                   <div className="flex h-8 w-8 items-center justify-center rounded-full bg-brand-50 transition-colors group-hover:bg-brand-100">
-                    <svg
-                      className="h-4 w-4 text-brand-600 transition-transform group-open:rotate-180"
-                      fill="none"
-                      stroke="currentColor"
-                      viewBox="0 0 24 24"
-                    >
-                      <path
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                        strokeWidth={2}
-                        d="M19 9l-7 7-7-7"
-                      />
-                    </svg>
+                    <ChevronDown className="h-4 w-4 text-brand-600 transition-transform group-open:rotate-180" />
                   </div>
                 </div>
               </summary>
@@ -650,19 +504,7 @@ export default function Index() {
                     dashboard—in minutes, not months.
                   </p>
                   <div className="inline-flex items-center space-x-2 rounded-lg bg-brand-50 px-3 py-2 text-sm font-semibold text-brand-700">
-                    <svg
-                      className="h-4 w-4"
-                      fill="none"
-                      stroke="currentColor"
-                      viewBox="0 0 24 24"
-                    >
-                      <path
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                        strokeWidth={2}
-                        d="M13 10V3L4 14h7v7l9-11h-7z"
-                      />
-                    </svg>
+                    <Bolt className="h-4 w-4" />
                     <span>Save 6+ months of development time</span>
                   </div>
                 </div>
@@ -676,19 +518,7 @@ export default function Index() {
                 </h3>
                 <div className="ml-4 flex-shrink-0">
                   <div className="flex h-8 w-8 items-center justify-center rounded-full bg-success-50 transition-colors group-hover:bg-success-100">
-                    <svg
-                      className="h-4 w-4 text-success-600 transition-transform group-open:rotate-180"
-                      fill="none"
-                      stroke="currentColor"
-                      viewBox="0 0 24 24"
-                    >
-                      <path
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                        strokeWidth={2}
-                        d="M19 9l-7 7-7-7"
-                      />
-                    </svg>
+                    <ChevronDown className="h-4 w-4 text-success-600 transition-transform group-open:rotate-180" />
                   </div>
                 </div>
               </summary>
@@ -701,19 +531,7 @@ export default function Index() {
                     SaaS infrastructure immediately.
                   </p>
                   <div className="inline-flex items-center space-x-2 rounded-lg bg-success-50 px-3 py-2 text-sm font-semibold text-success-700">
-                    <svg
-                      className="h-4 w-4"
-                      fill="none"
-                      stroke="currentColor"
-                      viewBox="0 0 24 24"
-                    >
-                      <path
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                        strokeWidth={2}
-                        d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1"
-                      />
-                    </svg>
+                    <CurrencyDollar className="h-4 w-4" />
                     <span>ROI from day one instead of month six</span>
                   </div>
                 </div>
@@ -727,19 +545,7 @@ export default function Index() {
                 </h3>
                 <div className="ml-4 flex-shrink-0">
                   <div className="flex h-8 w-8 items-center justify-center rounded-full bg-accent-50 transition-colors group-hover:bg-accent-100">
-                    <svg
-                      className="h-4 w-4 text-accent-600 transition-transform group-open:rotate-180"
-                      fill="none"
-                      stroke="currentColor"
-                      viewBox="0 0 24 24"
-                    >
-                      <path
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                        strokeWidth={2}
-                        d="M19 9l-7 7-7-7"
-                      />
-                    </svg>
+                    <ChevronDown className="h-4 w-4 text-accent-600 transition-transform group-open:rotate-180" />
                   </div>
                 </div>
               </summary>
@@ -751,19 +557,7 @@ export default function Index() {
                     deployment scripts—everything you need to launch and scale.
                   </p>
                   <div className="inline-flex items-center space-x-2 rounded-lg bg-accent-50 px-3 py-2 text-sm font-semibold text-accent-700">
-                    <svg
-                      className="h-4 w-4"
-                      fill="none"
-                      stroke="currentColor"
-                      viewBox="0 0 24 24"
-                    >
-                      <path
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                        strokeWidth={2}
-                        d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"
-                      />
-                    </svg>
+                    <CheckCircle className="h-4 w-4" />
                     <span>Deploy to production in hours, not months</span>
                   </div>
                 </div>
@@ -777,19 +571,7 @@ export default function Index() {
                 </h3>
                 <div className="ml-4 flex-shrink-0">
                   <div className="flex h-8 w-8 items-center justify-center rounded-full bg-purple-50 transition-colors group-hover:bg-purple-100">
-                    <svg
-                      className="h-4 w-4 text-purple-600 transition-transform group-open:rotate-180"
-                      fill="none"
-                      stroke="currentColor"
-                      viewBox="0 0 24 24"
-                    >
-                      <path
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                        strokeWidth={2}
-                        d="M19 9l-7 7-7-7"
-                      />
-                    </svg>
+                    <ChevronDown className="h-4 w-4 text-purple-600 transition-transform group-open:rotate-180" />
                   </div>
                 </div>
               </summary>
@@ -802,19 +584,7 @@ export default function Index() {
                     foundation.
                   </p>
                   <div className="inline-flex items-center space-x-2 rounded-lg bg-purple-50 px-3 py-2 text-sm font-semibold text-purple-700">
-                    <svg
-                      className="h-4 w-4"
-                      fill="none"
-                      stroke="currentColor"
-                      viewBox="0 0 24 24"
-                    >
-                      <path
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                        strokeWidth={2}
-                        d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4"
-                      />
-                    </svg>
+                    <Code className="h-4 w-4" />
                     <span>Your code, your control, your IP</span>
                   </div>
                 </div>
@@ -828,19 +598,7 @@ export default function Index() {
                 </h3>
                 <div className="ml-4 flex-shrink-0">
                   <div className="flex h-8 w-8 items-center justify-center rounded-full bg-orange-50 transition-colors group-hover:bg-orange-100">
-                    <svg
-                      className="h-4 w-4 text-orange-600 transition-transform group-open:rotate-180"
-                      fill="none"
-                      stroke="currentColor"
-                      viewBox="0 0 24 24"
-                    >
-                      <path
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                        strokeWidth={2}
-                        d="M19 9l-7 7-7-7"
-                      />
-                    </svg>
+                    <ChevronDown className="h-4 w-4 text-orange-600 transition-transform group-open:rotate-180" />
                   </div>
                 </div>
               </summary>
@@ -853,19 +611,7 @@ export default function Index() {
                     maintainable code that scales.
                   </p>
                   <div className="inline-flex items-center space-x-2 rounded-lg bg-orange-50 px-3 py-2 text-sm font-semibold text-orange-700">
-                    <svg
-                      className="h-4 w-4"
-                      fill="none"
-                      stroke="currentColor"
-                      viewBox="0 0 24 24"
-                    >
-                      <path
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                        strokeWidth={2}
-                        d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"
-                      />
-                    </svg>
+                    <ShieldCheck className="h-4 w-4" />
                     <span>
                       Battle-tested foundation, future-proof architecture
                     </span>

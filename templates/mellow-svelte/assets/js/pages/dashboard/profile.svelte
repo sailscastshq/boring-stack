@@ -53,7 +53,7 @@
 </svelte:head>
 <div class="mx-auto space-y-8 px-4 md:w-8/12 xl:w-4/12">
   <section
-    class="rounded-lg bg-gradient-to-b from-brand-50/10 to-white p-6 shadow-md transition-all duration-300 hover:shadow-lg"
+    class="from-brand-50/10 rounded-lg bg-gradient-to-b to-white p-6 shadow-md transition-all duration-300 hover:shadow-lg"
   >
     <header class="mb-6">
       <h1 class="text-2xl">Profile Information</h1>
@@ -77,7 +77,7 @@
   </section>
 
   <section
-    class="rounded-lg bg-gradient-to-b from-brand-50/10 to-white p-6 shadow-md transition-all duration-300 hover:shadow-lg"
+    class="from-brand-50/10 rounded-lg bg-gradient-to-b to-white p-6 shadow-md transition-all duration-300 hover:shadow-lg"
   >
     <header class="mb-6">
       <h2 class="text-2xl">Change Password</h2>
@@ -124,7 +124,7 @@
   </section>
 
   <section
-    class="rounded-lg bg-gradient-to-b from-brand-50/10 to-white p-6 shadow-md transition-all duration-300 hover:shadow-lg"
+    class="from-brand-50/10 rounded-lg bg-gradient-to-b to-white p-6 shadow-md transition-all duration-300 hover:shadow-lg"
   >
     <header class="mb-6">
       <h2 class="text-2xl">Delete Account</h2>
@@ -151,7 +151,7 @@
 
   <InputButton
     type="button"
-    on:click={() => router.delete('/logout')}
+    onclick={() => router.delete('/logout')}
     class="w-full border-red-600 bg-red-600"
   >
     Logout

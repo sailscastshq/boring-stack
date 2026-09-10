@@ -1,0 +1,27 @@
+{
+  "assets/js/components/GoogleButton.jsx": {
+    "reason": "Owned OAuth/social brand marks and template product artwork; not reusable interface glyphs.",
+    "sha256": [
+      "a08d16227eddfc24e1b4240fd0d033ccb71d68cca231717a0ad908a9b2a6ab6d"
+    ]
+  },
+  "assets/js/layouts/AppLayout.jsx": {
+    "reason": "Owned OAuth/social brand marks and template product artwork; not reusable interface glyphs.",
+    "sha256": [
+      "9ddd64230878080ea8658efbaa845cb9350397c3b878174499b5104926fa01c0",
+      "232bea6198277c53468ded63b2469964a1a2f3e4da013fc832bbe281b1dc223a"
+    ]
+  },
+  "assets/js/pages/auth/signup.jsx": {
+    "reason": "Owned OAuth/social brand marks and template product artwork; not reusable interface glyphs.",
+    "sha256": [
+      "9f143fddb410d48e253838fcdd97317682fb668ecf8314f3782fda6a51c935c9"
+    ]
+  },
+  "assets/js/pages/auth/login.jsx": {
+    "reason": "Owned OAuth/social brand marks and template product artwork; not reusable interface glyphs.",
+    "sha256": [
+      "9f143fddb410d48e253838fcdd97317682fb668ecf8314f3782fda6a51c935c9"
+    ]
+  }
+}

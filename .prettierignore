@@ -1,0 +1,2 @@
+# Templates own their framework-specific formatters and lint checks.
+templates/
