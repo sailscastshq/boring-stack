@@ -4,10 +4,10 @@ export default function AppLayout({ children }) {
   const { loggedInUser } = usePage().props
 
   return (
-    <div className="from-brand-50/10 flex min-h-screen flex-col bg-gradient-to-b to-[#F9FAFB]">
+    <div className="mellow-shell">
       <header>
-        <nav className="flex items-center justify-between px-4 py-6 md:px-8">
-          <Link href="/">
+        <nav className="mellow-nav">
+          <Link href="/" className="mellow-brand" aria-label="Mellow home">
             <svg
               className="w-12"
               viewBox="0 0 50 33"
@@ -23,26 +23,24 @@ export default function AppLayout({ children }) {
                 fill="#6C25C1"
               />
             </svg>
+            <span>Mellow.</span>
           </Link>
           {!loggedInUser ? (
             <ul className="flex items-center justify-items-end space-x-4 text-sm">
               <li>
-                <Link href="/login" className="text-brand md:text-lg">
+                <Link href="/login" className="text-sm font-medium">
                   Login
                 </Link>
               </li>
               <li>
-                <Link
-                  href="/signup"
-                  className="bg-brand rounded-lg px-8 py-4 text-white md:py-3"
-                >
+                <Link href="/signup" className="mellow-primary">
                   Sign up
                 </Link>
               </li>
             </ul>
           ) : (
             <section className="flex items-center space-x-6">
-              <Link href="/dashboard" className="text-brand md:text-lg">
+              <Link href="/dashboard" className="text-sm font-medium">
                 Dashboard
               </Link>
               <Link href="/profile">
@@ -63,9 +61,9 @@ export default function AppLayout({ children }) {
         </nav>
       </header>
 
-      <main className="mb-10 min-h-screen">{children}</main>
+      <main className="flex-1">{children}</main>
 
-      <footer className="flex flex-col items-center justify-center space-y-4 px-4 py-8 text-center">
+      <footer className="mellow-footer">
         <svg
           width="93"
           height="25"

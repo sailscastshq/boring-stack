@@ -49,3 +49,47 @@ The contact form keeps only its message and topic in tab-scoped session storage 
 ## Source formatting
 
 The migration also reviewed formatting-only differences (quotes, semicolons, and Tailwind class ordering) introduced by the template formatters. `check` may report those items as locally modified; they do not change behavior. Registry dependency imports are relocated by the CLI when installed. The copied source is excluded from routine formatting to keep subsequent updates reviewable.
+
+## Visual design and customization
+
+Ascent uses cool neutral surfaces, teal actions, and restrained typography. Public pages use sections and rows; cards are reserved for meaningful groups such as plan selection and security actions. Account screens share the same light/dark treatment as menus and dialogs.
+
+The palette and application-owned recipes live in `assets/css/app.css`. Adjust the `@theme` values and `ascent-shell`, `ascent-primary`, `ascent-auth-panel`, `ascent-page-heading`, and `ascent-workspace-links` there. These are application classes, not a Klean theme or variant API. Keep primitive overrides at the call site with ordinary Tailwind classes so `tailwind-merge` can resolve them. No external font service is required.
+
+Navigation transitions respect `prefers-reduced-motion`. Keep visible focus, field/error associations, disabled states, and overlay focus return when restyling.
+
+The billing cycle is reflected in `?cycle=monthly|yearly` and survives refresh. The existing contact draft, sidebar preference, and login mode behavior remain intact. `views/app.ejs` applies the stored `darkModePreference` before CSS and hydration; no credentials or verification codes are stored. Mobile public navigation uses a native disclosure, while the authenticated shell retains its Klean Sheet.
+
+## Page inventory
+
+The shared recipes cover this complete shipped inventory:
+
+- `assets/js/pages/auth/check-email.jsx`
+- `assets/js/pages/auth/forgot-password.jsx`
+- `assets/js/pages/auth/login.jsx`
+- `assets/js/pages/auth/reset-password.jsx`
+- `assets/js/pages/auth/signup.jsx`
+- `assets/js/pages/auth/verify-2fa.jsx`
+- `assets/js/pages/billing/pricing.jsx`
+- `assets/js/pages/blog.jsx`
+- `assets/js/pages/contact.jsx`
+- `assets/js/pages/dashboard/index.jsx`
+- `assets/js/pages/error.jsx`
+- `assets/js/pages/features.jsx`
+- `assets/js/pages/index.jsx`
+- `assets/js/pages/settings/billing.jsx`
+- `assets/js/pages/settings/profile.jsx`
+- `assets/js/pages/settings/security.jsx`
+- `assets/js/pages/settings/team.jsx`
+- `assets/js/pages/team/create.jsx`
+- `assets/js/pages/team/invite.jsx`
+
+## Visual verification
+
+`tests/e2e/pages/design.test.js` checks public and account layouts at 390, 768, and 1440 pixels, plus recovery states. To save browser screenshots during the trial:
+
+```sh
+DESIGN_SCREENSHOTS=/tmp/template-previews node --test tests/e2e/pages/design.test.js
+```
+
+Run `npm run lint`, `npm test`, and a production smoke before shipping changes. The repository stores representative screenshots in `.github/previews/`; the generated application does not need those images at runtime.

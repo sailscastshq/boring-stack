@@ -6,15 +6,15 @@ export default function CheckEmail({ message }) {
   return (
     <>
       <Head title="Check your email | Mellow"></Head>
-      <section className="from-brand-50/10 flex min-h-screen flex-col justify-center bg-gradient-to-b to-[#F9FAFB] text-black sm:items-center">
-        <main className="mt-10 bg-white px-4 py-10 text-black sm:w-7/12 sm:rounded-lg sm:px-8 sm:shadow-lg md:w-6/12 lg:w-5/12 xl:w-4/12">
+      <section className="mellow-auth">
+        <main className="mellow-auth-main">
           <section className="mb-6 flex flex-col items-center justify-center space-y-4 text-center">
             <span className="flex h-[50px] w-[50px] items-center justify-center rounded-full bg-[#F4ECFF] text-[#6C25C1]">
               <Envelope className="h-[18px] w-[18px]" />
             </span>
 
             <h1 className="text-2xl">Check your email</h1>
-            {message && <p className="text-gray text-lg">{message}</p>}
+            {message && <p className="text-sm text-gray-600">{message}</p>}
             <button
               type="button"
               className="border-brand bg-brand disabled:text-gray w-full rounded-md border px-4 py-3 text-white disabled:bg-gray-200/40"

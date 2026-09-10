@@ -316,8 +316,10 @@ function getActionItems(member) {
     <section v-if="isOwnerOrAdmin" class="space-y-6">
       <header class="flex items-center justify-between">
         <div>
-          <h3 class="text-sm font-medium text-gray-900">Invite by link</h3>
-          <p class="mt-1 text-sm text-gray-500">
+          <h3 class="text-sm font-medium text-gray-900 dark:text-gray-100">
+            Invite by link
+          </h3>
+          <p class="mt-1 text-sm text-gray-500 dark:text-gray-400">
             Allow team members to invite others using a shareable link.
           </p>
         </div>
@@ -346,8 +348,8 @@ function getActionItems(member) {
               :title="copied ? 'Copied!' : 'Copy link'"
               :class="
                 copied
-                  ? 'text-success-600 hover:text-success-700'
-                  : 'text-gray-500 hover:text-gray-700'
+                  ? 'text-success-600 hover:text-success-700 dark:text-success-300'
+                  : 'text-gray-500 hover:text-gray-700 dark:text-gray-400'
               "
               ><component :is="copied ? Check : Copy" class="h-4 w-4"
             /></Button>
@@ -355,7 +357,7 @@ function getActionItems(member) {
           <button
             type="button"
             @click="resetInviteLink"
-            class="text-brand-600 cursor-pointer text-sm hover:underline"
+            class="text-brand-600 cursor-pointer text-sm hover:underline dark:text-brand-300"
           >
             Reset invite link
           </button>
@@ -364,10 +366,10 @@ function getActionItems(member) {
         <!-- Restrict by Domain -->
         <div class="space-y-3">
           <div>
-            <h4 class="text-sm font-medium text-gray-900">
+            <h4 class="text-sm font-medium text-gray-900 dark:text-gray-100">
               Restrict by domain
             </h4>
-            <p class="text-sm text-gray-500">
+            <p class="text-sm text-gray-500 dark:text-gray-400">
               Only allow users with emails at specific domains to join your team
               through the invite link.
             </p>
@@ -406,7 +408,9 @@ function getActionItems(member) {
             "
             class="mt-4"
           >
-            <h5 class="mb-2 text-xs font-medium text-gray-700">
+            <h5
+              class="mb-2 text-xs font-medium text-gray-700 dark:text-gray-300"
+            >
               Restricted Domains
             </h5>
             <div class="space-y-2">
@@ -417,15 +421,19 @@ function getActionItems(member) {
               >
                 <div class="flex items-center space-x-3">
                   <div
-                    class="flex h-8 w-8 items-center justify-center rounded-full text-blue-600"
+                    class="flex h-8 w-8 items-center justify-center rounded-full text-blue-600 dark:text-blue-300"
                   >
                     <Globe class="h-[1em] w-[1em] shrink-0" />
                   </div>
                   <div>
-                    <div class="text-sm font-medium text-gray-900">
+                    <div
+                      class="text-sm font-medium text-gray-900 dark:text-gray-100"
+                    >
                       {{ domain }}
                     </div>
-                    <div class="text-xs text-gray-500">Domain restriction</div>
+                    <div class="text-xs text-gray-500 dark:text-gray-400">
+                      Domain restriction
+                    </div>
                   </div>
                 </div>
                 <Button
@@ -435,7 +443,7 @@ function getActionItems(member) {
                       : 'Remove domain restriction'
                   "
                   :disabled="removingDomains.has(domain)"
-                  class="min-h-10 border border-transparent bg-transparent px-3 py-2 text-brand hover:bg-brand-50 dark:bg-transparent dark:text-brand-400 dark:hover:bg-brand-950 min-h-8 px-2.5 py-1.5 text-sm text-red-600 hover:bg-red-50 hover:text-red-700"
+                  class="min-h-10 border border-transparent bg-transparent px-3 py-2 text-brand hover:bg-brand-50 dark:bg-transparent dark:text-brand-400 dark:hover:bg-brand-950 min-h-8 px-2.5 py-1.5 text-sm text-red-600 hover:bg-red-50 hover:text-red-700 dark:text-red-300"
                   @click="handleRemoveDomain(domain)"
                   :title="
                     removingDomains.has(domain)
@@ -456,8 +464,10 @@ function getActionItems(member) {
     <!-- Invite by Email - Only for owners/admins -->
     <section v-if="isOwnerOrAdmin" class="space-y-6">
       <header>
-        <h3 class="text-sm font-medium text-gray-900">Invite by email</h3>
-        <p class="mt-1 text-sm text-gray-500">
+        <h3 class="text-sm font-medium text-gray-900 dark:text-gray-100">
+          Invite by email
+        </h3>
+        <p class="mt-1 text-sm text-gray-500 dark:text-gray-400">
           Email invitations are valid for 7 days.
         </p>
       </header>
@@ -501,8 +511,10 @@ function getActionItems(member) {
     <section class="space-y-6">
       <header class="flex items-center justify-between">
         <div>
-          <h3 class="text-sm font-medium text-gray-900">Team Members</h3>
-          <p class="mt-1 text-sm text-gray-500">
+          <h3 class="text-sm font-medium text-gray-900 dark:text-gray-100">
+            Team Members
+          </h3>
+          <p class="mt-1 text-sm text-gray-500 dark:text-gray-400">
             {{ teamMembers.length }}
             {{ teamMembers.length === 1 ? 'member' : 'members' }}
           </p>
@@ -526,17 +538,19 @@ function getActionItems(member) {
             <Avatar :image="member.avatar" size="normal" shape="circle" />
             <div class="min-w-0 flex-1">
               <div class="flex items-center space-x-2">
-                <span class="truncate text-sm font-medium text-gray-900">
+                <span
+                  class="truncate text-sm font-medium text-gray-900 dark:text-gray-100"
+                >
                   {{ member.name }}
                 </span>
                 <span
                   v-if="member.id === loggedInUser.id"
-                  class="shrink-0 text-xs text-gray-500"
+                  class="shrink-0 text-xs text-gray-500 dark:text-gray-400"
                 >
                   (you)
                 </span>
               </div>
-              <div class="truncate text-sm text-gray-500">
+              <div class="truncate text-sm text-gray-500 dark:text-gray-400">
                 {{ member.email }}
               </div>
             </div>
@@ -548,10 +562,10 @@ function getActionItems(member) {
               :class="[
                 'inline-flex items-center rounded-full px-2 py-0.5 text-xs font-medium',
                 member.role.toLowerCase() === 'owner'
-                  ? 'bg-green-100 text-green-800'
+                  ? 'bg-green-100 text-green-800 dark:bg-green-950/40 dark:text-green-300'
                   : member.role.toLowerCase() === 'admin'
-                    ? 'bg-blue-100 text-blue-800'
-                    : 'bg-gray-100 text-gray-700'
+                    ? 'bg-blue-100 text-blue-800 dark:bg-blue-950/40 dark:text-blue-300'
+                    : 'bg-gray-100 text-gray-700 dark:bg-gray-800 dark:text-gray-300'
               ]"
             >
               {{ member.role }}
@@ -601,8 +615,10 @@ function getActionItems(member) {
       class="space-y-6"
     >
       <header>
-        <h3 class="text-sm font-medium text-gray-900">Pending Invitations</h3>
-        <p class="mt-1 text-sm text-gray-500">
+        <h3 class="text-sm font-medium text-gray-900 dark:text-gray-100">
+          Pending Invitations
+        </h3>
+        <p class="mt-1 text-sm text-gray-500 dark:text-gray-400">
           {{ pendingInvites.length }}
           {{ pendingInvites.length === 1 ? 'invitation' : 'invitations' }}
           waiting for response
@@ -617,23 +633,25 @@ function getActionItems(member) {
         >
           <div class="flex items-center space-x-3">
             <div
-              class="flex h-8 w-8 items-center justify-center rounded-full bg-blue-100 text-blue-600"
+              class="flex h-8 w-8 items-center justify-center rounded-full bg-blue-100 text-blue-600 dark:bg-blue-950/40 dark:text-blue-300"
             >
               <Envelope class="h-[1em] w-[1em] shrink-0 text-sm" />
             </div>
             <div class="min-w-0 flex-1">
               <div class="flex items-center space-x-2">
-                <span class="truncate text-sm font-medium text-gray-900">
+                <span
+                  class="truncate text-sm font-medium text-gray-900 dark:text-gray-100"
+                >
                   {{ invite.email }}
                 </span>
                 <span
                   v-if="invite.expiresAt - Date.now() < 24 * 60 * 60 * 1000"
-                  class="rounded-full bg-orange-100 px-2 py-0.5 text-xs text-orange-800"
+                  class="rounded-full bg-orange-100 px-2 py-0.5 text-xs text-orange-800 dark:bg-orange-950/40 dark:text-orange-300"
                 >
                   Expires soon
                 </span>
               </div>
-              <div class="text-sm text-gray-500">
+              <div class="text-sm text-gray-500 dark:text-gray-400">
                 Invited by
                 {{
                   invite.invitedBy?.fullName ||
@@ -653,7 +671,7 @@ function getActionItems(member) {
                 inviteActions.has(`resend-${invite.id}`)
               "
               :aria-busy="inviteActions.has(`resend-${invite.id}`)"
-              class="min-h-10 border border-transparent bg-transparent px-3 py-2 text-brand hover:bg-brand-50 dark:bg-transparent dark:text-brand-400 dark:hover:bg-brand-950 min-h-8 px-2.5 py-1.5 text-sm text-blue-600 hover:text-blue-700"
+              class="min-h-10 border border-transparent bg-transparent px-3 py-2 text-brand hover:bg-brand-50 dark:bg-transparent dark:text-brand-400 dark:hover:bg-brand-950 min-h-8 px-2.5 py-1.5 text-sm text-blue-600 hover:text-blue-700 dark:text-blue-300"
               @click="
                 () => {
                   inviteActions.add(`resend-${invite.id}`)
@@ -681,7 +699,7 @@ function getActionItems(member) {
                 inviteActions.has(`cancel-${invite.id}`)
               "
               :aria-busy="inviteActions.has(`cancel-${invite.id}`)"
-              class="min-h-10 border border-transparent bg-transparent px-3 py-2 text-brand hover:bg-brand-50 dark:bg-transparent dark:text-brand-400 dark:hover:bg-brand-950 min-h-8 px-2.5 py-1.5 text-sm text-red-600 hover:text-red-700"
+              class="min-h-10 border border-transparent bg-transparent px-3 py-2 text-brand hover:bg-brand-50 dark:bg-transparent dark:text-brand-400 dark:hover:bg-brand-950 min-h-8 px-2.5 py-1.5 text-sm text-red-600 hover:text-red-700 dark:text-red-300"
               @click="
                 () => {
                   confirmation.request({
@@ -717,8 +735,10 @@ function getActionItems(member) {
     <!-- Team Settings - Only for owners - At bottom for dangerous actions -->
     <section v-if="isOwner" class="space-y-6">
       <header>
-        <h3 class="text-sm font-medium text-gray-900">Team Settings</h3>
-        <p class="mt-1 text-sm text-gray-500">
+        <h3 class="text-sm font-medium text-gray-900 dark:text-gray-100">
+          Team Settings
+        </h3>
+        <p class="mt-1 text-sm text-gray-500 dark:text-gray-400">
           Manage your team's basic information and advanced settings.
         </p>
       </header>
@@ -728,7 +748,9 @@ function getActionItems(member) {
         <form @submit="handleUpdateTeam" class="space-y-4">
           <!-- Team Logo -->
           <div>
-            <label class="mb-2 block text-sm font-medium text-gray-700">
+            <label
+              class="mb-2 block text-sm font-medium text-gray-700 dark:text-gray-300"
+            >
               Logo
             </label>
             <ImageUpload
@@ -748,7 +770,7 @@ function getActionItems(member) {
           <div>
             <label
               for="teamName"
-              class="block text-sm font-medium text-gray-700"
+              class="block text-sm font-medium text-gray-700 dark:text-gray-300"
             >
               Team name
             </label>
@@ -785,14 +807,16 @@ function getActionItems(member) {
         </form>
 
         <!-- Danger Zone -->
-        <div class="space-y-4 rounded-lg border border-red-200 bg-red-50 p-4">
+        <div
+          class="space-y-4 rounded-lg border border-red-200 bg-red-50 p-4 dark:bg-red-950/40 dark:border-red-900"
+        >
           <!-- Transfer Ownership -->
           <div class="flex items-center justify-between">
             <div>
-              <h4 class="text-sm font-medium text-red-900">
+              <h4 class="text-sm font-medium text-red-900 dark:text-red-300">
                 Transfer Ownership
               </h4>
-              <p class="mt-1 text-sm text-red-600">
+              <p class="mt-1 text-sm text-red-600 dark:text-red-300">
                 Transfer team ownership to another team member. You will become
                 an admin.
               </p>
@@ -806,11 +830,13 @@ function getActionItems(member) {
 
           <!-- Delete Team -->
           <div
-            class="flex items-center justify-between border-t border-red-200 pt-4"
+            class="flex items-center justify-between border-t border-red-200 pt-4 dark:border-red-900"
           >
             <div>
-              <h4 class="text-sm font-medium text-red-900">Delete Team</h4>
-              <p class="mt-1 text-sm text-red-600">
+              <h4 class="text-sm font-medium text-red-900 dark:text-red-300">
+                Delete Team
+              </h4>
+              <p class="mt-1 text-sm text-red-600 dark:text-red-300">
                 Permanently delete this team and all its data. This action
                 cannot be undone.
               </p>
@@ -842,7 +868,7 @@ function getActionItems(member) {
       <div>
         <label
           for="newOwnerEmail"
-          class="mb-2 block text-sm font-medium text-gray-700"
+          class="mb-2 block text-sm font-medium text-gray-700 dark:text-gray-300"
         >
           New Owner Email
         </label>
@@ -865,7 +891,7 @@ function getActionItems(member) {
       <div>
         <label
           for="confirmationText"
-          class="mb-2 block text-sm font-medium text-gray-700"
+          class="mb-2 block text-sm font-medium text-gray-700 dark:text-gray-300"
         >
           Type <strong>transfer {{ team?.name }}</strong> to confirm the
           transfer:
@@ -886,16 +912,18 @@ function getActionItems(member) {
         </Message>
       </div>
 
-      <div class="rounded-lg border border-red-200 bg-red-50 p-4">
+      <div
+        class="rounded-lg border border-red-200 bg-red-50 p-4 dark:bg-red-950/40 dark:border-red-900"
+      >
         <div class="flex">
           <div class="shrink-0">
             <WarningTriangle class="h-[1em] w-[1em] shrink-0 text-red-400" />
           </div>
           <div class="ml-3">
-            <h3 class="text-sm font-medium text-red-800">
+            <h3 class="text-sm font-medium text-red-800 dark:text-red-300">
               Warning: This action cannot be undone
             </h3>
-            <p class="mt-2 text-sm text-red-700">
+            <p class="mt-2 text-sm text-red-700 dark:text-red-300">
               You will transfer full ownership to the selected team member and
               become an admin. They will be able to manage all team settings,
               including transferring ownership again or deleting the team.

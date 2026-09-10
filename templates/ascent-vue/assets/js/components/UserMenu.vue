@@ -28,12 +28,18 @@ const teams = computed(() => page.props.teams || [])
         >
         <div class="min-w-0">
           <p class="truncate text-sm font-semibold">{{ user?.fullName }}</p>
-          <p class="truncate text-xs text-gray-500">{{ user?.email }}</p>
+          <p class="truncate text-xs text-gray-500 dark:text-gray-400">
+            {{ user?.email }}
+          </p>
         </div>
       </div>
     </div>
     <template v-if="teams.length">
-      <p class="px-3 py-2 text-xs font-bold uppercase text-gray-500">Teams</p>
+      <p
+        class="px-3 py-2 text-xs font-bold uppercase text-gray-500 dark:text-gray-400"
+      >
+        Teams
+      </p>
       <button
         v-for="team in teams"
         :key="team.id"

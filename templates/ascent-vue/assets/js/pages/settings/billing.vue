@@ -62,17 +62,17 @@ const formattedNextBillingDate = computed(() => {
   <div v-if="!isSubscribed" class="mx-auto max-w-2xl py-16 text-center">
     <header class="mb-8">
       <div
-        class="mx-auto mb-6 flex h-20 w-20 items-center justify-center rounded-full bg-gray-100"
+        class="mx-auto mb-6 flex h-20 w-20 items-center justify-center rounded-full bg-gray-100 dark:bg-gray-800"
       >
         <CreditCard
           class="h-[1em] w-[1em] shrink-0 text-3xl text-gray-400"
           aria-hidden="true"
         />
       </div>
-      <h2 class="mb-3 text-2xl font-semibold text-gray-900">
+      <h2 class="mb-3 text-2xl font-semibold text-gray-900 dark:text-gray-100">
         No Active Subscription
       </h2>
-      <p class="text-gray-600">
+      <p class="text-gray-600 dark:text-gray-400">
         Upgrade to unlock premium features and grow your business.
       </p>
     </header>
@@ -91,39 +91,45 @@ const formattedNextBillingDate = computed(() => {
     <!-- Current Plan -->
     <section class="space-y-6">
       <header>
-        <h3 class="text-sm font-medium text-gray-900">Current Plan</h3>
-        <p class="mt-1 text-sm text-gray-500">
+        <h3 class="text-sm font-medium text-gray-900 dark:text-gray-100">
+          Current Plan
+        </h3>
+        <p class="mt-1 text-sm text-gray-500 dark:text-gray-400">
           Manage your subscription and billing preferences.
         </p>
       </header>
 
-      <div class="rounded-lg border border-gray-300 bg-white p-6 shadow-sm">
+      <div
+        class="rounded-lg border border-gray-300 bg-white p-6 shadow-sm dark:border-gray-700 dark:bg-gray-900"
+      >
         <div
           class="flex flex-col space-y-4 sm:flex-row sm:items-center sm:justify-between sm:space-y-0"
         >
           <div class="flex items-center space-x-4">
             <div
-              class="bg-brand-50 flex h-12 w-12 items-center justify-center rounded-lg"
+              class="bg-brand-50 flex h-12 w-12 items-center justify-center rounded-lg dark:bg-brand-950/40"
             >
-              <CheckCircle class="h-4 w-4 text-brand-600" />
+              <CheckCircle class="h-4 w-4 text-brand-600 dark:text-brand-300" />
             </div>
             <div>
               <div class="flex items-center space-x-3">
-                <h4 class="text-lg font-semibold text-gray-900">
+                <h4
+                  class="text-lg font-semibold text-gray-900 dark:text-gray-100"
+                >
                   {{ capitalizedPlanName }} Plan
                 </h4>
                 <span
                   :class="[
                     'inline-flex items-center rounded-full px-2 py-0.5 text-xs font-medium',
                     subscription.status === 'active'
-                      ? 'bg-green-100 text-green-800'
-                      : 'bg-red-100 text-red-800'
+                      ? 'bg-green-100 text-green-800 dark:bg-green-950/40 dark:text-green-300'
+                      : 'bg-red-100 text-red-800 dark:bg-red-950/40 dark:text-red-300'
                   ]"
                 >
                   {{ subscription.status.toUpperCase() }}
                 </span>
               </div>
-              <p class="text-sm text-gray-500">
+              <p class="text-sm text-gray-500 dark:text-gray-400">
                 ${{ planPrice }}/{{ subscription.billingCycle }} • Next billing:
                 {{ formattedNextBillingDate }}
               </p>
@@ -150,33 +156,39 @@ const formattedNextBillingDate = computed(() => {
       class="space-y-6"
     >
       <header>
-        <h3 class="text-sm font-medium text-gray-900">Payment Method</h3>
-        <p class="mt-1 text-sm text-gray-500">
+        <h3 class="text-sm font-medium text-gray-900 dark:text-gray-100">
+          Payment Method
+        </h3>
+        <p class="mt-1 text-sm text-gray-500 dark:text-gray-400">
           Your current payment method for this subscription.
         </p>
       </header>
 
-      <div class="rounded-lg border border-gray-300 bg-white p-4 shadow-sm">
+      <div
+        class="rounded-lg border border-gray-300 bg-white p-4 shadow-sm dark:border-gray-700 dark:bg-gray-900"
+      >
         <div class="flex items-center justify-between">
           <div class="flex items-center space-x-3">
             <div
-              class="flex h-10 w-10 items-center justify-center rounded-lg bg-gray-50"
+              class="flex h-10 w-10 items-center justify-center rounded-lg bg-gray-50 dark:bg-gray-950"
             >
               <CreditCard class="h-[1em] w-[1em] shrink-0 text-gray-400" />
             </div>
             <div>
               <div class="flex items-center space-x-2">
-                <span class="text-sm font-medium text-gray-900 capitalize">
+                <span
+                  class="text-sm font-medium text-gray-900 capitalize dark:text-gray-100"
+                >
                   {{ subscription.cardBrand }} ••••
                   {{ subscription.cardLastFour }}
                 </span>
                 <span
-                  class="inline-flex items-center rounded-full bg-green-100 px-2 py-0.5 text-xs font-medium text-green-800"
+                  class="inline-flex items-center rounded-full bg-green-100 px-2 py-0.5 text-xs font-medium text-green-800 dark:bg-green-950/40 dark:text-green-300"
                 >
                   ACTIVE
                 </span>
               </div>
-              <p class="text-sm text-gray-500">
+              <p class="text-sm text-gray-500 dark:text-gray-400">
                 Processed by {{ subscription.paymentProcessor }}
               </p>
             </div>
@@ -185,7 +197,7 @@ const formattedNextBillingDate = computed(() => {
             v-if="subscription.updatePaymentMethodUrl"
             :href="subscription.updatePaymentMethodUrl"
             target="_blank"
-            class="inline-flex items-center rounded-lg border border-gray-300 px-3 py-2 text-sm font-medium text-gray-700 no-underline transition-colors duration-200 hover:bg-gray-50"
+            class="inline-flex items-center rounded-lg border border-gray-300 px-3 py-2 text-sm font-medium text-gray-700 no-underline transition-colors duration-200 hover:bg-gray-50 dark:border-gray-700 dark:text-gray-300 dark:hover:bg-gray-800"
           >
             <ExternalLink class="h-[1em] w-[1em] shrink-0 mr-2" />
             Update
@@ -197,28 +209,32 @@ const formattedNextBillingDate = computed(() => {
     <!-- Billing Management -->
     <section class="space-y-6">
       <header>
-        <h3 class="text-sm font-medium text-gray-900">
+        <h3 class="text-sm font-medium text-gray-900 dark:text-gray-100">
           Full Billing Management
         </h3>
-        <p class="mt-1 text-sm text-gray-500">
+        <p class="mt-1 text-sm text-gray-500 dark:text-gray-400">
           Access your complete billing history, invoices, and subscription
           settings.
         </p>
       </header>
 
-      <div class="rounded-lg border border-gray-300 bg-white p-6 shadow-sm">
+      <div
+        class="rounded-lg border border-gray-300 bg-white p-6 shadow-sm dark:border-gray-700 dark:bg-gray-900"
+      >
         <div class="text-center">
           <div class="mb-4">
             <div
-              class="bg-brand-50 mx-auto flex h-12 w-12 items-center justify-center rounded-lg"
+              class="bg-brand-50 mx-auto flex h-12 w-12 items-center justify-center rounded-lg dark:bg-brand-950/40"
             >
-              <DocumentText class="h-[1em] w-[1em] shrink-0 text-brand-600" />
+              <DocumentText
+                class="h-[1em] w-[1em] shrink-0 text-brand-600 dark:text-brand-300"
+              />
             </div>
           </div>
-          <h4 class="mb-2 text-lg font-medium text-gray-900">
+          <h4 class="mb-2 text-lg font-medium text-gray-900 dark:text-gray-100">
             Customer Portal
           </h4>
-          <p class="mb-4 text-sm text-gray-500">
+          <p class="mb-4 text-sm text-gray-500 dark:text-gray-400">
             View invoices, download receipts, update payment methods, and manage
             your subscription.
           </p>

@@ -10,6 +10,6 @@ module.exports = {
   },
 
   fn: async function () {
-    return { page: 'link-expired' }
+    return { page: 'auth/link-expired' }
   }
 }

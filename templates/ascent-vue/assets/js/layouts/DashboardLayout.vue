@@ -109,7 +109,7 @@ const isActiveRoute = (href) => {
 </script>
 
 <template>
-  <div class="flex min-h-screen bg-white">
+  <div class="flex min-h-screen bg-white dark:bg-gray-900">
     <!-- Sidebar -->
     <component
       :is="isDesktop ? 'aside' : Sheet"
@@ -118,7 +118,7 @@ const isActiveRoute = (href) => {
       "
       @update:open="isMobileOpen = $event"
       :class="[
-        'fixed inset-y-0 left-0 right-auto m-0 z-50 flex-col border-r border-gray-200 bg-white p-0 transition-all duration-300 ease-in-out motion-reduce:transition-none',
+        'fixed inset-y-0 left-0 right-auto m-0 z-50 flex-col border-r border-gray-200 bg-white p-0 transition-all duration-300 ease-in-out motion-reduce:transition-none dark:border-gray-700 dark:bg-gray-900',
         isCollapsed ? 'lg:w-16' : 'lg:w-64',
         isDesktop
           ? 'flex translate-x-0'
@@ -129,17 +129,21 @@ const isActiveRoute = (href) => {
       <div class="flex h-16 items-center justify-between px-4">
         <template v-if="!isCollapsed || isMobileOpen">
           <Link href="/" class="group">
-            <img
-              src="/images/logo.svg"
-              alt="Ascent Logo"
-              class="h-8 w-auto transition-transform group-hover:scale-105"
-            />
+            <span
+              class="inline-flex items-center gap-1 text-2xl font-semibold tracking-tight text-gray-900 dark:text-gray-100"
+              aria-label="Ascent"
+              >Ascent<span
+                class="text-brand-600 dark:text-brand-300"
+                aria-hidden="true"
+                >↗</span
+              ></span
+            >
           </Link>
 
           <!-- Desktop collapse button -->
           <button
             @click="toggleSidebar"
-            class="hidden rounded-md p-1.5 text-gray-400 transition-colors hover:bg-gray-50 hover:text-gray-600 lg:block"
+            class="hidden rounded-md p-1.5 text-gray-400 transition-colors hover:bg-gray-50 hover:text-gray-600 lg:block dark:hover:bg-gray-800"
             title="Collapse sidebar"
           >
             <SidebarClose width="16" height="16" />
@@ -148,7 +152,7 @@ const isActiveRoute = (href) => {
           <!-- Mobile close button -->
           <button
             @click="toggleMobileMenu"
-            class="rounded-md p-1.5 text-gray-400 transition-colors hover:bg-gray-50 hover:text-gray-600 lg:hidden"
+            class="rounded-md p-1.5 text-gray-400 transition-colors hover:bg-gray-50 hover:text-gray-600 lg:hidden dark:hover:bg-gray-800"
             title="Close sidebar"
           >
             <X width="16" height="16" />
@@ -174,7 +178,7 @@ const isActiveRoute = (href) => {
               class="px-3 pb-2"
             >
               <h3
-                class="text-xs font-semibold tracking-wider text-gray-500 uppercase"
+                class="text-xs font-semibold tracking-wider text-gray-500 uppercase dark:text-gray-400"
               >
                 {{ section.label }}
               </h3>
@@ -194,8 +198,8 @@ const isActiveRoute = (href) => {
                   :class="[
                     'group flex items-center rounded-lg px-3 py-2.5 text-sm font-medium transition-colors',
                     isActiveRoute(item.href)
-                      ? 'bg-brand-50 text-brand-700'
-                      : 'text-gray-600 hover:bg-gray-50 hover:text-gray-900'
+                      ? 'bg-brand-50 text-brand-700 dark:text-brand-300 dark:bg-brand-950/40'
+                      : 'text-gray-600 hover:bg-gray-50 hover:text-gray-900 dark:text-gray-400 dark:hover:bg-gray-800'
                   ]"
                   @click="isMobileOpen && toggleMobileMenu()"
                 >
@@ -225,7 +229,7 @@ const isActiveRoute = (href) => {
         <template v-if="!isCollapsed || isMobileOpen">
           <button
             type="button"
-            class="flex cursor-pointer items-center rounded-lg p-3 transition-colors hover:bg-gray-50"
+            class="flex cursor-pointer items-center rounded-lg p-3 transition-colors hover:bg-gray-50 dark:hover:bg-gray-800"
             popovertarget="sidebar-user-menu"
             aria-haspopup="true"
             aria-label="Account menu"
@@ -244,10 +248,12 @@ const isActiveRoute = (href) => {
               }"
             />
             <div class="ml-3 min-w-0 flex-1">
-              <p class="truncate text-sm font-medium text-gray-900">
+              <p
+                class="truncate text-sm font-medium text-gray-900 dark:text-gray-100"
+              >
                 {{ loggedInUser?.fullName }}
               </p>
-              <p class="truncate text-xs text-gray-500">
+              <p class="truncate text-xs text-gray-500 dark:text-gray-400">
                 {{ loggedInUser?.email }}
               </p>
             </div>
@@ -294,7 +300,9 @@ const isActiveRoute = (href) => {
       ]"
     >
       <!-- Navbar -->
-      <header class="sticky top-0 z-30 border-b border-gray-200 bg-white">
+      <header
+        class="sticky top-0 z-30 border-b border-gray-200 bg-white dark:border-gray-700 dark:bg-gray-900"
+      >
         <div
           class="flex h-16 items-center justify-between px-4 sm:px-6 lg:px-8"
         >
@@ -302,7 +310,7 @@ const isActiveRoute = (href) => {
             <!-- Mobile menu button -->
             <button
               @click="toggleMobileMenu"
-              class="rounded-md p-1.5 text-gray-500 transition-colors hover:bg-gray-200 hover:text-gray-700 lg:hidden"
+              class="rounded-md p-1.5 text-gray-500 transition-colors hover:bg-gray-200 hover:text-gray-700 lg:hidden dark:text-gray-400"
               title="Open sidebar"
             >
               <SidebarOpen width="16" height="16" />
@@ -312,20 +320,22 @@ const isActiveRoute = (href) => {
             <button
               v-if="isCollapsed"
               @click="toggleSidebar"
-              class="hidden rounded-md p-1.5 text-gray-500 transition-colors hover:bg-gray-50 hover:text-gray-700 lg:block"
+              class="hidden rounded-md p-1.5 text-gray-500 transition-colors hover:bg-gray-50 hover:text-gray-700 lg:block dark:text-gray-400 dark:hover:bg-gray-800"
               title="Expand sidebar"
             >
               <SidebarOpen width="16" height="16" />
             </button>
 
-            <h1 class="text-lg font-medium text-gray-700">{{ title }}</h1>
+            <h1 class="text-lg font-medium text-gray-700 dark:text-gray-300">
+              {{ title }}
+            </h1>
           </div>
 
           <div class="flex items-center gap-3">
             <SecondaryButton
               aria-label="Search"
               :text="true"
-              class="border-transparent bg-transparent text-gray-500 dark:bg-transparent dark:text-gray-400 min-h-10 border border-gray-300 bg-white px-3 py-2 text-base text-gray-700 hover:bg-gray-100 dark:border-gray-600 dark:bg-gray-900 dark:text-white dark:hover:bg-gray-800 min-h-8 px-2.5 py-1.5 text-sm text-gray-500 hover:text-gray-700"
+              class="border-transparent bg-transparent text-gray-500 dark:bg-transparent dark:text-gray-400 min-h-10 border border-gray-300 bg-white px-3 py-2 text-base text-gray-700 hover:bg-gray-100 dark:border-gray-600 dark:bg-gray-900 dark:text-white dark:hover:bg-gray-800 min-h-8 px-2.5 py-1.5 text-sm hover:text-gray-700"
               ><Search class="h-4 w-4"
             /></SecondaryButton>
             <SecondaryButton

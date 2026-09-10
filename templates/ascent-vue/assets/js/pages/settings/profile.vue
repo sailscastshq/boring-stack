@@ -96,20 +96,22 @@ function signOutEverywhere() {
         shape="circle"
       />
       <div>
-        <h2 class="text-lg font-medium text-gray-900">
+        <h2 class="text-lg font-medium text-gray-900 dark:text-gray-100">
           {{ loggedInUser.fullName }}
         </h2>
-        <p class="text-sm text-gray-500">{{ loggedInUser.email }}</p>
+        <p class="text-sm text-gray-500 dark:text-gray-400">
+          {{ loggedInUser.email }}
+        </p>
       </div>
     </header>
 
     <!-- Profile Information -->
     <section class="space-y-6">
       <div>
-        <h3 class="mb-4 text-sm font-medium text-gray-900">
+        <h3 class="mb-4 text-sm font-medium text-gray-900 dark:text-gray-100">
           Profile Information
         </h3>
-        <p class="mb-6 text-sm text-gray-500">
+        <p class="mb-6 text-sm text-gray-500 dark:text-gray-400">
           Update your personal details and contact information.
         </p>
       </div>
@@ -117,7 +119,9 @@ function signOutEverywhere() {
       <form @submit="updateProfile" class="space-y-4">
         <!-- Avatar Upload -->
         <div>
-          <label class="mb-2 block text-sm font-medium text-gray-700">
+          <label
+            class="mb-2 block text-sm font-medium text-gray-700 dark:text-gray-300"
+          >
             Avatar
           </label>
           <ImageUpload
@@ -135,7 +139,10 @@ function signOutEverywhere() {
 
         <div class="grid grid-cols-1 gap-4 sm:grid-cols-2">
           <div>
-            <label for="fullName" class="mb-1 block text-sm text-gray-700">
+            <label
+              for="fullName"
+              class="mb-1 block text-sm text-gray-700 dark:text-gray-300"
+            >
               Full Name
             </label>
             <InputText
@@ -146,7 +153,10 @@ function signOutEverywhere() {
           </div>
 
           <div>
-            <label for="email" class="mb-1 block text-sm text-gray-700">
+            <label
+              for="email"
+              class="mb-1 block text-sm text-gray-700 dark:text-gray-300"
+            >
               Email Address
             </label>
             <InputText
@@ -158,7 +168,10 @@ function signOutEverywhere() {
           </div>
         </div>
         <div class="flex items-center justify-end space-x-3">
-          <span v-if="form.recentlySuccessful" class="text-sm text-green-600">
+          <span
+            v-if="form.recentlySuccessful"
+            class="text-sm text-green-600 dark:text-green-300"
+          >
             Saved
           </span>
           <Button
@@ -177,8 +190,10 @@ function signOutEverywhere() {
     <!-- Account Actions -->
     <section class="space-y-6">
       <div>
-        <h3 class="mb-4 text-sm font-medium text-gray-900">Account Actions</h3>
-        <p class="mb-6 text-sm text-gray-500">
+        <h3 class="mb-4 text-sm font-medium text-gray-900 dark:text-gray-100">
+          Account Actions
+        </h3>
+        <p class="mb-6 text-sm text-gray-500 dark:text-gray-400">
           Manage your account security and data.
         </p>
       </div>
@@ -186,22 +201,26 @@ function signOutEverywhere() {
       <div class="space-y-4">
         <!-- Sign out everywhere card -->
         <div
-          class="rounded-lg border border-orange-200 bg-orange-50 p-4 shadow-sm sm:p-6"
+          class="rounded-lg border border-orange-200 bg-orange-50 p-4 shadow-sm sm:p-6 dark:bg-orange-950/40 dark:border-orange-900"
         >
           <div
             class="flex flex-col space-y-4 sm:flex-row sm:items-start sm:justify-between sm:space-y-0"
           >
             <div class="flex items-start space-x-3">
               <div
-                class="flex h-10 w-10 shrink-0 items-center justify-center rounded-lg bg-orange-50"
+                class="flex h-10 w-10 shrink-0 items-center justify-center rounded-lg bg-orange-50 dark:bg-orange-950/40"
               >
-                <SignOut class="h-[1em] w-[1em] shrink-0 text-orange-600" />
+                <SignOut
+                  class="h-[1em] w-[1em] shrink-0 text-orange-600 dark:text-orange-300"
+                />
               </div>
               <div class="min-w-0 flex-1">
-                <h4 class="text-sm font-medium text-orange-900">
+                <h4
+                  class="text-sm font-medium text-orange-900 dark:text-orange-300"
+                >
                   Sign out everywhere
                 </h4>
-                <p class="mt-1 text-sm text-orange-700">
+                <p class="mt-1 text-sm text-orange-700 dark:text-orange-300">
                   Sign out from all devices and browser sessions for enhanced
                   security.
                 </p>
@@ -219,20 +238,24 @@ function signOutEverywhere() {
 
         <!-- Delete account card -->
         <div
-          class="rounded-lg border border-red-200 bg-red-50 p-4 shadow-sm sm:p-6"
+          class="rounded-lg border border-red-200 bg-red-50 p-4 shadow-sm sm:p-6 dark:bg-red-950/40 dark:border-red-900"
         >
           <div
             class="flex flex-col space-y-4 sm:flex-row sm:items-start sm:justify-between sm:space-y-0"
           >
             <div class="flex items-start space-x-3">
               <div
-                class="flex h-10 w-10 shrink-0 items-center justify-center rounded-lg bg-red-100"
+                class="flex h-10 w-10 shrink-0 items-center justify-center rounded-lg bg-red-100 dark:bg-red-950/40"
               >
-                <Trash class="h-[1em] w-[1em] shrink-0 text-red-600" />
+                <Trash
+                  class="h-[1em] w-[1em] shrink-0 text-red-600 dark:text-red-300"
+                />
               </div>
               <div class="min-w-0 flex-1">
-                <h4 class="text-sm font-medium text-red-900">Delete account</h4>
-                <p class="mt-1 text-sm text-red-700">
+                <h4 class="text-sm font-medium text-red-900 dark:text-red-300">
+                  Delete account
+                </h4>
+                <p class="mt-1 text-sm text-red-700 dark:text-red-300">
                   Permanently delete your account and all associated data. This
                   action cannot be undone.
                 </p>

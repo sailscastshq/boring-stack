@@ -66,7 +66,7 @@ export default function DashboardLayout({
   const active = (href) =>
     href === '/dashboard' ? url === href : url.startsWith(href)
   return (
-    <div className="flex min-h-screen bg-white">
+    <div className="flex min-h-screen bg-white dark:bg-gray-900">
       <Sidebar
         {...(isDesktop
           ? {}
@@ -75,7 +75,7 @@ export default function DashboardLayout({
               onOpenChange: setIsMobileOpen,
               'aria-label': 'Main navigation'
             })}
-        className={`fixed inset-y-0 left-0 right-auto z-50 m-0 flex-col border-r border-gray-100 bg-white p-0 transition-all duration-300 ease-in-out motion-reduce:transition-none ${
+        className={`fixed inset-y-0 left-0 right-auto z-50 m-0 flex-col border-r border-gray-100 bg-white p-0 transition-all duration-300 ease-in-out motion-reduce:transition-none dark:border-gray-700 dark:bg-gray-900 ${
           isCollapsed ? 'lg:w-16' : 'lg:w-64'
         } ${
           isDesktop
@@ -87,11 +87,18 @@ export default function DashboardLayout({
           {!isCollapsed || isMobileOpen ? (
             <>
               <Link href="/" className="group">
-                <img
-                  src="/images/logo.svg"
-                  alt="Ascent Logo"
-                  className="h-8 w-auto transition-transform group-hover:scale-105"
-                />
+                <span
+                  className="inline-flex items-center gap-1 text-2xl font-semibold tracking-tight text-gray-900 dark:text-gray-100"
+                  aria-label="Ascent"
+                >
+                  Ascent
+                  <span
+                    className="text-brand-600 dark:text-brand-300"
+                    aria-hidden="true"
+                  >
+                    ↗
+                  </span>
+                </span>
               </Link>
               <Button
                 aria-label="Collapse sidebar"
@@ -110,11 +117,18 @@ export default function DashboardLayout({
             </>
           ) : (
             <Link href="/" className="mx-auto">
-              <img
-                src="/images/logo.svg"
-                alt="Ascent Logo"
-                className="h-8 w-8 object-contain"
-              />
+              <span
+                className="inline-flex items-center gap-1 text-2xl font-semibold tracking-tight text-gray-900 dark:text-gray-100"
+                aria-label="Ascent"
+              >
+                Ascent
+                <span
+                  className="text-brand-600 dark:text-brand-300"
+                  aria-hidden="true"
+                >
+                  ↗
+                </span>
+              </span>
             </Link>
           )}
         </div>
@@ -126,7 +140,7 @@ export default function DashboardLayout({
             {navigation.map((section, index) => (
               <div key={index}>
                 {section.label && (!isCollapsed || isMobileOpen) && (
-                  <h3 className="px-3 pb-2 text-xs font-semibold uppercase tracking-wider text-gray-500">
+                  <h3 className="px-3 pb-2 text-xs font-semibold uppercase tracking-wider text-gray-500 dark:text-gray-400">
                     {section.label}
                   </h3>
                 )}
@@ -140,8 +154,8 @@ export default function DashboardLayout({
                       title={isCollapsed ? item.name : undefined}
                       className={`group flex items-center rounded-lg px-3 py-2.5 text-sm font-medium transition-colors ${
                         active(item.href)
-                          ? 'bg-brand-50 text-brand-700'
-                          : 'text-gray-600 hover:bg-gray-50 hover:text-gray-900'
+                          ? 'bg-brand-50 text-brand-700 dark:bg-brand-950/40 dark:text-brand-300'
+                          : 'text-gray-600 hover:bg-gray-50 hover:text-gray-900 dark:text-gray-400 dark:hover:bg-gray-800'
                       }`}
                     >
                       <item.icon
@@ -166,7 +180,7 @@ export default function DashboardLayout({
             type="button"
             popoverTarget="sidebar-user-menu"
             aria-label="Account menu"
-            className={`flex w-full items-center rounded-lg p-3 text-left transition-colors hover:bg-gray-50 ${
+            className={`flex w-full items-center rounded-lg p-3 text-left transition-colors hover:bg-gray-50 dark:hover:bg-gray-800 ${
               isCollapsed && !isMobileOpen ? 'justify-center px-0' : ''
             }`}
           >
@@ -180,10 +194,10 @@ export default function DashboardLayout({
             {(!isCollapsed || isMobileOpen) && (
               <>
                 <div className="ml-3 min-w-0 flex-1">
-                  <p className="truncate text-sm font-medium text-gray-900">
+                  <p className="truncate text-sm font-medium text-gray-900 dark:text-gray-100">
                     {user?.fullName}
                   </p>
-                  <p className="truncate text-xs text-gray-500">
+                  <p className="truncate text-xs text-gray-500 dark:text-gray-400">
                     {user?.email}
                   </p>
                 </div>
@@ -199,7 +213,7 @@ export default function DashboardLayout({
           isCollapsed ? 'lg:pl-16' : 'lg:pl-64'
         }`}
       >
-        <header className="sticky top-0 z-30 border-b border-gray-100 bg-white/95 backdrop-blur-sm">
+        <header className="sticky top-0 z-30 border-b border-gray-100 bg-white/95 backdrop-blur-sm dark:border-gray-700 dark:bg-gray-900/95">
           <div className="flex h-16 items-center justify-between px-4 sm:px-6 lg:px-8">
             <div className="flex items-center gap-3">
               <Button
@@ -218,7 +232,9 @@ export default function DashboardLayout({
                   <SidebarOpen className="h-5 w-5" />
                 </Button>
               )}
-              <h1 className="text-lg font-semibold text-gray-900">{title}</h1>
+              <h1 className="text-lg font-semibold text-gray-900 dark:text-gray-100">
+                {title}
+              </h1>
             </div>
             <div className="flex items-center gap-3">
               <Button className={iconButton} aria-label="Search">

@@ -22,8 +22,10 @@ function handleSubmit() {
 <template>
   <div class="mx-auto max-w-2xl">
     <header class="mb-8">
-      <h1 class="mb-2 text-2xl font-bold text-gray-900">Create New Team</h1>
-      <p class="text-gray-600">
+      <h1 class="mb-2 text-2xl font-bold text-gray-900 dark:text-gray-100">
+        Create New Team
+      </h1>
+      <p class="text-gray-600 dark:text-gray-400">
         Create a new team to collaborate with others. You'll be the owner of
         this team.
       </p>
@@ -31,7 +33,10 @@ function handleSubmit() {
 
     <form @submit.prevent="handleSubmit" class="space-y-6">
       <div>
-        <label for="name" class="mb-2 block text-sm font-medium text-gray-700">
+        <label
+          for="name"
+          class="mb-2 block text-sm font-medium text-gray-700 dark:text-gray-300"
+        >
           Team Name
         </label>
         <InputText

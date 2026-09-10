@@ -50,10 +50,10 @@ export default function TotpSetupModal({ visible, onHide, setupData }) {
       <div className="space-y-8">
         {/* Header */}
         <div className="text-center">
-          <h2 className="mb-2 text-xl font-semibold text-gray-900">
+          <h2 className="mb-2 text-xl font-semibold text-gray-900 dark:text-gray-100">
             Set up Authenticator App
           </h2>
-          <p className="text-sm text-gray-600">
+          <p className="text-sm text-gray-600 dark:text-gray-400">
             Each time you log in, in addition to your password, you'll use an
             authenticator app to generate a one-time code.
           </p>
@@ -77,11 +77,11 @@ export default function TotpSetupModal({ visible, onHide, setupData }) {
             <div className="flex h-6 w-6 items-center justify-center rounded-full bg-gray-900 text-sm font-medium text-white">
               1
             </div>
-            <h3 className="text-base font-semibold text-gray-900">
+            <h3 className="text-base font-semibold text-gray-900 dark:text-gray-100">
               Scan QR code
             </h3>
           </div>
-          <p className="text-sm text-gray-600">
+          <p className="text-sm text-gray-600 dark:text-gray-400">
             Scan the QR code below or manually enter the secret key into your
             authenticator app.
           </p>
@@ -99,15 +99,15 @@ export default function TotpSetupModal({ visible, onHide, setupData }) {
             {/* Manual Entry */}
             <div className="flex-1 space-y-3 sm:min-w-0">
               <div>
-                <h4 className="mb-2 text-sm font-medium text-gray-900">
+                <h4 className="mb-2 text-sm font-medium text-gray-900 dark:text-gray-100">
                   Can't scan QR code?
                 </h4>
-                <p className="mb-3 text-sm text-gray-600">
+                <p className="mb-3 text-sm text-gray-600 dark:text-gray-400">
                   Enter this secret instead:
                 </p>
               </div>
               <div className="flex items-center space-x-2">
-                <div className="min-w-0 flex-1 break-all rounded border border-gray-300 bg-white px-3 py-2 font-mono text-sm text-gray-900">
+                <div className="min-w-0 flex-1 break-all rounded border border-gray-300 bg-white px-3 py-2 font-mono text-sm text-gray-900 dark:border-gray-700 dark:bg-gray-900 dark:text-gray-100">
                   {setupData.manualEntryKey}
                 </div>
                 <Button
@@ -117,8 +117,8 @@ export default function TotpSetupModal({ visible, onHide, setupData }) {
                   className={[
                     'min-h-10 border border-transparent bg-transparent px-3 py-2 text-brand hover:bg-brand-50 dark:bg-transparent dark:text-brand-400 dark:hover:bg-brand-950',
                     copied
-                      ? 'text-success-600 hover:text-success-700'
-                      : 'text-gray-500 hover:text-gray-700'
+                      ? 'text-success-600 hover:text-success-700 dark:text-success-300'
+                      : 'text-gray-500 hover:text-gray-700 dark:text-gray-400'
                   ]
                     .filter(Boolean)
                     .join(' ')}
@@ -140,17 +140,17 @@ export default function TotpSetupModal({ visible, onHide, setupData }) {
             <div className="flex h-6 w-6 items-center justify-center rounded-full bg-gray-900 text-sm font-medium text-white">
               2
             </div>
-            <h3 className="text-base font-semibold text-gray-900">
+            <h3 className="text-base font-semibold text-gray-900 dark:text-gray-100">
               Get verification code
             </h3>
           </div>
-          <p className="text-sm text-gray-600">
+          <p className="text-sm text-gray-600 dark:text-gray-400">
             Enter the 6-digit code you see in your authenticator app.
           </p>
 
           <form onSubmit={handleVerifyTOTP} className="space-y-6">
             <div>
-              <label className="mb-3 block text-sm font-medium text-gray-700">
+              <label className="mb-3 block text-sm font-medium text-gray-700 dark:text-gray-300">
                 Enter verification code
               </label>
               <div className="flex justify-start">

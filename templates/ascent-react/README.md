@@ -153,3 +153,9 @@ _Built with ❤️ by [The Sailscasts Company](https://sailscasts.com) - Part of
 This template ships editable [Klean UI and Klean Icons](https://docs.sailscasts.com/klean-ui/) source, installed with `klean-ui@0.0.4` under `assets/js/components/ui/`. Ordinary Tailwind classes at the call site control its appearance. There is no Klean runtime or provider.
 
 See [UI.md](UI.md) for the installed inventory, artwork exceptions, and safe update workflow.
+
+## Design and customization
+
+Ascent uses clean neutral surfaces and a teal action color, cool neutral application surfaces, and restrained typography. Public pages use sections and rows; cards are reserved for meaningful groups such as plan selection and security actions. Account screens share the same light/dark treatment as menus and dialogs. See [UI.md](UI.md) for the palette, application recipes, page inventory, and screenshot workflow.
+
+![Template preview](https://raw.githubusercontent.com/sailscastshq/boring-stack/main/.github/previews/ascent-react-home.png)

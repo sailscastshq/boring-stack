@@ -16,7 +16,7 @@ export default function InputButton({
       aria-busy={processing}
       type="submit"
       className={mergeClasses(
-        'hover:bg-brand active:bg-brand dark:bg-brand dark:hover:bg-brand dark:active:bg-brand border-brand bg-brand relative flex items-center justify-center rounded-md border px-4 py-3 text-base font-normal text-white dark:text-white',
+        'hover:bg-brand active:bg-brand dark:bg-brand dark:hover:bg-brand dark:active:bg-brand border-brand bg-brand relative flex items-center justify-center rounded-full border px-4 py-3 text-base font-medium text-white dark:text-white',
         'disabled:text-gray disabled:cursor-not-allowed disabled:border-gray-200/40 disabled:bg-gray-200/40 disabled:opacity-100',
         className
       )}

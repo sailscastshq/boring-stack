@@ -26,10 +26,8 @@ module.exports = {
       invite = null
 
     // First: Check if it's a shareable team invite link
-    team = await Team.findOne({
-      inviteToken,
-      inviteLinkEnabled: true
-    })
+    team = await Team.findOne({ inviteToken })
+    if (team && !team.inviteLinkEnabled) team = null
 
     if (!team) {
       // Second: Check if it's an individual invite token

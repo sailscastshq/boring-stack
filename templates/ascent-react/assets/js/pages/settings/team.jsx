@@ -271,10 +271,10 @@ export default function TeamSettings({
             <section className="space-y-6">
               <header className="flex items-center justify-between">
                 <div>
-                  <h3 className="text-sm font-medium text-gray-900">
+                  <h3 className="text-sm font-medium text-gray-900 dark:text-gray-100">
                     Invite by link
                   </h3>
-                  <p className="mt-1 text-sm text-gray-500">
+                  <p className="mt-1 text-sm text-gray-500 dark:text-gray-400">
                     Allow team members to invite others using a shareable link.
                   </p>
                 </div>
@@ -309,8 +309,8 @@ export default function TeamSettings({
                         className={[
                           'min-h-10 min-h-8 border border-transparent bg-transparent px-2.5 px-3 py-1.5 py-2 text-sm text-brand hover:bg-brand-50 dark:bg-transparent dark:text-brand-400 dark:hover:bg-brand-950',
                           copied
-                            ? 'text-success-600 hover:text-success-700'
-                            : 'text-gray-500 hover:text-gray-700'
+                            ? 'text-success-600 hover:text-success-700 dark:text-success-300'
+                            : 'text-gray-500 hover:text-gray-700 dark:text-gray-400'
                         ]
                           .filter(Boolean)
                           .join(' ')}
@@ -336,10 +336,10 @@ export default function TeamSettings({
                   {/* Restrict by Domain */}
                   <div className="space-y-3">
                     <div>
-                      <h4 className="text-sm font-medium text-gray-900">
+                      <h4 className="text-sm font-medium text-gray-900 dark:text-gray-100">
                         Restrict by domain
                       </h4>
-                      <p className="text-sm text-gray-500">
+                      <p className="text-sm text-gray-500 dark:text-gray-400">
                         Only allow users with emails at specific domains to join
                         your team through the invite link.
                       </p>
@@ -377,7 +377,7 @@ export default function TeamSettings({
                     {team?.domainRestrictions &&
                       team.domainRestrictions.length > 0 && (
                         <div className="mt-4">
-                          <h5 className="mb-2 text-xs font-medium text-gray-700">
+                          <h5 className="mb-2 text-xs font-medium text-gray-700 dark:text-gray-300">
                             Restricted Domains
                           </h5>
                           <div className="space-y-2">
@@ -387,16 +387,16 @@ export default function TeamSettings({
                                 className="flex items-center justify-between py-3"
                               >
                                 <div className="flex items-center space-x-3">
-                                  <div className="flex h-8 w-8 items-center justify-center rounded-full text-blue-600">
+                                  <div className="flex h-8 w-8 items-center justify-center rounded-full text-blue-600 dark:text-blue-300">
                                     <Globe
                                       className={'h-[1em] w-[1em] shrink-0 '}
                                     ></Globe>
                                   </div>
                                   <div>
-                                    <div className="text-sm font-medium text-gray-900">
+                                    <div className="text-sm font-medium text-gray-900 dark:text-gray-100">
                                       {domain}
                                     </div>
-                                    <div className="text-xs text-gray-500">
+                                    <div className="text-xs text-gray-500 dark:text-gray-400">
                                       Domain restriction
                                     </div>
                                   </div>
@@ -416,7 +416,7 @@ export default function TeamSettings({
                                   }
                                   className={[
                                     'min-h-10 min-h-8 border border-transparent bg-transparent px-2.5 px-3 py-1.5 py-2 text-sm text-brand hover:bg-brand-50 dark:bg-transparent dark:text-brand-400 dark:hover:bg-brand-950',
-                                    'text-red-600 hover:bg-red-50 hover:text-red-700'
+                                    'text-red-600 hover:bg-red-50 hover:text-red-700 dark:text-red-300'
                                   ]
                                     .filter(Boolean)
                                     .join(' ')}
@@ -442,10 +442,10 @@ export default function TeamSettings({
           {isOwnerOrAdmin && (
             <section className="space-y-6">
               <header>
-                <h3 className="text-sm font-medium text-gray-900">
+                <h3 className="text-sm font-medium text-gray-900 dark:text-gray-100">
                   Invite by email
                 </h3>
-                <p className="mt-1 text-sm text-gray-500">
+                <p className="mt-1 text-sm text-gray-500 dark:text-gray-400">
                   Email invitations are valid for 7 days.
                 </p>
               </header>
@@ -495,10 +495,10 @@ export default function TeamSettings({
           <section className="space-y-6">
             <header className="flex items-center justify-between">
               <div>
-                <h3 className="text-sm font-medium text-gray-900">
+                <h3 className="text-sm font-medium text-gray-900 dark:text-gray-100">
                   Team Members
                 </h3>
-                <p className="mt-1 text-sm text-gray-500">
+                <p className="mt-1 text-sm text-gray-500 dark:text-gray-400">
                   {teamMembers.length}{' '}
                   {teamMembers.length === 1 ? 'member' : 'members'}
                 </p>
@@ -572,16 +572,16 @@ export default function TeamSettings({
                       />
                       <div className="min-w-0 flex-1">
                         <div className="flex items-center space-x-2">
-                          <span className="truncate text-sm font-medium text-gray-900">
+                          <span className="truncate text-sm font-medium text-gray-900 dark:text-gray-100">
                             {member.name}
                           </span>
                           {isCurrentUser && (
-                            <span className="flex-shrink-0 text-xs text-gray-500">
+                            <span className="flex-shrink-0 text-xs text-gray-500 dark:text-gray-400">
                               (you)
                             </span>
                           )}
                         </div>
-                        <div className="truncate text-sm text-gray-500">
+                        <div className="truncate text-sm text-gray-500 dark:text-gray-400">
                           {member.email}
                         </div>
                       </div>
@@ -592,10 +592,10 @@ export default function TeamSettings({
                       <span
                         className={`inline-flex items-center rounded-full px-2 py-0.5 text-xs font-medium ${
                           member.role.toLowerCase() === 'owner'
-                            ? 'bg-green-100 text-green-800'
+                            ? 'bg-green-100 text-green-800 dark:bg-green-950/40 dark:text-green-300'
                             : member.role.toLowerCase() === 'admin'
-                            ? 'bg-blue-100 text-blue-800'
-                            : 'bg-gray-100 text-gray-700'
+                            ? 'bg-blue-100 text-blue-800 dark:bg-blue-950/40 dark:text-blue-300'
+                            : 'bg-gray-100 text-gray-700 dark:bg-gray-800 dark:text-gray-300'
                         }`}
                       >
                         {member.role}
@@ -655,10 +655,10 @@ export default function TeamSettings({
           {isOwnerOrAdmin && pendingInvites.length > 0 && (
             <section className="space-y-6">
               <header>
-                <h3 className="text-sm font-medium text-gray-900">
+                <h3 className="text-sm font-medium text-gray-900 dark:text-gray-100">
                   Pending Invitations
                 </h3>
-                <p className="mt-1 text-sm text-gray-500">
+                <p className="mt-1 text-sm text-gray-500 dark:text-gray-400">
                   {pendingInvites.length}{' '}
                   {pendingInvites.length === 1 ? 'invitation' : 'invitations'}{' '}
                   waiting for response
@@ -683,23 +683,23 @@ export default function TeamSettings({
                       className="hover:bg-gray-25 flex items-center justify-between py-3 transition-colors"
                     >
                       <div className="flex items-center space-x-3">
-                        <div className="flex h-8 w-8 items-center justify-center rounded-full bg-blue-100 text-blue-600">
+                        <div className="flex h-8 w-8 items-center justify-center rounded-full bg-blue-100 text-blue-600 dark:bg-blue-950/40 dark:text-blue-300">
                           <Envelope
                             className={'h-[1em] w-[1em] shrink-0 text-sm'}
                           ></Envelope>
                         </div>
                         <div className="min-w-0 flex-1">
                           <div className="flex items-center space-x-2">
-                            <span className="truncate text-sm font-medium text-gray-900">
+                            <span className="truncate text-sm font-medium text-gray-900 dark:text-gray-100">
                               {invite.email}
                             </span>
                             {isExpiring && (
-                              <span className="rounded-full bg-orange-100 px-2 py-0.5 text-xs text-orange-800">
+                              <span className="rounded-full bg-orange-100 px-2 py-0.5 text-xs text-orange-800 dark:bg-orange-950/40 dark:text-orange-300">
                                 Expires soon
                               </span>
                             )}
                           </div>
-                          <div className="text-sm text-gray-500">
+                          <div className="text-sm text-gray-500 dark:text-gray-400">
                             Invited by {inviterName} on {inviteDate}
                           </div>
                         </div>
@@ -735,7 +735,7 @@ export default function TeamSettings({
                           aria-busy={inviteActions.has(`resend-${invite.id}`)}
                           className={[
                             'min-h-10 min-h-8 border border-transparent bg-transparent px-2.5 px-3 py-1.5 py-2 text-sm text-brand hover:bg-brand-50 dark:bg-transparent dark:text-brand-400 dark:hover:bg-brand-950',
-                            'text-blue-600 hover:text-blue-700'
+                            'text-blue-600 hover:text-blue-700 dark:text-blue-300'
                           ]
                             .filter(Boolean)
                             .join(' ')}
@@ -781,7 +781,7 @@ export default function TeamSettings({
                           aria-busy={inviteActions.has(`cancel-${invite.id}`)}
                           className={[
                             'min-h-10 min-h-8 border border-transparent bg-transparent px-2.5 px-3 py-1.5 py-2 text-sm text-brand hover:bg-brand-50 dark:bg-transparent dark:text-brand-400 dark:hover:bg-brand-950',
-                            'text-red-600 hover:text-red-700'
+                            'text-red-600 hover:text-red-700 dark:text-red-300'
                           ]
                             .filter(Boolean)
                             .join(' ')}
@@ -803,10 +803,10 @@ export default function TeamSettings({
           {isOwner && (
             <section className="space-y-6">
               <header>
-                <h3 className="text-sm font-medium text-gray-900">
+                <h3 className="text-sm font-medium text-gray-900 dark:text-gray-100">
                   Team Settings
                 </h3>
-                <p className="mt-1 text-sm text-gray-500">
+                <p className="mt-1 text-sm text-gray-500 dark:text-gray-400">
                   Manage your team's basic information and advanced settings.
                 </p>
               </header>
@@ -816,7 +816,7 @@ export default function TeamSettings({
                 <form onSubmit={handleUpdateTeam} className="space-y-4">
                   {/* Team Logo */}
                   <div>
-                    <label className="mb-2 block text-sm font-medium text-gray-700">
+                    <label className="mb-2 block text-sm font-medium text-gray-700 dark:text-gray-300">
                       Logo
                     </label>
                     <ImageUpload
@@ -842,7 +842,7 @@ export default function TeamSettings({
                   <div>
                     <label
                       htmlFor="teamName"
-                      className="block text-sm font-medium text-gray-700"
+                      className="block text-sm font-medium text-gray-700 dark:text-gray-300"
                     >
                       Team name
                     </label>
@@ -893,14 +893,14 @@ export default function TeamSettings({
                 </form>
 
                 {/* Danger Zone */}
-                <div className="space-y-4 rounded-lg border border-red-200 bg-red-50 p-4">
+                <div className="space-y-4 rounded-lg border border-red-200 bg-red-50 p-4 dark:border-red-900 dark:bg-red-950/40">
                   {/* Transfer Ownership */}
                   <div className="flex items-center justify-between">
                     <div>
-                      <h4 className="text-sm font-medium text-red-900">
+                      <h4 className="text-sm font-medium text-red-900 dark:text-red-300">
                         Transfer Ownership
                       </h4>
-                      <p className="mt-1 text-sm text-red-600">
+                      <p className="mt-1 text-sm text-red-600 dark:text-red-300">
                         Transfer team ownership to another team member. You will
                         become an admin.
                       </p>
@@ -916,12 +916,12 @@ export default function TeamSettings({
                   </div>
 
                   {/* Delete Team */}
-                  <div className="flex items-center justify-between border-t border-red-200 pt-4">
+                  <div className="flex items-center justify-between border-t border-red-200 pt-4 dark:border-red-900">
                     <div>
-                      <h4 className="text-sm font-medium text-red-900">
+                      <h4 className="text-sm font-medium text-red-900 dark:text-red-300">
                         Delete Team
                       </h4>
-                      <p className="mt-1 text-sm text-red-600">
+                      <p className="mt-1 text-sm text-red-600 dark:text-red-300">
                         Permanently delete this team and all its data. This
                         action cannot be undone.
                       </p>
@@ -955,7 +955,7 @@ export default function TeamSettings({
             <div>
               <label
                 htmlFor="newOwnerEmail"
-                className="mb-2 block text-sm font-medium text-gray-700"
+                className="mb-2 block text-sm font-medium text-gray-700 dark:text-gray-300"
               >
                 New Owner Email
               </label>
@@ -992,7 +992,7 @@ export default function TeamSettings({
             <div>
               <label
                 htmlFor="confirmationText"
-                className="mb-2 block text-sm font-medium text-gray-700"
+                className="mb-2 block text-sm font-medium text-gray-700 dark:text-gray-300"
               >
                 Type <strong>transfer {team?.name}</strong> to confirm the
                 transfer:
@@ -1027,7 +1027,7 @@ export default function TeamSettings({
               )}
             </div>
 
-            <div className="rounded-lg border border-red-200 bg-red-50 p-4">
+            <div className="rounded-lg border border-red-200 bg-red-50 p-4 dark:border-red-900 dark:bg-red-950/40">
               <div className="flex">
                 <div className="flex-shrink-0">
                   <WarningTriangle
@@ -1035,10 +1035,10 @@ export default function TeamSettings({
                   />
                 </div>
                 <div className="ml-3">
-                  <h3 className="text-sm font-medium text-red-800">
+                  <h3 className="text-sm font-medium text-red-800 dark:text-red-300">
                     Warning: This action cannot be undone
                   </h3>
-                  <p className="mt-2 text-sm text-red-700">
+                  <p className="mt-2 text-sm text-red-700 dark:text-red-300">
                     You will transfer full ownership to the selected team member
                     and become an admin. They will be able to manage all team
                     settings, including transferring ownership again or deleting

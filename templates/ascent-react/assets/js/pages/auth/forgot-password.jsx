@@ -30,11 +30,11 @@ export default function ForgotPassword() {
     <>
       <>
         <Head title="Reset Password | Ascent"></Head>
-        <div className="flex min-h-screen flex-col justify-center bg-gradient-to-br from-brand-50/30 via-white to-accent-50/20 py-12 sm:px-6 lg:px-8">
+        <div className="ascent-auth">
           {/* Background Elements */}
           <div className="pointer-events-none absolute inset-0 overflow-hidden">
-            <div className="absolute left-1/4 top-20 h-96 w-96 rounded-full bg-brand-200/20 blur-3xl"></div>
-            <div className="absolute bottom-20 right-1/4 h-72 w-72 rounded-full bg-accent-200/20 blur-3xl"></div>
+            <div className="hidden"></div>
+            <div className="hidden"></div>
           </div>
 
           <div className="relative sm:mx-auto sm:w-full sm:max-w-lg">
@@ -42,22 +42,29 @@ export default function ForgotPassword() {
             <div className="mb-8 flex items-center justify-center">
               <Link href="/" className="group">
                 <div className="relative">
-                  <div className="absolute inset-0 scale-110 rounded-2xl bg-brand-200/30 opacity-0 blur-xl transition-opacity group-hover:opacity-100"></div>
-                  <img
-                    src="/images/logo.svg"
-                    alt="Ascent Logo"
-                    className="relative h-12 w-auto"
-                  />
+                  <div className="hidden"></div>
+                  <span
+                    className="inline-flex items-center gap-1 text-2xl font-semibold tracking-tight text-gray-900 dark:text-gray-100"
+                    aria-label="Ascent"
+                  >
+                    Ascent
+                    <span
+                      className="text-brand-600 dark:text-brand-300"
+                      aria-hidden="true"
+                    >
+                      ↗
+                    </span>
+                  </span>
                 </div>
               </Link>
             </div>
 
             {/* Header */}
             <header className="mb-8 text-center">
-              <h1 className="text-3xl font-bold tracking-tight text-gray-900">
+              <h1 className="text-3xl font-bold tracking-tight text-gray-900 dark:text-gray-100">
                 Forgot your password?
               </h1>
-              <p className="mt-2 text-base text-gray-600">
+              <p className="mt-2 text-base text-gray-600 dark:text-gray-400">
                 Enter your email address and we'll send you a link to reset your
                 password
               </p>
@@ -67,10 +74,10 @@ export default function ForgotPassword() {
           <div className="relative sm:mx-auto sm:w-full sm:max-w-lg">
             <div className="relative">
               {/* Background blur effect */}
-              <div className="absolute inset-0 scale-105 rounded-2xl bg-gradient-to-r from-brand-600/10 to-accent-600/10 blur-xl"></div>
+              <div className="hidden"></div>
 
               {/* Main card */}
-              <div className="relative rounded-2xl border border-gray-100 bg-white px-8 py-10 shadow-2xl">
+              <div className="ascent-auth-panel">
                 {/* Global error */}
                 {form.errors.email && (
                   <div className="mb-6" role="alert">
@@ -93,7 +100,7 @@ export default function ForgotPassword() {
                   <div>
                     <label
                       htmlFor="email"
-                      className="mb-2 block text-sm font-semibold text-gray-900"
+                      className="mb-2 block text-sm font-semibold text-gray-900 dark:text-gray-100"
                     >
                       Email Address
                     </label>
@@ -106,10 +113,10 @@ export default function ForgotPassword() {
                         value={data.email}
                         onChange={(e) => setData('email', e.target.value)}
                         onBlur={() => form.validate('email')}
-                        className={`w-full rounded-xl border px-4 py-4 text-lg font-medium transition-all duration-200 ${
+                        className={`w-full rounded-lg border px-4 py-4 text-base font-medium transition-all duration-200 ${
                           form.errors.email
-                            ? 'border-red-300 bg-red-50 ring-2 ring-red-100'
-                            : 'border-gray-200 bg-gray-50 focus:border-brand-300 focus:bg-white focus:ring-4 focus:ring-brand-100'
+                            ? 'border-red-300 bg-red-50 ring-2 ring-red-100 dark:border-red-900 dark:bg-red-950/40'
+                            : 'border-gray-200 bg-gray-50 focus:border-brand-300 focus:bg-white focus:ring-4 focus:ring-brand-100 dark:border-gray-700 dark:bg-gray-950'
                         }`}
                         placeholder="Enter your email address"
                       />
@@ -124,12 +131,12 @@ export default function ForgotPassword() {
                       className={`flex w-full justify-center rounded-xl px-8 py-4 text-lg font-bold text-white shadow-lg transition-all duration-200 hover:scale-[1.02] hover:shadow-xl disabled:cursor-not-allowed disabled:opacity-50 disabled:hover:scale-100 ${
                         disableForgotPasswordButton
                           ? 'bg-gray-300'
-                          : 'bg-gradient-to-r from-brand-600 to-accent-600 hover:from-brand-700 hover:to-accent-700 focus:outline-none focus:ring-2 focus:ring-brand-500 focus:ring-offset-2'
+                          : 'bg-brand-600 hover:bg-brand-700 focus:outline-none focus:ring-2 focus:ring-brand-500 focus:ring-offset-2 dark:bg-brand-600'
                       }`}
                     >
                       {form.processing ? (
                         <div className="flex items-center space-x-2">
-                          <Spinner className="h-5 w-5 " />
+                          <Spinner className="h-5 w-5" />
                           <span>Sending reset link...</span>
                         </div>
                       ) : (
@@ -143,7 +150,7 @@ export default function ForgotPassword() {
                 <div className="mt-6 text-center">
                   <Link
                     href="/login?mode=password"
-                    className="flex items-center justify-center text-sm font-medium text-gray-600 transition-colors hover:text-brand-600"
+                    className="flex items-center justify-center text-sm font-medium text-gray-600 transition-colors hover:text-brand-600 dark:text-gray-400"
                   >
                     <ChevronLeft className="mr-1 h-4 w-4" />
                     Back to sign in

@@ -13,17 +13,24 @@ export default function AppLayout({ children }) {
 
   return (
     <>
-      <div className="flex min-h-screen flex-col bg-gradient-to-b from-brand-50/10 to-[#F9FAFB] dark:from-gray-900 dark:to-gray-950">
-        <header className="sticky top-0 z-50 border-b border-gray-100/40 bg-white/90 backdrop-blur-md dark:border-gray-800/40 dark:bg-gray-900/90">
+      <div className="ascent-shell">
+        <header className="ascent-site-header">
           <nav className="mx-auto flex max-w-7xl items-center justify-between px-4 py-4 md:px-8">
             <Link href="/" className="group flex items-center space-x-2">
               <div className="relative">
-                <div className="absolute inset-0 scale-110 rounded-xl bg-brand-200/20 opacity-0 blur-sm transition-opacity group-hover:opacity-100"></div>
-                <img
-                  src="/images/logo.svg"
-                  alt="Ascent Logo"
-                  className="relative h-10 w-auto transition-transform group-hover:scale-105"
-                />
+                <div className="hidden"></div>
+                <span
+                  className="inline-flex items-center gap-1 text-2xl font-semibold tracking-tight text-gray-900 dark:text-gray-100"
+                  aria-label="Ascent"
+                >
+                  Ascent
+                  <span
+                    className="text-brand-600 dark:text-brand-300"
+                    aria-hidden="true"
+                  >
+                    ↗
+                  </span>
+                </span>
               </div>
             </Link>
 
@@ -38,8 +45,8 @@ export default function AppLayout({ children }) {
                     href="/features"
                     className={`rounded-lg px-3 py-2 font-medium transition-all duration-200 ${
                       url === '/features'
-                        ? 'bg-brand-100 text-brand-700'
-                        : 'text-gray-700 hover:bg-brand-50/80 hover:text-brand-600'
+                        ? 'bg-brand-100 text-brand-700 dark:bg-brand-950/40 dark:text-brand-300'
+                        : 'text-gray-700 hover:bg-brand-50/80 hover:text-brand-600 dark:text-gray-300'
                     }`}
                   >
                     Features
@@ -48,8 +55,8 @@ export default function AppLayout({ children }) {
                     href="/pricing"
                     className={`rounded-lg px-3 py-2 font-medium transition-all duration-200 ${
                       url === '/pricing'
-                        ? 'bg-brand-100 text-brand-700'
-                        : 'text-gray-700 hover:bg-brand-50/80 hover:text-brand-600'
+                        ? 'bg-brand-100 text-brand-700 dark:bg-brand-950/40 dark:text-brand-300'
+                        : 'text-gray-700 hover:bg-brand-50/80 hover:text-brand-600 dark:text-gray-300'
                     }`}
                   >
                     Pricing
@@ -58,8 +65,8 @@ export default function AppLayout({ children }) {
                     href="/blog"
                     className={`rounded-lg px-3 py-2 font-medium transition-all duration-200 ${
                       url.startsWith('/blog')
-                        ? 'bg-brand-100 text-brand-700'
-                        : 'text-gray-700 hover:bg-brand-50/80 hover:text-brand-600'
+                        ? 'bg-brand-100 text-brand-700 dark:bg-brand-950/40 dark:text-brand-300'
+                        : 'text-gray-700 hover:bg-brand-50/80 hover:text-brand-600 dark:text-gray-300'
                     }`}
                   >
                     Blog
@@ -68,7 +75,7 @@ export default function AppLayout({ children }) {
                     href="https://docs.sailscasts.com/boring-stack/ascent"
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="rounded-lg px-3 py-2 font-medium text-gray-700 transition-all duration-200 hover:bg-brand-50/80 hover:text-brand-600"
+                    className="rounded-lg px-3 py-2 font-medium text-gray-700 transition-all duration-200 hover:bg-brand-50/80 hover:text-brand-600 dark:text-gray-300"
                   >
                     Docs
                   </a>
@@ -78,16 +85,16 @@ export default function AppLayout({ children }) {
                 <div className="flex items-center space-x-3">
                   <Link
                     href="/login"
-                    className="rounded-lg px-4 py-2 font-medium text-gray-700 transition-all duration-200 hover:bg-gray-50 hover:text-brand-600"
+                    className="rounded-lg px-4 py-2 font-medium text-gray-700 transition-all duration-200 hover:bg-gray-50 hover:text-brand-600 dark:text-gray-300 dark:hover:bg-gray-800"
                   >
                     Login
                   </Link>
                   <Link
                     href="/signup"
-                    className="group relative rounded-lg bg-gradient-to-r from-brand-600 to-accent-600 px-6 py-2.5 font-semibold text-white shadow-lg transition-all duration-200 hover:shadow-xl"
+                    className="group relative rounded-lg  bg-brand-600 px-6 py-2.5 font-semibold text-white shadow-none transition-all duration-200"
                   >
                     <span className="relative z-10">Get Started</span>
-                    <div className="absolute inset-0 rounded-lg bg-gradient-to-r from-brand-700 to-accent-700 opacity-0 transition-opacity group-hover:opacity-100"></div>
+                    <div className="absolute inset-0 rounded-lg  bg-gray-50 opacity-0 transition-opacity group-hover:opacity-100 dark:bg-gray-950"></div>
                   </Link>
                 </div>
               </div>
@@ -96,7 +103,7 @@ export default function AppLayout({ children }) {
                 <nav className="hidden items-center space-x-4 md:flex">
                   <Link
                     href="/dashboard"
-                    className="font-medium text-gray-600 transition-colors hover:text-brand"
+                    className="font-medium text-gray-600 transition-colors hover:text-brand dark:text-gray-400"
                   >
                     Dashboard
                   </Link>
@@ -113,7 +120,7 @@ export default function AppLayout({ children }) {
                     alt={''}
                     className={[
                       'size-12 rounded-full text-2xl',
-                      'border-2 border-gray-200 transition-colors hover:border-brand [&_img]:rounded-full'
+                      'border-2 border-gray-200 transition-colors hover:border-brand dark:border-gray-700 [&_img]:rounded-full'
                     ]
                       .filter(Boolean)
                       .join(' ')}
@@ -124,16 +131,32 @@ export default function AppLayout({ children }) {
               </div>
             )}
           </nav>
+          <details className="ascent-mobile-nav">
+            <summary>Explore Ascent</summary>
+            <nav aria-label="Mobile navigation">
+              <Link href="/features">Features</Link>
+              <Link href="/pricing">Pricing</Link>
+              <Link href="/blog">Blog</Link>
+              <Link href="/contact">Contact</Link>
+              <a
+                href="https://docs.sailscasts.com/boring-stack/ascent"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                Documentation ↗
+              </a>
+            </nav>
+          </details>
         </header>
 
         <main className="flex-1">{children}</main>
 
         {/* Toast notifications */}
 
-        <footer className="relative overflow-hidden bg-gradient-to-br from-gray-900 via-gray-800 to-brand-900 text-white">
+        <footer className="relative overflow-hidden  bg-brand-600 text-white">
           {/* Background Elements */}
-          <div className="absolute left-1/4 top-0 h-96 w-96 rounded-full bg-brand-500/10 blur-3xl"></div>
-          <div className="absolute bottom-0 right-1/4 h-72 w-72 rounded-full bg-accent-500/10 blur-3xl"></div>
+          <div className="hidden"></div>
+          <div className="hidden"></div>
 
           <div className="relative mx-auto max-w-7xl px-4 py-16 md:px-8">
             <div className="grid grid-cols-1 gap-12 md:grid-cols-4">
@@ -144,12 +167,19 @@ export default function AppLayout({ children }) {
                   className="group mb-6 flex items-center space-x-2"
                 >
                   <div className="relative">
-                    <div className="absolute inset-0 scale-110 rounded-xl bg-brand-300/20 opacity-0 blur-sm transition-opacity group-hover:opacity-10"></div>
-                    <img
-                      src="/images/logo.svg"
-                      alt="Ascent Logo"
-                      className="relative h-10 w-auto brightness-0 drop-shadow-[0_0_8px_rgba(0,0,0,0.9)] invert filter transition-transform group-hover:scale-105"
-                    />
+                    <div className="hidden"></div>
+                    <span
+                      className="inline-flex items-center gap-1 text-2xl font-semibold tracking-tight text-gray-900 dark:text-gray-100"
+                      aria-label="Ascent"
+                    >
+                      Ascent
+                      <span
+                        className="text-brand-600 dark:text-brand-300"
+                        aria-hidden="true"
+                      >
+                        ↗
+                      </span>
+                    </span>
                   </div>
                 </Link>
                 <p className="mb-6 text-sm leading-relaxed text-gray-300">
@@ -302,13 +332,13 @@ export default function AppLayout({ children }) {
             </div>
 
             {/* Bottom Section */}
-            <div className="mt-16 border-t border-gray-700/50 pt-8">
+            <div className="mt-16 border-t border-gray-700/50 pt-8 dark:border-gray-700">
               <div className="flex flex-col items-center justify-between space-y-4 md:flex-row md:space-y-0">
                 <div className="flex items-center space-x-6">
                   <p className="text-sm text-gray-400">
                     © 2025 Ascent. All rights reserved.
                   </p>
-                  <div className="hidden items-center space-x-4 text-xs text-gray-500 md:flex">
+                  <div className="hidden items-center space-x-4 text-xs text-gray-500 dark:text-gray-400 md:flex">
                     <span className="flex items-center space-x-1">
                       <div className="h-2 w-2 animate-pulse rounded-full bg-green-400"></div>
                       <span>All systems operational</span>
@@ -338,7 +368,7 @@ export default function AppLayout({ children }) {
               </div>
 
               {/* Newsletter CTA */}
-              <div className="mt-8 rounded-2xl border border-brand-500/20 bg-gradient-to-r from-brand-500/10 to-accent-500/10 p-6">
+              <div className="mt-8 rounded-xl border border-brand-500/20  bg-gray-50 p-6 dark:bg-gray-950">
                 <div className="text-center">
                   <h4 className="mb-2 font-bold text-white">Stay Updated</h4>
                   <p className="mb-4 text-sm text-gray-300">
@@ -350,7 +380,7 @@ export default function AppLayout({ children }) {
                       placeholder="Enter your email"
                       className="flex-1 rounded-lg border border-white/20 bg-white/10 px-4 py-2 text-white placeholder-gray-400 transition-all focus:border-brand-400 focus:outline-none focus:ring-2 focus:ring-brand-400/50"
                     />
-                    <button className="rounded-lg bg-gradient-to-r from-brand-600 to-accent-600 px-6 py-2 font-semibold text-white transition-all duration-200 hover:shadow-lg">
+                    <button className="rounded-lg  bg-brand-600 px-6 py-2 font-semibold text-white shadow-none transition-all duration-200">
                       Subscribe
                     </button>
                   </div>

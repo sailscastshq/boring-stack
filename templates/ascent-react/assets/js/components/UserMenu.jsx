@@ -27,13 +27,15 @@ export default function UserMenu({ id }) {
           </Avatar>
           <div className="min-w-0">
             <p className="truncate text-sm font-semibold">{user?.fullName}</p>
-            <p className="truncate text-xs text-gray-500">{user?.email}</p>
+            <p className="truncate text-xs text-gray-500 dark:text-gray-400">
+              {user?.email}
+            </p>
           </div>
         </div>
       </div>
       {teams.length > 0 && (
         <>
-          <p className="px-3 py-2 text-xs font-bold uppercase text-gray-500">
+          <p className="px-3 py-2 text-xs font-bold uppercase text-gray-500 dark:text-gray-400">
             Teams
           </p>
           {teams.map((team) => (

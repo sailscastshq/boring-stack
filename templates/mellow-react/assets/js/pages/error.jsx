@@ -7,7 +7,7 @@ export default function ErrorPage({ status, title, message }) {
     <>
       <Head title={`${status} ${title} | Mellow`} />
 
-      <main className="from-brand-50/10 flex min-h-screen items-center bg-gradient-to-b to-[#F9FAFB] px-6 py-16 text-black">
+      <main className="mellow-auth">
         <section className="mx-auto w-full max-w-3xl">
           <p className="text-brand mb-4 text-sm font-semibold">
             Status {status}

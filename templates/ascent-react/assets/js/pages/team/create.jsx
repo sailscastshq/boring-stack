@@ -20,10 +20,10 @@ export default function CreateTeam() {
     <DashboardLayout>
       <div className="mx-auto max-w-2xl">
         <header className="mb-8">
-          <h1 className="mb-2 text-2xl font-bold text-gray-900">
+          <h1 className="mb-2 text-2xl font-bold text-gray-900 dark:text-gray-100">
             Create New Team
           </h1>
-          <p className="text-gray-600">
+          <p className="text-gray-600 dark:text-gray-400">
             Create a new team to collaborate with others. You'll be the owner of
             this team.
           </p>
@@ -33,7 +33,7 @@ export default function CreateTeam() {
           <div>
             <label
               htmlFor="name"
-              className="mb-2 block text-sm font-medium text-gray-700"
+              className="mb-2 block text-sm font-medium text-gray-700 dark:text-gray-300"
             >
               Team Name
             </label>

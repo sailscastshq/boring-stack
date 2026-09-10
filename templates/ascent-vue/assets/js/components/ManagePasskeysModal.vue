@@ -142,21 +142,21 @@ function getDeviceIcon(transports) {
   >
     <div class="space-y-4">
       <!-- Supporting text -->
-      <p class="text-sm text-gray-500">
+      <p class="text-sm text-gray-500 dark:text-gray-400">
         Rename, remove, or add new passkeys for your account
       </p>
 
       <!-- Passkeys List -->
       <div v-if="passkeys.length === 0" class="py-12 text-center">
         <div
-          class="mx-auto mb-4 flex h-16 w-16 items-center justify-center rounded-full bg-gray-100"
+          class="mx-auto mb-4 flex h-16 w-16 items-center justify-center rounded-full bg-gray-100 dark:bg-gray-800"
         >
           <Key class="h-[1em] w-[1em] shrink-0 text-xl text-gray-400" />
         </div>
-        <h3 class="mb-2 text-base font-medium text-gray-900">
+        <h3 class="mb-2 text-base font-medium text-gray-900 dark:text-gray-100">
           No passkeys yet
         </h3>
-        <p class="mx-auto max-w-sm text-sm text-gray-500">
+        <p class="mx-auto max-w-sm text-sm text-gray-500 dark:text-gray-400">
           Add your first passkey to enable secure, passwordless authentication.
         </p>
       </div>
@@ -166,11 +166,11 @@ function getDeviceIcon(transports) {
             <div class="flex min-w-0 flex-1 items-center space-x-4">
               <div class="shrink-0">
                 <div
-                  class="bg-brand-50 flex h-10 w-10 items-center justify-center rounded-lg"
+                  class="bg-brand-50 flex h-10 w-10 items-center justify-center rounded-lg dark:bg-brand-950/40"
                 >
                   <component
                     :is="getDeviceIcon(passkey.transports)"
-                    class="h-5 w-5 text-brand-600"
+                    class="h-5 w-5 text-brand-600 dark:text-brand-300"
                   />
                 </div>
               </div>
@@ -225,10 +225,12 @@ function getDeviceIcon(transports) {
                   </Message>
                 </div>
                 <div v-else>
-                  <p class="truncate text-sm font-medium text-gray-900">
+                  <p
+                    class="truncate text-sm font-medium text-gray-900 dark:text-gray-100"
+                  >
                     {{ passkey.name || `Passkey ${index + 1}` }}
                   </p>
-                  <p class="text-xs text-gray-500">
+                  <p class="text-xs text-gray-500 dark:text-gray-400">
                     Added {{ formatDate(passkey.createdAt) }}
                   </p>
                 </div>

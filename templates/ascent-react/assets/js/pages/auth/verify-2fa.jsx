@@ -61,11 +61,11 @@ export default function VerifyTwoFactor({ twoFactorMethods, userEmail }) {
       <>
         <Head title="Two-Factor Authentication | Ascent React" />
 
-        <div className="flex min-h-screen flex-col justify-center bg-gradient-to-br from-brand-50/30 via-white to-accent-50/20 py-12 sm:px-6 lg:px-8">
+        <div className="ascent-auth">
           {/* Background Elements */}
           <div className="pointer-events-none absolute inset-0 overflow-hidden">
-            <div className="absolute left-1/4 top-20 h-96 w-96 rounded-full bg-brand-200/20 blur-3xl"></div>
-            <div className="absolute bottom-20 right-1/4 h-72 w-72 rounded-full bg-accent-200/20 blur-3xl"></div>
+            <div className="hidden"></div>
+            <div className="hidden"></div>
           </div>
 
           <div className="relative sm:mx-auto sm:w-full sm:max-w-lg">
@@ -73,22 +73,29 @@ export default function VerifyTwoFactor({ twoFactorMethods, userEmail }) {
             <div className="mb-8 flex items-center justify-center">
               <Link href="/" className="group">
                 <div className="relative">
-                  <div className="absolute inset-0 scale-110 rounded-2xl bg-brand-200/30 opacity-0 blur-xl transition-opacity group-hover:opacity-100"></div>
-                  <img
-                    src="/images/logo.svg"
-                    alt="Ascent Logo"
-                    className="relative h-12 w-auto"
-                  />
+                  <div className="hidden"></div>
+                  <span
+                    className="inline-flex items-center gap-1 text-2xl font-semibold tracking-tight text-gray-900 dark:text-gray-100"
+                    aria-label="Ascent"
+                  >
+                    Ascent
+                    <span
+                      className="text-brand-600 dark:text-brand-300"
+                      aria-hidden="true"
+                    >
+                      ↗
+                    </span>
+                  </span>
                 </div>
               </Link>
             </div>
 
             {/* Header */}
             <header className="mb-8 text-center">
-              <h1 className="text-3xl font-bold tracking-tight text-gray-900">
+              <h1 className="text-3xl font-bold tracking-tight text-gray-900 dark:text-gray-100">
                 Two-Factor Authentication
               </h1>
-              <p className="mt-2 text-base text-gray-600">
+              <p className="mt-2 text-base text-gray-600 dark:text-gray-400">
                 Please verify your identity to complete login
               </p>
             </header>
@@ -97,10 +104,10 @@ export default function VerifyTwoFactor({ twoFactorMethods, userEmail }) {
           <div className="relative sm:mx-auto sm:w-full sm:max-w-lg">
             <div className="relative">
               {/* Background blur effect */}
-              <div className="absolute inset-0 scale-105 rounded-2xl bg-gradient-to-r from-brand-600/10 to-accent-600/10 blur-xl"></div>
+              <div className="hidden"></div>
 
               {/* Main card */}
-              <div className="relative rounded-2xl border border-gray-100 bg-white px-8 py-10 shadow-2xl">
+              <div className="ascent-auth-panel">
                 {/* Global errors */}
                 {(errors.method || errors.code) && (
                   <div className="mb-6" role="alert">
@@ -136,7 +143,7 @@ export default function VerifyTwoFactor({ twoFactorMethods, userEmail }) {
                 <form onSubmit={handleVerifyCode} className="space-y-5">
                   {activeMethod === 'totp' && (
                     <div>
-                      <label className="mb-4 block text-center text-sm font-medium text-gray-700">
+                      <label className="mb-4 block text-center text-sm font-medium text-gray-700 dark:text-gray-300">
                         Enter code from your authenticator app
                       </label>
                       <div className="flex justify-center">
@@ -157,7 +164,7 @@ export default function VerifyTwoFactor({ twoFactorMethods, userEmail }) {
 
                   {activeMethod === 'email' && (
                     <div>
-                      <label className="mb-4 block text-center text-sm font-medium text-gray-700">
+                      <label className="mb-4 block text-center text-sm font-medium text-gray-700 dark:text-gray-300">
                         Enter code sent to {userEmail}
                       </label>
                       <div className="flex justify-center">
@@ -178,7 +185,7 @@ export default function VerifyTwoFactor({ twoFactorMethods, userEmail }) {
 
                   {activeMethod === 'backup' && (
                     <div>
-                      <label className="mb-4 block text-center text-sm font-medium text-gray-700">
+                      <label className="mb-4 block text-center text-sm font-medium text-gray-700 dark:text-gray-300">
                         Enter a backup recovery code
                       </label>
                       <div className="flex justify-center">
@@ -196,7 +203,7 @@ export default function VerifyTwoFactor({ twoFactorMethods, userEmail }) {
                           }
                         />
                       </div>
-                      <p className="mt-3 text-center text-xs text-gray-500">
+                      <p className="mt-3 text-center text-xs text-gray-500 dark:text-gray-400">
                         Each backup code can only be used once
                       </p>
                     </div>
@@ -220,12 +227,12 @@ export default function VerifyTwoFactor({ twoFactorMethods, userEmail }) {
                           ? String(data.code).length !== 8
                           : String(data.code).length !== 6)
                           ? 'bg-gray-300'
-                          : 'bg-gradient-to-r from-brand-600 to-accent-600 hover:from-brand-700 hover:to-accent-700 focus:outline-none focus:ring-2 focus:ring-brand-500 focus:ring-offset-2'
+                          : 'bg-brand-600 hover:bg-brand-700 focus:outline-none focus:ring-2 focus:ring-brand-500 focus:ring-offset-2 dark:bg-brand-600'
                       }`}
                     >
                       {processing ? (
                         <div className="flex items-center space-x-2">
-                          <Spinner className="h-5 w-5 " />
+                          <Spinner className="h-5 w-5" />
                           <span>Verifying...</span>
                         </div>
                       ) : (
@@ -248,7 +255,7 @@ export default function VerifyTwoFactor({ twoFactorMethods, userEmail }) {
                                 <button
                                   type="button"
                                   onClick={() => handleSwitchMethod('email')}
-                                  className="text-sm font-medium text-gray-600 underline underline-offset-2 transition-colors hover:text-brand-600"
+                                  className="text-sm font-medium text-gray-600 underline underline-offset-2 transition-colors hover:text-brand-600 dark:text-gray-400"
                                 >
                                   Get the code via email instead
                                 </button>
@@ -259,7 +266,7 @@ export default function VerifyTwoFactor({ twoFactorMethods, userEmail }) {
                                 <button
                                   type="button"
                                   onClick={() => handleSwitchMethod('totp')}
-                                  className="text-sm font-medium text-gray-600 underline underline-offset-2 transition-colors hover:text-brand-600"
+                                  className="text-sm font-medium text-gray-600 underline underline-offset-2 transition-colors hover:text-brand-600 dark:text-gray-400"
                                 >
                                   Use authenticator app instead
                                 </button>
@@ -272,7 +279,7 @@ export default function VerifyTwoFactor({ twoFactorMethods, userEmail }) {
                           <button
                             type="button"
                             onClick={() => handleSwitchMethod('backup')}
-                            className="text-sm font-medium text-gray-600 underline underline-offset-2 transition-colors hover:text-brand-600"
+                            className="text-sm font-medium text-gray-600 underline underline-offset-2 transition-colors hover:text-brand-600 dark:text-gray-400"
                           >
                             Use backup code
                           </button>
@@ -287,7 +294,7 @@ export default function VerifyTwoFactor({ twoFactorMethods, userEmail }) {
                         onClick={() =>
                           handleSwitchMethod(twoFactorMethods.defaultMethod)
                         }
-                        className="text-sm font-medium text-gray-600 underline underline-offset-2 transition-colors hover:text-brand-600"
+                        className="text-sm font-medium text-gray-600 underline underline-offset-2 transition-colors hover:text-brand-600 dark:text-gray-400"
                       >
                         Use{' '}
                         {twoFactorMethods.defaultMethod === 'totp'

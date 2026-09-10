@@ -1,2 +1,386 @@
 @import 'tailwindcss';
 @config '../../tailwind.config.js';
+
+@theme {
+  --color-brand: #087f78;
+  --color-brand-50: #effaf7;
+  --color-brand-100: #d9f3eb;
+  --color-brand-200: #b5e5d8;
+  --color-brand-300: #7ed1c0;
+  --color-brand-400: #49b7a5;
+  --color-brand-500: #169489;
+  --color-brand-600: #087f78;
+  --color-brand-700: #12615d;
+  --color-brand-800: #164d4b;
+  --color-brand-900: #173f3e;
+  --color-brand-950: #092a2a;
+  --color-gray-50: #f7f8f9;
+  --color-gray-100: #eef0f2;
+  --color-gray-200: #dfe3e6;
+  --color-gray-300: #c6cdd3;
+  --color-gray-400: #949fa9;
+  --color-gray-500: #6c7985;
+  --color-gray-600: #52606d;
+  --color-gray-700: #394652;
+  --color-gray-800: #24303a;
+  --color-gray-900: #151f28;
+  --color-gray-950: #0d151d;
+}
+@layer base {
+  :root {
+    --ascent-page: #f8fafb;
+    --ascent-panel: #fff;
+    --ascent-ink: #17232d;
+    --ascent-muted: #65717e;
+    --ascent-line: #dfe5e8;
+  }
+  .dark {
+    --ascent-page: #10181f;
+    --ascent-panel: #17222c;
+    --ascent-ink: #edf2f4;
+    --ascent-muted: #a3b0bb;
+    --ascent-line: #2c3945;
+    color-scheme: dark;
+  }
+  html {
+    scroll-behavior: smooth;
+    scroll-padding-top: 6rem;
+  }
+  body {
+    color: var(--ascent-ink);
+    background: var(--ascent-page);
+    -webkit-font-smoothing: antialiased;
+  }
+  ::selection {
+    background: #9de3cc;
+    color: #102b24;
+  }
+  :focus-visible {
+    outline: 2px solid #29998a;
+    outline-offset: 4px;
+  }
+}
+@layer components {
+  .ascent-shell {
+    @apply flex min-h-screen flex-col;
+    background: var(--ascent-page);
+    color: var(--ascent-ink);
+  }
+  .ascent-site-header {
+    @apply sticky top-0 z-50 border-b;
+    background: var(--ascent-panel);
+    border-color: var(--ascent-line);
+  }
+  .ascent-site-header a {
+    color: var(--ascent-ink);
+  }
+  .ascent-site-header a[href='/signup'] {
+    background: #087f78;
+    color: white;
+    box-shadow: none;
+  }
+
+  .ascent-hero {
+    background: var(--ascent-panel);
+    color: var(--ascent-ink);
+  }
+
+  .ascent-hero-inner {
+    @apply mx-auto max-w-7xl px-6 py-16 md:px-12 md:py-24;
+  }
+
+  .ascent-hero h1 {
+    font-size: clamp(2.7rem, 4.5vw, 4rem);
+    font-weight: 500;
+    letter-spacing: -0.055em;
+    line-height: 1.1;
+    margin: 0;
+  }
+
+  .ascent-hero-bottom {
+    @apply grid gap-9 md:grid-cols-2 md:items-end md:gap-16;
+  }
+  .ascent-hero h2 {
+    font-size: clamp(1.8rem, 3vw, 2.5rem);
+    line-height: 1.12;
+    letter-spacing: -0.04em;
+    font-weight: 500;
+  }
+
+  .ascent-hero-bottom > div > p {
+    @apply mt-5 max-w-md text-base leading-7;
+    color: var(--ascent-muted);
+  }
+  .ascent-waitlist {
+    @apply pb-1;
+  }
+  .ascent-form-row {
+    @apply mt-4 flex flex-col gap-2 sm:flex-row;
+  }
+
+  .ascent-form-row input {
+    @apply min-h-12 w-full min-w-0 flex-1 rounded-lg border px-4 py-3 text-sm;
+    border-color: var(--ascent-line);
+    background: var(--ascent-panel);
+    color: var(--ascent-ink);
+  }
+
+  .ascent-form-row input::placeholder {
+    color: var(--ascent-muted);
+  }
+
+  .ascent-form-row button {
+    @apply min-h-12 flex shrink-0 items-center justify-center gap-3 rounded-lg px-5 py-3 text-sm font-medium transition-colors disabled:cursor-wait disabled:opacity-60;
+    background: #087f78;
+    color: white;
+  }
+
+  .ascent-form-row button:hover:not(:disabled) {
+    background: #12615d;
+  }
+  .ascent-hero-bottom .ascent-form-note {
+    @apply mt-3 text-[11px] leading-5;
+  }
+
+  .ascent-overview {
+    @apply mx-auto max-w-7xl px-6 py-12 md:px-12 md:py-16;
+  }
+  .ascent-section-title h2,
+  .ascent-detail h2,
+  .ascent-final h2 {
+    font-size: clamp(2rem, 3.5vw, 3rem);
+    line-height: 1.12;
+    font-weight: 500;
+    letter-spacing: -0.05em;
+    margin: 20px 0;
+  }
+  .ascent-inline-link {
+    @apply min-h-11 inline-flex items-center gap-6 text-sm font-medium;
+    color: #087f78;
+  }
+  .dark .ascent-inline-link {
+    color: #86d9bd;
+  }
+  .ascent-capabilities {
+    @apply mt-12 grid gap-8 md:grid-cols-3 md:gap-12;
+  }
+  .ascent-capabilities article {
+    @apply border-t pt-5;
+    border-color: var(--ascent-line);
+  }
+
+  .ascent-capabilities svg {
+    color: #087f78;
+  }
+  .dark .ascent-capabilities svg {
+    color: #86d9bd;
+  }
+  .ascent-capabilities h3 {
+    @apply mb-3 mt-4 text-xl font-medium tracking-tight;
+  }
+  .ascent-capabilities p,
+  .ascent-detail p,
+  .ascent-questions details p {
+    @apply text-sm leading-7;
+    color: var(--ascent-muted);
+  }
+  .ascent-detail,
+  .ascent-questions {
+    @apply mx-auto grid max-w-7xl gap-10 border-t px-6 py-16 md:grid-cols-2 md:gap-20 md:px-12 md:py-20;
+    border-color: var(--ascent-line);
+  }
+  .ascent-detail-links {
+    @apply mt-8;
+  }
+  .ascent-detail-links a {
+    @apply flex items-center justify-between border-t py-4 text-sm font-medium;
+    border-color: var(--ascent-line);
+  }
+  .ascent-questions details {
+    @apply border-t py-5;
+    border-color: var(--ascent-line);
+  }
+  .ascent-questions summary {
+    @apply cursor-pointer text-base font-medium;
+  }
+  .ascent-questions details p {
+    @apply mt-4;
+  }
+  .ascent-final {
+    @apply px-6 py-20 text-center;
+    background: var(--ascent-panel);
+  }
+  .ascent-primary {
+    @apply min-h-12 inline-flex items-center justify-center gap-8 rounded-lg px-6 py-3 text-sm font-semibold transition-colors;
+    background: #087f78;
+    color: #fff;
+  }
+  .ascent-primary:hover {
+    background: #12615d;
+  }
+  .ascent-auth {
+    @apply relative flex min-h-screen flex-col justify-center px-5 py-12 sm:px-6;
+    background: var(--ascent-page);
+  }
+  .ascent-auth h1 {
+    @apply text-3xl font-medium tracking-tight;
+    color: var(--ascent-ink);
+  }
+  .ascent-auth-panel {
+    @apply relative rounded-xl border px-6 py-8 sm:px-8;
+    border-color: var(--ascent-line);
+    background: var(--ascent-panel);
+    box-shadow: 0 10px 36px -30px #142b35;
+  }
+  .ascent-auth label {
+    @apply text-sm font-medium;
+    color: var(--ascent-ink);
+  }
+  .ascent-auth input:not([type='checkbox']) {
+    @apply rounded-lg border px-4 py-3 text-base shadow-none;
+    color: var(--ascent-ink);
+    background: var(--ascent-panel);
+    border-color: var(--ascent-line);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+}
+
+@layer components {
+  .ascent-workspace-intro {
+    @apply border-b pb-10 pt-4;
+    border-color: var(--ascent-line);
+  }
+  .ascent-workspace-intro h1 {
+    @apply mb-3 mt-5 text-3xl font-medium tracking-tight sm:text-4xl;
+  }
+  .ascent-workspace-intro > p:last-child {
+    @apply text-sm;
+    color: var(--ascent-muted);
+  }
+  .ascent-workspace-links {
+    @apply grid gap-8 py-10 md:grid-cols-3;
+  }
+  .ascent-workspace-links a {
+    @apply border-b pb-8 transition-colors;
+    border-color: var(--ascent-line);
+  }
+  .ascent-workspace-links a:hover {
+    border-color: #169489;
+  }
+  .ascent-workspace-links h2 {
+    @apply mb-3 flex justify-between gap-3 text-lg font-medium;
+  }
+  .ascent-workspace-links h2 svg {
+    color: #169489;
+  }
+  .ascent-workspace-links p,
+  .ascent-workspace-note p {
+    @apply text-sm leading-6;
+    color: var(--ascent-muted);
+  }
+  .ascent-workspace-note {
+    @apply mt-4 flex flex-col justify-between gap-6 rounded-xl border p-6 sm:flex-row sm:items-center sm:p-8;
+    background: var(--ascent-panel);
+    border-color: var(--ascent-line);
+  }
+  .ascent-workspace-note h2 {
+    @apply mb-2 mt-3 text-xl font-medium tracking-tight;
+  }
+}
+
+@layer components {
+  .ascent-mobile-nav {
+    @apply border-t px-6 py-3 text-sm md:hidden;
+    border-color: var(--ascent-line);
+  }
+  .ascent-mobile-nav summary {
+    @apply cursor-pointer font-medium;
+  }
+  .ascent-mobile-nav nav {
+    @apply grid grid-cols-2 gap-2 pt-3;
+  }
+  .ascent-mobile-nav a {
+    @apply rounded-md px-2 py-3;
+  }
+  .ascent-page-heading {
+    @apply mx-auto max-w-7xl px-6 py-14 md:px-12 md:py-20;
+  }
+  .ascent-page-heading h1 {
+    @apply my-6 text-4xl font-medium tracking-tight sm:text-5xl lg:text-6xl;
+    line-height: 1.05;
+  }
+  .ascent-page-heading > p {
+    @apply mb-8 max-w-xl text-base leading-7;
+    color: var(--ascent-muted);
+  }
+  .ascent-feature-index {
+    @apply mx-auto max-w-7xl px-6 pb-16 md:px-12;
+  }
+  .ascent-feature-index article {
+    @apply grid gap-6 border-t py-10 md:grid-cols-[1fr_2fr_1fr] md:gap-12;
+    border-color: var(--ascent-line);
+  }
+  .ascent-feature-index h2 {
+    @apply mb-3 text-2xl font-medium tracking-tight;
+  }
+  .ascent-feature-index p {
+    @apply text-sm leading-7;
+    color: var(--ascent-muted);
+  }
+  .ascent-feature-index li {
+    @apply mb-3 flex items-center gap-3 text-sm;
+  }
+  .ascent-feature-index li svg {
+    color: #169489;
+  }
+}
+
+@layer components {
+  .ascent-cycle {
+    @apply inline-flex max-w-full gap-1 rounded-lg border p-1;
+    background: var(--ascent-panel);
+    border-color: var(--ascent-line);
+  }
+  .ascent-cycle button {
+    @apply min-h-11 rounded-md px-4 py-2 text-sm font-medium transition-colors;
+    color: var(--ascent-muted);
+  }
+  .ascent-cycle button[aria-pressed='true'] {
+    background: #087f78;
+    color: white;
+  }
+}
+
+@layer components {
+  .ascent-section-title h2,
+  .ascent-detail h2,
+  .ascent-final h2 {
+    @apply mt-0 text-3xl;
+  }
+  .ascent-capabilities {
+    @apply mt-8;
+  }
+  .ascent-capabilities article > svg {
+    @apply hidden;
+  }
+  .ascent-detail,
+  .ascent-questions {
+    @apply py-12 md:py-16;
+  }
+  .ascent-feature-index article {
+    @apply md:grid-cols-[2fr_1fr];
+  }
+  .ascent-workspace-intro h1,
+  .ascent-workspace-note h2 {
+    @apply mt-0;
+  }
+  .ascent-hero .ascent-form-note {
+    @apply text-xs leading-5;
+    color: var(--ascent-muted);
+  }
+}

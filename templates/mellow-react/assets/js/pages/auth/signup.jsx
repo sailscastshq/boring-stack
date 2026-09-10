@@ -38,8 +38,8 @@ export default function Signup() {
   return (
     <>
       <Head title="Sign up | Mellow"></Head>
-      <section className="from-brand-50/10 flex min-h-screen flex-col justify-center bg-gradient-to-b to-[#F9FAFB] text-black sm:items-center">
-        <main className="mt-10 bg-white px-4 py-10 text-black sm:w-7/12 sm:rounded-lg sm:px-8 sm:shadow-lg md:w-6/12 lg:w-5/12 xl:w-4/12">
+      <section className="mellow-auth">
+        <main className="mellow-auth-main">
           <section className="mb-6 flex flex-col items-center justify-center space-y-2 text-center">
             <Link href="/">
               <svg
@@ -62,7 +62,7 @@ export default function Signup() {
             </Link>
 
             <h1 className="text-2xl">Create your account</h1>
-            <p className="text-gray text-lg">
+            <p className="text-sm text-gray-600">
               Welcome! Please enter your details to sign up
             </p>
           </section>

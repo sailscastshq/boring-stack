@@ -20,12 +20,8 @@ const disableForgetPasswordButton = computed(() => {
 
 <template>
   <Head title="Forgot password | Mellow"></Head>
-  <section
-    class="from-brand-50/10 bg-linear-to-b flex min-h-screen flex-col justify-center to-[#F9FAFB] text-black sm:items-center"
-  >
-    <main
-      class="mt-10 bg-white px-4 py-10 text-black sm:w-7/12 sm:rounded-lg sm:px-8 sm:shadow-lg md:w-6/12 lg:w-5/12 xl:w-4/12"
-    >
+  <section class="mellow-auth">
+    <main class="mellow-auth-main">
       <section
         class="mb-6 flex flex-col items-center justify-center space-y-2 text-center"
       >
@@ -35,7 +31,7 @@ const disableForgetPasswordButton = computed(() => {
         /></span>
 
         <h1 class="text-2xl">Forgot password?</h1>
-        <p class="text-gray text-lg">
+        <p class="text-sm text-gray-600">
           We'll send reset instructions to your email
         </p>
       </section>

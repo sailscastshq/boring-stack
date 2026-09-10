@@ -10,12 +10,8 @@ const { message } = defineProps({
 </script>
 <template>
   <Head title="Check your email | Mellow"></Head>
-  <section
-    class="from-brand-50/10 flex min-h-screen flex-col justify-center bg-gradient-to-b to-[#F9FAFB] text-black sm:items-center"
-  >
-    <main
-      class="mt-10 bg-white px-4 py-10 text-black sm:w-7/12 sm:rounded-lg sm:px-8 sm:shadow-lg md:w-6/12 lg:w-5/12 xl:w-4/12"
-    >
+  <section class="mellow-auth">
+    <main class="mellow-auth-main">
       <section
         class="mb-6 flex flex-col items-center justify-center space-y-4 text-center"
       >
@@ -25,7 +21,7 @@ const { message } = defineProps({
         /></span>
 
         <h1 class="text-2xl">Check your email</h1>
-        <p class="text-gray text-lg" v-if="message">
+        <p class="text-sm text-gray-600" v-if="message">
           {{ message }}
         </p>
         <button

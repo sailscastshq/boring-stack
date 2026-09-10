@@ -22,9 +22,7 @@ const homeHref = props.status === 404 ? '/' : '/dashboard'
 <template>
   <Head :title="`${status} ${title} | Mellow`" />
 
-  <main
-    class="from-brand-50/10 flex min-h-screen items-center bg-gradient-to-b to-[#F9FAFB] px-6 py-16 text-black"
-  >
+  <main class="mellow-auth">
     <section class="mx-auto w-full max-w-3xl">
       <p class="text-brand mb-4 text-sm font-semibold">Status {{ status }}</p>
       <h1 class="max-w-2xl text-4xl font-semibold text-black sm:text-5xl">

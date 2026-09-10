@@ -43,17 +43,19 @@ export default function BackupCodesModal({
       <div className="space-y-6">
         {/* Header */}
         <div className="text-center">
-          <div className="mx-auto mb-4 flex h-12 w-12 items-center justify-center rounded-full bg-success-100">
+          <div className="mx-auto mb-4 flex h-12 w-12 items-center justify-center rounded-full bg-success-100 dark:bg-success-950/40">
             <Key
-              className={'h-[1em] w-[1em] shrink-0 text-xl text-success-600'}
+              className={
+                'h-[1em] w-[1em] shrink-0 text-xl text-success-600 dark:text-success-300'
+              }
             ></Key>
           </div>
-          <h2 className="mb-2 text-xl font-semibold text-gray-900">
+          <h2 className="mb-2 text-xl font-semibold text-gray-900 dark:text-gray-100">
             {context === 'setup'
               ? 'Authenticator App Setup Complete!'
               : 'New Backup Codes Generated'}
           </h2>
-          <p className="text-sm text-gray-600">
+          <p className="text-sm text-gray-600 dark:text-gray-400">
             {context === 'setup'
               ? 'Save these backup codes in a secure place. You can use them to access your account if you lose your authenticator device.'
               : 'Your new backup codes are ready. Save them in a secure place - they replace any previous backup codes.'}
@@ -78,7 +80,7 @@ export default function BackupCodesModal({
         {/* Backup Codes */}
         <div className="space-y-4">
           <div className="flex items-center justify-between">
-            <h3 className="text-lg font-semibold text-gray-900">
+            <h3 className="text-lg font-semibold text-gray-900 dark:text-gray-100">
               Your backup codes
             </h3>
             <Button
@@ -88,8 +90,8 @@ export default function BackupCodesModal({
               className={[
                 'min-h-10 min-h-8 border border-transparent bg-transparent px-2.5 px-3 py-1.5 py-2 text-sm text-brand hover:bg-brand-50 dark:bg-transparent dark:text-brand-400 dark:hover:bg-brand-950',
                 copied
-                  ? 'text-success-600 hover:text-success-700'
-                  : 'text-gray-500 hover:text-gray-700'
+                  ? 'text-success-600 hover:text-success-700 dark:text-success-300'
+                  : 'text-gray-500 hover:text-gray-700 dark:text-gray-400'
               ]
                 .filter(Boolean)
                 .join(' ')}
@@ -105,7 +107,7 @@ export default function BackupCodesModal({
             {backupCodes.map((code, index) => (
               <div
                 key={index}
-                className="rounded-lg border border-gray-200 bg-white px-4 py-3 font-mono text-sm font-medium text-gray-900 shadow-sm transition-shadow duration-150"
+                className="rounded-lg border border-gray-200 bg-white px-4 py-3 font-mono text-sm font-medium text-gray-900 shadow-sm transition-shadow duration-150 dark:border-gray-700 dark:bg-gray-900 dark:text-gray-100"
               >
                 {code}
               </div>

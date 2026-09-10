@@ -65,3 +65,9 @@ For full license details, please see the [LICENSE](LICENSE.md) file in the proje
 This template ships editable [Klean UI and Klean Icons](https://docs.sailscasts.com/klean-ui/) source, installed with `klean-ui@0.0.4` under `assets/js/components/ui/`. Ordinary Tailwind classes at the call site control its appearance. There is no Klean runtime or provider.
 
 See [UI.md](UI.md) for the installed inventory, artwork exceptions, and safe update workflow.
+
+## Design and customization
+
+Mellow uses warm off-white surfaces, violet actions, restrained serif headings, and a readable system sans-serif for forms. Landing content is organized in ruled sections; profile forms use aligned description and control columns on wide screens. Authentication, recovery, and status pages share the same compact form treatment. See [UI.md](UI.md) for the palette, application recipes, page inventory, and screenshot workflow.
+
+![Template preview](https://raw.githubusercontent.com/sailscastshq/boring-stack/main/.github/previews/mellow-vue-home.png)
