@@ -35,7 +35,7 @@ module.exports = {
 
     const userExists = await User.count({ email })
     if (!userExists) {
-      return '/check-email'
+      return exits.success('/check-email')
     }
 
     const token = await sails.helpers.strings.random('url-friendly')
@@ -57,6 +57,6 @@ module.exports = {
     })
 
     this.req.session.userEmail = user.email
-    return '/check-email'
+    return exits.success('/check-email')
   }
 }
