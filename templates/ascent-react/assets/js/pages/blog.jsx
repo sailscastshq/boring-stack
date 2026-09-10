@@ -1,3 +1,6 @@
+import Input from '@/components/ui/input/Input.jsx'
+import Newspaper from '@/components/ui/icons/Newspaper.jsx'
+import ArrowRight from '@/components/ui/icons/ArrowRight.jsx'
 import { Head, Link } from '@inertiajs/react'
 import AppLayout from '@/layouts/AppLayout.jsx'
 
@@ -73,19 +76,7 @@ export default function Blog({ appName, blogPosts }) {
                           className="group/link inline-flex items-center font-semibold text-brand-600 transition-colors hover:text-brand-700"
                         >
                           Read full article
-                          <svg
-                            className="ml-2 h-4 w-4 transition-transform group-hover/link:translate-x-1"
-                            fill="none"
-                            viewBox="0 0 24 24"
-                            strokeWidth={2}
-                            stroke="currentColor"
-                          >
-                            <path
-                              strokeLinecap="round"
-                              strokeLinejoin="round"
-                              d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3"
-                            />
-                          </svg>
+                          <ArrowRight className="ml-2 h-4 w-4 transition-transform group-hover/link:translate-x-1" />
                         </a>
 
                         {index === 0 && (
@@ -105,20 +96,7 @@ export default function Blog({ appName, blogPosts }) {
           ) : (
             <div className="py-20 text-center" role="status" aria-live="polite">
               <div className="mx-auto mb-8 flex h-24 w-24 items-center justify-center rounded-full bg-gray-100">
-                <svg
-                  className="h-12 w-12 text-gray-400"
-                  fill="none"
-                  viewBox="0 0 24 24"
-                  strokeWidth={1.5}
-                  stroke="currentColor"
-                  aria-hidden="true"
-                >
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    d="M12 7.5h1.5m-1.5 3h1.5m-7.5 3h7.5m-7.5 3h7.5m3-9h3.375c.621 0 1.125.504 1.125 1.125V18a2.25 2.25 0 01-2.25 2.25M16.5 7.5V18a2.25 2.25 0 002.25 2.25M16.5 7.5V4.875c0-.621-.504-1.125-1.125-1.125H4.125C3.504 3.75 3 4.254 3 4.875V18a2.25 2.25 0 002.25 2.25h6.75"
-                  />
-                </svg>
+                <Newspaper className="h-12 w-12 text-gray-400" />
               </div>
               <h3 className="mb-3 text-2xl font-bold text-gray-900">
                 No blog posts yet
@@ -152,7 +130,7 @@ export default function Blog({ appName, blogPosts }) {
                   launches delivered to your inbox.
                 </p>
                 <form className="mx-auto flex max-w-md flex-col justify-center gap-4 sm:flex-row">
-                  <input
+                  <Input
                     type="email"
                     id="newsletter-email"
                     placeholder="Enter your email"

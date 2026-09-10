@@ -1,10 +1,13 @@
 <script setup>
+import CheckCircle from '@/components/ui/icons/CheckCircle.vue'
+import ExternalLink from '@/components/ui/icons/ExternalLink.vue'
+import DocumentText from '@/components/ui/icons/DocumentText.vue'
+import CreditCard from '@/components/ui/icons/CreditCard.vue'
+import ArrowRight from '@/components/ui/icons/ArrowRight.vue'
 import { computed } from 'vue'
 import { Head, Link } from '@inertiajs/vue3'
-import { useConfirm } from 'primevue/useconfirm'
-import Button from '@/volt/Button.vue'
-import Tag from '@/volt/Tag.vue'
-import ConfirmDialog from '@/volt/ConfirmDialog.vue'
+import { useConfirmation } from '@/composables/confirmation'
+import ConfirmationDialog from '@/components/ConfirmationDialog.vue'
 import DashboardLayout from '@/layouts/DashboardLayout.vue'
 
 defineOptions({
@@ -23,7 +26,7 @@ const props = defineProps({
   }
 })
 
-const confirm = useConfirm()
+const confirmation = useConfirmation()
 
 const isSubscribed = computed(() => !!props.subscription)
 
@@ -52,6 +55,7 @@ const formattedNextBillingDate = computed(() => {
 </script>
 
 <template>
+  <ConfirmationDialog :state="confirmation" />
   <Head title="Billing Settings | Ascent Vue" />
 
   <!-- No Active Subscription -->
@@ -60,8 +64,8 @@ const formattedNextBillingDate = computed(() => {
       <div
         class="mx-auto mb-6 flex h-20 w-20 items-center justify-center rounded-full bg-gray-100"
       >
-        <i
-          class="pi pi-credit-card text-3xl text-gray-400"
+        <CreditCard
+          class="h-[1em] w-[1em] shrink-0 text-3xl text-gray-400"
           aria-hidden="true"
         />
       </div>
@@ -77,7 +81,7 @@ const formattedNextBillingDate = computed(() => {
       href="/pricing"
       class="bg-brand-600 hover:bg-brand-700 inline-flex items-center rounded-lg border border-transparent px-6 py-3 text-base font-medium text-white no-underline transition-colors duration-200"
     >
-      <i class="pi pi-arrow-right mr-2" />
+      <ArrowRight class="h-[1em] w-[1em] shrink-0 mr-2" />
       View Pricing Plans
     </Link>
   </div>
@@ -101,7 +105,7 @@ const formattedNextBillingDate = computed(() => {
             <div
               class="bg-brand-50 flex h-12 w-12 items-center justify-center rounded-lg"
             >
-              <i class="pi pi-star text-brand-600" />
+              <CheckCircle class="h-4 w-4 text-brand-600" />
             </div>
             <div>
               <div class="flex items-center space-x-3">
@@ -132,7 +136,7 @@ const formattedNextBillingDate = computed(() => {
               target="_blank"
               class="border-brand-600 bg-brand-600 hover:bg-brand-700 inline-flex items-center rounded-lg border px-4 py-2 text-sm font-medium text-white no-underline transition-colors duration-200"
             >
-              <i class="pi pi-external-link mr-2" />
+              <ExternalLink class="h-[1em] w-[1em] shrink-0 mr-2" />
               Manage Subscription
             </a>
           </div>
@@ -158,7 +162,7 @@ const formattedNextBillingDate = computed(() => {
             <div
               class="flex h-10 w-10 items-center justify-center rounded-lg bg-gray-50"
             >
-              <i class="pi pi-credit-card text-gray-400" />
+              <CreditCard class="h-[1em] w-[1em] shrink-0 text-gray-400" />
             </div>
             <div>
               <div class="flex items-center space-x-2">
@@ -183,7 +187,7 @@ const formattedNextBillingDate = computed(() => {
             target="_blank"
             class="inline-flex items-center rounded-lg border border-gray-300 px-3 py-2 text-sm font-medium text-gray-700 no-underline transition-colors duration-200 hover:bg-gray-50"
           >
-            <i class="pi pi-external-link mr-2" />
+            <ExternalLink class="h-[1em] w-[1em] shrink-0 mr-2" />
             Update
           </a>
         </div>
@@ -208,7 +212,7 @@ const formattedNextBillingDate = computed(() => {
             <div
               class="bg-brand-50 mx-auto flex h-12 w-12 items-center justify-center rounded-lg"
             >
-              <i class="pi pi-receipt text-brand-600" />
+              <DocumentText class="h-[1em] w-[1em] shrink-0 text-brand-600" />
             </div>
           </div>
           <h4 class="mb-2 text-lg font-medium text-gray-900">
@@ -224,7 +228,7 @@ const formattedNextBillingDate = computed(() => {
             target="_blank"
             class="border-brand-600 bg-brand-600 hover:bg-brand-700 inline-flex items-center rounded-lg border px-4 py-2 text-sm font-medium text-white no-underline transition-colors duration-200"
           >
-            <i class="pi pi-external-link mr-2" />
+            <ExternalLink class="h-[1em] w-[1em] shrink-0 mr-2" />
             Open Customer Portal
           </a>
         </div>

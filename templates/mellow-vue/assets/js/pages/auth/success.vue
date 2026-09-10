@@ -1,4 +1,6 @@
 <script setup>
+import CheckCircle from '@/components/ui/icons/CheckCircle.vue'
+
 import { Link, Head } from '@inertiajs/vue3'
 const { pageTitle, pageHeading, message } = defineProps({
   pageTitle: {
@@ -23,31 +25,10 @@ const { pageTitle, pageHeading, message } = defineProps({
       <section
         class="mb-6 flex flex-col items-center justify-center space-y-4 text-center"
       >
-        <svg
-          width="50"
-          height="50"
-          viewBox="0 0 50 50"
-          fill="none"
-          xmlns="http://www.w3.org/2000/svg"
-        >
-          <rect width="50" height="50" rx="25" fill="#ECFFF4" />
-          <g clip-path="url(#clip0_74_2160)">
-            <path
-              d="M21.8119 31.497C21.3009 31.4972 20.8109 31.2941 20.4499 30.9325L16.3323 26.8164C15.8892 26.3732 15.8892 25.6548 16.3323 25.2116C16.7755 24.7685 17.4939 24.7685 17.9371 25.2116L21.8119 29.0863L32.0629 18.8353C32.5061 18.3923 33.2245 18.3923 33.6677 18.8353C34.1108 19.2786 34.1108 19.997 33.6677 20.4402L23.1738 30.9325C22.8129 31.2941 22.3228 31.4972 21.8119 31.497Z"
-              fill="#49D489"
-            />
-          </g>
-          <defs>
-            <clipPath id="clip0_74_2160">
-              <rect
-                width="18"
-                height="18"
-                fill="white"
-                transform="translate(16 16)"
-              />
-            </clipPath>
-          </defs>
-        </svg>
+        <span
+          class="flex h-[50px] w-[50px] items-center justify-center rounded-full bg-[#ECFFF4] text-[#49D489]"
+          ><CheckCircle class="h-[18px] w-[18px]"
+        /></span>
 
         <h1 class="text-2xl">{{ pageHeading }}</h1>
         <p class="text-gray text-lg">

@@ -1,8 +1,9 @@
+import Spinner from '@/components/ui/spinner/Spinner.jsx'
 import { useState } from 'react'
 import { useForm } from '@inertiajs/react'
-import { InputText } from 'primereact/inputtext'
-import { Button } from 'primereact/button'
-import { Message } from 'primereact/message'
+import InputText from '@/components/ui/input/Input.jsx'
+import Button from '@/components/ui/button/Button.jsx'
+import Message from '@/components/ui/alert/Alert.jsx'
 import DashboardLayout from '../../layouts/DashboardLayout'
 
 export default function CreateTeam() {
@@ -41,28 +42,51 @@ export default function CreateTeam() {
               value={data.name}
               onChange={(e) => setData('name', e.target.value)}
               placeholder="Enter team name"
-              className="w-full"
-              invalid={!!errors.name}
+              aria-invalid={!!errors.name}
+              className={[
+                'min-h-12 py-3 focus-visible:border-brand focus-visible:outline-brand dark:focus-visible:border-brand dark:focus-visible:outline-brand',
+                'w-full'
+              ]
+                .filter(Boolean)
+                .join(' ')}
             />
             {errors.name && (
-              <Message severity="error" text={errors.name} className="mt-2" />
+              <Message
+                role={'alert'}
+                className={[
+                  'border border-red-200 bg-red-50 text-red-700 dark:border-red-800 dark:bg-red-950 dark:text-red-300',
+                  'mt-2'
+                ]
+                  .filter(Boolean)
+                  .join(' ')}
+              >
+                {errors.name}
+              </Message>
             )}
           </div>
 
           <div className="flex gap-3">
             <Button
               type="submit"
-              disabled={processing}
-              loading={processing}
-              className="px-6"
+              disabled={processing || processing}
+              aria-busy={processing}
+              className={[
+                'min-h-10 border border-brand bg-brand px-3 py-2 text-base text-white hover:bg-brand-600 active:bg-brand-700 dark:bg-brand dark:text-white dark:hover:bg-brand-600 dark:active:bg-brand-700',
+                'px-6'
+              ]
+                .filter(Boolean)
+                .join(' ')}
             >
+              {processing && <Spinner className="h-4 w-4" />}
               Create Team
             </Button>
             <Button
               type="button"
-              outlined
               onClick={() => window.history.back()}
               disabled={processing}
+              className={
+                'min-h-10 border border-brand-200 bg-transparent px-3 py-2 text-brand hover:bg-brand-50 dark:border-brand-700 dark:bg-transparent dark:text-brand-400 dark:hover:bg-brand-950'
+              }
             >
               Cancel
             </Button>

@@ -1,4 +1,6 @@
 <script setup>
+import ChevronDown from '@/components/ui/icons/ChevronDown.vue'
+import Check from '@/components/ui/icons/Check.vue'
 import { Link, Head } from '@inertiajs/vue3'
 import { ref, computed } from 'vue'
 import AppLayout from '@/layouts/AppLayout.vue'
@@ -169,17 +171,7 @@ const sliderPosition = computed(() => {
                 <div
                   class="bg-success-100 mt-0.5 flex h-5 w-5 shrink-0 items-center justify-center rounded-full"
                 >
-                  <svg
-                    class="text-success-600 h-3 w-3"
-                    fill="currentColor"
-                    viewBox="0 0 20 20"
-                  >
-                    <path
-                      fill-rule="evenodd"
-                      d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
-                      clip-rule="evenodd"
-                    />
-                  </svg>
+                  <Check class="text-success-600 h-3 w-3" />
                 </div>
                 <div>
                   <p class="font-medium text-gray-900">Up to 5 team members</p>
@@ -193,17 +185,7 @@ const sliderPosition = computed(() => {
                 <div
                   class="bg-success-100 mt-0.5 flex h-5 w-5 shrink-0 items-center justify-center rounded-full"
                 >
-                  <svg
-                    class="text-success-600 h-3 w-3"
-                    fill="currentColor"
-                    viewBox="0 0 20 20"
-                  >
-                    <path
-                      fill-rule="evenodd"
-                      d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
-                      clip-rule="evenodd"
-                    />
-                  </svg>
+                  <Check class="text-success-600 h-3 w-3" />
                 </div>
                 <div>
                   <p class="font-medium text-gray-900">
@@ -219,17 +201,7 @@ const sliderPosition = computed(() => {
                 <div
                   class="bg-success-100 mt-0.5 flex h-5 w-5 shrink-0 items-center justify-center rounded-full"
                 >
-                  <svg
-                    class="text-success-600 h-3 w-3"
-                    fill="currentColor"
-                    viewBox="0 0 20 20"
-                  >
-                    <path
-                      fill-rule="evenodd"
-                      d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
-                      clip-rule="evenodd"
-                    />
-                  </svg>
+                  <Check class="text-success-600 h-3 w-3" />
                 </div>
                 <div>
                   <p class="font-medium text-gray-900">Subscription billing</p>
@@ -243,17 +215,7 @@ const sliderPosition = computed(() => {
                 <div
                   class="bg-success-100 mt-0.5 flex h-5 w-5 shrink-0 items-center justify-center rounded-full"
                 >
-                  <svg
-                    class="text-success-600 h-3 w-3"
-                    fill="currentColor"
-                    viewBox="0 0 20 20"
-                  >
-                    <path
-                      fill-rule="evenodd"
-                      d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
-                      clip-rule="evenodd"
-                    />
-                  </svg>
+                  <Check class="text-success-600 h-3 w-3" />
                 </div>
                 <div>
                   <p class="font-medium text-gray-900">Email support</p>
@@ -265,17 +227,7 @@ const sliderPosition = computed(() => {
                 <div
                   class="bg-success-100 mt-0.5 flex h-5 w-5 shrink-0 items-center justify-center rounded-full"
                 >
-                  <svg
-                    class="text-success-600 h-3 w-3"
-                    fill="currentColor"
-                    viewBox="0 0 20 20"
-                  >
-                    <path
-                      fill-rule="evenodd"
-                      d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
-                      clip-rule="evenodd"
-                    />
-                  </svg>
+                  <Check class="text-success-600 h-3 w-3" />
                 </div>
                 <div>
                   <p class="font-medium text-gray-900">Basic analytics</p>
@@ -367,17 +319,7 @@ const sliderPosition = computed(() => {
                 <div
                   class="bg-success-100 mt-0.5 flex h-5 w-5 shrink-0 items-center justify-center rounded-full"
                 >
-                  <svg
-                    class="text-success-600 h-3 w-3"
-                    fill="currentColor"
-                    viewBox="0 0 20 20"
-                  >
-                    <path
-                      fill-rule="evenodd"
-                      d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
-                      clip-rule="evenodd"
-                    />
-                  </svg>
+                  <Check class="text-success-600 h-3 w-3" />
                 </div>
                 <div>
                   <p class="font-medium text-gray-900">
@@ -393,17 +335,7 @@ const sliderPosition = computed(() => {
                 <div
                   class="bg-success-100 mt-0.5 flex h-5 w-5 shrink-0 items-center justify-center rounded-full"
                 >
-                  <svg
-                    class="text-success-600 h-3 w-3"
-                    fill="currentColor"
-                    viewBox="0 0 20 20"
-                  >
-                    <path
-                      fill-rule="evenodd"
-                      d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
-                      clip-rule="evenodd"
-                    />
-                  </svg>
+                  <Check class="text-success-600 h-3 w-3" />
                 </div>
                 <div>
                   <p class="font-medium text-gray-900">
@@ -419,17 +351,7 @@ const sliderPosition = computed(() => {
                 <div
                   class="bg-success-100 mt-0.5 flex h-5 w-5 shrink-0 items-center justify-center rounded-full"
                 >
-                  <svg
-                    class="text-success-600 h-3 w-3"
-                    fill="currentColor"
-                    viewBox="0 0 20 20"
-                  >
-                    <path
-                      fill-rule="evenodd"
-                      d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
-                      clip-rule="evenodd"
-                    />
-                  </svg>
+                  <Check class="text-success-600 h-3 w-3" />
                 </div>
                 <div>
                   <p class="font-medium text-gray-900">Priority support</p>
@@ -441,17 +363,7 @@ const sliderPosition = computed(() => {
                 <div
                   class="bg-success-100 mt-0.5 flex h-5 w-5 shrink-0 items-center justify-center rounded-full"
                 >
-                  <svg
-                    class="text-success-600 h-3 w-3"
-                    fill="currentColor"
-                    viewBox="0 0 20 20"
-                  >
-                    <path
-                      fill-rule="evenodd"
-                      d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
-                      clip-rule="evenodd"
-                    />
-                  </svg>
+                  <Check class="text-success-600 h-3 w-3" />
                 </div>
                 <div>
                   <p class="font-medium text-gray-900">
@@ -467,17 +379,7 @@ const sliderPosition = computed(() => {
                 <div
                   class="bg-success-100 mt-0.5 flex h-5 w-5 shrink-0 items-center justify-center rounded-full"
                 >
-                  <svg
-                    class="text-success-600 h-3 w-3"
-                    fill="currentColor"
-                    viewBox="0 0 20 20"
-                  >
-                    <path
-                      fill-rule="evenodd"
-                      d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
-                      clip-rule="evenodd"
-                    />
-                  </svg>
+                  <Check class="text-success-600 h-3 w-3" />
                 </div>
                 <div>
                   <p class="font-medium text-gray-900">Custom integrations</p>
@@ -491,17 +393,7 @@ const sliderPosition = computed(() => {
                 <div
                   class="bg-success-100 mt-0.5 flex h-5 w-5 shrink-0 items-center justify-center rounded-full"
                 >
-                  <svg
-                    class="text-success-600 h-3 w-3"
-                    fill="currentColor"
-                    viewBox="0 0 20 20"
-                  >
-                    <path
-                      fill-rule="evenodd"
-                      d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
-                      clip-rule="evenodd"
-                    />
-                  </svg>
+                  <Check class="text-success-600 h-3 w-3" />
                 </div>
                 <div>
                   <p class="font-medium text-gray-900">White-label options</p>
@@ -608,88 +500,28 @@ const sliderPosition = computed(() => {
               <tr>
                 <td class="px-6 py-4 text-gray-700">Authentication System</td>
                 <td class="px-6 py-4 text-center">
-                  <svg
-                    class="text-success-600 mx-auto h-5 w-5"
-                    fill="currentColor"
-                    viewBox="0 0 20 20"
-                  >
-                    <path
-                      fill-rule="evenodd"
-                      d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
-                      clip-rule="evenodd"
-                    />
-                  </svg>
+                  <Check class="text-success-600 mx-auto h-5 w-5" />
                 </td>
                 <td class="bg-brand-50/30 px-6 py-4 text-center">
-                  <svg
-                    class="text-success-600 mx-auto h-5 w-5"
-                    fill="currentColor"
-                    viewBox="0 0 20 20"
-                  >
-                    <path
-                      fill-rule="evenodd"
-                      d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
-                      clip-rule="evenodd"
-                    />
-                  </svg>
+                  <Check class="text-success-600 mx-auto h-5 w-5" />
                 </td>
               </tr>
               <tr>
                 <td class="px-6 py-4 text-gray-700">Subscription Billing</td>
                 <td class="px-6 py-4 text-center">
-                  <svg
-                    class="text-success-600 mx-auto h-5 w-5"
-                    fill="currentColor"
-                    viewBox="0 0 20 20"
-                  >
-                    <path
-                      fill-rule="evenodd"
-                      d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
-                      clip-rule="evenodd"
-                    />
-                  </svg>
+                  <Check class="text-success-600 mx-auto h-5 w-5" />
                 </td>
                 <td class="bg-brand-50/30 px-6 py-4 text-center">
-                  <svg
-                    class="text-success-600 mx-auto h-5 w-5"
-                    fill="currentColor"
-                    viewBox="0 0 20 20"
-                  >
-                    <path
-                      fill-rule="evenodd"
-                      d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
-                      clip-rule="evenodd"
-                    />
-                  </svg>
+                  <Check class="text-success-600 mx-auto h-5 w-5" />
                 </td>
               </tr>
               <tr>
                 <td class="px-6 py-4 text-gray-700">Basic Analytics</td>
                 <td class="px-6 py-4 text-center">
-                  <svg
-                    class="text-success-600 mx-auto h-5 w-5"
-                    fill="currentColor"
-                    viewBox="0 0 20 20"
-                  >
-                    <path
-                      fill-rule="evenodd"
-                      d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
-                      clip-rule="evenodd"
-                    />
-                  </svg>
+                  <Check class="text-success-600 mx-auto h-5 w-5" />
                 </td>
                 <td class="bg-brand-50/30 px-6 py-4 text-center">
-                  <svg
-                    class="text-success-600 mx-auto h-5 w-5"
-                    fill="currentColor"
-                    viewBox="0 0 20 20"
-                  >
-                    <path
-                      fill-rule="evenodd"
-                      d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
-                      clip-rule="evenodd"
-                    />
-                  </svg>
+                  <Check class="text-success-600 mx-auto h-5 w-5" />
                 </td>
               </tr>
 
@@ -708,17 +540,7 @@ const sliderPosition = computed(() => {
                   <span class="text-gray-400">–</span>
                 </td>
                 <td class="bg-brand-50/30 px-6 py-4 text-center">
-                  <svg
-                    class="text-success-600 mx-auto h-5 w-5"
-                    fill="currentColor"
-                    viewBox="0 0 20 20"
-                  >
-                    <path
-                      fill-rule="evenodd"
-                      d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
-                      clip-rule="evenodd"
-                    />
-                  </svg>
+                  <Check class="text-success-600 mx-auto h-5 w-5" />
                 </td>
               </tr>
               <tr>
@@ -729,17 +551,7 @@ const sliderPosition = computed(() => {
                   <span class="text-gray-400">–</span>
                 </td>
                 <td class="bg-brand-50/30 px-6 py-4 text-center">
-                  <svg
-                    class="text-success-600 mx-auto h-5 w-5"
-                    fill="currentColor"
-                    viewBox="0 0 20 20"
-                  >
-                    <path
-                      fill-rule="evenodd"
-                      d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
-                      clip-rule="evenodd"
-                    />
-                  </svg>
+                  <Check class="text-success-600 mx-auto h-5 w-5" />
                 </td>
               </tr>
               <tr>
@@ -748,17 +560,7 @@ const sliderPosition = computed(() => {
                   <span class="text-gray-400">–</span>
                 </td>
                 <td class="bg-brand-50/30 px-6 py-4 text-center">
-                  <svg
-                    class="text-success-600 mx-auto h-5 w-5"
-                    fill="currentColor"
-                    viewBox="0 0 20 20"
-                  >
-                    <path
-                      fill-rule="evenodd"
-                      d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
-                      clip-rule="evenodd"
-                    />
-                  </svg>
+                  <Check class="text-success-600 mx-auto h-5 w-5" />
                 </td>
               </tr>
               <tr>
@@ -767,17 +569,7 @@ const sliderPosition = computed(() => {
                   <span class="text-gray-400">–</span>
                 </td>
                 <td class="bg-brand-50/30 px-6 py-4 text-center">
-                  <svg
-                    class="text-success-600 mx-auto h-5 w-5"
-                    fill="currentColor"
-                    viewBox="0 0 20 20"
-                  >
-                    <path
-                      fill-rule="evenodd"
-                      d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
-                      clip-rule="evenodd"
-                    />
-                  </svg>
+                  <Check class="text-success-600 mx-auto h-5 w-5" />
                 </td>
               </tr>
 
@@ -799,17 +591,7 @@ const sliderPosition = computed(() => {
                   <span class="text-gray-400">–</span>
                 </td>
                 <td class="bg-brand-50/30 px-6 py-4 text-center">
-                  <svg
-                    class="text-success-600 mx-auto h-5 w-5"
-                    fill="currentColor"
-                    viewBox="0 0 20 20"
-                  >
-                    <path
-                      fill-rule="evenodd"
-                      d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
-                      clip-rule="evenodd"
-                    />
-                  </svg>
+                  <Check class="text-success-600 mx-auto h-5 w-5" />
                 </td>
               </tr>
               <tr>
@@ -820,17 +602,7 @@ const sliderPosition = computed(() => {
                   <span class="text-gray-400">–</span>
                 </td>
                 <td class="bg-brand-50/30 px-6 py-4 text-center">
-                  <svg
-                    class="text-success-600 mx-auto h-5 w-5"
-                    fill="currentColor"
-                    viewBox="0 0 20 20"
-                  >
-                    <path
-                      fill-rule="evenodd"
-                      d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
-                      clip-rule="evenodd"
-                    />
-                  </svg>
+                  <Check class="text-success-600 mx-auto h-5 w-5" />
                 </td>
               </tr>
             </tbody>
@@ -872,19 +644,9 @@ const sliderPosition = computed(() => {
               <div
                 class="bg-brand-50 group-hover:bg-brand-100 flex h-8 w-8 items-center justify-center rounded-full transition-colors"
               >
-                <svg
+                <ChevronDown
                   class="text-brand-600 h-4 w-4 transition-transform group-open:rotate-180"
-                  fill="none"
-                  stroke="currentColor"
-                  viewBox="0 0 24 24"
-                >
-                  <path
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
-                    stroke-width="2"
-                    d="M19 9l-7 7-7-7"
-                  />
-                </svg>
+                />
               </div>
             </div>
           </summary>
@@ -914,19 +676,9 @@ const sliderPosition = computed(() => {
               <div
                 class="bg-brand-50 group-hover:bg-brand-100 flex h-8 w-8 items-center justify-center rounded-full transition-colors"
               >
-                <svg
+                <ChevronDown
                   class="text-brand-600 h-4 w-4 transition-transform group-open:rotate-180"
-                  fill="none"
-                  stroke="currentColor"
-                  viewBox="0 0 24 24"
-                >
-                  <path
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
-                    stroke-width="2"
-                    d="M19 9l-7 7-7-7"
-                  />
-                </svg>
+                />
               </div>
             </div>
           </summary>
@@ -956,19 +708,9 @@ const sliderPosition = computed(() => {
               <div
                 class="bg-brand-50 group-hover:bg-brand-100 flex h-8 w-8 items-center justify-center rounded-full transition-colors"
               >
-                <svg
+                <ChevronDown
                   class="text-brand-600 h-4 w-4 transition-transform group-open:rotate-180"
-                  fill="none"
-                  stroke="currentColor"
-                  viewBox="0 0 24 24"
-                >
-                  <path
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
-                    stroke-width="2"
-                    d="M19 9l-7 7-7-7"
-                  />
-                </svg>
+                />
               </div>
             </div>
           </summary>
@@ -998,19 +740,9 @@ const sliderPosition = computed(() => {
               <div
                 class="bg-brand-50 group-hover:bg-brand-100 flex h-8 w-8 items-center justify-center rounded-full transition-colors"
               >
-                <svg
+                <ChevronDown
                   class="text-brand-600 h-4 w-4 transition-transform group-open:rotate-180"
-                  fill="none"
-                  stroke="currentColor"
-                  viewBox="0 0 24 24"
-                >
-                  <path
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
-                    stroke-width="2"
-                    d="M19 9l-7 7-7-7"
-                  />
-                </svg>
+                />
               </div>
             </div>
           </summary>
@@ -1080,45 +812,15 @@ const sliderPosition = computed(() => {
         class="flex flex-wrap items-center justify-center gap-8 text-sm text-gray-400"
       >
         <div class="flex items-center space-x-2">
-          <svg
-            class="text-success-500 h-5 w-5"
-            fill="currentColor"
-            viewBox="0 0 20 20"
-          >
-            <path
-              fill-rule="evenodd"
-              d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
-              clip-rule="evenodd"
-            />
-          </svg>
+          <Check class="text-success-500 h-5 w-5" />
           <span>14-day free trial</span>
         </div>
         <div class="flex items-center space-x-2">
-          <svg
-            class="text-success-500 h-5 w-5"
-            fill="currentColor"
-            viewBox="0 0 20 20"
-          >
-            <path
-              fill-rule="evenodd"
-              d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
-              clip-rule="evenodd"
-            />
-          </svg>
+          <Check class="text-success-500 h-5 w-5" />
           <span>No credit card required</span>
         </div>
         <div class="flex items-center space-x-2">
-          <svg
-            class="text-success-500 h-5 w-5"
-            fill="currentColor"
-            viewBox="0 0 20 20"
-          >
-            <path
-              fill-rule="evenodd"
-              d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
-              clip-rule="evenodd"
-            />
-          </svg>
+          <Check class="text-success-500 h-5 w-5" />
           <span>Cancel anytime</span>
         </div>
       </div>

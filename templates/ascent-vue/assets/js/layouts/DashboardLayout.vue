@@ -1,14 +1,24 @@
 <script setup>
-import { ref, computed } from 'vue'
+import Tooltip from '@/components/ui/tooltip/Tooltip.vue'
+import X from '@/components/ui/icons/X.vue'
+import SidebarOpen from '@/components/ui/icons/SidebarOpen.vue'
+import SidebarClose from '@/components/ui/icons/SidebarClose.vue'
+import Users from '@/components/ui/icons/Users.vue'
+import User from '@/components/ui/icons/User.vue'
+import ShieldCheck from '@/components/ui/icons/ShieldCheck.vue'
+import LayoutDashboard from '@/components/ui/icons/LayoutDashboard.vue'
+import EllipsisVertical from '@/components/ui/icons/EllipsisVertical.vue'
+import CreditCard from '@/components/ui/icons/CreditCard.vue'
+import Bell from '@/components/ui/icons/Bell.vue'
+import Search from '@/components/ui/icons/Search.vue'
+import { ref, computed, onMounted, onBeforeUnmount, watch } from 'vue'
+import Sheet from '@/components/ui/sheet/Sheet.vue'
 import { Link, usePage } from '@inertiajs/vue3'
-import Toast from '@/volt/Toast.vue'
 import Avatar from '@/components/Avatar.vue'
-import Button from '@/volt/Button.vue'
+import Button from '@/components/ui/button/Button.vue'
 import UserMenu from '@/components/UserMenu.vue'
-import { useFlashToast } from '@/composables/flash-toast'
 import { useLocalStorage } from '@/composables/localStorage'
-import SecondaryButton from '@/volt/SecondaryButton.vue'
-import ConfirmDialog from '@/volt/ConfirmDialog.vue'
+import SecondaryButton from '@/components/ui/button/Button.vue'
 
 const props = defineProps({
   title: {
@@ -29,8 +39,21 @@ const url = computed(() => page.url)
 
 const isCollapsed = useLocalStorage('ASCENT_SIDEBAR_COLLAPSED', false)
 const isMobileOpen = ref(false)
-
-useFlashToast()
+const isDesktop = ref(false)
+let viewport
+function syncViewport() {
+  isDesktop.value = viewport.matches
+  if (viewport.matches) isMobileOpen.value = false
+}
+onMounted(() => {
+  viewport = window.matchMedia('(min-width: 1024px)')
+  syncViewport()
+  viewport.addEventListener('change', syncViewport)
+})
+onBeforeUnmount(() => viewport?.removeEventListener('change', syncViewport))
+watch(url, () => {
+  isMobileOpen.value = false
+})
 
 const navigationSections = [
   {
@@ -38,7 +61,7 @@ const navigationSections = [
       {
         name: 'Dashboard',
         href: '/dashboard',
-        icon: 'pi-home'
+        icon: LayoutDashboard
       }
     ]
   },
@@ -48,22 +71,22 @@ const navigationSections = [
       {
         name: 'Profile',
         href: '/settings/profile',
-        icon: 'pi-user'
+        icon: User
       },
       {
         name: 'Team',
         href: '/settings/team',
-        icon: 'pi-users'
+        icon: Users
       },
       {
         name: 'Billing',
         href: '/settings/billing',
-        icon: 'pi-credit-card'
+        icon: CreditCard
       },
       {
         name: 'Security',
         href: '/settings/security',
-        icon: 'pi-shield'
+        icon: ShieldCheck
       }
     ]
   }
@@ -83,36 +106,23 @@ const isActiveRoute = (href) => {
   }
   return url.value.startsWith(href)
 }
-
-const userMenuRef = ref(null)
-const navbarUserMenuRef = ref(null)
-
-const toggleUserMenu = (event) => {
-  userMenuRef.value?.toggle(event)
-}
-
-const toggleNavbarUserMenu = (event) => {
-  navbarUserMenuRef.value?.toggle(event)
-}
 </script>
 
 <template>
   <div class="flex min-h-screen bg-white">
-    <!-- Mobile backdrop overlay -->
-    <div
-      v-if="isMobileOpen"
-      class="fixed inset-0 z-40 bg-black/20 backdrop-blur-sm lg:hidden"
-      @click="toggleMobileMenu"
-    />
-
     <!-- Sidebar -->
-    <aside
+    <component
+      :is="isDesktop ? 'aside' : Sheet"
+      v-bind="
+        isDesktop ? {} : { open: isMobileOpen, 'aria-label': 'Main navigation' }
+      "
+      @update:open="isMobileOpen = $event"
       :class="[
-        'fixed inset-y-0 left-0 z-50 flex flex-col border-r border-gray-200 bg-white transition-all duration-300 ease-in-out',
+        'fixed inset-y-0 left-0 right-auto m-0 z-50 flex-col border-r border-gray-200 bg-white p-0 transition-all duration-300 ease-in-out motion-reduce:transition-none',
         isCollapsed ? 'lg:w-16' : 'lg:w-64',
-        isMobileOpen
-          ? 'w-64 translate-x-0'
-          : 'w-64 -translate-x-full lg:translate-x-0'
+        isDesktop
+          ? 'flex translate-x-0'
+          : 'w-64 open:flex -translate-x-full open:translate-x-0 starting:open:-translate-x-full'
       ]"
     >
       <!-- Header -->
@@ -132,17 +142,7 @@ const toggleNavbarUserMenu = (event) => {
             class="hidden rounded-md p-1.5 text-gray-400 transition-colors hover:bg-gray-50 hover:text-gray-600 lg:block"
             title="Collapse sidebar"
           >
-            <svg
-              width="16"
-              height="16"
-              viewBox="0 0 24 24"
-              fill="none"
-              stroke="currentColor"
-              stroke-width="2"
-            >
-              <rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect>
-              <line x1="9" y1="3" x2="9" y2="21"></line>
-            </svg>
+            <SidebarClose width="16" height="16" />
           </button>
 
           <!-- Mobile close button -->
@@ -151,17 +151,7 @@ const toggleNavbarUserMenu = (event) => {
             class="rounded-md p-1.5 text-gray-400 transition-colors hover:bg-gray-50 hover:text-gray-600 lg:hidden"
             title="Close sidebar"
           >
-            <svg
-              width="16"
-              height="16"
-              viewBox="0 0 24 24"
-              fill="none"
-              stroke="currentColor"
-              stroke-width="2"
-            >
-              <line x1="18" y1="6" x2="6" y2="18"></line>
-              <line x1="6" y1="6" x2="18" y2="18"></line>
-            </svg>
+            <X width="16" height="16" />
           </button>
         </template>
         <div v-else class="mx-auto">
@@ -192,36 +182,39 @@ const toggleNavbarUserMenu = (event) => {
 
             <!-- Section Items -->
             <div class="space-y-1">
-              <Link
+              <Tooltip
                 v-for="item in section.items"
                 :key="item.name"
-                :href="item.href"
-                v-tooltip="{
-                  content: item.name,
-                  disabled: !isCollapsed || isMobileOpen,
-                  placement: 'right'
-                }"
-                :class="[
-                  'group flex items-center rounded-lg px-3 py-2.5 text-sm font-medium transition-colors',
-                  isActiveRoute(item.href)
-                    ? 'bg-brand-50 text-brand-700'
-                    : 'text-gray-600 hover:bg-gray-50 hover:text-gray-900'
-                ]"
-                @click="isMobileOpen && toggleMobileMenu()"
+                :text="isCollapsed && !isMobileOpen ? item.name : ''"
+                placement="right"
               >
-                <i
+                <Link
+                  :href="item.href"
+                  :aria-label="item.name"
                   :class="[
-                    'pi',
-                    item.icon,
-                    'text-base',
+                    'group flex items-center rounded-lg px-3 py-2.5 text-sm font-medium transition-colors',
                     isActiveRoute(item.href)
-                      ? 'text-brand-600'
-                      : 'text-gray-400 group-hover:text-gray-500',
-                    !isCollapsed || isMobileOpen ? 'mr-3' : ''
+                      ? 'bg-brand-50 text-brand-700'
+                      : 'text-gray-600 hover:bg-gray-50 hover:text-gray-900'
                   ]"
-                />
-                <span v-if="!isCollapsed || isMobileOpen">{{ item.name }}</span>
-              </Link>
+                  @click="isMobileOpen && toggleMobileMenu()"
+                >
+                  <component
+                    :is="item.icon"
+                    :class="[
+                      'text-base',
+                      isActiveRoute(item.href)
+                        ? 'text-brand-600'
+                        : 'text-gray-400 group-hover:text-gray-500',
+                      !isCollapsed || isMobileOpen ? 'mr-3' : ''
+                    ]"
+                    class="h-5 w-5"
+                  />
+                  <span v-if="!isCollapsed || isMobileOpen">{{
+                    item.name
+                  }}</span>
+                </Link>
+              </Tooltip>
             </div>
           </div>
         </div>
@@ -230,11 +223,12 @@ const toggleNavbarUserMenu = (event) => {
       <!-- User Section -->
       <div class="p-3">
         <template v-if="!isCollapsed || isMobileOpen">
-          <div
+          <button
+            type="button"
             class="flex cursor-pointer items-center rounded-lg p-3 transition-colors hover:bg-gray-50"
-            @click="toggleUserMenu"
+            popovertarget="sidebar-user-menu"
             aria-haspopup="true"
-            aria-controls="user_menu"
+            aria-label="Account menu"
           >
             <Avatar
               :image="loggedInUser?.currentAvatarUrl"
@@ -257,37 +251,40 @@ const toggleNavbarUserMenu = (event) => {
                 {{ loggedInUser?.email }}
               </p>
             </div>
-            <i class="pi pi-ellipsis-v text-xs text-gray-400" />
-          </div>
+            <EllipsisVertical
+              class="h-[1em] w-[1em] shrink-0 text-xs text-gray-400"
+            />
+          </button>
 
-          <UserMenu ref="userMenuRef" />
+          <UserMenu id="sidebar-user-menu" />
         </template>
         <template v-else>
           <div class="flex justify-center">
-            <Avatar
-              :user="loggedInUser"
-              size="normal"
-              shape="circle"
-              class="cursor-pointer [&_img]:rounded-full"
-              v-tooltip="{
-                content: loggedInUser?.fullName,
-                placement: 'right'
-              }"
-              @click="toggleUserMenu"
-              aria-haspopup="true"
-              aria-controls="user_menu"
-              :style="{
-                backgroundColor: loggedInUser?.currentAvatarUrl
-                  ? undefined
-                  : '#6366f1',
-                color: '#ffffff'
-              }"
-            />
-            <UserMenu ref="userMenuRef" />
+            <button
+              type="button"
+              popovertarget="collapsed-user-menu"
+              aria-label="Account menu"
+              class="rounded-full focus-visible:outline-2 focus-visible:outline-offset-2"
+            >
+              <Avatar
+                :user="loggedInUser"
+                size="normal"
+                shape="circle"
+                class="cursor-pointer [&_img]:rounded-full"
+                :title="loggedInUser?.fullName"
+                :style="{
+                  backgroundColor: loggedInUser?.currentAvatarUrl
+                    ? undefined
+                    : '#6366f1',
+                  color: '#ffffff'
+                }"
+              />
+            </button>
+            <UserMenu id="collapsed-user-menu" />
           </div>
         </template>
       </div>
-    </aside>
+    </component>
 
     <!-- Main content area -->
     <div
@@ -308,20 +305,7 @@ const toggleNavbarUserMenu = (event) => {
               class="rounded-md p-1.5 text-gray-500 transition-colors hover:bg-gray-200 hover:text-gray-700 lg:hidden"
               title="Open sidebar"
             >
-              <svg
-                width="16"
-                height="16"
-                viewBox="0 0 24 24"
-                fill="none"
-                stroke="currentColor"
-                stroke-width="2"
-              >
-                <rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect>
-                <line x1="9" y1="3" x2="9" y2="21"></line>
-                <line x1="14" y1="8" x2="20" y2="8"></line>
-                <line x1="14" y1="12" x2="20" y2="12"></line>
-                <line x1="14" y1="16" x2="20" y2="16"></line>
-              </svg>
+              <SidebarOpen width="16" height="16" />
             </button>
 
             <!-- Desktop expand button -->
@@ -331,20 +315,7 @@ const toggleNavbarUserMenu = (event) => {
               class="hidden rounded-md p-1.5 text-gray-500 transition-colors hover:bg-gray-50 hover:text-gray-700 lg:block"
               title="Expand sidebar"
             >
-              <svg
-                width="16"
-                height="16"
-                viewBox="0 0 24 24"
-                fill="none"
-                stroke="currentColor"
-                stroke-width="2"
-              >
-                <rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect>
-                <line x1="9" y1="3" x2="9" y2="21"></line>
-                <line x1="14" y1="8" x2="20" y2="8"></line>
-                <line x1="14" y1="12" x2="20" y2="12"></line>
-                <line x1="14" y1="16" x2="20" y2="16"></line>
-              </svg>
+              <SidebarOpen width="16" height="16" />
             </button>
 
             <h1 class="text-lg font-medium text-gray-700">{{ title }}</h1>
@@ -352,40 +323,41 @@ const toggleNavbarUserMenu = (event) => {
 
           <div class="flex items-center gap-3">
             <SecondaryButton
-              icon="pi pi-search"
               aria-label="Search"
               :text="true"
-              variant="text"
-              size="small"
-              class="text-gray-500 hover:text-gray-700"
-            />
+              class="border-transparent bg-transparent text-gray-500 dark:bg-transparent dark:text-gray-400 min-h-10 border border-gray-300 bg-white px-3 py-2 text-base text-gray-700 hover:bg-gray-100 dark:border-gray-600 dark:bg-gray-900 dark:text-white dark:hover:bg-gray-800 min-h-8 px-2.5 py-1.5 text-sm text-gray-500 hover:text-gray-700"
+              ><Search class="h-4 w-4"
+            /></SecondaryButton>
             <SecondaryButton
-              icon="pi pi-bell"
+              class="min-h-10 border border-gray-300 bg-white px-3 py-2 text-base text-gray-700 hover:bg-gray-100 dark:border-gray-600 dark:bg-gray-900 dark:text-white dark:hover:bg-gray-800 min-h-8 px-2.5 py-1.5 text-sm border-transparent bg-transparent text-gray-500 dark:bg-transparent dark:text-gray-400"
               aria-label="Notifications"
-              variant="text"
-              size="small"
-            />
+              ><Bell class="h-4 w-4"
+            /></SecondaryButton>
 
             <!-- User Avatar Dropdown -->
             <div class="relative">
-              <Avatar
-                :image="loggedInUser?.currentAvatarUrl"
-                :label="loggedInUser?.initials"
-                size="normal"
-                shape="circle"
-                class="hover:ring-brand-200 cursor-pointer transition-all hover:ring-2 [&_img]:rounded-full"
-                @click="toggleNavbarUserMenu"
-                aria-haspopup="true"
-                aria-controls="user_menu"
-                :style="{
-                  backgroundColor: loggedInUser?.currentAvatarUrl
-                    ? undefined
-                    : '#6366f1',
-                  color: '#ffffff'
-                }"
-              />
+              <button
+                type="button"
+                popovertarget="navbar-user-menu"
+                aria-label="Account menu"
+                class="rounded-full focus-visible:outline-2 focus-visible:outline-offset-2"
+              >
+                <Avatar
+                  :image="loggedInUser?.currentAvatarUrl"
+                  :label="loggedInUser?.initials"
+                  size="normal"
+                  shape="circle"
+                  class="hover:ring-brand-200 cursor-pointer transition-all hover:ring-2 [&_img]:rounded-full"
+                  :style="{
+                    backgroundColor: loggedInUser?.currentAvatarUrl
+                      ? undefined
+                      : '#6366f1',
+                    color: '#ffffff'
+                  }"
+                />
+              </button>
 
-              <UserMenu ref="navbarUserMenuRef" />
+              <UserMenu id="navbar-user-menu" />
             </div>
           </div>
         </div>
@@ -407,8 +379,5 @@ const toggleNavbarUserMenu = (event) => {
         </div>
       </main>
     </div>
-
-    <Toast />
-    <ConfirmDialog :style="{ width: '32rem' }" />
   </div>
 </template>

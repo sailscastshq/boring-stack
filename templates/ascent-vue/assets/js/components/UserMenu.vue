@@ -1,163 +1,85 @@
 <script setup>
-import { ref, computed } from 'vue'
+import { computed } from 'vue'
 import { Link, router, usePage } from '@inertiajs/vue3'
-import Avatar from '@/components/Avatar.vue'
-import Menu from '@/volt/Menu.vue'
-
-const menuRef = ref()
+import Menu from '@/components/ui/menu/Menu.vue'
+import Avatar from '@/components/ui/avatar/Avatar.vue'
+import Plus from '@/components/ui/icons/Plus.vue'
+import User from '@/components/ui/icons/User.vue'
+import InfoCircle from '@/components/ui/icons/InfoCircle.vue'
+import SignOut from '@/components/ui/icons/SignOut.vue'
+defineProps({ id: { type: String, required: true } })
 const page = usePage()
-const loggedInUser = computed(() => page.props.loggedInUser)
-const teams = computed(() => page.props.teams)
-const currentTeam = computed(() => page.props.currentTeam)
-
-const items = computed(() => {
-  const menuItems = []
-
-  if (teams.value && teams.value.length > 0) {
-    const teamItems = teams.value.map((team) => ({
-      label: team.name,
-      teamId: team.id,
-      logoUrl: team.logoUrl,
-      isCurrent: currentTeam.value?.id === team.id,
-      command: () => router.post(`/teams/${team.id}/switch`)
-    }))
-
-    teamItems.push({
-      label: 'New team',
-      isNewTeam: true,
-      command: () => router.visit('/team/create')
-    })
-
-    menuItems.push({
-      label: 'Teams',
-      items: teamItems
-    })
-    menuItems.push({ separator: true })
-  }
-
-  menuItems.push(
-    {
-      label: 'My profile',
-      icon: 'pi pi-user',
-      command: () => router.visit('/profile')
-    },
-    {
-      label: 'Help',
-      icon: 'pi pi-question-circle',
-      command: () => router.visit('/help')
-    },
-    {
-      separator: true
-    },
-    {
-      label: 'Sign out',
-      icon: 'pi pi-sign-out',
-      isSignOut: true,
-      command: () => router.delete('/logout')
-    }
-  )
-
-  return menuItems
-})
-
-defineExpose({
-  toggle: (event) => menuRef.value?.toggle(event)
-})
+const user = computed(() => page.props.loggedInUser)
+const teams = computed(() => page.props.teams || [])
 </script>
-
 <template>
   <Menu
-    ref="menuRef"
-    id="user_menu"
-    :model="items"
-    :popup="true"
-    class="w-full md:w-64"
+    :id="id"
+    class="w-64 max-w-[calc(100vw-2rem)]"
+    aria-label="Account menu"
   >
-    <template #start>
-      <div class="border-surface-200 border-b px-4 py-3">
-        <div class="flex items-center">
-          <Avatar
-            :image="loggedInUser?.currentAvatarUrl"
-            :label="loggedInUser?.initials"
-            class="mr-3"
-            shape="circle"
-            size="normal"
-            :style="{
-              backgroundColor: loggedInUser?.currentAvatarUrl
-                ? undefined
-                : '#6366f1',
-              color: '#ffffff'
-            }"
-          />
-          <div class="flex min-w-0 flex-1 flex-col">
-            <span
-              class="truncate text-sm font-semibold text-gray-900 dark:text-white"
-            >
-              {{ loggedInUser?.fullName }}
-            </span>
-            <span class="truncate text-xs text-gray-500">
-              {{ loggedInUser?.email }}
-            </span>
-          </div>
+    <div class="mb-1 border-b border-gray-200 px-3 py-3 dark:border-gray-700">
+      <div class="flex items-center gap-3">
+        <Avatar
+          :src="user?.currentAvatarUrl"
+          alt=""
+          class="bg-indigo-500 text-white"
+          >{{ user?.initials }}</Avatar
+        >
+        <div class="min-w-0">
+          <p class="truncate text-sm font-semibold">{{ user?.fullName }}</p>
+          <p class="truncate text-xs text-gray-500">{{ user?.email }}</p>
         </div>
       </div>
-    </template>
-
-    <template #submenulabel="{ item }">
-      <span class="text-surface-500 text-xs font-bold uppercase">{{
-        item.label
-      }}</span>
-    </template>
-
-    <template #item="{ item, props }">
+    </div>
+    <template v-if="teams.length">
+      <p class="px-3 py-2 text-xs font-bold uppercase text-gray-500">Teams</p>
       <button
-        v-if="item.teamId"
+        v-for="team in teams"
+        :key="team.id"
         type="button"
-        class="flex w-full items-center gap-2 rounded-md px-3 py-2 text-left"
-        v-bind="props.action"
-        :class="
-          item.isCurrent
-            ? 'bg-brand-50 text-brand-700'
-            : 'text-gray-700 hover:bg-gray-50'
-        "
+        role="menuitem"
+        class="flex w-full items-center gap-2 rounded-md px-3 py-2 text-left text-sm hover:bg-gray-100 dark:hover:bg-gray-800"
+        @click="router.post(`/teams/${team.id}/switch`)"
       >
-        <Avatar
-          :image="item.logoUrl"
-          :label="item.label.charAt(0)"
-          shape="square"
-        />
-        <span class="text-sm font-medium">{{ item.label }}</span>
-        <span v-if="item.isCurrent" class="relative ml-auto flex size-3">
-          <span
-            class="absolute inline-flex h-full w-full animate-ping rounded-full bg-sky-400 opacity-75"
-          ></span>
-          <span
-            class="relative inline-flex size-3 rounded-full bg-sky-500"
-          ></span>
-        </span>
+        <Avatar :src="team.logoUrl" alt="" class="size-8 rounded-lg">{{
+          team.name.charAt(0)
+        }}</Avatar>
+        <span>{{ team.name }}</span
+        ><span
+          v-if="page.props.currentTeam?.id === team.id"
+          class="ml-auto h-2 w-2 rounded-full bg-sky-500"
+          ><span class="sr-only">Current team</span></span
+        >
       </button>
       <Link
-        v-else-if="item.isNewTeam"
         href="/team/create"
-        class="flex items-center gap-2 px-3 py-2"
-        v-bind="props.action"
+        role="menuitem"
+        class="flex items-center gap-2 rounded-md px-3 py-2 text-sm hover:bg-gray-100 dark:hover:bg-gray-800"
+        ><Plus class="h-4 w-4" />New team</Link
       >
-        <div
-          class="border-surface-300 dark:border-surface-600 flex h-8 w-8 items-center justify-center rounded-lg border-2 border-dashed"
-        >
-          <i class="pi pi-plus text-surface-400 text-sm" />
-        </div>
-        <span class="text-sm font-medium">{{ item.label }}</span>
-      </Link>
-      <a
-        v-else
-        class="flex items-center gap-2"
-        v-bind="props.action"
-        :class="{ 'text-red-500': item.isSignOut }"
-      >
-        <i :class="item.icon" />
-        <span>{{ item.label }}</span>
-      </a>
+      <hr class="my-1 border-gray-200 dark:border-gray-700" />
     </template>
+    <Link
+      href="/profile"
+      role="menuitem"
+      class="flex items-center gap-2 rounded-md px-3 py-2 text-sm hover:bg-gray-100 dark:hover:bg-gray-800"
+      ><User class="h-4 w-4" />My profile</Link
+    >
+    <Link
+      href="/help"
+      role="menuitem"
+      class="flex items-center gap-2 rounded-md px-3 py-2 text-sm hover:bg-gray-100 dark:hover:bg-gray-800"
+      ><InfoCircle class="h-4 w-4" />Help</Link
+    >
+    <hr class="my-1 border-gray-200 dark:border-gray-700" />
+    <button
+      type="button"
+      role="menuitem"
+      class="flex w-full items-center gap-2 rounded-md px-3 py-2 text-sm text-red-500 hover:bg-red-50 dark:hover:bg-gray-800"
+      @click="router.delete('/logout')"
+    >
+      <SignOut class="h-4 w-4" />Sign out
+    </button>
   </Menu>
 </template>

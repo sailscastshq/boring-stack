@@ -1,9 +1,13 @@
 <script setup>
+import Input from '@/components/ui/input/Input.vue'
+
+import Spinner from '@/components/ui/spinner/Spinner.vue'
+import Fingerprint from '@/components/ui/icons/Fingerprint.vue'
+import Envelope from '@/components/ui/icons/Envelope.vue'
+import ChevronLeft from '@/components/ui/icons/ChevronLeft.vue'
 import { Head, Link, useForm } from '@inertiajs/vue3'
 import { ref, computed, watch, onMounted } from 'vue'
-import Toast from '@/volt/Toast.vue'
-import Message from '@/volt/Message.vue'
-import { useFlashToast } from '@/composables/flash-toast'
+import Message from '@/components/ui/alert/Alert.vue'
 
 const props = defineProps({
   passkeyChallenge: {
@@ -31,8 +35,6 @@ const focusedField = ref('')
 const showExpandedOptions = ref(false)
 const isSendingMagicLink = ref(false)
 const isSigningInWithPasskey = ref(false)
-
-useFlashToast()
 
 onMounted(() => {
   if (props.passkeyChallenge) {
@@ -225,13 +227,13 @@ async function handleWebAuthnChallenge(challengeData) {
           class="relative rounded-2xl border border-gray-300 bg-white px-8 py-10 shadow-2xl"
         >
           <Message
-            severity="error"
+            role="alert"
             v-if="
               form.errors.login ||
               form.errors.magicLink ||
               verifyPasskeyForm.errors.passkey
             "
-            class="mb-3 w-full"
+            class="border border-red-200 bg-red-50 text-red-700 dark:border-red-800 dark:bg-red-950 dark:text-red-300 mb-3 w-full"
           >
             {{
               form.errors.login ||
@@ -255,7 +257,7 @@ async function handleWebAuthnChallenge(challengeData) {
                 Email Address
               </label>
               <div class="relative">
-                <input
+                <Input
                   id="email"
                   v-model="form.email"
                   type="email"
@@ -272,7 +274,11 @@ async function handleWebAuthnChallenge(challengeData) {
                   placeholder="Enter your email address"
                 />
               </div>
-              <Message v-if="form.errors.email" severity="error">
+              <Message
+                role="alert"
+                class="border border-red-200 bg-red-50 text-red-700 dark:border-red-800 dark:bg-red-950 dark:text-red-300"
+                v-if="form.errors.email"
+              >
                 {{ form.errors.email }}
               </Message>
             </div>
@@ -293,41 +299,11 @@ async function handleWebAuthnChallenge(challengeData) {
                   v-if="isSendingMagicLink"
                   class="flex items-center space-x-2"
                 >
-                  <svg
-                    class="h-5 w-5 animate-spin"
-                    fill="none"
-                    viewBox="0 0 24 24"
-                  >
-                    <circle
-                      class="opacity-25"
-                      cx="12"
-                      cy="12"
-                      r="10"
-                      stroke="currentColor"
-                      stroke-width="4"
-                    />
-                    <path
-                      class="opacity-75"
-                      fill="currentColor"
-                      d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"
-                    />
-                  </svg>
+                  <Spinner class="h-5 w-5" />
                   <span>Sending link...</span>
                 </div>
                 <div v-else class="flex items-center justify-center">
-                  <svg
-                    class="mr-2 h-5 w-5"
-                    fill="none"
-                    stroke="currentColor"
-                    viewBox="0 0 24 24"
-                  >
-                    <path
-                      stroke-linecap="round"
-                      stroke-linejoin="round"
-                      stroke-width="2"
-                      d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"
-                    />
-                  </svg>
+                  <Envelope class="mr-2 h-5 w-5" />
                   <span>Send Magic Link</span>
                 </div>
               </button>
@@ -347,16 +323,7 @@ async function handleWebAuthnChallenge(challengeData) {
                   Signing in...
                 </template>
                 <template v-else>
-                  <svg
-                    class="mr-1 h-4 w-4"
-                    fill="currentColor"
-                    viewBox="0 0 24 24"
-                  >
-                    <path
-                      d="M17.81 4.47c-.08 0-.16-.02-.23-.06C15.66 3.42 14 3 12.01 3c-1.98 0-3.86.47-5.57 1.41-.24.13-.54.04-.68-.2-.13-.24-.04-.55.2-.68C7.82 2.52 9.86 2 12.01 2c2.13 0 3.99.47 6.03 1.52.25.13.34.43.21.67-.09.18-.26.28-.44.28zM3.5 9.72c-.1 0-.2-.03-.29-.09-.23-.16-.28-.47-.12-.7.99-1.4 2.25-2.5 3.75-3.27C9.98 4.04 14 4.03 17.15 5.65c1.5.77 2.76 1.86 3.75 3.25.16.22.11.54-.12.7-.23.16-.54.11-.7-.12-.9-1.26-2.04-2.25-3.39-2.94-2.87-1.47-6.54-1.47-9.4.01-1.36.7-2.5 1.7-3.4 2.96-.08.14-.23.21-.39.21zm6.25 12.07c-.13 0-.26-.05-.35-.15-.87-.87-1.34-2.04-1.34-3.27 0-1.23.47-2.4 1.34-3.27.87-.87 2.04-1.34 3.27-1.34 1.23 0 2.4.47 3.27 1.34.87.87 1.34 2.04 1.34 3.27 0 1.23-.47 2.4-1.34 3.27-.09.1-.22.15-.35.15s-.26-.05-.35-.15c-.87-.87-1.34-2.04-1.34-3.27s.47-2.4 1.34-3.27c.87-.87 2.04-1.34 3.27-1.34s2.4.47 3.27 1.34c.87.87 1.34 2.04 1.34 3.27s-.47 2.4-1.34 3.27c-.09.1-.22.15-.35.15z"
-                    />
-                    <circle cx="12" cy="12" r="2" />
-                  </svg>
+                  <Fingerprint class="mr-1 h-4 w-4" />
                   Use passkey
                 </template>
               </button>
@@ -379,19 +346,7 @@ async function handleWebAuthnChallenge(challengeData) {
                 @click="toggleToMagicMode"
                 class="hover:text-brand-600 flex items-center text-sm font-medium text-gray-600 transition-colors"
               >
-                <svg
-                  class="mr-1 h-4 w-4"
-                  fill="none"
-                  stroke="currentColor"
-                  viewBox="0 0 24 24"
-                >
-                  <path
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
-                    stroke-width="2"
-                    d="M15 19l-7-7 7-7"
-                  />
-                </svg>
+                <ChevronLeft class="mr-1 h-4 w-4" />
                 Back to magic link
               </button>
             </div>
@@ -406,7 +361,7 @@ async function handleWebAuthnChallenge(challengeData) {
                   Email Address
                 </label>
                 <div class="relative">
-                  <input
+                  <Input
                     id="email-expanded"
                     v-model="form.email"
                     type="email"
@@ -423,7 +378,11 @@ async function handleWebAuthnChallenge(challengeData) {
                     placeholder="Enter your email address"
                   />
                 </div>
-                <Message v-if="form.errors.email" severity="error">
+                <Message
+                  role="alert"
+                  class="border border-red-200 bg-red-50 text-red-700 dark:border-red-800 dark:bg-red-950 dark:text-red-300"
+                  v-if="form.errors.email"
+                >
                   {{ form.errors.email }}
                 </Message>
               </div>
@@ -437,7 +396,7 @@ async function handleWebAuthnChallenge(challengeData) {
                   Password
                 </label>
                 <div class="relative">
-                  <input
+                  <Input
                     id="password"
                     v-model="form.password"
                     type="password"
@@ -454,7 +413,11 @@ async function handleWebAuthnChallenge(challengeData) {
                     placeholder="Enter your password"
                   />
                 </div>
-                <Message v-if="form.errors.password" severity="error">
+                <Message
+                  role="alert"
+                  class="border border-red-200 bg-red-50 text-red-700 dark:border-red-800 dark:bg-red-950 dark:text-red-300"
+                  v-if="form.errors.password"
+                >
                   {{ form.errors.password }}
                 </Message>
               </div>
@@ -502,25 +465,7 @@ async function handleWebAuthnChallenge(challengeData) {
                     v-if="form.processing"
                     class="flex items-center space-x-2"
                   >
-                    <svg
-                      class="h-5 w-5 animate-spin"
-                      fill="none"
-                      viewBox="0 0 24 24"
-                    >
-                      <circle
-                        class="opacity-25"
-                        cx="12"
-                        cy="12"
-                        r="10"
-                        stroke="currentColor"
-                        stroke-width="4"
-                      />
-                      <path
-                        class="opacity-75"
-                        fill="currentColor"
-                        d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"
-                      />
-                    </svg>
+                    <Spinner class="h-5 w-5" />
                     <span>Signing in...</span>
                   </div>
                   <span v-else>Sign In</span>
@@ -590,6 +535,4 @@ async function handleWebAuthnChallenge(challengeData) {
       </div>
     </div>
   </div>
-
-  <Toast />
 </template>

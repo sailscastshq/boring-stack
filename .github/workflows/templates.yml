@@ -1,0 +1,42 @@
+name: Templates
+
+on:
+  pull_request:
+    paths:
+      [
+        'templates/**',
+        'scripts/smoke-template-production.cjs',
+        '.github/workflows/templates.yml'
+      ]
+  push:
+    branches: [main]
+    paths:
+      [
+        'templates/**',
+        'scripts/smoke-template-production.cjs',
+        '.github/workflows/templates.yml'
+      ]
+
+jobs:
+  template:
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        template:
+          [mellow-vue, mellow-react, mellow-svelte, ascent-vue, ascent-react]
+    defaults:
+      run:
+        working-directory: templates/${{ matrix.template }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+          cache-dependency-path: templates/${{ matrix.template }}/package-lock.json
+      - run: npm ci
+      - run: npx playwright install --with-deps chromium
+      - run: npm run lint
+      - run: npm test
+      - run: NODE_ENV=production node ../../scripts/smoke-template-production.cjs

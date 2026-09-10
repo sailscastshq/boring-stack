@@ -1,8 +1,9 @@
 <script setup>
+import Spinner from '@/components/ui/spinner/Spinner.vue'
 import { useForm } from '@inertiajs/vue3'
-import InputText from '@/volt/InputText.vue'
-import Button from '@/volt/Button.vue'
-import Message from '@/volt/Message.vue'
+import InputText from '@/components/ui/input/Input.vue'
+import Button from '@/components/ui/button/Button.vue'
+import Message from '@/components/ui/alert/Alert.vue'
 import DashboardLayout from '@/layouts/DashboardLayout.vue'
 
 defineOptions({
@@ -37,26 +38,30 @@ function handleSubmit() {
           id="name"
           v-model="form.name"
           placeholder="Enter team name"
-          class="w-full"
-          :invalid="!!form.errors.name"
+          class="min-h-10 focus-visible:border-brand focus-visible:outline-brand dark:focus-visible:border-brand dark:focus-visible:outline-brand w-full"
+          :aria-invalid="!!form.errors.name"
         />
-        <Message v-if="form.errors.name" severity="error" class="mt-2">
+        <Message
+          role="alert"
+          v-if="form.errors.name"
+          class="border border-red-200 bg-red-50 text-red-700 dark:border-red-800 dark:bg-red-950 dark:text-red-300 mt-2"
+        >
           {{ form.errors.name }}
         </Message>
       </div>
 
       <div class="flex gap-3">
         <Button
+          :disabled="form.processing || form.processing"
+          :aria-busy="form.processing"
           type="submit"
-          :disabled="form.processing"
-          :loading="form.processing"
-          class="px-6"
-        >
+          class="min-h-10 border border-brand bg-brand px-3 py-2 text-base text-white hover:bg-brand-600 active:bg-brand-700 dark:bg-brand dark:text-white dark:hover:bg-brand-600 dark:active:bg-brand-700 px-6"
+          ><Spinner v-if="form.processing" class="h-4 w-4" />
           Create Team
         </Button>
         <Button
+          class="min-h-10 border border-brand bg-brand px-3 py-2 text-base text-white hover:bg-brand-600 active:bg-brand-700 dark:bg-brand dark:text-white dark:hover:bg-brand-600 dark:active:bg-brand-700 bg-transparent text-brand dark:bg-transparent dark:text-brand-400"
           type="button"
-          variant="outlined"
           @click="() => window.history.back()"
           :disabled="form.processing"
         >

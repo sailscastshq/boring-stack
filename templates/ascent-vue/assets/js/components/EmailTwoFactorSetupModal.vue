@@ -1,10 +1,13 @@
 <script setup>
+import InfoCircle from '@/components/ui/icons/InfoCircle.vue'
+import Envelope from '@/components/ui/icons/Envelope.vue'
+import Spinner from '@/components/ui/spinner/Spinner.vue'
 import { useForm } from '@inertiajs/vue3'
-import Dialog from '@/volt/Dialog.vue'
-import Button from '@/volt/Button.vue'
-import InputOtp from '@/volt/InputOtp.vue'
-import Message from '@/volt/Message.vue'
-import SecondaryButton from '@/volt/SecondaryButton.vue'
+import Dialog from '@/components/Modal.vue'
+import Button from '@/components/ui/button/Button.vue'
+import InputOtp from '@/components/ui/input/Input.vue'
+import Message from '@/components/ui/alert/Alert.vue'
+import SecondaryButton from '@/components/ui/button/Button.vue'
 
 const props = defineProps({
   visible: {
@@ -47,12 +50,12 @@ function handleClose() {
 <template>
   <!-- Don't render modal if no user email -->
   <Dialog
+    title="Email verification"
     v-if="userEmail"
-    :visible="visible"
-    :modal="true"
+    :open="visible"
     :closable="!form.processing"
-    class="mx-4 max-w-2xl sm:mx-0 lg:w-4/12"
-    @update:visible="handleClose"
+    class="max-w-2xl lg:w-4/12"
+    @update:open="handleClose"
   >
     <div class="space-y-8">
       <!-- Header -->
@@ -60,7 +63,7 @@ function handleClose() {
         <div
           class="mx-auto mb-4 flex h-16 w-16 items-center justify-center rounded-full bg-blue-50"
         >
-          <i class="pi pi-envelope text-2xl text-blue-600" />
+          <Envelope class="h-[1em] w-[1em] shrink-0 text-2xl text-blue-600" />
         </div>
         <h2 class="mb-2 text-xl font-semibold text-gray-900">
           Verify Your Email
@@ -73,7 +76,11 @@ function handleClose() {
       </div>
 
       <!-- Error Message -->
-      <Message v-if="form.errors.code" severity="error">
+      <Message
+        role="alert"
+        class="border border-red-200 bg-red-50 text-red-700 dark:border-red-800 dark:bg-red-950 dark:text-red-300"
+        v-if="form.errors.code"
+      >
         {{
           typeof form.errors.code === 'string'
             ? form.errors.code
@@ -88,7 +95,14 @@ function handleClose() {
             Enter verification code
           </label>
           <div class="flex justify-start">
-            <InputOtp v-model="form.code" :length="6" integer-only mask />
+            <InputOtp
+              class="mx-auto max-w-64 text-center text-2xl tracking-[0.5em]"
+              autocomplete="one-time-code"
+              inputmode="numeric"
+              aria-label="Verification code"
+              :maxlength="6"
+              v-model="form.code"
+            />
           </div>
         </div>
 
@@ -96,7 +110,7 @@ function handleClose() {
         <div class="rounded-lg border border-gray-300 bg-gray-50 p-4">
           <div class="flex">
             <div class="shrink-0">
-              <i class="pi pi-info-circle text-gray-400" />
+              <InfoCircle class="h-[1em] w-[1em] shrink-0 text-gray-400" />
             </div>
             <div class="ml-3">
               <p class="text-sm text-gray-600">
@@ -112,21 +126,19 @@ function handleClose() {
         >
           <SecondaryButton
             type="button"
-            label="Cancel"
-            variant="outlined"
-            size="small"
+            class="bg-transparent text-brand dark:bg-transparent dark:text-brand-400 min-h-10 border border-gray-300 bg-white px-3 py-2 text-base text-gray-700 hover:bg-gray-100 dark:border-gray-600 dark:bg-gray-900 dark:text-white dark:hover:bg-gray-800 min-h-8 px-2.5 py-1.5 text-sm w-full sm:w-auto"
             :disabled="form.processing"
-            class="w-full sm:w-auto"
             @click="handleClose"
-          />
+            >Cancel</SecondaryButton
+          >
           <Button
+            :disabled="!form.code || form.code.length !== 6 || form.processing"
+            :aria-busy="form.processing"
             type="submit"
-            label="Verify & Enable Email 2FA"
-            size="small"
-            :loading="form.processing"
-            :disabled="!form.code || form.code.length !== 6"
-            class="w-full sm:w-auto"
-          />
+            class="min-h-10 border border-brand bg-brand px-3 py-2 text-base text-white hover:bg-brand-600 active:bg-brand-700 dark:bg-brand dark:text-white dark:hover:bg-brand-600 dark:active:bg-brand-700 min-h-8 px-2.5 py-1.5 text-sm w-full sm:w-auto"
+            ><Spinner v-if="form.processing" class="h-4 w-4" />Verify & Enable
+            Email 2FA</Button
+          >
         </div>
       </form>
     </div>

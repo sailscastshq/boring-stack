@@ -1,12 +1,21 @@
 <script setup>
+import Fingerprint from '@/components/ui/icons/Fingerprint.vue'
+import WarningTriangle from '@/components/ui/icons/WarningTriangle.vue'
+import ShieldCheck from '@/components/ui/icons/ShieldCheck.vue'
+import Lock from '@/components/ui/icons/Lock.vue'
+import Key from '@/components/ui/icons/Key.vue'
+import Envelope from '@/components/ui/icons/Envelope.vue'
+import Edit from '@/components/ui/icons/Edit.vue'
+import Settings from '@/components/ui/icons/Settings.vue'
+import Spinner from '@/components/ui/spinner/Spinner.vue'
 import { ref, computed, watch } from 'vue'
 import { Head, useForm, usePage, router } from '@inertiajs/vue3'
-import { useConfirm } from 'primevue/useconfirm'
-import Button from '@/volt/Button.vue'
-import InputText from '@/volt/InputText.vue'
-import ToggleSwitch from '@/volt/ToggleSwitch.vue'
-import ConfirmDialog from '@/volt/ConfirmDialog.vue'
-import Message from '@/volt/Message.vue'
+import { useConfirmation } from '@/composables/confirmation'
+import ConfirmationDialog from '@/components/ConfirmationDialog.vue'
+import Button from '@/components/ui/button/Button.vue'
+import InputText from '@/components/ui/input/Input.vue'
+import ToggleSwitch from '@/components/ui/switch/Switch.vue'
+import Message from '@/components/ui/alert/Alert.vue'
 import DashboardLayout from '@/layouts/DashboardLayout.vue'
 
 defineOptions({
@@ -18,7 +27,7 @@ import TotpSetupModal from '@/components/TotpSetupModal.vue'
 import BackupCodesModal from '@/components/BackupCodesModal.vue'
 import EmailTwoFactorSetupModal from '@/components/EmailTwoFactorSetupModal.vue'
 import ManagePasskeysModal from '@/components/ManagePasskeysModal.vue'
-import SecondaryButton from '@/volt/SecondaryButton.vue'
+import SecondaryButton from '@/components/ui/button/Button.vue'
 
 const props = defineProps({
   loggedInUser: {
@@ -64,7 +73,7 @@ const props = defineProps({
 })
 
 const page = usePage()
-const confirm = useConfirm()
+const confirmation = useConfirmation()
 
 const showPasswordForm = ref(false)
 const showInitialPasswordForm = ref(false)
@@ -258,14 +267,14 @@ async function handlePasskeyRegistration(registrationData) {
 }
 
 function handleDisablePasskeys() {
-  confirm.require({
+  confirmation.request({
     message: `Are you sure you want to disable all passkeys? This will remove all ${
       props.passkeyCount
     } registered ${
       props.passkeyCount === 1 ? 'passkey' : 'passkeys'
     } and disable passkey authentication for your account.`,
     header: 'Disable All Passkeys',
-    icon: 'pi pi-exclamation-triangle',
+    icon: WarningTriangle,
     acceptClass: 'bg-red-600 hover:bg-red-700 text-white border-red-600',
     acceptLabel: 'Disable All',
     rejectLabel: 'Cancel',
@@ -299,6 +308,7 @@ function submitInitialPassword(e) {
 </script>
 
 <template>
+  <ConfirmationDialog :state="confirmation" />
   <Head title="Security Settings | Ascent Vue" />
 
   <div class="max-w-4xl space-y-8">
@@ -327,7 +337,7 @@ function submitInitialPassword(e) {
             <div
               class="flex h-10 w-10 shrink-0 items-center justify-center rounded-lg bg-orange-50"
             >
-              <i class="pi pi-lock text-orange-600" />
+              <Lock class="h-[1em] w-[1em] shrink-0 text-orange-600" />
             </div>
             <div class="flex-1">
               <h4 class="text-sm font-medium text-gray-900">
@@ -340,11 +350,10 @@ function submitInitialPassword(e) {
           </div>
           <div class="flex justify-end sm:ml-4">
             <Button
-              label="Set up"
-              size="small"
-              variant="outlined"
+              class="min-h-10 border border-brand bg-brand px-3 py-2 text-base text-white hover:bg-brand-600 active:bg-brand-700 dark:bg-brand dark:text-white dark:hover:bg-brand-600 dark:active:bg-brand-700 min-h-8 px-2.5 py-1.5 text-sm bg-transparent text-brand dark:bg-transparent dark:text-brand-400"
               @click="handleSetupPassword"
-            />
+              >Set up</Button
+            >
           </div>
         </div>
 
@@ -358,7 +367,7 @@ function submitInitialPassword(e) {
             <div
               class="bg-brand-50 flex h-10 w-10 items-center justify-center rounded-lg"
             >
-              <i class="pi pi-lock text-brand-600" />
+              <Lock class="h-[1em] w-[1em] shrink-0 text-brand-600" />
             </div>
             <div>
               <h4 class="text-sm font-medium text-gray-900">
@@ -371,9 +380,9 @@ function submitInitialPassword(e) {
           </div>
 
           <Message
+            role="alert"
             v-if="initialPasswordForm.errors.setupInitialPassword"
-            severity="error"
-            class="mb-4"
+            class="border border-red-200 bg-red-50 text-red-700 dark:border-red-800 dark:bg-red-950 dark:text-red-300 mb-4"
           >
             {{ initialPasswordForm.errors.setupInitialPassword }}
           </Message>
@@ -391,12 +400,12 @@ function submitInitialPassword(e) {
                 v-model="initialPasswordForm.password"
                 type="password"
                 placeholder="Enter your password"
-                class="w-full"
+                class="min-h-10 focus-visible:border-brand focus-visible:outline-brand dark:focus-visible:border-brand dark:focus-visible:outline-brand w-full"
               />
               <Message
+                role="alert"
                 v-if="initialPasswordForm.errors.password"
-                severity="error"
-                class="mt-2"
+                class="border border-red-200 bg-red-50 text-red-700 dark:border-red-800 dark:bg-red-950 dark:text-red-300 mt-2"
               >
                 {{ initialPasswordForm.errors.password }}
               </Message>
@@ -414,12 +423,12 @@ function submitInitialPassword(e) {
                 v-model="initialPasswordForm.confirmPassword"
                 type="password"
                 placeholder="Confirm your password"
-                class="w-full"
+                class="min-h-10 focus-visible:border-brand focus-visible:outline-brand dark:focus-visible:border-brand dark:focus-visible:outline-brand w-full"
               />
               <Message
+                role="alert"
                 v-if="initialPasswordForm.errors.confirmPassword"
-                severity="error"
-                class="mt-2"
+                class="border border-red-200 bg-red-50 text-red-700 dark:border-red-800 dark:bg-red-950 dark:text-red-300 mt-2"
               >
                 {{ initialPasswordForm.errors.confirmPassword }}
               </Message>
@@ -431,27 +440,27 @@ function submitInitialPassword(e) {
           >
             <SecondaryButton
               type="button"
-              label="Cancel"
-              size="small"
-              class="w-full px-4 py-2 text-sm sm:w-auto"
-              variant="outlined"
-              text
+              class="min-h-10 border border-transparent bg-transparent px-3 py-2 text-brand hover:bg-brand-50 dark:bg-transparent dark:text-brand-400 dark:hover:bg-brand-950 min-h-8 px-2.5 py-1.5 text-sm w-full px-4 py-2 text-sm sm:w-auto bg-transparent text-brand dark:bg-transparent dark:text-brand-400"
               @click="
                 () => {
                   showInitialPasswordForm = false
                   initialPasswordForm.reset()
                 }
               "
-            />
+              >Cancel</SecondaryButton
+            >
             <Button
+              :disabled="
+                initialPasswordForm.processing || initialPasswordForm.processing
+              "
+              :aria-busy="initialPasswordForm.processing"
               type="submit"
-              label="Set up password"
-              size="small"
-              variant="outlined"
-              class="w-full px-4 py-2 text-sm sm:w-auto"
-              :disabled="initialPasswordForm.processing"
-              :loading="initialPasswordForm.processing"
-            />
+              class="bg-transparent text-brand dark:bg-transparent dark:text-brand-400 min-h-10 border border-brand bg-brand px-3 py-2 text-base text-white hover:bg-brand-600 active:bg-brand-700 dark:bg-brand dark:text-white dark:hover:bg-brand-600 dark:active:bg-brand-700 min-h-8 px-2.5 py-1.5 text-sm w-full px-4 py-2 text-sm sm:w-auto"
+              ><Spinner
+                v-if="initialPasswordForm.processing"
+                class="h-4 w-4"
+              />Set up password</Button
+            >
           </div>
         </form>
 
@@ -464,7 +473,7 @@ function submitInitialPassword(e) {
             <div
               class="bg-brand-50 flex h-10 w-10 shrink-0 items-center justify-center rounded-lg"
             >
-              <i class="pi pi-lock text-brand-600" />
+              <Lock class="h-[1em] w-[1em] shrink-0 text-brand-600" />
             </div>
             <div class="min-w-0 flex-1">
               <div
@@ -485,7 +494,7 @@ function submitInitialPassword(e) {
                           : 'bg-gray-100 text-gray-800'
                   ]"
                 >
-                  <i class="pi pi-shield mr-1" />
+                  <ShieldCheck class="h-[1em] w-[1em] shrink-0 mr-1" />
                   {{ passwordStrength.label }}
                 </span>
               </div>
@@ -496,12 +505,10 @@ function submitInitialPassword(e) {
           </div>
           <div class="flex justify-end sm:ml-4">
             <Button
-              label="Edit"
-              size="small"
-              variant="outlined"
-              icon="pi pi-pencil"
+              class="min-h-10 border border-brand bg-brand px-3 py-2 text-base text-white hover:bg-brand-600 active:bg-brand-700 dark:bg-brand dark:text-white dark:hover:bg-brand-600 dark:active:bg-brand-700 min-h-8 px-2.5 py-1.5 text-sm bg-transparent text-brand dark:bg-transparent dark:text-brand-400"
               @click="showPasswordForm = true"
-            />
+              ><Edit class="h-4 w-4" />Edit</Button
+            >
           </div>
         </div>
 
@@ -515,7 +522,7 @@ function submitInitialPassword(e) {
             <div
               class="bg-brand-50 flex h-10 w-10 items-center justify-center rounded-lg"
             >
-              <i class="pi pi-lock text-brand-600" />
+              <Lock class="h-[1em] w-[1em] shrink-0 text-brand-600" />
             </div>
             <div>
               <h4 class="text-sm font-medium text-gray-900">
@@ -540,12 +547,12 @@ function submitInitialPassword(e) {
                 v-model="form.currentPassword"
                 type="password"
                 placeholder="Enter your current password"
-                class="w-full"
+                class="min-h-10 focus-visible:border-brand focus-visible:outline-brand dark:focus-visible:border-brand dark:focus-visible:outline-brand w-full"
               />
               <Message
+                role="alert"
                 v-if="form.errors.currentPassword"
-                severity="error"
-                class="mt-2"
+                class="border border-red-200 bg-red-50 text-red-700 dark:border-red-800 dark:bg-red-950 dark:text-red-300 mt-2"
               >
                 {{ form.errors.currentPassword }}
               </Message>
@@ -563,12 +570,12 @@ function submitInitialPassword(e) {
                 v-model="form.password"
                 type="password"
                 placeholder="Enter new password"
-                class="w-full"
+                class="min-h-10 focus-visible:border-brand focus-visible:outline-brand dark:focus-visible:border-brand dark:focus-visible:outline-brand w-full"
               />
               <Message
+                role="alert"
                 v-if="form.errors.password"
-                severity="error"
-                class="mt-2"
+                class="border border-red-200 bg-red-50 text-red-700 dark:border-red-800 dark:bg-red-950 dark:text-red-300 mt-2"
               >
                 {{ form.errors.password }}
               </Message>
@@ -586,12 +593,12 @@ function submitInitialPassword(e) {
                 v-model="form.confirmPassword"
                 type="password"
                 placeholder="Confirm new password"
-                class="w-full"
+                class="min-h-10 focus-visible:border-brand focus-visible:outline-brand dark:focus-visible:border-brand dark:focus-visible:outline-brand w-full"
               />
               <Message
+                role="alert"
                 v-if="form.errors.confirmPassword"
-                severity="error"
-                class="mt-2"
+                class="border border-red-200 bg-red-50 text-red-700 dark:border-red-800 dark:bg-red-950 dark:text-red-300 mt-2"
               >
                 {{ form.errors.confirmPassword }}
               </Message>
@@ -612,26 +619,23 @@ function submitInitialPassword(e) {
             >
               <SecondaryButton
                 type="button"
-                label="Cancel"
-                size="small"
-                class="w-full px-4 py-2 text-sm sm:w-auto"
-                variant="outlined"
-                text
+                class="min-h-10 border border-transparent bg-transparent px-3 py-2 text-brand hover:bg-brand-50 dark:bg-transparent dark:text-brand-400 dark:hover:bg-brand-950 min-h-8 px-2.5 py-1.5 text-sm w-full px-4 py-2 text-sm sm:w-auto bg-transparent text-brand dark:bg-transparent dark:text-brand-400"
                 @click="
                   () => {
                     showPasswordForm = false
                     form.reset()
                   }
                 "
-              />
+                >Cancel</SecondaryButton
+              >
               <Button
+                :disabled="false || form.processing"
+                :aria-busy="form.processing"
                 type="submit"
-                label="Save new password"
-                size="small"
-                variant="outlined"
-                class="w-full px-4 py-2 text-sm sm:w-auto"
-                :loading="form.processing"
-              />
+                class="bg-transparent text-brand dark:bg-transparent dark:text-brand-400 min-h-10 border border-brand bg-brand px-3 py-2 text-base text-white hover:bg-brand-600 active:bg-brand-700 dark:bg-brand dark:text-white dark:hover:bg-brand-600 dark:active:bg-brand-700 min-h-8 px-2.5 py-1.5 text-sm w-full px-4 py-2 text-sm sm:w-auto"
+                ><Spinner v-if="form.processing" class="h-4 w-4" />Save new
+                password</Button
+              >
             </div>
           </div>
         </form>
@@ -657,19 +661,12 @@ function submitInitialPassword(e) {
                 passkeyEnabled ? 'bg-success-50' : 'bg-gray-50'
               ]"
             >
-              <svg
+              <Fingerprint
                 :class="[
                   'h-5 w-5',
                   passkeyEnabled ? 'text-success-600' : 'text-gray-400'
                 ]"
-                fill="currentColor"
-                viewBox="0 0 24 24"
-              >
-                <path
-                  d="M17.81 4.47c-.08 0-.16-.02-.23-.06C15.66 3.42 14 3 12.01 3c-1.98 0-3.86.47-5.57 1.41-.24.13-.54.04-.68-.2-.13-.24-.04-.55.2-.68C7.82 2.52 9.86 2 12.01 2c2.13 0 3.99.47 6.03 1.52.25.13.34.43.21.67-.09.18-.26.28-.44.28zM3.5 9.72c-.1 0-.2-.03-.29-.09-.23-.16-.28-.47-.12-.7.99-1.4 2.25-2.5 3.75-3.27C9.98 4.04 14 4.03 17.15 5.65c1.5.77 2.76 1.86 3.75 3.25.16.22.11.54-.12.7-.23.16-.54.11-.7-.12-.9-1.26-2.04-2.25-3.39-2.94-2.87-1.47-6.54-1.47-9.4.01-1.36.7-2.5 1.7-3.4 2.96-.08.14-.23.21-.39.21zm6.25 12.07c-.13 0-.26-.05-.35-.15-.87-.87-1.34-2.04-1.34-3.27 0-1.23.47-2.4 1.34-3.27.87-.87 2.04-1.34 3.27-1.34 1.23 0 2.4.47 3.27 1.34.87.87 1.34 2.04 1.34 3.27 0 1.23-.47 2.4-1.34 3.27-.09.1-.22.15-.35.15s-.26-.05-.35-.15c-.87-.87-1.34-2.04-1.34-3.27s.47-2.4 1.34-3.27c.87-.87 2.04-1.34 3.27-1.34s2.4.47 3.27 1.34c.87.87 1.34 2.04 1.34 3.27s-.47 2.4-1.34 3.27c-.09.1-.22.15-.35.15z"
-                />
-                <circle cx="12" cy="12" r="2" />
-              </svg>
+              />
             </div>
             <div class="flex-1">
               <h4 class="text-sm font-medium text-gray-900">Passkeys</h4>
@@ -685,6 +682,8 @@ function submitInitialPassword(e) {
             </div>
           </div>
           <ToggleSwitch
+            aria-label="Passkeys"
+            class="checked:bg-brand dark:checked:bg-brand"
             :model-value="passkeyEnabled"
             @update:model-value="
               passkeyEnabled ? handleDisablePasskeys() : setupPasskey()
@@ -713,7 +712,7 @@ function submitInitialPassword(e) {
             <div
               class="bg-brand-50 flex h-10 w-10 items-center justify-center rounded-lg"
             >
-              <i class="pi pi-cog text-brand-600" />
+              <Settings class="h-[1em] w-[1em] shrink-0 text-brand-600" />
             </div>
             <div class="flex-1">
               <h5 class="text-sm font-medium text-gray-900">Manage Passkeys</h5>
@@ -724,12 +723,10 @@ function submitInitialPassword(e) {
           </div>
           <div class="flex items-center space-x-3">
             <Button
-              label="Manage"
-              size="small"
-              variant="outlined"
-              icon="pi pi-cog"
+              class="min-h-10 border border-brand bg-brand px-3 py-2 text-base text-white hover:bg-brand-600 active:bg-brand-700 dark:bg-brand dark:text-white dark:hover:bg-brand-600 dark:active:bg-brand-700 min-h-8 px-2.5 py-1.5 text-sm bg-transparent text-brand dark:bg-transparent dark:text-brand-400"
               @click="handleManagePasskeys"
-            />
+              ><Settings class="h-4 w-4" />Manage</Button
+            >
           </div>
         </div>
       </div>
@@ -755,9 +752,10 @@ function submitInitialPassword(e) {
                 twoFactorEnabled ? 'bg-success-50' : 'bg-gray-50'
               ]"
             >
-              <i
+              <ShieldCheck
+                class="h-[1em] w-[1em] shrink-0"
                 :class="[
-                  'pi pi-shield',
+                  ' ',
                   twoFactorEnabled ? 'text-success-600' : 'text-gray-400'
                 ]"
               />
@@ -776,6 +774,8 @@ function submitInitialPassword(e) {
             </div>
           </div>
           <ToggleSwitch
+            aria-label="Two-step verification"
+            class="checked:bg-brand dark:checked:bg-brand"
             :model-value="twoFactorEnabled"
             @update:model-value="handleTwoFactorToggle"
             :disabled="
@@ -827,9 +827,10 @@ function submitInitialPassword(e) {
                   totpEnabled ? 'bg-success-100' : 'bg-brand-50'
                 ]"
               >
-                <i
+                <Key
+                  class="h-[1em] w-[1em] shrink-0"
                   :class="[
-                    'pi pi-mobile',
+                    ' ',
                     totpEnabled ? 'text-success-600' : 'text-brand-600'
                   ]"
                 />
@@ -852,16 +853,23 @@ function submitInitialPassword(e) {
                 Active
               </span>
               <Button
+                class="min-h-10 border border-brand bg-brand px-3 py-2 text-base text-white hover:bg-brand-600 active:bg-brand-700 dark:bg-brand dark:text-white dark:hover:bg-brand-600 dark:active:bg-brand-700 min-h-8 px-2.5 py-1.5 text-sm bg-transparent text-brand dark:bg-transparent dark:text-brand-400"
+                :disabled="
+                  !hasPassword ||
+                  setupTotpForm.processing ||
+                  setupTotpForm.processing
+                "
+                :aria-busy="setupTotpForm.processing"
                 v-if="!totpEnabled"
-                :label="setupTotpForm.processing ? 'Setting up...' : 'Set up'"
-                size="small"
-                variant="outlined"
-                :loading="setupTotpForm.processing"
-                :disabled="!hasPassword || setupTotpForm.processing"
                 @click="setupTOTP"
-                :tooltip="!hasPassword ? 'Set up a password first' : undefined"
-              />
+                :title="!hasPassword ? 'Set up a password first' : undefined"
+                ><Spinner v-if="setupTotpForm.processing" class="h-4 w-4" />{{
+                  setupTotpForm.processing ? 'Setting up...' : 'Set up'
+                }}</Button
+              >
               <ToggleSwitch
+                aria-label="Authenticator app"
+                class="checked:bg-brand dark:checked:bg-brand"
                 v-else
                 :model-value="totpEnabled"
                 @update:model-value="handleTotpToggle"
@@ -887,9 +895,10 @@ function submitInitialPassword(e) {
                   emailTwoFactorEnabled ? 'bg-success-100' : 'bg-brand-50'
                 ]"
               >
-                <i
+                <Envelope
+                  class="h-[1em] w-[1em] shrink-0"
                   :class="[
-                    'pi pi-envelope',
+                    ' ',
                     emailTwoFactorEnabled
                       ? 'text-success-600'
                       : 'text-brand-600'
@@ -913,16 +922,22 @@ function submitInitialPassword(e) {
                 Active
               </span>
               <Button
+                class="min-h-10 border border-brand bg-brand px-3 py-2 text-base text-white hover:bg-brand-600 active:bg-brand-700 dark:bg-brand dark:text-white dark:hover:bg-brand-600 dark:active:bg-brand-700 min-h-8 px-2.5 py-1.5 text-sm bg-transparent text-brand dark:bg-transparent dark:text-brand-400"
+                :disabled="
+                  !hasPassword ||
+                  setupEmailForm.processing ||
+                  setupEmailForm.processing
+                "
+                :aria-busy="setupEmailForm.processing"
                 v-if="!emailTwoFactorEnabled"
-                :label="setupEmailForm.processing ? 'Setting up...' : 'Set up'"
-                size="small"
-                variant="outlined"
-                :loading="setupEmailForm.processing"
-                :disabled="!hasPassword || setupEmailForm.processing"
                 @click="setupEmail2FA"
-                :tooltip="!hasPassword ? 'Set up a password first' : undefined"
-              />
-              <InputSwitch
+                :title="!hasPassword ? 'Set up a password first' : undefined"
+                ><Spinner v-if="setupEmailForm.processing" class="h-4 w-4" />{{
+                  setupEmailForm.processing ? 'Setting up...' : 'Set up'
+                }}</Button
+              >
+              <ToggleSwitch
+                aria-label="Email verification"
                 v-else
                 :model-value="emailTwoFactorEnabled"
                 @update:model-value="handleEmailTwoFactorToggle"
@@ -941,7 +956,7 @@ function submitInitialPassword(e) {
               <div
                 class="flex h-10 w-10 items-center justify-center rounded-lg bg-orange-50"
               >
-                <i class="pi pi-key text-orange-600" />
+                <Key class="h-[1em] w-[1em] shrink-0 text-orange-600" />
               </div>
               <div class="flex-1">
                 <h5 class="text-sm font-medium text-gray-900">
@@ -955,17 +970,22 @@ function submitInitialPassword(e) {
             </div>
             <div class="flex items-center space-x-3">
               <Button
-                :label="
+                class="min-h-10 border border-brand bg-brand px-3 py-2 text-base text-white hover:bg-brand-600 active:bg-brand-700 dark:bg-brand dark:text-white dark:hover:bg-brand-600 dark:active:bg-brand-700 min-h-8 px-2.5 py-1.5 text-sm bg-transparent text-brand dark:bg-transparent dark:text-brand-400"
+                :disabled="
+                  generateBackupCodesForm.processing ||
+                  generateBackupCodesForm.processing
+                "
+                :aria-busy="generateBackupCodesForm.processing"
+                @click="handleGenerateBackupCodes"
+                ><Spinner
+                  v-if="generateBackupCodesForm.processing"
+                  class="h-4 w-4"
+                />{{
                   generateBackupCodesForm.processing
                     ? 'Generating...'
                     : 'Generate codes'
-                "
-                size="small"
-                variant="outlined"
-                :loading="generateBackupCodesForm.processing"
-                :disabled="generateBackupCodesForm.processing"
-                @click="handleGenerateBackupCodes"
-              />
+                }}</Button
+              >
             </div>
           </div>
         </div>
@@ -973,12 +993,10 @@ function submitInitialPassword(e) {
         <!-- Cancel button - only show during setup flow when no 2FA is enabled -->
         <div v-if="!twoFactorEnabled && showSetupFlow" class="flex justify-end">
           <SecondaryButton
-            label="Cancel"
-            size="small"
-            text
-            class="px-4 py-2 text-sm"
+            class="min-h-10 border border-transparent bg-transparent px-3 py-2 text-brand hover:bg-brand-50 dark:bg-transparent dark:text-brand-400 dark:hover:bg-brand-950 min-h-8 px-2.5 py-1.5 text-sm px-4 py-2 text-sm"
             @click="showSetupFlow = false"
-          />
+            >Cancel</SecondaryButton
+          >
         </div>
       </div>
     </section>

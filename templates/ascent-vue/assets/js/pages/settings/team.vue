@@ -1,26 +1,37 @@
 <script setup>
+import X from '@/components/ui/icons/X.vue'
+import WarningTriangle from '@/components/ui/icons/WarningTriangle.vue'
+import User from '@/components/ui/icons/User.vue'
+import ShieldCheck from '@/components/ui/icons/ShieldCheck.vue'
+import Globe from '@/components/ui/icons/Globe.vue'
+import Envelope from '@/components/ui/icons/Envelope.vue'
+import Copy from '@/components/ui/icons/Copy.vue'
+import Check from '@/components/ui/icons/Check.vue'
+import EllipsisVertical from '@/components/ui/icons/EllipsisVertical.vue'
+import SignOut from '@/components/ui/icons/SignOut.vue'
+import Spinner from '@/components/ui/spinner/Spinner.vue'
 import { ref, computed, watch } from 'vue'
 import { Link, usePage, router, useForm, Head } from '@inertiajs/vue3'
-import { useConfirm } from 'primevue/useconfirm'
-import Button from '@/volt/Button.vue'
-import InputText from '@/volt/InputText.vue'
-import ToggleSwitch from '@/volt/ToggleSwitch.vue'
+import { useConfirmation } from '@/composables/confirmation'
+import ConfirmationDialog from '@/components/ConfirmationDialog.vue'
+import Button from '@/components/ui/button/Button.vue'
+import InputText from '@/components/ui/input/Input.vue'
+import ToggleSwitch from '@/components/ui/switch/Switch.vue'
 import Avatar from '@/components/Avatar.vue'
-import Message from '@/volt/Message.vue'
+import Message from '@/components/ui/alert/Alert.vue'
 import DashboardLayout from '@/layouts/DashboardLayout.vue'
 
 defineOptions({
   layout: (h, page) =>
     h(DashboardLayout, { maxWidth: 'narrow', title: 'Team' }, () => page)
 })
-import Dialog from '@/volt/Dialog.vue'
-import Menu from '@/volt/Menu.vue'
-import Select from '@/volt/Select.vue'
+import Dialog from '@/components/Modal.vue'
+import Menu from '@/components/ui/menu/Menu.vue'
 import { useCopyToClipboard } from '@/composables/copyToClipboard'
 import ImageUpload from '@/components/ImageUpload.vue'
-import Chips from '@/components/Chips.vue'
-import DangerButton from '@/volt/DangerButton.vue'
-import SecondaryButton from '@/volt/SecondaryButton.vue'
+import Chips from '@/components/ui/tags-input/TagsInput.vue'
+import DangerButton from '@/components/ui/button/Button.vue'
+import SecondaryButton from '@/components/ui/button/Button.vue'
 
 const props = defineProps({
   team: {
@@ -42,7 +53,7 @@ const props = defineProps({
 })
 
 const page = usePage()
-const confirm = useConfirm()
+const confirmation = useConfirmation()
 const { copied, copyToClipboard } = useCopyToClipboard()
 
 const loggedInUser = computed(() => page.props.loggedInUser)
@@ -176,11 +187,12 @@ function handleRoleChange(member, newRole) {
 }
 
 function confirmRemoveMember(member) {
-  confirm.require({
+  confirmation.request({
     message: `Are you sure you want to remove ${member.name} from the team? This action cannot be undone.`,
     header: 'Remove Team Member',
-    icon: 'pi pi-exclamation-triangle',
-    acceptClass: 'p-button-danger',
+    icon: WarningTriangle,
+    acceptClass:
+      'bg-red-600 hover:bg-red-700 text-white dark:bg-red-600 dark:hover:bg-red-700 dark:text-white',
     rejectProps: { label: 'Cancel' },
     acceptProps: { label: 'Remove' },
     accept: () => {
@@ -191,11 +203,11 @@ function confirmRemoveMember(member) {
 }
 
 function confirmLeaveTeam() {
-  confirm.require({
+  confirmation.request({
     message:
       'Are you sure you want to leave this team? You will lose access to all team resources.',
     header: 'Leave Team',
-    icon: 'pi pi-exclamation-triangle',
+    icon: WarningTriangle,
     acceptClass: 'bg-red-600 hover:bg-red-700 text-white border-red-600',
     rejectProps: { label: 'Cancel' },
     acceptProps: { label: 'Leave' },
@@ -239,10 +251,10 @@ function handleTransferOwnership(e) {
 }
 
 function confirmDeleteTeam() {
-  confirm.require({
+  confirmation.request({
     message: `Are you sure you want to delete ${props.team.name}? This action cannot be undone and will permanently delete all team data, memberships, and invitations.`,
     header: 'Delete Team',
-    icon: 'pi pi-exclamation-triangle',
+    icon: WarningTriangle,
     acceptClass: 'bg-red-600 hover:bg-red-700 text-white border-red-600',
     rejectProps: { label: 'Cancel' },
     acceptProps: { label: 'Delete' },
@@ -267,13 +279,13 @@ function getActionItems(member) {
     if (currentRole === 'member') {
       actionItems.push({
         label: 'Make admin',
-        icon: 'pi pi-shield',
+        icon: ShieldCheck,
         command: () => handleRoleChange(member, 'admin')
       })
     } else if (currentRole === 'admin') {
       actionItems.push({
         label: 'Make member',
-        icon: 'pi pi-user',
+        icon: User,
         command: () => handleRoleChange(member, 'member')
       })
     }
@@ -285,7 +297,7 @@ function getActionItems(member) {
     }
     actionItems.push({
       label: 'Remove member',
-      icon: 'pi pi-times',
+      icon: X,
       class: 'text-red-600',
       command: () => confirmRemoveMember(member)
     })
@@ -296,6 +308,7 @@ function getActionItems(member) {
 </script>
 
 <template>
+  <ConfirmationDialog :state="confirmation" />
   <Head title="Team Settings | Ascent Vue" />
 
   <div class="max-w-4xl space-y-8">
@@ -309,6 +322,8 @@ function getActionItems(member) {
           </p>
         </div>
         <ToggleSwitch
+          aria-label="Invite by link"
+          class="checked:bg-brand dark:checked:bg-brand"
           :model-value="toggleForm.inviteLinkEnabled"
           @update:model-value="handleToggleInviteLink"
           :disabled="toggleForm.processing"
@@ -322,20 +337,20 @@ function getActionItems(member) {
             <InputText
               :model-value="team?.inviteLink || ''"
               readonly
-              class="flex-1 text-sm"
+              class="min-h-10 focus-visible:border-brand focus-visible:outline-brand dark:focus-visible:border-brand dark:focus-visible:outline-brand flex-1 text-sm"
             />
             <Button
-              :icon="copied ? 'pi pi-check' : 'pi pi-copy'"
+              class="min-h-10 border border-transparent bg-transparent px-3 py-2 text-brand hover:bg-brand-50 dark:bg-transparent dark:text-brand-400 dark:hover:bg-brand-950 min-h-8 px-2.5 py-1.5 text-sm"
+              :aria-label="copied ? 'Copied!' : 'Copy link'"
               @click="copyToClipboard(team?.inviteLink)"
-              size="small"
-              :tooltip="copied ? 'Copied!' : 'Copy link'"
+              :title="copied ? 'Copied!' : 'Copy link'"
               :class="
                 copied
                   ? 'text-success-600 hover:text-success-700'
                   : 'text-gray-500 hover:text-gray-700'
               "
-              text
-            />
+              ><component :is="copied ? Check : Copy" class="h-4 w-4"
+            /></Button>
           </div>
           <button
             type="button"
@@ -363,21 +378,25 @@ function getActionItems(member) {
           >
             <Chips
               v-model="domainForm.domainRestrictions"
+              aria-label="Restricted domains"
               placeholder="Domains, separated by comma"
               class="flex-1"
-              separator=","
             />
             <Button
-              type="submit"
-              label="Set"
-              variant="outlined"
-              :loading="domainForm.processing"
+              class="min-h-10 border border-brand bg-brand px-3 py-2 text-base text-white hover:bg-brand-600 active:bg-brand-700 dark:bg-brand dark:text-white dark:hover:bg-brand-600 dark:active:bg-brand-700 bg-transparent text-brand dark:bg-transparent dark:text-brand-400"
               :disabled="
                 domainForm.processing ||
                 !domainForm.domainRestrictions ||
-                domainForm.domainRestrictions.length === 0
+                domainForm.domainRestrictions.length === 0 ||
+                domainForm.processing
               "
-            />
+              :aria-busy="domainForm.processing"
+              type="submit"
+              ><Spinner
+                v-if="domainForm.processing"
+                class="h-4 w-4"
+              />Set</Button
+            >
           </form>
 
           <!-- Domain List -->
@@ -400,7 +419,7 @@ function getActionItems(member) {
                   <div
                     class="flex h-8 w-8 items-center justify-center rounded-full text-blue-600"
                   >
-                    <i class="pi pi-globe" />
+                    <Globe class="h-[1em] w-[1em] shrink-0" />
                   </div>
                   <div>
                     <div class="text-sm font-medium text-gray-900">
@@ -410,22 +429,23 @@ function getActionItems(member) {
                   </div>
                 </div>
                 <Button
-                  :icon="
-                    removingDomains.has(domain)
-                      ? 'pi pi-spin pi-spinner'
-                      : 'pi pi-times'
-                  "
-                  size="small"
-                  text
-                  :disabled="removingDomains.has(domain)"
-                  class="text-red-600 hover:bg-red-50 hover:text-red-700"
-                  @click="handleRemoveDomain(domain)"
-                  :tooltip="
+                  :aria-label="
                     removingDomains.has(domain)
                       ? 'Removing...'
                       : 'Remove domain restriction'
                   "
-                />
+                  :disabled="removingDomains.has(domain)"
+                  class="min-h-10 border border-transparent bg-transparent px-3 py-2 text-brand hover:bg-brand-50 dark:bg-transparent dark:text-brand-400 dark:hover:bg-brand-950 min-h-8 px-2.5 py-1.5 text-sm text-red-600 hover:bg-red-50 hover:text-red-700"
+                  @click="handleRemoveDomain(domain)"
+                  :title="
+                    removingDomains.has(domain)
+                      ? 'Removing...'
+                      : 'Remove domain restriction'
+                  "
+                  ><Spinner
+                    v-if="removingDomains.has(domain)"
+                    class="h-4 w-4" /><X v-else class="h-4 w-4"
+                /></Button>
               </div>
             </div>
           </div>
@@ -446,23 +466,31 @@ function getActionItems(member) {
           <div class="flex items-center space-x-3">
             <Chips
               v-model="emailForm.emails"
+              aria-label="Invitation emails"
               placeholder="Enter email addresses and press enter"
               class="flex-1"
-              separator=","
             />
             <Button
-              type="submit"
-              label="Invite"
-              variant="outlined"
-              :loading="emailForm.processing"
+              class="min-h-10 border border-brand bg-brand px-3 py-2 text-base text-white hover:bg-brand-600 active:bg-brand-700 dark:bg-brand dark:text-white dark:hover:bg-brand-600 dark:active:bg-brand-700 bg-transparent text-brand dark:bg-transparent dark:text-brand-400"
               :disabled="
                 emailForm.processing ||
                 !emailForm.emails ||
-                emailForm.emails.length === 0
+                emailForm.emails.length === 0 ||
+                emailForm.processing
               "
-            />
+              :aria-busy="emailForm.processing"
+              type="submit"
+              ><Spinner
+                v-if="emailForm.processing"
+                class="h-4 w-4"
+              />Invite</Button
+            >
           </div>
-          <Message v-if="emailForm.errors.emails" severity="error">
+          <Message
+            role="alert"
+            class="border border-red-200 bg-red-50 text-red-700 dark:border-red-800 dark:bg-red-950 dark:text-red-300"
+            v-if="emailForm.errors.emails"
+          >
             {{ emailForm.errors.emails }}
           </Message>
         </div>
@@ -481,13 +509,11 @@ function getActionItems(member) {
         </div>
         <!-- Leave Team Button - only for non-owners -->
         <DangerButton
+          class="min-h-10 border border-red-600 bg-red-600 px-3 py-2 text-base text-white hover:bg-red-700 dark:bg-red-600 dark:text-white dark:hover:bg-red-700 min-h-8 px-2.5 py-1.5 text-sm bg-transparent text-red-600 hover:bg-red-50 dark:bg-transparent dark:text-red-400 dark:hover:bg-red-950"
           v-if="userRole !== 'owner'"
-          label="Leave team"
-          icon="pi pi-sign-out"
-          size="small"
-          variant="outlined"
           @click="confirmLeaveTeam"
-        />
+          ><SignOut class="h-4 w-4" />Leave team</DangerButton
+        >
       </header>
 
       <div class="divide-y divide-gray-50">
@@ -534,18 +560,35 @@ function getActionItems(member) {
             <!-- Action Menu -->
             <div v-if="getActionItems(member).length > 0" class="relative">
               <Button
-                icon="pi pi-ellipsis-v"
-                size="small"
-                text
-                class="text-gray-400 hover:text-gray-600"
-                @click="(e) => $refs[`menu-${member.id}`][0].toggle(e)"
-              />
+                class="min-h-10 border border-transparent bg-transparent px-3 py-2 text-brand hover:bg-brand-50 dark:bg-transparent dark:text-brand-400 dark:hover:bg-brand-950 min-h-8 px-2.5 py-1.5 text-sm text-gray-400 hover:text-gray-600"
+                :popovertarget="`menu-${member.id}`"
+                :aria-label="`Actions for ${member.name}`"
+                ><EllipsisVertical class="h-4 w-4"
+              /></Button>
               <Menu
-                :ref="`menu-${member.id}`"
-                :model="getActionItems(member)"
-                :popup="true"
+                :id="`menu-${member.id}`"
                 class="w-48"
-              />
+                :aria-label="`Actions for ${member.name}`"
+              >
+                <template
+                  v-for="(action, index) in getActionItems(member)"
+                  :key="index"
+                >
+                  <hr
+                    v-if="action.separator"
+                    class="my-1 border-gray-200 dark:border-gray-700"
+                  />
+                  <button
+                    v-else
+                    type="button"
+                    role="menuitem"
+                    class="block w-full rounded-md px-3 py-2 text-left text-sm hover:bg-gray-100 dark:hover:bg-gray-800"
+                    @click="action.command"
+                  >
+                    {{ action.label }}
+                  </button>
+                </template>
+              </Menu>
             </div>
           </div>
         </div>
@@ -576,7 +619,7 @@ function getActionItems(member) {
             <div
               class="flex h-8 w-8 items-center justify-center rounded-full bg-blue-100 text-blue-600"
             >
-              <i class="pi pi-envelope text-sm" />
+              <Envelope class="h-[1em] w-[1em] shrink-0 text-sm" />
             </div>
             <div class="min-w-0 flex-1">
               <div class="flex items-center space-x-2">
@@ -604,15 +647,13 @@ function getActionItems(member) {
 
           <div class="flex shrink-0 items-center space-x-2">
             <Button
-              label="Resend"
-              size="small"
-              text
-              class="text-blue-600 hover:text-blue-700"
-              :loading="inviteActions.has(`resend-${invite.id}`)"
               :disabled="
                 inviteActions.has(`resend-${invite.id}`) ||
-                inviteActions.has(`cancel-${invite.id}`)
+                inviteActions.has(`cancel-${invite.id}`) ||
+                inviteActions.has(`resend-${invite.id}`)
               "
+              :aria-busy="inviteActions.has(`resend-${invite.id}`)"
+              class="min-h-10 border border-transparent bg-transparent px-3 py-2 text-brand hover:bg-brand-50 dark:bg-transparent dark:text-brand-400 dark:hover:bg-brand-950 min-h-8 px-2.5 py-1.5 text-sm text-blue-600 hover:text-blue-700"
               @click="
                 () => {
                   inviteActions.add(`resend-${invite.id}`)
@@ -628,23 +669,25 @@ function getActionItems(member) {
                   )
                 }
               "
-            />
+              ><Spinner
+                v-if="inviteActions.has(`resend-${invite.id}`)"
+                class="h-4 w-4"
+              />Resend</Button
+            >
             <DangerButton
-              label="Cancel"
-              size="small"
-              text
-              class="text-red-600 hover:text-red-700"
-              :loading="inviteActions.has(`cancel-${invite.id}`)"
               :disabled="
                 inviteActions.has(`resend-${invite.id}`) ||
+                inviteActions.has(`cancel-${invite.id}`) ||
                 inviteActions.has(`cancel-${invite.id}`)
               "
+              :aria-busy="inviteActions.has(`cancel-${invite.id}`)"
+              class="min-h-10 border border-transparent bg-transparent px-3 py-2 text-brand hover:bg-brand-50 dark:bg-transparent dark:text-brand-400 dark:hover:bg-brand-950 min-h-8 px-2.5 py-1.5 text-sm text-red-600 hover:text-red-700"
               @click="
                 () => {
-                  confirm.require({
+                  confirmation.request({
                     message: `Cancel invitation for ${invite.email}?`,
                     header: 'Cancel Invitation',
-                    icon: 'pi pi-exclamation-triangle',
+                    icon: WarningTriangle,
                     acceptClass:
                       'bg-red-600 hover:bg-red-700 text-white border-red-600',
                     rejectProps: { label: 'No' },
@@ -661,7 +704,11 @@ function getActionItems(member) {
                   })
                 }
               "
-            />
+              ><Spinner
+                v-if="inviteActions.has(`cancel-${invite.id}`)"
+                class="h-4 w-4"
+              />Cancel</DangerButton
+            >
           </div>
         </div>
       </div>
@@ -689,7 +736,11 @@ function getActionItems(member) {
               @image-select="(file) => (teamForm.logo = file)"
               placeholder="Choose logo"
             />
-            <Message v-if="teamForm.errors.logo" severity="error" class="mt-2">
+            <Message
+              role="alert"
+              v-if="teamForm.errors.logo"
+              class="border border-red-200 bg-red-50 text-red-700 dark:border-red-800 dark:bg-red-950 dark:text-red-300 mt-2"
+            >
               {{ teamForm.errors.logo }}
             </Message>
           </div>
@@ -705,22 +756,29 @@ function getActionItems(member) {
               <InputText
                 id="teamName"
                 v-model="teamForm.name"
-                class="flex-1"
+                class="min-h-10 focus-visible:border-brand focus-visible:outline-brand dark:focus-visible:border-brand dark:focus-visible:outline-brand flex-1"
                 placeholder="Enter team name"
               />
               <Button
-                type="submit"
-                :label="teamForm.processing ? 'Saving...' : 'Save'"
-                size="small"
-                :loading="teamForm.processing"
+                class="min-h-10 border border-brand bg-brand px-3 py-2 text-base text-white hover:bg-brand-600 active:bg-brand-700 dark:bg-brand dark:text-white dark:hover:bg-brand-600 dark:active:bg-brand-700 min-h-8 px-2.5 py-1.5 text-sm"
                 :disabled="
                   teamForm.processing ||
                   (!teamForm.name?.trim() && !teamForm.logo) ||
-                  (teamForm.name === team.name && !teamForm.logo)
+                  (teamForm.name === team.name && !teamForm.logo) ||
+                  teamForm.processing
                 "
-              />
+                :aria-busy="teamForm.processing"
+                type="submit"
+                ><Spinner v-if="teamForm.processing" class="h-4 w-4" />{{
+                  teamForm.processing ? 'Saving...' : 'Save'
+                }}</Button
+              >
             </div>
-            <Message v-if="teamForm.errors.name" severity="error" class="mt-2">
+            <Message
+              role="alert"
+              v-if="teamForm.errors.name"
+              class="border border-red-200 bg-red-50 text-red-700 dark:border-red-800 dark:bg-red-950 dark:text-red-300 mt-2"
+            >
               {{ teamForm.errors.name }}
             </Message>
           </div>
@@ -740,11 +798,10 @@ function getActionItems(member) {
               </p>
             </div>
             <DangerButton
-              label="Transfer ownership"
-              size="small"
-              variant="outlined"
+              class="min-h-10 border border-red-600 bg-red-600 px-3 py-2 text-base text-white hover:bg-red-700 dark:bg-red-600 dark:text-white dark:hover:bg-red-700 min-h-8 px-2.5 py-1.5 text-sm bg-transparent text-red-600 hover:bg-red-50 dark:bg-transparent dark:text-red-400 dark:hover:bg-red-950"
               @click="showTransferModal = true"
-            />
+              >Transfer ownership</DangerButton
+            >
           </div>
 
           <!-- Delete Team -->
@@ -759,11 +816,10 @@ function getActionItems(member) {
               </p>
             </div>
             <DangerButton
-              label="Delete team"
-              size="small"
-              variant="outlined"
+              class="min-h-10 border border-red-600 bg-red-600 px-3 py-2 text-base text-white hover:bg-red-700 dark:bg-red-600 dark:text-white dark:hover:bg-red-700 min-h-8 px-2.5 py-1.5 text-sm bg-transparent text-red-600 hover:bg-red-50 dark:bg-transparent dark:text-red-400 dark:hover:bg-red-950"
               @click="confirmDeleteTeam"
-            />
+              >Delete team</DangerButton
+            >
           </div>
         </div>
       </div>
@@ -772,16 +828,15 @@ function getActionItems(member) {
 
   <!-- Transfer Ownership Modal -->
   <Dialog
-    header="Transfer Team Ownership"
-    :visible="showTransferModal"
-    @update:visible="
+    title="Transfer Team Ownership"
+    :open="showTransferModal"
+    @update:open="
       (value) => {
         showTransferModal = value
         if (!value) transferForm.reset()
       }
     "
-    :style="{ width: '32rem' }"
-    :modal="true"
+    class="max-w-lg"
   >
     <form @submit="handleTransferOwnership" class="space-y-4">
       <div>
@@ -795,13 +850,13 @@ function getActionItems(member) {
           id="newOwnerEmail"
           v-model="transferForm.newOwnerEmail"
           placeholder="Enter team member's email"
-          class="w-full"
-          :invalid="!!transferForm.errors.newOwnerEmail"
+          class="min-h-10 focus-visible:border-brand focus-visible:outline-brand dark:focus-visible:border-brand dark:focus-visible:outline-brand w-full"
+          :aria-invalid="!!transferForm.errors.newOwnerEmail"
         />
         <Message
+          role="alert"
           v-if="transferForm.errors.newOwnerEmail"
-          severity="error"
-          class="mt-2"
+          class="border border-red-200 bg-red-50 text-red-700 dark:border-red-800 dark:bg-red-950 dark:text-red-300 mt-2"
         >
           {{ transferForm.errors.newOwnerEmail }}
         </Message>
@@ -819,13 +874,13 @@ function getActionItems(member) {
           id="confirmationText"
           v-model="transferForm.confirmationText"
           :placeholder="`transfer ${team?.name}`"
-          class="w-full"
-          :invalid="!!transferForm.errors.confirmationText"
+          class="min-h-10 focus-visible:border-brand focus-visible:outline-brand dark:focus-visible:border-brand dark:focus-visible:outline-brand w-full"
+          :aria-invalid="!!transferForm.errors.confirmationText"
         />
         <Message
+          role="alert"
           v-if="transferForm.errors.confirmationText"
-          severity="error"
-          class="mt-2"
+          class="border border-red-200 bg-red-50 text-red-700 dark:border-red-800 dark:bg-red-950 dark:text-red-300 mt-2"
         >
           {{ transferForm.errors.confirmationText }}
         </Message>
@@ -834,7 +889,7 @@ function getActionItems(member) {
       <div class="rounded-lg border border-red-200 bg-red-50 p-4">
         <div class="flex">
           <div class="shrink-0">
-            <i class="pi pi-exclamation-triangle text-red-400" />
+            <WarningTriangle class="h-[1em] w-[1em] shrink-0 text-red-400" />
           </div>
           <div class="ml-3">
             <h3 class="text-sm font-medium text-red-800">
@@ -851,8 +906,8 @@ function getActionItems(member) {
 
       <div class="flex justify-end gap-3 pt-4">
         <SecondaryButton
+          class="min-h-10 border border-gray-300 bg-white px-3 py-2 text-base text-gray-700 hover:bg-gray-100 dark:border-gray-600 dark:bg-gray-900 dark:text-white dark:hover:bg-gray-800 bg-transparent text-brand dark:bg-transparent dark:text-brand-400"
           type="button"
-          variant="outlined"
           @click="
             () => {
               showTransferModal = false
@@ -864,15 +919,17 @@ function getActionItems(member) {
           Cancel
         </SecondaryButton>
         <DangerButton
-          type="submit"
-          :loading="transferForm.processing"
+          class="min-h-10 border border-red-600 bg-red-600 px-3 py-2 text-base text-white hover:bg-red-700 dark:bg-red-600 dark:text-white dark:hover:bg-red-700"
           :disabled="
             transferForm.processing ||
             !transferForm.newOwnerEmail.trim() ||
             transferForm.confirmationText.toLowerCase().trim() !==
-              `transfer ${team?.name}`.toLowerCase()
+              `transfer ${team?.name}`.toLowerCase() ||
+            transferForm.processing
           "
-        >
+          :aria-busy="transferForm.processing"
+          type="submit"
+          ><Spinner v-if="transferForm.processing" class="h-4 w-4" />
           Transfer Ownership
         </DangerButton>
       </div>

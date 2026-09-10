@@ -1,7 +1,11 @@
+import Check from '@/components/ui/icons/Check.jsx'
+import Copy from '@/components/ui/icons/Copy.jsx'
+import InfoCircle from '@/components/ui/icons/InfoCircle.jsx'
+import Key from '@/components/ui/icons/Key.jsx'
 import { useEffect } from 'react'
-import { Dialog } from 'primereact/dialog'
-import { Button } from 'primereact/button'
-import { Message } from 'primereact/message'
+import Dialog from '@/components/Modal.jsx'
+import Button from '@/components/ui/button/Button.jsx'
+import Message from '@/components/ui/alert/Alert.jsx'
 import { useCopyToClipboard } from '@/hooks/useCopyToClipboard'
 
 export default function BackupCodesModal({
@@ -30,19 +34,19 @@ export default function BackupCodesModal({
 
   return (
     <Dialog
-      visible={visible}
-      onHide={handleSavedCodes}
-      header={null}
-      modal
-      closable={false}
-      className="mx-4 w-full max-w-xl sm:mx-0"
-      contentStyle={{ paddingRight: '2rem', paddingLeft: '2rem' }}
+      className="max-w-xl"
+      open={visible}
+      title={'Backup Codes'}
+      onClose={handleSavedCodes}
+      dismissible={false}
     >
       <div className="space-y-6">
         {/* Header */}
         <div className="text-center">
           <div className="mx-auto mb-4 flex h-12 w-12 items-center justify-center rounded-full bg-success-100">
-            <i className="pi pi-key text-xl text-success-600"></i>
+            <Key
+              className={'h-[1em] w-[1em] shrink-0 text-xl text-success-600'}
+            ></Key>
           </div>
           <h2 className="mb-2 text-xl font-semibold text-gray-900">
             {context === 'setup'
@@ -58,14 +62,18 @@ export default function BackupCodesModal({
 
         {/* Important Notice */}
         <Message
-          severity="warn"
-          text={
-            context === 'setup'
-              ? "Please save these codes now—they're shown only once."
-              : "Important: These new codes replace all previous backup codes. Save them now—they're shown only once."
-          }
-          className="w-full"
-        />
+          role={'status'}
+          className={[
+            'border border-amber-200 bg-amber-50 text-amber-700 dark:border-amber-800 dark:bg-amber-950 dark:text-amber-300',
+            'w-full'
+          ]
+            .filter(Boolean)
+            .join(' ')}
+        >
+          {context === 'setup'
+            ? "Please save these codes now—they're shown only once."
+            : "Important: These new codes replace all previous backup codes. Save them now—they're shown only once."}
+        </Message>
 
         {/* Backup Codes */}
         <div className="space-y-4">
@@ -74,18 +82,24 @@ export default function BackupCodesModal({
               Your backup codes
             </h3>
             <Button
-              icon={copied ? 'pi pi-check' : 'pi pi-copy'}
-              text
-              size="small"
               onClick={() => copyToClipboard(backupCodes.join('\n'))}
-              tooltip={copied ? 'Copied!' : 'Copy all codes'}
-              tooltipOptions={{ position: 'left' }}
-              className={
+              aria-label={copied ? 'Copied!' : 'Copy all codes'}
+              title={copied ? 'Copied!' : 'Copy all codes'}
+              className={[
+                'min-h-10 min-h-8 border border-transparent bg-transparent px-2.5 px-3 py-1.5 py-2 text-sm text-brand hover:bg-brand-50 dark:bg-transparent dark:text-brand-400 dark:hover:bg-brand-950',
                 copied
                   ? 'text-success-600 hover:text-success-700'
                   : 'text-gray-500 hover:text-gray-700'
-              }
-            />
+              ]
+                .filter(Boolean)
+                .join(' ')}
+            >
+              {copied ? (
+                <Check className="h-4 w-4" />
+              ) : (
+                <Copy className="h-4 w-4" />
+              )}
+            </Button>
           </div>
           <div className="grid grid-cols-2 gap-4">
             {backupCodes.map((code, index) => (
@@ -102,7 +116,9 @@ export default function BackupCodesModal({
         {/* Storage Hint */}
         <div className="rounded-lg border border-indigo-100 bg-indigo-50 p-4">
           <div className="flex items-center space-x-2">
-            <i className="pi pi-info-circle text-sm text-indigo-600"></i>
+            <InfoCircle
+              className={'h-[1em] w-[1em] shrink-0 text-sm text-indigo-600'}
+            ></InfoCircle>
             <p className="text-sm text-indigo-800">
               <strong>Pro tip:</strong> Save these in your password manager
               alongside your login credentials
@@ -113,10 +129,13 @@ export default function BackupCodesModal({
         {/* Action Button */}
         <div className="flex justify-end">
           <Button
-            label="I've saved my backup codes"
             onClick={handleSavedCodes}
-            size="small"
-          />
+            className={
+              'min-h-10 min-h-8 border border-brand bg-brand px-2.5 px-3 py-1.5 py-2 text-base text-sm text-white hover:bg-brand-600 active:bg-brand-700 dark:bg-brand dark:text-white dark:hover:bg-brand-600 dark:active:bg-brand-700'
+            }
+          >
+            {"I've saved my backup codes"}
+          </Button>
         </div>
       </div>
     </Dialog>

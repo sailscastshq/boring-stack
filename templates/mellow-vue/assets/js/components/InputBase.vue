@@ -1,4 +1,8 @@
 <script setup>
+import Input from '@/components/ui/input/Input.vue'
+
+import WarningTriangle from '@/components/ui/icons/WarningTriangle.vue'
+
 import { computed } from 'vue'
 
 defineOptions({
@@ -25,22 +29,20 @@ const props = defineProps({
 
 const emit = defineEmits(['update:modelValue'])
 const errorId = computed(() => (props.error ? `${props.id}-error` : undefined))
-
-function updateValue(event) {
-  emit('update:modelValue', event.target.value)
-}
 </script>
 
 <template>
-  <label :for="id" class="block space-y-1.5">
-    <span class="block text-base font-medium text-gray-900">{{ label }}</span>
+  <div class="block space-y-1.5">
+    <label :for="id" class="block text-base font-medium text-gray-900">{{
+      label
+    }}</label>
     <span class="relative block">
       <span
         class="pointer-events-none absolute left-3 top-1/2 flex h-5 w-5 -translate-y-1/2 items-center justify-center"
       >
         <slot name="icon"></slot>
       </span>
-      <input
+      <Input
         :id="id"
         :class="[
           'placeholder:text-gray min-h-12 block w-full rounded-lg border bg-white py-3 pl-11 pr-10 text-base shadow-sm transition-colors placeholder:text-base focus:outline-none focus:ring-2',
@@ -49,10 +51,10 @@ function updateValue(event) {
             : 'border-gray/50 focus:ring-gray-100'
         ]"
         v-bind="$attrs"
-        :value="modelValue"
+        :model-value="modelValue"
         :aria-invalid="error ? 'true' : undefined"
         :aria-describedby="errorId"
-        @input="updateValue"
+        @update:model-value="emit('update:modelValue', $event)"
       />
       <slot name="suffix"></slot>
     </span>
@@ -63,21 +65,10 @@ function updateValue(event) {
       class="flex max-w-full items-start gap-1.5 break-words text-sm leading-5 text-red-600"
       role="alert"
     >
-      <svg
-        class="mt-0.5 h-4 w-4 shrink-0"
-        viewBox="0 0 20 20"
-        fill="currentColor"
-        aria-hidden="true"
-      >
-        <path
-          fill-rule="evenodd"
-          d="M10 18a8 8 0 1 0 0-16 8 8 0 0 0 0 16Zm-.75-5.75a.75.75 0 0 0 1.5 0v-5a.75.75 0 0 0-1.5 0v5Zm.75 3a1 1 0 1 0 0-2 1 1 0 0 0 0 2Z"
-          clip-rule="evenodd"
-        />
-      </svg>
+      <WarningTriangle class="mt-0.5 h-4 w-4 shrink-0" />
       <span>{{ error }}</span>
     </p>
-  </label>
+  </div>
 </template>
 <style>
 ::-ms-reveal {

@@ -1,4 +1,14 @@
 <script setup>
+import Users from '@/components/ui/icons/Users.vue'
+import Lock from '@/components/ui/icons/Lock.vue'
+import InfoCircle from '@/components/ui/icons/InfoCircle.vue'
+import Envelope from '@/components/ui/icons/Envelope.vue'
+import CreditCard from '@/components/ui/icons/CreditCard.vue'
+import Code from '@/components/ui/icons/Code.vue'
+import Check from '@/components/ui/icons/Check.vue'
+import Chat from '@/components/ui/icons/Chat.vue'
+import ChartBar from '@/components/ui/icons/ChartBar.vue'
+import Bolt from '@/components/ui/icons/Bolt.vue'
 import { Head, Link } from '@inertiajs/vue3'
 import AppLayout from '@/layouts/AppLayout.vue'
 
@@ -102,19 +112,7 @@ defineOptions({
               <div
                 class="from-brand-500 to-brand-600 flex h-16 w-16 items-center justify-center rounded-2xl bg-linear-to-br shadow-lg"
               >
-                <svg
-                  class="h-8 w-8 text-white"
-                  fill="none"
-                  stroke="currentColor"
-                  viewBox="0 0 24 24"
-                >
-                  <path
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
-                    stroke-width="2"
-                    d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"
-                  />
-                </svg>
+                <Lock class="h-8 w-8 text-white" />
               </div>
               <div>
                 <h3 class="text-2xl font-bold text-gray-900">
@@ -137,17 +135,7 @@ defineOptions({
                 <div
                   class="bg-success-100 flex h-6 w-6 items-center justify-center rounded-full"
                 >
-                  <svg
-                    class="text-success-600 h-4 w-4"
-                    fill="currentColor"
-                    viewBox="0 0 20 20"
-                  >
-                    <path
-                      fill-rule="evenodd"
-                      d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
-                      clip-rule="evenodd"
-                    />
-                  </svg>
+                  <Check class="text-success-600 h-4 w-4" />
                 </div>
                 <span class="font-medium text-gray-700">
                   OAuth with Google, GitHub, and more
@@ -157,17 +145,7 @@ defineOptions({
                 <div
                   class="bg-success-100 flex h-6 w-6 items-center justify-center rounded-full"
                 >
-                  <svg
-                    class="text-success-600 h-4 w-4"
-                    fill="currentColor"
-                    viewBox="0 0 20 20"
-                  >
-                    <path
-                      fill-rule="evenodd"
-                      d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
-                      clip-rule="evenodd"
-                    />
-                  </svg>
+                  <Check class="text-success-600 h-4 w-4" />
                 </div>
                 <span class="font-medium text-gray-700">
                   Magic link authentication (passwordless)
@@ -177,17 +155,7 @@ defineOptions({
                 <div
                   class="bg-success-100 flex h-6 w-6 items-center justify-center rounded-full"
                 >
-                  <svg
-                    class="text-success-600 h-4 w-4"
-                    fill="currentColor"
-                    viewBox="0 0 20 20"
-                  >
-                    <path
-                      fill-rule="evenodd"
-                      d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
-                      clip-rule="evenodd"
-                    />
-                  </svg>
+                  <Check class="text-success-600 h-4 w-4" />
                 </div>
                 <span class="font-medium text-gray-700">
                   Two-factor authentication ready
@@ -197,17 +165,7 @@ defineOptions({
                 <div
                   class="bg-success-100 flex h-6 w-6 items-center justify-center rounded-full"
                 >
-                  <svg
-                    class="text-success-600 h-4 w-4"
-                    fill="currentColor"
-                    viewBox="0 0 20 20"
-                  >
-                    <path
-                      fill-rule="evenodd"
-                      d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
-                      clip-rule="evenodd"
-                    />
-                  </svg>
+                  <Check class="text-success-600 h-4 w-4" />
                 </div>
                 <span class="font-medium text-gray-700">
                   Session management & security headers
@@ -220,19 +178,7 @@ defineOptions({
                 <div
                   class="bg-brand-100 flex h-8 w-8 items-center justify-center rounded-full"
                 >
-                  <svg
-                    class="text-brand-600 h-5 w-5"
-                    fill="none"
-                    stroke="currentColor"
-                    viewBox="0 0 24 24"
-                  >
-                    <path
-                      stroke-linecap="round"
-                      stroke-linejoin="round"
-                      stroke-width="2"
-                      d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
-                    />
-                  </svg>
+                  <InfoCircle class="text-brand-600 h-5 w-5" />
                 </div>
                 <div>
                   <h4 class="text-brand-900 font-semibold">Enterprise Ready</h4>
@@ -258,19 +204,7 @@ defineOptions({
               <div
                 class="from-accent-500 to-accent-600 flex h-16 w-16 items-center justify-center rounded-2xl bg-linear-to-br shadow-lg"
               >
-                <svg
-                  class="h-8 w-8 text-white"
-                  fill="none"
-                  stroke="currentColor"
-                  viewBox="0 0 24 24"
-                >
-                  <path
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
-                    stroke-width="2"
-                    d="M3 10h18M7 15h1m4 0h1m-7 4h12a3 3 0 003-3V8a3 3 0 00-3-3H6a3 3 0 00-3 3v8a3 3 0 003 3z"
-                  />
-                </svg>
+                <CreditCard class="h-8 w-8 text-white" />
               </div>
               <div>
                 <h3 class="text-2xl font-bold text-gray-900">
@@ -293,17 +227,7 @@ defineOptions({
                 <div
                   class="bg-success-100 flex h-6 w-6 items-center justify-center rounded-full"
                 >
-                  <svg
-                    class="text-success-600 h-4 w-4"
-                    fill="currentColor"
-                    viewBox="0 0 20 20"
-                  >
-                    <path
-                      fill-rule="evenodd"
-                      d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
-                      clip-rule="evenodd"
-                    />
-                  </svg>
+                  <Check class="text-success-600 h-4 w-4" />
                 </div>
                 <span class="font-medium text-gray-700">
                   Recurring subscriptions with automatic billing
@@ -313,17 +237,7 @@ defineOptions({
                 <div
                   class="bg-success-100 flex h-6 w-6 items-center justify-center rounded-full"
                 >
-                  <svg
-                    class="text-success-600 h-4 w-4"
-                    fill="currentColor"
-                    viewBox="0 0 20 20"
-                  >
-                    <path
-                      fill-rule="evenodd"
-                      d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
-                      clip-rule="evenodd"
-                    />
-                  </svg>
+                  <Check class="text-success-600 h-4 w-4" />
                 </div>
                 <span class="font-medium text-gray-700">
                   Free trials and proration handling
@@ -333,17 +247,7 @@ defineOptions({
                 <div
                   class="bg-success-100 flex h-6 w-6 items-center justify-center rounded-full"
                 >
-                  <svg
-                    class="text-success-600 h-4 w-4"
-                    fill="currentColor"
-                    viewBox="0 0 20 20"
-                  >
-                    <path
-                      fill-rule="evenodd"
-                      d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
-                      clip-rule="evenodd"
-                    />
-                  </svg>
+                  <Check class="text-success-600 h-4 w-4" />
                 </div>
                 <span class="font-medium text-gray-700">
                   Multiple pricing tiers and add-ons
@@ -353,17 +257,7 @@ defineOptions({
                 <div
                   class="bg-success-100 flex h-6 w-6 items-center justify-center rounded-full"
                 >
-                  <svg
-                    class="text-success-600 h-4 w-4"
-                    fill="currentColor"
-                    viewBox="0 0 20 20"
-                  >
-                    <path
-                      fill-rule="evenodd"
-                      d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
-                      clip-rule="evenodd"
-                    />
-                  </svg>
+                  <Check class="text-success-600 h-4 w-4" />
                 </div>
                 <span class="font-medium text-gray-700">
                   Dunning management for failed payments
@@ -376,19 +270,7 @@ defineOptions({
                 <div
                   class="bg-accent-100 flex h-8 w-8 items-center justify-center rounded-full"
                 >
-                  <svg
-                    class="text-accent-600 h-5 w-5"
-                    fill="none"
-                    stroke="currentColor"
-                    viewBox="0 0 24 24"
-                  >
-                    <path
-                      stroke-linecap="round"
-                      stroke-linejoin="round"
-                      stroke-width="2"
-                      d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"
-                    />
-                  </svg>
+                  <ChartBar class="text-accent-600 h-5 w-5" />
                 </div>
                 <div>
                   <h4 class="text-accent-900 font-semibold">
@@ -417,19 +299,7 @@ defineOptions({
               <div
                 class="from-success-500 to-success-600 flex h-16 w-16 items-center justify-center rounded-2xl bg-linear-to-br shadow-lg"
               >
-                <svg
-                  class="h-8 w-8 text-white"
-                  fill="none"
-                  stroke="currentColor"
-                  viewBox="0 0 24 24"
-                >
-                  <path
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
-                    stroke-width="2"
-                    d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z"
-                  />
-                </svg>
+                <Users class="h-8 w-8 text-white" />
               </div>
               <div>
                 <h3 class="text-2xl font-bold text-gray-900">
@@ -453,17 +323,7 @@ defineOptions({
                 <div
                   class="bg-success-100 flex h-6 w-6 items-center justify-center rounded-full"
                 >
-                  <svg
-                    class="text-success-600 h-4 w-4"
-                    fill="currentColor"
-                    viewBox="0 0 20 20"
-                  >
-                    <path
-                      fill-rule="evenodd"
-                      d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
-                      clip-rule="evenodd"
-                    />
-                  </svg>
+                  <Check class="text-success-600 h-4 w-4" />
                 </div>
                 <span class="font-medium text-gray-700">
                   Role-based permissions (Owner, Admin, Member)
@@ -473,17 +333,7 @@ defineOptions({
                 <div
                   class="bg-success-100 flex h-6 w-6 items-center justify-center rounded-full"
                 >
-                  <svg
-                    class="text-success-600 h-4 w-4"
-                    fill="currentColor"
-                    viewBox="0 0 20 20"
-                  >
-                    <path
-                      fill-rule="evenodd"
-                      d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
-                      clip-rule="evenodd"
-                    />
-                  </svg>
+                  <Check class="text-success-600 h-4 w-4" />
                 </div>
                 <span class="font-medium text-gray-700">
                   Email invitations with onboarding flow
@@ -493,17 +343,7 @@ defineOptions({
                 <div
                   class="bg-success-100 flex h-6 w-6 items-center justify-center rounded-full"
                 >
-                  <svg
-                    class="text-success-600 h-4 w-4"
-                    fill="currentColor"
-                    viewBox="0 0 20 20"
-                  >
-                    <path
-                      fill-rule="evenodd"
-                      d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
-                      clip-rule="evenodd"
-                    />
-                  </svg>
+                  <Check class="text-success-600 h-4 w-4" />
                 </div>
                 <span class="font-medium text-gray-700">
                   Complete data isolation between workspaces
@@ -513,17 +353,7 @@ defineOptions({
                 <div
                   class="bg-success-100 flex h-6 w-6 items-center justify-center rounded-full"
                 >
-                  <svg
-                    class="text-success-600 h-4 w-4"
-                    fill="currentColor"
-                    viewBox="0 0 20 20"
-                  >
-                    <path
-                      fill-rule="evenodd"
-                      d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
-                      clip-rule="evenodd"
-                    />
-                  </svg>
+                  <Check class="text-success-600 h-4 w-4" />
                 </div>
                 <span class="font-medium text-gray-700">
                   Team switching and management UI
@@ -536,19 +366,7 @@ defineOptions({
                 <div
                   class="bg-success-100 flex h-8 w-8 items-center justify-center rounded-full"
                 >
-                  <svg
-                    class="text-success-600 h-5 w-5"
-                    fill="none"
-                    stroke="currentColor"
-                    viewBox="0 0 24 24"
-                  >
-                    <path
-                      stroke-linecap="round"
-                      stroke-linejoin="round"
-                      stroke-width="2"
-                      d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"
-                    />
-                  </svg>
+                  <Lock class="text-success-600 h-5 w-5" />
                 </div>
                 <div>
                   <h4 class="text-success-900 font-semibold">
@@ -576,19 +394,7 @@ defineOptions({
               <div
                 class="flex h-16 w-16 items-center justify-center rounded-2xl bg-linear-to-br from-purple-500 to-purple-600 shadow-lg"
               >
-                <svg
-                  class="h-8 w-8 text-white"
-                  fill="none"
-                  stroke="currentColor"
-                  viewBox="0 0 24 24"
-                >
-                  <path
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
-                    stroke-width="2"
-                    d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"
-                  />
-                </svg>
+                <ChartBar class="h-8 w-8 text-white" />
               </div>
               <div>
                 <h3 class="text-2xl font-bold text-gray-900">
@@ -611,17 +417,7 @@ defineOptions({
                 <div
                   class="bg-success-100 flex h-6 w-6 items-center justify-center rounded-full"
                 >
-                  <svg
-                    class="text-success-600 h-4 w-4"
-                    fill="currentColor"
-                    viewBox="0 0 20 20"
-                  >
-                    <path
-                      fill-rule="evenodd"
-                      d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
-                      clip-rule="evenodd"
-                    />
-                  </svg>
+                  <Check class="text-success-600 h-4 w-4" />
                 </div>
                 <span class="font-medium text-gray-700">
                   User management and activity monitoring
@@ -631,17 +427,7 @@ defineOptions({
                 <div
                   class="bg-success-100 flex h-6 w-6 items-center justify-center rounded-full"
                 >
-                  <svg
-                    class="text-success-600 h-4 w-4"
-                    fill="currentColor"
-                    viewBox="0 0 20 20"
-                  >
-                    <path
-                      fill-rule="evenodd"
-                      d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
-                      clip-rule="evenodd"
-                    />
-                  </svg>
+                  <Check class="text-success-600 h-4 w-4" />
                 </div>
                 <span class="font-medium text-gray-700">
                   Revenue analytics and subscription insights
@@ -651,17 +437,7 @@ defineOptions({
                 <div
                   class="bg-success-100 flex h-6 w-6 items-center justify-center rounded-full"
                 >
-                  <svg
-                    class="text-success-600 h-4 w-4"
-                    fill="currentColor"
-                    viewBox="0 0 20 20"
-                  >
-                    <path
-                      fill-rule="evenodd"
-                      d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
-                      clip-rule="evenodd"
-                    />
-                  </svg>
+                  <Check class="text-success-600 h-4 w-4" />
                 </div>
                 <span class="font-medium text-gray-700">
                   System health and performance metrics
@@ -671,17 +447,7 @@ defineOptions({
                 <div
                   class="bg-success-100 flex h-6 w-6 items-center justify-center rounded-full"
                 >
-                  <svg
-                    class="text-success-600 h-4 w-4"
-                    fill="currentColor"
-                    viewBox="0 0 20 20"
-                  >
-                    <path
-                      fill-rule="evenodd"
-                      d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
-                      clip-rule="evenodd"
-                    />
-                  </svg>
+                  <Check class="text-success-600 h-4 w-4" />
                 </div>
                 <span class="font-medium text-gray-700">
                   Email campaign management and logs
@@ -694,19 +460,7 @@ defineOptions({
                 <div
                   class="flex h-8 w-8 items-center justify-center rounded-full bg-purple-100"
                 >
-                  <svg
-                    class="h-5 w-5 text-purple-600"
-                    fill="none"
-                    stroke="currentColor"
-                    viewBox="0 0 24 24"
-                  >
-                    <path
-                      stroke-linecap="round"
-                      stroke-linejoin="round"
-                      stroke-width="2"
-                      d="M13 10V3L4 14h7v7l9-11h-7z"
-                    />
-                  </svg>
+                  <Bolt class="h-5 w-5 text-purple-600" />
                 </div>
                 <div>
                   <h4 class="font-semibold text-purple-900">
@@ -759,19 +513,7 @@ defineOptions({
             <div
               class="mb-6 flex h-14 w-14 items-center justify-center rounded-2xl bg-linear-to-br from-orange-500 to-orange-600 shadow-lg"
             >
-              <svg
-                class="h-7 w-7 text-white"
-                fill="none"
-                stroke="currentColor"
-                viewBox="0 0 24 24"
-              >
-                <path
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                  stroke-width="2"
-                  d="M7 8h10M7 12h4m1 8l-4-4H5a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v8a2 2 0 01-2 2h-3l-4 4z"
-                />
-              </svg>
+              <Chat class="h-7 w-7 text-white" />
             </div>
             <h3 class="mb-3 text-xl font-bold text-gray-900">
               Content Management
@@ -809,19 +551,7 @@ defineOptions({
             <div
               class="mb-6 flex h-14 w-14 items-center justify-center rounded-2xl bg-linear-to-br from-red-500 to-red-600 shadow-lg"
             >
-              <svg
-                class="h-7 w-7 text-white"
-                fill="none"
-                stroke="currentColor"
-                viewBox="0 0 24 24"
-              >
-                <path
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                  stroke-width="2"
-                  d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"
-                />
-              </svg>
+              <Envelope class="h-7 w-7 text-white" />
             </div>
             <h3 class="mb-3 text-xl font-bold text-gray-900">
               Transactional Email
@@ -859,19 +589,7 @@ defineOptions({
             <div
               class="mb-6 flex h-14 w-14 items-center justify-center rounded-2xl bg-linear-to-br from-blue-500 to-blue-600 shadow-lg"
             >
-              <svg
-                class="h-7 w-7 text-white"
-                fill="none"
-                stroke="currentColor"
-                viewBox="0 0 24 24"
-              >
-                <path
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                  stroke-width="2"
-                  d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4"
-                />
-              </svg>
+              <Code class="h-7 w-7 text-white" />
             </div>
             <h3 class="mb-3 text-xl font-bold text-gray-900">
               Modern Tech Stack
@@ -953,45 +671,15 @@ defineOptions({
         class="flex flex-wrap items-center justify-center gap-8 text-sm text-gray-400"
       >
         <div class="flex items-center space-x-2">
-          <svg
-            class="text-success-500 h-5 w-5"
-            fill="currentColor"
-            viewBox="0 0 20 20"
-          >
-            <path
-              fill-rule="evenodd"
-              d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
-              clip-rule="evenodd"
-            />
-          </svg>
+          <Check class="text-success-500 h-5 w-5" />
           <span>Launch in hours, not months</span>
         </div>
         <div class="flex items-center space-x-2">
-          <svg
-            class="text-success-500 h-5 w-5"
-            fill="currentColor"
-            viewBox="0 0 20 20"
-          >
-            <path
-              fill-rule="evenodd"
-              d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
-              clip-rule="evenodd"
-            />
-          </svg>
+          <Check class="text-success-500 h-5 w-5" />
           <span>Production-ready code</span>
         </div>
         <div class="flex items-center space-x-2">
-          <svg
-            class="text-success-500 h-5 w-5"
-            fill="currentColor"
-            viewBox="0 0 20 20"
-          >
-            <path
-              fill-rule="evenodd"
-              d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
-              clip-rule="evenodd"
-            />
-          </svg>
+          <Check class="text-success-500 h-5 w-5" />
           <span>Your code, your control</span>
         </div>
       </div>

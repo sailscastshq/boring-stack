@@ -1,0 +1,24 @@
+{
+  "assets/js/layouts/AppLayout.jsx": {
+    "reason": "Owned OAuth/social brand marks and template product artwork; not reusable interface glyphs.",
+    "sha256": [
+      "902cf7834bdf78b43af0c4a3e898199af13d91c47b0cfb7b100c563cd37f0a25",
+      "49f2214f907e7bf365af893c0e24755c51cb47552932b1b850d30b748dcda098",
+      "790abe09a9fc624bd134920005b07aeeec78a7e958e8eb74698fc49b6b1781c6"
+    ]
+  },
+  "assets/js/pages/auth/signup.jsx": {
+    "reason": "Owned OAuth/social brand marks and template product artwork; not reusable interface glyphs.",
+    "sha256": [
+      "3a62509c2cf62cd279944c1f3913353de1020e96da9e5755a4dea817fc494897",
+      "38a950e49cee9876917647ca47b7ea8bed2946d71a8e8e1ef0f5125aa0094263"
+    ]
+  },
+  "assets/js/pages/auth/login.jsx": {
+    "reason": "Owned OAuth/social brand marks and template product artwork; not reusable interface glyphs.",
+    "sha256": [
+      "3a62509c2cf62cd279944c1f3913353de1020e96da9e5755a4dea817fc494897",
+      "38a950e49cee9876917647ca47b7ea8bed2946d71a8e8e1ef0f5125aa0094263"
+    ]
+  }
+}

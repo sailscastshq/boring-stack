@@ -6,3 +6,6 @@ playwright/.cache
 *.sqlite
 *.sqlite-wal
 *.sqlite-shm
+
+# Copied upstream source: preserve release diffs; see UI.md.
+assets/js/components/ui/

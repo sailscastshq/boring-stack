@@ -22,13 +22,13 @@ export default function ErrorPage({ status, title, message }) {
           <div className="mt-8 flex flex-wrap items-center gap-3">
             <Link
               href={homeHref}
-              className="inline-flex min-h-11 items-center justify-center rounded-md bg-brand-600 px-5 text-sm font-semibold text-white shadow-sm transition hover:bg-brand-700 focus:outline-none focus:ring-2 focus:ring-brand-200 dark:focus:ring-brand-800"
+              className="min-h-11 inline-flex items-center justify-center rounded-md bg-brand-600 px-5 text-sm font-semibold text-white shadow-sm transition hover:bg-brand-700 focus:outline-none focus:ring-2 focus:ring-brand-200 dark:focus:ring-brand-800"
             >
               Go home
             </Link>
             <button
               type="button"
-              className="inline-flex min-h-11 items-center justify-center rounded-md border border-gray-200 bg-white px-5 text-sm font-semibold text-gray-800 shadow-sm transition hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-gray-200 dark:border-gray-800 dark:bg-gray-900 dark:text-gray-100 dark:hover:bg-gray-800"
+              className="min-h-11 inline-flex items-center justify-center rounded-md border border-gray-200 bg-white px-5 text-sm font-semibold text-gray-800 shadow-sm transition hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-gray-200 dark:border-gray-800 dark:bg-gray-900 dark:text-gray-100 dark:hover:bg-gray-800"
               onClick={() => window.history.back()}
             >
               Go back
