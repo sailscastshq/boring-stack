@@ -23,11 +23,11 @@ export default function TeamInvite({ team, inviteToken, via, invite }) {
     <>
       <>
         <Head title={`Join ${team.name} | Ascent`}></Head>
-        <div className="flex min-h-screen flex-col justify-center bg-gradient-to-br from-brand-50/30 via-white to-accent-50/20 py-12 sm:px-6 lg:px-8">
+        <div className="flex min-h-screen flex-col justify-center  bg-gray-50 py-12 dark:bg-gray-950 sm:px-6 lg:px-8">
           {/* Background Elements */}
           <div className="pointer-events-none absolute inset-0 overflow-hidden">
-            <div className="absolute left-1/4 top-20 h-96 w-96 rounded-full bg-brand-200/20 blur-3xl"></div>
-            <div className="absolute bottom-20 right-1/4 h-72 w-72 rounded-full bg-accent-200/20 blur-3xl"></div>
+            <div className="hidden"></div>
+            <div className="hidden"></div>
           </div>
 
           <div className="relative sm:mx-auto sm:w-full sm:max-w-lg">
@@ -35,12 +35,19 @@ export default function TeamInvite({ team, inviteToken, via, invite }) {
             <div className="mb-8 flex items-center justify-center">
               <InertiaLink href="/" className="group">
                 <div className="relative">
-                  <div className="absolute inset-0 scale-110 rounded-2xl bg-brand-200/30 opacity-0 blur-xl transition-opacity group-hover:opacity-100"></div>
-                  <img
-                    src="/images/logo.svg"
-                    alt="Ascent Logo"
-                    className="relative h-12 w-auto"
-                  />
+                  <div className="hidden"></div>
+                  <span
+                    className="inline-flex items-center gap-1 text-2xl font-semibold tracking-tight text-gray-900 dark:text-gray-100"
+                    aria-label="Ascent"
+                  >
+                    Ascent
+                    <span
+                      className="text-brand-600 dark:text-brand-300"
+                      aria-hidden="true"
+                    >
+                      ↗
+                    </span>
+                  </span>
                 </div>
               </InertiaLink>
             </div>
@@ -49,17 +56,17 @@ export default function TeamInvite({ team, inviteToken, via, invite }) {
             <header className="mb-8 text-center">
               <div className="mb-6 flex items-center justify-center">
                 <div className="relative">
-                  <div className="flex h-16 w-16 items-center justify-center rounded-2xl bg-gradient-to-r from-brand-600 to-accent-600 shadow-lg">
+                  <div className="flex h-16 w-16 items-center justify-center rounded-xl  bg-gray-50 shadow-none dark:bg-gray-950">
                     <Users className="h-8 w-8 text-white" />
                   </div>
-                  <div className="absolute inset-0 scale-110 rounded-2xl bg-brand-200/40 opacity-70 blur-xl"></div>
+                  <div className="hidden"></div>
                 </div>
               </div>
 
-              <h1 className="text-3xl font-bold tracking-tight text-gray-900">
+              <h1 className="text-3xl font-bold tracking-tight text-gray-900 dark:text-gray-100">
                 Join {team.name}
               </h1>
-              <p className="mt-4 text-lg text-gray-600">
+              <p className="mt-4 text-lg text-gray-600 dark:text-gray-400">
                 {via === 'email' && invite?.invitedBy ? (
                   <>
                     <strong>
@@ -77,25 +84,25 @@ export default function TeamInvite({ team, inviteToken, via, invite }) {
           <div className="relative sm:mx-auto sm:w-full sm:max-w-lg">
             <div className="relative">
               {/* Background blur effect */}
-              <div className="absolute inset-0 scale-105 rounded-2xl bg-gradient-to-r from-brand-600/10 to-accent-600/10 blur-xl"></div>
+              <div className="hidden"></div>
 
               {/* Main card */}
-              <div className="relative rounded-2xl border border-gray-100 bg-white px-8 py-10 shadow-2xl">
+              <div className="relative rounded-xl border border-gray-100 bg-white px-8 py-10 shadow-none dark:border-gray-700 dark:bg-gray-900">
                 <div className="space-y-6">
                   {/* Team Info */}
-                  <div className="rounded-xl border border-gray-100 bg-gray-50/50 p-6 text-center">
+                  <div className="rounded-xl border border-gray-100 bg-gray-50/50 p-6 text-center dark:border-gray-700">
                     <div className="mb-4 flex items-center justify-center">
-                      <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-brand-100 text-brand-600">
+                      <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-brand-100 text-brand-600 dark:bg-brand-950/40 dark:text-brand-300">
                         <Building className="h-6 w-6" />
                       </div>
                     </div>
-                    <h3 className="text-lg font-semibold text-gray-900">
+                    <h3 className="text-lg font-semibold text-gray-900 dark:text-gray-100">
                       {team.name}
                     </h3>
 
                     {/* Invitation Details */}
                     {via === 'email' && invite && (
-                      <div className="mt-4 space-y-2 text-sm text-gray-600">
+                      <div className="mt-4 space-y-2 text-sm text-gray-600 dark:text-gray-400">
                         <div className="flex items-center justify-center space-x-2">
                           <span>Sent to {invite.email}</span>
                         </div>
@@ -114,7 +121,7 @@ export default function TeamInvite({ team, inviteToken, via, invite }) {
 
                     {via === 'link' && (
                       <div className="mt-4">
-                        <div className="flex items-center justify-center space-x-2 text-sm text-gray-600">
+                        <div className="flex items-center justify-center space-x-2 text-sm text-gray-600 dark:text-gray-400">
                           <Link className="h-4 w-4" />
                           <span>Shareable team invitation</span>
                         </div>
@@ -135,7 +142,7 @@ export default function TeamInvite({ team, inviteToken, via, invite }) {
                       <button
                         type="submit"
                         disabled={processing}
-                        className="flex w-full items-center justify-center rounded-xl border border-red-200 bg-white px-6 py-4 text-lg font-medium text-red-600 shadow-lg transition-all duration-200 hover:scale-[1.02] hover:border-red-300 hover:bg-red-50 hover:shadow-xl focus:outline-none focus:ring-2 focus:ring-red-500 focus:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50 disabled:hover:scale-100"
+                        className="flex w-full items-center justify-center rounded-xl border border-red-200 bg-white px-6 py-4 text-lg font-medium text-red-600 shadow-none transition-all duration-200 hover:border-red-300 hover:bg-red-50 hover:brightness-95 focus:outline-none focus:ring-2 focus:ring-red-500 focus:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50 disabled:hover:scale-100 dark:border-red-900 dark:bg-gray-900 dark:text-red-300"
                       >
                         <X className="mr-2 h-5 w-5" />
                         {processing ? 'Processing...' : 'Decline'}
@@ -153,7 +160,7 @@ export default function TeamInvite({ team, inviteToken, via, invite }) {
                       <button
                         type="submit"
                         disabled={processing}
-                        className="flex w-full items-center justify-center rounded-xl bg-gradient-to-r from-brand-600 to-accent-600 px-6 py-4 text-lg font-bold text-white shadow-lg transition-all duration-200 hover:scale-[1.02] hover:from-brand-700 hover:to-accent-700 hover:shadow-xl focus:outline-none focus:ring-2 focus:ring-brand-500 focus:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50 disabled:hover:scale-100"
+                        className="flex w-full items-center justify-center rounded-xl  bg-brand-600 px-6 py-4 text-lg font-bold text-white shadow-none transition-all duration-200 hover:bg-brand-700 hover:brightness-95 focus:outline-none focus:ring-2 focus:ring-brand-500 focus:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50 disabled:hover:scale-100"
                       >
                         <Check className="mr-2 h-5 w-5" />
                         {processing ? 'Processing...' : 'Accept'}
@@ -162,8 +169,8 @@ export default function TeamInvite({ team, inviteToken, via, invite }) {
                   </div>
 
                   {/* Footer Info */}
-                  <footer className="border-t border-gray-100 pt-6 text-center">
-                    <p className="text-sm text-gray-500">
+                  <footer className="border-t border-gray-100 pt-6 text-center dark:border-gray-700">
+                    <p className="text-sm text-gray-500 dark:text-gray-400">
                       By accepting, you'll be able to collaborate with the team
                       and access shared resources.
                     </p>
@@ -171,7 +178,7 @@ export default function TeamInvite({ team, inviteToken, via, invite }) {
                       Need help?{' '}
                       <InertiaLink
                         href="/contact"
-                        className="text-brand-600 hover:text-brand-500"
+                        className="text-brand-600 hover:text-brand-500 dark:text-brand-300"
                       >
                         Contact support
                       </InertiaLink>

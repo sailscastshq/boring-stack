@@ -85,20 +85,22 @@ export default function ProfileSettings() {
               {loggedInUser.initials}
             </Avatar>
             <div>
-              <h2 className="text-lg font-medium text-gray-900">
+              <h2 className="text-lg font-medium text-gray-900 dark:text-gray-100">
                 {loggedInUser.fullName}
               </h2>
-              <p className="text-sm text-gray-500">{loggedInUser.email}</p>
+              <p className="text-sm text-gray-500 dark:text-gray-400">
+                {loggedInUser.email}
+              </p>
             </div>
           </header>
 
           {/* Profile Information */}
           <section className="space-y-6">
             <div>
-              <h3 className="mb-4 text-sm font-medium text-gray-900">
+              <h3 className="mb-4 text-sm font-medium text-gray-900 dark:text-gray-100">
                 Profile Information
               </h3>
-              <p className="mb-6 text-sm text-gray-500">
+              <p className="mb-6 text-sm text-gray-500 dark:text-gray-400">
                 Update your personal details and contact information.
               </p>
             </div>
@@ -106,7 +108,7 @@ export default function ProfileSettings() {
             <form onSubmit={updateProfile} className="space-y-4">
               {/* Avatar Upload */}
               <div>
-                <label className="mb-2 block text-sm font-medium text-gray-700">
+                <label className="mb-2 block text-sm font-medium text-gray-700 dark:text-gray-300">
                   Avatar
                 </label>
                 <ImageUpload
@@ -132,7 +134,7 @@ export default function ProfileSettings() {
                 <div>
                   <label
                     htmlFor="fullName"
-                    className="mb-1 block text-sm text-gray-700"
+                    className="mb-1 block text-sm text-gray-700 dark:text-gray-300"
                   >
                     Full Name
                   </label>
@@ -152,7 +154,7 @@ export default function ProfileSettings() {
                 <div>
                   <label
                     htmlFor="email"
-                    className="mb-1 block text-sm text-gray-700"
+                    className="mb-1 block text-sm text-gray-700 dark:text-gray-300"
                   >
                     Email Address
                   </label>
@@ -172,7 +174,9 @@ export default function ProfileSettings() {
               </div>
               <div className="flex items-center justify-end space-x-3">
                 {form.recentlySuccessful && (
-                  <span className="text-sm text-green-600">Saved</span>
+                  <span className="text-sm text-green-600 dark:text-green-300">
+                    Saved
+                  </span>
                 )}
                 <Button
                   type="submit"
@@ -192,29 +196,29 @@ export default function ProfileSettings() {
           {/* Account Actions */}
           <section className="space-y-6">
             <div>
-              <h3 className="mb-4 text-sm font-medium text-gray-900">
+              <h3 className="mb-4 text-sm font-medium text-gray-900 dark:text-gray-100">
                 Account Actions
               </h3>
-              <p className="mb-6 text-sm text-gray-500">
+              <p className="mb-6 text-sm text-gray-500 dark:text-gray-400">
                 Manage your account security and data.
               </p>
             </div>
 
             <div className="space-y-4">
               {/* Sign out everywhere card */}
-              <div className="rounded-lg border border-orange-200 bg-orange-50 p-4 shadow-sm sm:p-6">
+              <div className="rounded-lg border border-orange-200 bg-orange-50 p-4 shadow-sm dark:border-orange-900 dark:bg-orange-950/40 sm:p-6">
                 <div className="flex flex-col space-y-4 sm:flex-row sm:items-start sm:justify-between sm:space-y-0">
                   <div className="flex items-start space-x-3">
-                    <div className="flex h-10 w-10 flex-shrink-0 items-center justify-center rounded-lg bg-orange-50">
+                    <div className="flex h-10 w-10 flex-shrink-0 items-center justify-center rounded-lg bg-orange-50 dark:bg-orange-950/40">
                       <SignOut
                         className={'h-[1em] w-[1em] shrink-0 text-orange-600'}
                       ></SignOut>
                     </div>
                     <div className="min-w-0 flex-1">
-                      <h4 className="text-sm font-medium text-orange-900">
+                      <h4 className="text-sm font-medium text-orange-900 dark:text-orange-300">
                         Sign out everywhere
                       </h4>
-                      <p className="mt-1 text-sm text-orange-700">
+                      <p className="mt-1 text-sm text-orange-700 dark:text-orange-300">
                         Sign out from all devices and browser sessions for
                         enhanced security.
                       </p>
@@ -238,19 +242,19 @@ export default function ProfileSettings() {
               </div>
 
               {/* Delete account card */}
-              <div className="rounded-lg border border-red-200 bg-red-50 p-4 shadow-sm sm:p-6">
+              <div className="rounded-lg border border-red-200 bg-red-50 p-4 shadow-sm dark:border-red-900 dark:bg-red-950/40 sm:p-6">
                 <div className="flex flex-col space-y-4 sm:flex-row sm:items-start sm:justify-between sm:space-y-0">
                   <div className="flex items-start space-x-3">
-                    <div className="flex h-10 w-10 flex-shrink-0 items-center justify-center rounded-lg bg-red-100">
+                    <div className="flex h-10 w-10 flex-shrink-0 items-center justify-center rounded-lg bg-red-100 dark:bg-red-950/40">
                       <Trash
                         className={'h-[1em] w-[1em] shrink-0 text-red-600'}
                       ></Trash>
                     </div>
                     <div className="min-w-0 flex-1">
-                      <h4 className="text-sm font-medium text-red-900">
+                      <h4 className="text-sm font-medium text-red-900 dark:text-red-300">
                         Delete account
                       </h4>
-                      <p className="mt-1 text-sm text-red-700">
+                      <p className="mt-1 text-sm text-red-700 dark:text-red-300">
                         Permanently delete your account and all associated data.
                         This action cannot be undone.
                       </p>

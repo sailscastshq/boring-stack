@@ -115,17 +115,11 @@ function sendMagicLink(e) {
 <template>
   <Head title="Create Account | Ascent" />
 
-  <div
-    class="from-brand-50/30 to-accent-50/20 flex min-h-screen flex-col justify-center bg-linear-to-br via-white py-12 sm:px-6 lg:px-8"
-  >
+  <div class="ascent-auth">
     <!-- Background Elements -->
     <div class="pointer-events-none absolute inset-0 overflow-hidden">
-      <div
-        class="bg-brand-200/20 absolute top-20 left-1/4 h-96 w-96 rounded-full blur-3xl"
-      />
-      <div
-        class="bg-accent-200/20 absolute right-1/4 bottom-20 h-72 w-72 rounded-full blur-3xl"
-      />
+      <div class="hidden" />
+      <div class="hidden" />
     </div>
 
     <div class="relative sm:mx-auto sm:w-full sm:max-w-lg">
@@ -133,31 +127,35 @@ function sendMagicLink(e) {
       <div class="mb-8 flex items-center justify-center">
         <Link href="/" class="group">
           <div class="relative">
-            <div
-              class="bg-brand-200/30 absolute inset-0 scale-110 rounded-2xl opacity-0 blur-xl transition-opacity group-hover:opacity-100"
-            />
-            <img
-              src="/images/logo.svg"
-              alt="Ascent Logo"
-              class="relative h-12 w-auto"
-            />
+            <div class="hidden" />
+            <span
+              class="inline-flex items-center gap-1 text-2xl font-semibold tracking-tight text-gray-900 dark:text-gray-100"
+              aria-label="Ascent"
+              >Ascent<span
+                class="text-brand-600 dark:text-brand-300"
+                aria-hidden="true"
+                >↗</span
+              ></span
+            >
           </div>
         </Link>
       </div>
 
       <!-- Header -->
       <header class="mb-8 text-center">
-        <h1 class="text-3xl font-bold tracking-tight text-gray-900">
+        <h1
+          class="text-3xl font-bold tracking-tight text-gray-900 dark:text-gray-100"
+        >
           Create your account
         </h1>
-        <p class="mt-2 text-base text-gray-600">
+        <p class="mt-2 text-base text-gray-600 dark:text-gray-400">
           Join thousands of teams scaling with Ascent
         </p>
-        <p class="mt-2 text-base text-gray-600">
+        <p class="mt-2 text-base text-gray-600 dark:text-gray-400">
           Or
           <Link
             href="/login"
-            class="text-brand-600 hover:text-brand-500 font-semibold transition-colors"
+            class="text-brand-600 hover:text-brand-500 font-semibold transition-colors dark:text-brand-300"
           >
             sign in to your existing account
           </Link>
@@ -168,14 +166,10 @@ function sendMagicLink(e) {
     <div class="relative sm:mx-auto sm:w-full sm:max-w-lg">
       <div class="relative">
         <!-- Background blur effect -->
-        <div
-          class="from-brand-600/10 to-accent-600/10 absolute inset-0 scale-105 rounded-2xl bg-linear-to-r blur-xl"
-        />
+        <div class="hidden" />
 
         <!-- Main card -->
-        <div
-          class="relative rounded-2xl border border-gray-300 bg-white px-8 py-10 shadow-2xl"
-        >
+        <div class="ascent-auth-panel">
           <!-- Global error -->
           <div v-if="form.errors.signup" class="mb-6" role="alert">
             <Message
@@ -196,7 +190,7 @@ function sendMagicLink(e) {
             <div>
               <label
                 for="fullName"
-                class="mb-2 block text-sm font-semibold text-gray-900"
+                class="mb-2 block text-sm font-semibold text-gray-900 dark:text-gray-100"
               >
                 Full Name
               </label>
@@ -210,10 +204,10 @@ function sendMagicLink(e) {
                   @focus="focusedField = 'fullName'"
                   @blur="focusedField = ''"
                   :class="[
-                    'w-full rounded-xl border px-4 py-4 text-lg font-medium transition-all duration-200',
+                    'w-full rounded-lg border px-4 py-4 text-base font-medium transition-all duration-200',
                     form.errors.fullName
-                      ? 'border-red-300 bg-red-50 ring-2 ring-red-100'
-                      : 'focus:border-brand-300 focus:ring-brand-100 border-gray-300 bg-gray-200 focus:bg-white focus:ring-4'
+                      ? 'border-red-300 bg-red-50 ring-2 ring-red-100 dark:bg-red-950/40 dark:border-red-900'
+                      : 'focus:border-brand-300 focus:ring-brand-100 border-gray-300 bg-white focus:bg-white focus:ring-4 dark:border-gray-700 dark:bg-gray-800'
                   ]"
                   placeholder="Enter your full name"
                 />
@@ -231,7 +225,7 @@ function sendMagicLink(e) {
             <div>
               <label
                 for="email"
-                class="mb-2 block text-sm font-semibold text-gray-900"
+                class="mb-2 block text-sm font-semibold text-gray-900 dark:text-gray-100"
               >
                 Email Address
               </label>
@@ -245,10 +239,10 @@ function sendMagicLink(e) {
                   @focus="focusedField = 'email'"
                   @blur="focusedField = ''"
                   :class="[
-                    'w-full rounded-xl border px-4 py-4 text-lg font-medium transition-all duration-200',
+                    'w-full rounded-lg border px-4 py-4 text-base font-medium transition-all duration-200',
                     form.errors.email
-                      ? 'border-red-300 bg-red-50 ring-2 ring-red-100'
-                      : 'focus:border-brand-300 focus:ring-brand-100 border-gray-300 bg-gray-200 focus:bg-white focus:ring-4'
+                      ? 'border-red-300 bg-red-50 ring-2 ring-red-100 dark:bg-red-950/40 dark:border-red-900'
+                      : 'focus:border-brand-300 focus:ring-brand-100 border-gray-300 bg-white focus:bg-white focus:ring-4 dark:border-gray-700 dark:bg-gray-800'
                   ]"
                   placeholder="Enter your email address"
                 />
@@ -268,10 +262,10 @@ function sendMagicLink(e) {
                 type="submit"
                 :disabled="disableMagicLinkButton"
                 :class="[
-                  'flex w-full justify-center rounded-xl px-8 py-4 text-lg font-bold text-white shadow-lg transition-all duration-200 hover:scale-[1.02] hover:shadow-xl disabled:cursor-not-allowed disabled:opacity-50 disabled:hover:scale-100',
+                  'flex w-full justify-center rounded-xl px-8 py-4 text-lg font-bold text-white shadow-none transition-all duration-200 hover:brightness-95 disabled:cursor-not-allowed disabled:opacity-50 disabled:hover:scale-100',
                   disableMagicLinkButton
                     ? 'bg-gray-300'
-                    : 'from-brand-600 to-accent-600 hover:from-brand-700 hover:to-accent-700 focus:ring-brand-500 bg-linear-to-r focus:ring-2 focus:ring-offset-2 focus:outline-none'
+                    : 'hover:bg-brand-700 focus:ring-brand-500  focus:ring-2 focus:ring-offset-2 focus:outline-none bg-brand-600 dark:bg-brand-600'
                 ]"
               >
                 <div
@@ -293,7 +287,7 @@ function sendMagicLink(e) {
               <button
                 type="button"
                 @click="toggleToPasswordMode"
-                class="hover:text-brand-600 text-sm font-medium text-gray-600 underline underline-offset-2 transition-colors"
+                class="hover:text-brand-600 text-sm font-medium text-gray-600 underline underline-offset-2 transition-colors dark:text-gray-400"
               >
                 Other sign-up options
               </button>
@@ -307,7 +301,7 @@ function sendMagicLink(e) {
               <button
                 type="button"
                 @click="toggleToMagicMode"
-                class="hover:text-brand-600 flex items-center text-sm font-medium text-gray-600 transition-colors"
+                class="hover:text-brand-600 flex items-center text-sm font-medium text-gray-600 transition-colors dark:text-gray-400"
               >
                 <ChevronLeft class="mr-1 h-4 w-4" />
                 Back to magic link
@@ -319,7 +313,7 @@ function sendMagicLink(e) {
               <div>
                 <label
                   for="fullName-expanded"
-                  class="mb-2 block text-sm font-semibold text-gray-900"
+                  class="mb-2 block text-sm font-semibold text-gray-900 dark:text-gray-100"
                 >
                   Full Name
                 </label>
@@ -333,10 +327,10 @@ function sendMagicLink(e) {
                     @focus="focusedField = 'fullName'"
                     @blur="focusedField = ''"
                     :class="[
-                      'w-full rounded-xl border px-4 py-4 text-lg font-medium transition-all duration-200',
+                      'w-full rounded-lg border px-4 py-4 text-base font-medium transition-all duration-200',
                       form.errors.fullName
-                        ? 'border-red-300 bg-red-50 ring-2 ring-red-100'
-                        : 'focus:border-brand-300 focus:ring-brand-100 border-gray-300 bg-gray-200 focus:bg-white focus:ring-4'
+                        ? 'border-red-300 bg-red-50 ring-2 ring-red-100 dark:bg-red-950/40 dark:border-red-900'
+                        : 'focus:border-brand-300 focus:ring-brand-100 border-gray-300 bg-white focus:bg-white focus:ring-4 dark:border-gray-700 dark:bg-gray-800'
                     ]"
                     placeholder="Enter your full name"
                   />
@@ -354,7 +348,7 @@ function sendMagicLink(e) {
               <div>
                 <label
                   for="email-expanded"
-                  class="mb-2 block text-sm font-semibold text-gray-900"
+                  class="mb-2 block text-sm font-semibold text-gray-900 dark:text-gray-100"
                 >
                   Email Address
                 </label>
@@ -368,10 +362,10 @@ function sendMagicLink(e) {
                     @focus="focusedField = 'email'"
                     @blur="focusedField = ''"
                     :class="[
-                      'w-full rounded-xl border px-4 py-4 text-lg font-medium transition-all duration-200',
+                      'w-full rounded-lg border px-4 py-4 text-base font-medium transition-all duration-200',
                       form.errors.email
-                        ? 'border-red-300 bg-red-50 ring-2 ring-red-100'
-                        : 'focus:border-brand-300 focus:ring-brand-100 border-gray-300 bg-gray-200 focus:bg-white focus:ring-4'
+                        ? 'border-red-300 bg-red-50 ring-2 ring-red-100 dark:bg-red-950/40 dark:border-red-900'
+                        : 'focus:border-brand-300 focus:ring-brand-100 border-gray-300 bg-white focus:bg-white focus:ring-4 dark:border-gray-700 dark:bg-gray-800'
                     ]"
                     placeholder="Enter your email address"
                   />
@@ -389,7 +383,7 @@ function sendMagicLink(e) {
               <div>
                 <label
                   for="password"
-                  class="mb-2 block text-sm font-semibold text-gray-900"
+                  class="mb-2 block text-sm font-semibold text-gray-900 dark:text-gray-100"
                 >
                   Password
                 </label>
@@ -403,10 +397,10 @@ function sendMagicLink(e) {
                     @focus="focusedField = 'password'"
                     @blur="focusedField = ''"
                     :class="[
-                      'w-full rounded-xl border px-4 py-4 text-lg font-medium transition-all duration-200',
+                      'w-full rounded-lg border px-4 py-4 text-base font-medium transition-all duration-200',
                       form.errors.password
-                        ? 'border-red-300 bg-red-50 ring-2 ring-red-100'
-                        : 'focus:border-brand-300 focus:ring-brand-100 border-gray-300 bg-gray-200 focus:bg-white focus:ring-4'
+                        ? 'border-red-300 bg-red-50 ring-2 ring-red-100 dark:bg-red-950/40 dark:border-red-900'
+                        : 'focus:border-brand-300 focus:ring-brand-100 border-gray-300 bg-white focus:bg-white focus:ring-4 dark:border-gray-700 dark:bg-gray-800'
                     ]"
                     placeholder="Create a secure password"
                   />
@@ -464,10 +458,10 @@ function sendMagicLink(e) {
                   type="submit"
                   :disabled="disableSignupButton"
                   :class="[
-                    'flex w-full justify-center rounded-xl px-8 py-4 text-lg font-bold text-white shadow-lg transition-all duration-200 hover:scale-[1.02] hover:shadow-xl disabled:cursor-not-allowed disabled:opacity-50 disabled:hover:scale-100',
+                    'flex w-full justify-center rounded-xl px-8 py-4 text-lg font-bold text-white shadow-none transition-all duration-200 hover:brightness-95 disabled:cursor-not-allowed disabled:opacity-50 disabled:hover:scale-100',
                     disableSignupButton
                       ? 'bg-gray-300'
-                      : 'from-brand-600 to-accent-600 hover:from-brand-700 hover:to-accent-700 focus:ring-brand-500 bg-linear-to-r focus:ring-2 focus:ring-offset-2 focus:outline-none'
+                      : 'hover:bg-brand-700 focus:ring-brand-500  focus:ring-2 focus:ring-offset-2 focus:outline-none bg-brand-600 dark:bg-brand-600'
                   ]"
                 >
                   <div
@@ -483,18 +477,18 @@ function sendMagicLink(e) {
 
               <!-- Terms - cleaner positioning -->
               <div class="pt-4 text-center">
-                <p class="text-sm text-gray-600">
+                <p class="text-sm text-gray-600 dark:text-gray-400">
                   By creating an account, you agree to our
                   <a
                     href="/legal/terms"
-                    class="text-brand-600 hover:text-brand-500 font-medium underline underline-offset-2"
+                    class="text-brand-600 hover:text-brand-500 font-medium underline underline-offset-2 dark:text-brand-300"
                   >
                     Terms of Service
                   </a>
                   and
                   <a
                     href="/legal/privacy"
-                    class="text-brand-600 hover:text-brand-500 font-medium underline underline-offset-2"
+                    class="text-brand-600 hover:text-brand-500 font-medium underline underline-offset-2 dark:text-brand-300"
                   >
                     Privacy Policy
                   </a>
@@ -507,10 +501,14 @@ function sendMagicLink(e) {
           <div v-if="showExpandedOptions" class="my-6">
             <div class="relative">
               <div class="absolute inset-0 flex items-center">
-                <div class="w-full border-t border-gray-300" />
+                <div
+                  class="w-full border-t border-gray-300 dark:border-gray-700"
+                />
               </div>
               <div class="relative flex justify-center text-sm">
-                <span class="bg-white px-4 font-medium text-gray-500">
+                <span
+                  class="bg-white px-4 font-medium text-gray-500 dark:bg-gray-900 dark:text-gray-400"
+                >
                   Or continue with
                 </span>
               </div>
@@ -522,7 +520,7 @@ function sendMagicLink(e) {
             <!-- Google Button - Half width -->
             <a
               href="/auth/google/redirect"
-              class="focus:ring-brand-500 flex items-center justify-center rounded-xl border border-gray-300 bg-gray-200 px-4 py-4 text-base font-medium text-gray-700 shadow-lg transition-all duration-200 hover:scale-[1.02] hover:border-gray-300 hover:bg-gray-100 hover:shadow-xl focus:ring-2 focus:ring-offset-2 focus:outline-none"
+              class="focus:ring-brand-500 flex items-center justify-center rounded-xl border border-gray-300 bg-gray-200 px-4 py-4 text-base font-medium text-gray-700 shadow-none transition-all duration-200 hover:brightness-95 hover:border-gray-300 hover:bg-gray-100 focus:ring-2 focus:ring-offset-2 focus:outline-none dark:border-gray-700 dark:bg-gray-800 dark:text-gray-300 dark:hover:bg-gray-800"
             >
               <svg class="mr-2 h-5 w-5" viewBox="0 0 24 24">
                 <path
@@ -548,7 +546,7 @@ function sendMagicLink(e) {
             <!-- GitHub Button - Half width -->
             <a
               href="/auth/github/redirect"
-              class="focus:ring-brand-500 flex items-center justify-center rounded-xl border border-gray-300 bg-gray-200 px-4 py-4 text-base font-medium text-gray-700 shadow-lg transition-all duration-200 hover:scale-[1.02] hover:border-gray-300 hover:bg-gray-100 hover:shadow-xl focus:ring-2 focus:ring-offset-2 focus:outline-none"
+              class="focus:ring-brand-500 flex items-center justify-center rounded-xl border border-gray-300 bg-gray-200 px-4 py-4 text-base font-medium text-gray-700 shadow-none transition-all duration-200 hover:brightness-95 hover:border-gray-300 hover:bg-gray-100 focus:ring-2 focus:ring-offset-2 focus:outline-none dark:border-gray-700 dark:bg-gray-800 dark:text-gray-300 dark:hover:bg-gray-800"
             >
               <svg class="mr-2 h-5 w-5" fill="currentColor" viewBox="0 0 24 24">
                 <path

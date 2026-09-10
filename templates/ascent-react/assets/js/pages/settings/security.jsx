@@ -288,32 +288,32 @@ export default function SecuritySettings({
           {/* Password Section */}
           <section className="space-y-6">
             <header>
-              <h3 className="mb-4 text-sm font-medium text-gray-900">
+              <h3 className="mb-4 text-sm font-medium text-gray-900 dark:text-gray-100">
                 Password
               </h3>
-              <p className="mb-6 text-sm text-gray-500">
+              <p className="mb-6 text-sm text-gray-500 dark:text-gray-400">
                 {hasPassword
                   ? 'Set a strong password to protect your account.'
                   : 'Set up a password to enable two-factor authentication and enhance your account security.'}
               </p>
             </header>
 
-            <div className="rounded-lg border border-gray-200 bg-white p-4 shadow-sm sm:p-6">
+            <div className="rounded-lg border border-gray-200 bg-white p-4 shadow-sm dark:border-gray-700 dark:bg-gray-900 sm:p-6">
               {!hasPassword ? (
                 !showInitialPasswordForm ? (
                   // No Password State - Show Setup Option
                   <div className="flex flex-col space-y-4 sm:flex-row sm:items-center sm:justify-between sm:space-y-0">
                     <div className="flex items-center space-x-3 sm:space-x-4">
-                      <div className="flex h-10 w-10 flex-shrink-0 items-center justify-center rounded-lg bg-orange-50">
+                      <div className="flex h-10 w-10 flex-shrink-0 items-center justify-center rounded-lg bg-orange-50 dark:bg-orange-950/40">
                         <Lock
                           className={'h-[1em] w-[1em] shrink-0 text-orange-600'}
                         ></Lock>
                       </div>
                       <div className="flex-1">
-                        <h4 className="text-sm font-medium text-gray-900">
+                        <h4 className="text-sm font-medium text-gray-900 dark:text-gray-100">
                           You don't have a password set
                         </h4>
-                        <p className="mt-1 text-sm text-gray-500">
+                        <p className="mt-1 text-sm text-gray-500 dark:text-gray-400">
                           Set one up to enable two-factor authentication
                         </p>
                       </div>
@@ -333,16 +333,16 @@ export default function SecuritySettings({
                   // Initial Password Setup Form
                   <form onSubmit={submitInitialPassword} className="space-y-6">
                     <div className="mb-4 flex items-center space-x-3">
-                      <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-brand-50">
+                      <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-brand-50 dark:bg-brand-950/40">
                         <Lock
                           className={'h-[1em] w-[1em] shrink-0 text-brand-600'}
                         ></Lock>
                       </div>
                       <div>
-                        <h4 className="text-sm font-medium text-gray-900">
+                        <h4 className="text-sm font-medium text-gray-900 dark:text-gray-100">
                           Set up your password
                         </h4>
-                        <p className="text-sm text-gray-500">
+                        <p className="text-sm text-gray-500 dark:text-gray-400">
                           Create a secure password for your account
                         </p>
                       </div>
@@ -366,7 +366,7 @@ export default function SecuritySettings({
                       <div>
                         <label
                           htmlFor="initialPassword"
-                          className="mb-2 block text-sm font-medium text-gray-700"
+                          className="mb-2 block text-sm font-medium text-gray-700 dark:text-gray-300"
                         >
                           Password
                         </label>
@@ -403,7 +403,7 @@ export default function SecuritySettings({
                       <div>
                         <label
                           htmlFor="confirmInitialPassword"
-                          className="mb-2 block text-sm font-medium text-gray-700"
+                          className="mb-2 block text-sm font-medium text-gray-700 dark:text-gray-300"
                         >
                           Confirm password
                         </label>
@@ -481,7 +481,7 @@ export default function SecuritySettings({
                 // Password Display View
                 <div className="flex flex-col space-y-4 sm:flex-row sm:items-center sm:justify-between sm:space-y-0">
                   <div className="flex items-center space-x-3 sm:space-x-4">
-                    <div className="flex h-10 w-10 flex-shrink-0 items-center justify-center rounded-lg bg-brand-50">
+                    <div className="flex h-10 w-10 flex-shrink-0 items-center justify-center rounded-lg bg-brand-50 dark:bg-brand-950/40">
                       <Lock
                         className={'h-[1em] w-[1em] shrink-0 text-brand-600'}
                       ></Lock>
@@ -494,12 +494,12 @@ export default function SecuritySettings({
                         <span
                           className={`inline-flex w-fit items-center rounded-full px-2.5 py-0.5 text-xs font-medium ${
                             passwordStrength.color === 'success'
-                              ? 'bg-success-100 text-success-800'
+                              ? 'bg-success-100 text-success-800 dark:bg-success-950/40 dark:text-success-300'
                               : passwordStrength.color === 'warning'
                               ? 'bg-warning-100 text-warning-800'
                               : passwordStrength.color === 'danger'
-                              ? 'bg-red-100 text-red-800'
-                              : 'bg-gray-100 text-gray-800'
+                              ? 'bg-red-100 text-red-800 dark:bg-red-950/40 dark:text-red-300'
+                              : 'bg-gray-100 text-gray-800 dark:bg-gray-800 dark:text-gray-200'
                           }`}
                         >
                           <ShieldCheck
@@ -508,7 +508,7 @@ export default function SecuritySettings({
                           {passwordStrength.label}
                         </span>
                       </div>
-                      <p className="mt-1 text-sm text-gray-500">
+                      <p className="mt-1 text-sm text-gray-500 dark:text-gray-400">
                         Last updated {passwordLastUpdated}
                       </p>
                     </div>
@@ -529,16 +529,16 @@ export default function SecuritySettings({
                 // Password Edit Form
                 <form onSubmit={updatePassword} className="space-y-6">
                   <div className="mb-4 flex items-center space-x-3">
-                    <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-brand-50">
+                    <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-brand-50 dark:bg-brand-950/40">
                       <Lock
                         className={'h-[1em] w-[1em] shrink-0 text-brand-600'}
                       ></Lock>
                     </div>
                     <div>
-                      <h4 className="text-sm font-medium text-gray-900">
+                      <h4 className="text-sm font-medium text-gray-900 dark:text-gray-100">
                         Change your password
                       </h4>
-                      <p className="text-sm text-gray-500">
+                      <p className="text-sm text-gray-500 dark:text-gray-400">
                         Enter your current password and choose a new one
                       </p>
                     </div>
@@ -548,7 +548,7 @@ export default function SecuritySettings({
                     <div>
                       <label
                         htmlFor="currentPassword"
-                        className="mb-2 block text-sm font-medium text-gray-700"
+                        className="mb-2 block text-sm font-medium text-gray-700 dark:text-gray-300"
                       >
                         Current password
                       </label>
@@ -585,7 +585,7 @@ export default function SecuritySettings({
                     <div>
                       <label
                         htmlFor="newPassword"
-                        className="mb-2 block text-sm font-medium text-gray-700"
+                        className="mb-2 block text-sm font-medium text-gray-700 dark:text-gray-300"
                       >
                         New password
                       </label>
@@ -620,7 +620,7 @@ export default function SecuritySettings({
                     <div>
                       <label
                         htmlFor="confirmPassword"
-                        className="mb-2 block text-sm font-medium text-gray-700"
+                        className="mb-2 block text-sm font-medium text-gray-700 dark:text-gray-300"
                       >
                         Confirm new password
                       </label>
@@ -657,7 +657,7 @@ export default function SecuritySettings({
 
                   <div className="flex flex-col space-y-3 pt-4 sm:flex-row sm:items-center sm:justify-between sm:space-y-0">
                     {form.recentlySuccessful && (
-                      <span className="text-sm text-success-600">
+                      <span className="text-sm text-success-600 dark:text-success-300">
                         Password updated successfully
                       </span>
                     )}
@@ -674,7 +674,7 @@ export default function SecuritySettings({
                         }}
                         className={[
                           'min-h-10 min-h-8 border border-brand-200 bg-transparent px-2.5 px-3 py-1.5 py-2 text-sm text-brand hover:bg-brand-50 dark:border-brand-700 dark:bg-transparent dark:text-brand-400 dark:hover:bg-brand-950',
-                          ' w-full px-4 py-2 text-sm sm:w-auto'
+                          'w-full px-4 py-2 text-sm sm:w-auto'
                         ]
                           .filter(Boolean)
                           .join(' ')}
@@ -705,16 +705,16 @@ export default function SecuritySettings({
           {/* Passkeys */}
           <section className="space-y-6">
             <header>
-              <h3 className="mb-4 text-sm font-medium text-gray-900">
+              <h3 className="mb-4 text-sm font-medium text-gray-900 dark:text-gray-100">
                 Passkeys
               </h3>
-              <p className="mb-6 text-sm text-gray-500">
+              <p className="mb-6 text-sm text-gray-500 dark:text-gray-400">
                 Use your device's biometric authentication (Face ID, Touch ID,
                 Windows Hello) for secure, passwordless sign-in.
               </p>
             </header>
 
-            <div className="rounded-lg border border-gray-200 bg-white p-6 shadow-sm">
+            <div className="rounded-lg border border-gray-200 bg-white p-6 shadow-sm dark:border-gray-700 dark:bg-gray-900">
               <div className="flex items-center justify-between">
                 <div className="flex items-center space-x-4">
                   <div
@@ -729,10 +729,10 @@ export default function SecuritySettings({
                     />
                   </div>
                   <div className="flex-1">
-                    <h4 className="text-sm font-medium text-gray-900">
+                    <h4 className="text-sm font-medium text-gray-900 dark:text-gray-100">
                       Passkeys
                     </h4>
-                    <p className="mt-1 text-sm text-gray-500">
+                    <p className="mt-1 text-sm text-gray-500 dark:text-gray-400">
                       {passkeyEnabled
                         ? `${passkeyCount} ${
                             passkeyCount === 1 ? 'passkey' : 'passkeys'
@@ -764,19 +764,19 @@ export default function SecuritySettings({
 
             {/* Passkey Management - Show when passkeys are enabled */}
             {passkeyEnabled && (
-              <div className="rounded-lg border border-gray-200 bg-white p-4 shadow-sm">
+              <div className="rounded-lg border border-gray-200 bg-white p-4 shadow-sm dark:border-gray-700 dark:bg-gray-900">
                 <div className="flex items-center justify-between">
                   <div className="flex items-center space-x-3">
-                    <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-brand-50">
+                    <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-brand-50 dark:bg-brand-950/40">
                       <Settings
                         className={'h-[1em] w-[1em] shrink-0 text-brand-600'}
                       ></Settings>
                     </div>
                     <div className="flex-1">
-                      <h5 className="text-sm font-medium text-gray-900">
+                      <h5 className="text-sm font-medium text-gray-900 dark:text-gray-100">
                         Manage Passkeys
                       </h5>
-                      <p className="text-sm text-gray-500">
+                      <p className="text-sm text-gray-500 dark:text-gray-400">
                         View, rename, or remove your registered passkeys
                       </p>
                     </div>
@@ -800,15 +800,15 @@ export default function SecuritySettings({
           {/* Two-Factor Authentication */}
           <section className="space-y-6">
             <header>
-              <h3 className="mb-4 text-sm font-medium text-gray-900">
+              <h3 className="mb-4 text-sm font-medium text-gray-900 dark:text-gray-100">
                 Two-step verification
               </h3>
-              <p className="mb-6 text-sm text-gray-500">
+              <p className="mb-6 text-sm text-gray-500 dark:text-gray-400">
                 We recommend requiring a verification code in addition to your
                 password.
               </p>
             </header>
-            <div className="rounded-lg border border-gray-200 bg-white p-6 shadow-sm">
+            <div className="rounded-lg border border-gray-200 bg-white p-6 shadow-sm dark:border-gray-700 dark:bg-gray-900">
               <div className="flex items-center justify-between">
                 <div className="flex items-center space-x-4">
                   <div
@@ -823,10 +823,10 @@ export default function SecuritySettings({
                     />
                   </div>
                   <div className="flex-1">
-                    <h4 className="text-sm font-medium text-gray-900">
+                    <h4 className="text-sm font-medium text-gray-900 dark:text-gray-100">
                       Two-step verification
                     </h4>
-                    <p className="mt-1 text-sm text-gray-500">
+                    <p className="mt-1 text-sm text-gray-500 dark:text-gray-400">
                       {twoFactorEnabled
                         ? 'Your account is protected with two-step verification'
                         : 'Add an extra layer of security to your account'}
@@ -854,12 +854,12 @@ export default function SecuritySettings({
             {(twoFactorEnabled || showSetupFlow) && (
               <div className="mt-6 space-y-4">
                 <div>
-                  <h4 className="mb-2 text-sm font-medium text-gray-900">
+                  <h4 className="mb-2 text-sm font-medium text-gray-900 dark:text-gray-100">
                     {twoFactorEnabled
                       ? 'Two-factor authentication methods'
                       : 'Choose your verification methods'}
                   </h4>
-                  <p className="mb-4 text-sm text-gray-500">
+                  <p className="mb-4 text-sm text-gray-500 dark:text-gray-400">
                     {twoFactorEnabled
                       ? 'Manage your two-step verification methods.'
                       : 'Select one or both methods to secure your account. You can add more methods later.'}
@@ -870,8 +870,8 @@ export default function SecuritySettings({
                 <div
                   className={`rounded-lg border p-4 shadow-sm ${
                     totpEnabled
-                      ? 'border-success-200 bg-success-50'
-                      : 'border-gray-200 bg-white'
+                      ? 'border-success-200 bg-success-50 dark:border-success-900 dark:bg-success-950/40'
+                      : 'border-gray-200 bg-white dark:border-gray-700 dark:bg-gray-900'
                   }`}
                 >
                   <div className="flex items-center justify-between">
@@ -888,10 +888,10 @@ export default function SecuritySettings({
                         />
                       </div>
                       <div className="flex-1">
-                        <h5 className="text-sm font-medium text-gray-900">
+                        <h5 className="text-sm font-medium text-gray-900 dark:text-gray-100">
                           Authenticator App (TOTP)
                         </h5>
-                        <p className="text-sm text-gray-500">
+                        <p className="text-sm text-gray-500 dark:text-gray-400">
                           Use Passwords, 1Password, Google Authenticator, or
                           similar apps
                         </p>
@@ -899,7 +899,7 @@ export default function SecuritySettings({
                     </div>
                     <div className="flex items-center space-x-3">
                       {totpEnabled && (
-                        <span className="inline-flex items-center rounded-full bg-success-100 px-2.5 py-0.5 text-xs font-medium text-success-800">
+                        <span className="inline-flex items-center rounded-full bg-success-100 px-2.5 py-0.5 text-xs font-medium text-success-800 dark:bg-success-950/40 dark:text-success-300">
                           Active
                         </span>
                       )}
@@ -936,8 +936,8 @@ export default function SecuritySettings({
                 <div
                   className={`rounded-lg border p-4 shadow-sm ${
                     emailTwoFactorEnabled
-                      ? 'border-success-200 bg-success-50'
-                      : 'border-gray-200 bg-white'
+                      ? 'border-success-200 bg-success-50 dark:border-success-900 dark:bg-success-950/40'
+                      : 'border-gray-200 bg-white dark:border-gray-700 dark:bg-gray-900'
                   }`}
                 >
                   <div className="flex items-center justify-between">
@@ -958,17 +958,17 @@ export default function SecuritySettings({
                         />
                       </div>
                       <div className="flex-1">
-                        <h5 className="text-sm font-medium text-gray-900">
+                        <h5 className="text-sm font-medium text-gray-900 dark:text-gray-100">
                           Email Verification
                         </h5>
-                        <p className="text-sm text-gray-500">
+                        <p className="text-sm text-gray-500 dark:text-gray-400">
                           Receive verification codes via email
                         </p>
                       </div>
                     </div>
                     <div className="flex items-center space-x-3">
                       {emailTwoFactorEnabled && (
-                        <span className="inline-flex items-center rounded-full bg-success-100 px-2.5 py-0.5 text-xs font-medium text-success-800">
+                        <span className="inline-flex items-center rounded-full bg-success-100 px-2.5 py-0.5 text-xs font-medium text-success-800 dark:bg-success-950/40 dark:text-success-300">
                           Active
                         </span>
                       )}
@@ -1003,10 +1003,10 @@ export default function SecuritySettings({
 
                 {/* Backup Codes Section - only show when 2FA is enabled */}
                 {twoFactorEnabled && (
-                  <div className="rounded-lg border border-gray-200 bg-white p-4 shadow-sm">
+                  <div className="rounded-lg border border-gray-200 bg-white p-4 shadow-sm dark:border-gray-700 dark:bg-gray-900">
                     <div className="flex items-center justify-between">
                       <div className="flex items-center space-x-3">
-                        <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-orange-50">
+                        <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-orange-50 dark:bg-orange-950/40">
                           <Key
                             className={
                               'h-[1em] w-[1em] shrink-0 text-orange-600'
@@ -1014,10 +1014,10 @@ export default function SecuritySettings({
                           ></Key>
                         </div>
                         <div className="flex-1">
-                          <h5 className="text-sm font-medium text-gray-900">
+                          <h5 className="text-sm font-medium text-gray-900 dark:text-gray-100">
                             Backup Recovery Codes
                           </h5>
-                          <p className="text-sm text-gray-500">
+                          <p className="text-sm text-gray-500 dark:text-gray-400">
                             Generate backup codes to access your account if you
                             lose your 2FA device
                           </p>

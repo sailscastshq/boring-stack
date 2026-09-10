@@ -4,6 +4,7 @@
 </script>
 
 <script>
+  import ArrowRight from '@/components/ui/icons/ArrowRight.svelte'
   import { Link, usePage } from '@inertiajs/svelte'
 
   const page = usePage()
@@ -14,21 +15,35 @@
 <svelte:head>
   <title>Dashboard | Mellow</title>
 </svelte:head>
-<section class="mx-auto max-w-4xl px-4">
-  <section
-    class="from-brand-50/10 rounded-lg bg-gradient-to-b to-white p-6 shadow-md transition-all duration-300 hover:shadow-lg"
-  >
-    <h3 class="text-brand mb-2 text-xl font-semibold">
-      Welcome, {loggedInUser.fullName}
-    </h3>
-    <p class="mb-4 text-gray-600">
-      You are logged in as {loggedInUser.email}
+<section class="mellow-workspace">
+  <div class="mellow-workspace-heading">
+    <h1>Welcome, {loggedInUser.fullName}.</h1>
+    <p class="text-sm text-gray-600">
+      A place to settle in and make things happen.
     </p>
-    <Link
-      href="/profile"
-      class="border-brand text-brand hover:bg-brand mt-2 rounded-lg border px-4 py-2 transition-colors duration-300 hover:text-white"
+  </div>
+  <div class="mellow-account-row">
+    <h2>Your profile</h2>
+    <div>
+      <p>Make yourself at home. Update your name, email, and password.</p>
+      <p class="mt-2 break-all">{loggedInUser.email}</p>
+    </div>
+    <Link href="/profile" class="mellow-primary"
+      >Edit Profile <ArrowRight class="h-4 w-4 shrink-0" /></Link
     >
-      Edit Profile
-    </Link>
-  </section>
+  </div>
+  <div class="mellow-account-row">
+    <h2>Your next step</h2>
+    <p>
+      The basics are in place. Explore the documentation and start shaping your
+      application.
+    </p>
+    <a
+      href="https://docs.sailscasts.com/boring-stack"
+      class="mellow-text-link"
+      target="_blank"
+      rel="noopener noreferrer"
+      >Explore the docs <ArrowRight class="h-4 w-4 shrink-0" /></a
+    >
+  </div>
 </section>

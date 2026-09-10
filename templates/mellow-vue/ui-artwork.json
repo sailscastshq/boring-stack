@@ -2,8 +2,7 @@
   "assets/js/layouts/AppLayout.vue": {
     "reason": "Owned OAuth/social brand marks and template product artwork; not reusable interface glyphs.",
     "sha256": [
-      "77d41ac00909d09813ad0577d8549d9ace2110615bd04e3ca102e924865ce079",
-      "232bea6198277c53468ded63b2469964a1a2f3e4da013fc832bbe281b1dc223a"
+      "a3e3421d7e1e6e6821fe4c6f7fd518615b6e5ce3a90267008b32b478ccadbcc9"
     ]
   },
   "assets/js/pages/auth/login.vue": {

@@ -29,7 +29,7 @@
       {...props}
       {id}
       bind:value
-      class={`placeholder:text-gray block min-h-12 w-full rounded-lg border bg-white py-3 pr-10 pl-11 text-base shadow-sm transition-colors placeholder:text-base focus:ring-2 focus:outline-none ${error ? 'border-red-300 bg-red-50/40 text-red-950 focus:border-red-500 focus:ring-red-100' : 'border-gray/50 focus:ring-gray-100'} ${className}`}
+      class={`placeholder:text-gray block min-h-12 w-full rounded-lg border bg-white py-3 pr-10 pl-11 text-base shadow-none transition-colors placeholder:text-base focus:ring-2 focus:outline-none ${error ? 'border-red-300 bg-red-50/40 text-red-950 focus:border-red-500 focus:ring-red-100' : 'border-gray/50 focus:ring-gray-100'} ${className}`}
       aria-invalid={error ? 'true' : undefined}
       aria-describedby={[describedBy, errorId].filter(Boolean).join(' ') ||
         undefined}

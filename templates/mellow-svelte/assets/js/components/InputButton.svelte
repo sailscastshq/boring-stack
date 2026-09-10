@@ -15,7 +15,7 @@
   {...props}
   disabled={disabled || processing}
   aria-busy={processing}
-  class={`border-brand bg-brand hover:bg-brand active:bg-brand dark:bg-brand dark:hover:bg-brand dark:active:bg-brand disabled:text-gray relative flex items-center justify-center rounded-md border px-4 py-3 text-base font-normal text-white disabled:cursor-not-allowed disabled:border-gray-200/40 disabled:bg-gray-200/40 disabled:opacity-100 dark:text-white ${className}`}
+  class={`border-brand bg-brand hover:bg-brand active:bg-brand dark:bg-brand dark:hover:bg-brand dark:active:bg-brand disabled:text-gray relative flex items-center justify-center rounded-full border px-4 py-3 text-base font-medium text-white disabled:cursor-not-allowed disabled:border-gray-200/40 disabled:bg-gray-200/40 disabled:opacity-100 dark:text-white ${className}`}
 >
   {#if processing}<Spinner class="absolute h-5 w-5 text-white" />{/if}
   <span class:text-transparent={processing}

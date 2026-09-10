@@ -50,10 +50,8 @@ function deleteAccount() {
 <template>
   <Head title="Profile | Mellow"></Head>
 
-  <div class="mx-auto space-y-8 px-4 md:w-8/12 xl:w-4/12">
-    <section
-      class="from-brand-50/10 rounded-lg bg-gradient-to-b to-white p-6 shadow-md transition-all duration-300 hover:shadow-lg"
-    >
+  <div class="mellow-profile">
+    <section class="mellow-profile-section">
       <header class="mb-6">
         <h1 class="text-2xl">Profile Information</h1>
         <p class="mt-2 text-gray-600">
@@ -78,9 +76,7 @@ function deleteAccount() {
       </form>
     </section>
 
-    <section
-      class="from-brand-50/10 rounded-lg bg-gradient-to-b to-white p-6 shadow-md transition-all duration-300 hover:shadow-lg"
-    >
+    <section class="mellow-profile-section">
       <header class="mb-6">
         <h2 class="text-2xl">Change Password</h2>
         <p class="mt-2 text-gray-600">
@@ -123,9 +119,7 @@ function deleteAccount() {
       </form>
     </section>
 
-    <section
-      class="from-brand-50/10 rounded-lg bg-gradient-to-b to-white p-6 shadow-md transition-all duration-300 hover:shadow-lg"
-    >
+    <section class="mellow-profile-section">
       <header class="mb-6">
         <h2 class="text-2xl">Delete Account</h2>
         <p class="mt-2 text-gray-600">

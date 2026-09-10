@@ -17,57 +17,27 @@ defineProps({
 </script>
 
 <template>
-  <Head title="Blog - Latest Updates & Insights | Ascent React" />
+  <Head title="Journal | Ascent" />
 
-  <section class="relative overflow-hidden px-4 pt-20 pb-16">
-    <div
-      class="from-brand-50/30 to-accent-50/20 absolute inset-0 bg-linear-to-br via-white"
-    ></div>
-    <div
-      class="bg-brand-100/20 absolute top-20 left-1/2 h-96 w-96 -translate-x-1/2 transform rounded-full blur-3xl"
-    ></div>
-
-    <div class="relative mx-auto max-w-4xl text-center">
-      <div class="mb-6">
-        <span
-          class="bg-brand-100 text-brand-700 inline-flex items-center rounded-full px-4 py-2 text-sm font-semibold"
-        >
-          📚 Latest Insights
-        </span>
-      </div>
-
-      <h1 class="mb-6 text-5xl font-extrabold tracking-tight md:text-6xl">
-        <span class="block leading-tight text-gray-900">{{ appName }}</span>
-        <span
-          class="bg-linear-to-rrom-brand-600 to-accent-600 block bg-clip-text leading-tight text-transparent"
-        >
-          Blog
-        </span>
-      </h1>
-
-      <p
-        class="mx-auto mb-10 max-w-2xl text-xl leading-relaxed font-medium text-gray-600"
-      >
-        Stay up to date with the latest news, updates, and insights about
-        building modern SaaS applications with The Boring Stack.
-      </p>
-    </div>
+  <section class="ascent-page-heading">
+    <h1>Notes on<br />building better.</h1>
+    <p>Updates, ideas, and useful discoveries from the Ascent team.</p>
   </section>
 
-  <section class="relative bg-white px-4 pb-20">
+  <section class="relative bg-white px-4 pb-20 dark:bg-gray-900">
     <div class="mx-auto max-w-4xl">
       <div v-if="blogPosts && blogPosts.length > 0" class="space-y-12">
         <article
           v-for="(post, index) in blogPosts"
           :key="post.slug"
-          class="group hover:border-brand-300 relative rounded-2xl border border-gray-300 bg-white p-8 shadow-sm transition-all duration-300 hover:shadow-xl"
+          class="group border-t border-gray-200 py-8 dark:border-gray-700"
         >
           <div
             class="flex flex-col space-y-6 sm:flex-row sm:items-start sm:space-y-0 sm:space-x-8"
           >
             <div class="shrink-0">
               <time
-                class="bg-brand-50 text-brand-700 inline-flex items-center rounded-full px-4 py-2 text-sm font-medium"
+                class="bg-brand-50 text-brand-700 inline-flex items-center rounded-full px-4 py-2 text-sm font-medium dark:text-brand-300 dark:bg-brand-950/40"
               >
                 {{ post.publishedOn }}
               </time>
@@ -75,21 +45,23 @@ defineProps({
 
             <div class="flex-1 space-y-4">
               <h2
-                class="group-hover:text-brand-600 text-2xl font-bold text-gray-900 transition-colors"
+                class="group-hover:text-brand-600 text-2xl font-bold text-gray-900 transition-colors dark:text-gray-100"
               >
                 <a :href="`/blog/${post.slug}`" class="hover:underline">
                   {{ post.title }}
                 </a>
               </h2>
 
-              <p class="text-lg leading-relaxed text-gray-600">
+              <p
+                class="text-lg leading-relaxed text-gray-600 dark:text-gray-400"
+              >
                 {{ post.description }}
               </p>
 
               <div class="flex items-center justify-between">
                 <a
                   :href="`/blog/${post.slug}`"
-                  class="group/link text-brand-600 hover:text-brand-700 inline-flex items-center font-semibold transition-colors"
+                  class="group/link text-brand-600 hover:text-brand-700 inline-flex items-center font-semibold transition-colors dark:text-brand-300"
                 >
                   Read full article
                   <ArrowRight
@@ -99,7 +71,7 @@ defineProps({
 
                 <span
                   v-if="index === 0"
-                  class="bg-accent-100 text-accent-800 inline-flex items-center rounded-full px-3 py-1 text-xs font-semibold"
+                  class="bg-accent-100 text-accent-800 inline-flex items-center rounded-full px-3 py-1 text-xs font-semibold dark:bg-accent-950/40 dark:text-accent-300"
                 >
                   Latest
                 </span>
@@ -108,19 +80,21 @@ defineProps({
           </div>
 
           <div
-            class="from-brand-500/5 to-accent-500/5 absolute inset-0 -z-10 rounded-2xl bg-linear-to-r opacity-0 transition-opacity group-hover:opacity-100"
+            class="absolute inset-0 -z-10 rounded-xl opacity-0 transition-opacity group-hover:opacity-100 bg-gray-50 dark:bg-gray-950"
           ></div>
         </article>
       </div>
 
       <div v-else class="py-20 text-center" role="status" aria-live="polite">
         <div
-          class="mx-auto mb-8 flex h-24 w-24 items-center justify-center rounded-full bg-gray-100"
+          class="mx-auto mb-8 flex h-24 w-24 items-center justify-center rounded-full bg-gray-100 dark:bg-gray-800"
         >
           <Newspaper class="h-12 w-12 text-gray-400" />
         </div>
-        <h3 class="mb-3 text-2xl font-bold text-gray-900">No blog posts yet</h3>
-        <p class="mb-8 text-lg text-gray-600">
+        <h3 class="mb-3 text-2xl font-bold text-gray-900 dark:text-gray-100">
+          No blog posts yet
+        </h3>
+        <p class="mb-8 text-lg text-gray-600 dark:text-gray-400">
           Check back soon for updates and insights about building with Ascent
           React.
         </p>
@@ -134,14 +108,10 @@ defineProps({
 
       <div
         v-if="blogPosts && blogPosts.length > 0"
-        class="to-brand-900 relative mt-20 overflow-hidden rounded-3xl bg-linear-to-br from-gray-900 via-gray-800 px-8 py-12 text-center text-white"
+        class="relative mt-20 overflow-hidden rounded-3xl px-8 py-12 text-center text-white bg-brand-600"
       >
-        <div
-          class="bg-brand-500/10 absolute top-0 left-1/4 h-32 w-32 rounded-full blur-3xl"
-        ></div>
-        <div
-          class="bg-accent-500/10 absolute right-1/4 bottom-0 h-24 w-24 rounded-full blur-3xl"
-        ></div>
+        <div class="hidden"></div>
+        <div class="hidden"></div>
 
         <div class="relative mx-auto max-w-2xl">
           <h3 class="mb-4 text-3xl font-bold">Never miss an update</h3>
@@ -162,7 +132,7 @@ defineProps({
             />
             <button
               type="submit"
-              class="from-brand-600 to-accent-600 rounded-lg bg-linear-to-r px-8 py-3 font-semibold text-white transition-all duration-200 hover:shadow-lg"
+              class="rounded-lg px-8 py-3 font-semibold text-white transition-all duration-200 shadow-none bg-brand-600"
             >
               Subscribe
             </button>

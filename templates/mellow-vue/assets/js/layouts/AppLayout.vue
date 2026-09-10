@@ -1,16 +1,16 @@
 <script setup>
+import { computed } from 'vue'
 import { Link, usePage } from '@inertiajs/vue3'
 
-const loggedInUser = usePage().props.loggedInUser
+const page = usePage()
+const loggedInUser = computed(() => page.props.loggedInUser)
 </script>
 
 <template>
-  <div
-    class="from-brand-50/10 flex min-h-screen flex-col bg-gradient-to-b to-[#F9FAFB]"
-  >
+  <div class="mellow-shell">
     <header>
-      <nav class="flex items-center justify-between px-4 py-6 md:px-8">
-        <Link href="/">
+      <nav class="mellow-nav">
+        <Link href="/" class="mellow-brand" aria-label="Mellow home">
           <svg
             class="w-12"
             viewBox="0 0 50 33"
@@ -24,26 +24,22 @@ const loggedInUser = usePage().props.loggedInUser
             <path
               d="M0 21.5518C0 27.0047 3.59506 31.5482 8.35764 32.5521C9.09275 32.8207 9.88637 32.9672 10.7143 32.9672H26.787C27.326 32.9672 27.5608 32.2463 27.1492 31.898C24.3403 29.5213 22.2527 26.1717 22.2527 21.4287C22.2527 18.8226 21.5927 16.9244 20.6205 15.4974C19.6372 14.054 18.2542 12.9752 16.641 12.1533C15.0127 11.324 13.2451 10.7957 11.557 10.4212C11.1594 10.371 10.7548 10.345 10.3448 10.345C4.63143 10.345 0 15.3625 0 21.5518Z"
               fill="#6C25C1"
-            />
-          </svg>
+            /></svg
+          ><span>Mellow.</span>
         </Link>
         <ul
           class="flex items-center justify-items-end space-x-4 text-sm"
           v-if="!loggedInUser"
         >
           <li>
-            <Link href="/login" class="text-brand md:text-lg">Login</Link>
+            <Link href="/login" class="text-sm font-medium">Login</Link>
           </li>
           <li>
-            <Link
-              href="/signup"
-              class="bg-brand rounded-lg px-8 py-4 text-white md:py-3"
-              >Sign up</Link
-            >
+            <Link href="/signup" class="mellow-primary">Sign up</Link>
           </li>
         </ul>
         <section class="flex items-center space-x-6" v-else>
-          <Link href="/dashboard" class="text-brand md:text-lg">Dashboard</Link>
+          <Link href="/dashboard" class="text-sm font-medium">Dashboard</Link>
           <Link href="/profile">
             <p
               class="bg-green rounded-full p-2 text-white"
@@ -62,13 +58,11 @@ const loggedInUser = usePage().props.loggedInUser
       </nav>
     </header>
 
-    <main class="mb-10 min-h-screen">
+    <main class="flex-1">
       <slot></slot>
     </main>
 
-    <footer
-      class="flex flex-col items-center justify-center space-y-4 px-4 py-8 text-center"
-    >
+    <footer class="mellow-footer">
       <svg
         width="93"
         height="25"

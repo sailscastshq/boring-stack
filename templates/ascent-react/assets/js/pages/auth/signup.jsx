@@ -127,11 +127,11 @@ export default function Signup() {
     <>
       <>
         <Head title="Create Account | Ascent"></Head>
-        <div className="flex min-h-screen flex-col justify-center bg-gradient-to-br from-brand-50/30 via-white to-accent-50/20 py-12 sm:px-6 lg:px-8">
+        <div className="ascent-auth">
           {/* Background Elements */}
           <div className="pointer-events-none absolute inset-0 overflow-hidden">
-            <div className="absolute left-1/4 top-20 h-96 w-96 rounded-full bg-brand-200/20 blur-3xl"></div>
-            <div className="absolute bottom-20 right-1/4 h-72 w-72 rounded-full bg-accent-200/20 blur-3xl"></div>
+            <div className="hidden"></div>
+            <div className="hidden"></div>
           </div>
 
           <div className="relative sm:mx-auto sm:w-full sm:max-w-lg">
@@ -139,29 +139,36 @@ export default function Signup() {
             <div className="mb-8 flex items-center justify-center">
               <Link href="/" className="group">
                 <div className="relative">
-                  <div className="absolute inset-0 scale-110 rounded-2xl bg-brand-200/30 opacity-0 blur-xl transition-opacity group-hover:opacity-100"></div>
-                  <img
-                    src="/images/logo.svg"
-                    alt="Ascent Logo"
-                    className="relative h-12 w-auto"
-                  />
+                  <div className="hidden"></div>
+                  <span
+                    className="inline-flex items-center gap-1 text-2xl font-semibold tracking-tight text-gray-900 dark:text-gray-100"
+                    aria-label="Ascent"
+                  >
+                    Ascent
+                    <span
+                      className="text-brand-600 dark:text-brand-300"
+                      aria-hidden="true"
+                    >
+                      ↗
+                    </span>
+                  </span>
                 </div>
               </Link>
             </div>
 
             {/* Header */}
             <header className="mb-8 text-center">
-              <h1 className="text-3xl font-bold tracking-tight text-gray-900">
+              <h1 className="text-3xl font-bold tracking-tight text-gray-900 dark:text-gray-100">
                 Create your account
               </h1>
-              <p className="mt-2 text-base text-gray-600">
+              <p className="mt-2 text-base text-gray-600 dark:text-gray-400">
                 Join thousands of teams scaling with Ascent
               </p>
-              <p className="mt-2 text-base text-gray-600">
+              <p className="mt-2 text-base text-gray-600 dark:text-gray-400">
                 Or{' '}
                 <Link
                   href="/login"
-                  className="font-semibold text-brand-600 transition-colors hover:text-brand-500"
+                  className="font-semibold text-brand-600 transition-colors hover:text-brand-500 dark:text-brand-300"
                 >
                   sign in to your existing account
                 </Link>
@@ -172,10 +179,10 @@ export default function Signup() {
           <div className="relative sm:mx-auto sm:w-full sm:max-w-lg">
             <div className="relative">
               {/* Background blur effect */}
-              <div className="absolute inset-0 scale-105 rounded-2xl bg-gradient-to-r from-brand-600/10 to-accent-600/10 blur-xl"></div>
+              <div className="hidden"></div>
 
               {/* Main card */}
-              <div className="relative rounded-2xl border border-gray-100 bg-white px-8 py-10 shadow-2xl">
+              <div className="ascent-auth-panel">
                 {/* Global error */}
                 {form.errors.signup && (
                   <div className="mb-6" role="alert">
@@ -200,7 +207,7 @@ export default function Signup() {
                     <div>
                       <label
                         htmlFor="fullName"
-                        className="mb-2 block text-sm font-semibold text-gray-900"
+                        className="mb-2 block text-sm font-semibold text-gray-900 dark:text-gray-100"
                       >
                         Full Name
                       </label>
@@ -214,10 +221,10 @@ export default function Signup() {
                           onChange={(e) => setData('fullName', e.target.value)}
                           onFocus={() => setFocusedField('fullName')}
                           onBlur={() => setFocusedField('')}
-                          className={`w-full rounded-xl border px-4 py-4 text-lg font-medium transition-all duration-200 ${
+                          className={`w-full rounded-lg border px-4 py-4 text-base font-medium transition-all duration-200 ${
                             form.errors.fullName
-                              ? 'border-red-300 bg-red-50 ring-2 ring-red-100'
-                              : 'border-gray-200 bg-gray-50 focus:border-brand-300 focus:bg-white focus:ring-4 focus:ring-brand-100'
+                              ? 'border-red-300 bg-red-50 ring-2 ring-red-100 dark:border-red-900 dark:bg-red-950/40'
+                              : 'border-gray-200 bg-gray-50 focus:border-brand-300 focus:bg-white focus:ring-4 focus:ring-brand-100 dark:border-gray-700 dark:bg-gray-950'
                           }`}
                           placeholder="Enter your full name"
                         />
@@ -238,7 +245,7 @@ export default function Signup() {
                     <div>
                       <label
                         htmlFor="email"
-                        className="mb-2 block text-sm font-semibold text-gray-900"
+                        className="mb-2 block text-sm font-semibold text-gray-900 dark:text-gray-100"
                       >
                         Email Address
                       </label>
@@ -252,10 +259,10 @@ export default function Signup() {
                           onChange={(e) => setData('email', e.target.value)}
                           onFocus={() => setFocusedField('email')}
                           onBlur={() => setFocusedField('')}
-                          className={`w-full rounded-xl border px-4 py-4 text-lg font-medium transition-all duration-200 ${
+                          className={`w-full rounded-lg border px-4 py-4 text-base font-medium transition-all duration-200 ${
                             form.errors.email
-                              ? 'border-red-300 bg-red-50 ring-2 ring-red-100'
-                              : 'border-gray-200 bg-gray-50 focus:border-brand-300 focus:bg-white focus:ring-4 focus:ring-brand-100'
+                              ? 'border-red-300 bg-red-50 ring-2 ring-red-100 dark:border-red-900 dark:bg-red-950/40'
+                              : 'border-gray-200 bg-gray-50 focus:border-brand-300 focus:bg-white focus:ring-4 focus:ring-brand-100 dark:border-gray-700 dark:bg-gray-950'
                           }`}
                           placeholder="Enter your email address"
                         />
@@ -280,12 +287,12 @@ export default function Signup() {
                         className={`flex w-full justify-center rounded-xl px-8 py-4 text-lg font-bold text-white shadow-lg transition-all duration-200 hover:scale-[1.02] hover:shadow-xl disabled:cursor-not-allowed disabled:opacity-50 disabled:hover:scale-100 ${
                           disableMagicLinkButton
                             ? 'bg-gray-300'
-                            : 'bg-gradient-to-r from-brand-600 to-accent-600 hover:from-brand-700 hover:to-accent-700 focus:outline-none focus:ring-2 focus:ring-brand-500 focus:ring-offset-2'
+                            : 'bg-brand-600 hover:bg-brand-700 focus:outline-none focus:ring-2 focus:ring-brand-500 focus:ring-offset-2 dark:bg-brand-600'
                         }`}
                       >
                         {isSendingMagicLink ? (
                           <div className="flex items-center space-x-2">
-                            <Spinner className="h-5 w-5 " />
+                            <Spinner className="h-5 w-5" />
                             <span>Sending link...</span>
                           </div>
                         ) : (
@@ -302,7 +309,7 @@ export default function Signup() {
                       <button
                         type="button"
                         onClick={toggleToPasswordMode}
-                        className="text-sm font-medium text-gray-600 underline underline-offset-2 transition-colors hover:text-brand-600"
+                        className="text-sm font-medium text-gray-600 underline underline-offset-2 transition-colors hover:text-brand-600 dark:text-gray-400"
                       >
                         Other sign-up options
                       </button>
@@ -316,7 +323,7 @@ export default function Signup() {
                       <button
                         type="button"
                         onClick={toggleToMagicMode}
-                        className="flex items-center text-sm font-medium text-gray-600 transition-colors hover:text-brand-600"
+                        className="flex items-center text-sm font-medium text-gray-600 transition-colors hover:text-brand-600 dark:text-gray-400"
                       >
                         <ChevronLeft className="mr-1 h-4 w-4" />
                         Back to magic link
@@ -328,7 +335,7 @@ export default function Signup() {
                       <div>
                         <label
                           htmlFor="fullName-expanded"
-                          className="mb-2 block text-sm font-semibold text-gray-900"
+                          className="mb-2 block text-sm font-semibold text-gray-900 dark:text-gray-100"
                         >
                           Full Name
                         </label>
@@ -344,10 +351,10 @@ export default function Signup() {
                             }
                             onFocus={() => setFocusedField('fullName')}
                             onBlur={() => setFocusedField('')}
-                            className={`w-full rounded-xl border px-4 py-4 text-lg font-medium transition-all duration-200 ${
+                            className={`w-full rounded-lg border px-4 py-4 text-base font-medium transition-all duration-200 ${
                               form.errors.fullName
-                                ? 'border-red-300 bg-red-50 ring-2 ring-red-100'
-                                : 'border-gray-200 bg-gray-50 focus:border-brand-300 focus:bg-white focus:ring-4 focus:ring-brand-100'
+                                ? 'border-red-300 bg-red-50 ring-2 ring-red-100 dark:border-red-900 dark:bg-red-950/40'
+                                : 'border-gray-200 bg-gray-50 focus:border-brand-300 focus:bg-white focus:ring-4 focus:ring-brand-100 dark:border-gray-700 dark:bg-gray-950'
                             }`}
                             placeholder="Enter your full name"
                           />
@@ -368,7 +375,7 @@ export default function Signup() {
                       <div>
                         <label
                           htmlFor="email-expanded"
-                          className="mb-2 block text-sm font-semibold text-gray-900"
+                          className="mb-2 block text-sm font-semibold text-gray-900 dark:text-gray-100"
                         >
                           Email Address
                         </label>
@@ -382,10 +389,10 @@ export default function Signup() {
                             onChange={(e) => setData('email', e.target.value)}
                             onFocus={() => setFocusedField('email')}
                             onBlur={() => setFocusedField('')}
-                            className={`w-full rounded-xl border px-4 py-4 text-lg font-medium transition-all duration-200 ${
+                            className={`w-full rounded-lg border px-4 py-4 text-base font-medium transition-all duration-200 ${
                               form.errors.email
-                                ? 'border-red-300 bg-red-50 ring-2 ring-red-100'
-                                : 'border-gray-200 bg-gray-50 focus:border-brand-300 focus:bg-white focus:ring-4 focus:ring-brand-100'
+                                ? 'border-red-300 bg-red-50 ring-2 ring-red-100 dark:border-red-900 dark:bg-red-950/40'
+                                : 'border-gray-200 bg-gray-50 focus:border-brand-300 focus:bg-white focus:ring-4 focus:ring-brand-100 dark:border-gray-700 dark:bg-gray-950'
                             }`}
                             placeholder="Enter your email address"
                           />
@@ -406,7 +413,7 @@ export default function Signup() {
                       <div>
                         <label
                           htmlFor="password"
-                          className="mb-2 block text-sm font-semibold text-gray-900"
+                          className="mb-2 block text-sm font-semibold text-gray-900 dark:text-gray-100"
                         >
                           Password
                         </label>
@@ -422,10 +429,10 @@ export default function Signup() {
                             }
                             onFocus={() => setFocusedField('password')}
                             onBlur={() => setFocusedField('')}
-                            className={`w-full rounded-xl border px-4 py-4 text-lg font-medium transition-all duration-200 ${
+                            className={`w-full rounded-lg border px-4 py-4 text-base font-medium transition-all duration-200 ${
                               form.errors.password
-                                ? 'border-red-300 bg-red-50 ring-2 ring-red-100'
-                                : 'border-gray-200 bg-gray-50 focus:border-brand-300 focus:bg-white focus:ring-4 focus:ring-brand-100'
+                                ? 'border-red-300 bg-red-50 ring-2 ring-red-100 dark:border-red-900 dark:bg-red-950/40'
+                                : 'border-gray-200 bg-gray-50 focus:border-brand-300 focus:bg-white focus:ring-4 focus:ring-brand-100 dark:border-gray-700 dark:bg-gray-950'
                             }`}
                             placeholder="Create a secure password"
                           />
@@ -492,12 +499,12 @@ export default function Signup() {
                           className={`flex w-full justify-center rounded-xl px-8 py-4 text-lg font-bold text-white shadow-lg transition-all duration-200 hover:scale-[1.02] hover:shadow-xl disabled:cursor-not-allowed disabled:opacity-50 disabled:hover:scale-100 ${
                             disableSignupButton
                               ? 'bg-gray-300'
-                              : 'bg-gradient-to-r from-brand-600 to-accent-600 hover:from-brand-700 hover:to-accent-700 focus:outline-none focus:ring-2 focus:ring-brand-500 focus:ring-offset-2'
+                              : 'bg-brand-600 hover:bg-brand-700 focus:outline-none focus:ring-2 focus:ring-brand-500 focus:ring-offset-2 dark:bg-brand-600'
                           }`}
                         >
                           {form.processing ? (
                             <div className="flex items-center space-x-2">
-                              <Spinner className="h-5 w-5 " />
+                              <Spinner className="h-5 w-5" />
                               <span>Creating account...</span>
                             </div>
                           ) : (
@@ -508,18 +515,18 @@ export default function Signup() {
 
                       {/* Terms - cleaner positioning */}
                       <div className="pt-4 text-center">
-                        <p className="text-sm text-gray-600">
+                        <p className="text-sm text-gray-600 dark:text-gray-400">
                           By creating an account, you agree to our{' '}
                           <a
                             href="/legal/terms"
-                            className="font-medium text-brand-600 underline underline-offset-2 hover:text-brand-500"
+                            className="font-medium text-brand-600 underline underline-offset-2 hover:text-brand-500 dark:text-brand-300"
                           >
                             Terms of Service
                           </a>{' '}
                           and{' '}
                           <a
                             href="/legal/privacy"
-                            className="font-medium text-brand-600 underline underline-offset-2 hover:text-brand-500"
+                            className="font-medium text-brand-600 underline underline-offset-2 hover:text-brand-500 dark:text-brand-300"
                           >
                             Privacy Policy
                           </a>
@@ -534,10 +541,10 @@ export default function Signup() {
                   <div className="my-6">
                     <div className="relative">
                       <div className="absolute inset-0 flex items-center">
-                        <div className="w-full border-t border-gray-200"></div>
+                        <div className="w-full border-t border-gray-200 dark:border-gray-700"></div>
                       </div>
                       <div className="relative flex justify-center text-sm">
-                        <span className="bg-white px-4 font-medium text-gray-500">
+                        <span className="bg-white px-4 font-medium text-gray-500 dark:bg-gray-900 dark:text-gray-400">
                           Or continue with
                         </span>
                       </div>
@@ -551,7 +558,7 @@ export default function Signup() {
                     {/* Google Button - Half width */}
                     <a
                       href="/auth/google/redirect"
-                      className="flex items-center justify-center rounded-xl border border-gray-200 bg-gray-50 px-4 py-4 text-base font-medium text-gray-700 shadow-lg transition-all duration-200 hover:scale-[1.02] hover:border-gray-300 hover:bg-gray-100 hover:shadow-xl focus:outline-none focus:ring-2 focus:ring-brand-500 focus:ring-offset-2"
+                      className="flex items-center justify-center rounded-xl border border-gray-200 bg-gray-50 px-4 py-4 text-base font-medium text-gray-700 shadow-none transition-all duration-200 hover:border-gray-300 hover:bg-gray-100 hover:brightness-95 focus:outline-none focus:ring-2 focus:ring-brand-500 focus:ring-offset-2 dark:border-gray-700 dark:bg-gray-950 dark:text-gray-300 dark:hover:bg-gray-800"
                     >
                       <svg className="mr-2 h-5 w-5" viewBox="0 0 24 24">
                         <path
@@ -577,7 +584,7 @@ export default function Signup() {
                     {/* GitHub Button - Half width */}
                     <a
                       href="/auth/github/redirect"
-                      className="flex items-center justify-center rounded-xl border border-gray-200 bg-gray-50 px-4 py-4 text-base font-medium text-gray-700 shadow-lg transition-all duration-200 hover:scale-[1.02] hover:border-gray-300 hover:bg-gray-100 hover:shadow-xl focus:outline-none focus:ring-2 focus:ring-brand-500 focus:ring-offset-2"
+                      className="flex items-center justify-center rounded-xl border border-gray-200 bg-gray-50 px-4 py-4 text-base font-medium text-gray-700 shadow-none transition-all duration-200 hover:border-gray-300 hover:bg-gray-100 hover:brightness-95 focus:outline-none focus:ring-2 focus:ring-brand-500 focus:ring-offset-2 dark:border-gray-700 dark:bg-gray-950 dark:text-gray-300 dark:hover:bg-gray-800"
                     >
                       <svg
                         className="mr-2 h-5 w-5"

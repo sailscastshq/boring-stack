@@ -61,14 +61,16 @@ function handleClose() {
       <!-- Header -->
       <div class="text-center">
         <div
-          class="mx-auto mb-4 flex h-16 w-16 items-center justify-center rounded-full bg-blue-50"
+          class="mx-auto mb-4 flex h-16 w-16 items-center justify-center rounded-full bg-blue-50 dark:bg-blue-950/40"
         >
-          <Envelope class="h-[1em] w-[1em] shrink-0 text-2xl text-blue-600" />
+          <Envelope
+            class="h-[1em] w-[1em] shrink-0 text-2xl text-blue-600 dark:text-blue-300"
+          />
         </div>
-        <h2 class="mb-2 text-xl font-semibold text-gray-900">
+        <h2 class="mb-2 text-xl font-semibold text-gray-900 dark:text-gray-100">
           Verify Your Email
         </h2>
-        <p class="text-sm text-gray-600">
+        <p class="text-sm text-gray-600 dark:text-gray-400">
           We've sent a 6-digit verification code to
           <strong>{{ userEmail }}</strong
           >. Enter it below to enable email two-factor authentication.
@@ -91,7 +93,9 @@ function handleClose() {
       <!-- Verification Form -->
       <form @submit.prevent="handleVerifyCode" class="space-y-6">
         <div>
-          <label class="mb-3 block text-sm font-medium text-gray-700">
+          <label
+            class="mb-3 block text-sm font-medium text-gray-700 dark:text-gray-300"
+          >
             Enter verification code
           </label>
           <div class="flex justify-start">
@@ -107,13 +111,15 @@ function handleClose() {
         </div>
 
         <!-- Help Text -->
-        <div class="rounded-lg border border-gray-300 bg-gray-50 p-4">
+        <div
+          class="rounded-lg border border-gray-300 bg-gray-50 p-4 dark:border-gray-700 dark:bg-gray-950"
+        >
           <div class="flex">
             <div class="shrink-0">
               <InfoCircle class="h-[1em] w-[1em] shrink-0 text-gray-400" />
             </div>
             <div class="ml-3">
-              <p class="text-sm text-gray-600">
+              <p class="text-sm text-gray-600 dark:text-gray-400">
                 The verification code expires in 10 minutes. If you don't see
                 the email, check your spam folder.
               </p>

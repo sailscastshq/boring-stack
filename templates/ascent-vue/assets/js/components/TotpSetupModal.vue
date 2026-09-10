@@ -61,10 +61,10 @@ function handleClose() {
     <div class="space-y-8">
       <!-- Header -->
       <div class="text-center">
-        <h2 class="mb-2 text-xl font-semibold text-gray-900">
+        <h2 class="mb-2 text-xl font-semibold text-gray-900 dark:text-gray-100">
           Set up Authenticator App
         </h2>
-        <p class="text-sm text-gray-600">
+        <p class="text-sm text-gray-600 dark:text-gray-400">
           Each time you log in, in addition to your password, you'll use an
           authenticator app to generate a one-time code.
         </p>
@@ -87,9 +87,11 @@ function handleClose() {
           >
             1
           </div>
-          <h3 class="text-base font-semibold text-gray-900">Scan QR code</h3>
+          <h3 class="text-base font-semibold text-gray-900 dark:text-gray-100">
+            Scan QR code
+          </h3>
         </div>
-        <p class="text-sm text-gray-600">
+        <p class="text-sm text-gray-600 dark:text-gray-400">
           Scan the QR code below or manually enter the secret key into your
           authenticator app.
         </p>
@@ -109,16 +111,18 @@ function handleClose() {
           <!-- Manual Entry -->
           <div class="flex-1 space-y-3 sm:min-w-0">
             <div>
-              <h4 class="mb-2 text-sm font-medium text-gray-900">
+              <h4
+                class="mb-2 text-sm font-medium text-gray-900 dark:text-gray-100"
+              >
                 Can't scan QR code?
               </h4>
-              <p class="mb-3 text-sm text-gray-600">
+              <p class="mb-3 text-sm text-gray-600 dark:text-gray-400">
                 Enter this secret instead:
               </p>
             </div>
             <div class="flex items-center space-x-2">
               <div
-                class="min-w-0 flex-1 rounded border border-gray-300 bg-white px-3 py-2 font-mono text-sm break-all text-gray-900"
+                class="min-w-0 flex-1 rounded border border-gray-300 bg-white px-3 py-2 font-mono text-sm break-all text-gray-900 dark:border-gray-700 dark:bg-gray-900 dark:text-gray-100"
               >
                 {{ setupData.manualEntryKey }}
               </div>
@@ -128,8 +132,8 @@ function handleClose() {
                 :title="copied ? 'Copied!' : 'Copy code'"
                 :class="
                   copied
-                    ? 'text-success-600 hover:text-success-700'
-                    : 'text-gray-500 hover:text-gray-700'
+                    ? 'text-success-600 hover:text-success-700 dark:text-success-300'
+                    : 'text-gray-500 hover:text-gray-700 dark:text-gray-400'
                 "
                 @click="copyToClipboard(setupData.manualEntryKey)"
                 ><component :is="copied ? Check : Copy" class="h-4 w-4"
@@ -147,17 +151,19 @@ function handleClose() {
           >
             2
           </div>
-          <h3 class="text-base font-semibold text-gray-900">
+          <h3 class="text-base font-semibold text-gray-900 dark:text-gray-100">
             Get verification code
           </h3>
         </div>
-        <p class="text-sm text-gray-600">
+        <p class="text-sm text-gray-600 dark:text-gray-400">
           Enter the 6-digit code you see in your authenticator app.
         </p>
 
         <form @submit.prevent="handleVerifyTOTP" class="space-y-6">
           <div>
-            <label class="mb-3 block text-sm font-medium text-gray-700">
+            <label
+              class="mb-3 block text-sm font-medium text-gray-700 dark:text-gray-300"
+            >
               Enter verification code
             </label>
             <div class="flex justify-start">

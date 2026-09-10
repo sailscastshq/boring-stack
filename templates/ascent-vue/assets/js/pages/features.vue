@@ -1,688 +1,112 @@
 <script setup>
-import Users from '@/components/ui/icons/Users.vue'
-import Lock from '@/components/ui/icons/Lock.vue'
-import InfoCircle from '@/components/ui/icons/InfoCircle.vue'
-import Envelope from '@/components/ui/icons/Envelope.vue'
-import CreditCard from '@/components/ui/icons/CreditCard.vue'
-import Code from '@/components/ui/icons/Code.vue'
-import Check from '@/components/ui/icons/Check.vue'
-import Chat from '@/components/ui/icons/Chat.vue'
-import ChartBar from '@/components/ui/icons/ChartBar.vue'
-import Bolt from '@/components/ui/icons/Bolt.vue'
+import ArrowRight from '@/components/ui/icons/ArrowRight.vue'
 import { Head, Link } from '@inertiajs/vue3'
+import Check from '@/components/ui/icons/Check.vue'
 import AppLayout from '@/layouts/AppLayout.vue'
-
-defineOptions({
-  layout: AppLayout
-})
+defineOptions({ layout: AppLayout })
 </script>
-
 <template>
-  <Head title="Features - Everything You Need to Scale Fast | Ascent" />
-
-  <!-- Hero Section -->
-  <section class="relative overflow-hidden px-4 pt-20 pb-16">
-    <div
-      class="from-brand-50/30 to-accent-50/20 absolute inset-0 bg-linear-to-br via-white"
-    />
-    <div
-      class="bg-brand-100/20 absolute top-20 left-1/2 h-96 w-96 -translate-x-1/2 transform rounded-full blur-3xl"
-    />
-
-    <div class="relative mx-auto max-w-4xl text-center">
-      <div class="mb-6">
-        <span
-          class="bg-brand-100 text-brand-700 inline-flex items-center rounded-full px-4 py-2 text-sm font-semibold"
-        >
-          ⚡ Built for Speed
-        </span>
-      </div>
-
-      <h1
-        class="mb-6 text-5xl font-extrabold tracking-tight md:text-6xl lg:text-7xl"
-      >
-        <span class="block leading-tight text-gray-900">
-          Everything You Need
-        </span>
-        <span
-          class="from-brand-600 to-accent-600 block bg-linear-to-r bg-clip-text leading-tight text-transparent"
-        >
-          to Scale Fast
-        </span>
-      </h1>
-
-      <p
-        class="mx-auto mb-10 max-w-2xl text-xl leading-relaxed font-medium text-gray-600"
-      >
-        Stop rebuilding the same features over and over. Launch your SaaS with
-        enterprise-grade infrastructure that actually works.
-        <span class="font-semibold text-gray-900">
-          Focus on what makes you unique.
-        </span>
-      </p>
-
-      <div class="flex flex-col justify-center gap-4 sm:flex-row">
-        <Link
-          href="/signup"
-          class="hover:shadow-3xl group from-brand-600 to-accent-600 relative inline-block rounded-xl bg-linear-to-r px-8 py-4 font-bold text-white no-underline shadow-2xl transition-all duration-200 hover:scale-[1.02]"
-        >
-          <span class="relative z-10">Start Building Today</span>
-          <div
-            class="from-brand-700 to-accent-700 absolute inset-0 rounded-xl bg-linear-to-r opacity-0 transition-opacity group-hover:opacity-100"
-          />
-        </Link>
-        <a
-          href="https://youtu.be/qp7YUtn_B7E"
-          target="_blank"
-          rel="noopener noreferrer"
-          class="hover:border-brand-300 inline-block rounded-xl border-2 border-gray-300 bg-white px-8 py-4 font-bold text-gray-700 no-underline shadow-lg transition-all duration-200 hover:scale-[1.02] hover:shadow-xl"
-        >
-          View Live Demo
-        </a>
-      </div>
-    </div>
+  <Head title="Features | Ascent" />
+  <section class="ascent-page-heading">
+    <h1>Good products start<br />on solid ground.</h1>
+    <p>
+      The everyday essentials, connected from the start. Make your first day
+      about your idea.
+    </p>
+    <Link href="/signup" class="ascent-primary"
+      >Get started <ArrowRight class="h-4 w-4 shrink-0"
+    /></Link>
   </section>
-
-  <!-- Detailed Features Grid -->
-  <section class="relative bg-white px-4 py-20">
-    <div class="absolute inset-0 bg-linear-to-b from-gray-50/50 to-white" />
-    <div
-      class="absolute inset-0"
-      style="
-        background-image: radial-gradient(
-          circle at 1px 1px,
-          rgba(15, 23, 42, 0.15) 1px,
-          transparent 0
-        );
-        background-size: 24px 24px;
-      "
-    />
-
-    <div class="relative mx-auto max-w-7xl">
-      <div class="grid grid-cols-1 gap-12 lg:grid-cols-2">
-        <!-- Secure Authentication -->
-        <div class="group relative">
-          <div
-            class="from-brand-600 to-accent-600 absolute -inset-0.5 rounded-3xl bg-linear-to-r opacity-20 blur transition duration-300 group-hover:opacity-30"
-          />
-          <div
-            class="relative rounded-3xl border border-gray-100 bg-white p-10 shadow-xl"
-          >
-            <div class="mb-8 flex items-center space-x-4">
-              <div
-                class="from-brand-500 to-brand-600 flex h-16 w-16 items-center justify-center rounded-2xl bg-linear-to-br shadow-lg"
-              >
-                <Lock class="h-8 w-8 text-white" />
-              </div>
-              <div>
-                <h3 class="text-2xl font-bold text-gray-900">
-                  Enterprise Authentication
-                </h3>
-                <p class="text-brand-600 font-medium">
-                  Security that scales with you
-                </p>
-              </div>
-            </div>
-
-            <p class="mb-8 text-lg leading-relaxed text-gray-600">
-              Stop worrying about security vulnerabilities. Our authentication
-              system includes everything from basic password auth to enterprise
-              SSO, with security best practices baked in from day one.
-            </p>
-
-            <div class="space-y-4">
-              <div class="flex items-center space-x-3">
-                <div
-                  class="bg-success-100 flex h-6 w-6 items-center justify-center rounded-full"
-                >
-                  <Check class="text-success-600 h-4 w-4" />
-                </div>
-                <span class="font-medium text-gray-700">
-                  OAuth with Google, GitHub, and more
-                </span>
-              </div>
-              <div class="flex items-center space-x-3">
-                <div
-                  class="bg-success-100 flex h-6 w-6 items-center justify-center rounded-full"
-                >
-                  <Check class="text-success-600 h-4 w-4" />
-                </div>
-                <span class="font-medium text-gray-700">
-                  Magic link authentication (passwordless)
-                </span>
-              </div>
-              <div class="flex items-center space-x-3">
-                <div
-                  class="bg-success-100 flex h-6 w-6 items-center justify-center rounded-full"
-                >
-                  <Check class="text-success-600 h-4 w-4" />
-                </div>
-                <span class="font-medium text-gray-700">
-                  Two-factor authentication ready
-                </span>
-              </div>
-              <div class="flex items-center space-x-3">
-                <div
-                  class="bg-success-100 flex h-6 w-6 items-center justify-center rounded-full"
-                >
-                  <Check class="text-success-600 h-4 w-4" />
-                </div>
-                <span class="font-medium text-gray-700">
-                  Session management & security headers
-                </span>
-              </div>
-            </div>
-
-            <div class="bg-brand-50 mt-8 rounded-2xl p-6">
-              <div class="flex items-start space-x-3">
-                <div
-                  class="bg-brand-100 flex h-8 w-8 items-center justify-center rounded-full"
-                >
-                  <InfoCircle class="text-brand-600 h-5 w-5" />
-                </div>
-                <div>
-                  <h4 class="text-brand-900 font-semibold">Enterprise Ready</h4>
-                  <p class="text-brand-700 text-sm leading-relaxed">
-                    Built with OWASP security standards, rate limiting, and
-                    audit logging. Your users' data is protected from day one.
-                  </p>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <!-- Subscription Billing -->
-        <div class="group relative">
-          <div
-            class="from-accent-600 absolute -inset-0.5 rounded-3xl bg-linear-to-r to-purple-600 opacity-20 blur transition duration-300 group-hover:opacity-30"
-          />
-          <div
-            class="relative rounded-3xl border border-gray-100 bg-white p-10 shadow-xl"
-          >
-            <div class="mb-8 flex items-center space-x-4">
-              <div
-                class="from-accent-500 to-accent-600 flex h-16 w-16 items-center justify-center rounded-2xl bg-linear-to-br shadow-lg"
-              >
-                <CreditCard class="h-8 w-8 text-white" />
-              </div>
-              <div>
-                <h3 class="text-2xl font-bold text-gray-900">
-                  Revenue-Ready Billing
-                </h3>
-                <p class="text-accent-600 font-medium">
-                  Start earning from day one
-                </p>
-              </div>
-            </div>
-
-            <p class="mb-8 text-lg leading-relaxed text-gray-600">
-              Integrated with Lemon Squeezy for hassle-free payments. Handle
-              subscriptions, one-time payments, trials, and complex pricing
-              models without touching a single line of payment code.
-            </p>
-
-            <div class="space-y-4">
-              <div class="flex items-center space-x-3">
-                <div
-                  class="bg-success-100 flex h-6 w-6 items-center justify-center rounded-full"
-                >
-                  <Check class="text-success-600 h-4 w-4" />
-                </div>
-                <span class="font-medium text-gray-700">
-                  Recurring subscriptions with automatic billing
-                </span>
-              </div>
-              <div class="flex items-center space-x-3">
-                <div
-                  class="bg-success-100 flex h-6 w-6 items-center justify-center rounded-full"
-                >
-                  <Check class="text-success-600 h-4 w-4" />
-                </div>
-                <span class="font-medium text-gray-700">
-                  Free trials and proration handling
-                </span>
-              </div>
-              <div class="flex items-center space-x-3">
-                <div
-                  class="bg-success-100 flex h-6 w-6 items-center justify-center rounded-full"
-                >
-                  <Check class="text-success-600 h-4 w-4" />
-                </div>
-                <span class="font-medium text-gray-700">
-                  Multiple pricing tiers and add-ons
-                </span>
-              </div>
-              <div class="flex items-center space-x-3">
-                <div
-                  class="bg-success-100 flex h-6 w-6 items-center justify-center rounded-full"
-                >
-                  <Check class="text-success-600 h-4 w-4" />
-                </div>
-                <span class="font-medium text-gray-700">
-                  Dunning management for failed payments
-                </span>
-              </div>
-            </div>
-
-            <div class="bg-accent-50 mt-8 rounded-2xl p-6">
-              <div class="flex items-start space-x-3">
-                <div
-                  class="bg-accent-100 flex h-8 w-8 items-center justify-center rounded-full"
-                >
-                  <ChartBar class="text-accent-600 h-5 w-5" />
-                </div>
-                <div>
-                  <h4 class="text-accent-900 font-semibold">
-                    Revenue Analytics
-                  </h4>
-                  <p class="text-accent-700 text-sm leading-relaxed">
-                    Track MRR, churn, LTV, and other key metrics with built-in
-                    analytics dashboard. Make data-driven decisions from day
-                    one.
-                  </p>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <!-- Team Management -->
-        <div class="group relative">
-          <div
-            class="from-success-600 absolute -inset-0.5 rounded-3xl bg-linear-to-r to-emerald-600 opacity-20 blur transition duration-300 group-hover:opacity-30"
-          />
-          <div
-            class="relative rounded-3xl border border-gray-100 bg-white p-10 shadow-xl"
-          >
-            <div class="mb-8 flex items-center space-x-4">
-              <div
-                class="from-success-500 to-success-600 flex h-16 w-16 items-center justify-center rounded-2xl bg-linear-to-br shadow-lg"
-              >
-                <Users class="h-8 w-8 text-white" />
-              </div>
-              <div>
-                <h3 class="text-2xl font-bold text-gray-900">
-                  Multi-Tenant Teams
-                </h3>
-                <p class="text-success-600 font-medium">
-                  Scale to enterprise customers
-                </p>
-              </div>
-            </div>
-
-            <p class="mb-8 text-lg leading-relaxed text-gray-600">
-              Built-in multi-tenancy with complete workspace isolation. Your
-              customers can invite teammates, manage permissions, and
-              collaborate safely—all without you writing a single line of team
-              management code.
-            </p>
-
-            <div class="space-y-4">
-              <div class="flex items-center space-x-3">
-                <div
-                  class="bg-success-100 flex h-6 w-6 items-center justify-center rounded-full"
-                >
-                  <Check class="text-success-600 h-4 w-4" />
-                </div>
-                <span class="font-medium text-gray-700">
-                  Role-based permissions (Owner, Admin, Member)
-                </span>
-              </div>
-              <div class="flex items-center space-x-3">
-                <div
-                  class="bg-success-100 flex h-6 w-6 items-center justify-center rounded-full"
-                >
-                  <Check class="text-success-600 h-4 w-4" />
-                </div>
-                <span class="font-medium text-gray-700">
-                  Email invitations with onboarding flow
-                </span>
-              </div>
-              <div class="flex items-center space-x-3">
-                <div
-                  class="bg-success-100 flex h-6 w-6 items-center justify-center rounded-full"
-                >
-                  <Check class="text-success-600 h-4 w-4" />
-                </div>
-                <span class="font-medium text-gray-700">
-                  Complete data isolation between workspaces
-                </span>
-              </div>
-              <div class="flex items-center space-x-3">
-                <div
-                  class="bg-success-100 flex h-6 w-6 items-center justify-center rounded-full"
-                >
-                  <Check class="text-success-600 h-4 w-4" />
-                </div>
-                <span class="font-medium text-gray-700">
-                  Team switching and management UI
-                </span>
-              </div>
-            </div>
-
-            <div class="bg-success-50 mt-8 rounded-2xl p-6">
-              <div class="flex items-start space-x-3">
-                <div
-                  class="bg-success-100 flex h-8 w-8 items-center justify-center rounded-full"
-                >
-                  <Lock class="text-success-600 h-5 w-5" />
-                </div>
-                <div>
-                  <h4 class="text-success-900 font-semibold">
-                    Enterprise Security
-                  </h4>
-                  <p class="text-success-700 text-sm leading-relaxed">
-                    Every team action is logged and auditable. Perfect for
-                    compliance requirements and enterprise security standards.
-                  </p>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <!-- Admin Dashboard -->
-        <div class="group relative">
-          <div
-            class="absolute -inset-0.5 rounded-3xl bg-linear-to-r from-purple-600 to-pink-600 opacity-20 blur transition duration-300 group-hover:opacity-30"
-          />
-          <div
-            class="relative rounded-3xl border border-gray-100 bg-white p-10 shadow-xl"
-          >
-            <div class="mb-8 flex items-center space-x-4">
-              <div
-                class="flex h-16 w-16 items-center justify-center rounded-2xl bg-linear-to-br from-purple-500 to-purple-600 shadow-lg"
-              >
-                <ChartBar class="h-8 w-8 text-white" />
-              </div>
-              <div>
-                <h3 class="text-2xl font-bold text-gray-900">
-                  Powerful Admin Dashboard
-                </h3>
-                <p class="font-medium text-purple-600">
-                  Control everything from one place
-                </p>
-              </div>
-            </div>
-
-            <p class="mb-8 text-lg leading-relaxed text-gray-600">
-              A beautiful, comprehensive admin interface to manage users,
-              monitor revenue, track key metrics, and keep your finger on the
-              pulse of your growing business.
-            </p>
-
-            <div class="space-y-4">
-              <div class="flex items-center space-x-3">
-                <div
-                  class="bg-success-100 flex h-6 w-6 items-center justify-center rounded-full"
-                >
-                  <Check class="text-success-600 h-4 w-4" />
-                </div>
-                <span class="font-medium text-gray-700">
-                  User management and activity monitoring
-                </span>
-              </div>
-              <div class="flex items-center space-x-3">
-                <div
-                  class="bg-success-100 flex h-6 w-6 items-center justify-center rounded-full"
-                >
-                  <Check class="text-success-600 h-4 w-4" />
-                </div>
-                <span class="font-medium text-gray-700">
-                  Revenue analytics and subscription insights
-                </span>
-              </div>
-              <div class="flex items-center space-x-3">
-                <div
-                  class="bg-success-100 flex h-6 w-6 items-center justify-center rounded-full"
-                >
-                  <Check class="text-success-600 h-4 w-4" />
-                </div>
-                <span class="font-medium text-gray-700">
-                  System health and performance metrics
-                </span>
-              </div>
-              <div class="flex items-center space-x-3">
-                <div
-                  class="bg-success-100 flex h-6 w-6 items-center justify-center rounded-full"
-                >
-                  <Check class="text-success-600 h-4 w-4" />
-                </div>
-                <span class="font-medium text-gray-700">
-                  Email campaign management and logs
-                </span>
-              </div>
-            </div>
-
-            <div class="mt-8 rounded-2xl bg-purple-50 p-6">
-              <div class="flex items-start space-x-3">
-                <div
-                  class="flex h-8 w-8 items-center justify-center rounded-full bg-purple-100"
-                >
-                  <Bolt class="h-5 w-5 text-purple-600" />
-                </div>
-                <div>
-                  <h4 class="font-semibold text-purple-900">
-                    Real-time Insights
-                  </h4>
-                  <p class="text-sm leading-relaxed text-purple-700">
-                    Get instant notifications about important events, track user
-                    behavior, and make informed decisions with real-time data.
-                  </p>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- Additional Features Grid -->
-  <section class="relative bg-gray-50 px-4 py-20">
-    <div class="relative mx-auto max-w-7xl">
-      <div class="mb-16 text-center">
-        <h2
-          class="mb-6 text-4xl font-extrabold tracking-tight text-gray-900 md:text-5xl"
-        >
-          And That's Not All
-          <span
-            class="from-brand-600 to-accent-600 block bg-linear-to-r bg-clip-text text-transparent"
-          >
-            We've Thought of Everything
-          </span>
-        </h2>
-        <p
-          class="mx-auto max-w-3xl text-xl leading-relaxed font-medium text-gray-600"
-        >
-          Every feature you need to launch and scale your SaaS, built with
-          modern technologies and best practices.
+  <section class="ascent-feature-index" aria-label="Included features">
+    <article>
+      <div>
+        <h2>A welcoming front door.</h2>
+        <p>
+          Password sign-in, magic links, passkeys, and account recovery. Give
+          people a clear path into your application.
         </p>
       </div>
-
-      <div class="grid grid-cols-1 gap-8 md:grid-cols-2 lg:grid-cols-3">
-        <!-- Content & Blog -->
-        <div
-          class="group relative rounded-2xl border border-gray-300 bg-white p-8 shadow-sm transition-all duration-300 hover:-translate-y-1 hover:shadow-xl"
-        >
-          <div
-            class="absolute inset-0 rounded-2xl bg-linear-to-br from-orange-50/50 to-transparent opacity-0 transition-opacity group-hover:opacity-100"
-          />
-          <div class="relative">
-            <div
-              class="mb-6 flex h-14 w-14 items-center justify-center rounded-2xl bg-linear-to-br from-orange-500 to-orange-600 shadow-lg"
-            >
-              <Chat class="h-7 w-7 text-white" />
-            </div>
-            <h3 class="mb-3 text-xl font-bold text-gray-900">
-              Content Management
-            </h3>
-            <p class="mb-6 leading-relaxed text-gray-600">
-              Built-in CMS and blog system powered by Sails Content. Create
-              landing pages, write blog posts, and manage marketing content
-              without leaving your app.
-            </p>
-            <div class="space-y-2 text-sm text-gray-500">
-              <div class="flex items-center space-x-2">
-                <div class="h-1.5 w-1.5 rounded-full bg-orange-500" />
-                <span>Markdown editor with live preview</span>
-              </div>
-              <div class="flex items-center space-x-2">
-                <div class="h-1.5 w-1.5 rounded-full bg-orange-500" />
-                <span>SEO optimization built-in</span>
-              </div>
-              <div class="flex items-center space-x-2">
-                <div class="h-1.5 w-1.5 rounded-full bg-orange-500" />
-                <span>Custom page templates</span>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <!-- Email System -->
-        <div
-          class="group relative rounded-2xl border border-gray-300 bg-white p-8 shadow-sm transition-all duration-300 hover:-translate-y-1 hover:shadow-xl"
-        >
-          <div
-            class="absolute inset-0 rounded-2xl bg-linear-to-br from-red-50/50 to-transparent opacity-0 transition-opacity group-hover:opacity-100"
-          />
-          <div class="relative">
-            <div
-              class="mb-6 flex h-14 w-14 items-center justify-center rounded-2xl bg-linear-to-br from-red-500 to-red-600 shadow-lg"
-            >
-              <Envelope class="h-7 w-7 text-white" />
-            </div>
-            <h3 class="mb-3 text-xl font-bold text-gray-900">
-              Transactional Email
-            </h3>
-            <p class="mb-6 leading-relaxed text-gray-600">
-              Beautiful email templates for onboarding, billing notifications,
-              password resets, and customer communication. All automated and
-              ready to go.
-            </p>
-            <div class="space-y-2 text-sm text-gray-500">
-              <div class="flex items-center space-x-2">
-                <div class="h-1.5 w-1.5 rounded-full bg-red-500" />
-                <span>Responsive HTML templates</span>
-              </div>
-              <div class="flex items-center space-x-2">
-                <div class="h-1.5 w-1.5 rounded-full bg-red-500" />
-                <span>Event-triggered automation</span>
-              </div>
-              <div class="flex items-center space-x-2">
-                <div class="h-1.5 w-1.5 rounded-full bg-red-500" />
-                <span>Delivery tracking & analytics</span>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <!-- Modern Stack -->
-        <div
-          class="group relative rounded-2xl border border-gray-300 bg-white p-8 shadow-sm transition-all duration-300 hover:-translate-y-1 hover:shadow-xl"
-        >
-          <div
-            class="absolute inset-0 rounded-2xl bg-linear-to-br from-blue-50/50 to-transparent opacity-0 transition-opacity group-hover:opacity-100"
-          />
-          <div class="relative">
-            <div
-              class="mb-6 flex h-14 w-14 items-center justify-center rounded-2xl bg-linear-to-br from-blue-500 to-blue-600 shadow-lg"
-            >
-              <Code class="h-7 w-7 text-white" />
-            </div>
-            <h3 class="mb-3 text-xl font-bold text-gray-900">
-              Modern Tech Stack
-            </h3>
-            <p class="mb-6 leading-relaxed text-gray-600">
-              Built with React 19, Sails.js, and Inertia.js. Modern tooling with
-              hot reload, TypeScript support, and everything you need for rapid
-              development.
-            </p>
-            <div class="space-y-2 text-sm text-gray-500">
-              <div class="flex items-center space-x-2">
-                <div class="h-1.5 w-1.5 rounded-full bg-blue-500" />
-                <span>React 19 with modern hooks</span>
-              </div>
-              <div class="flex items-center space-x-2">
-                <div class="h-1.5 w-1.5 rounded-full bg-blue-500" />
-                <span>Tailwind CSS + PrimeReact</span>
-              </div>
-              <div class="flex items-center space-x-2">
-                <div class="h-1.5 w-1.5 rounded-full bg-blue-500" />
-                <span>Database agnostic ORM</span>
-              </div>
-            </div>
-          </div>
-        </div>
+      <ul>
+        <li><Check class="h-4 w-4 shrink-0" />Sign-in options</li>
+        <li><Check class="h-4 w-4 shrink-0" />Email verification</li>
+        <li><Check class="h-4 w-4 shrink-0" />Password recovery</li>
+      </ul>
+    </article>
+    <article>
+      <div>
+        <h2>Confidence built in.</h2>
+        <p>
+          Two-factor authentication, backup codes, and passkey management,
+          gathered in one place.
+        </p>
       </div>
-    </div>
+      <ul>
+        <li><Check class="h-4 w-4 shrink-0" />Authenticator apps</li>
+        <li><Check class="h-4 w-4 shrink-0" />Email verification codes</li>
+        <li><Check class="h-4 w-4 shrink-0" />Backup codes</li>
+      </ul>
+    </article>
+    <article>
+      <div>
+        <h2>Better, together.</h2>
+        <p>
+          Create a workspace, invite your people, and manage their roles as your
+          team grows.
+        </p>
+      </div>
+      <ul>
+        <li><Check class="h-4 w-4 shrink-0" />Team invitations</li>
+        <li><Check class="h-4 w-4 shrink-0" />Member roles</li>
+        <li><Check class="h-4 w-4 shrink-0" />Invite links</li>
+      </ul>
+    </article>
+    <article>
+      <div>
+        <h2>A foundation for your business.</h2>
+        <p>
+          Let customers choose a plan and manage their subscription through your
+          connected payment provider.
+        </p>
+      </div>
+      <ul>
+        <li><Check class="h-4 w-4 shrink-0" />Pricing pages</li>
+        <li><Check class="h-4 w-4 shrink-0" />Subscriptions</li>
+        <li><Check class="h-4 w-4 shrink-0" />Customer portal</li>
+      </ul>
+    </article>
+    <article>
+      <div>
+        <h2>The details are part of the product.</h2>
+        <p>
+          Responsive navigation, useful feedback, and personal preferences make
+          everyday work feel considered.
+        </p>
+      </div>
+      <ul>
+        <li><Check class="h-4 w-4 shrink-0" />Light and dark mode</li>
+        <li><Check class="h-4 w-4 shrink-0" />Profile and avatar</li>
+        <li><Check class="h-4 w-4 shrink-0" />Accessible interactions</li>
+      </ul>
+    </article>
+    <article>
+      <div>
+        <h2>Ready to become yours.</h2>
+        <p>
+          Your Sails application, your source components, your decisions. Extend
+          the foundation around the product you want to build.
+        </p>
+      </div>
+      <ul>
+        <li><Check class="h-4 w-4 shrink-0" />Klean UI source</li>
+        <li><Check class="h-4 w-4 shrink-0" />Inertia navigation</li>
+        <li><Check class="h-4 w-4 shrink-0" />React or Vue</li>
+      </ul>
+    </article>
   </section>
-
-  <!-- CTA Section -->
-  <section class="relative overflow-hidden bg-gray-900 px-4 py-20">
-    <div
-      class="to-brand-900 absolute inset-0 bg-linear-to-br from-gray-900 via-gray-800"
-    />
-    <div
-      class="bg-brand-500/10 absolute top-0 left-1/2 h-96 w-96 -translate-x-1/2 transform rounded-full blur-3xl"
-    />
-
-    <div class="relative mx-auto max-w-4xl text-center">
-      <h2
-        class="mb-6 text-4xl font-extrabold tracking-tight text-white md:text-5xl lg:text-6xl"
-      >
-        Ready to Ship Your
-        <span
-          class="from-brand-400 to-accent-400 block bg-linear-to-r bg-clip-text text-transparent"
-        >
-          Next Big Idea?
-        </span>
-      </h2>
-
-      <p
-        class="mx-auto mb-10 max-w-2xl text-xl leading-relaxed font-medium text-gray-300"
-      >
-        Stop wasting months on infrastructure. Start with a production-ready
-        foundation and focus on what makes your SaaS unique.
-      </p>
-
-      <div class="mb-8 flex flex-col justify-center gap-4 sm:flex-row">
-        <a
-          href="/signup"
-          class="hover:shadow-3xl group from-brand-600 to-accent-600 relative inline-block rounded-xl bg-linear-to-r px-10 py-5 text-lg font-bold text-white no-underline shadow-2xl transition-all duration-200 hover:scale-[1.02]"
-        >
-          <span class="relative z-10">Get Started Today</span>
-          <div
-            class="from-brand-700 to-accent-700 absolute inset-0 rounded-xl bg-linear-to-r opacity-0 transition-opacity group-hover:opacity-100"
-          />
-        </a>
-        <a
-          href="YOUTUBE_VIDEO_URL"
-          target="_blank"
-          rel="noopener noreferrer"
-          class="hover:border-brand-400 hover:bg-brand-500/10 inline-block rounded-xl border-2 border-gray-600 bg-transparent px-10 py-5 text-lg font-bold text-white no-underline shadow-lg transition-all duration-200 hover:scale-[1.02]"
-        >
-          View Live Demo
-        </a>
-      </div>
-
-      <div
-        class="flex flex-wrap items-center justify-center gap-8 text-sm text-gray-400"
-      >
-        <div class="flex items-center space-x-2">
-          <Check class="text-success-500 h-5 w-5" />
-          <span>Launch in hours, not months</span>
-        </div>
-        <div class="flex items-center space-x-2">
-          <Check class="text-success-500 h-5 w-5" />
-          <span>Production-ready code</span>
-        </div>
-        <div class="flex items-center space-x-2">
-          <Check class="text-success-500 h-5 w-5" />
-          <span>Your code, your control</span>
-        </div>
-      </div>
-    </div>
+  <section class="ascent-final">
+    <h2>Your idea. A head start.</h2>
+    <Link href="/pricing" class="ascent-inline-link"
+      >Explore the plans <ArrowRight class="h-4 w-4 shrink-0"
+    /></Link>
   </section>
 </template>

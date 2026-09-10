@@ -7,10 +7,10 @@ test(
     await page.goto('/')
 
     await expect(
-      page.getByRole('heading', { name: /Simplify Authentication/i })
+      page.getByRole('heading', { name: /Start with the essentials/i })
     ).toBeVisible()
     await expect(
-      page.getByText(/Mellow handles user management/i)
+      page.getByText(/Authentication and profiles, ready for your next idea/i)
     ).toBeVisible()
   }
 )

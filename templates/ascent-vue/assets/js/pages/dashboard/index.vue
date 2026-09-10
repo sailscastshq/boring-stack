@@ -1,5 +1,6 @@
 <script setup>
-import { Head, usePage } from '@inertiajs/vue3'
+import ArrowRight from '@/components/ui/icons/ArrowRight.vue'
+import { Head, Link, usePage } from '@inertiajs/vue3'
 import DashboardLayout from '@/layouts/DashboardLayout.vue'
 import { computed } from 'vue'
 
@@ -14,39 +15,29 @@ const loggedInUser = computed(() => page.props.loggedInUser)
 <template>
   <Head title="Dashboard | Ascent" />
 
-  <header class="mb-8">
-    <div
-      class="from-brand-600 via-brand-700 to-accent-700 relative overflow-hidden rounded-2xl bg-linear-to-br p-8 text-white shadow-2xl"
+  <section class="ascent-workspace-intro">
+    <h1>Welcome back, {{ loggedInUser.fullName.split(' ')[0] }}.</h1>
+    <p>Your account, your team, and your next steps.</p>
+  </section>
+  <section class="ascent-workspace-links" aria-label="Workspace shortcuts">
+    <Link href="/settings/profile">
+      <h2>Make it yours <ArrowRight class="h-4 w-4 shrink-0" /></h2>
+      <p>Update your profile and choose how you show up.</p></Link
+    ><Link href="/settings/team">
+      <h2>Build together <ArrowRight class="h-4 w-4 shrink-0" /></h2>
+      <p>Manage your workspace, people, and invitations.</p></Link
+    ><Link href="/settings/billing">
+      <h2>Your plan <ArrowRight class="h-4 w-4 shrink-0" /></h2>
+      <p>Review your subscription and billing details.</p></Link
     >
-      <div
-        class="absolute top-0 right-0 h-32 w-32 translate-x-8 -translate-y-8 rounded-full bg-white/10"
-      ></div>
-      <div
-        class="absolute bottom-0 left-0 h-24 w-24 -translate-x-4 translate-y-4 rounded-full bg-white/5"
-      ></div>
-      <div class="relative">
-        <h1 class="mb-2 text-2xl font-bold">
-          Welcome back, {{ loggedInUser.fullName.split(' ')[0] }}! 👋
-        </h1>
-        <p class="text-brand-100">
-          Here's what's happening with your account today.
-        </p>
-      </div>
+  </section>
+  <section class="ascent-workspace-note">
+    <div>
+      <h2>Keep your account secure.</h2>
+      <p>Review your password, passkeys, and two-factor authentication.</p>
     </div>
-  </header>
-
-  <div
-    class="flex min-h-[400px] items-center justify-center rounded-xl bg-white p-12 shadow-sm ring-1 ring-gray-100"
-  >
-    <div class="max-w-2xl text-center">
-      <div class="mb-6 text-6xl">🎨</div>
-      <h2 class="mb-4 text-3xl font-bold text-gray-900">
-        This is your blank canvas
-      </h2>
-      <p class="text-lg text-gray-600">
-        Go ahead, build something cool. Or don't. I am not your mom. (But
-        seriously, you got this! 💪)
-      </p>
-    </div>
-  </div>
+    <Link href="/settings/security" class="ascent-inline-link"
+      >Security settings <ArrowRight class="h-4 w-4 shrink-0"
+    /></Link>
+  </section>
 </template>

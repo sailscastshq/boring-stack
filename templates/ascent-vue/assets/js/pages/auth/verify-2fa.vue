@@ -77,17 +77,11 @@ function handleSwitchMethod(method) {
 <template>
   <Head title="Two-Factor Authentication | Ascent" />
 
-  <div
-    class="from-brand-50/30 to-accent-50/20 flex min-h-screen flex-col justify-center bg-linear-to-br via-white py-12 sm:px-6 lg:px-8"
-  >
+  <div class="ascent-auth">
     <!-- Background Elements -->
     <div class="pointer-events-none absolute inset-0 overflow-hidden">
-      <div
-        class="bg-brand-200/20 absolute top-20 left-1/4 h-96 w-96 rounded-full blur-3xl"
-      />
-      <div
-        class="bg-accent-200/20 absolute right-1/4 bottom-20 h-72 w-72 rounded-full blur-3xl"
-      />
+      <div class="hidden" />
+      <div class="hidden" />
     </div>
 
     <div class="relative sm:mx-auto sm:w-full sm:max-w-lg">
@@ -95,24 +89,28 @@ function handleSwitchMethod(method) {
       <div class="mb-8 flex items-center justify-center">
         <Link href="/" class="group">
           <div class="relative">
-            <div
-              class="bg-brand-200/30 absolute inset-0 scale-110 rounded-2xl opacity-0 blur-xl transition-opacity group-hover:opacity-100"
-            />
-            <img
-              src="/images/logo.svg"
-              alt="Ascent Logo"
-              class="relative h-12 w-auto"
-            />
+            <div class="hidden" />
+            <span
+              class="inline-flex items-center gap-1 text-2xl font-semibold tracking-tight text-gray-900 dark:text-gray-100"
+              aria-label="Ascent"
+              >Ascent<span
+                class="text-brand-600 dark:text-brand-300"
+                aria-hidden="true"
+                >↗</span
+              ></span
+            >
           </div>
         </Link>
       </div>
 
       <!-- Header -->
       <header class="mb-8 text-center">
-        <h1 class="text-3xl font-bold tracking-tight text-gray-900">
+        <h1
+          class="text-3xl font-bold tracking-tight text-gray-900 dark:text-gray-100"
+        >
           Two-Factor Authentication
         </h1>
-        <p class="mt-2 text-base text-gray-600">
+        <p class="mt-2 text-base text-gray-600 dark:text-gray-400">
           Please verify your identity to complete login
         </p>
       </header>
@@ -121,14 +119,10 @@ function handleSwitchMethod(method) {
     <div class="relative sm:mx-auto sm:w-full sm:max-w-lg">
       <div class="relative">
         <!-- Background blur effect -->
-        <div
-          class="from-brand-600/10 to-accent-600/10 absolute inset-0 scale-105 rounded-2xl bg-linear-to-r blur-xl"
-        />
+        <div class="hidden" />
 
         <!-- Main card -->
-        <div
-          class="relative rounded-2xl border border-gray-100 bg-white px-8 py-10 shadow-2xl"
-        >
+        <div class="ascent-auth-panel">
           <!-- Global errors -->
           <div
             v-if="form.errors.method || form.errors.code"
@@ -154,7 +148,7 @@ function handleSwitchMethod(method) {
           <form @submit="handleVerifyCode" class="space-y-5">
             <div v-if="activeMethod === 'totp'">
               <label
-                class="mb-4 block text-center text-sm font-medium text-gray-700"
+                class="mb-4 block text-center text-sm font-medium text-gray-700 dark:text-gray-300"
               >
                 Enter code from your authenticator app
               </label>
@@ -172,7 +166,7 @@ function handleSwitchMethod(method) {
 
             <div v-if="activeMethod === 'email'">
               <label
-                class="mb-4 block text-center text-sm font-medium text-gray-700"
+                class="mb-4 block text-center text-sm font-medium text-gray-700 dark:text-gray-300"
               >
                 Enter code sent to {{ userEmail }}
               </label>
@@ -190,7 +184,7 @@ function handleSwitchMethod(method) {
 
             <div v-if="activeMethod === 'backup'">
               <label
-                class="mb-4 block text-center text-sm font-medium text-gray-700"
+                class="mb-4 block text-center text-sm font-medium text-gray-700 dark:text-gray-300"
               >
                 Enter a backup recovery code
               </label>
@@ -205,7 +199,9 @@ function handleSwitchMethod(method) {
                   @update:modelValue="form.code = $event.toUpperCase()"
                 />
               </div>
-              <p class="mt-3 text-center text-xs text-gray-500">
+              <p
+                class="mt-3 text-center text-xs text-gray-500 dark:text-gray-400"
+              >
                 Each backup code can only be used once
               </p>
             </div>
@@ -216,10 +212,10 @@ function handleSwitchMethod(method) {
                 type="submit"
                 :disabled="isDisabled"
                 :class="[
-                  'flex w-full justify-center rounded-xl px-8 py-4 text-lg font-bold text-white shadow-lg transition-all duration-200 hover:scale-[1.02] hover:shadow-xl disabled:cursor-not-allowed disabled:opacity-50 disabled:hover:scale-100',
+                  'flex w-full justify-center rounded-xl px-8 py-4 text-lg font-bold text-white shadow-none transition-all duration-200 hover:brightness-95 disabled:cursor-not-allowed disabled:opacity-50 disabled:hover:scale-100',
                   isDisabled
                     ? 'bg-gray-300'
-                    : 'from-brand-600 to-accent-600 hover:from-brand-700 hover:to-accent-700 focus:ring-brand-500 bg-linear-to-r focus:ring-2 focus:ring-offset-2 focus:outline-none'
+                    : 'hover:bg-brand-700 focus:ring-brand-500  focus:ring-2 focus:ring-offset-2 focus:outline-none bg-brand-600 dark:bg-brand-600'
                 ]"
               >
                 <div v-if="form.processing" class="flex items-center space-x-2">
@@ -244,7 +240,7 @@ function handleSwitchMethod(method) {
                     v-if="activeMethod === 'totp' && twoFactorMethods.email"
                     type="button"
                     @click="handleSwitchMethod('email')"
-                    class="hover:text-brand-600 text-sm font-medium text-gray-600 underline underline-offset-2 transition-colors"
+                    class="hover:text-brand-600 text-sm font-medium text-gray-600 underline underline-offset-2 transition-colors dark:text-gray-400"
                   >
                     Get the code via email instead
                   </button>
@@ -253,7 +249,7 @@ function handleSwitchMethod(method) {
                     v-if="activeMethod === 'email' && twoFactorMethods.totp"
                     type="button"
                     @click="handleSwitchMethod('totp')"
-                    class="hover:text-brand-600 text-sm font-medium text-gray-600 underline underline-offset-2 transition-colors"
+                    class="hover:text-brand-600 text-sm font-medium text-gray-600 underline underline-offset-2 transition-colors dark:text-gray-400"
                   >
                     Use authenticator app instead
                   </button>
@@ -264,7 +260,7 @@ function handleSwitchMethod(method) {
                   <button
                     type="button"
                     @click="handleSwitchMethod('backup')"
-                    class="hover:text-brand-600 text-sm font-medium text-gray-600 underline underline-offset-2 transition-colors"
+                    class="hover:text-brand-600 text-sm font-medium text-gray-600 underline underline-offset-2 transition-colors dark:text-gray-400"
                   >
                     Use backup code
                   </button>
@@ -276,7 +272,7 @@ function handleSwitchMethod(method) {
                 v-if="activeMethod === 'backup'"
                 type="button"
                 @click="handleSwitchMethod(twoFactorMethods.defaultMethod)"
-                class="hover:text-brand-600 text-sm font-medium text-gray-600 underline underline-offset-2 transition-colors"
+                class="hover:text-brand-600 text-sm font-medium text-gray-600 underline underline-offset-2 transition-colors dark:text-gray-400"
               >
                 Use
                 {{

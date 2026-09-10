@@ -114,22 +114,22 @@ export default function ManagePasskeysModal({ visible, onHide, passkeys }) {
       >
         <div className="space-y-4">
           {/* Supporting text */}
-          <p className="text-sm text-gray-500">
+          <p className="text-sm text-gray-500 dark:text-gray-400">
             Rename, remove, or add new passkeys for your account
           </p>
 
           {/* Passkeys List */}
           {passkeys.length === 0 ? (
             <div className="py-12 text-center">
-              <div className="mx-auto mb-4 flex h-16 w-16 items-center justify-center rounded-full bg-gray-100">
+              <div className="mx-auto mb-4 flex h-16 w-16 items-center justify-center rounded-full bg-gray-100 dark:bg-gray-800">
                 <Key
                   className={'h-[1em] w-[1em] shrink-0 text-xl text-gray-400'}
                 ></Key>
               </div>
-              <h3 className="mb-2 text-base font-medium text-gray-900">
+              <h3 className="mb-2 text-base font-medium text-gray-900 dark:text-gray-100">
                 No passkeys yet
               </h3>
-              <p className="mx-auto max-w-sm text-sm text-gray-500">
+              <p className="mx-auto max-w-sm text-sm text-gray-500 dark:text-gray-400">
                 Add your first passkey to enable secure, passwordless
                 authentication.
               </p>
@@ -141,8 +141,8 @@ export default function ManagePasskeysModal({ visible, onHide, passkeys }) {
                   <div className="group flex items-center justify-between px-3 py-4">
                     <div className="flex min-w-0 flex-1 items-center space-x-4">
                       <div className="flex-shrink-0">
-                        <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-brand-50">
-                          <Key className="h-5 w-5 text-brand-600" />
+                        <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-brand-50 dark:bg-brand-950/40">
+                          <Key className="h-5 w-5 text-brand-600 dark:text-brand-300" />
                         </div>
                       </div>
                       <div className="min-w-0 flex-1">
@@ -214,10 +214,10 @@ export default function ManagePasskeysModal({ visible, onHide, passkeys }) {
                           </div>
                         ) : (
                           <div>
-                            <p className="truncate text-sm font-medium text-gray-900">
+                            <p className="truncate text-sm font-medium text-gray-900 dark:text-gray-100">
                               {passkey.name || `Passkey ${index + 1}`}
                             </p>
-                            <p className="text-xs text-gray-500">
+                            <p className="text-xs text-gray-500 dark:text-gray-400">
                               Added {formatDate(passkey.createdAt)}
                             </p>
                           </div>

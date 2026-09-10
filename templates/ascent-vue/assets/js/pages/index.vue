@@ -1,835 +1,163 @@
 <script setup>
+import ArrowRight from '@/components/ui/icons/ArrowRight.vue'
 import Input from '@/components/ui/input/Input.vue'
-
-import Users from '@/components/ui/icons/Users.vue'
+import Button from '@/components/ui/button/Button.vue'
 import Spinner from '@/components/ui/spinner/Spinner.vue'
 import ShieldCheck from '@/components/ui/icons/ShieldCheck.vue'
-import Lock from '@/components/ui/icons/Lock.vue'
-import Heart from '@/components/ui/icons/Heart.vue'
-import Envelope from '@/components/ui/icons/Envelope.vue'
-import CurrencyDollar from '@/components/ui/icons/CurrencyDollar.vue'
+import Users from '@/components/ui/icons/Users.vue'
 import CreditCard from '@/components/ui/icons/CreditCard.vue'
-import Code from '@/components/ui/icons/Code.vue'
-import ChevronDown from '@/components/ui/icons/ChevronDown.vue'
-import CheckCircle from '@/components/ui/icons/CheckCircle.vue'
-import Check from '@/components/ui/icons/Check.vue'
-import Chat from '@/components/ui/icons/Chat.vue'
-import ChartBar from '@/components/ui/icons/ChartBar.vue'
-import Bolt from '@/components/ui/icons/Bolt.vue'
-import { Head, useForm } from '@inertiajs/vue3'
-import { ref } from 'vue'
-import Message from '@/components/ui/alert/Alert.vue'
+import { Head, Link, useForm } from '@inertiajs/vue3'
 import AppLayout from '@/layouts/AppLayout.vue'
-
-defineOptions({
-  layout: AppLayout
-})
-
-const isWaitlistActive = ref(true)
-const shouldShake = ref(false)
-
-const form = useForm({
-  email: ''
-})
-
-const handleWaitlistSubmit = (e) => {
-  e.preventDefault()
-
-  if (!form.email.trim()) {
-    shouldShake.value = true
-    setTimeout(() => {
-      shouldShake.value = false
-    }, 500)
-    return
-  }
-
-  form.post('/waitlist', { preserveScroll: true })
-}
+defineOptions({ layout: AppLayout })
+const form = useForm({ email: '' })
 </script>
-
 <template>
-  <Head title="Ascent - The Complete SaaS Platform for Modern Teams" />
-
-  <section class="relative overflow-hidden px-4 pt-20 pb-16">
-    <!-- Background Elements -->
-    <div
-      class="from-brand-50/30 to-accent-50/20 absolute inset-0 bg-linear-to-br via-white"
-    />
-    <div
-      class="bg-brand-100/20 absolute top-20 left-1/2 h-96 w-96 -translate-x-1/2 transform rounded-full blur-3xl"
-    />
-
-    <div class="relative mx-auto max-w-4xl text-center">
-      <!-- Logo with subtle animation -->
-      <div class="mb-8 flex items-center justify-center">
-        <div class="relative">
-          <div
-            class="bg-brand-200/20 absolute inset-0 scale-110 rounded-2xl blur-xl"
-          />
-          <img
-            src="/images/logo.svg"
-            alt="Ascent Logo"
-            class="relative h-14 w-auto"
-          />
+  <Head title="Ascent — A head start for your next product." />
+  <section class="ascent-hero">
+    <div class="ascent-hero-inner">
+      <div class="ascent-hero-bottom">
+        <div>
+          <h1>A head start for<br />your next product.</h1>
+          <p>Accounts, teams, and billing, ready to make your own.</p>
         </div>
-      </div>
-
-      <!-- Hero headline with better typography -->
-      <h1
-        class="mb-6 text-5xl font-extrabold tracking-tight md:text-6xl lg:text-7xl"
-      >
-        <span class="block leading-tight text-gray-900">
-          Scale Your Team,
-        </span>
-        <span
-          class="from-brand-600 to-accent-600 block bg-linear-to-r bg-clip-text leading-tight text-transparent"
-        >
-          Streamline Success
-        </span>
-      </h1>
-
-      <!-- Improved subheading -->
-      <p
-        class="mx-auto mb-10 max-w-2xl text-xl leading-relaxed font-medium text-gray-600"
-      >
-        Stop building the same authentication, billing, and team features over
-        and over.
-        <span class="font-semibold text-gray-900">
-          Launch your SaaS in days, not months.
-        </span>
-      </p>
-
-      <!-- Social Proof Badge -->
-      <div class="mb-8 flex items-center justify-center">
-        <div
-          class="inline-flex items-center space-x-2 rounded-full border border-gray-300 bg-white/80 px-4 py-2 shadow-sm backdrop-blur-sm"
-        >
-          <div class="flex -space-x-1">
-            <div
-              class="h-6 w-6 rounded-full border-2 border-white bg-linear-to-br from-blue-400 to-blue-600"
-            />
-            <div
-              class="h-6 w-6 rounded-full border-2 border-white bg-linear-to-br from-green-400 to-green-600"
-            />
-            <div
-              class="h-6 w-6 rounded-full border-2 border-white bg-linear-to-br from-purple-400 to-purple-600"
-            />
-          </div>
-          <span class="text-sm font-medium text-gray-700">
-            Join 2,847+ developers
-          </span>
-        </div>
-      </div>
-
-      <!-- Waitlist/CTA Section -->
-      <div class="mx-auto mb-16 max-w-lg">
-        <div v-if="isWaitlistActive" class="relative">
-          <div
-            class="from-brand-600 to-accent-600 absolute inset-0 scale-105 rounded-2xl bg-linear-to-r opacity-20 blur-md"
-          />
+        <div class="ascent-waitlist">
           <form
-            @submit="handleWaitlistSubmit"
-            :class="[
-              'relative rounded-2xl border border-gray-300 bg-white p-8 shadow-2xl transition-all duration-300',
-              shouldShake ? 'ring-4 ring-red-100' : 'hover:shadow-3xl'
-            ]"
-            :style="{
-              animation: shouldShake ? 'shake 0.5s ease-in-out' : 'none'
-            }"
+            @submit.prevent="form.post('/waitlist', { preserveScroll: true })"
           >
-            <div class="mb-6 text-center">
-              <h3 class="mb-2 text-2xl font-bold text-gray-900">
-                Join the Waitlist
-              </h3>
-              <p class="font-medium text-gray-600">
-                Be the first to scale with Ascent
-              </p>
-            </div>
-
-            <Message
-              class="border border-red-200 bg-red-50 text-red-700 dark:border-red-800 dark:bg-red-950 dark:text-red-300 mb-6 w-full"
-              v-if="form.errors.waitlist"
-              role="alert"
-            >
-              {{ form.errors.waitlist }}
-            </Message>
-            <div class="space-y-4">
-              <div class="relative">
-                <Input
-                  id="email-input"
-                  v-model="form.email"
-                  type="email"
-                  placeholder="Enter your email address"
-                  :class="[
-                    'w-full rounded-xl border px-4 py-4 text-lg font-medium transition-all duration-200',
-                    shouldShake || form.errors.email
-                      ? 'border-red-300 bg-red-50 ring-2 ring-red-100'
-                      : 'focus:border-brand-300 focus:ring-brand-100 border-gray-300 bg-gray-200 focus:bg-white focus:ring-4'
-                  ]"
-                  :disabled="form.processing"
-                  :aria-describedby="
-                    form.errors.email ? 'email-error' : undefined
-                  "
-                  :aria-invalid="form.errors.email ? 'true' : 'false'"
-                  required
-                />
-                <p
-                  v-if="form.errors.email"
-                  id="email-error"
-                  class="mt-2 text-sm text-red-600"
-                  role="alert"
-                >
-                  {{ form.errors.email }}
-                </p>
-              </div>
-
-              <button
+            <label for="waitlist-email" class="sr-only">Email address</label>
+            <div class="ascent-form-row">
+              <Input
+                id="waitlist-email"
+                class="min-h-12 rounded-lg border-gray-300 bg-white px-4 py-3 text-gray-900 placeholder:text-gray-500 dark:border-gray-700 dark:bg-gray-900 dark:text-gray-100"
+                v-model="form.email"
+                type="email"
+                autocomplete="email"
+                placeholder="Your email address"
+                required
+                :disabled="form.processing"
+                :aria-invalid="Boolean(form.errors.email)"
+                :aria-describedby="
+                  form.errors.email || form.errors.waitlist
+                    ? 'waitlist-error'
+                    : undefined
+                "
+              /><Button
+                class="min-h-12 rounded-lg bg-brand-600 px-5 py-3 text-white hover:bg-brand-700 active:bg-brand-800 dark:bg-brand-600 dark:text-white dark:hover:bg-brand-700 dark:active:bg-brand-800"
                 type="submit"
                 :disabled="form.processing"
-                class="from-brand-600 to-accent-600 w-full rounded-xl bg-linear-to-r px-8 py-4 text-lg font-bold text-white shadow-lg transition-all duration-200 hover:shadow-xl disabled:opacity-75"
-                aria-describedby="email-input"
-              >
-                <span
-                  v-if="form.processing"
-                  class="flex items-center justify-center space-x-2"
-                >
-                  <Spinner class="h-5 w-5" />
-                  <span>Joining...</span>
-                </span>
-                <span v-else>Join the Waitlist →</span>
-              </button>
+                :aria-busy="form.processing"
+                ><Spinner v-if="form.processing" class="h-4 w-4" /><span>{{
+                  form.processing ? 'Joining…' : 'Join the waitlist'
+                }}</span
+                ><ArrowRight class="h-4 w-4 shrink-0"
+              /></Button>
             </div>
-
-            <div
-              class="mt-6 flex items-center justify-center space-x-6 text-xs text-gray-500 dark:text-gray-400"
+            <p
+              v-if="form.errors.email || form.errors.waitlist"
+              id="waitlist-error"
+              class="mt-3 text-sm text-red-600 dark:text-red-300"
+              role="alert"
             >
-              <div class="flex items-center space-x-1">
-                <Check class="h-4 w-4 text-green-500" />
-                <span>Early access</span>
-              </div>
-              <div class="flex items-center space-x-1">
-                <Check class="h-4 w-4 text-green-500" />
-                <span>No spam</span>
-              </div>
-              <div class="flex items-center space-x-1">
-                <Check class="h-4 w-4 text-green-500" />
-                <span>Unsubscribe anytime</span>
-              </div>
-            </div>
+              {{ form.errors.email || form.errors.waitlist }}
+            </p>
           </form>
-        </div>
-
-        <!-- CTA Mode (when waitlist is disabled) -->
-        <div v-else class="text-center">
-          <div class="flex flex-col justify-center gap-4 sm:flex-row">
-            <button
-              class="hover:shadow-3xl group from-brand-600 to-accent-600 relative rounded-xl bg-linear-to-r px-8 py-4 font-bold text-white shadow-2xl transition-all duration-200 hover:scale-[1.02]"
-            >
-              <span class="relative z-10">Start Free Trial</span>
-              <div
-                class="from-brand-700 to-accent-700 absolute inset-0 rounded-xl bg-linear-to-r opacity-0 transition-opacity group-hover:opacity-100"
-              />
-            </button>
-            <button
-              class="hover:border-brand-300 rounded-xl border-2 border-gray-300 bg-white px-8 py-4 font-bold text-gray-700 shadow-lg transition-all duration-200 hover:scale-[1.02] hover:shadow-xl"
-            >
-              Schedule Demo
-            </button>
-          </div>
-          <p class="mt-6 text-sm font-medium text-gray-500">
-            No credit card required • 14-day free trial • Cancel anytime
+          <p class="ascent-form-note">
+            Product updates, straight to your inbox. Unsubscribe anytime.
           </p>
         </div>
       </div>
     </div>
   </section>
-
-  <!-- Key Features Section -->
-  <section class="relative bg-white px-4 py-20">
-    <!-- Subtle background pattern -->
-    <div class="absolute inset-0 bg-linear-to-b from-gray-200 to-white" />
-    <div
-      class="absolute inset-0"
-      style="
-        background-image: radial-gradient(
-          circle at 1px 1px,
-          rgba(15, 23, 42, 0.15) 1px,
-          transparent 0
-        );
-        background-size: 24px 24px;
-      "
-    />
-
-    <div class="relative mx-auto max-w-7xl">
-      <div class="mb-16 text-center">
-        <div class="mb-4">
-          <span
-            class="bg-brand-100 text-brand-700 inline-flex items-center rounded-full px-3 py-1 text-sm font-semibold"
-          >
-            ✨ Features
-          </span>
-        </div>
-        <h2
-          class="mb-6 text-4xl font-extrabold tracking-tight text-gray-900 md:text-5xl"
-        >
-          Everything You Need to
-          <span
-            class="from-brand-600 to-accent-600 block bg-linear-to-r bg-clip-text text-transparent"
-          >
-            Scale Fast
-          </span>
-        </h2>
-        <p
-          class="mx-auto max-w-3xl text-xl leading-relaxed font-medium text-gray-600"
-        >
-          From authentication to payments, we've built all the infrastructure
-          your growing business needs.
-          <span class="mt-2 block font-semibold text-gray-900">
-            Focus on what makes you unique.
-          </span>
+  <section class="ascent-overview">
+    <div class="ascent-section-title">
+      <h2>The foundations, already connected.</h2>
+      <Link href="/features" class="ascent-inline-link"
+        >Explore the features <ArrowRight class="h-4 w-4 shrink-0"
+      /></Link>
+    </div>
+    <div class="ascent-capabilities">
+      <article>
+        <ShieldCheck class="h-6 w-6" />
+        <h3>Authentication</h3>
+        <p>
+          Passwords, magic links, passkeys, and two-factor authentication. Let
+          people sign in their way.
         </p>
-      </div>
-
-      <div class="grid grid-cols-1 gap-8 md:grid-cols-2 lg:grid-cols-3">
-        <!-- Secure Authentication -->
-        <div
-          class="group relative rounded-2xl border border-gray-100 bg-white p-8 shadow-sm transition-all duration-300 hover:-translate-y-1 hover:shadow-xl dark:border-gray-800 dark:bg-gray-900"
-        >
-          <div
-            class="from-brand-50/50 absolute inset-0 rounded-2xl bg-linear-to-br to-transparent opacity-0 transition-opacity group-hover:opacity-100"
-          />
-          <div class="relative">
-            <div
-              class="from-brand-500 to-brand-600 mb-6 flex h-14 w-14 items-center justify-center rounded-2xl bg-linear-to-br shadow-lg"
-            >
-              <Lock class="h-7 w-7 text-white" />
-            </div>
-            <h3 class="mb-3 text-xl font-bold text-gray-900">
-              Secure Authentication
-            </h3>
-            <p class="mb-4 leading-relaxed text-gray-600">
-              OAuth, magic links, 2FA, and session management. Enterprise-grade
-              security that scales.
-            </p>
-            <div class="text-brand-600 flex items-center text-sm font-medium">
-              <span>OAuth • 2FA • Magic Links</span>
-            </div>
-          </div>
-        </div>
-
-        <!-- Subscription Billing -->
-        <div
-          class="group relative rounded-2xl border border-gray-100 bg-white p-8 shadow-sm transition-all duration-300 hover:-translate-y-1 hover:shadow-xl"
-        >
-          <div
-            class="from-accent-50/50 absolute inset-0 rounded-2xl bg-linear-to-br to-transparent opacity-0 transition-opacity group-hover:opacity-100"
-          />
-          <div class="relative">
-            <div
-              class="from-accent-500 to-accent-600 mb-6 flex h-14 w-14 items-center justify-center rounded-2xl bg-linear-to-br shadow-lg"
-            >
-              <CreditCard class="h-7 w-7 text-white" />
-            </div>
-            <h3 class="mb-3 text-xl font-bold text-gray-900">
-              Subscription Billing
-            </h3>
-            <p class="mb-4 leading-relaxed text-gray-600">
-              Lemon Squeezy integration for seamless recurring payments and
-              subscription management.
-            </p>
-            <div class="text-accent-600 flex items-center text-sm font-medium">
-              <span>Recurring • One-time • Trials</span>
-            </div>
-          </div>
-        </div>
-
-        <!-- Team Management -->
-        <div
-          class="group relative rounded-2xl border border-gray-100 bg-white p-8 shadow-sm transition-all duration-300 hover:-translate-y-1 hover:shadow-xl"
-        >
-          <div
-            class="from-success-50/50 absolute inset-0 rounded-2xl bg-linear-to-br to-transparent opacity-0 transition-opacity group-hover:opacity-100"
-          />
-          <div class="relative">
-            <div
-              class="from-success-500 to-success-600 mb-6 flex h-14 w-14 items-center justify-center rounded-2xl bg-linear-to-br shadow-lg"
-            >
-              <Users class="h-7 w-7 text-white" />
-            </div>
-            <h3 class="mb-3 text-xl font-bold text-gray-900">
-              Team Management
-            </h3>
-            <p class="mb-4 leading-relaxed text-gray-600">
-              Multi-tenancy with team invites, role-based permissions, and
-              complete workspace isolation.
-            </p>
-            <div class="text-success-600 flex items-center text-sm font-medium">
-              <span>Roles • Invites • Workspaces</span>
-            </div>
-          </div>
-        </div>
-
-        <!-- Admin Dashboard -->
-        <div
-          class="group relative rounded-2xl border border-gray-100 bg-white p-8 shadow-sm transition-all duration-300 hover:-translate-y-1 hover:shadow-xl"
-        >
-          <div
-            class="absolute inset-0 rounded-2xl bg-linear-to-br from-purple-50/50 to-transparent opacity-0 transition-opacity group-hover:opacity-100"
-          />
-          <div class="relative">
-            <div
-              class="mb-6 flex h-14 w-14 items-center justify-center rounded-2xl bg-linear-to-br from-purple-500 to-purple-600 shadow-lg"
-            >
-              <ChartBar class="h-7 w-7 text-white" />
-            </div>
-            <h3 class="mb-3 text-xl font-bold text-gray-900">
-              Admin Dashboard
-            </h3>
-            <p class="mb-4 leading-relaxed text-gray-600">
-              Powerful admin interface to manage users, subscriptions, and
-              monitor your business metrics.
-            </p>
-            <div class="flex items-center text-sm font-medium text-purple-600">
-              <span>Analytics • Users • Revenue</span>
-            </div>
-          </div>
-        </div>
-
-        <!-- Content & Blog -->
-        <div
-          class="group relative rounded-2xl border border-gray-100 bg-white p-8 shadow-sm transition-all duration-300 hover:-translate-y-1 hover:shadow-xl"
-        >
-          <div
-            class="absolute inset-0 rounded-2xl bg-linear-to-br from-orange-50/50 to-transparent opacity-0 transition-opacity group-hover:opacity-100"
-          />
-          <div class="relative">
-            <div
-              class="mb-6 flex h-14 w-14 items-center justify-center rounded-2xl bg-linear-to-br from-orange-500 to-orange-600 shadow-lg"
-            >
-              <Chat class="h-7 w-7 text-white" />
-            </div>
-            <h3 class="mb-3 text-xl font-bold text-gray-900">Content & Blog</h3>
-            <p class="mb-4 leading-relaxed text-gray-600">
-              Built-in CMS and blog system powered by Sails Content to engage
-              your audience and improve SEO.
-            </p>
-            <div class="flex items-center text-sm font-medium text-orange-600">
-              <span>CMS • Blog • SEO Ready</span>
-            </div>
-          </div>
-        </div>
-
-        <!-- Transactional Email -->
-        <div
-          class="group relative rounded-2xl border border-gray-100 bg-white p-8 shadow-sm transition-all duration-300 hover:-translate-y-1 hover:shadow-xl"
-        >
-          <div
-            class="absolute inset-0 rounded-2xl bg-linear-to-br from-red-50/50 to-transparent opacity-0 transition-opacity group-hover:opacity-100"
-          />
-          <div class="relative">
-            <div
-              class="mb-6 flex h-14 w-14 items-center justify-center rounded-2xl bg-linear-to-br from-red-500 to-red-600 shadow-lg"
-            >
-              <Envelope class="h-7 w-7 text-white" />
-            </div>
-            <h3 class="mb-3 text-xl font-bold text-gray-900">
-              Transactional Email
-            </h3>
-            <p class="mb-4 leading-relaxed text-gray-600">
-              Automated emails for onboarding, billing, notifications, and
-              customer communication.
-            </p>
-            <div class="flex items-center text-sm font-medium text-red-600">
-              <span>Templates • Triggers • Analytics</span>
-            </div>
-          </div>
-        </div>
+      </article>
+      <article>
+        <Users class="h-6 w-6" />
+        <h3>Team management</h3>
+        <p>
+          Invitations, roles, and shared workspaces. Built for the people
+          building with you.
+        </p>
+      </article>
+      <article>
+        <CreditCard class="h-6 w-6" />
+        <h3>Billing</h3>
+        <p>
+          Plans, subscriptions, and a customer portal. Connect your billing and
+          focus on your product.
+        </p>
+      </article>
+    </div>
+  </section>
+  <section class="ascent-detail">
+    <div>
+      <h2>Built to make your own.</h2>
+    </div>
+    <div>
+      <p>
+        Keep the parts that move you forward. Shape the rest around your idea.
+        Every component, screen, and interaction is yours to work with.
+      </p>
+      <div class="ascent-detail-links">
+        <a
+          href="https://docs.sailscasts.com/boring-stack/ascent"
+          target="_blank"
+          rel="noopener noreferrer"
+          >Read the documentation <ArrowRight class="h-4 w-4 shrink-0" /></a
+        ><a
+          href="https://github.com/sailscastshq/boring-stack"
+          target="_blank"
+          rel="noopener noreferrer"
+          >Explore the source <ArrowRight class="h-4 w-4 shrink-0"
+        /></a>
       </div>
     </div>
   </section>
-
-  <!-- Value Proposition Section -->
-  <section class="relative overflow-hidden bg-gray-900 px-4 py-24">
-    <!-- Background Elements -->
-    <div
-      class="to-brand-900 absolute inset-0 bg-linear-to-br from-gray-900 via-gray-800"
-    />
-    <div
-      class="bg-brand-500/10 absolute top-0 left-1/2 h-96 w-96 -translate-x-1/2 transform rounded-full blur-3xl"
-    />
-
-    <div class="relative mx-auto max-w-6xl">
-      <div class="mb-16 text-center">
-        <h2
-          class="mb-6 text-4xl font-extrabold tracking-tight text-white md:text-5xl"
-        >
-          Why Choose
-          <span
-            class="from-brand-400 to-accent-400 block bg-linear-to-r bg-clip-text text-transparent"
-          >
-            The Boring Stack?
-          </span>
-        </h2>
-        <p
-          class="mx-auto max-w-3xl text-xl leading-relaxed font-medium text-gray-300"
-        >
-          Because it works. No drama, no complexity, just results.
+  <section class="ascent-questions">
+    <div class="ascent-section-title">
+      <h2>Common questions.</h2>
+    </div>
+    <div>
+      <details>
+        <summary>What comes with Ascent?</summary>
+        <p>
+          Authentication, team management, billing, account settings, and public
+          pages. A connected starting point for your SaaS application.
         </p>
-      </div>
-
-      <div class="grid grid-cols-1 gap-8 md:grid-cols-3">
-        <div class="group text-center">
-          <div class="mb-6 flex justify-center">
-            <div class="relative">
-              <div
-                class="bg-brand-500/20 absolute inset-0 scale-110 rounded-2xl blur-xl"
-              />
-              <div
-                class="from-brand-500 to-brand-600 relative rounded-2xl bg-linear-to-br p-4 shadow-2xl"
-              >
-                <Bolt class="h-8 w-8 text-white" />
-              </div>
-            </div>
-          </div>
-          <h3 class="mb-4 text-2xl font-bold text-white">Ship Fast</h3>
-          <p class="leading-relaxed text-gray-300">
-            Built with battle-tested technologies. No more wrestling with
-            complex build tools or chasing JavaScript trends.
-          </p>
-          <div
-            class="text-brand-400 mt-4 inline-flex items-center text-sm font-medium"
-          >
-            <span>React • Node.js • PostgreSQL</span>
-          </div>
-        </div>
-
-        <div class="group text-center">
-          <div class="mb-6 flex justify-center">
-            <div class="relative">
-              <div
-                class="bg-accent-500/20 absolute inset-0 scale-110 rounded-2xl blur-xl"
-              />
-              <div
-                class="from-accent-500 to-accent-600 relative rounded-2xl bg-linear-to-br p-4 shadow-2xl"
-              >
-                <CheckCircle class="h-8 w-8 text-white" />
-              </div>
-            </div>
-          </div>
-          <h3 class="mb-4 text-2xl font-bold text-white">SaaS Ready</h3>
-          <p class="leading-relaxed text-gray-300">
-            Authentication, payments, teams, admin dashboard, and more.
-            Everything you need to launch your SaaS.
-          </p>
-          <div
-            class="text-accent-400 mt-4 inline-flex items-center text-sm font-medium"
-          >
-            <span>Auth • Billing • Multi-tenancy</span>
-          </div>
-        </div>
-
-        <div class="group text-center">
-          <div class="mb-6 flex justify-center">
-            <div class="relative">
-              <div
-                class="bg-success-500/20 absolute inset-0 scale-110 rounded-2xl blur-xl"
-              />
-              <div
-                class="from-success-500 to-success-600 relative rounded-2xl bg-linear-to-br p-4 shadow-2xl"
-              >
-                <Heart class="h-8 w-8 text-white" />
-              </div>
-            </div>
-          </div>
-          <h3 class="mb-4 text-2xl font-bold text-white">Premium Experience</h3>
-          <p class="leading-relaxed text-gray-300">
-            PrimeReact components, Tailwind CSS, and modern tooling. Everything
-            works together seamlessly.
-          </p>
-          <div
-            class="text-success-400 mt-4 inline-flex items-center text-sm font-medium"
-          >
-            <span>PrimeReact • Tailwind • TypeScript</span>
-          </div>
-        </div>
-      </div>
+      </details>
+      <details>
+        <summary>Can I make it my own?</summary>
+        <p>
+          Yes. The application and Klean components live in your source. Change
+          the styles, extend the flows, and build your own features.
+        </p>
+      </details>
+      <details>
+        <summary>What do I need to configure?</summary>
+        <p>
+          Connect your database, email transport, and payment provider for your
+          deployment. The documentation walks through the setup.
+        </p>
+      </details>
     </div>
   </section>
-
-  <!-- FAQ Section -->
-  <section class="relative overflow-hidden bg-white px-4 py-20">
-    <!-- Subtle background pattern -->
-    <div class="absolute inset-0 bg-linear-to-b from-gray-50/30 to-white" />
-    <div
-      class="bg-brand-100/20 absolute top-0 right-1/4 h-72 w-72 rounded-full blur-3xl"
-    />
-    <div
-      class="bg-accent-100/20 absolute bottom-0 left-1/4 h-96 w-96 rounded-full blur-3xl"
-    />
-
-    <div class="relative mx-auto max-w-4xl">
-      <div class="mb-16 text-center">
-        <div class="mb-4">
-          <span
-            class="bg-brand-100 text-brand-700 inline-flex items-center rounded-full px-4 py-2 text-sm font-semibold"
-          >
-            ❓ FAQ
-          </span>
-        </div>
-        <h2
-          class="mb-6 text-4xl font-extrabold tracking-tight text-gray-900 md:text-5xl"
-        >
-          Got Questions?
-          <span
-            class="from-brand-600 to-accent-600 block bg-linear-to-r bg-clip-text text-transparent"
-          >
-            We've Got Answers
-          </span>
-        </h2>
-        <p
-          class="mx-auto max-w-2xl text-xl leading-relaxed font-medium text-gray-600"
-        >
-          Everything you need to know about launching your SaaS with Ascent.
-        </p>
-      </div>
-
-      <div class="space-y-6">
-        <details
-          class="group relative overflow-hidden rounded-2xl border border-gray-100 bg-white shadow-sm transition-all duration-300 hover:shadow-lg"
-        >
-          <summary
-            class="flex cursor-pointer list-none items-center justify-between p-6 [&::-webkit-details-marker]:hidden"
-          >
-            <h3
-              class="group-hover:text-brand-600 text-lg font-bold text-gray-900 transition-colors"
-            >
-              Why should I choose Ascent over building from scratch?
-            </h3>
-            <div class="ml-4 shrink-0">
-              <div
-                class="bg-brand-50 group-hover:bg-brand-100 flex h-8 w-8 items-center justify-center rounded-full transition-colors"
-              >
-                <ChevronDown
-                  class="text-brand-600 h-4 w-4 transition-transform group-open:rotate-180"
-                />
-              </div>
-            </div>
-          </summary>
-          <div class="px-6 pb-6">
-            <div class="border-t border-gray-100 pt-4">
-              <p class="mb-4 leading-relaxed text-gray-600">
-                Building a SaaS from scratch takes 6-12 months of expensive
-                development time. Ascent gives you everything—authentication,
-                billing, teams, admin dashboard—in minutes, not months.
-              </p>
-              <div
-                class="bg-brand-50 text-brand-700 inline-flex items-center space-x-2 rounded-lg px-3 py-2 text-sm font-semibold"
-              >
-                <Bolt class="h-4 w-4" />
-                <span>Save 6+ months of development time</span>
-              </div>
-            </div>
-          </div>
-        </details>
-
-        <details
-          class="group relative overflow-hidden rounded-2xl border border-gray-100 bg-white shadow-sm transition-all duration-300 hover:shadow-lg"
-        >
-          <summary
-            class="flex cursor-pointer list-none items-center justify-between p-6 [&::-webkit-details-marker]:hidden"
-          >
-            <h3
-              class="group-hover:text-brand-600 text-lg font-bold text-gray-900 transition-colors"
-            >
-              How much money could this save my startup?
-            </h3>
-            <div class="ml-4 shrink-0">
-              <div
-                class="bg-success-50 group-hover:bg-success-100 flex h-8 w-8 items-center justify-center rounded-full transition-colors"
-              >
-                <ChevronDown
-                  class="text-success-600 h-4 w-4 transition-transform group-open:rotate-180"
-                />
-              </div>
-            </div>
-          </summary>
-          <div class="px-6 pb-6">
-            <div class="border-t border-gray-100 pt-4">
-              <p class="mb-4 leading-relaxed text-gray-600">
-                Hiring a full-stack developer costs $120k+ annually. Building
-                auth, payments, and admin features takes months of expensive
-                development time. Ascent delivers production-ready SaaS
-                infrastructure immediately.
-              </p>
-              <div
-                class="bg-success-50 text-success-700 inline-flex items-center space-x-2 rounded-lg px-3 py-2 text-sm font-semibold"
-              >
-                <CurrencyDollar class="h-4 w-4" />
-                <span>ROI from day one instead of month six</span>
-              </div>
-            </div>
-          </div>
-        </details>
-
-        <details
-          class="group relative overflow-hidden rounded-2xl border border-gray-100 bg-white shadow-sm transition-all duration-300 hover:shadow-lg"
-        >
-          <summary
-            class="flex cursor-pointer list-none items-center justify-between p-6 [&::-webkit-details-marker]:hidden"
-          >
-            <h3
-              class="group-hover:text-brand-600 text-lg font-bold text-gray-900 transition-colors"
-            >
-              Is this actually production-ready or just a demo?
-            </h3>
-            <div class="ml-4 shrink-0">
-              <div
-                class="bg-accent-50 group-hover:bg-accent-100 flex h-8 w-8 items-center justify-center rounded-full transition-colors"
-              >
-                <ChevronDown
-                  class="text-accent-600 h-4 w-4 transition-transform group-open:rotate-180"
-                />
-              </div>
-            </div>
-          </summary>
-          <div class="px-6 pb-6">
-            <div class="border-t border-gray-100 pt-4">
-              <p class="mb-4 leading-relaxed text-gray-600">
-                100% production-ready. Enterprise-grade security, real payment
-                processing, automated emails, database migrations, deployment
-                scripts—everything you need to launch and scale.
-              </p>
-              <div
-                class="bg-accent-50 text-accent-700 inline-flex items-center space-x-2 rounded-lg px-3 py-2 text-sm font-semibold"
-              >
-                <CheckCircle class="h-4 w-4" />
-                <span>Deploy to production in hours, not months</span>
-              </div>
-            </div>
-          </div>
-        </details>
-
-        <details
-          class="group relative overflow-hidden rounded-2xl border border-gray-100 bg-white shadow-sm transition-all duration-300 hover:shadow-lg"
-        >
-          <summary
-            class="flex cursor-pointer list-none items-center justify-between p-6 [&::-webkit-details-marker]:hidden"
-          >
-            <h3
-              class="group-hover:text-brand-600 text-lg font-bold text-gray-900 transition-colors"
-            >
-              What if I need to customize or add features?
-            </h3>
-            <div class="ml-4 shrink-0">
-              <div
-                class="flex h-8 w-8 items-center justify-center rounded-full bg-purple-50 transition-colors group-hover:bg-purple-100"
-              >
-                <ChevronDown
-                  class="h-4 w-4 text-purple-600 transition-transform group-open:rotate-180"
-                />
-              </div>
-            </div>
-          </summary>
-          <div class="px-6 pb-6">
-            <div class="border-t border-gray-100 pt-4">
-              <p class="mb-4 leading-relaxed text-gray-600">
-                You get the full source code—no black boxes, no vendor lock-in.
-                Built with clean, modern patterns that are easy to extend. Add
-                your unique features on top of our solid foundation.
-              </p>
-              <div
-                class="inline-flex items-center space-x-2 rounded-lg bg-purple-50 px-3 py-2 text-sm font-semibold text-purple-700"
-              >
-                <Code class="h-4 w-4" />
-                <span>Your code, your control, your IP</span>
-              </div>
-            </div>
-          </div>
-        </details>
-
-        <details
-          class="group relative overflow-hidden rounded-2xl border border-gray-100 bg-white shadow-sm transition-all duration-300 hover:shadow-lg"
-        >
-          <summary
-            class="flex cursor-pointer list-none items-center justify-between p-6 [&::-webkit-details-marker]:hidden"
-          >
-            <h3
-              class="group-hover:text-brand-600 text-lg font-bold text-gray-900 transition-colors"
-            >
-              How do I know this won't become technical debt?
-            </h3>
-            <div class="ml-4 shrink-0">
-              <div
-                class="flex h-8 w-8 items-center justify-center rounded-full bg-orange-50 transition-colors group-hover:bg-orange-100"
-              >
-                <ChevronDown
-                  class="h-4 w-4 text-orange-600 transition-transform group-open:rotate-180"
-                />
-              </div>
-            </div>
-          </summary>
-          <div class="px-6 pb-6">
-            <div class="border-t border-gray-100 pt-4">
-              <p class="mb-4 leading-relaxed text-gray-600">
-                Built on The Boring Stack—proven technologies that have powered
-                successful companies for years. No experimental frameworks, no
-                bleeding-edge risks. Just reliable, maintainable code that
-                scales.
-              </p>
-              <div
-                class="inline-flex items-center space-x-2 rounded-lg bg-orange-50 px-3 py-2 text-sm font-semibold text-orange-700"
-              >
-                <ShieldCheck class="h-4 w-4" />
-                <span>
-                  Battle-tested foundation, future-proof architecture
-                </span>
-              </div>
-            </div>
-          </div>
-        </details>
-      </div>
-    </div>
+  <section class="ascent-final">
+    <h2>Start building with Ascent.</h2>
+    <Link href="/signup" class="ascent-primary"
+      >Get started <ArrowRight class="h-4 w-4 shrink-0"
+    /></Link>
   </section>
 </template>
-
-<style scoped>
-details > summary {
-  list-style: none;
-}
-
-summary::-webkit-details-marker {
-  display: none;
-}
-
-@keyframes details-show {
-  from {
-    opacity: 0;
-    transform: var(--details-translate, translateY(-0.5em));
-  }
-}
-
-details[open] > :not(summary) {
-  animation: details-show 150ms ease-in-out;
-}
-
-/* Shake animation for form validation */
-@keyframes shake {
-  0%,
-  100% {
-    transform: translateX(0);
-  }
-  10%,
-  30%,
-  50%,
-  70%,
-  90% {
-    transform: translateX(-4px);
-  }
-  20%,
-  40%,
-  60%,
-  80% {
-    transform: translateX(4px);
-  }
-}
-</style>

@@ -2,13 +2,13 @@
 
 @theme {
   /* Brand Colors */
-  --color-brand: #6c25c1;
+  --color-brand: #59328b;
   --color-brand-50: #ccaeef;
   --color-brand-100: #c19dec;
   --color-brand-200: #ab7be6;
   --color-brand-300: #9659df;
   --color-brand-400: #8036d9;
-  --color-brand-500: #6c25c1;
+  --color-brand-500: #59328b;
   --color-brand-600: #521c92;
   --color-brand-700: #371363;
   --color-brand-800: #1d0a34;
@@ -56,4 +56,267 @@
   --color-black-800: #000000;
   --color-black-900: #000000;
   --color-black-950: #000000;
+}
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+    scroll-padding-top: 6rem;
+  }
+  body {
+    background: #faf9f6;
+    color: #282332;
+    -webkit-font-smoothing: antialiased;
+  }
+  ::selection {
+    background: #ddd0f4;
+    color: #322049;
+  }
+  :focus-visible {
+    outline: 2px solid #6841a4;
+    outline-offset: 4px;
+  }
+  button,
+  a,
+  input,
+  summary {
+    -webkit-tap-highlight-color: transparent;
+  }
+  summary {
+    cursor: pointer;
+  }
+}
+@layer components {
+  .mellow-shell {
+    @apply flex min-h-screen flex-col;
+    background: #faf9f6;
+  }
+  .mellow-nav {
+    @apply mx-auto flex w-full max-w-7xl items-center justify-between gap-4 px-6 py-5 md:px-12;
+  }
+  .mellow-brand {
+    @apply flex items-center gap-3 text-xl font-semibold tracking-tight;
+    color: #31253f;
+  }
+  .mellow-brand svg {
+    width: 32px;
+    height: 26px;
+  }
+  .mellow-footer {
+    @apply mx-auto flex w-full max-w-7xl flex-col items-center justify-between gap-5 px-6 py-10 text-sm md:flex-row md:px-12;
+    border-top: 1px solid #e1dce5;
+  }
+  .mellow-footer p {
+    @apply max-w-lg text-left leading-relaxed;
+  }
+  .mellow-primary {
+    @apply min-h-12 inline-flex items-center justify-center gap-6 rounded-full px-6 py-3 text-sm font-medium transition-colors;
+    background: #59328b;
+    color: #fff;
+  }
+  .mellow-primary:hover {
+    background: #432169;
+  }
+  .mellow-text-link {
+    @apply min-h-12 inline-flex items-center gap-4 py-3 text-sm font-medium underline-offset-4 hover:underline;
+  }
+
+  .mellow-hero {
+    background: #f4f0f8;
+  }
+
+  .mellow-hero-inner {
+    @apply mx-auto max-w-7xl px-6 py-16 md:px-12 md:py-24;
+  }
+
+  .mellow-hero-bottom {
+    @apply grid items-end gap-10 md:grid-cols-[1.2fr_0.8fr];
+  }
+
+  .mellow-hero h2 {
+    font-family: Georgia, serif;
+    font-weight: 400;
+  }
+  .mellow-hero-bottom p {
+    @apply mt-5 max-w-md text-sm leading-relaxed md:text-base;
+    color: #675b70;
+  }
+  .mellow-actions {
+    @apply mt-7 flex flex-wrap items-center gap-x-7 gap-y-2;
+  }
+
+  .mellow-section {
+    @apply mx-auto grid max-w-7xl gap-8 px-6 py-12 md:grid-cols-2 md:gap-16 md:px-12 md:py-16;
+  }
+  .mellow-section-heading h2,
+  .mellow-closing h2 {
+    font-family: Georgia, 'Times New Roman', serif;
+    font-size: clamp(2rem, 3vw, 3rem);
+    font-weight: 400;
+    line-height: 1.16;
+    letter-spacing: -0.04em;
+    margin-top: 20px;
+  }
+  .mellow-feature-list article {
+    @apply flex gap-6 border-t py-6;
+    border-color: #dcd7df;
+  }
+
+  .mellow-feature-list h3 {
+    @apply mb-2 text-lg font-medium;
+  }
+  .mellow-feature-list p,
+  .mellow-faq p {
+    @apply max-w-sm text-sm leading-7;
+    color: #6b6371;
+  }
+  .mellow-resources {
+    border-top: 1px solid #e1dce5;
+  }
+  .mellow-resource-list a {
+    @apply flex items-center justify-between gap-4 border-t py-5 text-base transition-colors;
+    border-color: #dcd7df;
+  }
+  .mellow-resource-list a:hover {
+    color: #7845a7;
+  }
+  .mellow-resource-list small {
+    @apply mt-1 block text-sm;
+    color: #746a7b;
+  }
+  .mellow-faq details {
+    @apply border-t py-5;
+    border-color: #dcd7df;
+  }
+  .mellow-faq summary {
+    @apply relative pr-6 text-base font-medium;
+    list-style: none;
+  }
+  .mellow-faq summary::after {
+    content: '+';
+    position: absolute;
+    right: 0;
+  }
+  .mellow-faq details[open] summary::after {
+    content: '−';
+  }
+  .mellow-faq p {
+    @apply mt-4;
+  }
+
+  .mellow-closing {
+    @apply border-t border-gray-200 px-6 py-14 text-center;
+    background: #faf9f6;
+  }
+  .mellow-closing .mellow-primary {
+    @apply mt-8;
+  }
+  .mellow-auth {
+    @apply flex min-h-screen flex-col items-center justify-center px-5 py-12;
+    background: #f3eef7;
+  }
+  .mellow-auth-main {
+    @apply w-full max-w-[460px] rounded-2xl bg-white px-6 py-9 sm:px-10 sm:py-11;
+    border: 1px solid #e6dfec;
+    box-shadow: 0 14px 50px -34px #59416e;
+  }
+  .mellow-auth-main h1 {
+    font-family: Georgia, 'Times New Roman', serif;
+    font-size: 2rem;
+    letter-spacing: -0.035em;
+    margin-top: 16px;
+  }
+  .mellow-auth-main label {
+    @apply text-sm;
+  }
+  .mellow-auth-main p {
+    @apply text-sm leading-relaxed;
+  }
+  .mellow-auth-main > section:first-child {
+    @apply mb-8;
+  }
+  .mellow-auth-main input:not([type='checkbox']) {
+    @apply rounded-lg border-gray-200 shadow-none;
+  }
+  .mellow-auth-main button[type='submit'] {
+    @apply rounded-full text-sm font-medium;
+  }
+  .mellow-workspace {
+    @apply mx-auto w-full max-w-7xl px-6 py-12 md:px-12 md:py-20;
+  }
+  .mellow-workspace-heading {
+    @apply mb-12 border-b pb-10;
+    border-color: #ddd5e4;
+  }
+  .mellow-workspace h1 {
+    font-family: Georgia, 'Times New Roman', serif;
+    font-size: clamp(2rem, 4vw, 3.5rem);
+    line-height: 1.1;
+    letter-spacing: -0.04em;
+    margin: 20px 0;
+  }
+  .mellow-account-row {
+    @apply grid gap-6 border-b py-8 md:grid-cols-[1fr_2fr_auto] md:items-center;
+    border-color: #e1dce5;
+  }
+  .mellow-account-row p {
+    @apply text-sm leading-6;
+    color: #706577;
+  }
+  .mellow-account-row h2 {
+    @apply text-lg font-medium;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+}
+
+@layer components {
+  .mellow-profile {
+    @apply mx-auto w-full max-w-5xl px-6 py-10 md:px-12;
+  }
+  .mellow-profile-section {
+    @apply grid gap-8 border-t py-10 md:grid-cols-2 md:gap-16;
+    border-color: #dfd7e6;
+  }
+  .mellow-profile-section h1,
+  .mellow-profile-section h2 {
+    font-family: Georgia, 'Times New Roman', serif;
+    font-size: 1.8rem;
+    letter-spacing: -0.035em;
+  }
+  .mellow-profile-section header p {
+    @apply text-sm leading-6;
+  }
+  .mellow-profile-section form {
+    @apply min-w-0;
+  }
+}
+
+@layer components {
+  .mellow-hero h1 {
+    font-family: Georgia, 'Times New Roman', serif;
+    font-size: clamp(2.8rem, 5vw, 4.5rem);
+    font-weight: 400;
+    line-height: 1.08;
+    letter-spacing: -0.045em;
+    color: #352b41;
+  }
+  .mellow-hero-inner > p {
+    @apply mt-6 max-w-xl text-base leading-7;
+    color: #706577;
+  }
+  .mellow-section-heading h2,
+  .mellow-closing h2 {
+    @apply mt-0 text-3xl;
+  }
+  .mellow-feature-list article {
+    @apply py-5;
+  }
+  .mellow-workspace-heading h1 {
+    @apply mt-0;
+  }
 }

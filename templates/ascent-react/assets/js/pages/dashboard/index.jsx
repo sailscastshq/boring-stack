@@ -1,3 +1,4 @@
+import ArrowRight from '@/components/ui/icons/ArrowRight.jsx'
 import { Link, Head, usePage } from '@inertiajs/react'
 import DashboardLayout from '@/layouts/DashboardLayout.jsx'
 
@@ -10,33 +11,42 @@ export default function Dashboard() {
     <>
       <Head title="Dashboard | Ascent"></Head>
 
-      <header className="mb-8">
-        <div className="relative overflow-hidden rounded-2xl bg-gradient-to-br from-brand-600 via-brand-700 to-accent-700 p-8 text-white shadow-2xl">
-          <div className="absolute right-0 top-0 h-32 w-32 -translate-y-8 translate-x-8 rounded-full bg-white/10"></div>
-          <div className="absolute bottom-0 left-0 h-24 w-24 -translate-x-4 translate-y-4 rounded-full bg-white/5"></div>
-          <div className="relative">
-            <h1 className="mb-2 text-2xl font-bold">
-              Welcome back, {loggedInUser.fullName.split(' ')[0]}! 👋
-            </h1>
-            <p className="text-brand-100">
-              Here's what's happening with your account today.
-            </p>
-          </div>
-        </div>
-      </header>
-
-      <div className="flex min-h-[400px] items-center justify-center rounded-xl bg-white p-12 shadow-sm ring-1 ring-gray-100">
-        <div className="max-w-2xl text-center">
-          <div className="mb-6 text-6xl">🎨</div>
-          <h2 className="mb-4 text-3xl font-bold text-gray-900">
-            This is your blank canvas
+      <section className="ascent-workspace-intro">
+        <h1>Welcome back, {loggedInUser.fullName.split(' ')[0]}.</h1>
+        <p>Your account, your team, and your next steps.</p>
+      </section>
+      <section
+        className="ascent-workspace-links"
+        aria-label="Workspace shortcuts"
+      >
+        <Link href="/settings/profile">
+          <h2>
+            Make it yours <ArrowRight className="h-4 w-4 shrink-0" />
           </h2>
-          <p className="text-lg text-gray-600">
-            Go ahead, build something cool. Or don't. I am not your mom. (But
-            seriously, you got this! 💪)
-          </p>
+          <p>Update your profile and choose how you show up.</p>
+        </Link>
+        <Link href="/settings/team">
+          <h2>
+            Build together <ArrowRight className="h-4 w-4 shrink-0" />
+          </h2>
+          <p>Manage your workspace, people, and invitations.</p>
+        </Link>
+        <Link href="/settings/billing">
+          <h2>
+            Your plan <ArrowRight className="h-4 w-4 shrink-0" />
+          </h2>
+          <p>Review your subscription and billing details.</p>
+        </Link>
+      </section>
+      <section className="ascent-workspace-note">
+        <div>
+          <h2>Keep your account secure.</h2>
+          <p>Review your password, passkeys, and two-factor authentication.</p>
         </div>
-      </div>
+        <Link href="/settings/security" className="ascent-inline-link">
+          Security settings <ArrowRight className="h-4 w-4 shrink-0" />
+        </Link>
+      </section>
     </>
   )
 }

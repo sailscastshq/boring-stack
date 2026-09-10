@@ -45,11 +45,11 @@ export default function ResetPassword({ token }) {
     <>
       <>
         <Head title="Reset Password | Ascent"></Head>
-        <div className="flex min-h-screen flex-col justify-center bg-gradient-to-br from-brand-50/30 via-white to-accent-50/20 py-12 sm:px-6 lg:px-8">
+        <div className="ascent-auth">
           {/* Background Elements */}
           <div className="pointer-events-none absolute inset-0 overflow-hidden">
-            <div className="absolute left-1/4 top-20 h-96 w-96 rounded-full bg-brand-200/20 blur-3xl"></div>
-            <div className="absolute bottom-20 right-1/4 h-72 w-72 rounded-full bg-accent-200/20 blur-3xl"></div>
+            <div className="hidden"></div>
+            <div className="hidden"></div>
           </div>
 
           <div className="relative sm:mx-auto sm:w-full sm:max-w-lg">
@@ -57,22 +57,29 @@ export default function ResetPassword({ token }) {
             <div className="mb-8 flex items-center justify-center">
               <Link href="/" className="group">
                 <div className="relative">
-                  <div className="absolute inset-0 scale-110 rounded-2xl bg-brand-200/30 opacity-0 blur-xl transition-opacity group-hover:opacity-100"></div>
-                  <img
-                    src="/images/logo.svg"
-                    alt="Ascent Logo"
-                    className="relative h-12 w-auto"
-                  />
+                  <div className="hidden"></div>
+                  <span
+                    className="inline-flex items-center gap-1 text-2xl font-semibold tracking-tight text-gray-900 dark:text-gray-100"
+                    aria-label="Ascent"
+                  >
+                    Ascent
+                    <span
+                      className="text-brand-600 dark:text-brand-300"
+                      aria-hidden="true"
+                    >
+                      ↗
+                    </span>
+                  </span>
                 </div>
               </Link>
             </div>
 
             {/* Header */}
             <header className="mb-8 text-center">
-              <h1 className="text-3xl font-bold tracking-tight text-gray-900">
+              <h1 className="text-3xl font-bold tracking-tight text-gray-900 dark:text-gray-100">
                 Create new password
               </h1>
-              <p className="mt-2 text-base text-gray-600">
+              <p className="mt-2 text-base text-gray-600 dark:text-gray-400">
                 Please create a strong password for your account
               </p>
             </header>
@@ -81,10 +88,10 @@ export default function ResetPassword({ token }) {
           <div className="relative sm:mx-auto sm:w-full sm:max-w-lg">
             <div className="relative">
               {/* Background blur effect */}
-              <div className="absolute inset-0 scale-105 rounded-2xl bg-gradient-to-r from-brand-600/10 to-accent-600/10 blur-xl"></div>
+              <div className="hidden"></div>
 
               {/* Main card */}
-              <div className="relative rounded-2xl border border-gray-100 bg-white px-8 py-10 shadow-2xl">
+              <div className="ascent-auth-panel">
                 {/* Global error */}
                 {form.errors.password && (
                   <div className="mb-6" role="alert">
@@ -107,7 +114,7 @@ export default function ResetPassword({ token }) {
                   <div>
                     <label
                       htmlFor="password"
-                      className="mb-2 block text-sm font-semibold text-gray-900"
+                      className="mb-2 block text-sm font-semibold text-gray-900 dark:text-gray-100"
                     >
                       New Password
                     </label>
@@ -119,10 +126,10 @@ export default function ResetPassword({ token }) {
                         required
                         value={data.password}
                         onChange={(e) => setData('password', e.target.value)}
-                        className={`w-full rounded-xl border px-4 py-4 text-lg font-medium transition-all duration-200 ${
+                        className={`w-full rounded-lg border px-4 py-4 text-base font-medium transition-all duration-200 ${
                           form.errors.password
-                            ? 'border-red-300 bg-red-50 ring-2 ring-red-100'
-                            : 'border-gray-200 bg-gray-50 focus:border-brand-300 focus:bg-white focus:ring-4 focus:ring-brand-100'
+                            ? 'border-red-300 bg-red-50 ring-2 ring-red-100 dark:border-red-900 dark:bg-red-950/40'
+                            : 'border-gray-200 bg-gray-50 focus:border-brand-300 focus:bg-white focus:ring-4 focus:ring-brand-100 dark:border-gray-700 dark:bg-gray-950'
                         }`}
                         placeholder="Enter your new password"
                       />
@@ -133,7 +140,7 @@ export default function ResetPassword({ token }) {
                   <div>
                     <label
                       htmlFor="confirmPassword"
-                      className="mb-2 block text-sm font-semibold text-gray-900"
+                      className="mb-2 block text-sm font-semibold text-gray-900 dark:text-gray-100"
                     >
                       Confirm Password
                     </label>
@@ -147,16 +154,16 @@ export default function ResetPassword({ token }) {
                         onChange={(e) =>
                           setData('confirmPassword', e.target.value)
                         }
-                        className={`w-full rounded-xl border px-4 py-4 text-lg font-medium transition-all duration-200 ${
+                        className={`w-full rounded-lg border px-4 py-4 text-base font-medium transition-all duration-200 ${
                           data.confirmPassword && !passwordsMatch
-                            ? 'border-red-300 bg-red-50 ring-2 ring-red-100'
-                            : 'border-gray-200 bg-gray-50 focus:border-brand-300 focus:bg-white focus:ring-4 focus:ring-brand-100'
+                            ? 'border-red-300 bg-red-50 ring-2 ring-red-100 dark:border-red-900 dark:bg-red-950/40'
+                            : 'border-gray-200 bg-gray-50 focus:border-brand-300 focus:bg-white focus:ring-4 focus:ring-brand-100 dark:border-gray-700 dark:bg-gray-950'
                         }`}
                         placeholder="Confirm your new password"
                       />
                     </div>
                     {data.confirmPassword && !passwordsMatch && (
-                      <p className="mt-1 text-sm text-red-600">
+                      <p className="mt-1 text-sm text-red-600 dark:text-red-300">
                         Passwords do not match
                       </p>
                     )}
@@ -164,7 +171,7 @@ export default function ResetPassword({ token }) {
 
                   {/* Password Requirements */}
                   <div className="space-y-2">
-                    <p className="text-sm font-medium text-gray-700">
+                    <p className="text-sm font-medium text-gray-700 dark:text-gray-300">
                       Password requirements:
                     </p>
                     <div className="grid grid-cols-1 gap-2 sm:grid-cols-2">
@@ -207,12 +214,12 @@ export default function ResetPassword({ token }) {
                       className={`flex w-full justify-center rounded-xl px-8 py-4 text-lg font-bold text-white shadow-lg transition-all duration-200 hover:scale-[1.02] hover:shadow-xl disabled:cursor-not-allowed disabled:opacity-50 disabled:hover:scale-100 ${
                         disableResetPasswordButton
                           ? 'bg-gray-300'
-                          : 'bg-gradient-to-r from-brand-600 to-accent-600 hover:from-brand-700 hover:to-accent-700 focus:outline-none focus:ring-2 focus:ring-brand-500 focus:ring-offset-2'
+                          : 'bg-brand-600 hover:bg-brand-700 focus:outline-none focus:ring-2 focus:ring-brand-500 focus:ring-offset-2 dark:bg-brand-600'
                       }`}
                     >
                       {form.processing ? (
                         <div className="flex items-center space-x-2">
-                          <Spinner className="h-5 w-5 " />
+                          <Spinner className="h-5 w-5" />
                           <span>Resetting password...</span>
                         </div>
                       ) : (
@@ -226,7 +233,7 @@ export default function ResetPassword({ token }) {
                 <div className="mt-6 text-center">
                   <Link
                     href="/login"
-                    className="flex items-center justify-center text-sm font-medium text-gray-600 transition-colors hover:text-brand-600"
+                    className="flex items-center justify-center text-sm font-medium text-gray-600 transition-colors hover:text-brand-600 dark:text-gray-400"
                   >
                     <ChevronLeft className="mr-1 h-4 w-4" />
                     Back to sign in

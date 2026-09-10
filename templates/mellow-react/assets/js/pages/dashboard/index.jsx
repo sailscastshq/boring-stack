@@ -1,3 +1,5 @@
+import ArrowRight from '@/components/ui/icons/ArrowRight.jsx'
+import ExternalLink from '@/components/ui/icons/ExternalLink.jsx'
 import { Link, Head, usePage } from '@inertiajs/react'
 import AppLayout from '@/layouts/AppLayout.jsx'
 
@@ -9,21 +11,38 @@ export default function Dashboard() {
   return (
     <>
       <Head title="Dashboard | Mellow"></Head>
-      <section className="mx-auto max-w-4xl px-4">
-        <section className="from-brand-50/10 rounded-lg bg-gradient-to-b to-white p-6 shadow-md transition-all duration-300 hover:shadow-lg">
-          <h3 className="text-brand mb-2 text-xl font-semibold">
-            Welcome, {loggedInUser.fullName}
-          </h3>
-          <p className="mb-4 text-gray-600">
-            You are logged in as {loggedInUser.email}
+      <section className="mellow-workspace">
+        <div className="mellow-workspace-heading">
+          <h1>Welcome, {loggedInUser.fullName}.</h1>
+          <p className="text-sm text-gray-600">
+            A place to settle in and make things happen.
           </p>
-          <Link
-            href="/profile"
-            className="border-brand text-brand hover:bg-brand mt-2 rounded-lg border px-4 py-2 transition-colors duration-300 hover:text-white"
-          >
-            Edit Profile
+        </div>
+        <div className="mellow-account-row">
+          <h2>Your profile</h2>
+          <div>
+            <p>Make yourself at home. Update your name, email, and password.</p>
+            <p className="mt-2 break-all">{loggedInUser.email}</p>
+          </div>
+          <Link href="/profile" className="mellow-primary">
+            Edit Profile <ArrowRight className="h-4 w-4 shrink-0" />
           </Link>
-        </section>
+        </div>
+        <div className="mellow-account-row">
+          <h2>Your next step</h2>
+          <p>
+            The basics are in place. Explore the documentation and start shaping
+            your application.
+          </p>
+          <a
+            href="https://docs.sailscasts.com/boring-stack"
+            className="mellow-text-link"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            Explore the docs <ExternalLink className="h-4 w-4 shrink-0" />
+          </a>
+        </div>
       </section>
     </>
   )

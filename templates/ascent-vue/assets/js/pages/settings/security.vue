@@ -315,8 +315,10 @@ function submitInitialPassword(e) {
     <!-- Password Section -->
     <section class="space-y-6">
       <header>
-        <h3 class="mb-4 text-sm font-medium text-gray-900">Password</h3>
-        <p class="mb-6 text-sm text-gray-500">
+        <h3 class="mb-4 text-sm font-medium text-gray-900 dark:text-gray-100">
+          Password
+        </h3>
+        <p class="mb-6 text-sm text-gray-500 dark:text-gray-400">
           {{
             hasPassword
               ? 'Set a strong password to protect your account.'
@@ -326,7 +328,7 @@ function submitInitialPassword(e) {
       </header>
 
       <div
-        class="rounded-lg border border-gray-300 bg-white p-4 shadow-sm sm:p-6"
+        class="rounded-lg border border-gray-300 bg-white p-4 shadow-sm sm:p-6 dark:border-gray-700 dark:bg-gray-900"
       >
         <!-- No Password State - Show Setup Option -->
         <div
@@ -335,15 +337,17 @@ function submitInitialPassword(e) {
         >
           <div class="flex items-center space-x-3 sm:space-x-4">
             <div
-              class="flex h-10 w-10 shrink-0 items-center justify-center rounded-lg bg-orange-50"
+              class="flex h-10 w-10 shrink-0 items-center justify-center rounded-lg bg-orange-50 dark:bg-orange-950/40"
             >
-              <Lock class="h-[1em] w-[1em] shrink-0 text-orange-600" />
+              <Lock
+                class="h-[1em] w-[1em] shrink-0 text-orange-600 dark:text-orange-300"
+              />
             </div>
             <div class="flex-1">
-              <h4 class="text-sm font-medium text-gray-900">
+              <h4 class="text-sm font-medium text-gray-900 dark:text-gray-100">
                 You don't have a password set
               </h4>
-              <p class="mt-1 text-sm text-gray-500">
+              <p class="mt-1 text-sm text-gray-500 dark:text-gray-400">
                 Set one up to enable two-factor authentication
               </p>
             </div>
@@ -365,15 +369,17 @@ function submitInitialPassword(e) {
         >
           <div class="mb-4 flex items-center space-x-3">
             <div
-              class="bg-brand-50 flex h-10 w-10 items-center justify-center rounded-lg"
+              class="bg-brand-50 flex h-10 w-10 items-center justify-center rounded-lg dark:bg-brand-950/40"
             >
-              <Lock class="h-[1em] w-[1em] shrink-0 text-brand-600" />
+              <Lock
+                class="h-[1em] w-[1em] shrink-0 text-brand-600 dark:text-brand-300"
+              />
             </div>
             <div>
-              <h4 class="text-sm font-medium text-gray-900">
+              <h4 class="text-sm font-medium text-gray-900 dark:text-gray-100">
                 Set up your password
               </h4>
-              <p class="text-sm text-gray-500">
+              <p class="text-sm text-gray-500 dark:text-gray-400">
                 Create a secure password for your account
               </p>
             </div>
@@ -391,7 +397,7 @@ function submitInitialPassword(e) {
             <div>
               <label
                 for="initialPassword"
-                class="mb-2 block text-sm font-medium text-gray-700"
+                class="mb-2 block text-sm font-medium text-gray-700 dark:text-gray-300"
               >
                 Password
               </label>
@@ -414,7 +420,7 @@ function submitInitialPassword(e) {
             <div>
               <label
                 for="confirmInitialPassword"
-                class="mb-2 block text-sm font-medium text-gray-700"
+                class="mb-2 block text-sm font-medium text-gray-700 dark:text-gray-300"
               >
                 Confirm password
               </label>
@@ -440,7 +446,7 @@ function submitInitialPassword(e) {
           >
             <SecondaryButton
               type="button"
-              class="min-h-10 border border-transparent bg-transparent px-3 py-2 text-brand hover:bg-brand-50 dark:bg-transparent dark:text-brand-400 dark:hover:bg-brand-950 min-h-8 px-2.5 py-1.5 text-sm w-full px-4 py-2 text-sm sm:w-auto bg-transparent text-brand dark:bg-transparent dark:text-brand-400"
+              class="min-h-10 border border-transparent bg-transparent px-3 py-2 text-brand hover:bg-brand-50 dark:bg-transparent dark:text-brand-400 dark:hover:bg-brand-950 min-h-8 px-2.5 py-1.5 text-sm w-full px-4 sm:w-auto"
               @click="
                 () => {
                   showInitialPasswordForm = false
@@ -455,7 +461,7 @@ function submitInitialPassword(e) {
               "
               :aria-busy="initialPasswordForm.processing"
               type="submit"
-              class="bg-transparent text-brand dark:bg-transparent dark:text-brand-400 min-h-10 border border-brand bg-brand px-3 py-2 text-base text-white hover:bg-brand-600 active:bg-brand-700 dark:bg-brand dark:text-white dark:hover:bg-brand-600 dark:active:bg-brand-700 min-h-8 px-2.5 py-1.5 text-sm w-full px-4 py-2 text-sm sm:w-auto"
+              class="bg-transparent text-brand dark:bg-transparent dark:text-brand-400 min-h-10 border border-brand bg-brand px-3 py-2 text-base text-white hover:bg-brand-600 active:bg-brand-700 dark:bg-brand dark:text-white dark:hover:bg-brand-600 dark:active:bg-brand-700 min-h-8 px-2.5 py-1.5 text-sm w-full px-4 sm:w-auto"
               ><Spinner
                 v-if="initialPasswordForm.processing"
                 class="h-4 w-4"
@@ -471,9 +477,11 @@ function submitInitialPassword(e) {
         >
           <div class="flex items-center space-x-3 sm:space-x-4">
             <div
-              class="bg-brand-50 flex h-10 w-10 shrink-0 items-center justify-center rounded-lg"
+              class="bg-brand-50 flex h-10 w-10 shrink-0 items-center justify-center rounded-lg dark:bg-brand-950/40"
             >
-              <Lock class="h-[1em] w-[1em] shrink-0 text-brand-600" />
+              <Lock
+                class="h-[1em] w-[1em] shrink-0 text-brand-600 dark:text-brand-300"
+              />
             </div>
             <div class="min-w-0 flex-1">
               <div
@@ -486,19 +494,19 @@ function submitInitialPassword(e) {
                   :class="[
                     'inline-flex w-fit items-center rounded-full px-2.5 py-0.5 text-xs font-medium',
                     passwordStrength.color === 'success'
-                      ? 'bg-success-100 text-success-800'
+                      ? 'bg-success-100 text-success-800 dark:bg-success-950/40 dark:text-success-300'
                       : passwordStrength.color === 'warning'
                         ? 'bg-warning-100 text-warning-800'
                         : passwordStrength.color === 'danger'
-                          ? 'bg-red-100 text-red-800'
-                          : 'bg-gray-100 text-gray-800'
+                          ? 'bg-red-100 text-red-800 dark:bg-red-950/40 dark:text-red-300'
+                          : 'bg-gray-100 text-gray-800 dark:bg-gray-800 dark:text-gray-200'
                   ]"
                 >
                   <ShieldCheck class="h-[1em] w-[1em] shrink-0 mr-1" />
                   {{ passwordStrength.label }}
                 </span>
               </div>
-              <p class="mt-1 text-sm text-gray-500">
+              <p class="mt-1 text-sm text-gray-500 dark:text-gray-400">
                 Last updated {{ passwordLastUpdated }}
               </p>
             </div>
@@ -520,15 +528,17 @@ function submitInitialPassword(e) {
         >
           <div class="mb-4 flex items-center space-x-3">
             <div
-              class="bg-brand-50 flex h-10 w-10 items-center justify-center rounded-lg"
+              class="bg-brand-50 flex h-10 w-10 items-center justify-center rounded-lg dark:bg-brand-950/40"
             >
-              <Lock class="h-[1em] w-[1em] shrink-0 text-brand-600" />
+              <Lock
+                class="h-[1em] w-[1em] shrink-0 text-brand-600 dark:text-brand-300"
+              />
             </div>
             <div>
-              <h4 class="text-sm font-medium text-gray-900">
+              <h4 class="text-sm font-medium text-gray-900 dark:text-gray-100">
                 Change your password
               </h4>
-              <p class="text-sm text-gray-500">
+              <p class="text-sm text-gray-500 dark:text-gray-400">
                 Enter your current password and choose a new one
               </p>
             </div>
@@ -538,7 +548,7 @@ function submitInitialPassword(e) {
             <div>
               <label
                 for="currentPassword"
-                class="mb-2 block text-sm font-medium text-gray-700"
+                class="mb-2 block text-sm font-medium text-gray-700 dark:text-gray-300"
               >
                 Current password
               </label>
@@ -561,7 +571,7 @@ function submitInitialPassword(e) {
             <div>
               <label
                 for="newPassword"
-                class="mb-2 block text-sm font-medium text-gray-700"
+                class="mb-2 block text-sm font-medium text-gray-700 dark:text-gray-300"
               >
                 New password
               </label>
@@ -584,7 +594,7 @@ function submitInitialPassword(e) {
             <div>
               <label
                 for="confirmPassword"
-                class="mb-2 block text-sm font-medium text-gray-700"
+                class="mb-2 block text-sm font-medium text-gray-700 dark:text-gray-300"
               >
                 Confirm new password
               </label>
@@ -610,7 +620,7 @@ function submitInitialPassword(e) {
           >
             <span
               v-if="form.recentlySuccessful"
-              class="text-success-600 text-sm"
+              class="text-success-600 text-sm dark:text-success-300"
             >
               Password updated successfully
             </span>
@@ -619,7 +629,7 @@ function submitInitialPassword(e) {
             >
               <SecondaryButton
                 type="button"
-                class="min-h-10 border border-transparent bg-transparent px-3 py-2 text-brand hover:bg-brand-50 dark:bg-transparent dark:text-brand-400 dark:hover:bg-brand-950 min-h-8 px-2.5 py-1.5 text-sm w-full px-4 py-2 text-sm sm:w-auto bg-transparent text-brand dark:bg-transparent dark:text-brand-400"
+                class="min-h-10 border border-transparent bg-transparent px-3 py-2 text-brand hover:bg-brand-50 dark:bg-transparent dark:text-brand-400 dark:hover:bg-brand-950 min-h-8 px-2.5 py-1.5 text-sm w-full px-4 sm:w-auto"
                 @click="
                   () => {
                     showPasswordForm = false
@@ -632,7 +642,7 @@ function submitInitialPassword(e) {
                 :disabled="false || form.processing"
                 :aria-busy="form.processing"
                 type="submit"
-                class="bg-transparent text-brand dark:bg-transparent dark:text-brand-400 min-h-10 border border-brand bg-brand px-3 py-2 text-base text-white hover:bg-brand-600 active:bg-brand-700 dark:bg-brand dark:text-white dark:hover:bg-brand-600 dark:active:bg-brand-700 min-h-8 px-2.5 py-1.5 text-sm w-full px-4 py-2 text-sm sm:w-auto"
+                class="bg-transparent text-brand dark:bg-transparent dark:text-brand-400 min-h-10 border border-brand bg-brand px-3 py-2 text-base text-white hover:bg-brand-600 active:bg-brand-700 dark:bg-brand dark:text-white dark:hover:bg-brand-600 dark:active:bg-brand-700 min-h-8 px-2.5 py-1.5 text-sm w-full px-4 sm:w-auto"
                 ><Spinner v-if="form.processing" class="h-4 w-4" />Save new
                 password</Button
               >
@@ -645,14 +655,18 @@ function submitInitialPassword(e) {
     <!-- Passkeys -->
     <section class="space-y-6">
       <header>
-        <h3 class="mb-4 text-sm font-medium text-gray-900">Passkeys</h3>
-        <p class="mb-6 text-sm text-gray-500">
+        <h3 class="mb-4 text-sm font-medium text-gray-900 dark:text-gray-100">
+          Passkeys
+        </h3>
+        <p class="mb-6 text-sm text-gray-500 dark:text-gray-400">
           Use your device's biometric authentication (Face ID, Touch ID, Windows
           Hello) for secure, passwordless sign-in.
         </p>
       </header>
 
-      <div class="rounded-lg border border-gray-300 bg-white p-6 shadow-sm">
+      <div
+        class="rounded-lg border border-gray-300 bg-white p-6 shadow-sm dark:border-gray-700 dark:bg-gray-900"
+      >
         <div class="flex items-center justify-between">
           <div class="flex items-center space-x-4">
             <div
@@ -669,8 +683,10 @@ function submitInitialPassword(e) {
               />
             </div>
             <div class="flex-1">
-              <h4 class="text-sm font-medium text-gray-900">Passkeys</h4>
-              <p class="mt-1 text-sm text-gray-500">
+              <h4 class="text-sm font-medium text-gray-900 dark:text-gray-100">
+                Passkeys
+              </h4>
+              <p class="mt-1 text-sm text-gray-500 dark:text-gray-400">
                 {{
                   passkeyEnabled
                     ? `${passkeyCount} ${
@@ -705,18 +721,22 @@ function submitInitialPassword(e) {
       <!-- Passkey Management - Show when passkeys are enabled -->
       <div
         v-if="passkeyEnabled"
-        class="rounded-lg border border-gray-300 bg-white p-4 shadow-sm"
+        class="rounded-lg border border-gray-300 bg-white p-4 shadow-sm dark:border-gray-700 dark:bg-gray-900"
       >
         <div class="flex items-center justify-between">
           <div class="flex items-center space-x-3">
             <div
-              class="bg-brand-50 flex h-10 w-10 items-center justify-center rounded-lg"
+              class="bg-brand-50 flex h-10 w-10 items-center justify-center rounded-lg dark:bg-brand-950/40"
             >
-              <Settings class="h-[1em] w-[1em] shrink-0 text-brand-600" />
+              <Settings
+                class="h-[1em] w-[1em] shrink-0 text-brand-600 dark:text-brand-300"
+              />
             </div>
             <div class="flex-1">
-              <h5 class="text-sm font-medium text-gray-900">Manage Passkeys</h5>
-              <p class="text-sm text-gray-500">
+              <h5 class="text-sm font-medium text-gray-900 dark:text-gray-100">
+                Manage Passkeys
+              </h5>
+              <p class="text-sm text-gray-500 dark:text-gray-400">
                 View, rename, or remove your registered passkeys
               </p>
             </div>
@@ -735,15 +755,17 @@ function submitInitialPassword(e) {
     <!-- Two-Factor Authentication -->
     <section class="space-y-6">
       <header>
-        <h3 class="mb-4 text-sm font-medium text-gray-900">
+        <h3 class="mb-4 text-sm font-medium text-gray-900 dark:text-gray-100">
           Two-step verification
         </h3>
-        <p class="mb-6 text-sm text-gray-500">
+        <p class="mb-6 text-sm text-gray-500 dark:text-gray-400">
           We recommend requiring a verification code in addition to your
           password.
         </p>
       </header>
-      <div class="rounded-lg border border-gray-300 bg-white p-6 shadow-sm">
+      <div
+        class="rounded-lg border border-gray-300 bg-white p-6 shadow-sm dark:border-gray-700 dark:bg-gray-900"
+      >
         <div class="flex items-center justify-between">
           <div class="flex items-center space-x-4">
             <div
@@ -761,10 +783,10 @@ function submitInitialPassword(e) {
               />
             </div>
             <div class="flex-1">
-              <h4 class="text-sm font-medium text-gray-900">
+              <h4 class="text-sm font-medium text-gray-900 dark:text-gray-100">
                 Two-step verification
               </h4>
-              <p class="mt-1 text-sm text-gray-500">
+              <p class="mt-1 text-sm text-gray-500 dark:text-gray-400">
                 {{
                   twoFactorEnabled
                     ? 'Your account is protected with two-step verification'
@@ -794,14 +816,14 @@ function submitInitialPassword(e) {
       <!-- 2FA Methods - Show when 2FA is enabled OR setup flow is active -->
       <div v-if="twoFactorEnabled || showSetupFlow" class="mt-6 space-y-4">
         <div>
-          <h4 class="mb-2 text-sm font-medium text-gray-900">
+          <h4 class="mb-2 text-sm font-medium text-gray-900 dark:text-gray-100">
             {{
               twoFactorEnabled
                 ? 'Two-factor authentication methods'
                 : 'Choose your verification methods'
             }}
           </h4>
-          <p class="mb-4 text-sm text-gray-500">
+          <p class="mb-4 text-sm text-gray-500 dark:text-gray-400">
             {{
               twoFactorEnabled
                 ? 'Manage your two-step verification methods.'
@@ -815,8 +837,8 @@ function submitInitialPassword(e) {
           :class="[
             'rounded-lg border p-4 shadow-sm',
             totpEnabled
-              ? 'border-success-200 bg-success-50'
-              : 'border-gray-300 bg-white'
+              ? 'border-success-200 bg-success-50 dark:bg-success-950/40 dark:border-success-900'
+              : 'border-gray-300 bg-white dark:border-gray-700 dark:bg-gray-900'
           ]"
         >
           <div class="flex items-center justify-between">
@@ -836,10 +858,12 @@ function submitInitialPassword(e) {
                 />
               </div>
               <div class="flex-1">
-                <h5 class="text-sm font-medium text-gray-900">
+                <h5
+                  class="text-sm font-medium text-gray-900 dark:text-gray-100"
+                >
                   Authenticator App (TOTP)
                 </h5>
-                <p class="text-sm text-gray-500">
+                <p class="text-sm text-gray-500 dark:text-gray-400">
                   Use Passwords, 1Password, Google Authenticator, or similar
                   apps
                 </p>
@@ -848,7 +872,7 @@ function submitInitialPassword(e) {
             <div class="flex items-center space-x-3">
               <span
                 v-if="totpEnabled"
-                class="bg-success-100 text-success-800 inline-flex items-center rounded-full px-2.5 py-0.5 text-xs font-medium"
+                class="bg-success-100 text-success-800 inline-flex items-center rounded-full px-2.5 py-0.5 text-xs font-medium dark:bg-success-950/40 dark:text-success-300"
               >
                 Active
               </span>
@@ -883,8 +907,8 @@ function submitInitialPassword(e) {
           :class="[
             'rounded-lg border p-4 shadow-sm',
             emailTwoFactorEnabled
-              ? 'border-success-200 bg-success-50'
-              : 'border-gray-300 bg-white'
+              ? 'border-success-200 bg-success-50 dark:bg-success-950/40 dark:border-success-900'
+              : 'border-gray-300 bg-white dark:border-gray-700 dark:bg-gray-900'
           ]"
         >
           <div class="flex items-center justify-between">
@@ -906,10 +930,12 @@ function submitInitialPassword(e) {
                 />
               </div>
               <div class="flex-1">
-                <h5 class="text-sm font-medium text-gray-900">
+                <h5
+                  class="text-sm font-medium text-gray-900 dark:text-gray-100"
+                >
                   Email Verification
                 </h5>
-                <p class="text-sm text-gray-500">
+                <p class="text-sm text-gray-500 dark:text-gray-400">
                   Receive verification codes via email
                 </p>
               </div>
@@ -917,7 +943,7 @@ function submitInitialPassword(e) {
             <div class="flex items-center space-x-3">
               <span
                 v-if="emailTwoFactorEnabled"
-                class="bg-success-100 text-success-800 inline-flex items-center rounded-full px-2.5 py-0.5 text-xs font-medium"
+                class="bg-success-100 text-success-800 inline-flex items-center rounded-full px-2.5 py-0.5 text-xs font-medium dark:bg-success-950/40 dark:text-success-300"
               >
                 Active
               </span>
@@ -949,20 +975,24 @@ function submitInitialPassword(e) {
         <!-- Backup Codes Section - only show when 2FA is enabled -->
         <div
           v-if="twoFactorEnabled"
-          class="rounded-lg border border-gray-300 bg-white p-4 shadow-sm"
+          class="rounded-lg border border-gray-300 bg-white p-4 shadow-sm dark:border-gray-700 dark:bg-gray-900"
         >
           <div class="flex items-center justify-between">
             <div class="flex items-center space-x-3">
               <div
-                class="flex h-10 w-10 items-center justify-center rounded-lg bg-orange-50"
+                class="flex h-10 w-10 items-center justify-center rounded-lg bg-orange-50 dark:bg-orange-950/40"
               >
-                <Key class="h-[1em] w-[1em] shrink-0 text-orange-600" />
+                <Key
+                  class="h-[1em] w-[1em] shrink-0 text-orange-600 dark:text-orange-300"
+                />
               </div>
               <div class="flex-1">
-                <h5 class="text-sm font-medium text-gray-900">
+                <h5
+                  class="text-sm font-medium text-gray-900 dark:text-gray-100"
+                >
                   Backup Recovery Codes
                 </h5>
-                <p class="text-sm text-gray-500">
+                <p class="text-sm text-gray-500 dark:text-gray-400">
                   Generate backup codes to access your account if you lose your
                   2FA device
                 </p>
@@ -993,7 +1023,7 @@ function submitInitialPassword(e) {
         <!-- Cancel button - only show during setup flow when no 2FA is enabled -->
         <div v-if="!twoFactorEnabled && showSetupFlow" class="flex justify-end">
           <SecondaryButton
-            class="min-h-10 border border-transparent bg-transparent px-3 py-2 text-brand hover:bg-brand-50 dark:bg-transparent dark:text-brand-400 dark:hover:bg-brand-950 min-h-8 px-2.5 py-1.5 text-sm px-4 py-2 text-sm"
+            class="min-h-10 border border-transparent bg-transparent px-3 py-2 text-brand hover:bg-brand-50 dark:bg-transparent dark:text-brand-400 dark:hover:bg-brand-950 min-h-8 px-2.5 py-1.5 text-sm px-4"
             @click="showSetupFlow = false"
             >Cancel</SecondaryButton
           >

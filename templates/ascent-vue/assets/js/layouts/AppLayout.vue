@@ -11,25 +11,23 @@ const url = computed(() => page.url)
 </script>
 
 <template>
-  <div
-    class="from-brand-50/10 flex min-h-screen flex-col bg-linear-to-b to-[#F9FAFB] dark:from-gray-900 dark:to-gray-950"
-  >
-    <header
-      class="dark:border-opacity-40 sticky top-0 z-50 border-b border-gray-100 bg-white/90 backdrop-blur-md dark:border-gray-800 dark:bg-gray-900/90"
-    >
+  <div class="ascent-shell">
+    <header class="ascent-site-header">
       <nav
         class="mx-auto flex max-w-7xl items-center justify-between px-4 py-4 md:px-8"
       >
         <Link href="/" class="group flex items-center space-x-2">
           <div class="relative">
-            <div
-              class="bg-brand-200/20 absolute inset-0 scale-110 rounded-xl opacity-0 blur-sm transition-opacity group-hover:opacity-100"
-            ></div>
-            <img
-              src="/images/logo.svg"
-              alt="Ascent Logo"
-              class="relative h-10 w-auto transition-transform group-hover:scale-105"
-            />
+            <div class="hidden"></div>
+            <span
+              class="inline-flex items-center gap-1 text-2xl font-semibold tracking-tight text-gray-900 dark:text-gray-100"
+              aria-label="Ascent"
+              >Ascent<span
+                class="text-brand-600 dark:text-brand-300"
+                aria-hidden="true"
+                >↗</span
+              ></span
+            >
           </div>
         </Link>
 
@@ -42,8 +40,8 @@ const url = computed(() => page.url)
               href="/features"
               :class="`rounded-lg px-3 py-2 font-medium transition-all duration-200 ${
                 url === '/features'
-                  ? 'bg-brand-100 text-brand-700'
-                  : 'hover:bg-brand-50/80 hover:text-brand-600 text-gray-700'
+                  ? 'bg-brand-100 text-brand-700 dark:text-brand-300 dark:bg-brand-950/40'
+                  : 'hover:bg-brand-50/80 hover:text-brand-600 text-gray-700 dark:text-gray-300'
               }`"
             >
               Features
@@ -52,8 +50,8 @@ const url = computed(() => page.url)
               href="/pricing"
               :class="`rounded-lg px-3 py-2 font-medium transition-all duration-200 ${
                 url === '/pricing'
-                  ? 'bg-brand-100 text-brand-700'
-                  : 'hover:bg-brand-50/80 hover:text-brand-600 text-gray-700'
+                  ? 'bg-brand-100 text-brand-700 dark:text-brand-300 dark:bg-brand-950/40'
+                  : 'hover:bg-brand-50/80 hover:text-brand-600 text-gray-700 dark:text-gray-300'
               }`"
             >
               Pricing
@@ -62,8 +60,8 @@ const url = computed(() => page.url)
               href="/blog"
               :class="`rounded-lg px-3 py-2 font-medium transition-all duration-200 ${
                 url.startsWith('/blog')
-                  ? 'bg-brand-100 text-brand-700'
-                  : 'hover:bg-brand-50/80 hover:text-brand-600 text-gray-700'
+                  ? 'bg-brand-100 text-brand-700 dark:text-brand-300 dark:bg-brand-950/40'
+                  : 'hover:bg-brand-50/80 hover:text-brand-600 text-gray-700 dark:text-gray-300'
               }`"
             >
               Blog
@@ -72,7 +70,7 @@ const url = computed(() => page.url)
               href="https://docs.sailscasts.com/boring-stack/ascent"
               target="_blank"
               rel="noopener noreferrer"
-              class="hover:bg-brand-50/80 hover:text-brand-600 rounded-lg px-3 py-2 font-medium text-gray-700 transition-all duration-200"
+              class="hover:bg-brand-50/80 hover:text-brand-600 rounded-lg px-3 py-2 font-medium text-gray-700 transition-all duration-200 dark:text-gray-300"
             >
               Docs
             </a>
@@ -81,17 +79,17 @@ const url = computed(() => page.url)
           <div class="flex items-center space-x-3">
             <Link
               href="/login"
-              class="hover:text-brand-600 rounded-lg px-4 py-2 font-medium text-gray-700 transition-all duration-200 hover:bg-gray-50"
+              class="hover:text-brand-600 rounded-lg px-4 py-2 font-medium text-gray-700 transition-all duration-200 hover:bg-gray-50 dark:text-gray-300 dark:hover:bg-gray-800"
             >
               Login
             </Link>
             <Link
               href="/signup"
-              class="from-brand-600 to-accent-600 group relative rounded-lg bg-linear-to-r px-6 py-2.5 font-semibold text-white shadow-lg transition-all duration-200 hover:shadow-xl"
+              class="group relative rounded-lg px-6 py-2.5 font-semibold text-white shadow-none transition-all duration-200 bg-brand-600"
             >
               <span class="relative z-10">Get Started</span>
               <div
-                class="from-brand-700 to-accent-700 absolute inset-0 rounded-lg bg-linear-to-r opacity-0 transition-opacity group-hover:opacity-100"
+                class="absolute inset-0 rounded-lg opacity-0 transition-opacity group-hover:opacity-100 bg-gray-50 dark:bg-gray-950"
               ></div>
             </Link>
           </div>
@@ -101,7 +99,7 @@ const url = computed(() => page.url)
           <nav class="hidden items-center space-x-4 md:flex">
             <Link
               href="/dashboard"
-              class="hover:text-brand font-medium text-gray-600 transition-colors"
+              class="hover:text-brand font-medium text-gray-600 transition-colors dark:text-gray-400"
             >
               Dashboard
             </Link>
@@ -112,7 +110,7 @@ const url = computed(() => page.url)
               :label="loggedInUser.initials"
               size="large"
               shape="circle"
-              class="hover:border-brand border-2 border-gray-300 transition-colors [&_img]:rounded-full"
+              class="hover:border-brand border-2 border-gray-300 transition-colors [&_img]:rounded-full dark:border-gray-700"
               :style="{
                 backgroundColor: loggedInUser.currentAvatarUrl
                   ? undefined
@@ -123,35 +121,45 @@ const url = computed(() => page.url)
           </Link>
         </div>
       </nav>
+      <details class="ascent-mobile-nav">
+        <summary>Explore Ascent</summary>
+        <nav aria-label="Mobile navigation">
+          <Link href="/features">Features</Link
+          ><Link href="/pricing">Pricing</Link><Link href="/blog">Blog</Link
+          ><Link href="/contact">Contact</Link
+          ><a
+            href="https://docs.sailscasts.com/boring-stack/ascent"
+            target="_blank"
+            rel="noopener noreferrer"
+            >Documentation ↗</a
+          >
+        </nav>
+      </details>
     </header>
 
     <main class="flex-1">
       <slot />
     </main>
 
-    <footer
-      class="to-brand-900 relative overflow-hidden bg-linear-to-br from-gray-900 via-gray-800 text-white"
-    >
-      <div
-        class="bg-brand-500/10 absolute top-0 left-1/4 h-96 w-96 rounded-full blur-3xl"
-      ></div>
-      <div
-        class="bg-accent-500/10 absolute right-1/4 bottom-0 h-72 w-72 rounded-full blur-3xl"
-      ></div>
+    <footer class="relative overflow-hidden text-white bg-brand-600">
+      <div class="hidden"></div>
+      <div class="hidden"></div>
 
       <div class="relative mx-auto max-w-7xl px-4 py-16 md:px-8">
         <div class="grid grid-cols-1 gap-12 md:grid-cols-4">
           <div class="md:col-span-1">
             <Link href="/" class="group mb-6 flex items-center space-x-2">
               <div class="relative">
-                <div
-                  class="bg-brand-300/20 absolute inset-0 scale-110 rounded-xl opacity-0 blur-sm transition-opacity group-hover:opacity-100"
-                ></div>
-                <img
-                  src="/images/logo.svg"
-                  alt="Ascent Logo"
-                  class="relative h-10 w-auto brightness-0 drop-shadow-[0_0_8px_rgba(0,0,0,0.9)] invert filter transition-transform group-hover:scale-105"
-                />
+                <div class="hidden"></div>
+                <span
+                  class="inline-flex items-center gap-1 text-2xl font-semibold tracking-tight text-gray-900 dark:text-gray-100"
+                  aria-label="Ascent"
+                  >Ascent<span
+                    class="text-brand-600 dark:text-brand-300"
+                    aria-hidden="true"
+                    >↗</span
+                  ></span
+                >
               </div>
             </Link>
             <p class="mb-6 text-sm leading-relaxed text-gray-300">
@@ -309,7 +317,9 @@ const url = computed(() => page.url)
           </section>
         </div>
 
-        <div class="mt-16 border-t border-gray-700/50 pt-8">
+        <div
+          class="mt-16 border-t border-gray-700/50 pt-8 dark:border-gray-700"
+        >
           <div
             class="flex flex-col items-center justify-between space-y-4 md:flex-row md:space-y-0"
           >
@@ -318,7 +328,7 @@ const url = computed(() => page.url)
                 © 2025 Ascent. All rights reserved.
               </p>
               <div
-                class="hidden items-center space-x-4 text-xs text-gray-500 md:flex"
+                class="hidden items-center space-x-4 text-xs text-gray-500 md:flex dark:text-gray-400"
               >
                 <span class="flex items-center space-x-1">
                   <div
@@ -351,7 +361,7 @@ const url = computed(() => page.url)
           </div>
 
           <div
-            class="border-brand-500/20 from-brand-500/10 to-accent-500/10 mt-8 rounded-2xl border bg-linear-to-r p-6"
+            class="border-brand-500/20 mt-8 rounded-xl border p-6 bg-gray-50 dark:bg-gray-950"
           >
             <div class="text-center">
               <h4 class="mb-2 font-bold text-white">Stay Updated</h4>
@@ -365,7 +375,7 @@ const url = computed(() => page.url)
                   class="focus:border-brand-400 focus:ring-brand-400/50 flex-1 rounded-lg border border-white/20 bg-white/10 px-4 py-2 text-white placeholder-gray-400 transition-all focus:ring-2 focus:outline-none"
                 />
                 <button
-                  class="from-brand-600 to-accent-600 rounded-lg bg-linear-to-r px-6 py-2 font-semibold text-white transition-all duration-200 hover:shadow-lg"
+                  class="rounded-lg px-6 py-2 font-semibold text-white transition-all duration-200 shadow-none bg-brand-600"
                 >
                   Subscribe
                 </button>

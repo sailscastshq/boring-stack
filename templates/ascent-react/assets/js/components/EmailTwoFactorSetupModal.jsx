@@ -53,15 +53,17 @@ export default function EmailTwoFactorSetupModal({
       <div className="space-y-8">
         {/* Header */}
         <div className="text-center">
-          <div className="mx-auto mb-4 flex h-16 w-16 items-center justify-center rounded-full bg-blue-50">
+          <div className="mx-auto mb-4 flex h-16 w-16 items-center justify-center rounded-full bg-blue-50 dark:bg-blue-950/40">
             <Envelope
-              className={'h-[1em] w-[1em] shrink-0 text-2xl text-blue-600'}
+              className={
+                'h-[1em] w-[1em] shrink-0 text-2xl text-blue-600 dark:text-blue-300'
+              }
             ></Envelope>
           </div>
-          <h2 className="mb-2 text-xl font-semibold text-gray-900">
+          <h2 className="mb-2 text-xl font-semibold text-gray-900 dark:text-gray-100">
             Verify Your Email
           </h2>
-          <p className="text-sm text-gray-600">
+          <p className="text-sm text-gray-600 dark:text-gray-400">
             We've sent a 6-digit verification code to{' '}
             <strong>{userEmail}</strong>. Enter it below to enable email
             two-factor authentication.
@@ -85,7 +87,7 @@ export default function EmailTwoFactorSetupModal({
         {/* Verification Form */}
         <form onSubmit={handleVerifyCode} className="space-y-6">
           <div>
-            <label className="mb-3 block text-sm font-medium text-gray-700">
+            <label className="mb-3 block text-sm font-medium text-gray-700 dark:text-gray-300">
               Enter verification code
             </label>
             <div className="flex justify-start">
@@ -104,7 +106,7 @@ export default function EmailTwoFactorSetupModal({
           </div>
 
           {/* Help Text */}
-          <div className="rounded-lg border border-gray-200 bg-gray-50 p-4">
+          <div className="rounded-lg border border-gray-200 bg-gray-50 p-4 dark:border-gray-700 dark:bg-gray-950">
             <div className="flex">
               <div className="flex-shrink-0">
                 <InfoCircle
@@ -112,7 +114,7 @@ export default function EmailTwoFactorSetupModal({
                 ></InfoCircle>
               </div>
               <div className="ml-3">
-                <p className="text-sm text-gray-600">
+                <p className="text-sm text-gray-600 dark:text-gray-400">
                   The verification code expires in 10 minutes. If you don't see
                   the email, check your spam folder.
                 </p>

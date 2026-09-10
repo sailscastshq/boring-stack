@@ -49,11 +49,11 @@ export default function CheckEmail({
   return (
     <>
       <Head title={`${title} | Ascent`}></Head>
-      <div className="flex min-h-screen flex-col justify-center bg-gradient-to-br from-brand-50/30 via-white to-accent-50/20 py-12 sm:px-6 lg:px-8">
+      <div className="ascent-auth">
         {/* Background Elements */}
         <div className="pointer-events-none absolute inset-0 overflow-hidden">
-          <div className="absolute left-1/4 top-20 h-96 w-96 rounded-full bg-brand-200/20 blur-3xl"></div>
-          <div className="absolute bottom-20 right-1/4 h-72 w-72 rounded-full bg-accent-200/20 blur-3xl"></div>
+          <div className="hidden"></div>
+          <div className="hidden"></div>
         </div>
 
         <div className="relative sm:mx-auto sm:w-full sm:max-w-lg">
@@ -61,38 +61,45 @@ export default function CheckEmail({
           <div className="mb-8 flex items-center justify-center">
             <Link href="/" className="group">
               <div className="relative">
-                <div className="absolute inset-0 scale-110 rounded-2xl bg-brand-200/30 opacity-0 blur-xl transition-opacity group-hover:opacity-100"></div>
-                <img
-                  src="/images/logo.svg"
-                  alt="Ascent Logo"
-                  className="relative h-12 w-auto"
-                />
+                <div className="hidden"></div>
+                <span
+                  className="inline-flex items-center gap-1 text-2xl font-semibold tracking-tight text-gray-900 dark:text-gray-100"
+                  aria-label="Ascent"
+                >
+                  Ascent
+                  <span
+                    className="text-brand-600 dark:text-brand-300"
+                    aria-hidden="true"
+                  >
+                    ↗
+                  </span>
+                </span>
               </div>
             </Link>
           </div>
 
           <div className="relative">
             {/* Background blur effect */}
-            <div className="absolute inset-0 scale-105 rounded-2xl bg-gradient-to-r from-brand-600/10 to-accent-600/10 blur-xl"></div>
+            <div className="hidden"></div>
 
             {/* Main card */}
-            <div className="relative rounded-2xl border border-gray-100 bg-white px-8 py-10 text-center shadow-2xl">
+            <div className="ascent-auth-panel">
               {/* Email Icon */}
               <div className="mb-6 flex justify-center">
-                <div className="flex h-16 w-16 items-center justify-center rounded-full bg-gradient-to-br from-brand-100 to-accent-100">
-                  <Envelope className="h-8 w-8 text-brand-600" />
+                <div className="flex h-16 w-16 items-center justify-center rounded-full  bg-gray-50 dark:bg-gray-950">
+                  <Envelope className="h-8 w-8 text-brand-600 dark:text-brand-300" />
                 </div>
               </div>
 
-              <h1 className="mb-3 text-3xl font-bold tracking-tight text-gray-900">
+              <h1 className="mb-3 text-3xl font-bold tracking-tight text-gray-900 dark:text-gray-100">
                 {getTitle()}
               </h1>
 
-              <p className="mb-2 text-lg font-medium text-gray-600">
+              <p className="mb-2 text-lg font-medium text-gray-600 dark:text-gray-400">
                 {getSubtitle()}
               </p>
 
-              <p className="mx-auto mb-8 max-w-md text-base text-gray-600">
+              <p className="mx-auto mb-8 max-w-md text-base text-gray-600 dark:text-gray-400">
                 {getEmailText()}
               </p>
 
@@ -100,18 +107,18 @@ export default function CheckEmail({
               <button
                 type="button"
                 onClick={handleOpenEmailApp}
-                className="mb-6 w-full rounded-xl bg-gradient-to-r from-brand-600 to-accent-600 px-8 py-4 text-lg font-bold text-white shadow-lg transition-all duration-200 hover:scale-[1.02] hover:from-brand-700 hover:to-accent-700 hover:shadow-xl focus:outline-none focus:ring-2 focus:ring-brand-500 focus:ring-offset-2"
+                className="mb-6 w-full rounded-xl  bg-brand-600 px-8 py-4 text-lg font-bold text-white shadow-none transition-all duration-200 hover:bg-brand-700 hover:brightness-95 focus:outline-none focus:ring-2 focus:ring-brand-500 focus:ring-offset-2"
               >
                 Open email app
               </button>
 
               {/* Resend Link - Only show for verification and magic-link */}
               {type !== 'password-reset' && (
-                <p className="text-base text-gray-600">
+                <p className="text-base text-gray-600 dark:text-gray-400">
                   Didn't receive the email?{' '}
                   <Link
                     href="/resend-link"
-                    className="font-semibold text-brand-600 transition-colors hover:text-brand-500"
+                    className="font-semibold text-brand-600 transition-colors hover:text-brand-500 dark:text-brand-300"
                   >
                     Resend link
                   </Link>
@@ -120,11 +127,11 @@ export default function CheckEmail({
 
               {/* Back to forgot password for password-reset type */}
               {type === 'password-reset' && (
-                <p className="text-base text-gray-600">
+                <p className="text-base text-gray-600 dark:text-gray-400">
                   Try a different email?{' '}
                   <Link
                     href="/forgot-password"
-                    className="font-semibold text-brand-600 transition-colors hover:text-brand-500"
+                    className="font-semibold text-brand-600 transition-colors hover:text-brand-500 dark:text-brand-300"
                   >
                     Back to forgot password
                   </Link>
@@ -137,7 +144,7 @@ export default function CheckEmail({
           <div className="mt-8 text-center">
             <Link
               href={backUrl}
-              className="inline-flex items-center text-base text-gray-600 transition-colors hover:text-brand-600"
+              className="inline-flex items-center text-base text-gray-600 transition-colors hover:text-brand-600 dark:text-gray-400"
             >
               <ChevronLeft className="mr-2 h-4 w-4" />
               {backText}
