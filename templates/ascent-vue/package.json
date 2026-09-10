@@ -43,15 +43,15 @@
   },
   "devDependencies": {
     "@playwright/test": "^1.56.1",
-    "@rsbuild/plugin-vue": "^1.2.8",
-    "@tailwindcss/postcss": "^4.1.17",
+    "@rsbuild/plugin-tailwindcss": "^2.0.3",
+    "@rsbuild/plugin-vue": "^2.0.1",
     "@tailwindcss/typography": "^0.5.19",
     "create-sails-generator": "^1.0.0",
     "playwright": "^1.55.0",
     "prettier": "^3.6.2",
     "prettier-plugin-tailwindcss": "^0.7.1",
     "rsbuild-plugin-inertia": "^0.0.1",
-    "sails-hook-shipwright": "^1.4.0",
+    "sails-hook-shipwright": "^1.5.1",
     "sails.io.js": "^1.2.1",
     "socket.io-client": "^4.8.1",
     "sounding": "^0.0.1",
@@ -69,6 +69,6 @@
   },
   "main": "app.js",
   "engines": {
-    "node": ">=18.0"
+    "node": "^20.19.0 || >=22.12.0"
   }
 }

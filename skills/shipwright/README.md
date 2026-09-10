@@ -30,7 +30,7 @@ After installing, Claude will automatically apply Shipwright best practices when
 
 ## What is Shipwright?
 
-[sails-hook-shipwright](https://github.com/sailscastshq/sails-hook-shipwright) is a Sails.js hook that replaces the legacy Grunt asset pipeline with a modern [Rsbuild](https://rsbuild.dev)-based build system. It provides fast builds, HMR in development, and framework plugins for React, Vue, and Svelte.
+[sails-hook-shipwright](https://github.com/sailshq/sails-hook-shipwright) is a Sails.js hook that replaces the legacy Grunt asset pipeline with a modern [Rsbuild](https://rsbuild.dev)-based build system. It provides fast builds, HMR in development, and framework plugins for React, Vue, and Svelte.
 
 ## Links
 

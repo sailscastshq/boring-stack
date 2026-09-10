@@ -6,7 +6,7 @@ description: >
   Use this skill when configuring builds, managing assets, or debugging the development server.
 metadata:
   author: sailscastshq
-  version: '1.0.0'
+  version: '1.1.0'
   tags: shipwright, rsbuild, build, vite, assets, tailwind, ssr, hmr, boring-stack
 ---
 
@@ -20,11 +20,11 @@ Use this skill when:
 
 - Configuring `config/shipwright.js` (framework plugins, build options)
 - Understanding the asset pipeline (CSS, JavaScript entry points, static assets)
-- Setting up Tailwind CSS with PostCSS
+- Setting up Tailwind CSS v4 with the Rsbuild Tailwind plugin
 - Configuring server-side rendering (SSR) with `config/inertia.js`
 - Debugging the dev server, HMR, or build issues
 - Understanding the `views/app.ejs` template and `shipwright.styles()`/`shipwright.scripts()` helpers
-- Managing path aliases (`~/` for `assets/js/`)
+- Managing path aliases (`@/` for `assets/js/`, `~/` for `assets/`)
 - Working with code splitting and third-party CSS imports
 
 ## Rules
