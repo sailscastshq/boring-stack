@@ -5,6 +5,7 @@ const { resolveOncePropsMetadata } = require('../props/resolve-once-props')
 const resolvePageProps = require('../props/resolve-page-props')
 const resolveScrollProps = require('../props/resolve-scroll-props')
 const resolveAssetVersion = require('./resolve-asset-version')
+const requestContext = require('./request-context')
 
 /**
  * @typedef {Object} InertiaHookApi
@@ -134,7 +135,27 @@ module.exports = async function buildPageObject(req, component, pageProps) {
   const clearHistory = sails.inertia.shouldClearHistory()
   const encryptHistory = sails.inertia.shouldEncryptHistory()
   const preserveFragment = sails.inertia.consumePreserveFragment(req)
-  const resolvedPageProps = await resolvePageProps.withMetadata(propsToResolve)
+  requestContext.observeDevTools('pageRendering', component, sharedPropKeys)
+  const resolvedPageProps = await resolvePageProps.withMetadata(
+    propsToResolve,
+    {
+      /**
+       * @param {string} key
+       * @param {any} prop
+       * @param {any} value
+       */
+      resolved(key, prop, value) {
+        requestContext.observeDevTools('propResolved', key, prop, value)
+      },
+      /**
+       * @param {string} key
+       * @param {any} prop
+       */
+      rescued(key, prop) {
+        requestContext.observeDevTools('propRescued', key, prop)
+      }
+    }
+  )
 
   // Build the page object with all metadata
   // Use request-scoped history settings (prevents race conditions)
@@ -178,6 +199,8 @@ module.exports = async function buildPageObject(req, component, pageProps) {
   if (Object.keys(flash).length > 0) {
     page.props.flash = flash
   }
+
+  requestContext.observeDevTools('pageRendered', page)
 
   return page
 }

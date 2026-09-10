@@ -54,6 +54,8 @@ module.exports = {
         }
       })
     }
-    return `/check-email?email=${encodeURIComponent(email)}&type=password-reset`
+    return exits.success(
+      `/check-email?email=${encodeURIComponent(email)}&type=password-reset`
+    )
   }
 }

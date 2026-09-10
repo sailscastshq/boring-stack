@@ -41,6 +41,8 @@ const inertia = require('./lib/middleware/inertia-middleware')
 const render = require('./lib/render')
 const location = require('./lib/location')
 const requestContext = require('./lib/helpers/request-context')
+const createDevTools = require('./lib/devtools')
+const { createDevToolsDefaults } = require('./lib/devtools/config')
 const {
   getValidateOnlyFields,
   isPrecognitiveRequest,
@@ -132,7 +134,8 @@ module.exports = function defineInertiaHook(sails) {
           bundle: '.tmp/ssr/inertia.mjs',
           pages: false,
           fallback: true
-        }
+        },
+        devtools: createDevToolsDefaults()
       }
     },
 
@@ -189,7 +192,16 @@ module.exports = function defineInertiaHook(sails) {
       sails.inertia.globalSharedLocals = {}
       // Default history encryption from config
       sails.inertia.defaultEncryptHistory = sails.config.inertia.history.encrypt
+      sails.inertia.devtools = createDevTools(sails)
       sails.on('router:before', function () {
+        sails.router.bind(
+          'GET /_inertia/devtools/entries/:id',
+          sails.inertia.devtools.show
+        )
+        sails.router.bind(
+          'GET /_inertia/devtools/entries',
+          sails.inertia.devtools.index
+        )
         routesToBindInertiaTo.forEach(function (routeAddress) {
           sails.router.bind(routeAddress, inertia(hook))
         })
@@ -223,6 +235,7 @@ module.exports = function defineInertiaHook(sails) {
      * @returns {*} - The value that was shared
      */
     share(key, value = null) {
+      sails.inertia.devtools?.propsShared([key])
       const context = requestContext.getContext()
       if (context) {
         requestContext.setSharedProp(key, value)
@@ -246,6 +259,7 @@ module.exports = function defineInertiaHook(sails) {
      * @returns {*} - The value that was shared
      */
     shareGlobally(key, value = null) {
+      sails.inertia.devtools?.propsShared([key], true)
       sails.inertia.globalSharedProps[key] = value
       return value
     },

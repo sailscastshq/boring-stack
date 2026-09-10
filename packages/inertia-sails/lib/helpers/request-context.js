@@ -16,7 +16,8 @@
  *   clearHistory: false,  // Request-scoped clear history flag
  *   preserveFragment: false, // Request-scoped fragment preservation flag
  *   refreshOnceProps: [], // Props to force-refresh for this request
- *   rootView: null        // Request-scoped root view template (null = use default)
+ *   rootView: null,       // Request-scoped root view template (null = use default)
+ *   devToolsRecorder: null // Optional Inertia DevTools request recorder
  * }
  */
 const { AsyncLocalStorage } = require('async_hooks')
@@ -36,6 +37,7 @@ const { AsyncLocalStorage } = require('async_hooks')
  * @property {boolean} preserveFragment
  * @property {string[]} refreshOnceProps
  * @property {string|null} rootView
+ * @property {any|null} devToolsRecorder
  */
 
 /** @type {AsyncLocalStorage<RequestContext>} */
@@ -65,7 +67,8 @@ module.exports = {
       clearHistory: false,
       preserveFragment: false,
       refreshOnceProps: [], // Props to force-refresh for this request
-      rootView: null // Request-scoped root view template
+      rootView: null, // Request-scoped root view template
+      devToolsRecorder: null
     }
     return requestContext.run(context, () => callback())
   },
@@ -235,6 +238,39 @@ module.exports = {
     const context = requestContext.getStore()
     if (context) {
       context.rootView = view
+    }
+  },
+
+  /**
+   * Get the request-scoped Inertia DevTools recorder.
+   * @returns {any|null}
+   */
+  getDevToolsRecorder() {
+    const context = requestContext.getStore()
+    return context?.devToolsRecorder || null
+  },
+
+  /**
+   * Instrumentation must never change application rendering or prop resolution.
+   * @param {string} method
+   * @param {any[]} args
+   */
+  observeDevTools(method, ...args) {
+    try {
+      requestContext.getStore()?.devToolsRecorder?.[method]?.(...args)
+    } catch {
+      // DevTools is a best-effort observer.
+    }
+  },
+
+  /**
+   * Set the request-scoped Inertia DevTools recorder.
+   * @param {any|null} recorder
+   */
+  setDevToolsRecorder(recorder) {
+    const context = requestContext.getStore()
+    if (context) {
+      context.devToolsRecorder = recorder
     }
   }
 }

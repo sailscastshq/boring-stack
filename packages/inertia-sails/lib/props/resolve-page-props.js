@@ -6,8 +6,12 @@ const resolveProp = require('./resolve-prop')
  * @typedef {import('../types').ResolvedPageProps} ResolvedPageProps
  *
  * @typedef {((props?: InertiaProps) => Promise<InertiaProps>) & {
- *   withMetadata: (props?: InertiaProps) => Promise<ResolvedPageProps>
+ *   withMetadata: (props?: InertiaProps, observer?: PropResolutionObserver) => Promise<ResolvedPageProps>
  * }} ResolvePageProps
+ *
+ * @typedef {Object} PropResolutionObserver
+ * @property {(key: string, prop: any, value: any) => void} [resolved]
+ * @property {(key: string, prop: any) => void} [rescued]
  */
 
 /**
@@ -20,19 +24,25 @@ function shouldRescueProp(value) {
 
 /**
  * @param {InertiaProps} [props]
+ * @param {PropResolutionObserver} [observer]
  * @returns {Promise<ResolvedPageProps>}
  */
-async function resolvePagePropsWithMetadata(props = {}) {
+async function resolvePagePropsWithMetadata(props = {}, observer = {}) {
   const resolved = await Promise.all(
     Object.entries(props).map(async ([key, value]) => {
       try {
         if (typeof value === 'function') {
           const result = await value()
-          return { entry: await resolveProp(key, result) }
+          const entry = await resolveProp(key, result)
+          observer.resolved?.(key, result, entry[1])
+          return { entry }
         }
-        return { entry: await resolveProp(key, value) }
+        const entry = await resolveProp(key, value)
+        observer.resolved?.(key, value, entry[1])
+        return { entry }
       } catch (error) {
         if (shouldRescueProp(value)) {
+          observer.rescued?.(key, value)
           return { rescuedProp: key }
         }
         throw error
