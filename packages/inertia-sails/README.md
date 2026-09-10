@@ -576,9 +576,86 @@ module.exports.inertia = {
   // Production status page component.
   // Set to false to keep classic Sails EJS error views.
   errorPage: 'error',
-  errorStatuses: [403, 404, 500, 503]
+  errorStatuses: [403, 404, 500, 503],
+
+  // Inertia DevTools are enabled automatically in development.
+  devtools: {
+    enabled: null
+  }
 }
 ```
+
+### Inertia DevTools
+
+`inertia-sails` implements the
+[Inertia v3 DevTools protocol](https://inertiajs.com/docs/v3/advanced/devtools-protocol).
+Install the official browser extension and use an Inertia client adapter version
+3.6 or newer. Initial page loads and subsequent visits are discovered
+automatically; application root views do not need a DevTools script tag.
+The templates use the client adapters' `import.meta.env.DEV` default, which
+Rsbuild supplies in development; an explicit `dev` option is not required.
+
+DevTools recording defaults to the Sails `development` environment. Recorded
+entries are atomic JSON files under `.tmp/inertia-devtools`, expire after 24
+hours, and are limited to 100 entries per browser tab.
+`GET /_inertia/devtools/entries/:id` retrieves one entry;
+`GET /_inertia/devtools/entries` returns the stored buffer newest first.
+Both endpoints use the same authorization rules.
+
+```js
+// config/inertia.js
+module.exports.inertia = {
+  devtools: {
+    // null: enable only when sails.config.environment === 'development'
+    enabled: null,
+
+    except: ['/_inertia/devtools*'],
+
+    storage: {
+      path: '.tmp/inertia-devtools',
+      ttl: 24, // hours
+      pruneInterval: 300_000,
+      limit: 100,
+      circuitBreaker: 30_000
+    },
+
+    redact: {
+      keys: ['password', 'token', 'api_key', 'secret'],
+      headers: ['cookie', 'set-cookie', 'authorization', 'x-api-key']
+    },
+
+    pages: {
+      paths: ['assets/js/pages'],
+      extensions: ['.js', '.jsx', '.ts', '.tsx', '.vue', '.svelte']
+    },
+
+    bodyLimit: 256_000
+  }
+}
+```
+
+The default redaction lists include common credentials and security headers.
+Supplying `redact.keys` or `redact.headers` replaces its corresponding default
+list, so include every application-specific sensitive name.
+
+Enabling DevTools outside development requires an explicit request authorizer.
+Without one, the entry endpoint returns `403`:
+
+```js
+module.exports.inertia = {
+  devtools: {
+    enabled: true,
+    authorize: async (req) => {
+      return req.session.userId && (await User.isAdmin(req.session.userId))
+    }
+  }
+}
+```
+
+The recorder never reads uploaded file streams or persists raw uploaded files.
+Binary, streamed, multipart, unserializable, and oversized bodies are represented as
+omitted values. Recording and storage failures never change the application
+response.
 
 ### Automatic Asset Versioning
 

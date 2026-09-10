@@ -1,6 +1,7 @@
 const { describe, it } = require('node:test')
 const assert = require('node:assert/strict')
 const buildPageObject = require('../../lib/helpers/build-page-object')
+const requestContext = require('../../lib/helpers/request-context')
 const DeferProp = require('../../lib/props/defer-prop')
 const {
   INERTIA,
@@ -179,5 +180,77 @@ describe('buildPageObject', function () {
     assert.deepEqual(page.rescuedProps, ['analytics'])
     assert.equal(hasOwn(page, 'mergeProps'), false)
     assert.equal(hasOwn(page, 'matchPropsOn'), false)
+  })
+
+  it('reports page and prop resolution through the request recorder', async function () {
+    const req = createRequest({
+      sharedProps: {
+        auth: { user: { id: 1 } }
+      }
+    })
+    /** @type {Array<any[]>} */
+    const calls = []
+    const recorder = {
+      pageRendering(/** @type {any[]} */ ...args) {
+        calls.push(['pageRendering', ...args])
+      },
+      propResolved(/** @type {any[]} */ ...args) {
+        calls.push(['propResolved', ...args])
+      },
+      propRescued(/** @type {any[]} */ ...args) {
+        calls.push(['propRescued', ...args])
+      },
+      pageRendered(/** @type {any[]} */ ...args) {
+        calls.push(['pageRendered', ...args])
+      }
+    }
+
+    await requestContext.run(req, {}, async () => {
+      requestContext.setDevToolsRecorder(recorder)
+      await buildPageObject(req, 'dashboard/index', {
+        stats: async () => ({ users: 10 })
+      })
+    })
+
+    assert.equal(calls[0][0], 'pageRendering')
+    assert.equal(calls[0][1], 'dashboard/index')
+    assert.deepEqual(calls[0][2], ['auth'])
+    assert.deepEqual(
+      calls
+        .filter(([name]) => name === 'propResolved')
+        .map(([, key]) => key)
+        .sort(),
+      ['auth', 'stats']
+    )
+    assert.equal(calls.at(-1)[0], 'pageRendered')
+    assert.equal(calls.at(-1)[1].component, 'dashboard/index')
+  })
+  it('renders and rescues props even when DevTools observers throw', async function () {
+    const req = createRequest({
+      headers: {
+        [INERTIA]: 'true',
+        [PARTIAL_COMPONENT]: 'dashboard/index',
+        [PARTIAL_DATA]: 'stats,failed'
+      }
+    })
+    const fail = () => {
+      throw new Error('diagnostic failure')
+    }
+    await requestContext.run(req, {}, async () => {
+      requestContext.setDevToolsRecorder({
+        pageRendering: fail,
+        propResolved: fail,
+        propRescued: fail,
+        pageRendered: fail
+      })
+      const page = await buildPageObject(req, 'dashboard/index', {
+        stats: () => 42,
+        failed: new DeferProp(() => {
+          throw new Error('optional failure')
+        }).rescue()
+      })
+      assert.equal(page.props.stats, 42)
+      assert.equal(hasOwn(page.props, 'failed'), false)
+    })
   })
 })

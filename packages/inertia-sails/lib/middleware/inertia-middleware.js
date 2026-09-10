@@ -24,12 +24,18 @@ function inertia(hook) {
     // Skip for WebSocket requests (they don't have req.flash)
     if (req.isSocket) return next()
 
-    // Handle validation errors - share them for this request only
-    // Context is already set up by routes.before in index.js
-    const validationErrors = resolveValidationErrors(req)
-    req.flash('errors', validationErrors)
-    requestContext.setSharedProp('errors', req.flash('errors')[0] || {})
-    return next()
+    return hook.devtools.middleware(req, res, function continueWithInertia() {
+      // Handle validation errors - share them for this request only
+      // Context is already set up by routes.before in index.js
+      const validationErrors = resolveValidationErrors(req)
+      if (typeof req.flash === 'function') {
+        req.flash('errors', validationErrors)
+        requestContext.setSharedProp('errors', req.flash('errors')[0] || {})
+      } else {
+        requestContext.setSharedProp('errors', validationErrors)
+      }
+      return next()
+    })
   }
 }
 
