@@ -1,15 +1,16 @@
 {
   "name": "rsbuild-plugin-inertia",
-  "version": "0.0.1",
-  "description": "Rsbuild plugin for Inertia.js page resolution and SSR build support.",
+  "version": "0.0.2",
+  "description": "Rsbuild plugin for Inertia.js page resolution, SSR build support, and interstitial handling.",
   "main": "index.js",
   "files": [
     "index.js",
     "lib",
+    "runtime",
     "README.md"
   ],
   "scripts": {
-    "check:js": "tsc --allowJs --checkJs --noEmit --skipLibCheck --target ES2022 --module commonjs --noImplicitAny index.js lib/*.js tests/*.js",
+    "check:js": "tsc --allowJs --checkJs --noEmit --skipLibCheck --target ES2022 --module commonjs --noImplicitAny index.js lib/*.js runtime/*.js tests/*.js",
     "test": "npm run check:js && node --test tests/*.test.js"
   },
   "repository": {

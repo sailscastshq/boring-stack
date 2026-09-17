@@ -653,6 +653,7 @@ module.exports = {
   FRAMEWORKS,
   DEFAULT_PAGE_DIRECTORY,
   createResolver,
+  detectFramework,
   normalizePageTransformOptions,
   transformPageResolution
 }
