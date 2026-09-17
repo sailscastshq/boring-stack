@@ -30,7 +30,7 @@
     "playwright": "^1.63.0",
     "prettier": "^2.8.8",
     "prettier-plugin-tailwindcss": "^0.4.1",
-    "rsbuild-plugin-inertia": "^0.0.1",
+    "rsbuild-plugin-inertia": "^0.0.2",
     "sails-hook-shipwright": "^1.5.1",
     "sails-sqlite": "^0.2.6",
     "sails.io.js": "^1.2.1",
