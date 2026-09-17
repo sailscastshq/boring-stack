@@ -16,6 +16,7 @@ const INTERSTITIAL_STATUSES = [403, 429, 503]
  * @typedef {Object} TrackedVisit
  * @property {string} url
  * @property {string} method
+ * @property {boolean} [background]
  *
  * @typedef {Object} InterstitialStorage
  * @property {(key: string) => string|null} getItem
@@ -62,11 +63,15 @@ function shouldNavigate(response, options) {
  * cannot, so the current page is reloaded instead and the browser handles the
  * interstitial there.
  *
+ * Background requests (router.reload(), polling, infinite scroll) reload the
+ * current page too: their URL carries request-only data such as `?page=2` that
+ * was never meant to become the address the visitor lands on.
+ *
  * @param {TrackedVisit|null} visit
  * @param {string} currentUrl
  */
 function resolveTarget(visit, currentUrl) {
-  if (visit && visit.method.toLowerCase() === 'get') {
+  if (visit && !visit.background && visit.method.toLowerCase() === 'get') {
     return visit.url
   }
 
@@ -129,7 +134,8 @@ function toTrackedVisit(visit) {
 
   return {
     url: String(visit.url.href || visit.url),
-    method: String(visit.method || 'get')
+    method: String(visit.method || 'get'),
+    background: Boolean(visit.async || visit.preserveUrl)
   }
 }
 

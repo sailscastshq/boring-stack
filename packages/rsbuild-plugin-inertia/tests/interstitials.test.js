@@ -221,6 +221,16 @@ describe('resolveTarget', function () {
     )
   })
 
+  it('reloads the current page for background requests', function () {
+    assert.equal(
+      resolveTarget(
+        { url: 'https://app.test/?page=2', method: 'get', background: true },
+        'https://app.test/'
+      ),
+      'https://app.test/'
+    )
+  })
+
   it('reloads the current page when no visit was tracked', function () {
     assert.equal(
       resolveTarget(null, 'https://app.test/dashboard'),
@@ -282,6 +292,24 @@ describe('installInterstitialNavigation', function () {
     browser.fail(cloudflareChallenge)
 
     assert.deepEqual(browser.assigned, ['https://app.test/pricing'])
+  })
+
+  it('reloads the current page when infinite scroll is challenged', function () {
+    const browser = createBrowser({ href: 'https://app.test/' })
+
+    browser.visit('https://app.test/?page=2', 'get', { preserveUrl: true })
+    browser.fail(cloudflareChallenge)
+
+    assert.deepEqual(browser.assigned, ['https://app.test/'])
+  })
+
+  it('reloads the current page when router.reload() is challenged', function () {
+    const browser = createBrowser({ href: 'https://app.test/' })
+
+    browser.visit('https://app.test/?tab=live', 'get', { async: true })
+    browser.fail(cloudflareChallenge)
+
+    assert.deepEqual(browser.assigned, ['https://app.test/'])
   })
 
   it('reloads the current page when a form submission is challenged', function () {

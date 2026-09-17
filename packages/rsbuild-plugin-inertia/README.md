@@ -149,8 +149,12 @@ the module that calls `createInertiaApp()`, which listens for Inertia's
 cancelable `inertia:httpException` event and turns the response into a real
 page load so the browser can handle it:
 
-- GET visits load the visited URL. Other methods (form submissions) reload the
-  current page, because a POST cannot be replayed as a navigation.
+- GET visits, such as a `<Link>` click, load the visited URL. Other methods
+  (form submissions) reload the current page, because a POST cannot be
+  replayed as a navigation.
+- Background requests (`router.reload()`, polling, `<InfiniteScroll>`) reload
+  the current page, so request-only data like `?page=2` never becomes the
+  address the visitor lands on.
 - Only `text/html` responses without the `X-Inertia` header are handled. JSON
   errors and Inertia's own error responses keep Inertia's default behavior.
 - In production, any such HTML response navigates. In development, the dialog
