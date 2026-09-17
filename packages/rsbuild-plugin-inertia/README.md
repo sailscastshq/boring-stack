@@ -24,6 +24,8 @@ module.exports.shipwright = {
 - Lazy-loads pages by default for automatic page-level code splitting.
 - Provides an SSR build configuration path without enabling runtime SSR by
   default.
+- Sends HTML interstitials (Cloudflare challenges, WAF blocks, proxy error
+  pages) to the browser as real page loads instead of Inertia's error dialog.
 
 ## Vite Plugin Parity
 
@@ -134,3 +136,41 @@ When `enabled` is true and `pages` is omitted, every Inertia page can SSR. Use
 
 The Boring JavaScript Stack does not need a separate SSR server process; Sails
 imports the private `.tmp/ssr/inertia.mjs` bundle in-process.
+
+## HTML Interstitials
+
+When an Inertia visit is answered by something in front of your app instead of
+the app itself, such as a Cloudflare challenge, a WAF block, or a proxy error
+page, Inertia shows its error dialog with that page trapped in an iframe. A
+challenge can never complete in there, so the visitor is stuck.
+
+The plugin fixes this without any app code. It adds a small browser runtime to
+the module that calls `createInertiaApp()`, which listens for Inertia's
+cancelable `inertia:httpException` event and turns the response into a real
+page load so the browser can handle it:
+
+- GET visits load the visited URL. Other methods (form submissions) reload the
+  current page, because a POST cannot be replayed as a navigation.
+- Only `text/html` responses without the `X-Inertia` header are handled. JSON
+  errors and Inertia's own error responses keep Inertia's default behavior.
+- In production, any such HTML response navigates. In development, the dialog
+  stays for ordinary server errors so they remain debuggable, and only clear
+  interstitials navigate: a `cf-mitigated` header or a `403`, `429`, or `503`
+  status.
+- If the same URL hits an interstitial again within 15 seconds of navigating to
+  it (for example deferred props or polling blocked by a WAF rule that the full
+  page load did not clear), the runtime steps aside and Inertia's default
+  handling runs, so it cannot reload in a loop.
+- The runtime only ships in the browser build. The SSR bundle never receives
+  it.
+
+Per-visit `onHttpException` callbacks still run first, so a visit can handle a
+response itself by returning `false`.
+
+To keep Inertia's default dialog for every non-Inertia response, opt out:
+
+```js
+pluginInertia({
+  interstitials: false
+})
+```

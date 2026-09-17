@@ -4,6 +4,7 @@ const {
   transformPageResolution,
   normalizePageTransformOptions
 } = require('./lib/page-resolution')
+const { injectInterstitialRuntime } = require('./lib/interstitials')
 
 const PLUGIN_NAME = 'rsbuild-plugin-inertia'
 const EXPOSED_API_ID = 'rsbuild-plugin-inertia'
@@ -20,11 +21,13 @@ const DEFAULT_SSR_ENTRY = 'assets/js/ssr.js'
  * @typedef {Object} InertiaPluginOptions
  * @property {boolean} [axios]
  * @property {boolean} [pages]
+ * @property {boolean} [interstitials]
  * @property {boolean|string|InertiaSsrOptions} [ssr]
  *
  * @typedef {Object} NormalizedInertiaPluginOptions
  * @property {boolean} stubAxios
  * @property {boolean} pages
+ * @property {boolean} interstitials
  * @property {'auto'|false|Required<InertiaSsrOptions>} ssr
  */
 
@@ -41,6 +44,9 @@ function normalizeOptions(options) {
     // template to carry an app-level axios dependency.
     stubAxios: input.axios !== true,
     pages: input.pages !== false,
+    // Navigate to HTML interstitials (Cloudflare challenges, WAF blocks, proxy
+    // error pages) instead of trapping them in Inertia's error dialog.
+    interstitials: input.interstitials !== false,
     ssr: input.ssr === undefined ? 'auto' : normalizeSsrOptions(input.ssr)
   }
 }
@@ -314,14 +320,17 @@ function pluginInertia(options) {
           order: 'pre'
         },
         (
-          /** @type {{ code: string, resourcePath: string }} */
+          /** @type {{ code: string, resourcePath: string, environment?: any }} */
           transformContext
         ) => {
-          const { code, resourcePath } = transformContext
-          const transformed = transformPageResolution(
-            code,
+          const { code, resourcePath, environment } = transformContext
+          const transformed = injectInterstitialRuntime(
+            transformPageResolution(code, resourcePath, pageTransformOptions),
             resourcePath,
-            pageTransformOptions
+            {
+              enabled: normalized.interstitials,
+              target: environment?.config?.output?.target
+            }
           )
 
           if (transformed === code) return null
