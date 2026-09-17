@@ -106,7 +106,11 @@ To launch the respective templates on StackBlitz, click on the 'Open in StackBli
 
 ## Sponsors
 
-If you'd like to become a sponsor, check out [DominusKelvin](https://github.com/sponsors/DominusKelvin) sponsor page and tiers.
+[![Fund my work on FLOSSAfrica](https://flossafrica.com/badge.svg)](https://flossafrica.com/m/dominuskelvin?p=boring-stack)
+
+If The Boring JavaScript Stack helps you ship, you can fund Kelvin's work on it through [FLOSSAfrica](https://flossafrica.com/m/dominuskelvin?p=boring-stack).
+
+You can also become a sponsor on [GitHub Sponsors](https://github.com/sponsors/DominusKelvin) and pick one of the tiers there.
 
 ## Thanks
 
