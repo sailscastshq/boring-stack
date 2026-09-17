@@ -1,6 +1,6 @@
 {
   "name": "rsbuild-plugin-inertia",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "Rsbuild plugin for Inertia.js page resolution, SSR build support, and interstitial handling.",
   "main": "index.js",
   "files": [
