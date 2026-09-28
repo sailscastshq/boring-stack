@@ -4,6 +4,9 @@
     Ship reliable JavaScript apps with battle-tested tech. No more chasing shiny trends in the JavaScript land.
   </strong>
   <p>
+    <a href="https://flossafrica.com/m/dominuskelvin?p=boring-stack"><img src="https://flossafrica.com/badge.svg" alt="Fund my work on FLOSSAfrica"></a>
+  </p>
+  <p>
    Use The Boring JavaScript Stack - an opinionated full-stack JavaScript project starter - if you are tired of keeping up with the shiny things in JavaScript land and you just want to ship your products to real users with tried and battle-tested technologies. This stack is based on the experience of <a href="https://dominuskelvin.dev">Kelvin Omereshone</a> and
     <a href="https://github.com/sailscastshq/boring-stack/graphs/contributors">contributors</a>.
   </p>
@@ -105,8 +108,6 @@ To launch the respective templates on StackBlitz, click on the 'Open in StackBli
 </a>
 
 ## Sponsors
-
-[![Fund my work on FLOSSAfrica](https://flossafrica.com/badge.svg)](https://flossafrica.com/m/dominuskelvin?p=boring-stack)
 
 If The Boring JavaScript Stack helps you ship, you can fund Kelvin's work on it through [FLOSSAfrica](https://flossafrica.com/m/dominuskelvin?p=boring-stack).
 
