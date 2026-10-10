@@ -83,20 +83,22 @@ module.exports = function handleBadRequest(req, res, optionalData) {
   if (optionalData === undefined) {
     log.info?.('Ran custom response: res.badRequest()')
     return response.sendStatus(statusCodeToSet)
-  } else if (optionalData instanceof Error) {
+  }
+
+  if (optionalData instanceof Error) {
     log.info?.(
       'Custom response `res.badRequest()` called with an Error:',
       optionalData
     )
 
-    if (typeof (/** @type {*} */ (optionalData).toJSON) !== 'function') {
-      if (process.env.NODE_ENV === 'production') {
-        return response.sendStatus(statusCodeToSet)
-      } else {
-        return response.status(statusCodeToSet).send(optionalData.stack)
-      }
+    if (process.env.NODE_ENV === 'production') {
+      return response.sendStatus(statusCodeToSet)
     }
-  } else {
-    return response.status(statusCodeToSet).send(optionalData)
+
+    if (typeof (/** @type {*} */ (optionalData).toJSON) !== 'function') {
+      return response.status(statusCodeToSet).send(optionalData.stack)
+    }
   }
+
+  return response.status(statusCodeToSet).send(optionalData)
 }
