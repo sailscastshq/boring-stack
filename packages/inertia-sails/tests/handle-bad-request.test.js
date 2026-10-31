@@ -109,6 +109,49 @@ function createResponse() {
   }
 }
 
+/**
+ * @param {string|undefined} nodeEnv
+ * @param {() => void} callback
+ */
+function withNodeEnv(nodeEnv, callback) {
+  const previous = process.env.NODE_ENV
+
+  if (nodeEnv === undefined) {
+    delete process.env.NODE_ENV
+  } else {
+    process.env.NODE_ENV = nodeEnv
+  }
+
+  try {
+    callback()
+  } finally {
+    if (previous === undefined) {
+      delete process.env.NODE_ENV
+    } else {
+      process.env.NODE_ENV = previous
+    }
+  }
+}
+
+/**
+ * @param {Record<string, any>} [serialized]
+ * @returns {Error & { toJSON: () => Record<string, any> }}
+ */
+function createSerializableError(serialized = {}) {
+  const error = new Error('Invalid "url" input: value too long')
+
+  return Object.assign(error, {
+    code: 'E_INVALID_ARGINS',
+    toJSON() {
+      return {
+        code: 'E_INVALID_ARGINS',
+        message: error.message,
+        ...serialized
+      }
+    }
+  })
+}
+
 describe('handleBadRequest', function () {
   it('returns Precognition validation errors as 422 JSON', function () {
     const req = createRequest({
@@ -314,5 +357,98 @@ describe('handleBadRequest', function () {
       email: ['Please enter a valid email address']
     })
     assert.deepEqual(res.redirectArgs, [303, '/forgot-password'])
+  })
+
+  it('responds 400 with serialized data for Errors with toJSON in development', function () {
+    withNodeEnv('development', function () {
+      const req = createRequest()
+      const res = createResponse()
+      const error = createSerializableError()
+
+      const result = handleBadRequest(req, res, error)
+
+      assert.equal(result, res)
+      assert.equal(res.statusCode, 400)
+      assert.equal(res.body, error)
+      assert.deepEqual(JSON.parse(JSON.stringify(res.body)), {
+        code: 'E_INVALID_ARGINS',
+        message: 'Invalid "url" input: value too long'
+      })
+    })
+  })
+
+  it('responds 400 without diagnostics for Errors with toJSON in production', function () {
+    withNodeEnv('production', function () {
+      const req = createRequest()
+      const res = createResponse()
+
+      const result = handleBadRequest(req, res, createSerializableError())
+
+      assert.equal(result, res)
+      assert.equal(res.statusCode, 400)
+      assert.equal(res.body, null)
+    })
+  })
+
+  it('responds 400 with the stack for Errors without toJSON in development', function () {
+    withNodeEnv('development', function () {
+      const req = createRequest()
+      const res = createResponse()
+      const error = new Error('Something was invalid')
+
+      const result = handleBadRequest(req, res, error)
+
+      assert.equal(result, res)
+      assert.equal(res.statusCode, 400)
+      assert.equal(res.body, error.stack)
+    })
+  })
+
+  it('responds 400 without diagnostics for Errors without toJSON in production', function () {
+    withNodeEnv('production', function () {
+      const req = createRequest()
+      const res = createResponse()
+
+      const result = handleBadRequest(
+        req,
+        res,
+        new Error('Something was invalid')
+      )
+
+      assert.equal(result, res)
+      assert.equal(res.statusCode, 400)
+      assert.equal(res.body, null)
+    })
+  })
+
+  it('falls back to a 400 for Inertia requests without normalized field errors', function () {
+    for (const nodeEnv of ['development', 'production']) {
+      withNodeEnv(nodeEnv, function () {
+        const req = createRequest({
+          headers: {
+            [INERTIA]: 'true',
+            Referrer: '/links'
+          }
+        })
+        const res = createResponse()
+
+        const result = handleBadRequest(req, res, createSerializableError())
+
+        assert.equal(result, res, nodeEnv)
+        assert.equal(res.statusCode, 400, nodeEnv)
+        assert.equal(res.redirectArgs, null, nodeEnv)
+        assert.equal(req.session.errors, undefined, nodeEnv)
+      })
+    }
+  })
+
+  it('still responds 400 with plain bad request data', function () {
+    const req = createRequest()
+    const res = createResponse()
+
+    handleBadRequest(req, res, { message: 'Missing token' })
+
+    assert.equal(res.statusCode, 400)
+    assert.deepEqual(res.body, { message: 'Missing token' })
   })
 })
